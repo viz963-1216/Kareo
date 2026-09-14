@@ -271,7 +271,7 @@ Frontend CTA
 Kareocar
 ```
 
-Kareocar URL：`https://kareocar.netlify.com`
+Kareocar URL：`https://kareocar.netlify.app/`
 
 禁止 iframe、Backend Integration、Database Integration、Authentication Integration。
 
