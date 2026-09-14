@@ -60,7 +60,7 @@ Consumer Price = 0
 - Top 3 Provider Recommendation
 - Google Maps 資源查看
 - 我要媒合
-- taiwanjcare 外部導流
+- Kareocar 外部導流
 
 MVP 不建立：
 
@@ -173,22 +173,24 @@ TRANSPORTATION
 
 # 12. TRANSPORTATION / 長照交通
 
-長照交通使用既有 `taiwanjcare`。
+長照交通使用既有 `Kareocar`。
 
-taiwanjcare 在 Kareo 中屬於 External Service。
+Kareocar 在 Kareo 中屬於 External Service。
+
+正式網址：`https://kareocar.netlify.app/`
 
 MVP 只做外部連結導流。
 
 禁止：
 
 - iframe
-- 內嵌 taiwanjcare
+- 內嵌 Kareocar
 - 共用 Backend
 - 共用 Database
 - 共用登入
 - 重做派車功能
 
-# 13. taiwanjcare 使用流程
+# 13. Kareocar 使用流程
 
 ```text
 CareNeedProfile
@@ -197,7 +199,9 @@ TRANSPORTATION
 ↓
 顯示長照交通服務
 ↓
-「前往 taiwanjcare」
+「前往 Kareocar」
+↓
+https://kareocar.netlify.app/
 ↓
 開新分頁
 ```
@@ -227,7 +231,7 @@ Top 3 Provider
 - 查看 Provider
 - 我要媒合
 - 前往 Google Maps 查看更多
-- TRANSPORTATION → taiwanjcare
+- TRANSPORTATION → Kareocar
 
 最後提醒聯絡 1966 或所在地長期照顧管理中心進行正式評估。
 
@@ -616,7 +620,7 @@ Provider DB 回答「可以找誰？」
 7. Provider Detail / 商家詳細
 8. Lead Form / 我要媒合
 9. Google Maps CTA
-10. taiwanjcare CTA
+10. Kareocar CTA
 
 # 55. MVP 不做
 
@@ -627,7 +631,7 @@ Provider DB 回答「可以找誰？」
 - 使用者付費
 - 完整 Provider CRM
 - 完整 ERP
-- taiwanjcare 內嵌
+- Kareocar 內嵌
 - 長照車派車
 - 正式政府資格核定
 - 正式 CMS 等級認定
@@ -649,7 +653,7 @@ Provider DB 回答「可以找誰？」
 ↓
 查看 Provider
 ↓
-點擊 Google Maps / 我要媒合 / taiwanjcare
+點擊 Google Maps / 我要媒合 / Kareocar
 ↓
 產生有效行動
 ```
