@@ -356,7 +356,7 @@ Google Maps URL 一律由 Provider 資料提供，Frontend 不自行組 URL。
 
 ---
 
-# 11. taiwanjcare External Service API
+# 11. Kareocar External Service API
 
 ## GET /api/v1/external-services/transportation
 
@@ -367,11 +367,11 @@ Google Maps URL 一律由 Provider 資料提供，Frontend 不自行組 URL。
   "success": true,
   "data": {
     "id": "EXT-001",
-    "name": "taiwanjcare",
+    "name": "Kareocar",
     "serviceType": "TRANSPORTATION",
-    "url": "TAIWANJCARE正式網址",
+    "url": "https://kareocar.netlify.app/",
     "openMode": "NEW_TAB",
-    "notice": "此服務將前往外部 taiwanjcare 平台。"
+    "notice": "此服務將前往外部 Kareocar 平台。"
   }
 }
 ```
