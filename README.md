@@ -6,25 +6,58 @@ Kareo 是一個提供給可能有長照需求之本人與家屬使用的免費�
 
 ---
 
-## 目前開發模式
+## 開發模式
 
 本專案採：
 
 **Independent Development + Central Integration / 獨立開發 + Jerry 中心整合**
 
 ```text
-                    Jerry
-          Product / Spec / Integration
-                     │
-        ┌────────────┼────────────┐
-        │            │            │
- Engineer A      Engineer B    Engineer C
- Data & QA        Backend       Frontend
+Engineer A / B / C
+        ↓
+各自 Feature Branch
+        ↓
+PR → staging
+        ↓
+Jerry Review + Integration Test
+        ↓
+staging → main
+        ↓
+Production
 ```
 
-A / B / C 原則上不互相修改程式。
+A / B / C 原則上不互相修改程式，所有跨模組整合由 Jerry 在 `staging` 完成。
 
-所有跨模組整合由 Jerry 負責。
+---
+
+## 分支用途
+
+### `main`
+
+正式穩定分支。代表可以部署到 Production 的版本。
+
+- A / B / C 不直接 Push
+- A / B / C 不自行 Merge
+- 只有 Jerry 負責 `staging → main`
+
+### `staging`
+
+整合與驗收分支。
+
+- 所有 Feature PR 先進 `staging`
+- Jerry 在此串接 Frontend / Backend / Provider Data
+- 執行 Integration / E2E Test
+- 通過後才建立 Release PR 到 `main`
+
+### Feature Branch
+
+一個 Task 一條 Branch，而且必須從最新 `staging` 建立，例如：
+
+```text
+feat/a-001-provider-data
+feat/b-001-backend-foundation
+feat/c-001-frontend-foundation
+```
 
 ---
 
@@ -32,16 +65,7 @@ A / B / C 原則上不互相修改程式。
 
 ### Jerry — Product / Spec / Integration
 
-負責：
-
-- Product Spec / 產品規格
-- Architecture / 系統架構
-- Data Model / 資料模型
-- API Contract / API 規格
-- Task 分配
-- PR Review
-- Integration
-- Merge / Deploy
+負責：Product Spec、Architecture、Data Model、API Contract、Task 分配、PR Review、staging Integration、Release、Deploy。
 
 主要 Ownership：
 
@@ -54,15 +78,7 @@ A / B / C 原則上不互相修改程式。
 
 ### Engineer A — Data & QA / 資料與測試
 
-負責：
-
-- Provider 資料整理
-- 地址、電話、服務類別
-- Provider Service Area / 服務範圍
-- Google Maps URL
-- 資料清洗與驗證
-- Mock Provider Data
-- 基本 QA
+負責：Provider 資料、服務範圍、Google Maps URL、資料清洗、Mock Provider Data、基本 QA。
 
 主要 Ownership：
 
@@ -72,17 +88,7 @@ A / B / C 原則上不互相修改程式。
 
 ### Engineer B — Backend / 後端
 
-負責：
-
-- Backend API
-- Database
-- Provider Backend
-- Recommendation Engine
-- Ranking
-- Lead Backend
-- Knowledge Database
-- Knowledge Crawler
-- Knowledge Version
+負責：Backend API、Database、Provider Backend、Recommendation Engine、Lead、Knowledge Database、Crawler。
 
 主要 Ownership：
 
@@ -93,19 +99,7 @@ A / B / C 原則上不互相修改程式。
 
 ### Engineer C — Frontend / 前端
 
-負責：
-
-- Homepage
-- Consent / Disclaimer UI
-- Assessment UI
-- Assessment Result
-- Provider Top 3
-- Provider Detail
-- Google Maps CTA
-- taiwanjcare CTA
-- Lead Form
-- Loading / Empty / Error
-- RWD
+負責：Homepage、Consent、Assessment、Result、Provider Top 3、Provider Detail、Google Maps CTA、taiwanjcare CTA、Lead Form、RWD、Loading / Empty / Error。
 
 主要 Ownership：
 
@@ -127,56 +121,39 @@ A / B / C 原則上不互相修改程式。
 6. `docs/GIT_RULES.md`
 7. Jerry 指派給你的 `tasks/TASK-XXX.md`
 
-**不要只看 Task 就直接開始寫 Code。**
+不要只看 Task 就直接開始寫 Code。
 
 ---
 
 # 每次工作的標準流程
 
-## Step 1 — 收到 Task
+## Step 1 — 更新 staging
+
+開始新 Task 前，先確認自己的本地端是最新 `staging`。
+
+概念：
+
+```text
+staging
+↓
+建立自己的 Feature Branch
+```
+
+不要從舊 Feature Branch 繼續做下一個 Task。
+
+## Step 2 — 建立自己的 Feature Branch
 
 例如：
 
 ```text
-TASK-B-001
+feat/b-003-recommendation
 ```
 
-先打開：
-
-```text
-tasks/TASK-B-001.md
-```
-
-確認：
-
-- Goal
-- Allowed Paths
-- Forbidden Paths
-- Input
-- Output
-- Acceptance Criteria
-
----
-
-## Step 2 — 建立自己的 Branch
-
-一個 Task 一條 Branch。
-
-例如：
-
-```text
-feat/a-001-provider-data
-feat/b-001-backend-foundation
-feat/c-001-frontend-foundation
-```
-
-禁止直接在 `main` 開發。
-
----
+禁止直接在 `main` 或 `staging` 開發。
 
 ## Step 3 — 把 Task 交給自己的 AI
 
-建議直接使用以下 Prompt：
+建議 Prompt：
 
 ```text
 請執行 tasks/TASK-XXX.md。
@@ -199,117 +176,98 @@ feat/c-001-frontend-foundation
 如果發現需要跨模組修改，請停止並告訴我原因。
 ```
 
-確認 AI 理解正確後，再叫它開始實作。
-
----
+確認理解正確後再開始實作。
 
 ## Step 4 — 只能修改自己的 Scope
 
-如果 AI 想修改其他人的資料夾：
-
-**停止。不要改。**
-
-建立 Issue 或通知 Jerry。
-
-不要因為 AI 說「這是 Best Practice」就擴大修改範圍。
-
----
+如果 AI 想修改其他人的資料夾、Spec、Contract 或 Root Config，停止並通知 Jerry。
 
 ## Step 5 — 完成測試
 
-Task 完成前至少確認：
+至少確認：
 
-- Acceptance Criteria 是否全部通過
-- 是否修改 Forbidden Paths
-- 是否自行改了 Spec / Contract
-- 是否新增 Task 未要求的功能
-- 是否有 Known Issues
-
----
+- Acceptance Criteria 全部通過
+- 沒有修改 Forbidden Paths
+- 沒有自行改 Spec / Contract / Schema
+- 沒有新增 Task 未要求的功能
+- 已列出 Known Issues
 
 ## Step 6 — Push 自己的 Branch
 
-只能 Push 自己的 Feature Branch。
+只能 Push Feature Branch。
 
-禁止：
+禁止直接 Push：
 
 ```text
-git push origin main
+main
+staging
 ```
 
----
-
 ## Step 7 — 建立 Pull Request
+
+**一般工程 Task 的 PR Base 一律選 `staging`。**
 
 PR Title 範例：
 
 ```text
 [A-001] Provider Data Foundation
-[B-001] Backend Foundation
-[C-001] Frontend Foundation
+[B-001] Backend Foundation Plan
+[C-001] Frontend Foundation Plan
 ```
 
-PR 內容請使用 Repository 的 Pull Request Template。
-
----
+使用 Repository 的 Pull Request Template。
 
 ## Step 8 — Jerry Review
 
-Jerry 會確認：
+Jerry 會確認 Task、Scope、Spec、Contract、Schema 與 Test。
 
-- Task 是否完成
-- 是否超出 Scope
-- 是否改到其他人的模組
-- 是否偷偷改 Spec / API / Schema
-- Test 是否通過
+通過後 Merge 到 `staging`。
 
-確認後再 Merge。
+## Step 9 — staging Integration
 
----
+Jerry 在 `staging`：
 
-# 重要規則
+```text
+A Provider Data
++
+B Backend
++
+C Frontend
+↓
+Integration / E2E Test
+```
 
-請記住五件事：
+Feature PR 被合併到 staging，只代表 **Module Complete**，不代表正式上線。
 
-1. **不要直接改 main。**
-2. **只改自己 Task 的 Allowed Paths。**
-3. **一個 Task 一條 Branch。**
-4. **Spec / Contract / Database Schema 不可以自行修改。**
-5. **跨模組整合全部交給 Jerry。**
+## Step 10 — Release to main
+
+只有 Jerry 建立：
+
+```text
+staging → main
+```
+
+Release PR。
+
+通過後才進 Production。
 
 ---
 
 # Frontend / Backend 如何同時開發？
 
-Engineer B 與 Engineer C 不需要互等。
-
-B 依：
-
-```text
-docs/API_CONTRACT.md
-```
-
-完成 Real API。
+B 依 `docs/API_CONTRACT.md` 完成 Real API。
 
 C 依同一份 Contract 使用 Mock Data 完成 UI。
 
-最後由 Jerry：
+兩人不需要互等，也不需要修改彼此程式。
 
-```text
-Mock Data
-↓
-Real API
-↓
-Integration Test
-```
-
-因此 B / C 不需要直接修改彼此的程式。
+最後由 Jerry 在 `staging` 將 Mock 換成 Real API 並做整合測試。
 
 ---
 
 # taiwanjcare
 
-長照交通服務目前採外部導流。
+長照交通服務目前採外部導流：
 
 ```text
 Kareo
@@ -324,9 +282,19 @@ MVP 不做 iframe、Backend Integration、Database Integration 或共用登入�
 
 ---
 
-# Source of Truth
+# 重要規則
 
-如果文件或 AI 建議互相衝突，以以下順序為準：
+1. 不直接改 `main`。
+2. 不直接改 `staging`。
+3. Feature Branch 從最新 `staging` 建立。
+4. Feature PR 一律進 `staging`。
+5. Spec / Contract / Database Schema 不自行修改。
+6. 跨模組整合全部交給 Jerry。
+7. 只有 Jerry 將 `staging` 發布到 `main`。
+
+---
+
+# Source of Truth
 
 ```text
 PRODUCT_SPEC.md
@@ -344,6 +312,4 @@ TASK
 Code
 ```
 
-如果仍無法判斷：
-
-**停止修改，交由 Jerry 決定。**
+如果仍無法判斷，停止修改並交由 Jerry 決定。
