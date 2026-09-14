@@ -1,16 +1,22 @@
 ## Task
 
-<!-- 例如：TASK-B-003 -->
-
 TASK-XXX
+
+## PR Type
+
+- [ ] Feature PR → `staging`
+- [ ] Release PR → `main`（Jerry only）
+
+## Base Branch Check
+
+- [ ] 一般工程 Task 的 Base Branch 是 `staging`
+- [ ] 如果 Base 是 `main`，本 PR 是 Jerry 建立的 staging → main Release PR
 
 ## 完成內容
 
 <!-- 簡述這個 PR 完成了什麼。 -->
 
 ## 修改範圍
-
-<!-- 列出主要修改路徑。 -->
 
 - 
 
@@ -27,7 +33,7 @@ TASK-XXX
 - [ ] 沒有自行修改 Data Model / Database Schema
 - [ ] 沒有自行修改 API Contract
 
-如果上面任何一項無法勾選，請先停止 Merge 並交由 Jerry Review。
+如果上面任何一項無法勾選，請停止 Merge 並交由 Jerry Review。
 
 ## 是否修改 API Contract
 
@@ -46,27 +52,25 @@ TASK-XXX
 
 ## Test / 測試結果
 
-<!-- 寫出實際執行的測試，以及結果。 -->
-
 - 
 
 ## Acceptance Criteria
-
-<!-- 從 TASK-XXX.md 複製 Acceptance Criteria 並逐項確認。 -->
 
 - [ ] AC1
 - [ ] AC2
 - [ ] AC3
 
-## Screenshot / Preview
-
-<!-- UI Task 請附 Screenshot 或 Preview；沒有可寫 N/A。 -->
+## Preview / Screenshot
 
 N/A
 
-## Known Issues / 已知問題
+## Staging 注意事項
 
-<!-- 沒有請寫 None。 -->
+<!-- 這個 PR Merge 到 staging 後，Jerry 整合時需要注意什麼？ -->
+
+None
+
+## Known Issues / 已知問題
 
 None
 
