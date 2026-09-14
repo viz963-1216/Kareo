@@ -1,27 +1,29 @@
 # Kareo / 長照一點通 — System Architecture
 
-Version: v0.1  
+Version: v0.2  
 Status: LOCKED FOR MVP  
 Owner: Jerry
-
-> Kareo 目前作為專案代號使用。
 
 ---
 
 # 1. 架構目標
 
-本專案採用：
+本專案採：
 
 **Independent Development + Central Integration / 獨立開發 + Jerry 中心整合**
 
 ```text
-                    Jerry
-          產品規格 / 架構 / 整合
-                     │
-        ┌────────────┼────────────┐
-        │            │            │
-        A            B            C
-     資料整理       後端          前端
+Engineer A / B / C
+        ↓
+各自 Feature Branch
+        ↓
+PR → staging
+        ↓
+Jerry 整合與驗收
+        ↓
+staging → main
+        ↓
+Production
 ```
 
 核心原則：
@@ -30,7 +32,8 @@ Owner: Jerry
 - A / B / C 不直接整合彼此程式
 - 不修改其他人的 Ownership
 - 所有人遵守同一份 Spec
-- 所有跨模組整合由 Jerry 完成
+- 跨模組整合只在 `staging` 進行
+- `main` 只保存正式可部署版本
 
 ---
 
@@ -65,11 +68,9 @@ Top 3 Provider
 
 ```text
 TRANSPORTATION
-      │
-      ▼
+↓
 External Link
-      │
-      ▼
+↓
 taiwanjcare
 ```
 
@@ -107,7 +108,47 @@ taiwanjcare 不內嵌、不共用 Backend、不共用 Database。
 
 ---
 
-# 4. Ownership
+# 4. Branch Architecture / 分支架構
+
+## main
+
+正式穩定分支。
+
+用途：Production Release。
+
+只有 Jerry 將通過 staging 驗收的版本合併進 main。
+
+## staging
+
+固定整合分支。
+
+用途：
+
+- 接收 A / B / C 的 Feature PR
+- Frontend / Backend 真實整合
+- Provider Data 匯入驗證
+- Integration Test
+- E2E Test
+- Release Candidate 驗收
+
+A / B / C 不直接 Push staging。
+
+## Feature Branch
+
+每個 Task 從最新 staging 建立：
+
+```text
+staging
+├── feat/a-xxx
+├── feat/b-xxx
+└── feat/c-xxx
+```
+
+完成後 PR 回 staging。
+
+---
+
+# 5. Ownership
 
 ## Jerry
 
@@ -120,38 +161,15 @@ taiwanjcare 不內嵌、不共用 Backend、不共用 Database。
 /.github/**
 ```
 
-中文：
-
-- 產品規格
-- 系統架構
-- 資料模型
-- API 規格
-- Mock Data 標準
-- 任務分配
-- PR Review
-- 最終整合
-- Merge / Deploy
-
-A / B / C 不得自行修改這些區域，除非 Task 明確授權。
+以及：PR Review、staging Integration、Release PR、Deploy。
 
 ## Engineer A / 工程師 A
-
-主要負責：
 
 ```text
 /data/providers/**
 ```
 
-中文：
-
-- Provider 原始資料
-- 名稱、地址、電話整理
-- 服務類別
-- 服務範圍
-- Google Maps URL
-- 重複與缺漏資料清理
-- Mock Provider Data
-- 基本 QA
+負責 Provider 原始資料、名稱/地址/電話、服務類別、服務範圍、Google Maps URL、資料清理、Mock Provider Data、基本 QA。
 
 資料流程：
 
@@ -160,18 +178,18 @@ A / B / C 不得自行修改這些區域，除非 Task 明確授權。
 ↓
 Engineer A 清洗
 ↓
-data/providers/staging/
+Feature Branch
+↓
+PR → staging
 ↓
 Jerry Review
 ↓
-Engineer B 匯入正式 Provider DB
+Engineer B 後續匯入正式 Provider DB
 ```
 
-A 不直接操作 Production Database。
+A 不直接操作正式 Database。
 
 ## Engineer B / 工程師 B
-
-主要負責：
 
 ```text
 /apps/api/**
@@ -180,71 +198,43 @@ A 不直接操作 Production Database。
 /services/crawler/**
 ```
 
-中文：
-
-- 後端 API
-- Database
-- Provider Backend
-- Recommendation Engine
-- Ranking
-- Lead Backend
-- Knowledge Database
-- Knowledge Crawler
-- Knowledge Change / Version
+負責後端 API、Database、Provider Backend、Recommendation、Ranking、Lead、Knowledge、Crawler。
 
 B 不修改前端 UI。
 
 ## Engineer C / 工程師 C
 
-主要負責：
-
 ```text
 /apps/web/**
 ```
 
-中文：
+負責首頁、Consent、Assessment、Result、Provider UI、Google Maps CTA、taiwanjcare CTA、Lead Form、Loading / Empty / Error、RWD。
 
-- 首頁
-- Consent / Disclaimer UI
-- Assessment UI
-- 初評結果
-- Provider Top 3
-- Provider Detail
-- Google Maps CTA
-- taiwanjcare CTA
-- Lead Form
-- Loading / Empty / Error
-- RWD
-
-C 不修改後端 Schema 或 Recommendation Logic。
+C 不修改 Backend Schema 或 Recommendation Logic。
 
 ---
 
-# 5. Frontend 與 Backend 分離
+# 6. Frontend 與 Backend 分離
 
-Engineer C 不等待 Engineer B。
+C 使用 `/contracts/mock/**` 的 Mock Data 完成 UI，不等待 B。
 
-C 使用：
+B 只依 `docs/API_CONTRACT.md` 完成正式 API，不等待 C。
 
-```text
-/contracts/mock/**
-```
-
-中的 Mock Data 完成 UI。
-
-Engineer B 只需依：
+最後由 Jerry 在 staging：
 
 ```text
-docs/API_CONTRACT.md
+C Mock Frontend
++
+B Real API
+↓
+Integration
+↓
+E2E Test
 ```
-
-完成正式 API。
-
-最後由 Jerry 將 Mock API 替換為 Real API。
 
 ---
 
-# 6. Recommendation Architecture
+# 7. Recommendation Architecture
 
 ```text
 Assessment
@@ -266,9 +256,7 @@ AI 不直接選 Provider。
 
 ---
 
-# 7. AI Architecture
-
-正確流程：
+# 8. AI Architecture
 
 ```text
 使用者資訊
@@ -284,11 +272,11 @@ Recommendation Engine
 Provider DB
 ```
 
-AI Provider 必須透過 Adapter 隔離，避免模型供應商被寫死在產品核心。
+AI Provider 必須透過 Adapter 隔離。
 
 ---
 
-# 8. Knowledge Architecture
+# 9. Knowledge Architecture
 
 ```text
 Official Source
@@ -318,33 +306,11 @@ PUBLISHED
 
 只有 `PUBLISHED` 版本可供正式 Assessment 使用。
 
----
+排程：`Asia/Taipei` 每日 `00:10`。
 
-# 9. Knowledge 更新排程
+白名單來源：衛生福利部、1966 / 長照專區、全國法規資料庫、臺北市政府、新北市政府。
 
-Timezone：
-
-```text
-Asia/Taipei
-```
-
-建議每日：
-
-```text
-00:10
-```
-
-白名單來源：
-
-- 衛生福利部
-- 1966 / 長照專區
-- 全國法規資料庫
-- 臺北市政府
-- 新北市政府
-
-Crawler 發現變動時，只能建立 `KnowledgeChange`，不得直接改正式規則。
-
-如果抓取失敗，繼續使用 Last Published Knowledge Version。
+Crawler 抓取失敗時繼續使用 Last Published Knowledge Version。
 
 ---
 
@@ -362,12 +328,7 @@ Open New Tab
 taiwanjcare
 ```
 
-MVP 禁止：
-
-- iframe
-- Backend Integration
-- Database Integration
-- Authentication Integration
+MVP 禁止 iframe、Backend Integration、Database Integration、Authentication Integration。
 
 ---
 
@@ -384,73 +345,73 @@ Consent
 └─ termsVersion
 ```
 
-沒有 Consent 時，Backend 回傳：
-
-```text
-CONSENT_REQUIRED
-```
+沒有 Consent 時 Backend 回 `CONSENT_REQUIRED`。
 
 ---
 
 # 12. Provider DB 與 Knowledge DB 分離
 
-Provider DB 回答：
+Provider DB 回答「可以找誰？」。
 
-```text
-可以找誰？
-```
+Knowledge DB 回答「目前制度怎麼規定？」。
 
-Knowledge DB 回答：
-
-```text
-目前制度怎麼規定？
-```
-
-兩者邏輯與資料模型必須分開。
+兩者資料模型與責任分開。
 
 ---
 
 # 13. Environment
 
-至少分為：
+正式分為四層：
 
 ```text
 LOCAL
 PREVIEW
+STAGING
 PRODUCTION
 ```
 
-A / B / C 不直接操作 Production。
+## LOCAL
 
-Production Merge / Deploy 由 Jerry 負責。
+各工程師自己的開發環境。
+
+## PREVIEW
+
+單一 Feature PR 的預覽與模組測試環境。
+
+## STAGING
+
+Jerry 的整合環境，對應 `staging` branch。
+
+用於 A+B+C 整合、Real API 串接、Integration / E2E Test。
+
+## PRODUCTION
+
+正式環境，對應 `main` branch。
+
+只有 Jerry 負責 Production Release / Deploy。
 
 ---
 
 # 14. Secret Rule
 
-禁止將以下內容 Commit：
+禁止 Commit API Key、Database Secret、Token、Private Key。
 
-- API Key
-- Database Secret
-- Token
-- Private Key
+只能放 Environment Variables，Frontend 不得包含 AI API Key。
 
-只能放 Environment Variables。
-
-Frontend 不得包含 AI API Key。
+STAGING 與 PRODUCTION 必須使用不同環境設定與 Secrets。
 
 ---
 
 # 15. Cross-module Rule
 
-如果任何工程師發現需要修改其他模組：
+需要修改其他模組時：
 
 ```text
 建立 Issue
 ↓
 Jerry 判斷
 ↓
-建立新的 Task
+建立新 Task
 ↓
 對應 Owner 修改
 ```
@@ -464,7 +425,7 @@ Jerry 判斷
 Engineer A：Provider Data / 基本 QA  
 Engineer B：API / Recommendation / Knowledge / Crawler  
 Engineer C：UI / Flow / RWD / Loading / Empty / Error  
-Jerry：Integration / End-to-End / Preview / Production
+Jerry：staging Integration / End-to-End / Release / Production
 
 ---
 
@@ -483,16 +444,14 @@ Knowledge
 +
 API Contract
 +
-Jerry Integration Test
+staging Integration Test
 ```
 
 全部通過後，才叫 `Integrated`。
 
-個別工程師只能宣稱：
+Feature PR 合併到 staging 只能稱為 `Module Complete`。
 
-```text
-Module Complete
-```
+`Production Complete` 必須再完成 staging → main Release 與 Production 驗證。
 
 ---
 
