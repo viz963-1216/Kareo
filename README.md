@@ -99,7 +99,7 @@ feat/c-001-frontend-foundation
 
 ### Engineer C — Frontend / 前端
 
-負責：Homepage、Consent、Assessment、Result、Provider Top 3、Provider Detail、Google Maps CTA、taiwanjcare CTA、Lead Form、RWD、Loading / Empty / Error。
+負責：Homepage、Consent、Assessment、Result、Provider Top 3、Provider Detail、Google Maps CTA、Kareocar CTA、Lead Form、RWD、Loading / Empty / Error。
 
 主要 Ownership：
 
@@ -130,8 +130,6 @@ feat/c-001-frontend-foundation
 ## Step 1 — 更新 staging
 
 開始新 Task 前，先確認自己的本地端是最新 `staging`。
-
-概念：
 
 ```text
 staging
@@ -265,7 +263,7 @@ C 依同一份 Contract 使用 Mock Data 完成 UI。
 
 ---
 
-# taiwanjcare
+# Kareocar
 
 長照交通服務目前採外部導流：
 
@@ -275,8 +273,10 @@ Kareo
 TRANSPORTATION
 ↓
 外部連結
-taiwanjcare
+Kareocar
 ```
+
+Kareocar 正式網址：`https://kareocar.netlify.com`
 
 MVP 不做 iframe、Backend Integration、Database Integration 或共用登入。
 
