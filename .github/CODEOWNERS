@@ -1,0 +1,9 @@
+# Kareo critical-file ownership
+# Jerry / repository owner reviews all product specs, contracts, tasks, and GitHub workflow rules.
+
+/docs/ @viz963-1216
+/contracts/ @viz963-1216
+/tasks/ @viz963-1216
+/.github/ @viz963-1216
+/AGENTS.md @viz963-1216
+/README.md @viz963-1216
