@@ -176,7 +176,7 @@ feat/c-004-provider-result-ui
 /apps/web/**
 ```
 
-中文：Homepage、Consent UI、Assessment UI、Assessment Result、Provider Top 3 UI、Provider Detail、Google Maps CTA、taiwanjcare CTA、Lead Form、Loading / Empty / Error State、RWD。
+中文：Homepage、Consent UI、Assessment UI、Assessment Result、Provider Top 3 UI、Provider Detail、Google Maps CTA、Kareocar CTA、Lead Form、Loading / Empty / Error State、RWD。
 
 ---
 
@@ -257,7 +257,7 @@ Top 3
 
 ---
 
-# 13. taiwanjcare
+# 13. Kareocar
 
 `TRANSPORTATION` 在 MVP 只做外部連結：
 
@@ -268,8 +268,10 @@ TRANSPORTATION
 ↓
 Frontend CTA
 ↓
-taiwanjcare
+Kareocar
 ```
+
+Kareocar URL：`https://kareocar.netlify.com`
 
 禁止 iframe、Backend Integration、Database Integration、Authentication Integration。
 
