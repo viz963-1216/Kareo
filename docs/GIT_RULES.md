@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — Git Collaboration Rules
 
-Version: v0.1  
+Version: v0.2  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -16,8 +16,9 @@ Owner: Jerry
 - 不互相修改程式
 - 降低 Merge Conflict
 - AI 不可擅自跨模組修改
-- main 永遠保持可運作
-- Jerry 負責最後整合
+- staging 作為唯一整合區
+- main 永遠保持正式可部署
+- Jerry 負責最後整合與發布
 
 ---
 
@@ -25,111 +26,110 @@ Owner: Jerry
 
 ## Jerry
 
-中文：
+角色：Product Owner / Spec Owner / Integration Owner / Release Owner。
 
-- Product Owner / 產品負責人
-- Spec Owner / 規格負責人
-- Integration Owner / 整合負責人
-- Main Branch Owner / 主分支負責人
-
-Jerry 負責建立 Task、Review PR、修改 Spec / Contract、最終整合、Merge main、Deploy。
+負責建立 Task、Review PR、修改 Spec / Contract、整合 staging、Release 到 main、Deploy。
 
 ## Engineer A / 工程師 A
 
-主要負責：
+Ownership：
 
 ```text
 /data/providers/**
 ```
 
-中文：
-
-- Provider 資料
-- Google Maps URL
-- Service Area
-- Mock Provider Data
-- 資料驗證
-- 基本 QA
+負責 Provider 資料、Google Maps URL、Service Area、Mock Provider Data、資料驗證、基本 QA。
 
 ## Engineer B / 工程師 B
 
-主要負責：
+Ownership：
 
 ```text
 /apps/api/**
 /services/**
 ```
 
-中文：
-
-- 後端 API
-- Database
-- Provider Backend
-- Recommendation Engine
-- Lead Backend
-- Knowledge DB
-- Crawler
+負責後端 API、Database、Provider Backend、Recommendation Engine、Lead、Knowledge DB、Crawler。
 
 ## Engineer C / 工程師 C
 
-主要負責：
+Ownership：
 
 ```text
 /apps/web/**
 ```
 
-中文：
-
-- 首頁
-- Assessment UI
-- 初評結果
-- Top 3
-- Provider UI
-- Lead Form
-- RWD
-- Loading / Empty / Error
+負責首頁、Assessment、Result、Provider UI、Lead Form、RWD、Loading / Empty / Error。
 
 ---
 
-# 3. main Branch
-
-`main` 永遠保持可執行。
-
-A / B / C 禁止直接 Push `main`。
-
-所有正式修改都必須：
+# 3. Branch Model / 分支模型
 
 ```text
-Task
+main
+└── staging
+    ├── feat/a-xxx
+    ├── feat/b-xxx
+    └── feat/c-xxx
+```
+
+## main
+
+正式穩定分支，對應 Production。
+
+A / B / C 禁止直接 Push、Merge 或 Force Push。
+
+只有 Jerry 可透過 `staging → main` Release PR 發布。
+
+## staging
+
+固定整合分支，對應 Staging 環境。
+
+用途：
+
+- 接收所有 Feature PR
+- Frontend / Backend / Data 整合
+- Integration Test
+- E2E Test
+- Release Candidate 驗收
+
+A / B / C 禁止直接 Push staging。
+
+## Feature Branch
+
+所有 Task 必須從最新 `staging` 建立。
+
+一個 Task 一條 Branch。
+
+---
+
+# 4. 標準開發流程
+
+```text
+更新 staging
 ↓
-Branch
+從 staging 建 Feature Branch
 ↓
 Code
 ↓
 Test
 ↓
-Pull Request
+Push Feature Branch
+↓
+PR → staging
 ↓
 Jerry Review
 ↓
-Merge
-```
-
----
-
-# 4. 一個 Task 一條 Branch
-
-禁止一條 Branch 同時做很多功能。
-
-範例：
-
-```text
-TASK-B-003
+Squash Merge → staging
 ↓
-feat/b-003-provider-recommendation
+Jerry Integration / E2E Test
+↓
+Release PR: staging → main
+↓
+Production
 ```
 
-完成後 PR → Merge → 刪除 Branch。
+一般工程師不得直接建立 Feature PR 到 main。
 
 ---
 
@@ -141,7 +141,7 @@ feat/b-003-provider-recommendation
 類型/負責人-task編號-簡短名稱
 ```
 
-範例：
+例如：
 
 ```text
 feat/a-001-provider-data
@@ -155,53 +155,54 @@ fix/c-010-mobile-layout
 
 ---
 
-# 6. Allowed Paths / 可修改範圍
+# 6. 一個 Task 一條 Branch
 
-每個 Task 必須定義 `Allowed Paths`。
+禁止使用：
 
-AI 只能修改 Task 指定的路徑。
+```text
+feat/b-all-backend
+feat/c-all-frontend
+```
+
+完成一張 Task → PR → Merge → 刪 Branch，再開下一張。
 
 ---
 
-# 7. Forbidden Paths / 禁止修改範圍
+# 7. Allowed Paths / Forbidden Paths
 
-每個 Task 必須定義 `Forbidden Paths`。
+每個 Task 必須定義：
 
-如果 AI 認為一定要修改 Forbidden Path：
+```text
+Allowed Paths
+Forbidden Paths
+```
 
-**停止，不要修改，建立 Issue。**
+AI 只能修改 Allowed Paths。
+
+如果必須修改 Forbidden Paths：停止、不修改、建立 Issue。
 
 ---
 
 # 8. Ownership Rule
 
-預設：
-
 ```text
-/data/providers/**
-→ Engineer A
-
-/apps/api/**
-/ services/**
-→ Engineer B
-
-/apps/web/**
-→ Engineer C
-
-/docs/**
-/contracts/**
-/tasks/**
-/.github/**
-→ Jerry
+/data/providers/** → Engineer A
+/apps/api/**       → Engineer B
+/services/**       → Engineer B
+/apps/web/**       → Engineer C
+/docs/**           → Jerry
+/contracts/**      → Jerry
+/tasks/**          → Jerry
+/.github/**        → Jerry
 ```
 
-禁止 A 改 B、B 改 C、C 改 B，除非 Task 明確授權。
+禁止跨 Ownership 修改，除非 Task 明確授權。
 
 ---
 
-# 9. Shared Critical Files / 共用重要檔案
+# 9. Shared Critical Files
 
-以下檔案不可自行修改：
+以下不可自行修改：
 
 ```text
 package.json
@@ -214,7 +215,7 @@ root config
 schema migration
 ```
 
-如果 Task 需要修改，先建立 Issue，由 Jerry 決定。
+需要修改時先建立 Issue，由 Jerry 決定。
 
 ---
 
@@ -227,24 +228,16 @@ schema migration
 /contracts/**
 ```
 
-A / B / C 只能提出 Issue，不自行改 Spec 或 Contract。
+A / B / C 不自行修改 Product Spec、Architecture、Data Model、API Contract、核心 Database Schema。
 
 ---
 
 # 11. 開始 Coding 前
 
-每次 AI 開始工作前，先閱讀：
+AI 必須先閱讀 `AGENTS.md` 與 Task 指定 Spec，並先回答：
 
 ```text
-AGENTS.md
-```
-
-以及 Task 指定的 Spec。
-
-開始修改前，AI 必須先回答：
-
-```text
-1. 我的任務是什麼
+1. 我的任務
 2. Allowed Paths
 3. Forbidden Paths
 4. Input
@@ -282,76 +275,56 @@ AGENTS.md
 
 # 13. Commit Rule
 
-Commit 要小且可理解。
-
-建議：
+Commit 要小且可理解，例如：
 
 ```text
 feat(B-003): add provider recommendation filter
 fix(C-006): handle empty provider result
-data(A-002): add new taipei providers
+data(A-002): add provider records
 ```
 
-禁止：
-
-```text
-Update stuff
-```
-
-也禁止一個 Commit 混入無關功能。
+禁止 `Update stuff` 這類不清楚的訊息，也禁止一個 Commit 混入無關功能。
 
 ---
 
-# 14. Pull Request / PR
+# 14. Pull Request Rule
 
-Task 完成後一定要建立 PR。
+一般 Task 完成後一定建立 PR。
+
+**Base Branch 必須是 `staging`。**
 
 PR Title：
 
 ```text
+[A-001] Provider Data Foundation
 [B-003] Provider Recommendation
-[A-001] Provider Data Cleanup
 [C-004] Top 3 Provider UI
 ```
 
----
-
-# 15. Contract / Database Change
-
-任何 Contract 或 Database 核心 Schema 修改都不能直接做。
-
-流程：
+只有 Jerry 的 Release PR 可以：
 
 ```text
-Issue
-↓
-Jerry Review
-↓
-更新 Spec / Contract
-↓
-新 Task
-↓
-實作
+staging → main
 ```
 
 ---
 
-# 16. Jerry Review Checklist
+# 15. Jerry Review Checklist
 
 Jerry 至少確認：
 
-1. Task 是否完成
-2. 是否修改 Forbidden Paths
-3. 是否偷偷改 Spec
-4. 是否偷偷改 API Contract
-5. 是否偷偷改 Database Schema
+1. PR Base 是否為 staging
+2. Task 是否完成
+3. 是否修改 Forbidden Paths
+4. 是否改到其他 Ownership
+5. 是否偷偷改 Spec / API Contract / Schema
 6. 測試是否通過
 7. 是否加入 Task 未要求的新功能
-8. 是否修改其他人的模組
+8. 是否有 Known Issues
 
 ---
 
-# 17. Vibe Coding 特別規則
+# 16. Vibe Coding 特別規則
 
 AI 不得自行：
 
@@ -364,81 +337,102 @@ AI 不得自行：
 
 Task 沒寫，就不要做。
 
-額外建議請建立 Issue。
+---
+
+# 17. Merge Strategy
+
+Feature PR：
+
+```text
+Feature Branch → staging
+```
+
+統一使用 Squash Merge，由 Jerry Merge。
+
+Release PR：
+
+```text
+staging → main
+```
+
+由 Jerry 建立、檢查與 Merge。
 
 ---
 
-# 18. Merge Strategy
+# 18. Branch Protection 建議
 
-統一使用：
+## main
 
-```text
-Squash Merge
-```
-
-MVP 階段由 Jerry 負責 Merge main。
-
-Merge 前必須：
-
-```text
-Task 完成
-+
-Acceptance Criteria 通過
-+
-Tests 通過
-+
-沒有 Forbidden Path 修改
-+
-沒有未核准 Contract Change
-```
-
----
-
-# 19. Branch Protection 建議
-
-main 建議開啟：
+建議開：
 
 ```text
 Require Pull Request
-Require Approval
+Require 1 Approval
+Require Code Owner Review
 Require Status Checks
 Block Force Push
-Block Direct Push
+Block Deletion
 ```
+
+## staging
+
+建議開：
+
+```text
+Require Pull Request
+Require 1 Approval
+Require Status Checks
+Block Force Push
+Block Deletion
+```
+
+A / B / C 不應直接 Push main 或 staging。
 
 ---
 
-# 20. Integration Branch
+# 19. Collaborator 權限
 
-Jerry 如需先測多模組，可使用：
+團員只需要能：
+
+- Clone / Pull
+- 建 Feature Branch
+- Push 自己的 Feature Branch
+- 建 Pull Request
+
+不需要 Admin / Repository Settings / Secrets / Collaborator 管理權。
+
+若使用個人 Repository，新增為 Collaborator 即可；main 與 staging 的安全由 Branch Protection 控制。
+
+---
+
+# 20. Preview / Staging / Production
 
 ```text
-integration/xxx
+LOCAL       → 個人開發
+PREVIEW     → 單一 PR 測試
+STAGING     → 多模組整合測試
+PRODUCTION  → 正式環境
 ```
 
-A / B / C 不自行建立 Integration Branch。
+Feature PR 可建立 Preview。
+
+Jerry 在 staging 做跨模組 Integration / E2E Test。
+
+main 才能部署 Production。
 
 ---
 
 # 21. Conflict Rule
 
-遇到 Merge Conflict 時，如果衝突涉及其他人的 Ownership：
+若 Merge Conflict 涉及其他人的 Ownership，停止並交 Jerry。
 
-**停止並交給 Jerry。**
-
-不要隨便使用：
-
-```text
-Accept Current
-Accept Incoming
-Accept Both
-```
+不要隨便選 Accept Current / Incoming / Both。
 
 ---
 
 # 22. Bug Rule
 
-如果發現別人的 Bug：
+發現其他人的 Bug：
 
 ```text
 建立 Issue
@@ -448,58 +442,27 @@ Jerry 分配
 對應 Owner 修正
 ```
 
-不得直接修改其他人的模組。
+不得直接跨模組修正。
 
 ---
 
 # 23. Secret Rule
 
-禁止 Commit：
+禁止 Commit API Key、Database Password、Token、Private Key。
 
-- API Key
-- Database Password
-- Token
-- Private Key
-
-`.env` 不進 GitHub，只提供 `.env.example` 且不可包含真正 Secret。
+`.env` 不進 GitHub，只提供不含 Secret 的 `.env.example`。
 
 ---
 
-# 24. AI 修改檔案過多
+# 24. Dependency Upgrade
 
-如果一個簡單 Task 突然修改大量檔案，先停止並要求 AI 解釋。
-
-超出 Scope 時 Rollback，不直接 Commit。
+AI 建議升級 React / Node / Database Library 等依賴時，不得自行執行，先交 Jerry 決定。
 
 ---
 
-# 25. Dependency Upgrade
+# 25. Definition of Done
 
-AI 建議升級 React / Node / Database Library 等依賴時，不得自行執行。
-
-先建立 Issue，由 Jerry 決定。
-
----
-
-# 26. Completion Rule
-
-工程師完成 Task 時應回報：
-
-```text
-TASK-XXX Module Complete
-```
-
-只有 Jerry 完成 Integration 後才能稱為：
-
-```text
-Production Complete
-```
-
----
-
-# 27. Definition of Done
-
-Module Complete：
+## Module Complete
 
 ```text
 功能完成
@@ -510,36 +473,48 @@ Test 通過
 +
 沒有修改 Forbidden Paths
 +
-PR 建立
+PR 建立並通過 Jerry Review
++
+Merge 到 staging
 ```
 
-Production Complete：
+## Integrated
 
 ```text
 Module Complete
 +
-Jerry Integration
+staging Integration Test
 +
-Integration Test
+E2E Test
+```
+
+## Production Complete
+
+```text
+Integrated
 +
-Preview Test
+Release PR staging → main
 +
-main Merge
+Production Deploy
++
+Production Verification
 ```
 
 ---
 
-# 28. 最重要的五條規則
+# 26. 最重要的七條規則
 
-1. 不要直接改 main。
-2. 只改自己的資料夾。
-3. 一個 Task 一條 Branch。
-4. Spec / Contract 不可以自己改。
-5. 最後整合全部交給 Jerry。
+1. 不直接改 main。
+2. 不直接改 staging。
+3. Feature Branch 從 staging 建。
+4. Feature PR 回 staging。
+5. 只改自己的 Allowed Paths。
+6. Spec / Contract 不自行改。
+7. 最後整合與發布交給 Jerry。
 
 ---
 
-# 29. Source of Truth
+# 27. Source of Truth
 
 ```text
 PRODUCT_SPEC.md
