@@ -71,10 +71,12 @@ TRANSPORTATION
 ↓
 External Link
 ↓
-taiwanjcare
+Kareocar
 ```
 
-taiwanjcare 不內嵌、不共用 Backend、不共用 Database。
+Kareocar 正式網址：`https://kareocar.netlify.app/`
+
+Kareocar 不內嵌、不共用 Backend、不共用 Database。
 
 ---
 
@@ -208,7 +210,7 @@ B 不修改前端 UI。
 /apps/web/**
 ```
 
-負責首頁、Consent、Assessment、Result、Provider UI、Google Maps CTA、taiwanjcare CTA、Lead Form、Loading / Empty / Error、RWD。
+負責首頁、Consent、Assessment、Result、Provider UI、Google Maps CTA、Kareocar CTA、Lead Form、Loading / Empty / Error、RWD。
 
 C 不修改 Backend Schema 或 Recommendation Logic。
 
@@ -314,7 +316,7 @@ Crawler 抓取失敗時繼續使用 Last Published Knowledge Version。
 
 ---
 
-# 10. taiwanjcare Architecture
+# 10. Kareocar Architecture
 
 ```text
 CareNeedProfile
@@ -325,8 +327,10 @@ Frontend CTA
 ↓
 Open New Tab
 ↓
-taiwanjcare
+Kareocar
 ```
+
+Kareocar URL：`https://kareocar.netlify.app/`
 
 MVP 禁止 iframe、Backend Integration、Database Integration、Authentication Integration。
 
