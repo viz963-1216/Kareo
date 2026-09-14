@@ -29,6 +29,24 @@ docs/GIT_RULES.md
 
 ---
 
+# Branch / PR Rule
+
+從最新 `staging` 建立：
+
+```text
+feat/b-001-backend-foundation
+```
+
+完成後建立 PR，Base Branch 必須選：
+
+```text
+staging
+```
+
+不得直接 Push `staging` 或 `main`。
+
+---
+
 # Allowed Paths / 可修改範圍
 
 ```text
@@ -37,8 +55,6 @@ docs/GIT_RULES.md
 /services/knowledge/**
 /services/crawler/**
 ```
-
----
 
 # Forbidden Paths / 禁止修改
 
@@ -51,48 +67,21 @@ docs/GIT_RULES.md
 /.github/**
 ```
 
-以及：
-
-```text
-root package config
-root lock file
-root deploy config
-Database production config
-```
-
-除非 Jerry 另外核准。
+以及 root package config、root lock file、root deploy config、Database production config，除非 Jerry 另外核准。
 
 ---
 
 # Input / 輸入
 
-以以下文件為唯一規格來源：
+以 `DATA_MODEL.md`、`API_CONTRACT.md`、`ARCHITECTURE.md` 為唯一規格來源。
 
-```text
-DATA_MODEL.md
-API_CONTRACT.md
-ARCHITECTURE.md
-```
-
-Backend 必須支援的主要模組：
-
-```text
-Session
-Consent
-Assessment
-Provider
-Recommendation
-Lead
-Knowledge
-Crawler
-ExternalService
-```
+Backend 主要模組：Session、Consent、Assessment、Provider、Recommendation、Lead、Knowledge、Crawler、ExternalService。
 
 ---
 
 # Output / 輸出
 
-在自己的 Ownership 中建立：
+建立：
 
 ```text
 /apps/api/IMPLEMENTATION_PLAN.md
@@ -103,24 +92,24 @@ ExternalService
 
 內容至少說明：
 
-1. 每個模組的責任
-2. 預計的資料流
-3. API Contract 對應關係
-4. Recommendation 的處理順序
-5. Knowledge Crawler 的更新流程
+1. 每個模組責任
+2. 資料流
+3. API Contract 對應
+4. Recommendation 處理順序
+5. Knowledge Crawler 更新流程
 6. Error Handling
 7. Test Strategy
-8. 建議 Backend 技術棧，以及理由
-9. 哪些技術決策需要 Jerry 核准後才能開始實作
+8. 建議 Backend 技術棧與理由
+9. 哪些技術決策需 Jerry 核准
+10. 未來在 staging 的整合與測試需求
 
 ---
 
-# Recommendation Rules / 推薦規則
+# Recommendation Rules
 
-計畫必須明確包含：
+精確位置：
 
 ```text
-有精確位置：
 Eligible Provider
 → Service Match
 → Service Area Match
@@ -128,8 +117,9 @@ Eligible Provider
 → Top 3
 ```
 
-```text
 只有行政區：
+
+```text
 Eligible Provider
 → Service Match
 → Service Area Match
@@ -141,9 +131,7 @@ Eligible Provider
 
 ---
 
-# Knowledge Rules / 知識庫規則
-
-計畫必須包含：
+# Knowledge Rules
 
 ```text
 Official Source
@@ -161,26 +149,15 @@ Crawler 不得直接修改正式 Assessment Rule。
 
 ---
 
-# Tech Stack Rule / 技術棧規則
+# Tech Stack Rule
 
-如果目前沒有已核准技術棧：
+如果目前沒有已核准技術棧，可以提出最多 2 個方案，比較開發難度、Vibe Coding 友善程度、Deployment、Database 支援、Type Safety、維護成本。
 
-可以提出最多 2 個方案並比較：
-
-- 開發難度
-- Vibe Coding 友善程度
-- Deployment
-- Database 支援
-- Type Safety
-- 後續維護
-
-但不得自行安裝或修改 Root Config。
-
-最後提出一個推薦方案給 Jerry 決定。
+不得自行安裝或修改 Root Config，最後提出推薦方案給 Jerry 決定。
 
 ---
 
-# Acceptance Criteria / 驗收標準
+# Acceptance Criteria
 
 - [ ] 完成 Backend Implementation Plan
 - [ ] Provider / Recommendation / Lead / Knowledge / Crawler 都有模組規劃
@@ -191,10 +168,11 @@ Crawler 不得直接修改正式 Assessment Rule。
 - [ ] 沒有修改 Frontend
 - [ ] 沒有修改 Spec / Contract
 - [ ] 沒有修改 Allowed Paths 之外檔案
+- [ ] PR Base 是 `staging`
 
 ---
 
-# Completion Report / 完成後回報
+# Completion Report
 
 ```text
 1. 完成哪些檔案
@@ -206,8 +184,9 @@ Crawler 不得直接修改正式 Assessment Rule。
 7. Known Issues
 ```
 
-完成後建立 PR：
+完成後建立：
 
 ```text
 [B-001] Backend Foundation Plan
+Feature Branch → staging
 ```
