@@ -26,11 +26,7 @@ TASK
 Code
 ```
 
-高順位規格優先。
-
-如果無法判斷：
-
-**停止修改並建立 Issue，交由 Jerry 決定。**
+高順位規格優先。無法判斷時，停止修改並建立 Issue，交由 Jerry 決定。
 
 ---
 
@@ -57,11 +53,7 @@ tasks/TASK-XXX.md
 
 # 3. 開始修改前先回報理解
 
-第一次執行 Task 時：
-
-先不要修改任何程式。
-
-先回答：
+第一次執行 Task 時先不要修改程式，先回答：
 
 ```text
 1. 我的任務是什麼
@@ -83,23 +75,53 @@ tasks/TASK-XXX.md
 
 **Independent Development + Central Integration**
 
-也就是：
-
 ```text
-Engineer A
-Engineer B
-Engineer C
-    ↓
-各自獨立開發
-    ↓
-Jerry 最終整合
+Engineer A / B / C
+        ↓
+各自 Feature Branch
+        ↓
+PR → staging
+        ↓
+Jerry Review + Integration Test
+        ↓
+staging → main
+        ↓
+Production
 ```
 
-A / B / C 不直接整合彼此程式。
+A / B / C 不直接整合彼此程式。所有跨模組整合由 Jerry 在 `staging` 完成。
 
 ---
 
-# 5. Ownership / 負責範圍
+# 5. Branch Roles / 分支角色
+
+## main
+
+正式穩定分支，代表可部署 Production 的版本。
+
+A / B / C 禁止直接 Push 或 Merge `main`。
+
+## staging
+
+Jerry 的整合與驗收分支。
+
+A / B / C 的 Feature PR 一律以 `staging` 為 Base。
+
+A / B / C 禁止直接 Push `staging`。
+
+## Feature Branch
+
+每個 Task 從最新 `staging` 建立自己的 Branch，例如：
+
+```text
+feat/a-001-provider-data
+feat/b-003-recommendation
+feat/c-004-provider-result-ui
+```
+
+---
+
+# 6. Ownership / 負責範圍
 
 ## Jerry
 
@@ -121,11 +143,9 @@ A / B / C 不直接整合彼此程式。
 - Git Rules / Git 規則
 - Task 分配
 - PR Review
-- Integration
-- Merge
+- staging Integration
+- staging → main Release
 - Deploy
-
----
 
 ## Engineer A
 
@@ -135,21 +155,7 @@ A / B / C 不直接整合彼此程式。
 /data/providers/**
 ```
 
-中文：
-
-- Provider 原始資料
-- 商家資料整理
-- 地址
-- 電話
-- 服務類別
-- 服務範圍
-- Google Maps URL
-- 資料清洗
-- 資料驗證
-- Mock Provider Data
-- QA 測試
-
----
+中文：Provider 原始資料、商家資料整理、地址、電話、服務類別、服務範圍、Google Maps URL、資料清洗、資料驗證、Mock Provider Data、QA 測試。
 
 ## Engineer B
 
@@ -160,19 +166,7 @@ A / B / C 不直接整合彼此程式。
 /services/**
 ```
 
-中文：
-
-- Backend API / 後端 API
-- Database / 資料庫
-- Provider Backend / 服務單位後端
-- Recommendation Engine / 推薦引擎
-- Ranking / 排序
-- Lead Backend / 媒合後端
-- Knowledge Database / 長照知識庫
-- Knowledge Crawler / 長照政策爬蟲
-- Knowledge Version / 政策版本管理
-
----
+中文：Backend API、Database、Provider Backend、Recommendation Engine、Ranking、Lead Backend、Knowledge Database、Knowledge Crawler、Knowledge Version。
 
 ## Engineer C
 
@@ -182,86 +176,27 @@ A / B / C 不直接整合彼此程式。
 /apps/web/**
 ```
 
-中文：
-
-- Homepage / 首頁
-- Consent UI / 免責與同意畫面
-- Assessment UI / 長照初評
-- Assessment Result / 初評結果
-- Provider Top 3 UI / 前三家推薦
-- Provider Detail / 商家詳細頁
-- Google Maps CTA
-- taiwanjcare CTA
-- Lead Form / 我要媒合
-- Loading / Empty / Error State
-- RWD
+中文：Homepage、Consent UI、Assessment UI、Assessment Result、Provider Top 3 UI、Provider Detail、Google Maps CTA、taiwanjcare CTA、Lead Form、Loading / Empty / Error State、RWD。
 
 ---
 
-# 6. 不得修改別人的 Ownership
+# 7. 不得修改別人的 Ownership
 
-原則：
+原則：A 不改 B/C，B 不改 A/C，C 不改 A/B。
 
-```text
-A 不改 B
-A 不改 C
-
-B 不改 A
-B 不改 C
-
-C 不改 A
-C 不改 B
-```
-
-如果 Task 需要跨 Ownership：
-
-**停止修改。**
-
-建立 Issue。
-
-交 Jerry 決定。
+如果 Task 需要跨 Ownership，停止修改，建立 Issue，交 Jerry 決定。
 
 ---
 
-# 7. Allowed Paths
+# 8. Allowed Paths / Forbidden Paths
 
-每個 Task 必須定義：
+每個 Task 必須定義 `Allowed Paths` 與 `Forbidden Paths`。
 
-```text
-Allowed Paths
-```
-
-AI 只能修改這些路徑。
-
-例如：
-
-```text
-Allowed Paths:
-
-/services/recommendation/**
-/apps/api/recommendations/**
-/tests/recommendation/**
-```
+AI 只能修改 Allowed Paths。若需要碰 Forbidden Paths，停止修改並建立 Issue。
 
 ---
 
-# 8. Forbidden Paths
-
-每個 Task 必須定義：
-
-```text
-Forbidden Paths
-```
-
-如果需要修改 Forbidden Path：
-
-不要修改。
-
-建立 Issue。
-
----
-
-# 9. Spec 不得自行修改
+# 9. Spec / Contract 不得自行修改
 
 A / B / C 與 AI 不得自行修改：
 
@@ -272,95 +207,37 @@ A / B / C 與 AI 不得自行修改：
 
 除非 Task 明確由 Jerry 授權。
 
----
-
-# 10. 不得自行修改核心資料結構
-
-禁止自行：
-
-- 新增核心欄位
-- 改欄位名稱
-- 刪除欄位
-- 改 enum
-- 修改 API Response
-- 修改 Database Schema
-- 修改 Recommendation 規則
-- 修改 Product Flow
-
-如果需要：
-
-建立 Issue。
+也不得自行新增或修改核心欄位、enum、API Response、Database Schema、Recommendation 規則或 Product Flow。
 
 ---
 
-# 11. 不得自行擴大 Task
+# 10. 不得自行擴大 Task
 
-AI 不得因為：
+Task 沒寫就不要做。禁止 AI 順便重構、改命名、升級套件、改架構、修其他 Bug 或加入新功能。
 
-「這樣比較漂亮」
-
-或：
-
-「Best Practice」
-
-而自行加入 Task 沒要求的功能。
-
-例如禁止：
-
-- 順便重構
-- 順便升級套件
-- 順便改架構
-- 順便修其他 Bug
-- 順便改命名
-- 順便加入新功能
-
-Task 沒寫：
-
-就不要做。
+額外建議請建立 Issue。
 
 ---
 
-# 12. Frontend / Backend 分離
+# 11. Frontend / Backend 分離
 
-Engineer C：
+Engineer C 使用 Mock Data 完成 Frontend，不需要等待 Engineer B。
 
-使用 Mock Data 完成 Frontend。
+Engineer B 只需讓 API 符合 `docs/API_CONTRACT.md`，不需要接 Frontend。
 
-不需要等待 Engineer B。
-
----
-
-Engineer B：
-
-只需要讓 API 符合：
-
-```text
-docs/API_CONTRACT.md
-```
-
-不需要接 Frontend。
-
----
-
-最後由：
-
-```text
-Jerry
-```
-
-負責：
+最後由 Jerry 在 `staging`：
 
 ```text
 Mock API
 ↓
 Real API
+↓
+Integration Test
 ```
-
-整合。
 
 ---
 
-# 13. AI 不直接挑 Provider
+# 12. AI 不直接挑 Provider
 
 正確：
 
@@ -376,25 +253,13 @@ Provider Database
 Top 3
 ```
 
-禁止：
-
-```text
-User
-↓
-LLM
-↓
-AI 自己決定三家 Provider
-```
+禁止 LLM 自己決定三家 Provider。
 
 ---
 
-# 14. taiwanjcare
+# 13. taiwanjcare
 
-`TRANSPORTATION` 在 MVP：
-
-只做外部連結。
-
-流程：
+`TRANSPORTATION` 在 MVP 只做外部連結：
 
 ```text
 CareNeedProfile
@@ -406,36 +271,15 @@ Frontend CTA
 taiwanjcare
 ```
 
-禁止：
-
-- iframe
-- Backend Integration
-- Database Integration
-- Authentication Integration
+禁止 iframe、Backend Integration、Database Integration、Authentication Integration。
 
 ---
 
-# 15. Knowledge Database
+# 14. Knowledge Database
 
-長照制度、法規、補助：
-
-不得直接寫死在 AI Prompt。
-
-Assessment 應優先使用：
-
-```text
-PUBLISHED Knowledge Version
-```
-
----
-
-# 16. Knowledge Update
+長照制度、法規、補助不得直接寫死在 AI Prompt。Assessment 應優先使用 `PUBLISHED Knowledge Version`。
 
 Crawler 發現官方資料改變時：
-
-禁止直接修改正式規則。
-
-必須：
 
 ```text
 Detect Change
@@ -451,31 +295,15 @@ APPROVED
 PUBLISHED
 ```
 
-只有：
-
-```text
-PUBLISHED
-```
-
-版本可以供正式 Assessment 使用。
+只有 `PUBLISHED` 版本可以供正式 Assessment 使用。
 
 ---
 
-# 17. 長照結果必須使用「預估」
+# 15. 長照結果必須使用「預估」
 
-平台不得宣稱：
+平台不得宣稱正式長照資格、正式 CMS 等級或正式補助核定。
 
-- 正式長照資格
-- 正式 CMS 等級
-- 正式補助核定
-
-必須使用：
-
-- 初步預估
-- 可能符合
-- 依目前資料推估
-
-並提醒：
+必須使用「初步預估」、「可能符合」、「依目前資料推估」等語句，並提醒：
 
 ```text
 實際資格、長照等級、服務內容及補助，
@@ -484,65 +312,60 @@ PUBLISHED
 
 ---
 
-# 18. Secret Rule
+# 16. Secret Rule
 
-禁止把以下內容 Commit 進 Git：
+禁止 Commit API Key、Database Password、Token、Private Key 或其他 Secret。
 
-```text
-API Key
-Database Password
-Token
-Private Key
-Secret
-```
-
-Secret 必須放：
-
-```text
-Environment Variables
-```
-
-Frontend 不得包含 AI API Key。
+Secret 只能放 Environment Variables，Frontend 不得包含 AI API Key。
 
 ---
 
-# 19. Git Rule
+# 17. Git Rule
 
 禁止直接 Push：
 
 ```text
 main
+staging
 ```
 
-所有正式修改：
+所有一般 Task：
 
 ```text
-Task
+更新 staging
 ↓
-Branch
+從 staging 建 Feature Branch
 ↓
 Code
 ↓
 Test
 ↓
-Pull Request
+PR → staging
 ↓
 Jerry Review
 ↓
-Merge
+Merge staging
+↓
+Jerry Integration / E2E Test
+```
+
+正式發布：
+
+```text
+staging
+↓
+Release PR → main
+↓
+Jerry Review
+↓
+Production
 ```
 
 ---
 
-# 20. 完成標準
+# 18. 完成標準
 
-AI 不可以只說：
-
-```text
-Done
-```
-
-完成 Task 後必須回報：
+AI 完成 Task 後必須回報：
 
 ```text
 1. 完成哪些功能
@@ -553,26 +376,15 @@ Done
 6. 是否有 Known Issues
 ```
 
+Feature PR 合併到 `staging` 只代表模組通過初步驗收，不代表 Production Complete。
+
 ---
 
-# 21. 最重要的規則
+# 19. 最重要的規則
 
-如果不確定：
-
-**不要猜。**
-
-如果需要跨模組：
-
-**不要改。**
-
-如果需要改 Spec：
-
-**不要改。**
-
-如果 Task 沒要求：
-
-**不要做。**
-
-把問題交給：
-
-**Jerry**
+- 不確定：不要猜。
+- 需要跨模組：不要改。
+- 需要改 Spec：不要改。
+- Task 沒要求：不要做。
+- Feature PR 一律進 `staging`。
+- `main` 只由 Jerry 發布。
