@@ -26,13 +26,29 @@ docs/GIT_RULES.md
 
 ---
 
+# Branch / PR Rule
+
+從最新 `staging` 建立：
+
+```text
+feat/a-001-provider-data
+```
+
+完成後建立 PR，Base Branch 必須選：
+
+```text
+staging
+```
+
+不得直接 Push `staging` 或 `main`。
+
+---
+
 # Allowed Paths / 可修改範圍
 
 ```text
 /data/providers/**
 ```
-
----
 
 # Forbidden Paths / 禁止修改
 
@@ -85,13 +101,7 @@ provider-template.csv
 provider-sample.json
 ```
 
-`provider-sample.json` 至少建立 6 筆假資料：
-
-- HOME_CARE 至少 2 筆
-- HOME_MEDICAL_NURSING 至少 2 筆
-- ASSISTIVE_DEVICE 至少 2 筆
-
-測試資料以台北市 / 新北市為主。
+`provider-sample.json` 至少建立 6 筆假資料：HOME_CARE、HOME_MEDICAL_NURSING、ASSISTIVE_DEVICE 各至少 2 筆，以台北市 / 新北市為主。
 
 ---
 
@@ -102,9 +112,9 @@ provider-sample.json
 3. `status` 只能使用 ACTIVE / INACTIVE / UNKNOWN。
 4. `verified` 使用 Boolean。
 5. 不得把 Provider 地址直接當作服務範圍。
-6. Google Maps URL 無資料時可為空，不可自行捏造不存在的正式商家資料。
+6. Google Maps URL 無資料時可為空，不可捏造正式商家資料。
 7. Sample Data 必須清楚標示為測試資料。
-8. 本 Task 不抓正式 Provider 名單；正式資料蒐集會由後續 Task 指派。
+8. 本 Task 不抓正式 Provider 名單。
 
 ---
 
@@ -116,13 +126,12 @@ provider-sample.json
 - [ ] Sample 包含三種 Provider Type
 - [ ] 地址與 Service Area 概念有明確區分
 - [ ] Enum 與 DATA_MODEL.md 一致
-- [ ] 沒有修改 Allowed Paths 以外的檔案
+- [ ] 沒有修改 Allowed Paths 以外檔案
+- [ ] PR Base 是 `staging`
 
 ---
 
 # Completion Report / 完成後回報
-
-請回報：
 
 ```text
 1. 完成哪些檔案
@@ -133,8 +142,9 @@ provider-sample.json
 6. 測試 / Validation 結果
 ```
 
-完成後建立 PR：
+完成後建立：
 
 ```text
 [A-001] Provider Data Foundation
+Feature Branch → staging
 ```
