@@ -29,13 +29,29 @@ docs/GIT_RULES.md
 
 ---
 
+# Branch / PR Rule
+
+從最新 `staging` 建立：
+
+```text
+feat/c-001-frontend-foundation
+```
+
+完成後建立 PR，Base Branch 必須選：
+
+```text
+staging
+```
+
+不得直接 Push `staging` 或 `main`。
+
+---
+
 # Allowed Paths / 可修改範圍
 
 ```text
 /apps/web/**
 ```
-
----
 
 # Forbidden Paths / 禁止修改
 
@@ -49,42 +65,15 @@ docs/GIT_RULES.md
 /.github/**
 ```
 
-以及：
-
-```text
-root package config
-root lock file
-root deploy config
-```
-
-除非 Jerry 另外核准。
+以及 root package config、root lock file、root deploy config，除非 Jerry 另外核准。
 
 ---
 
 # Input / 輸入
 
-以以下文件為唯一規格來源：
+以 `PRODUCT_SPEC.md`、`API_CONTRACT.md`、`ARCHITECTURE.md` 為唯一規格來源。
 
-```text
-PRODUCT_SPEC.md
-API_CONTRACT.md
-ARCHITECTURE.md
-```
-
-MVP 主要畫面：
-
-```text
-Homepage
-Consent / Disclaimer
-Assessment
-Assessment Result
-Service Recommendation
-Provider Top 3
-Provider Detail
-Lead Form
-Google Maps CTA
-taiwanjcare CTA
-```
+MVP 主要畫面：Homepage、Consent / Disclaimer、Assessment、Assessment Result、Service Recommendation、Provider Top 3、Provider Detail、Lead Form、Google Maps CTA、taiwanjcare CTA。
 
 ---
 
@@ -102,7 +91,7 @@ taiwanjcare CTA
 2. User Flow
 3. 每個頁面的責任
 4. Component Map
-5. 前端狀態管理方式
+5. 前端狀態管理
 6. Loading / Success / Empty / Error State
 7. Mock Data 使用方式
 8. API Contract 對應方式
@@ -110,12 +99,13 @@ taiwanjcare CTA
 10. Google Maps / taiwanjcare 外部導流方式
 11. RWD 策略
 12. Accessibility 基本考量
-13. 建議 Frontend 技術棧，以及理由
-14. 哪些技術決策需要 Jerry 核准後才能開始實作
+13. 建議 Frontend 技術棧與理由
+14. 哪些技術決策需 Jerry 核准
+15. 未來在 staging 與 Real API 整合時的注意事項
 
 ---
 
-# User Flow / 必須遵守流程
+# User Flow
 
 ```text
 Homepage
@@ -149,31 +139,29 @@ taiwanjcare（New Tab）
 
 ---
 
-# Disclaimer Rule / 免責呈現規則
+# Disclaimer Rule
 
-規劃中至少要標示：
+至少標示：
 
 - Assessment 前：完整 Consent
-- Assessment Result：顯示「初步預估」
-- 補助資訊：使用「可能符合 / 預估」語氣
-- Provider Result：顯示依目前資料推薦
-- Footer：固定提醒正式資格仍由 1966 / 長照管理中心評估
+- Assessment Result：「初步預估」
+- 補助資訊：「可能符合 / 預估」
+- Provider Result：依目前資料推薦
+- Footer：正式資格仍由 1966 / 長照管理中心評估
 
 不得使用「正式核定」語氣。
 
 ---
 
-# Mock Rule / 假資料規則
+# Mock Rule
 
-Frontend 之後必須依 `API_CONTRACT.md` 的格式使用 Mock Data。
+Frontend 必須依 `API_CONTRACT.md` 格式使用 Mock Data。
 
-C 不需要等待 B 的 Real API。
-
-本 Task 不修改 `/contracts/**`；如果需要新增 Mock Contract，建立 Issue 交 Jerry 處理。
+C 不需要等待 B 的 Real API，也不修改 `/contracts/**`。需要新增 Mock Contract 時建立 Issue 交 Jerry。
 
 ---
 
-# State Rule / 狀態規則
+# State Rule
 
 所有主要 API 畫面必須規劃：
 
@@ -184,31 +172,17 @@ EMPTY
 ERROR
 ```
 
-不能只規劃成功畫面。
+---
+
+# Tech Stack Rule
+
+如果目前沒有已核准技術棧，可以提出最多 2 個方案，比較 Vibe Coding 友善程度、RWD、Routing、State Management、API Integration、Deployment、維護成本。
+
+不得自行修改 Root Config 或安裝 Framework，最後提出推薦方案給 Jerry 決定。
 
 ---
 
-# Tech Stack Rule / 技術棧規則
-
-如果目前沒有已核准技術棧：
-
-可以提出最多 2 個方案並比較：
-
-- Vibe Coding 友善程度
-- RWD
-- Routing
-- State Management
-- API Integration
-- Deployment
-- 維護成本
-
-最後提出一個推薦方案給 Jerry 決定。
-
-不得自行修改 Root Config 或直接安裝 Framework。
-
----
-
-# Acceptance Criteria / 驗收標準
+# Acceptance Criteria
 
 - [ ] 完成 Frontend Implementation Plan
 - [ ] 所有 MVP 頁面都有責任定義
@@ -221,10 +195,11 @@ ERROR
 - [ ] 沒有修改 Backend
 - [ ] 沒有修改 Spec / Contract
 - [ ] 沒有修改 Allowed Paths 以外檔案
+- [ ] PR Base 是 `staging`
 
 ---
 
-# Completion Report / 完成後回報
+# Completion Report
 
 ```text
 1. 完成哪些檔案
@@ -237,8 +212,9 @@ ERROR
 8. Known Issues
 ```
 
-完成後建立 PR：
+完成後建立：
 
 ```text
 [C-001] Frontend Foundation Plan
+Feature Branch → staging
 ```
