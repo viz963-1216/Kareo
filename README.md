@@ -276,7 +276,7 @@ TRANSPORTATION
 Kareocar
 ```
 
-Kareocar 正式網址：`https://kareocar.netlify.com`
+Kareocar 正式網址：`https://kareocar.netlify.app/`
 
 MVP 不做 iframe、Backend Integration、Database Integration 或共用登入。
 
