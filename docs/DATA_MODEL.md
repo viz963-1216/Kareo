@@ -310,7 +310,7 @@ ASSISTIVE_DEVICE
 OTHER
 ```
 
-TRANSPORTATION MVP 不放 Provider，直接導流 taiwanjcare。
+TRANSPORTATION MVP 不放 Provider，直接導流 Kareocar。
 
 Provider Status：
 
@@ -617,7 +617,7 @@ Crawler FAILED 時，不得刪除舊 Knowledge，繼續使用 Last Published Kno
 
 # 29. ExternalService / 外部服務
 
-MVP 目前主要是 taiwanjcare。
+MVP 目前主要是 Kareocar。
 
 ```text
 id
@@ -632,9 +632,9 @@ active
 ```json
 {
   "id": "EXT-001",
-  "name": "taiwanjcare",
+  "name": "Kareocar",
   "serviceType": "TRANSPORTATION",
-  "url": "正式網址",
+  "url": "https://kareocar.netlify.app/",
   "active": true
 }
 ```
