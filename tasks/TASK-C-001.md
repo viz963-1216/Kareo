@@ -73,7 +73,7 @@ staging
 
 以 `PRODUCT_SPEC.md`、`API_CONTRACT.md`、`ARCHITECTURE.md` 為唯一規格來源。
 
-MVP 主要畫面：Homepage、Consent / Disclaimer、Assessment、Assessment Result、Service Recommendation、Provider Top 3、Provider Detail、Lead Form、Google Maps CTA、taiwanjcare CTA。
+MVP 主要畫面：Homepage、Consent / Disclaimer、Assessment、Assessment Result、Service Recommendation、Provider Top 3、Provider Detail、Lead Form、Google Maps CTA、Kareocar CTA。
 
 ---
 
@@ -96,7 +96,7 @@ MVP 主要畫面：Homepage、Consent / Disclaimer、Assessment、Assessment Res
 7. Mock Data 使用方式
 8. API Contract 對應方式
 9. Disclaimer / Preliminary Result 呈現位置
-10. Google Maps / taiwanjcare 外部導流方式
+10. Google Maps / Kareocar 外部導流方式
 11. RWD 策略
 12. Accessibility 基本考量
 13. 建議 Frontend 技術棧與理由
@@ -134,7 +134,9 @@ TRANSPORTATION
 ↓
 外部 CTA
 ↓
-taiwanjcare（New Tab）
+Kareocar（New Tab）
+↓
+https://kareocar.netlify.app/
 ```
 
 ---
@@ -190,7 +192,8 @@ ERROR
 - [ ] Loading / Success / Empty / Error 都有規劃
 - [ ] Mock Data 與 API Contract 對應方式清楚
 - [ ] Disclaimer 呈現位置清楚
-- [ ] taiwanjcare 為 External Link，不內嵌
+- [ ] Kareocar 為 External Link，不內嵌
+- [ ] Kareocar URL 使用 `https://kareocar.netlify.app/`
 - [ ] 提出技術棧建議，但沒有擅自修改 Root Config
 - [ ] 沒有修改 Backend
 - [ ] 沒有修改 Spec / Contract
@@ -208,7 +211,7 @@ ERROR
 4. 推薦的 Frontend 技術棧
 5. 為什麼推薦
 6. 哪些決策需要 Jerry 核准
-7. 是否修改 Allowed Paths 之外檔案
+7. 是否修改 Allowed Paths 以外檔案
 8. Known Issues
 ```
 
