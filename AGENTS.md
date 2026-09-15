@@ -365,28 +365,94 @@ Production
 
 ---
 
-# 18. 完成標準
+# 18. Version / Changelog Rule
+
+每一個 Feature PR 都必須提交「版次」與「更新內容」。
+
+## Task Submission Version
+
+A / B / C 不自行修改 Kareo 全站 Release Version。
+
+每張 Task 使用獨立 Submission Version：
+
+```text
+TASK-A-001 → A-001-r1
+TASK-B-003 → B-003-r1
+TASK-C-004 → C-004-r1
+```
+
+同一張 Task 如果被 Jerry 退回後重新提交，revision 依序增加：
+
+```text
+B-003-r1
+B-003-r2
+B-003-r3
+```
+
+不得重複使用舊 revision 代表不同內容。
+
+## Release Version
+
+Kareo 全站版本例如：
+
+```text
+v0.1.0
+v0.2.0
+v1.0.0
+```
+
+只有 Jerry 可以指定、修改與發布 Release Version。A / B / C 不自行 bump 全站版本。
+
+## Update Summary / Changelog
+
+每次提交 PR 必須列出本版更新內容，至少包含：
+
+```text
+Submission Version: B-003-r1
+
+Added:
+- 新增 Provider Recommendation Filter
+
+Changed:
+- 調整行政區 Stable Rotation 流程
+
+Fixed:
+- 修正沒有 Provider 時回傳 Error 的問題
+
+Known Issues:
+- None
+```
+
+沒有某一類更新時可寫 `None`，但不可省略 Submission Version 與 Update Summary。
+
+---
+
+# 19. 完成標準
 
 AI 完成 Task 後必須回報：
 
 ```text
-1. 完成哪些功能
-2. 修改哪些檔案
-3. 是否超出 Allowed Paths
-4. 測試結果
-5. Acceptance Criteria 是否全部通過
-6. 是否有 Known Issues
+1. Submission Version
+2. 本版更新內容 / Changelog
+3. 完成哪些功能
+4. 修改哪些檔案
+5. 是否超出 Allowed Paths
+6. 測試結果
+7. Acceptance Criteria 是否全部通過
+8. 是否有 Known Issues
 ```
 
 Feature PR 合併到 `staging` 只代表模組通過初步驗收，不代表 Production Complete。
 
 ---
 
-# 19. 最重要的規則
+# 20. 最重要的規則
 
 - 不確定：不要猜。
 - 需要跨模組：不要改。
 - 需要改 Spec：不要改。
 - Task 沒要求：不要做。
 - Feature PR 一律進 `staging`。
+- 每次 PR 必須填 Submission Version 與 Changelog。
+- 全站 Release Version 只由 Jerry 管理。
 - `main` 只由 Jerry 發布。
