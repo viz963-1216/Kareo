@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — Git Collaboration Rules
 
-Version: v0.2  
+Version: v0.3  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -19,6 +19,7 @@ Owner: Jerry
 - staging 作為唯一整合區
 - main 永遠保持正式可部署
 - Jerry 負責最後整合與發布
+- 每次提交都有可追蹤的版次與更新紀錄
 
 ---
 
@@ -28,7 +29,7 @@ Owner: Jerry
 
 角色：Product Owner / Spec Owner / Integration Owner / Release Owner。
 
-負責建立 Task、Review PR、修改 Spec / Contract、整合 staging、Release 到 main、Deploy。
+負責建立 Task、Review PR、修改 Spec / Contract、整合 staging、Release 到 main、Deploy，以及管理 Kareo 全站 Release Version。
 
 ## Engineer A / 工程師 A
 
@@ -113,6 +114,8 @@ A / B / C 禁止直接 Push staging。
 Code
 ↓
 Test
+↓
+整理 Submission Version + Changelog
 ↓
 Push Feature Branch
 ↓
@@ -287,11 +290,102 @@ data(A-002): add provider records
 
 ---
 
-# 14. Pull Request Rule
+# 14. Version Rule / 版次規則
+
+每個 Feature PR 必須填寫 `Submission Version`。
+
+## Task Submission Version
+
+格式：
+
+```text
+<Engineer>-<Task Number>-r<Revision>
+```
+
+例如：
+
+```text
+A-001-r1
+B-003-r1
+C-004-r1
+```
+
+同一張 Task 若經 Jerry Review 後退回修改，再提交時 revision 必須增加：
+
+```text
+B-003-r1 → B-003-r2 → B-003-r3
+```
+
+不得使用相同 Submission Version 代表不同內容。
+
+## Kareo Release Version
+
+全站版本例如：
+
+```text
+v0.1.0
+v0.2.0
+v1.0.0
+```
+
+A / B / C 不得自行修改或決定 Kareo 全站 Release Version。
+
+只有 Jerry 可以在整合與 Release 階段指定、調整與發布 Release Version。
+
+---
+
+# 15. Changelog Rule / 更新內容規則
+
+每一個 Feature PR 都必須提交本版更新內容。
+
+至少包含：
+
+```text
+Submission Version: B-003-r1
+
+Added:
+- 本版新增內容
+
+Changed:
+- 本版調整內容
+
+Fixed:
+- 本版修正內容
+
+Known Issues:
+- 已知問題
+```
+
+沒有內容的分類填 `None`。
+
+禁止只寫：
+
+```text
+Done
+Update
+Fixed stuff
+完成
+```
+
+更新內容必須具體到 Jerry 可以不讀完整 Diff 就理解這個版本改了什麼。
+
+---
+
+# 16. Pull Request Rule
 
 一般 Task 完成後一定建立 PR。
 
 **Base Branch 必須是 `staging`。**
+
+每個 Feature PR 必須包含：
+
+- Task ID
+- Submission Version
+- Added / Changed / Fixed
+- Known Issues
+- 修改範圍
+- Test 結果
+- Acceptance Criteria
 
 PR Title：
 
@@ -309,22 +403,24 @@ staging → main
 
 ---
 
-# 15. Jerry Review Checklist
+# 17. Jerry Review Checklist
 
 Jerry 至少確認：
 
 1. PR Base 是否為 staging
 2. Task 是否完成
-3. 是否修改 Forbidden Paths
-4. 是否改到其他 Ownership
-5. 是否偷偷改 Spec / API Contract / Schema
-6. 測試是否通過
-7. 是否加入 Task 未要求的新功能
-8. 是否有 Known Issues
+3. Submission Version 是否正確
+4. Changelog 是否清楚且與實際修改一致
+5. 是否修改 Forbidden Paths
+6. 是否改到其他 Ownership
+7. 是否偷偷改 Spec / API Contract / Schema
+8. 測試是否通過
+9. 是否加入 Task 未要求的新功能
+10. 是否有 Known Issues
 
 ---
 
-# 16. Vibe Coding 特別規則
+# 18. Vibe Coding 特別規則
 
 AI 不得自行：
 
@@ -339,7 +435,7 @@ Task 沒寫，就不要做。
 
 ---
 
-# 17. Merge Strategy
+# 19. Merge Strategy
 
 Feature PR：
 
@@ -359,7 +455,7 @@ staging → main
 
 ---
 
-# 18. Branch Protection 建議
+# 20. Branch Protection 建議
 
 ## main
 
@@ -390,7 +486,7 @@ A / B / C 不應直接 Push main 或 staging。
 
 ---
 
-# 19. Collaborator 權限
+# 21. Collaborator 權限
 
 團員只需要能：
 
@@ -405,7 +501,7 @@ A / B / C 不應直接 Push main 或 staging。
 
 ---
 
-# 20. Preview / Staging / Production
+# 22. Preview / Staging / Production
 
 ```text
 LOCAL       → 個人開發
@@ -422,7 +518,7 @@ main 才能部署 Production。
 
 ---
 
-# 21. Conflict Rule
+# 23. Conflict Rule
 
 若 Merge Conflict 涉及其他人的 Ownership，停止並交 Jerry。
 
@@ -430,7 +526,7 @@ main 才能部署 Production。
 
 ---
 
-# 22. Bug Rule
+# 24. Bug Rule
 
 發現其他人的 Bug：
 
@@ -446,7 +542,7 @@ Jerry 分配
 
 ---
 
-# 23. Secret Rule
+# 25. Secret Rule
 
 禁止 Commit API Key、Database Password、Token、Private Key。
 
@@ -454,18 +550,43 @@ Jerry 分配
 
 ---
 
-# 24. Dependency Upgrade
+# 26. Dependency Upgrade
 
 AI 建議升級 React / Node / Database Library 等依賴時，不得自行執行，先交 Jerry 決定。
 
 ---
 
-# 25. Definition of Done
+# 27. Completion Report Rule
+
+完成 Task 時，A / B / C 與其 AI 必須回報：
+
+```text
+1. Task ID
+2. Submission Version
+3. Added
+4. Changed
+5. Fixed
+6. 修改檔案
+7. Test 結果
+8. Acceptance Criteria
+9. Known Issues
+10. 是否修改 Allowed Paths 之外檔案
+```
+
+缺少 Submission Version 或 Changelog，不視為可 Review 的完整提交。
+
+---
+
+# 28. Definition of Done
 
 ## Module Complete
 
 ```text
 功能完成
++
+Submission Version 已提交
++
+Changelog 已提交
 +
 Acceptance Criteria 通過
 +
@@ -493,6 +614,8 @@ E2E Test
 ```text
 Integrated
 +
+Jerry 指定 Release Version
++
 Release PR staging → main
 +
 Production Deploy
@@ -502,7 +625,7 @@ Production Verification
 
 ---
 
-# 26. 最重要的七條規則
+# 29. 最重要的九條規則
 
 1. 不直接改 main。
 2. 不直接改 staging。
@@ -510,11 +633,13 @@ Production Verification
 4. Feature PR 回 staging。
 5. 只改自己的 Allowed Paths。
 6. Spec / Contract 不自行改。
-7. 最後整合與發布交給 Jerry。
+7. 每次 PR 都提交 Submission Version。
+8. 每次 PR 都提交 Changelog。
+9. 最後整合、Release Version 與發布交給 Jerry。
 
 ---
 
-# 27. Source of Truth
+# 30. Source of Truth
 
 ```text
 PRODUCT_SPEC.md
