@@ -2,6 +2,14 @@
 
 TASK-XXX
 
+## Submission Version / 提交版次
+
+<!-- 格式：A-001-r1 / B-003-r2 / C-004-r1 -->
+
+`X-XXX-r1`
+
+> 同一 Task 若被退回後重新提交，revision 必須遞增。Kareo 全站 Release Version 由 Jerry 管理，A / B / C 不自行修改。
+
 ## PR Type
 
 - [ ] Feature PR → `staging`
@@ -11,6 +19,26 @@ TASK-XXX
 
 - [ ] 一般工程 Task 的 Base Branch 是 `staging`
 - [ ] 如果 Base 是 `main`，本 PR 是 Jerry 建立的 staging → main Release PR
+
+## Changelog / 本版更新內容
+
+### Added
+
+- None
+
+### Changed
+
+- None
+
+### Fixed
+
+- None
+
+### Known Issues
+
+- None
+
+> 不可只寫 Done / Update / Fixed stuff。請具體描述本版新增、調整與修正內容。
 
 ## 完成內容
 
@@ -70,12 +98,10 @@ N/A
 
 None
 
-## Known Issues / 已知問題
-
-None
-
 ## AI Completion Report
 
+- [ ] AI 已回報 Submission Version
+- [ ] AI 已回報 Added / Changed / Fixed
 - [ ] AI 已回報完成哪些功能
 - [ ] AI 已列出修改檔案
 - [ ] AI 已確認沒有超出 Allowed Paths
