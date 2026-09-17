@@ -1,0 +1,195 @@
+{
+    "providers": [
+      {
+        "id": "PROV-001",
+        "name": "測試居家照顧中心 A",
+        "type": "HOME_CARE",
+        "address": "新北市三重區測試路100號",
+        "city": "新北市",
+        "district": "三重區",
+        "lat": null,
+        "lng": null,
+        "phone": "02-00000001",
+        "website": null,
+        "googleMapsUrl": null,
+        "status": "ACTIVE",
+        "verified": false,
+        "createdAt": "2026-09-17T20:00:00+08:00",
+        "updatedAt": "2026-09-17T20:00:00+08:00"
+        },
+       {
+        "id": "PROV-002",
+        "name": "測試居家照顧中心 B",
+        "type": "HOME_CARE",
+        "address": "新北市三重區測試路100號",
+        "city": "新北市",
+        "district": "三重區",
+        "lat": null,
+        "lng": null,
+        "phone": "02-00000002",
+        "website": null,
+        "googleMapsUrl": null,
+        "status": "ACTIVE",
+        "verified": false,
+        "createdAt": "2026-09-17T20:00:00+08:00",
+        "updatedAt": "2026-09-17T20:00:00+08:00"
+       },
+       {
+        "id": "PROV-003",
+        "name": "測試居家醫療護理中心 A",
+        "type": "HOME_MEDICAL_NURSING",
+        "address": "台北市中山區測試路300號",
+        "city": "台北市",
+        "district": "中山區",
+        "lat": null,
+        "lng": null,
+        "phone": "02-00000003",
+        "website": null,
+        "googleMapsUrl": null,
+        "status": "ACTIVE",
+        "verified": false,
+        "createdAt": "2026-09-17T20:00:00+08:00",
+        "updatedAt": "2026-09-17T20:00:00+08:00"
+      },
+      {
+        "id": "PROV-004",
+        "name": "測試居家醫療護理中心 B",
+        "type": "HOME_MEDICAL_NURSING",
+        "address": "新北市板橋區測試路400號",
+        "city": "新北市",
+        "district": "板橋區",
+        "lat": null,
+        "lng": null,
+        "phone": "02-00000004",
+        "website": null,
+        "googleMapsUrl": null,
+        "status": "ACTIVE",
+        "verified": false,
+        "createdAt": "2026-09-17T20:00:00+08:00",
+        "updatedAt": "2026-09-17T20:00:00+08:00"
+      },
+      {
+        "id": "PROV-005",
+        "name": "測試輔具服務中心 A",
+        "type": "ASSISTIVE_DEVICE",
+        "address": "台北市大同區測試路500號",
+        "city": "台北市",
+        "district": "大同區",
+        "lat": null,
+        "lng": null,
+        "phone": "02-00000005",
+        "website": null,
+        "googleMapsUrl": null,
+        "status": "ACTIVE",
+        "verified": false,
+        "createdAt": "2026-09-17T20:00:00+08:00",
+        "updatedAt": "2026-09-17T20:00:00+08:00"
+      },
+      {
+        "id": "PROV-006",
+        "name": "測試輔具服務中心 B",
+        "type": "ASSISTIVE_DEVICE",
+        "address": "新北市新店區測試路600號",
+        "city": "新北市",
+        "district": "新店區",
+        "lat": null,
+        "lng": null,
+        "phone": "02-00000006",
+        "website": null,
+        "googleMapsUrl": null,
+        "status": "ACTIVE",
+        "verified": false,
+        "createdAt": "2026-09-17T20:00:00+08:00",
+        "updatedAt": "2026-09-17T20:00:00+08:00"
+      }
+    ],
+    "providerServices": [
+        {
+            "id": "PSV-001",
+            "providerId": "PROV-001",
+            "serviceType": "HOME_CARE",
+            "active": true
+          },
+          {
+            "id": "PSV-002",
+            "providerId": "PROV-002",
+            "serviceType": "HOME_CARE",
+            "active": true
+          },
+          {
+            "id": "PSV-003",
+            "providerId": "PROV-003",
+            "serviceType": "HOME_MEDICAL_NURSING",
+            "active": true
+          },
+          {
+            "id": "PSV-004",
+            "providerId": "PROV-004",
+            "serviceType": "HOME_MEDICAL_NURSING",
+            "active": true
+          },
+          {
+            "id": "PSV-005",
+            "providerId": "PROV-005",
+            "serviceType": "ASSISTIVE_DEVICE",
+            "active": true
+          },
+          {
+            "id": "PSV-006",
+            "providerId": "PROV-006",
+            "serviceType": "ASSISTIVE_DEVICE",
+            "active": true
+          }
+    ],
+    "providerServiceAreas": [
+        {
+            "id": "PSA-001",
+            "providerId": "PROV-001",
+            "city": "新北市",
+            "district": "三重區",
+            "active": true
+          },
+          {
+            "id": "PSA-002",
+            "providerId": "PROV-001",
+            "city": "新北市",
+            "district": "蘆洲區",
+            "active": true
+          },
+          {
+            "id": "PSA-003",
+            "providerId": "PROV-002",
+            "city": "新北市",
+            "district": "三重區",
+            "active": true
+          },
+          {
+            "id": "PSA-004",
+            "providerId": "PROV-003",
+            "city": "台北市",
+            "district": "中山區",
+            "active": true
+          },
+          {
+            "id": "PSA-005",
+            "providerId": "PROV-004",
+            "city": "新北市",
+            "district": "板橋區",
+            "active": true
+          },
+          {
+            "id": "PSA-006",
+            "providerId": "PROV-005",
+            "city": "台北市",
+            "district": "大同區",
+            "active": true
+          },
+          {
+            "id": "PSA-007",
+            "providerId": "PROV-006",
+            "city": "新北市",
+            "district": "新店區",
+            "active": true
+          }
+    ]
+  }
