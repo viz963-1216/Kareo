@@ -4,6 +4,17 @@ Kareo 是一個提供給可能有長照需求之本人與家屬使用的免費�
 
 平台提供的是**初步預估、資訊整理與服務導引**，不代表政府正式長照資格、CMS 等級或補助核定結果。正式資格與服務內容仍應由 1966 或所在地長期照顧管理中心評估確認。
 
+
+## 專案導覽
+
+- [目前任務、依賴與 10/22 里程碑](tasks/README.md)
+- [開發規則](AGENTS.md)、[架構](docs/ARCHITECTURE.md)、[API Contract](docs/API_CONTRACT.md)
+- [部署與環境設定](docs/DEPLOYMENT.md)
+- [前端 Mock Contract](contracts/mock/README.md)、[Provider 資料說明](data/providers/README.md)
+- [歷史規劃封存](docs/archive/FOUNDATION_PLANS.md)：僅供追溯，不作為目前開工指令。
+
+`apps/api` 放後端實作，`apps/web` 待 C 的前端任務交付；`services/*` 在對應模組實作時建立。`deploy/staging` 是前端完成前仍由建置腳本使用的暫時頁面，不能提前刪除。測試、migration、lockfile 與 Mock 範例均為必要開發檔案。
+
 ---
 
 ## 開發模式
