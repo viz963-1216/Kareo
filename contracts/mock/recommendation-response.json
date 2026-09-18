@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "data": {
+    "recommendationId": "REC-MOCK-001",
+    "serviceType": "HOME_CARE",
+    "rankingType": "DISTRICT_ROTATION",
+    "locationPrecision": "DISTRICT",
+    "providers": [
+      {
+        "id": "PROV-MOCK-001",
+        "name": "測試居家照顧中心",
+        "type": "HOME_CARE",
+        "address": "新北市三重區重新路一段100號",
+        "district": "三重區",
+        "phone": "02-12345678",
+        "website": null,
+        "googleMapsUrl": "https://maps.google.com/",
+        "verified": false,
+        "rank": 1,
+        "distanceKm": null,
+        "reasons": [
+          "服務範圍包含三重區",
+          "提供您需要的居家照顧服務"
+        ]
+      }
+    ],
+    "notice": "目前依您提供的行政區推薦符合條件的服務單位。因尚未提供精確位置，此結果並非依實際距離排序。"
+  }
+}

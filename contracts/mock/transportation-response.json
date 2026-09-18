@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "data": {
+    "id": "EXT-001",
+    "name": "Kareocar",
+    "serviceType": "TRANSPORTATION",
+    "url": "https://kareocar.netlify.app/",
+    "openMode": "NEW_TAB",
+    "notice": "此服務將前往外部 Kareocar 平台。"
+  }
+}

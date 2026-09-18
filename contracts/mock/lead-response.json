@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "data": {
+    "leadId": "LEAD-MOCK-001",
+    "status": "NEW",
+    "createdAt": "2026-09-18T16:10:00+08:00"
+  }
+}

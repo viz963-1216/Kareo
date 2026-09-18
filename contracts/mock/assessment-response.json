@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "data": {
+    "assessmentId": "ASM-MOCK-001",
+    "knowledgeVersion": "KB-MOCK-001",
+    "careNeedProfile": {
+      "id": "CNP-MOCK-001",
+      "careNeeds": [
+        "HOME_CARE",
+        "ASSISTIVE_DEVICE",
+        "TRANSPORTATION"
+      ],
+      "priority": [
+        "HOME_CARE",
+        "TRANSPORTATION",
+        "ASSISTIVE_DEVICE"
+      ],
+      "summary": "依目前提供的資訊，可能優先需要居家照顧協助，並有交通及輔具相關需求。",
+      "warnings": [
+        "本結果僅為初步預估。",
+        "實際資格、長照等級與補助仍需由正式長照評估確認。"
+      ]
+    }
+  }
+}
