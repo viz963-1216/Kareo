@@ -190,3 +190,8 @@ Crawler 不得直接修改正式 Assessment Rule。
 [B-001] Backend Foundation Plan
 Feature Branch → staging
 ```
+
+
+## 歷史交付封存（2026-09-19）
+
+本任務已合併。原交付路徑列於上方作為歷史紀錄；規劃原文現集中於 [FOUNDATION_PLANS.md](../docs/archive/FOUNDATION_PLANS.md)，不需重建舊檔。後續工作依目前任務總表與正式規格。
