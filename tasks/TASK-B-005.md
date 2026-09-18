@@ -119,3 +119,11 @@ PR Title：
 ```text
 [B-005] Recommendation Engine + API
 ```
+
+---
+
+## 2026-09-19 MVP 補充驗收與依賴
+
+正式驗收使用通過 A-004 的資料與 A-005 cases；Assessment/session 歸屬依 J-002 核准規格檢查。地點不足、無座標、不足三家及 0 家皆按既有 contract 處理，不補假 Provider。跨模組真實鏈路由 J-003 驗收。
+
+此補充不授權改寫高順位規格；所需規格更新由 TASK-J-002 先合併。

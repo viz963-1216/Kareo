@@ -55,3 +55,11 @@ Backend Lead、CRM、Payment、Production Deploy。
 PR 必須包含 Submission Version、Added / Changed / Fixed、Tests、Known Issues、Scope Check。
 
 PR Title：`[C-005] Lead Flow + Final MVP UX QA`
+
+---
+
+## 2026-09-19 MVP 補充驗收與依賴
+
+補驗收 J-002 隱私與同意版本、清除/重新開始 session 流程、送出期間防重複點擊、失敗可重試且不顯示假成功。健康回答/姓名電話/token 不進 URL 或 console；不任意長期保存於 localStorage。Lead 成功須以 API 成功回覆為準；說明接件方式/時程依核准文案，不宣稱已完成媒合。Mock 驗收與 J-003 真實 E2E 分別標記。
+
+此補充不授權改寫高順位規格；所需規格更新由 TASK-J-002 先合併。
