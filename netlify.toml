@@ -1,0 +1,46 @@
+[build]
+  base = "."
+  command = "npm ci --prefix apps/api && npm run typecheck --prefix apps/api && npm test --prefix apps/api && node scripts/build-site.mjs"
+  publish = "dist"
+  functions = "apps/api/src/functions"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/api/v1/session"
+  to = "/.netlify/functions/session"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/consent"
+  to = "/.netlify/functions/consent"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/*"
+  to = "/api-not-found.json"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-store"
