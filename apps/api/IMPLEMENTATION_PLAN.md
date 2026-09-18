@@ -2,9 +2,22 @@
 
 Task: TASK-B-001
 Owner: Engineer B
-Status: DRAFT — 待 Jerry 核准
+Submission Version: B-001-r2
+Status: DRAFT — 技術棧已由 Jerry 核准（2026-09-18），其餘決策待確認
 
 本文件依 `docs/PRODUCT_SPEC.md`、`docs/ARCHITECTURE.md`、`docs/DATA_MODEL.md`、`docs/API_CONTRACT.md` 撰寫，僅為 Backend 第一階段實作計畫，不包含實際程式碼與框架安裝。若本文件與上述 Spec 衝突，以 Spec 為準。
+
+## Revision Note（B-001-r2）
+
+Jerry 於 2026-09-18 核准技術棧方向（延續 Kareocar 現有架構）：
+
+- Backend 語言／框架：**Node.js + TypeScript**（不採 Python + FastAPI）
+- Supabase 用途限定為 **PostgreSQL Database + Auth**，前端不得直接依賴 Supabase 自動產生的 API 完成核心業務流程
+- Recommendation Engine、Knowledge PUBLISHED 判斷、Consent 檢查、Lead 等業務邏輯，一律由**自訂 Backend API / Netlify Functions** 處理，再讀寫 Supabase
+- 暫不使用 Postgres Function 或 Supabase Edge Functions 承載核心業務邏輯
+- 前端同樣採 JS/TypeScript，未來前後端可共用型別
+
+本節取代 r1 版本第 8 節的「兩方案並列提案」，詳見下方第 8 節。
 
 ---
 
@@ -163,33 +176,52 @@ Engineer B 測試範圍不含 Frontend E2E（屬 Jerry 在 staging 的整合測�
 
 ---
 
-## 8. 建議技術棧（Jerry 決定用）
+## 8. 核准技術棧（Jerry 已於 2026-09-18 核准）
 
-目前 Repository 尚無已核准 Backend Framework，提出兩個方案：
+延續 Kareocar 現有做法，Backend 架構採：
 
-### 方案 A：Node.js + TypeScript + Express（或 Fastify）+ PostgreSQL + Prisma
+```text
+Frontend（JS/TypeScript）
+  ↓ API Contract（固定格式，非 Supabase 自動 API）
+自訂 Backend API（Node.js + TypeScript，可能以 Netlify Functions 部署）
+  ↓
+Supabase（僅作 PostgreSQL Database + Auth）
+```
 
-- 優點：與前端（若 Engineer C 選 React/Next.js）共用 JS/TS 生態，型別可與 Contract 共用；Prisma 對應 `DATA_MODEL.md` 的 Schema 定義直覺；Vibe Coding 友善（AI 對 TS/Node 生態熟悉度高）；部署選項多（Vercel / Railway / Render）。
-- 缺點：Recommendation 排序邏輯若計算量大，需注意 Node 單執行緒特性；團隊需熟悉 Prisma migration 流程。
+### 核准內容
 
-### 方案 B：Python + FastAPI + PostgreSQL + SQLAlchemy
+- **Backend 語言／框架**：Node.js + TypeScript（Express 或 Fastify，具體框架屬實作階段細節，不影響本計畫）
+- **Database**：Supabase（PostgreSQL），**僅用於資料儲存與 Auth**，不作為主要 API 層
+- **業務邏輯歸屬**：Recommendation Engine、Knowledge PUBLISHED 判斷、Consent 檢查、Lead 建立等，一律寫在自訂 Backend API（`/apps/api`）與 `/services/**`，再讀寫 Supabase；**不**使用 Supabase 自動產生的 REST API 承載這些邏輯，**不**使用 Postgres Function，**不**使用 Supabase Edge Functions 承載核心業務邏輯
+- **部署型態**：延續 Kareocar 模式，可能以 Netlify Functions 或同等 Serverless Function 部署自訂 API（是否採用 Netlify Functions 或獨立 Node Server，留待實作階段依部署環境細節確認，不影響本文件已規劃的模組劃分）
+- **前端**：JS/TypeScript，未來前後端可共用 TypeScript 型別定義（例如把 `API_CONTRACT.md` 介面定義成共用 `.ts` type）
 
-- 優點：FastAPI 自動產生 OpenAPI 文件，利於與 `API_CONTRACT.md` 對照；Python 生態對未來 Knowledge/Crawler 的資料處理、NLP（若需要）較豐富；Type Safety 可用 Pydantic 達成。
-- 缺點：與 Frontend（多半是 JS/TS 生態）型別無法直接共用；團隊若無 Python 經驗，Vibe Coding 上手成本略高。
+### 理由
 
-**兩方案皆使用 PostgreSQL** 作為主要資料庫（符合關聯式資料如 Provider/Assessment/Knowledge 之間的外鍵關係），Crawler 排程建議用 Cron（部署平台原生排程或 node-cron / APScheduler）。
+- 與 Kareocar 既有架構一致，降低未來兩系統整合或团队維護的認知負擔
+- Node.js + TypeScript 與前端（JS/TS 生態）共用型別，降低 Contract 不一致風險
+- Supabase 僅承擔 Database/Auth，避免業務邏輯（尤其是「AI 不得自己選 Provider」「Knowledge 需 Review/Publish Gate」等強制規則）繞過自訂 API 而被 Supabase 自動 API 曝露或繞過
 
-本文件僅提案，**未安裝任何套件、未修改 Root Config**，最終技術棧由 Jerry 核准後才會在後續 Task 落地。
+Crawler 排程沿用第 5 節規劃，執行環境（Serverless Scheduled Function / 獨立 Worker）待第 9 節確認。
+
+本文件不含實際安裝套件、不含 Root Config 異動；套件安裝與專案初始化留待下一張實作 Task。
 
 ---
 
 ## 9. 需 Jerry 核准的決策
 
-- [ ] Backend 技術棧（方案 A vs 方案 B，或其他）
-- [ ] Database 選型與 Hosting（例如 Supabase / Railway / 自架 PostgreSQL）
+已核准（2026-09-18）：
+
+- [x] Backend 技術棧 → Node.js + TypeScript
+- [x] Database 選型與 Hosting → Supabase（僅 Database + Auth，不作主要 API 層）
+
+尚待確認：
+
+- [ ] 自訂 Backend API 的實際部署型態（Netlify Functions vs 獨立 Node Server / 其他 Serverless 平台）
 - [ ] Knowledge Admin Review 介面歸屬（獨立 Admin 前端？併入現有 Frontend？CLI 工具？）
-- [ ] Crawler 排程執行環境（Serverless Cron、獨立 Worker、或 CI Scheduled Job）
+- [ ] Crawler 排程執行環境（Serverless Scheduled Function、獨立 Worker、或 CI Scheduled Job）
 - [ ] AI Adapter（Assessment 用於生成 CareNeedProfile 的 LLM 供應商）選型，需符合 `ARCHITECTURE.md` 第 8 節 AI Architecture 的 Adapter 隔離原則
+- [ ] Node.js Backend 框架細節（Express / Fastify / 其他）與 ORM／DB Client 選擇（例如 Prisma 或 Supabase 官方 JS Client）
 
 ---
 
