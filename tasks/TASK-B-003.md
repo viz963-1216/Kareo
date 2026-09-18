@@ -427,3 +427,11 @@ PR Title：
 ```text
 [B-003] Assessment API + AI Adapter Foundation
 ```
+
+---
+
+## 2026-09-19 MVP 補充驗收與依賴
+
+B-003 只交付 Assessment API/adapter 基礎，不代表正式評估完成。B-008 提供發布知識，B-010 交付真實 adapter；正式 release 需兩者及 J-003 E2E。Fake 與測試知識只能用於測試。
+
+此補充不授權改寫高順位規格；所需規格更新由 TASK-J-002 先合併。
