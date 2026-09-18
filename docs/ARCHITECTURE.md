@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — System Architecture
 
-Version: v0.2  
+Version: v0.3  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -478,3 +478,96 @@ Code
 ```
 
 若衝突，停止修改並交由 Jerry 決定。
+
+
+---
+
+# 19. Approved MVP Technology Stack / 已核准技術棧
+
+MVP 技術棧已由 Jerry 核准如下：
+
+## Frontend
+
+```text
+React
+Vite
+TypeScript
+React Router
+```
+
+Frontend application 維持於：
+
+```text
+/apps/web/**
+```
+
+Engineer C 可在 `/apps/web/**` 內建立該 App 自己的 package / TypeScript / Vite configuration。
+
+Repository Root Config 仍由 Jerry 管理。
+
+## Backend
+
+```text
+Node.js
+TypeScript
+Netlify Functions / Serverless API
+```
+
+Backend application 維持於：
+
+```text
+/apps/api/**
+```
+
+## Database / Auth
+
+```text
+Supabase
+├── PostgreSQL
+└── Auth
+```
+
+Supabase 主要作為 Database / Auth / Server-side persistence layer。
+
+核心 Business Logic 不直接交給 Supabase Auto API。
+
+正式資料流：
+
+```text
+React Frontend
+↓
+Kareo /api/v1 Backend
+↓
+Service / Business Logic
+↓
+Repository / Adapter
+↓
+Supabase PostgreSQL
+```
+
+## Deployment
+
+```text
+Netlify
+├── Frontend
+└── Netlify Functions
+```
+
+Branch / Environment：
+
+```text
+Feature Branch → PREVIEW
+staging        → STAGING
+main           → PRODUCTION
+```
+
+STAGING 與 PRODUCTION 必須使用不同 Environment Variables / Secrets。
+
+## AI Provider
+
+AI Provider 尚未鎖定。
+
+所有 AI 能力必須透過 Adapter Boundary，禁止直接把 OpenAI / Claude / Gemini SDK 散落在 Business Logic 中。
+
+在 AI Provider 正式選型前，Backend 必須能使用 Fake / Deterministic Adapter 完成測試。
+
