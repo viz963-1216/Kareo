@@ -2,7 +2,7 @@
 
 Owner: Engineer C — Frontend  
 Type: Frontend / MVP Implementation  
-Status: READY AFTER C-001 APPROVAL
+Status: READY
 
 ---
 
@@ -38,11 +38,18 @@ Deployment Target：
 Netlify
 ```
 
-實際 Framework 以 Jerry 已核准的 C-001 技術方案為準。
+Jerry 已正式核准：
 
-如果 C-001 尚未核准 Framework：
+```text
+React
+Vite
+TypeScript
+React Router
+```
 
-**不要自行安裝新的 Framework 或修改 Root Config，先回報 Jerry。**
+Engineer C 可在 `/apps/web/**` 內建立該 App 自己的 package / Vite / TypeScript configuration。
+
+不得修改 Repository Root Config；若部署需要 Root Config，回報 Jerry。
 
 ---
 
