@@ -65,6 +65,19 @@ function isNullableNumber(value: unknown): value is number | null {
   return value === null || value === undefined || typeof value === "number";
 }
 
+// 依 tasks/TASK-B-003.md 流程圖，Consent Gate 必須先於完整欄位驗證執行，
+// 這裡只做「找出 sessionId」這個最小前置動作，不做其他欄位檢查。
+export function extractSessionId(body: unknown): string {
+  if (typeof body !== "object" || body === null) {
+    throw new AppError("INVALID_REQUEST", "請求格式錯誤。");
+  }
+  const input = body as Record<string, unknown>;
+  if (!isNonEmptyString(input.sessionId)) {
+    throw new AppError("VALIDATION_ERROR", "缺少有效的 sessionId。");
+  }
+  return input.sessionId;
+}
+
 // 依 tasks/TASK-B-003.md「Assessment Validation」逐欄位檢查，不得因為 AI 比較方便就把欄位格式改掉。
 export function validateCreateAssessmentInput(body: unknown): CreateAssessmentInput {
   if (typeof body !== "object" || body === null) {
@@ -171,9 +184,13 @@ export async function createAssessment(
   deps: AssessmentServiceDeps,
   body: unknown
 ): Promise<CreateAssessmentResult> {
-  const input = validateCreateAssessmentInput(body);
+  // 依 tasks/TASK-B-003.md 流程：Valid Session -> Valid Consent Gate -> Assessment Input Validation。
+  // 先只取出 sessionId 確認 Consent Gate，再進行完整欄位驗證，避免在確認使用者已同意前，
+  // 就先深入解析/驗證整份 Assessment 內容。
+  const sessionId = extractSessionId(body);
+  await requireValidConsent(deps.sessionRepo, deps.consentRepo, sessionId);
 
-  await requireValidConsent(deps.sessionRepo, deps.consentRepo, input.sessionId);
+  const input = validateCreateAssessmentInput(body);
 
   const knowledgeVersion = await deps.knowledgeVersionResolver.resolvePublishedVersion();
   if (!knowledgeVersion) {

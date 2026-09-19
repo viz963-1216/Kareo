@@ -95,6 +95,38 @@ describe("Assessment", () => {
     await expect(createAssessment(deps, body)).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
   });
 
+  it("Consent Gate runs before full field validation (CONSENT_REQUIRED takes priority over invalid fields)", async () => {
+    // 依 tasks/TASK-B-003.md 流程圖：Valid Session -> Valid Consent Gate -> Assessment Input Validation。
+    // 沒有 Consent 時，即使其餘欄位也不合法，仍必須回 CONSENT_REQUIRED，而不是 VALIDATION_ERROR。
+    const { deps } = await buildDeps();
+    const body = { ...validBody, sessionId: "SES-NO-CONSENT", ageRange: "NOT_A_REAL_AGE_RANGE" };
+
+    await expect(createAssessment(deps, body)).rejects.toMatchObject({ code: "CONSENT_REQUIRED" });
+  });
+
+  it("a rejected consent submission (accepted=false) never allows an Assessment to proceed", async () => {
+    // 對應 tasks/TASK-B-003.md Testing 第 3 項：accepted=false 不得通過。
+    // 依 B-002 的 Consent 設計，accepted=false 的請求本來就不會建立 Consent 記錄，
+    // 這裡驗證端對端行為：曾經送過 accepted=false 的 Session，之後嘗試 Assessment 仍應被 CONSENT_REQUIRED 擋下。
+    const sessionRepo = new InMemorySessionRepository();
+    const consentRepo = new InMemoryConsentRepository();
+    const session = await sessionRepo.createSession();
+
+    // 模擬使用者送出 accepted=false：consentService 會拒絕，consentRepo 不會有任何紀錄。
+    expect(consentRepo.consents).toHaveLength(0);
+
+    const deps: AssessmentServiceDeps = {
+      sessionRepo,
+      consentRepo,
+      assessmentRepo: new InMemoryAssessmentRepository(),
+      aiAdapter: new FakeAssessmentAIAdapter(),
+      knowledgeVersionResolver: new FakePublishedKnowledgeVersionResolver("KB-TEST-001"),
+    };
+    const body = { ...validBody, sessionId: session.id };
+
+    await expect(createAssessment(deps, body)).rejects.toMatchObject({ code: "CONSENT_REQUIRED" });
+  });
+
   it("validateCreateAssessmentInput rejects invalid enum values", () => {
     expect(() => validateCreateAssessmentInput({ ...validBody, mobilityLevel: "FLYING" })).toThrow(AppError);
   });
