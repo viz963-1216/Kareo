@@ -32,4 +32,29 @@ export class SupabaseConsentRepository implements ConsentRepository {
 
     return consent;
   }
+
+  async findLatestBySession(sessionId: string): Promise<Consent | null> {
+    const client = getSupabaseClient();
+    const { data, error } = await client
+      .from("consents")
+      .select("id, session_id, disclaimer_version, privacy_version, terms_version, accepted_at")
+      .eq("session_id", sessionId)
+      .order("accepted_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (error) {
+      throw new AppError("INTERNAL_ERROR", "無法確認 Consent 狀態，請稍後再試。");
+    }
+    if (!data) return null;
+
+    return {
+      id: data.id,
+      sessionId: data.session_id,
+      disclaimerVersion: data.disclaimer_version,
+      privacyVersion: data.privacy_version,
+      termsVersion: data.terms_version,
+      acceptedAt: data.accepted_at,
+    };
+  }
 }
