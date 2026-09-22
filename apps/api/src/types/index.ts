@@ -220,3 +220,26 @@ export interface ProviderImportReport {
   serviceAreasAccepted: number;
   serviceAreasRejected: Array<{ record: RawProviderServiceAreaRecord; reasons: string[] }>;
 }
+
+// 依 docs/DATA_MODEL.md 第 29 節。MVP 僅有 Kareocar 一筆，TASK-B-007 明確禁止
+// 做 Kareocar backend/database 整合，因此本欄位不對應任何資料表，僅為靜態設定型別。
+export type ExternalServiceType = "TRANSPORTATION";
+export type ExternalServiceOpenMode = "NEW_TAB";
+
+export interface ExternalService {
+  id: string;
+  name: string;
+  serviceType: ExternalServiceType;
+  url: string;
+  active: boolean;
+}
+
+// 依 docs/API_CONTRACT.md 第 11 節 Response 格式。
+export interface ExternalServiceResponse {
+  id: string;
+  name: string;
+  serviceType: ExternalServiceType;
+  url: string;
+  openMode: ExternalServiceOpenMode;
+  notice: string;
+}
