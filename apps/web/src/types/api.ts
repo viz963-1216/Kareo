@@ -4,6 +4,9 @@ export type CareNeed =
   | "HOME_MEDICAL_NURSING"
   | "ASSISTIVE_DEVICE"
   | "TRANSPORTATION";
+export type RecommendationServiceType = Exclude<CareNeed, "TRANSPORTATION">;
+export type RankingType = "DISTANCE" | "DISTRICT_ROTATION" | "CITY_ROTATION" | "NO_LOCATION";
+export type LocationPrecision = "NONE" | "CITY" | "DISTRICT" | "EXACT" | "GPS";
 
 export interface SessionResponse {
   sessionId: string;
@@ -54,4 +57,38 @@ export interface AssessmentResponse {
   assessmentId: string;
   knowledgeVersion: string;
   careNeedProfile: CareNeedProfile;
+}
+
+export interface RecommendationRequest {
+  assessmentId: string;
+  serviceType: RecommendationServiceType;
+}
+
+export interface RecommendationProvider {
+  id: string;
+  name: string;
+  type: RecommendationServiceType;
+  address: string;
+  district: string;
+  phone: string;
+  website: string | null;
+  googleMapsUrl: string;
+  verified: boolean;
+  rank: 1 | 2 | 3;
+  distanceKm: number | null;
+  reasons: string[];
+}
+
+export interface RecommendationResponse {
+  recommendationId: string;
+  serviceType: RecommendationServiceType;
+  rankingType: RankingType;
+  locationPrecision: LocationPrecision;
+  providers: RecommendationProvider[];
+  notice: string;
+}
+
+export interface RecommendationEnvelope {
+  success: true;
+  data: RecommendationResponse;
 }

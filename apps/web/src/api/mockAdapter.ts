@@ -5,9 +5,22 @@ import type {
   ConsentRequest,
   ConsentResponse,
   SessionResponse,
+  RecommendationRequest,
+  RecommendationResponse,
 } from "../types/api";
+import {
+  createRecommendationFixture,
+  type RecommendationMockCount,
+  type RecommendationMockRanking,
+} from "./recommendationMockFixtures";
 
 const wait = (milliseconds = 450) => new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+
+export interface RecommendationMockOptions {
+  providerCount?: RecommendationMockCount;
+  ranking?: RecommendationMockRanking;
+  simulateError?: boolean;
+}
 
 // These fixtures mirror the current Contract mock responses. Keep UI calls behind
 // this adapter so Jerry can later replace its implementation with the real API.
@@ -62,5 +75,26 @@ export const mockApi = {
         ],
       },
     };
+  },
+
+  async getRecommendation(
+    request: RecommendationRequest,
+    options: RecommendationMockOptions = {},
+  ): Promise<RecommendationResponse> {
+    if (!request.assessmentId) {
+      throw new Error("缺少評估資料，請先完成初步評估。");
+    }
+
+    await wait(650);
+
+    if (options.simulateError) {
+      throw new Error("目前無法取得服務單位推薦，請稍後再試或聯絡 1966。");
+    }
+
+    return createRecommendationFixture(
+      request.serviceType,
+      options.providerCount,
+      options.ranking,
+    );
   },
 };
