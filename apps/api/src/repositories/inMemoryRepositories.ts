@@ -5,9 +5,20 @@ import type {
   AssessmentRepository,
   ConsentRepository,
   CreateAssessmentRecord,
+  ProviderRepository,
   SessionRepository,
 } from "./types.js";
-import type { Assessment, CareNeedProfile, Consent, CreateConsentInput, Session } from "../types/index.js";
+import type {
+  Assessment,
+  CareNeedProfile,
+  Consent,
+  CreateConsentInput,
+  Provider,
+  ProviderDetailResponse,
+  ProviderService,
+  ProviderServiceArea,
+  Session,
+} from "../types/index.js";
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
 
 export class InMemorySessionRepository implements SessionRepository {
@@ -67,5 +78,59 @@ export class InMemoryAssessmentRepository implements AssessmentRepository {
     this.assessments.push(assessment);
     this.careNeedProfiles.push(careNeedProfile);
     return { assessment, careNeedProfile };
+  }
+}
+
+export class InMemoryProviderRepository implements ProviderRepository {
+  readonly providers: Provider[] = [];
+  readonly services: ProviderService[] = [];
+  readonly serviceAreas: ProviderServiceArea[] = [];
+
+  async findDetailById(providerId: string): Promise<ProviderDetailResponse | null> {
+    const provider = this.providers.find((p) => p.id === providerId);
+    if (!provider || provider.status !== "ACTIVE") return null;
+
+    return {
+      id: provider.id,
+      name: provider.name,
+      type: provider.type,
+      address: provider.address,
+      city: provider.city,
+      district: provider.district,
+      phone: provider.phone,
+      website: provider.website,
+      googleMapsUrl: provider.googleMapsUrl,
+      verified: provider.verified,
+      services: this.services
+        .filter((s) => s.providerId === providerId && s.active)
+        .map((s) => s.serviceType),
+      serviceAreas: this.serviceAreas
+        .filter((a) => a.providerId === providerId && a.active)
+        .map((a) => ({ city: a.city, district: a.district })),
+    };
+  }
+
+  async upsertProviders(providers: Provider[]): Promise<void> {
+    for (const p of providers) {
+      const idx = this.providers.findIndex((x) => x.id === p.id);
+      if (idx >= 0) this.providers[idx] = p;
+      else this.providers.push(p);
+    }
+  }
+
+  async upsertProviderServices(services: ProviderService[]): Promise<void> {
+    for (const s of services) {
+      const idx = this.services.findIndex((x) => x.id === s.id);
+      if (idx >= 0) this.services[idx] = s;
+      else this.services.push(s);
+    }
+  }
+
+  async upsertProviderServiceAreas(areas: ProviderServiceArea[]): Promise<void> {
+    for (const a of areas) {
+      const idx = this.serviceAreas.findIndex((x) => x.id === a.id);
+      if (idx >= 0) this.serviceAreas[idx] = a;
+      else this.serviceAreas.push(a);
+    }
   }
 }

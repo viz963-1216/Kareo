@@ -114,3 +114,109 @@ export interface CareNeedProfile {
   warnings: string[];
   createdAt: string;
 }
+
+// 依 docs/DATA_MODEL.md 第 17 節。
+export type ProviderType = "HOME_CARE" | "HOME_MEDICAL_NURSING" | "ASSISTIVE_DEVICE" | "OTHER";
+export type ProviderStatus = "ACTIVE" | "INACTIVE" | "UNKNOWN";
+
+export interface Provider {
+  id: string;
+  name: string;
+  type: ProviderType;
+  address: string;
+  city: string;
+  district: string;
+  lat: number | null;
+  lng: number | null;
+  phone: string | null;
+  website: string | null;
+  googleMapsUrl: string | null;
+  status: ProviderStatus;
+  verified: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// 依 docs/DATA_MODEL.md 第 18 節。serviceType 只能使用 Provider 相關三種類型（不含 OTHER）。
+export type ProviderServiceType = "HOME_CARE" | "HOME_MEDICAL_NURSING" | "ASSISTIVE_DEVICE";
+
+export interface ProviderService {
+  id: string;
+  providerId: string;
+  serviceType: ProviderServiceType;
+  active: boolean;
+}
+
+// 依 docs/DATA_MODEL.md 第 19 節。
+export interface ProviderServiceArea {
+  id: string;
+  providerId: string;
+  city: string;
+  district: string;
+  active: boolean;
+}
+
+// 依 docs/API_CONTRACT.md 第 10 節 GET /api/v1/providers/{providerId} Response。
+export interface ProviderDetailResponse {
+  id: string;
+  name: string;
+  type: ProviderType;
+  address: string;
+  city: string;
+  district: string;
+  phone: string | null;
+  website: string | null;
+  googleMapsUrl: string | null;
+  verified: boolean;
+  services: ProviderServiceType[];
+  serviceAreas: Array<{ city: string; district: string }>;
+}
+
+// TASK-B-004 Import 用：A 提供的 staging dataset 原始（未驗證）格式。
+// 欄位刻意設為寬鬆 unknown/optional，因為來源資料可能缺欄位（例如 provider-services
+// 目前缺 id/active），必須先驗證才能決定是否匯入，不得自行猜值。
+export interface RawProviderRecord {
+  id?: unknown;
+  name?: unknown;
+  type?: unknown;
+  address?: unknown;
+  city?: unknown;
+  district?: unknown;
+  lat?: unknown;
+  lng?: unknown;
+  phone?: unknown;
+  website?: unknown;
+  googleMapsUrl?: unknown;
+  status?: unknown;
+  verified?: unknown;
+}
+
+export interface RawProviderServiceRecord {
+  id?: unknown;
+  providerId?: unknown;
+  serviceType?: unknown;
+  active?: unknown;
+}
+
+export interface RawProviderServiceAreaRecord {
+  id?: unknown;
+  providerId?: unknown;
+  city?: unknown;
+  district?: unknown;
+  active?: unknown;
+}
+
+export interface ProviderImportDataset {
+  providers: RawProviderRecord[];
+  providerServices: RawProviderServiceRecord[];
+  providerServiceAreas: RawProviderServiceAreaRecord[];
+}
+
+export interface ProviderImportReport {
+  providersAccepted: number;
+  providersRejected: Array<{ record: RawProviderRecord; reasons: string[] }>;
+  servicesAccepted: number;
+  servicesRejected: Array<{ record: RawProviderServiceRecord; reasons: string[] }>;
+  serviceAreasAccepted: number;
+  serviceAreasRejected: Array<{ record: RawProviderServiceAreaRecord; reasons: string[] }>;
+}

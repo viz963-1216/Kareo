@@ -3,6 +3,10 @@ import type {
   CareNeedProfile,
   Consent,
   CreateConsentInput,
+  Provider,
+  ProviderDetailResponse,
+  ProviderService,
+  ProviderServiceArea,
   Session,
 } from "../types/index.js";
 
@@ -29,4 +33,14 @@ export interface AssessmentRepository {
   createAssessment(
     input: CreateAssessmentRecord
   ): Promise<{ assessment: Assessment; careNeedProfile: CareNeedProfile }>;
+}
+
+// 依 tasks/TASK-B-004.md：不讓 Frontend 直接查核心 Business Tables，
+// Provider Detail 一律透過此 Repository -> Service -> Function 邊界存取。
+export interface ProviderRepository {
+  findDetailById(providerId: string): Promise<ProviderDetailResponse | null>;
+  // Import 用：以 id 為鍵 upsert，確保重複匯入不會增生資料（依 TASK-B-004 要求）。
+  upsertProviders(providers: Provider[]): Promise<void>;
+  upsertProviderServices(services: ProviderService[]): Promise<void>;
+  upsertProviderServiceAreas(areas: ProviderServiceArea[]): Promise<void>;
 }
