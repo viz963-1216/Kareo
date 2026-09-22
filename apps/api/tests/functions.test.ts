@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { handler as sessionHandler } from "../src/functions/session.js";
 import { handler as consentHandler } from "../src/functions/consent.js";
+import { handler as assessmentHandler } from "../src/functions/assessment.js";
 
 // 這裡刻意不設定 SUPABASE_* 環境變數，驗證：
 // 1) 沒有真實 DB 連線時，Function 不會 crash 或洩漏原始錯誤，而是回傳安全的 INTERNAL_ERROR
@@ -50,5 +51,41 @@ describe("Function handlers (no live Supabase configured)", () => {
 
     expect(res.statusCode).toBe(400);
     expect(JSON.parse(res.body).error.code).toBe("VALIDATION_ERROR");
+  });
+
+  it("assessment handler rejects non-POST method", async () => {
+    const res = await assessmentHandler({ httpMethod: "GET", body: null });
+    expect(res.statusCode).toBe(400);
+    expect(JSON.parse(res.body).error.code).toBe("INVALID_REQUEST");
+  });
+
+  it("assessment handler rejects invalid JSON body", async () => {
+    const res = await assessmentHandler({ httpMethod: "POST", body: "{not-json" });
+    expect(res.statusCode).toBe(400);
+    expect(JSON.parse(res.body).error.code).toBe("INVALID_REQUEST");
+  });
+
+  it("assessment handler returns safe INTERNAL_ERROR when Supabase is not configured (no leaked secrets)", async () => {
+    const res = await assessmentHandler({
+      httpMethod: "POST",
+      body: JSON.stringify({
+        sessionId: "SES-TEST0001",
+        ageRange: "75_84",
+        location: { city: "新北市", district: "三重區", precision: "DISTRICT", lat: null, lng: null },
+        livingSituation: "WITH_FAMILY",
+        caregiverSituation: "FAMILY_LIMITED",
+        mobilityLevel: "NEEDS_ASSISTANCE",
+        dailyLivingLevel: "PARTIAL_ASSISTANCE",
+        needs: { homeCare: "YES", medicalNursing: "UNKNOWN", assistiveDevice: "YES", transportation: "YES" },
+        freeText: "test",
+      }),
+    });
+    const body = JSON.parse(res.body);
+
+    expect(res.statusCode).toBe(500);
+    expect(body.success).toBe(false);
+    expect(body.error.code).toBe("INTERNAL_ERROR");
+    expect(JSON.stringify(body)).not.toMatch(/eyJ[a-zA-Z0-9_-]{10,}/);
+    expect(JSON.stringify(body)).not.toMatch(/at\s+\w+\s+\(.*:\d+:\d+\)/);
   });
 });

@@ -22,4 +22,19 @@ export class SupabaseSessionRepository implements SessionRepository {
 
     return session;
   }
+
+  async exists(sessionId: string): Promise<boolean> {
+    const client = getSupabaseClient();
+    const { data, error } = await client
+      .from("sessions")
+      .select("id")
+      .eq("id", sessionId)
+      .maybeSingle();
+
+    if (error) {
+      throw new AppError("INTERNAL_ERROR", "無法確認 Session 狀態，請稍後再試。");
+    }
+
+    return data !== null;
+  }
 }
