@@ -3,39 +3,76 @@
 ## Submission
 
 - Task: A-004 Provider Validation Gate
-- Submission Version: A-004-r1
+- Submission Version: A-004-r2
 - Owner: Engineer A
 - Branch: feat/a-004-provider-validation-gate
 
-## Validation Tool
+## Changes in A-004-r2
 
-Validation script:
+A-004-r1 validated ProviderService with `providerId` / `serviceType` only. All 30 formal
+ProviderService records were missing `id` and `active`, yet the gate reported PASS while the
+B-004 import rejected 30/30. A-004-r2 fixes the gate and the data:
 
-`data/providers/qa/validate-providers.mjs`
-
-The validation gate performs reusable checks against the Provider Dataset before future import or CI workflows.
+- ProviderService now requires `id` (non-empty string, no whitespace, unique within
+  `provider-services.json`) and `active` (boolean; `false` is valid).
+- `Provider.type` and `ProviderService.serviceType` use separate allowlists
+  (DATA_MODEL §17 / §18). `Provider.type=OTHER` is accepted; `serviceType=OTHER` is rejected.
+- `Provider.verified` must be boolean (same rule as B-004).
+- ProviderService / ProviderServiceArea must reference a Provider that exists **and** passed
+  validation (same rule as B-004).
+- Every error names the file, record index, record id / providerId and field.
+- Unreadable or non-array input fails with exit 1.
+- The gate also accepts a dataset directory: `node validate-providers.mjs <dir>`.
 
 ## Validation Coverage
 
-The validation gate checks:
+Provider (`providers.json`, DATA_MODEL §17):
 
-- Required fields
-- Provider type enum
-- Provider status enum
-- Provider ID uniqueness
-- Provider-Service pair uniqueness
-- Provider Service Area ID uniqueness
-- Latitude range (-90 to 90)
-- Longitude range (-180 to 180)
-- City/address basic consistency
-- District/address basic consistency
-- Website URL format
-- Google Maps URL format
-- Phone basic format
-- Provider-Service relational integrity
-- Provider-ServiceArea relational integrity
-- Service Area active boolean type
-- JSON readability / parsing
+- `id`, `name`, `address`, `city`, `district`: non-empty string; `id` has no whitespace
+- `type`: `HOME_CARE` / `HOME_MEDICAL_NURSING` / `ASSISTIVE_DEVICE` / `OTHER`
+- `status`: `ACTIVE` / `INACTIVE` / `UNKNOWN`
+- `verified`: boolean
+- `lat` -90..90, `lng` -180..180 (or null)
+- `website`, `googleMapsUrl`: http(s) URL (or null)
+- `phone`: basic phone format (or null)
+- address contains `city` and `district`
+- `id` unique within providers.json
+
+ProviderService (`provider-services.json`, DATA_MODEL §18):
+
+- `id`: non-empty string, no whitespace, unique within provider-services.json
+- `providerId`: references a valid Provider
+- `serviceType`: `HOME_CARE` / `HOME_MEDICAL_NURSING` / `ASSISTIVE_DEVICE`
+- `active`: boolean (`true` or `false`)
+- `providerId` + `serviceType` pair unique
+
+ProviderServiceArea (`provider-service-areas.json`, DATA_MODEL §19):
+
+- `id`: non-empty string, no whitespace, unique within provider-service-areas.json
+- `providerId`: references a valid Provider
+- `city`, `district`: non-empty string
+- `active`: boolean
+
+ID uniqueness is scoped per table, matching the primary keys in B-004 migration `0004_provider.sql`.
+
+## ProviderService ID Rule
+
+Formal ProviderService IDs are derived deterministically as:
+
+`PSV-{providerId}-{serviceType}`
+
+Example: `PSV-TP-HC-001-HOME_CARE`. `PSV-` is the DATA_MODEL §32 prefix. Because
+`providerId` + `serviceType` is unique, the ID is stable across re-runs and re-imports.
+
+## ProviderService `active` Evidence
+
+`active` is set only where an official source was checked. See
+`qa/provider-service-active-evidence.md` for the details on each record.
+
+- 25 records: `active=true`, each confirmed in a current official list
+- 5 records (`NTPC-HC-001` … `NTPC-HC-005`): **`active` not set, blocked.** SRC-002 is
+  registered only as the New Taipei health bureau homepage, and no raw file is in the repo,
+  so current service status cannot be confirmed.
 
 ## Formal Dataset Validation
 
@@ -48,51 +85,60 @@ Result:
 - Providers: 30
 - Provider Services: 30
 - Provider Service Areas: 81
-- Errors: 0
-- Result: PASS
-- Exit Code: 0
+- Errors: 5 (`provider-services.json` records #10–#14, field `active`, NTPC-HC-001…005)
+- Result: **FAIL**
+- Exit Code: 1
+
+This FAIL is intentional. The gate must not pass while B-004 would still reject records.
+It changes to PASS once the 5 NTPC-HC records get a source-backed `active` value.
+
+## B-004 Parity
+
+B-004 `importProviderDataset` was run in `dry-run` mode with a stub repository (no database
+connection) on the same datasets:
+
+| Dataset | B-004 | A-004 |
+|---|---|---|
+| Formal staging, before r2 data fix | REJECT (services 0 valid / 30 rejected) | FAIL (60 errors) |
+| Formal staging, A-004-r2 | REJECT (services 25 valid / 5 rejected, same NTPC-HC records) | FAIL (5 errors) |
+| Valid minimal dataset | ACCEPT | PASS |
+| Service `active=false` | ACCEPT | PASS |
+| Service missing `id` / missing `active` / `active="true"` | REJECT | FAIL |
+| Service unknown `providerId` / `serviceType=OTHER` | REJECT | FAIL |
+| Provider `type=OTHER` | ACCEPT | PASS |
+| Provider `type=TRANSPORTATION` / missing `verified` | REJECT | FAIL |
+| ServiceArea missing `active` | REJECT | FAIL |
+
+## Regression Tests
+
+Command:
+
+`node --test data/providers/qa/tests/validate-providers.test.mjs`
+
+Result: 18 tests, 18 pass. Tests use temporary directories only and never touch a database.
+
+Covered: missing / empty / whitespace / non-string / duplicate ProviderService `id`; per-table
+id scope; missing and non-boolean `active`; `active=false` passes; unknown and invalid-Provider
+`providerId`; invalid `serviceType` (including `OTHER`, `TRANSPORTATION`); duplicate pair;
+Provider `type=OTHER` passes; `type=TRANSPORTATION` fails; `verified` boolean; ServiceArea
+`active`; unreadable input; formal service IDs follow the documented rule.
 
 ## Invalid Fixture Validation
-
-Invalid fixtures:
-
-- `qa/fixtures/providers-invalid.json`
-- `qa/fixtures/provider-services-invalid.json`
-- `qa/fixtures/provider-service-areas-invalid.json`
 
 Command:
 
 `node data/providers/qa/validate-providers.mjs data/providers/qa/fixtures/providers-invalid.json`
 
-Result:
-
-- Providers: 1
-- Provider Services: 1
-- Provider Service Areas: 1
-- Errors detected: 9
-- Result: FAIL
-- Exit Code: 1
-
-Detected invalid Provider cases include:
-
-- Invalid Provider type
-- Invalid Provider status
-- Invalid latitude
-- Invalid longitude
-- Invalid website URL
-- Invalid Google Maps URL
-- Invalid phone format
-- Address/city mismatch
-- Address/district mismatch
+Result: 13 errors, FAIL, exit 1. The errors are the 9 Provider field errors from r1, plus the
+fixture service missing `id` / `active`, and the service and service area referencing a
+Provider that failed validation.
 
 ## CI / Import Readiness
 
-The validation script returns:
+- Exit Code `0`: validation passes
+- Exit Code `1`: any validation error or unreadable input
 
-- Exit Code `0` when validation passes
-- Exit Code `1` when validation fails
-
-This allows the validation gate to be reused by future CI or Provider import workflows.
+`scripts/check-provider-data.mjs` (CI "Provider data gate") runs this script by path.
 
 ## Scope Check
 
@@ -102,8 +148,10 @@ This allows the validation gate to be reused by future CI or Provider import wor
 - UI changes: No
 - Modified outside `/data/providers/**`: No
 
-## Final Result
+## Known Issues
 
-**PASS**
-
-The Provider Validation Gate successfully accepts the current valid Provider Dataset and rejects the intentionally invalid QA fixture.
+- NTPC-HC-001 … 005 ProviderService `active` is blocked on a retrievable SRC-002 record.
+- `apps/api/tests/providerImport.test.ts` (B-004, Engineer B ownership) asserts that the
+  real staging dataset has 30/30 services rejected for missing `id` / `active`. The data fix
+  changes that to 25 valid / 5 rejected (missing `active` only), so that test must be updated
+  by B. It was not changed here because it is outside A-004 Allowed Paths.
