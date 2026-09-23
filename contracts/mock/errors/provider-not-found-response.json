@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "NOT_FOUND",
+    "message": "找不到指定的服務單位。"
+  }
+}

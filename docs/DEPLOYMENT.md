@@ -63,3 +63,55 @@ full end-to-end tests are still required. Use separate production Supabase
 credentials and a main release when ready. Remove the staging noindex header
 for the production configuration. Do not enable billing auto-recharge as part
 of this setup.
+
+---
+
+## J-003-r1 additions (2026-09-23)
+
+### Migrations currently on staging
+
+Apply in order to the staging Supabase project only:
+
+1. `apps/api/supabase/migrations/0001_session_consent.sql`
+2. `apps/api/supabase/migrations/0002_session_consent_access.sql`
+3. `apps/api/supabase/migrations/0003_assessment.sql`
+
+Record the date and operator in `docs/INTEGRATION_ACCEPTANCE.md` when applied.
+
+### API routes
+
+`netlify.toml` must route every function under `apps/api/src/functions`.
+`node scripts/check-integration.mjs` fails CI when a function has no route or a route has no function
+(this is how the missing B-007 transportation route was found).
+
+### Frontend API mode
+
+| Netlify context | `VITE_KAREO_API_MODE` | Behaviour |
+|---|---|---|
+| Deploy Preview | `mock` (set in netlify.toml) | UI review with fixtures |
+| Branch / production (staging site) | unset → `real` | Calls `/api/v1`; never falls back to mock |
+
+Consent versions are build-time variables. Set them in the Netlify UI **per site/context**:
+
+```text
+VITE_CONSENT_DISCLAIMER_VERSION
+VITE_CONSENT_PRIVACY_VERSION
+VITE_CONSENT_TERMS_VERSION
+```
+
+- Staging integration testing may use the labelled drafts `2026-10-01-r1-draft`.
+- Production must use versions marked `ACTIVE` in `contracts/legal/consent-versions.json`.
+- If unset, the real-mode frontend refuses to record consent (users see a message to call 1966) rather than storing a placeholder.
+- These are public build variables; never put a secret in any `VITE_` variable.
+
+### Deploy credits
+
+On 2026-09-23 the Netlify team had exhausted its credits: `kareo-tw` and `kareocar` were paused.
+68 production deploys consumed 1,020 of 1,038.8 credits, because `staging` is the production branch and every merge deploys.
+
+- `scripts/netlify-ignore.mjs` (the `[build] ignore` command) skips builds whose changes are only in
+  `docs/`, `tasks/`, `contracts/`, `data/providers/`, `.github/` or root `*.md`.
+- Batch merges to `staging`; each deploy costs credits.
+- Staging smoke runs only via the manual `Staging smoke (manual)` workflow or locally:
+  `node scripts/smoke-staging.mjs https://<staging-site>` (add `--with-assessment` only when intended).
+- Buying credits, cancelling the scheduled downgrade or enabling auto-recharge are Jerry's decisions.

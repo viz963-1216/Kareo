@@ -1,0 +1,63 @@
+{
+  "success": true,
+  "data": {
+    "recommendationId": "REC-MOCK-AD-001",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "rankingType": "DISTRICT_ROTATION",
+    "locationPrecision": "DISTRICT",
+    "providers": [
+      {
+        "id": "PROV-MOCK-201",
+        "name": "測試輔具服務中心",
+        "type": "ASSISTIVE_DEVICE",
+        "address": "新北市三重區重新路三段201號",
+        "district": "三重區",
+        "phone": "02-42010101",
+        "website": "https://example.com/kareo-mock/prov-mock-201",
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-201",
+        "verified": true,
+        "rank": 1,
+        "distanceKm": null,
+        "reasons": [
+          "服務範圍包含三重區",
+          "提供您需要的輔具服務"
+        ]
+      },
+      {
+        "id": "PROV-MOCK-202",
+        "name": "測試安心輔具中心",
+        "type": "ASSISTIVE_DEVICE",
+        "address": "臺北市萬華區西園路一段202號",
+        "district": "萬華區",
+        "phone": "02-42020202",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-202",
+        "verified": false,
+        "rank": 2,
+        "distanceKm": null,
+        "reasons": [
+          "服務範圍包含三重區",
+          "提供您需要的輔具服務"
+        ]
+      },
+      {
+        "id": "PROV-MOCK-203",
+        "name": "測試樂齡輔具中心",
+        "type": "ASSISTIVE_DEVICE",
+        "address": "新北市蘆洲區中山一路203號",
+        "district": "蘆洲區",
+        "phone": "02-42030303",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-203",
+        "verified": true,
+        "rank": 3,
+        "distanceKm": null,
+        "reasons": [
+          "服務範圍包含三重區",
+          "提供您需要的輔具服務"
+        ]
+      }
+    ],
+    "notice": "目前依您提供的行政區推薦符合條件的服務單位。因尚未提供精確位置，此結果並非依實際距離排序。"
+  }
+}

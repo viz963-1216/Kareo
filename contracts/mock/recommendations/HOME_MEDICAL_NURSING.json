@@ -1,0 +1,63 @@
+{
+  "success": true,
+  "data": {
+    "recommendationId": "REC-MOCK-HMN-001",
+    "serviceType": "HOME_MEDICAL_NURSING",
+    "rankingType": "DISTRICT_ROTATION",
+    "locationPrecision": "DISTRICT",
+    "providers": [
+      {
+        "id": "PROV-MOCK-101",
+        "name": "測試居家醫療護理所",
+        "type": "HOME_MEDICAL_NURSING",
+        "address": "新北市三重區三和路四段101號",
+        "district": "三重區",
+        "phone": "02-41010101",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-101",
+        "verified": true,
+        "rank": 1,
+        "distanceKm": null,
+        "reasons": [
+          "服務範圍包含三重區",
+          "提供您需要的居家醫療與護理服務"
+        ]
+      },
+      {
+        "id": "PROV-MOCK-102",
+        "name": "測試安心居家護理所",
+        "type": "HOME_MEDICAL_NURSING",
+        "address": "臺北市大同區民權西路102號",
+        "district": "大同區",
+        "phone": "02-41020202",
+        "website": "https://example.com/kareo-mock/prov-mock-102",
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-102",
+        "verified": false,
+        "rank": 2,
+        "distanceKm": null,
+        "reasons": [
+          "服務範圍包含三重區",
+          "提供您需要的居家醫療與護理服務"
+        ]
+      },
+      {
+        "id": "PROV-MOCK-103",
+        "name": "測試樂齡居家醫療中心",
+        "type": "HOME_MEDICAL_NURSING",
+        "address": "新北市新莊區中正路103號",
+        "district": "新莊區",
+        "phone": "02-41030303",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-103",
+        "verified": true,
+        "rank": 3,
+        "distanceKm": null,
+        "reasons": [
+          "服務範圍包含三重區",
+          "提供您需要的居家醫療與護理服務"
+        ]
+      }
+    ],
+    "notice": "目前依您提供的行政區推薦符合條件的服務單位。因尚未提供精確位置，此結果並非依實際距離排序。"
+  }
+}

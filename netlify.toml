@@ -3,12 +3,19 @@
   command = "npm ci --prefix apps/api && npm run typecheck --prefix apps/api && npm test --prefix apps/api && node scripts/build-site.mjs"
   publish = "dist"
   functions = "apps/api/src/functions"
+  # Skip builds for commits that only touch documentation, tasks, contracts or
+  # provider source data, so docs PRs do not consume paid deploy credits (MVP_DECISIONS D-09).
+  ignore = "node scripts/netlify-ignore.mjs"
 
 [build.environment]
   NODE_VERSION = "22"
 
 [functions]
   node_bundler = "esbuild"
+
+# Deploy Previews may use the frontend mock adapter; every other context calls the real API.
+[context.deploy-preview.environment]
+  VITE_KAREO_API_MODE = "mock"
 
 [[redirects]]
   from = "/api/v1/session"
@@ -25,6 +32,12 @@
 [[redirects]]
   from = "/api/v1/assessments"
   to = "/.netlify/functions/assessment"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/external-services/transportation"
+  to = "/.netlify/functions/externalServiceTransportation"
   status = 200
   force = true
 
