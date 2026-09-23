@@ -7,6 +7,18 @@ export interface PublishedKnowledgeVersionResolver {
   resolvePublishedVersion(): Promise<string | null>;
 }
 
+// TASK-B-008 提供的真實實作：查詢 Knowledge DB 目前的 PUBLISHED 版本。
+// 是否要在 B-003 的 assessment.ts 正式接上這個 Resolver（取代 NullKnowledgeVersionResolver），
+// 屬於跨 Task 的接線決策，本 Task 先只提供這個實作，接線留待另行確認（見 TASK-B-008 PR 說明）。
+export class DatabaseKnowledgeVersionResolver implements PublishedKnowledgeVersionResolver {
+  constructor(private readonly repo: { getCurrentPublishedStatus(): Promise<{ version: string } | null> }) {}
+
+  async resolvePublishedVersion(): Promise<string | null> {
+    const status = await this.repo.getCurrentPublishedStatus();
+    return status?.version ?? null;
+  }
+}
+
 // 目前 Knowledge DB（TASK-B-008）尚未實作，Production 環境沒有任何管道可以
 // 產生「真正已審核發布」的 Knowledge Version，因此本 Resolver 一律回傳 null，
 // 讓 Assessment 依規則回 KNOWLEDGE_UNAVAILABLE，而不是假造一個版本號。

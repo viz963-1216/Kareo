@@ -3,6 +3,10 @@ import type {
   CareNeedProfile,
   Consent,
   CreateConsentInput,
+  KnowledgeCategory,
+  KnowledgeRecord,
+  KnowledgeStatusResponse,
+  Jurisdiction,
   Provider,
   ProviderDetailResponse,
   ProviderService,
@@ -33,6 +37,38 @@ export interface AssessmentRepository {
   createAssessment(
     input: CreateAssessmentRecord
   ): Promise<{ assessment: Assessment; careNeedProfile: CareNeedProfile }>;
+}
+
+// 依 tasks/TASK-B-008.md + contracts/knowledge/README.md。
+export interface PublishVersionInput {
+  versionId: string;
+  recordIds: string[]; // 這批要變成 PUBLISHED 的 KnowledgeRecord id（必須目前狀態皆為 APPROVED）
+  createdBy: string;
+  approvedBy: string;
+  notes: string | null;
+}
+
+export interface KnowledgeRepository {
+  // Import：單一資料表、單一 insert 呼叫即為單一交易，天然原子；不需要另外包 rpc（跟 Provider 三表不同）。
+  findByPackRecordIds(packId: string, packRecordIds: string[]): Promise<Set<string>>; // 已存在的 packRecordId，供冪等判斷
+  findRecordsByPackId(packId: string): Promise<KnowledgeRecord[]>; // CLI 用：把 packRecordId 對應回資料庫 id
+  findPublishedByKey(jurisdiction: Jurisdiction, category: KnowledgeCategory, title: string): Promise<KnowledgeRecord | null>;
+  insertRecords(records: KnowledgeRecord[]): Promise<void>;
+
+  // Approve：單一 UPDATE，內建於 WHERE status = 'NEEDS_REVIEW'，回傳實際更新的 id，供呼叫端偵測「有 id 沒被更新」。
+  // KnowledgeRecord 沒有獨立的 approvedBy 欄位（依 DATA_MODEL.md 第 24 節），審核人記錄在 KnowledgeVersion.approvedBy。
+  approveRecords(recordIds: string[]): Promise<string[]>;
+
+  // Publish / Withdraw：跨 knowledge_versions 與 knowledge_records 兩張表，依 ARCHITECTURE §22 用單一交易的
+  // Postgres function 包住（同 B-004 D-10 的模式），不提供分開寫入的方法。
+  publishVersion(input: PublishVersionInput): Promise<{ publishedRecordCount: number; supersededRecordCount: number }>;
+  withdrawCurrentVersion(input: {
+    reason: string;
+    withdrawnBy: string;
+    republishVersionId?: string | null;
+  }): Promise<{ republishedVersionId: string | null }>;
+
+  getCurrentPublishedStatus(): Promise<KnowledgeStatusResponse | null>;
 }
 
 export interface ProviderDatasetWrite {
