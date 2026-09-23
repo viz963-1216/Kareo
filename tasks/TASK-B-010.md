@@ -40,3 +40,13 @@ Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更�
 
 從最新 `staging` 建立 `feat/b-010-mvp`，PR → `staging`，不得直接 push staging/main。
 Submission Version 從 `B-010-r1` 起，退回後遞增。PR 必填 Added / Changed / Fixed / Known Issues / Tests or QA / Scope Check，逐項附驗收證據；未通過不得標記完成。模組合併不等於全站已上線。
+
+---
+
+## 2026-09-23 補充：補助說明（J-002-r3）
+
+- 原始 MVP 包含「了解可能適用的制度與補助」「補助初步預估」（PRODUCT_SPEC §1、§3、§14）。目前 ASSESSMENT_RULES §6 沒有補助說明模板，且「不顯示給付金額」是未核准的範圍變更提案（MVP_DECISIONS D-12）。
+- D-12 決議後，J-002 會補上對應 Summary 模板與知識紀錄對應；B-010 依模板實作。決議前先完成其餘規則，不自行撰寫補助文字。
+- 每筆 Assessment 保存 `knowledgeVersion`（PRODUCT_SPEC §44）；知識不足時使用 §51 的固定引導文字。
+
+此補充不擴增產品範圍，只把 PRODUCT_SPEC 原始 MVP 已有的要求指到承接任務；所需規格更新由 TASK-J-002 先合併。
