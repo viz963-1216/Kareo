@@ -48,6 +48,12 @@
   force = true
 
 [[redirects]]
+  from = "/api/v1/knowledge/status"
+  to = "/.netlify/functions/knowledgeStatus"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/*"
   to = "/api-not-found.json"
   status = 404
