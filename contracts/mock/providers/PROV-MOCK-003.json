@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "data": {
+    "id": "PROV-MOCK-003",
+    "name": "測試樂齡照護中心",
+    "type": "HOME_CARE",
+    "address": "新北市三重區集美街300號",
+    "city": "新北市",
+    "district": "三重區",
+    "phone": "02-34567890",
+    "website": "https://example.com/kareo-mock/prov-mock-003",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-003",
+    "verified": true,
+    "services": [
+      "HOME_CARE"
+    ],
+    "serviceAreas": [
+      {
+        "city": "新北市",
+        "district": "三重區"
+      },
+      {
+        "city": "新北市",
+        "district": "新莊區"
+      },
+      {
+        "city": "新北市",
+        "district": "五股區"
+      }
+    ]
+  }
+}
