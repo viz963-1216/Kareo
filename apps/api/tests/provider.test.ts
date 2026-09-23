@@ -91,12 +91,9 @@ describe("Provider Detail (TASK-B-004)", () => {
   });
 
   it("propagates AppError as-is (e.g. INTERNAL_ERROR from repository) for the function layer to convert safely", async () => {
-    const repo = new InMemoryProviderRepository();
-    const failingRepo = {
-      ...repo,
-      findDetailById: async () => {
-        throw new AppError("INTERNAL_ERROR", "模擬資料庫錯誤");
-      },
+    const failingRepo = new InMemoryProviderRepository();
+    failingRepo.findDetailById = async () => {
+      throw new AppError("INTERNAL_ERROR", "模擬資料庫錯誤");
     };
 
     await expect(getProviderDetail(failingRepo, "PROV-001")).rejects.toMatchObject({ code: "INTERNAL_ERROR" });
