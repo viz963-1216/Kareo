@@ -9,7 +9,15 @@ import type {
   RecommendationRequest,
   RecommendationResponse,
 } from "../types/api";
-import providerFixture from "../../../../contracts/mock/provider-response.json";
+import provider001 from "../../../../contracts/mock/providers/PROV-MOCK-001.json";
+import provider002 from "../../../../contracts/mock/providers/PROV-MOCK-002.json";
+import provider003 from "../../../../contracts/mock/providers/PROV-MOCK-003.json";
+import provider101 from "../../../../contracts/mock/providers/PROV-MOCK-101.json";
+import provider102 from "../../../../contracts/mock/providers/PROV-MOCK-102.json";
+import provider103 from "../../../../contracts/mock/providers/PROV-MOCK-103.json";
+import provider201 from "../../../../contracts/mock/providers/PROV-MOCK-201.json";
+import provider202 from "../../../../contracts/mock/providers/PROV-MOCK-202.json";
+import provider203 from "../../../../contracts/mock/providers/PROV-MOCK-203.json";
 import {
   createRecommendationFixture,
   type RecommendationMockCount,
@@ -17,6 +25,22 @@ import {
 } from "./recommendationMockFixtures";
 
 const wait = (milliseconds = 450) => new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+
+const providerFixtures = [
+  provider001,
+  provider002,
+  provider003,
+  provider101,
+  provider102,
+  provider103,
+  provider201,
+  provider202,
+  provider203,
+] as const;
+
+const providersById = new Map(
+  providerFixtures.map((fixture) => [fixture.data.id, fixture.data as ProviderDetail]),
+);
 
 export interface RecommendationMockOptions {
   providerCount?: RecommendationMockCount;
@@ -30,8 +54,8 @@ export const mockApi = {
   async getProvider(providerId: string, simulateError = false): Promise<ProviderDetail | null> {
     await wait(650);
     if (simulateError) throw new Error("目前無法取得服務單位資料，請稍後再試。");
-    if (providerId !== providerFixture.data.id) return null;
-    return structuredClone(providerFixture.data) as ProviderDetail;
+    const provider = providersById.get(providerId);
+    return provider ? structuredClone(provider) : null;
   },
   async createSession(): Promise<SessionResponse> {
     await wait();

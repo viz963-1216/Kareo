@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
-import { mockApi } from "../api/mockAdapter";
+import { api } from "../api";
 import type { ProviderDetail } from "../types/api";
 
 const labels: Record<ProviderDetail["type"], string> = {
@@ -39,7 +39,7 @@ export function ProviderDetailPage() {
   useEffect(() => {
     let active = true;
     setState({ status: "loading" });
-    mockApi.getProvider(providerId, simulateError).then((provider) => {
+    api.getProvider(providerId, simulateError).then((provider) => {
       if (active) setState(provider ? { status: "success", provider } : { status: "not-found" });
     }).catch(() => {
       if (active) setState({ status: "error", message: "目前無法取得服務單位資料，請稍後再試或聯絡 1966。" });

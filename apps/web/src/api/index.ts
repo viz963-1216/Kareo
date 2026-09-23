@@ -1,4 +1,4 @@
-import type { ConsentRequest, RecommendationRequest, RecommendationResponse } from "../types/api";
+import type { ConsentRequest, ProviderDetail, RecommendationRequest, RecommendationResponse } from "../types/api";
 import { mockApi, type RecommendationMockOptions } from "./mockAdapter";
 import { ApiError, realApi } from "./realAdapter";
 
@@ -39,5 +39,9 @@ export const api = {
 
   getRecommendation(request: RecommendationRequest, mockOptions: RecommendationMockOptions = {}): Promise<RecommendationResponse> {
     return apiMode === "mock" ? mockApi.getRecommendation(request, mockOptions) : realApi.getRecommendation(request);
+  },
+
+  getProvider(providerId: string, simulateMockError = false): Promise<ProviderDetail | null> {
+    return apiMode === "mock" ? mockApi.getProvider(providerId, simulateMockError) : realApi.getProvider(providerId);
   },
 };

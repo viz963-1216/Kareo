@@ -3,6 +3,7 @@ import type {
   AssessmentResponse,
   ConsentRequest,
   ConsentResponse,
+  ProviderDetail,
   RecommendationRequest,
   RecommendationResponse,
   SessionResponse,
@@ -107,5 +108,14 @@ export const realApi = {
 
   getRecommendation(body: RecommendationRequest): Promise<RecommendationResponse> {
     return request<RecommendationResponse>("POST", "/recommendations", body);
+  },
+
+  async getProvider(providerId: string): Promise<ProviderDetail | null> {
+    try {
+      return await request<ProviderDetail>("GET", `/providers/${encodeURIComponent(providerId)}`);
+    } catch (reason) {
+      if (reason instanceof ApiError && reason.code === "NOT_FOUND") return null;
+      throw reason;
+    }
   },
 };
