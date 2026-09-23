@@ -127,3 +127,16 @@ PR Title：
 正式驗收使用通過 A-004 的資料與 A-005 cases；Assessment/session 歸屬依 J-002 核准規格檢查。地點不足、無座標、不足三家及 0 家皆按既有 contract 處理，不補假 Provider。跨模組真實鏈路由 J-003 驗收。
 
 此補充不授權改寫高順位規格；所需規格更新由 TASK-J-002 先合併。
+
+---
+
+## 2026-09-23 補充：距離與行政區兩個分支都屬 MVP（J-002-r3）
+
+- 依 PRODUCT_SPEC §21–24 實作 `DISTANCE` 與 `DISTRICT_ROTATION`，**兩者都是 MVP 必要**。上一版「依 D-07 只做 DISTRICT_ROTATION」已撤回。
+- 分支選擇：使用者提供精確位置（`EXACT`／`GPS`）且候選 Provider 有已驗證座標 → `DISTANCE`；其餘 → `DISTRICT_ROTATION`。
+- 精確位置但部分 Provider 缺座標：不得以地址或行政區中心點推估距離。處理方式（例如整體改用行政區輪替並在 notice 說明）若 contract 未定義，先交 Jerry 決定，不自行發明。
+- 只有縣市／沒有位置：依 D-13 決議；核准前回空結果＋提醒提供縣市／行政區，不得出現「附近」「最近」。
+- 測試：合成座標單元測試（Haversine、排序、同距離次序穩定、`distanceKm` 與「距離約 X 公里」只在 DISTANCE 出現）；真實資料 smoke 目前只會走 DISTRICT_ROTATION（座標為資料缺口），需在 PR 註明。
+- Session：依 API_CONTRACT v0.2 §3.1（D-04 PROPOSED）驗證 token 與 assessment 歸屬，屬 B-011a 的共用元件，開發時就使用。
+
+此補充不擴增產品範圍，只把 PRODUCT_SPEC 原始 MVP 已有的要求指到承接任務；所需規格更新由 TASK-J-002 先合併。

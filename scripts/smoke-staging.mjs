@@ -29,7 +29,8 @@ assert.equal(transport.success, true, 'Transportation route failed');
 assert.equal(transport.data.url, 'https://kareocar.netlify.app/');
 assert.equal(transport.data.openMode, 'NEW_TAB');
 
-// Assessment is opt-in (--with-assessment) because once B-010 is live it calls the paid AI provider.
+// Assessment is opt-in (--with-assessment): it writes a synthetic assessment record. MVP uses the rule engine (D-01), no paid AI.
+// This smoke is a deploy health check only; MVP acceptance is scripts/acceptance-gate.mjs --mode=release.
 let assessment = 'SKIPPED';
 if (process.argv.includes('--with-assessment')) {
   const {response: ar, result: a} = await post('/api/v1/assessments', {
@@ -50,4 +51,4 @@ if (process.argv.includes('--with-assessment')) {
     assessment = `BLOCKED ${a.error.code}`;
   }
 }
-console.log(JSON.stringify({sessionId:session.data.sessionId,consentId:accepted.result.data.consentId,transportation:'PASS',assessment,result:assessment.startsWith('BLOCKED') ? 'PARTIAL' : 'PASS'},null,2));
+console.log(JSON.stringify({sessionId:session.data.sessionId,consentId:accepted.result.data.consentId,transportation:'PASS',assessment,result:assessment.startsWith('PASS') ? 'PASS' : 'PARTIAL'},null,2));

@@ -4,7 +4,7 @@ Owner: Jerry
 Format version: 1.0（`content-pack.schema.json`）
 Downstream: TASK-B-008（匯入／狀態機／發布工具）、TASK-J-003（實際發布與留證）、TASK-B-010（規則引擎使用 PUBLISHED 知識）
 
-本資料夾是「人工整理並待審核的官方知識」進入 Knowledge DB 的唯一入口。MVP 不依賴 Crawler（B-009 可延後）。
+本資料夾是「人工整理並待審核的官方知識」進入 Knowledge DB 的唯一入口。每日自動更新（B-009 Crawler）屬原始 MVP（PRODUCT_SPEC §42）；延後 crawler 是待核准提案（MVP_DECISIONS D-11）。crawler 上線後發現的變更同樣經本資料夾的審核與發布規則，內容包不會被 crawler 自動核准。
 
 ---
 
@@ -19,7 +19,7 @@ contracts/knowledge/
 ```
 
 - 已提交的內容包**不得改寫**；修正以新批次（新的 `packId`）提交，並在 `records[].review.notes` 註明取代關係。
-- 唯一例外：Jerry 審核時更新同一檔案的 `status`／`review`／`intendedKnowledgeVersion` 欄位，且必須經 PR 合併，PR 即為審核證據。
+- 唯一例外：Jerry 審核時更新同一檔案的 `status`／`review`／`intendedKnowledgeVersion` 欄位。審核證據是**逐筆填寫的 `review`（審核人、日期、決定）加上 Jerry 在該 PR 留下的 review／comment 連結**；只合併 PR 而紀錄仍是 `NEEDS_REVIEW`，不構成核准，也不得由其他人或工具在合併時批次改成 `APPROVED`。
 
 ## 2. 三個不同的狀態（不可混用）
 
@@ -43,7 +43,7 @@ contracts/knowledge/
 ## 4. 核准與發布（B-008 提供工具，J-003 執行）
 
 ```text
-內容包 status = APPROVED（Jerry PR 合併）
+內容包紀錄 decision = APPROVED（Jerry 逐筆審核，PR 內有審核紀錄）
 ↓
 B-008 import（紀錄為 NEEDS_REVIEW）
 ↓

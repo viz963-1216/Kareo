@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { handler as sessionHandler } from "../src/functions/session.js";
 import { handler as consentHandler } from "../src/functions/consent.js";
 import { handler as assessmentHandler } from "../src/functions/assessment.js";
+import { handler as providerDetailHandler } from "../src/functions/providerDetail.js";
 
 // 這裡刻意不設定 SUPABASE_* 環境變數，驗證：
 // 1) 沒有真實 DB 連線時，Function 不會 crash 或洩漏原始錯誤，而是回傳安全的 INTERNAL_ERROR
@@ -87,5 +88,30 @@ describe("Function handlers (no live Supabase configured)", () => {
     expect(body.error.code).toBe("INTERNAL_ERROR");
     expect(JSON.stringify(body)).not.toMatch(/eyJ[a-zA-Z0-9_-]{10,}/);
     expect(JSON.stringify(body)).not.toMatch(/at\s+\w+\s+\(.*:\d+:\d+\)/);
+  });
+
+  it("providerDetail handler rejects non-GET method", async () => {
+    const res = await providerDetailHandler({ httpMethod: "POST" });
+    expect(res.statusCode).toBe(400);
+    expect(JSON.parse(res.body).error.code).toBe("INVALID_REQUEST");
+  });
+
+  it("providerDetail handler rejects missing providerId with VALIDATION_ERROR (no Supabase call needed)", async () => {
+    const res = await providerDetailHandler({ httpMethod: "GET" });
+    expect(res.statusCode).toBe(400);
+    expect(JSON.parse(res.body).error.code).toBe("VALIDATION_ERROR");
+  });
+
+  it("providerDetail handler returns safe INTERNAL_ERROR when Supabase is not configured", async () => {
+    const res = await providerDetailHandler({
+      httpMethod: "GET",
+      queryStringParameters: { providerId: "PROV-001" },
+    });
+    const body = JSON.parse(res.body);
+
+    expect(res.statusCode).toBe(500);
+    expect(body.success).toBe(false);
+    expect(body.error.code).toBe("INTERNAL_ERROR");
+    expect(JSON.stringify(body)).not.toMatch(/eyJ[a-zA-Z0-9_-]{10,}/);
   });
 });
