@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { mockApi } from "../api/mockAdapter";
+import { api } from "../api";
 import type { RecommendationMockCount } from "../api/recommendationMockFixtures";
 import { ProviderCard } from "../components/ProviderCard";
 import type {
@@ -43,7 +43,7 @@ export function RecommendationPage({ assessmentId }: Props) {
     setError("");
     setRecommendation(null);
 
-    mockApi.getRecommendation(
+    api.getRecommendation(
       { assessmentId, serviceType },
       {
         providerCount: readMockCount(searchParams.get("mockProviders")),
