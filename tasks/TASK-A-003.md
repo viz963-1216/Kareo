@@ -114,3 +114,20 @@ PR Title：
 ```text
 [A-003] Provider Geocoding + Service Area QA
 ```
+
+---
+
+## 2026-09-23 補充驗收：已驗證座標（J-002-r3）
+
+PRODUCT_SPEC §21 要求有精確位置時依距離排序。A-003 報告 30／30 筆 Provider 沒有可追溯的已驗證座標，這是**資料缺口**（MVP_DECISIONS D-07），不是產品決策。
+
+- [ ] 為 Provider 取得可追溯的已驗證座標；每筆記錄來源、驗證方式與日期。
+- [ ] 無法驗證者保持 `null` 並列入報告，不從地址或行政區中心點推估。
+- [ ] 報告座標覆蓋率（依服務類型、縣市、行政區），讓 B-005／J-003 知道距離排序可測範圍。
+- [ ] 通過 A-004 座標範圍驗證。
+
+若使用付費 geocoding 或第三方服務，先交 Jerry 決定（費用與授權）。若 Jerry 核准 D-08（MVP 不收 GPS），本補充可延後。
+
+分支：從最新 `staging` 建 `feat/a-003-verified-coordinates`，Submission Version `A-003-r2`。
+
+此補充不擴增產品範圍，只把 PRODUCT_SPEC 原始 MVP 已有的要求指到承接任務；所需規格更新由 TASK-J-002 先合併。

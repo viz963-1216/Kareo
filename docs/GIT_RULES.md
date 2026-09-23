@@ -281,8 +281,8 @@ AI 必須先閱讀 `AGENTS.md` 與 Task 指定 Spec，並先回答：
 Commit 要小且可理解，例如：
 
 ```text
-feat(B-003): add provider recommendation filter
-fix(C-006): handle empty provider result
+feat(B-005): add provider recommendation filter
+fix(C-003): handle empty provider result
 data(A-002): add provider records
 ```
 
@@ -391,7 +391,7 @@ PR Title：
 
 ```text
 [A-001] Provider Data Foundation
-[B-003] Provider Recommendation
+[B-003] Assessment API + AI Adapter Foundation
 [C-004] Provider Detail + Google Maps
 ```
 
