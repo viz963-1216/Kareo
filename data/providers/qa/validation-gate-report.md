@@ -69,10 +69,8 @@ Example: `PSV-TP-HC-001-HOME_CARE`. `PSV-` is the DATA_MODEL §32 prefix. Becaus
 `active` is set only where an official source was checked. See
 `qa/provider-service-active-evidence.md` for the details on each record.
 
-- 25 records: `active=true`, each confirmed in a current official list
-- 5 records (`NTPC-HC-001` … `NTPC-HC-005`): **`active` not set, blocked.** SRC-002 is
-  registered only as the New Taipei health bureau homepage, and no raw file is in the repo,
-  so current service status cannot be confirmed.
+- 30 records: `active=true`, each confirmed in a current official list
+  (NTPC-HC ×5 via the SRC-002 1150916 list from 新北市高齡長期照顧處)
 
 ## Formal Dataset Validation
 
@@ -85,12 +83,9 @@ Result:
 - Providers: 30
 - Provider Services: 30
 - Provider Service Areas: 81
-- Errors: 5 (`provider-services.json` records #10–#14, field `active`, NTPC-HC-001…005)
-- Result: **FAIL**
-- Exit Code: 1
-
-This FAIL is intentional. The gate must not pass while B-004 would still reject records.
-It changes to PASS once the 5 NTPC-HC records get a source-backed `active` value.
+- Errors: 0
+- Result: PASS
+- Exit Code: 0
 
 ## B-004 Parity
 
@@ -100,7 +95,7 @@ connection) on the same datasets:
 | Dataset | B-004 | A-004 |
 |---|---|---|
 | Formal staging, before r2 data fix | REJECT (services 0 valid / 30 rejected) | FAIL (60 errors) |
-| Formal staging, A-004-r2 | REJECT (services 25 valid / 5 rejected, same NTPC-HC records) | FAIL (5 errors) |
+| Formal staging, A-004-r2 | ACCEPT (providers 30, services 30, service areas 81) | PASS |
 | Valid minimal dataset | ACCEPT | PASS |
 | Service `active=false` | ACCEPT | PASS |
 | Service missing `id` / missing `active` / `active="true"` | REJECT | FAIL |
@@ -146,12 +141,10 @@ Provider that failed validation.
 - Schema changes: No
 - API changes: No
 - UI changes: No
-- Modified outside `/data/providers/**`: No
+- Modified outside `/data/providers/**`: Yes, `apps/api/tests/providerImport.test.ts` only
+  (B-004 test that asserted the old defective data state; changed with Jerry's approval)
 
 ## Known Issues
 
-- NTPC-HC-001 … 005 ProviderService `active` is blocked on a retrievable SRC-002 record.
-- `apps/api/tests/providerImport.test.ts` (B-004, Engineer B ownership) asserts that the
-  real staging dataset has 30/30 services rejected for missing `id` / `active`. The data fix
-  changes that to 25 valid / 5 rejected (missing `active` only), so that test must be updated
-  by B. It was not changed here because it is outside A-004 Allowed Paths.
+- NTPC-HC-003 `phone` differs from the SRC-002 1150916 list. See
+  `qa/provider-service-active-evidence.md`; the phone was not changed here.

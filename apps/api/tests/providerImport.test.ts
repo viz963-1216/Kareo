@@ -152,7 +152,8 @@ describe("Provider Import (TASK-B-004)", () => {
     expect(repo.serviceAreas).toHaveLength(1);
   });
 
-  it("real A-002 staging dataset in commit mode: 30 services rejected for missing id/active, so NOTHING is written", async () => {
+  // A-004-r2 補齊 provider-services.json 的 id / active 後，正式資料應全數通過並寫入（InMemory，不連 DB）。
+  it("real staging dataset in commit mode (A-004-r2): all records accepted and written once", async () => {
     const repo = new InMemoryProviderRepository();
     const dataset = readRealDataset();
 
@@ -163,20 +164,17 @@ describe("Provider Import (TASK-B-004)", () => {
     expect(report.providersRejected).toHaveLength(0);
 
     expect(dataset.providerServices.length).toBe(30);
-    expect(report.servicesValid).toBe(0);
-    expect(report.servicesRejected).toHaveLength(30);
-    for (const rejected of report.servicesRejected) {
-      expect(rejected.reasons.join(" ")).toMatch(/id/);
-      expect(rejected.reasons.join(" ")).toMatch(/active/);
-    }
+    expect(report.servicesValid).toBe(30);
+    expect(report.servicesRejected).toHaveLength(0);
 
     expect(report.serviceAreasRejected).toHaveLength(0);
     expect(report.serviceAreasValid).toBe(dataset.providerServiceAreas.length);
 
-    expect(report.written).toBe(false);
-    expect(repo.providers).toHaveLength(0);
-    expect(repo.services).toHaveLength(0);
-    expect(repo.serviceAreas).toHaveLength(0);
+    expect(report.written).toBe(true);
+    expect(repo.atomicWriteCalls).toBe(1);
+    expect(repo.providers).toHaveLength(30);
+    expect(repo.services).toHaveLength(30);
+    expect(repo.serviceAreas).toHaveLength(dataset.providerServiceAreas.length);
   });
 });
 
