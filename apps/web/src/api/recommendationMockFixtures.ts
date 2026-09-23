@@ -35,18 +35,21 @@ const additionalProviders: RecommendationProvider[] = [
 
 const serviceFixtureContent: Record<
   RecommendationServiceType,
-  { label: string; providerNames: [string, string, string] }
+  { label: string; idPrefix: string; providerNames: [string, string, string] }
 > = {
   HOME_CARE: {
     label: "居家照顧",
+    idPrefix: "PROV-MOCK-",
     providerNames: ["測試居家照顧中心", "測試安心居家服務中心", "測試樂齡照護中心"],
   },
   HOME_MEDICAL_NURSING: {
     label: "居家醫療與護理",
+    idPrefix: "PROV-MOCK-MEDICAL-",
     providerNames: ["測試居家醫療護理所", "測試安心居家護理所", "測試樂齡居家醫療中心"],
   },
   ASSISTIVE_DEVICE: {
     label: "輔具",
+    idPrefix: "PROV-MOCK-ASSISTIVE-",
     providerNames: ["測試輔具服務中心", "測試安心輔具中心", "測試樂齡輔具中心"],
   },
 };
@@ -59,6 +62,9 @@ function withServiceType(
   const content = serviceFixtureContent[serviceType];
   return {
     ...provider,
+    id: serviceType === "HOME_CARE"
+      ? provider.id
+      : `${content.idPrefix}${String(index + 1).padStart(3, "0")}`,
     name: content.providerNames[index],
     type: serviceType,
     reasons: ["服務範圍包含三重區", `提供您需要的${content.label}服務`],

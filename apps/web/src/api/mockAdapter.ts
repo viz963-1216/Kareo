@@ -1,4 +1,5 @@
 import type {
+  ProviderDetail,
   AssessmentRequest,
   AssessmentResponse,
   CareNeed,
@@ -8,6 +9,7 @@ import type {
   RecommendationRequest,
   RecommendationResponse,
 } from "../types/api";
+import providerFixture from "../../../../contracts/mock/provider-response.json";
 import {
   createRecommendationFixture,
   type RecommendationMockCount,
@@ -25,6 +27,12 @@ export interface RecommendationMockOptions {
 // These fixtures mirror the current Contract mock responses. Keep UI calls behind
 // this adapter so Jerry can later replace its implementation with the real API.
 export const mockApi = {
+  async getProvider(providerId: string, simulateError = false): Promise<ProviderDetail | null> {
+    await wait(650);
+    if (simulateError) throw new Error("目前無法取得服務單位資料，請稍後再試。");
+    if (providerId !== providerFixture.data.id) return null;
+    return structuredClone(providerFixture.data) as ProviderDetail;
+  },
   async createSession(): Promise<SessionResponse> {
     await wait();
     return {
