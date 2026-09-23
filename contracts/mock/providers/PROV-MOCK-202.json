@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "data": {
+    "id": "PROV-MOCK-202",
+    "name": "測試安心輔具中心",
+    "type": "ASSISTIVE_DEVICE",
+    "address": "臺北市萬華區西園路一段202號",
+    "city": "臺北市",
+    "district": "萬華區",
+    "phone": "02-42020202",
+    "website": null,
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-202",
+    "verified": false,
+    "services": [
+      "ASSISTIVE_DEVICE"
+    ],
+    "serviceAreas": [
+      {
+        "city": "臺北市",
+        "district": "萬華區"
+      },
+      {
+        "city": "臺北市",
+        "district": "中正區"
+      },
+      {
+        "city": "新北市",
+        "district": "三重區"
+      },
+      {
+        "city": "新北市",
+        "district": "板橋區"
+      }
+    ]
+  }
+}

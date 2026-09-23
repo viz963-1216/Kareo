@@ -1,0 +1,436 @@
+{
+  "$schema": "../content-pack.schema.json",
+  "packId": "KP-2026-09-23-001",
+  "formatVersion": "1.0",
+  "createdAt": "2026-09-23T10:57:00+08:00",
+  "createdBy": "J-002 (prepared for Jerry review)",
+  "sourceRegistryVersion": "SR-2026-09-23-01",
+  "status": "NEEDS_REVIEW",
+  "review": {
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "decision": null
+  },
+  "intendedKnowledgeVersion": null,
+  "records": [
+    {
+      "recordId": "KR-2026-001",
+      "category": "ELIGIBILITY",
+      "jurisdiction": "TAIWAN",
+      "title": "可申請長照服務的資格",
+      "source": {
+        "sourceId": "SRC-LAW-L0070059",
+        "authority": "LAW",
+        "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0070059",
+        "fetchedAt": "2026-09-23T10:40:00+08:00",
+        "contentHash": "sha256:7dab8e851580a188626c870cc2466145be81e6d087835983f029c43260dd0b1b"
+      },
+      "publishedAt": "2025-06-19",
+      "effectiveFrom": "2026-01-01",
+      "effectiveTo": null,
+      "lastVerifiedAt": "2026-09-23T10:40:00+08:00",
+      "excerpt": "第 2 條\n因身心失能，且符合下列資格之一者，得依本法第八條第二項規定，向長期照顧管理中心（以下簡稱照管中心）或直轄市、縣（市）主管機關（以下簡稱地方主管機關）申請長期照顧（以下簡稱長照）服務：\n一、六十五歲以上。但具原住民身分者，為五十五歲以上。\n二、領有身心障礙證明。\n三、失智症。\n四、評估期間符合衛生福利部中央健康保險署公告之急性後期整合照護計畫之收案對象。\n全日住宿式服務及團體家屋服務之服務使用者，由中央主管機關另依法令規定提供照顧，不適用本辦法。",
+      "summary": "因身心失能，且符合 65 歲以上（原住民 55 歲以上）、領有身心障礙證明、失智症，或符合急性後期整合照護計畫收案對象其中之一者，可向照管中心或地方主管機關申請；是否符合給付仍以照管專員評估核定為準。",
+      "ruleData": {
+        "type": "ELIGIBILITY_ANY_OF",
+        "requiresDisability": true,
+        "criteria": [
+          {
+            "code": "AGE_65_PLUS"
+          },
+          {
+            "code": "INDIGENOUS_AGE_55_PLUS"
+          },
+          {
+            "code": "DISABILITY_CERTIFICATE"
+          },
+          {
+            "code": "DEMENTIA",
+            "effectiveFrom": "2026-01-01"
+          },
+          {
+            "code": "PAC_PROGRAM",
+            "effectiveFrom": "2026-01-01"
+          }
+        ],
+        "excludes": [
+          "FULL_RESIDENTIAL_SERVICE",
+          "GROUP_HOME"
+        ]
+      },
+      "status": "NEEDS_REVIEW",
+      "review": {
+        "reviewedBy": null,
+        "reviewedAt": null,
+        "decision": null,
+        "notes": "第 2 條第 1 項第 3、4 款自 2026-01-01 施行（辦法第 22 條）；其餘自 2025-09-01。1966 頁面同步說明失智症新增 49 歲以下。"
+      }
+    },
+    {
+      "recordId": "KR-2026-002",
+      "category": "ELIGIBILITY",
+      "jurisdiction": "TAIWAN",
+      "title": "長照需要等級",
+      "source": {
+        "sourceId": "SRC-LAW-L0070059",
+        "authority": "LAW",
+        "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0070059",
+        "fetchedAt": "2026-09-23T10:40:00+08:00",
+        "contentHash": "sha256:7dab8e851580a188626c870cc2466145be81e6d087835983f029c43260dd0b1b"
+      },
+      "publishedAt": "2025-06-19",
+      "effectiveFrom": "2025-09-01",
+      "effectiveTo": null,
+      "lastVerifiedAt": "2026-09-23T10:40:00+08:00",
+      "excerpt": "第 7 條\n長照需要等級，依本法第八條第五項規定評估結果，分為第一級至第八級；第一級為身體或心智未失能者，不納入本辦法給付範圍。",
+      "summary": "長照需要等級分為第 1 級至第 8 級；第 1 級為未失能，不在給付範圍。等級由照管中心評估核定，本平台只能提供初步預估，不能判定等級。",
+      "ruleData": {
+        "type": "LEVEL_RANGE",
+        "min": 1,
+        "max": 8,
+        "benefitEligibleMin": 2
+      },
+      "status": "NEEDS_REVIEW",
+      "review": {
+        "reviewedBy": null,
+        "reviewedAt": null,
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "recordId": "KR-2026-003",
+      "category": "BENEFIT",
+      "jurisdiction": "TAIWAN",
+      "title": "長照給付項目與交通接送用途",
+      "source": {
+        "sourceId": "SRC-LAW-L0070059",
+        "authority": "LAW",
+        "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0070059",
+        "fetchedAt": "2026-09-23T10:40:00+08:00",
+        "contentHash": "sha256:7dab8e851580a188626c870cc2466145be81e6d087835983f029c43260dd0b1b"
+      },
+      "publishedAt": "2025-06-19",
+      "effectiveFrom": "2025-09-01",
+      "effectiveTo": null,
+      "lastVerifiedAt": "2026-09-23T10:40:00+08:00",
+      "excerpt": "第 7 條\n長照需要等級，依本法第八條第五項規定評估結果，分為第一級至第八級；第一級為身體或心智未失能者，不納入本辦法給付範圍。\n依前項評估結果為第二級至第八級者，應依本辦法給予長照服務；其給付項目如下：\n一、個人長照服務：\n（一）照顧及專業服務。\n（二）交通接送服務。\n（三）輔具及居家無障礙環境改善服務。\n二、家庭照顧者支持服務之喘息服務。\n前二項等級及項目之額度，依等級規定如附表二；前項第一款第二目之分區原則，規定如附表三。\n第二項第一款與第二款項目額度，或第一款各目額度，不得互相流用。\n第 8 條\n前條第二項第一款第一目照顧及專業服務，其內容如下：\n一、居家照顧服務。\n二、日間照顧服務。\n三、家庭托顧服務。\n四、專業服務。\n前條第二項第一款第三目輔具及居家無障礙環境改善服務，其內容如下：\n一、輔具服務。\n二、居家無障礙環境改善服務。\n前條第二項第一款第二目交通接送服務，以用於就醫、復健或透析治療為限。",
+      "summary": "第 2–8 級可使用：照顧及專業服務、交通接送服務、輔具及居家無障礙環境改善服務，以及家庭照顧者的喘息服務。交通接送僅限就醫、復健或透析治療。",
+      "ruleData": {
+        "type": "BENEFIT_ITEMS",
+        "items": [
+          "CARE_AND_PROFESSIONAL",
+          "TRANSPORTATION",
+          "ASSISTIVE_DEVICE_AND_HOME_MODIFICATION",
+          "RESPITE"
+        ],
+        "transportationPurposes": [
+          "MEDICAL",
+          "REHABILITATION",
+          "DIALYSIS"
+        ],
+        "noCrossUseBetween": [
+          [
+            "CARE_AND_PROFESSIONAL",
+            "TRANSPORTATION",
+            "ASSISTIVE_DEVICE_AND_HOME_MODIFICATION"
+          ]
+        ]
+      },
+      "status": "NEEDS_REVIEW",
+      "review": {
+        "reviewedBy": null,
+        "reviewedAt": null,
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "recordId": "KR-2026-004",
+      "category": "BENEFIT",
+      "jurisdiction": "TAIWAN",
+      "title": "各長照需要等級的給付額度",
+      "source": {
+        "sourceId": "SRC-LAW-L0070059-T2",
+        "authority": "LAW",
+        "url": "https://law.moj.gov.tw/LawClass/LawGetFile.ashx?FileId=0000398330&lan=C",
+        "fetchedAt": "2026-09-23T10:40:00+08:00",
+        "contentHash": "sha256:981cac6de424615936c1f88a15cc590892815649592261d17faacc868f7e999c"
+      },
+      "publishedAt": "2025-06-19",
+      "effectiveFrom": "2025-09-01",
+      "effectiveTo": null,
+      "lastVerifiedAt": "2026-09-23T10:40:00+08:00",
+      "excerpt": "附表二 長照需要等級及長照服務給付項目之額度修正規定（新臺幣元）。照顧及專業服務（月）：第二級 10,020；第三級 15,460；第四級 18,580；第五級 24,100；第六級 28,070；第七級 32,090；第八級 36,180。交通接送服務（月）：第一區 1,680；第二區 1,840；第三區 2,000；第四區 2,400。輔具及居家無障礙環境改善服務（三年）：第一組 40,000；第二組 60,000。喘息服務（一年）：第二級至第六級 32,340；第七級、第八級 48,510。備註二：第二組規定自中華民國一百十五年七月一日施行。",
+      "summary": "給付額度依核定等級而不同，例如照顧及專業服務每月約 10,020 元（第 2 級）至 36,180 元（第 8 級）。實際額度需經評估核定後才確定。",
+      "ruleData": {
+        "type": "BENEFIT_AMOUNTS",
+        "currency": "TWD",
+        "careAndProfessionalMonthly": {
+          "2": 10020,
+          "3": 15460,
+          "4": 18580,
+          "5": 24100,
+          "6": 28070,
+          "7": 32090,
+          "8": 36180
+        },
+        "transportationMonthlyByZone": {
+          "1": 1680,
+          "2": 1840,
+          "3": 2000,
+          "4": 2400
+        },
+        "assistiveDevice3Years": {
+          "GROUP_1": 40000,
+          "GROUP_2": {
+            "amount": 60000,
+            "effectiveFrom": "2026-07-01",
+            "homeModificationCap": 20000
+          }
+        },
+        "respiteYearly": {
+          "2": 32340,
+          "3": 32340,
+          "4": 32340,
+          "5": 32340,
+          "6": 32340,
+          "7": 48510,
+          "8": 48510
+        }
+      },
+      "status": "NEEDS_REVIEW",
+      "review": {
+        "reviewedBy": null,
+        "reviewedAt": null,
+        "decision": null,
+        "notes": "excerpt 為附表二 PDF 表格內容逐格轉錄（表格無法逐字貼上），審核人需對照 PDF 核對每一個數字。"
+      }
+    },
+    {
+      "recordId": "KR-2026-005",
+      "category": "TRANSPORTATION",
+      "jurisdiction": "TAIWAN",
+      "title": "交通接送服務分區（臺北市、新北市）",
+      "source": {
+        "sourceId": "SRC-LAW-L0070059-T3",
+        "authority": "LAW",
+        "url": "https://law.moj.gov.tw/LawClass/LawGetFile.ashx?FileId=0000398334&lan=C",
+        "fetchedAt": "2026-09-23T10:40:00+08:00",
+        "contentHash": "sha256:63ab483875096147b58d8884a8c453a5d84a3fd4aac562bcc520a1a5afff42a1"
+      },
+      "publishedAt": "2025-06-19",
+      "effectiveFrom": "2025-09-01",
+      "effectiveTo": null,
+      "lastVerifiedAt": "2026-09-23T10:40:00+08:00",
+      "excerpt": "附表三 交通接送服務給付分區表修正規定。第一區（未達五百平方公里）：嘉義市、新竹市、基隆市、臺北市。第二區（五百平方公里以上，未達二千五百平方公里）：彰化縣、桃園市、雲林縣、新竹縣、苗栗縣、嘉義縣、新北市、宜蘭縣、臺南市、臺中市。第四區偏遠鄉鎮市區包含：新北市烏來區、石碇區、坪林區、平溪區、雙溪區、貢寮區（節錄 MVP 服務地區相關部分）。",
+      "summary": "臺北市屬交通接送第一區；新北市屬第二區，但烏來、石碇、坪林、平溪、雙溪、貢寮區屬第四區（偏遠地區）。",
+      "ruleData": {
+        "type": "TRANSPORT_ZONE",
+        "zones": {
+          "臺北市": {
+            "default": 1
+          },
+          "新北市": {
+            "default": 2,
+            "overrides": {
+              "烏來區": 4,
+              "石碇區": 4,
+              "坪林區": 4,
+              "平溪區": 4,
+              "雙溪區": 4,
+              "貢寮區": 4
+            }
+          }
+        }
+      },
+      "status": "NEEDS_REVIEW",
+      "review": {
+        "reviewedBy": null,
+        "reviewedAt": null,
+        "decision": null,
+        "notes": "2025-10-03 勘誤涉及附表三，審核人需確認 PDF 為勘誤後版本。"
+      }
+    },
+    {
+      "recordId": "KR-2026-006",
+      "category": "COPAY",
+      "jurisdiction": "TAIWAN",
+      "title": "長照身分別與部分負擔比率",
+      "source": {
+        "sourceId": "SRC-LAW-L0070059-T5",
+        "authority": "LAW",
+        "url": "https://law.moj.gov.tw/LawClass/LawGetFile.ashx?FileId=0000398333&lan=C",
+        "fetchedAt": "2026-09-23T10:40:00+08:00",
+        "contentHash": "sha256:43817b11e7bcf915299de52233b804287ed490ca267b80ddf8469da84b717576"
+      },
+      "publishedAt": "2025-06-19",
+      "effectiveFrom": "2025-09-01",
+      "effectiveTo": null,
+      "lastVerifiedAt": "2026-09-23T10:40:00+08:00",
+      "excerpt": "第 14 條\n長照給付對象使用長照服務，應依下列長照身分別，自行負擔一定比率之金額（以下簡稱部分負擔）：\n一、第一類：列冊之低收入戶、中低收入戶，或符合領取中低收入老人生活津貼發給辦法第五條第一項第一款津貼資格者。\n二、第二類：非屬前款身分別，符合領取中低收入老人生活津貼發給辦法第五條第一項第二款津貼或身心障礙者生活補助資格者。\n三、第三類：前二款以外者。\n前項比率規定如附表五；部分負擔，由長照特約單位於服務提供後，向長照給付對象收取。\n第一項長照身分別異動時，照管中心或社區整合型服務中心應變更照顧計畫，並於變更當日生效。\n附表四照顧管理服務及政策鼓勵服務，免部分負擔，亦不扣長照給付對象之長照服務給付額度。\n附表五 部分負擔比率修正規定（第一類／第二類／第三類，%）。照顧及專業服務：0／5／16。交通接送服務第一區：0／10／30；第二區：0／9／27；第三區：0／8／25；第四區：0／7／21。輔具及居家無障礙環境改善服務：0／10／30。喘息服務：0／5／16。適用長照需要等級第二級至第八級。備註：部分負擔費用以小數點後無條件捨去計算。",
+      "summary": "使用長照服務需依身分別自付一定比率：低收／中低收入等第一類 0%；第二類與一般戶（第三類）依服務項目不同，例如照顧及專業服務分別為 5% 與 16%。身分別以主管機關認定為準。",
+      "ruleData": {
+        "type": "COPAY_RATES",
+        "unit": "PERCENT",
+        "categories": {
+          "1": "LOW_OR_MIDDLE_LOW_INCOME",
+          "2": "ELDERLY_OR_DISABILITY_ALLOWANCE",
+          "3": "GENERAL"
+        },
+        "rates": {
+          "CARE_AND_PROFESSIONAL": {
+            "1": 0,
+            "2": 5,
+            "3": 16
+          },
+          "TRANSPORTATION": {
+            "ZONE_1": {
+              "1": 0,
+              "2": 10,
+              "3": 30
+            },
+            "ZONE_2": {
+              "1": 0,
+              "2": 9,
+              "3": 27
+            },
+            "ZONE_3": {
+              "1": 0,
+              "2": 8,
+              "3": 25
+            },
+            "ZONE_4": {
+              "1": 0,
+              "2": 7,
+              "3": 21
+            }
+          },
+          "ASSISTIVE_DEVICE_AND_HOME_MODIFICATION": {
+            "1": 0,
+            "2": 10,
+            "3": 30
+          },
+          "RESPITE": {
+            "1": 0,
+            "2": 5,
+            "3": 16
+          }
+        },
+        "rounding": "FLOOR"
+      },
+      "status": "NEEDS_REVIEW",
+      "review": {
+        "reviewedBy": null,
+        "reviewedAt": null,
+        "decision": null,
+        "notes": "2025-10-03 勘誤涉及第 14 條與附表五，審核人需確認為勘誤後版本。"
+      }
+    },
+    {
+      "recordId": "KR-2026-007",
+      "category": "BENEFIT",
+      "jurisdiction": "TAIWAN",
+      "title": "給付額度的週期",
+      "source": {
+        "sourceId": "SRC-LAW-L0070059",
+        "authority": "LAW",
+        "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0070059",
+        "fetchedAt": "2026-09-23T10:40:00+08:00",
+        "contentHash": "sha256:7dab8e851580a188626c870cc2466145be81e6d087835983f029c43260dd0b1b"
+      },
+      "publishedAt": "2025-06-19",
+      "effectiveFrom": "2025-09-01",
+      "effectiveTo": null,
+      "lastVerifiedAt": "2026-09-23T10:40:00+08:00",
+      "excerpt": "第 12 條\n照顧及專業服務額度及交通接送服務額度，按月給付；未滿一個月，按比率計算。\n前項額度，以六個月為一期，扣除照顧計畫核定之額度後，有剩餘者，得保留於照顧計畫核定當月起算六個月內使用，期滿仍有剩餘額度者，應予歸零。\n輔具及居家無障礙環境改善服務額度，每三年給付一次。\n喘息服務額度，每年給付一次；其使用期間內，不得依其他法令規定，申請相同性質之補助。",
+      "summary": "照顧及專業服務與交通接送按月給付、以 6 個月為一期；輔具及居家無障礙每 3 年給付一次；喘息服務每年給付一次。",
+      "ruleData": {
+        "type": "BENEFIT_PERIODS",
+        "CARE_AND_PROFESSIONAL": "MONTHLY_6M_POOL",
+        "TRANSPORTATION": "MONTHLY_6M_POOL",
+        "ASSISTIVE_DEVICE_AND_HOME_MODIFICATION": "EVERY_3_YEARS",
+        "RESPITE": "YEARLY"
+      },
+      "status": "NEEDS_REVIEW",
+      "review": {
+        "reviewedBy": null,
+        "reviewedAt": null,
+        "decision": null,
+        "notes": null
+      }
+    },
+    {
+      "recordId": "KR-2026-008",
+      "category": "APPLICATION",
+      "jurisdiction": "TAIWAN",
+      "title": "申請長照服務的管道與流程",
+      "source": {
+        "sourceId": "SRC-MOHW-1966-APPLY",
+        "authority": "MOHW",
+        "url": "https://1966.gov.tw/LTC/cp-6533-70777-207.html",
+        "fetchedAt": "2026-09-23T10:40:00+08:00",
+        "contentHash": "sha256:6efb5c5c478664dced423d8f50f5cf9f5e328b6bdaebd00f28b63683c8bf9d50"
+      },
+      "publishedAt": null,
+      "effectiveFrom": "2026-09-23",
+      "effectiveTo": null,
+      "lastVerifiedAt": "2026-09-23T10:40:00+08:00",
+      "excerpt": "經各縣市長期照顧管理中心評估，符合長照需要等級2級以上者，並符合下列之一 65歲以上老人 55歲以上原住民 50歲以上失智症者（自115年1月1日起新增49歲以下失智症者） 失能身心障礙者 自115年1月1日起新增：急性後期整合照護計畫之收案對象\n拿起電話直接撥打長照專線1966 聯絡 當地長期照顧管理中心 住院期間聯絡 出院準備銜接長照服務小組 線上申請 2.到府評估 照管專員完成評估後，確認長期照顧需要等級及長期照顧服務給付額度\n服務時間 週一至週五 8:30-12:00 ｜ 13:30-17:30 聯絡資訊 長照專線1966",
+      "summary": "可撥長照專線 1966、聯絡當地長期照顧管理中心、住院時洽出院準備小組，或線上申請；照管專員到府評估後核定等級與額度。1966 服務時間為週一至週五 8:30–12:00、13:30–17:30。",
+      "ruleData": {
+        "type": "APPLICATION_CHANNELS",
+        "channels": [
+          "HOTLINE_1966",
+          "LOCAL_LTC_CENTER",
+          "HOSPITAL_DISCHARGE_PLANNING",
+          "ONLINE"
+        ],
+        "hotline": {
+          "number": "1966",
+          "hours": "Mon-Fri 08:30-12:00,13:30-17:30"
+        }
+      },
+      "status": "NEEDS_REVIEW",
+      "review": {
+        "reviewedBy": null,
+        "reviewedAt": null,
+        "decision": null,
+        "notes": "頁面未標示公告日，publishedAt 留空；effectiveFrom 以擷取日表示。"
+      }
+    },
+    {
+      "recordId": "KR-2026-009",
+      "category": "APPLICATION",
+      "jurisdiction": "TAIPEI",
+      "title": "臺北市長期照顧管理中心聯絡資訊",
+      "source": {
+        "sourceId": "SRC-TPE-HEALTH-LTC-APPLY",
+        "authority": "TAIPEI_GOV",
+        "url": "https://health.gov.taipei/News_Content.aspx?n=4244BB51FC46A03C&sms=72730260368A9FA4&s=718465B2053B7E77",
+        "fetchedAt": "2026-09-23T10:40:00+08:00",
+        "contentHash": "sha256:65c58611568493c886aa759a16e89f05168a60f6e4b9c73bd321612ad1a5545d"
+      },
+      "publishedAt": "2026-09-04",
+      "effectiveFrom": "2026-09-04",
+      "effectiveTo": null,
+      "lastVerifiedAt": "2026-09-23T10:40:00+08:00",
+      "excerpt": "台北市長期照顧管理中心 地址：台灣台北市104中山區錦州街233號 電話 1966 傳真 02-2537-6533",
+      "summary": "臺北市長期照顧管理中心位於中山區錦州街 233 號，申請請撥 1966。",
+      "ruleData": {
+        "type": "LOCAL_CENTER",
+        "city": "臺北市",
+        "phone": "1966",
+        "fax": "02-2537-6533",
+        "address": "臺北市中山區錦州街233號"
+      },
+      "status": "NEEDS_REVIEW",
+      "review": {
+        "reviewedBy": null,
+        "reviewedAt": null,
+        "decision": null,
+        "notes": "頁面標示資料更新 115-09-04。"
+      }
+    }
+  ]
+}

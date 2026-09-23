@@ -1,0 +1,15 @@
+{
+  "description": "Accepted consent document versions. Owner: Jerry. Backend accepts only a combination listed with status ACTIVE. Versions ending in -draft are always rejected in production. See docs/PRIVACY_AND_RETENTION.md §3.",
+  "versions": [
+    {
+      "disclaimerVersion": "2026-10-01-r1-draft",
+      "privacyVersion": "2026-10-01-r1-draft",
+      "termsVersion": "2026-10-01-r1-draft",
+      "status": "DRAFT",
+      "approvedBy": null,
+      "approvedAt": null,
+      "legalReview": "PENDING",
+      "textRef": "docs/PRIVACY_AND_RETENTION.md#8"
+    }
+  ]
+}

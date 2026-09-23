@@ -1,0 +1,36 @@
+# Manual only: hits the deployed staging site with synthetic data.
+# Never runs on push/PR so it does not consume deploy or AI quota.
+name: Staging smoke (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      site_url:
+        description: HTTPS staging site URL (test environment only)
+        required: true
+      with_assessment:
+        description: Also call POST /api/v1/assessments (may use paid AI once B-010 is live)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Smoke test
+        env:
+          SITE_URL: ${{ inputs.site_url }}
+          WITH_ASSESSMENT: ${{ inputs.with_assessment }}
+        run: |
+          if [ "$WITH_ASSESSMENT" = "true" ]; then
+            node scripts/smoke-staging.mjs "$SITE_URL" --with-assessment
+          else
+            node scripts/smoke-staging.mjs "$SITE_URL"
+          fi
