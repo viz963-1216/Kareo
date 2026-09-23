@@ -1,0 +1,77 @@
+# TASK-J-003 PR CI. Runs real builds/tests with no secrets.
+# `pull_request` (not `pull_request_target`) so fork PRs never receive repository secrets.
+# Deploys and paid AI smoke tests are NOT triggered here (see docs/INTEGRATION_ACCEPTANCE.md).
+name: CI
+
+on:
+  pull_request:
+    branches: [staging, main]
+  push:
+    branches: [staging]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api:
+    name: Backend typecheck + tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/api/package-lock.json
+      - run: npm ci --prefix apps/api
+      - run: npm run typecheck --prefix apps/api
+      - run: npm test --prefix apps/api
+
+  web:
+    name: Frontend build (real API mode)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: npm ci --prefix apps/web
+      - run: npm run build --prefix apps/web
+      - name: Real-mode bundle must not contain mock fixtures
+        run: |
+          if grep -R -l -E 'SES-MOCK|CON-MOCK|ASM-MOCK|KB-MOCK' apps/web/dist; then
+            echo "::error::Production bundle contains mock data"; exit 1
+          fi
+
+  site:
+    name: Netlify site bundle
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/build-site.mjs
+      - run: test -f dist/index.html && test -f dist/api-not-found.json
+
+  contracts-and-data:
+    name: Routes, contracts, knowledge packs, provider data
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Netlify routes / mock contracts / forbidden fields / endpoint coverage
+        run: node scripts/check-integration.mjs
+      - name: Knowledge content packs
+        run: node scripts/validate-knowledge-pack.mjs .
+      - name: Provider data gate (TASK-A-004)
+        run: node scripts/check-provider-data.mjs
