@@ -137,3 +137,158 @@ export interface ExternalServiceResponse {
   openMode: ExternalServiceOpenMode;
   notice: string;
 }
+
+// ===== Knowledge（TASK-B-008，依 docs/DATA_MODEL.md 第 23-27 節）=====
+
+export type KnowledgeAuthority = "MOHW" | "LAW" | "TAIPEI_GOV" | "NEW_TAIPEI_GOV";
+export type Jurisdiction = "TAIWAN" | "TAIPEI" | "NEW_TAIPEI";
+
+export interface KnowledgeSource {
+  id: string;
+  name: string;
+  authority: KnowledgeAuthority;
+  jurisdiction: Jurisdiction;
+  sourceUrl: string;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type KnowledgeCategory =
+  | "ELIGIBILITY"
+  | "BENEFIT"
+  | "COPAY"
+  | "ASSISTIVE_DEVICE"
+  | "TRANSPORTATION"
+  | "RESPITE"
+  | "HOME_CARE"
+  | "HOME_MEDICAL_NURSING"
+  | "APPLICATION"
+  | "OTHER";
+
+export type KnowledgeRecordStatus =
+  | "DISCOVERED"
+  | "NEEDS_REVIEW"
+  | "APPROVED"
+  | "PUBLISHED"
+  | "REJECTED"
+  | "SUPERSEDED"
+  | "CONFLICT"
+  | "FETCH_FAILED";
+
+export interface KnowledgeRecord {
+  id: string;
+  sourceId: string;
+  title: string;
+  category: KnowledgeCategory;
+  jurisdiction: Jurisdiction;
+  sourceUrl: string;
+  publishedAt: string | null;
+  effectiveFrom: string;
+  effectiveTo: string | null;
+  fetchedAt: string;
+  lastVerifiedAt: string;
+  contentHash: string;
+  status: KnowledgeRecordStatus;
+  version: string | null; // 所屬 KnowledgeVersion.id，PUBLISHED/SUPERSEDED 時才有值
+  rawText: string;
+  summary: string;
+  ruleData: Record<string, unknown>;
+  createdAt: string;
+  updatedAt: string;
+  // 依 contracts/knowledge/content-pack.schema.json，來源內容包的追溯資訊（不在 DATA_MODEL 核心欄位內，
+  // 但 README §3 要求以 (packId, recordId) 冪等，需要保存才能判斷重複匯入）。
+  packId: string;
+  packRecordId: string;
+}
+
+export type KnowledgeVersionStatus = "DRAFT" | "PUBLISHED" | "ARCHIVED";
+
+export interface KnowledgeVersion {
+  id: string; // 例如 KB-2026-09-26-001
+  status: KnowledgeVersionStatus;
+  publishedAt: string | null;
+  createdBy: string;
+  approvedBy: string | null;
+  notes: string | null;
+}
+
+export type KnowledgeChangeStatus = "NEEDS_REVIEW" | "APPROVED" | "REJECTED" | "CONFLICT";
+
+export interface KnowledgeChange {
+  id: string;
+  knowledgeRecordId: string;
+  oldContentHash: string | null;
+  newContentHash: string;
+  oldContent: string | null;
+  newContent: string;
+  aiSummary: string | null;
+  status: KnowledgeChangeStatus;
+  detectedAt: string;
+  reviewedAt: string | null;
+  reviewedBy: string | null;
+}
+
+// 依 docs/API_CONTRACT.md 第 13 節。
+export interface KnowledgeStatusResponse {
+  version: string;
+  publishedAt: string;
+  lastVerifiedAt: string;
+  notice: string;
+}
+
+// ===== Content Pack Import（依 contracts/knowledge/content-pack.schema.json v1.0）=====
+
+export interface RawContentPackSourceRef {
+  sourceId?: unknown;
+  authority?: unknown;
+  url?: unknown;
+  fetchedAt?: unknown;
+  contentHash?: unknown;
+}
+
+export interface RawContentPackReview {
+  reviewedBy?: unknown;
+  reviewedAt?: unknown;
+  decision?: unknown;
+  notes?: unknown;
+}
+
+export interface RawContentPackRecord {
+  recordId?: unknown;
+  category?: unknown;
+  jurisdiction?: unknown;
+  title?: unknown;
+  source?: unknown;
+  publishedAt?: unknown;
+  effectiveFrom?: unknown;
+  effectiveTo?: unknown;
+  lastVerifiedAt?: unknown;
+  excerpt?: unknown;
+  summary?: unknown;
+  ruleData?: unknown;
+  status?: unknown;
+  review?: unknown;
+}
+
+export interface RawContentPack {
+  packId?: unknown;
+  formatVersion?: unknown;
+  createdAt?: unknown;
+  createdBy?: unknown;
+  sourceRegistryVersion?: unknown;
+  status?: unknown;
+  review?: unknown;
+  intendedKnowledgeVersion?: unknown;
+  records?: unknown;
+}
+
+export type KnowledgeImportMode = "commit" | "dry-run";
+
+export interface ContentPackImportReport {
+  mode: KnowledgeImportMode;
+  written: boolean;
+  packId: string | null;
+  recordsValid: number;
+  recordsRejected: Array<{ recordId: string | null; reasons: string[] }>;
+}
