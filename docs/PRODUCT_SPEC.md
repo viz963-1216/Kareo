@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — Product Spec
 
-Version: v0.2  
+Version: v0.3（J-002-r2，2026-09-23）  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -251,6 +251,8 @@ Assessment 只負責判斷：這個使用者可能需要什麼服務？
 ```
 
 # 16. AI 的責任
+
+**MVP 決策（2026-09-23，MVP_DECISIONS D-01 方案 B）：MVP 不使用 AI／LLM。** Assessment 由確定性規則引擎產生（`docs/ASSESSMENT_RULES.md`），以控制成本並避免健康資料送往外部服務。以下為未來若引入 AI 時的責任範圍；引入前須重新決策並修訂本節。
 
 AI 可以負責：
 
@@ -573,6 +575,8 @@ NEW_TAIPEI
 系統繼續使用 Last Published Knowledge Version。
 
 # 50. AI Knowledge Rule
+
+MVP 由規則引擎只引用 Current Published Knowledge 的已核准內容（ASSESSMENT_RULES §6）。未來若引入 AI：
 
 AI 回答資格、補助、制度、申請相關問題時，優先使用 Current Published Knowledge，而不是模型內建記憶。
 
