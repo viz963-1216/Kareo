@@ -1,23 +1,58 @@
 // J-003 real-API E2E runner (no dependencies). Runs the API-only cases of tests/e2e/acceptance-cases.json
 // against a deployed environment and writes a result file for scripts/acceptance-gate.mjs.
 //
-//   node tests/e2e/run-api-e2e.mjs https://<staging-host> --commit <sha> [--out tests/e2e/results/<run>.json]
+//   node tests/e2e/run-api-e2e.mjs --base-url=https://<host>[/<path>] --commit=<40-hex sha> [--out=tests/e2e/results/<run>.json]
+//   (or KAREO_RELEASE_BASE_URL / KAREO_RELEASE_COMMIT; add --local to try a local http server, which the gate never counts)
+//
+// --commit is the version you intend to verify, not proof. Before and after the cases the runner reads
+// <base-url>/kareo-version.json (Netlify COMMIT_REF, written by scripts/build-site.mjs) and records what it
+// observed. If the deployed commit differs from --commit or cannot be read, no case is run and the file
+// records the mismatch, so the release gate cannot count it.
 //
 // Rules: a case is PASS only when the real API behaves as the contract requires. Anything the environment
 // cannot yet exercise (missing endpoint, no ACTIVE consent version, no PUBLISHED knowledge) is PENDING with a
-// reason — never PASS. Cases that also need a browser (ui) or an operator (ops) are not decided here.
-// Uses synthetic data only. It does not call any paid service.
+// reason — never PASS. Cases that also need a browser (ui) or an operator (ops) are not decided here
+// (record them with tests/e2e/record-manual.mjs). Uses synthetic data only. It does not call any paid service.
 import { readFileSync, writeFileSync } from 'node:fs';
+import { deploymentUrl, resolveReleaseTarget } from '../../scripts/lib/release-target.mjs';
+import { deploymentEvidence, observeDeployment } from './deployment-evidence.mjs';
 
 const args = process.argv.slice(2);
-const opt = (name) => { const i = args.indexOf(name); return i === -1 ? undefined : args[i + 1]; };
-const base = new URL(args[0] ?? 'invalid:');
-if (!['https:', 'http:'].includes(base.protocol)) {
-  console.error('Usage: node tests/e2e/run-api-e2e.mjs <base-url> --commit <sha> [--out file]');
+const opt = (name) => { const eq = args.find((a) => a.startsWith(`--${name}=`)); if (eq) return eq.slice(name.length + 3); const i = args.indexOf(`--${name}`); return i === -1 ? undefined : args[i + 1]; };
+const local = args.includes('--local');
+const target = resolveReleaseTarget(args, process.env, { allowInsecure: local });
+if (target.problems.length) {
+  console.error(`Usage: node tests/e2e/run-api-e2e.mjs --base-url=<https url> --commit=<40-hex sha> [--out=file] [--local]\n- ${target.problems.join('\n- ')}`);
   process.exit(2);
 }
-const commit = opt('--commit') ?? '';
-const out = opt('--out');
+const { commit, env } = target;
+const out = opt('out');
+const startedAt = new Date().toISOString();
+
+function writeRun(results, evidence) {
+  const run = {
+    schemaVersion: 2,
+    runId: `api-${startedAt}`,
+    apiMode: 'real',
+    baseUrl: env.key,
+    commit,
+    startedAt,
+    finishedAt: new Date().toISOString(),
+    operator: 'tests/e2e/run-api-e2e.mjs',
+    deployment: evidence,
+    results,
+  };
+  if (out) writeFileSync(out, `${JSON.stringify(run, null, 2)}\n`);
+}
+
+const before = await observeDeployment(env);
+console.log(`Target   ${commit} @ ${env.key}`);
+console.log(`Deployed ${before.commit ?? '(unknown)'} via ${before.versionUrl}${before.error ? ` — ${before.error}` : ''}`);
+if (before.commit !== commit) {
+  writeRun([], deploymentEvidence(before, null, commit));
+  console.log(`\nFAIL     deployed version does not match the target; no case was run${out ? ` → ${out}` : ''}`);
+  process.exit(1);
+}
 
 const results = [];
 const record = (caseId, status, evidence) => { results.push({ caseId, status, evidence }); console.log(`${status.padEnd(8)} ${caseId} ${evidence}`); };
@@ -26,7 +61,7 @@ async function call(method, path, { body, token, headers = {} } = {}) {
   const h = { Accept: 'application/json', ...headers };
   if (body !== undefined) h['Content-Type'] = 'application/json';
   if (token) h['X-Kareo-Session-Token'] = token;
-  const response = await fetch(new URL(path, base), { method, headers: h, body: body === undefined ? undefined : JSON.stringify(body), signal: AbortSignal.timeout(30_000) });
+  const response = await fetch(deploymentUrl(env, path), { method, headers: h, body: body === undefined ? undefined : JSON.stringify(body), signal: AbortSignal.timeout(30_000) });
   const text = await response.text();
   let json = null;
   try { json = JSON.parse(text); } catch { /* not JSON */ }
@@ -125,9 +160,13 @@ for (const id of ['E2E-18', 'E2E-19', 'E2E-20']) record(id, 'PENDING', 'needs B-
   record('E2E-16', apiOk ? 'PENDING' : 'FAIL', apiOk ? 'API part OK; new-tab UI and Kareocar availability still need a manual result' : `transportation API ${r.status}`);
 }
 
-const run = { runId: `api-${new Date().toISOString().slice(0, 19)}`, apiMode: 'real', baseUrl: base.origin, commit, date: new Date().toISOString().slice(0, 10), operator: 'tests/e2e/run-api-e2e.mjs', results };
-if (out) writeFileSync(out, `${JSON.stringify(run, null, 2)}\n`);
+const after = await observeDeployment(env);
+const evidence = deploymentEvidence(before, after, commit);
+writeRun(results, evidence);
 const count = (s) => results.filter((r) => r.status === s).length;
 console.log(`\n${count('PASS')} PASS, ${count('FAIL')} FAIL, ${count('PENDING')} PENDING${out ? ` → ${out}` : ''}`);
-if (!commit) console.log('No --commit given: the result file will not be counted by the acceptance gate.');
+if (!evidence.matches) {
+  console.log(`FAIL     deployment evidence does not match the target (before ${before.commit ?? 'unknown'}, after ${after.commit ?? 'unknown'}); the gate will not count this run.`);
+  process.exit(1);
+}
 process.exit(count('FAIL') ? 1 : 0);

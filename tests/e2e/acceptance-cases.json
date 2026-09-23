@@ -1,5 +1,5 @@
 {
-  "about": "J-003 full MVP acceptance cases (PRODUCT_SPEC original MVP, docs/MVP_TRACEABILITY.md). Every case is required for release. A case passes only with a recorded real-API result (tests/e2e/results/*.json, apiMode=real, https non-local baseUrl, commit). Mock results never count.",
+  "about": "J-003 full MVP acceptance cases (PRODUCT_SPEC original MVP, docs/MVP_TRACEABILITY.md). Every case is required for release. A case passes only with a recorded real-API result for the release target (same commit, same deployment URL, deployed version verified via kareo-version.json; see tests/e2e/results/README.md). Mock results never count.",
   "cases": [
     {"id": "E2E-01", "kind": "api", "title": "新 session 取得 sessionToken（持有證明）", "spec": "API_CONTRACT §6、§3.1", "requires": ["B-011a", "D-04"]},
     {"id": "E2E-02", "kind": "api", "title": "同意 ACTIVE 版本成功；accepted=false 或非 ACTIVE 版本被拒", "spec": "PRODUCT_SPEC §31–32、API_CONTRACT §7", "requires": ["B-011a", "D-05"]},

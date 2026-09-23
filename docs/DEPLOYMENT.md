@@ -125,3 +125,12 @@ On 2026-09-23 the Netlify team had exhausted its credits: `kareo-tw` and `kareoc
 - Staging smoke runs only via the manual `Staging smoke (manual)` workflow or locally:
   `node scripts/smoke-staging.mjs https://<staging-site>` (add `--with-assessment` only when intended).
 - Buying credits, cancelling the scheduled downgrade or enabling auto-recharge are Jerry's decisions.
+
+## J-003-r3 additions (2026-09-23)
+
+- `GET /api/v1/providers/{providerId}` is routed to `providerDetail` (B-004 merged the function without a route;
+  `check-integration.mjs` caught it).
+- Every build writes `dist/kareo-version.json` (public, `Cache-Control: no-store`): `commit` from Netlify's
+  `COMMIT_REF`, plus `branch`, `context`, `deployId`, `builtAt`. No secrets. The E2E runner and the release gate
+  use it as evidence of which commit is actually deployed (docs/INTEGRATION_ACCEPTANCE.md). A docs-only commit
+  skipped by `netlify-ignore.mjs` leaves the previous commit in the marker; that is the version that is live.

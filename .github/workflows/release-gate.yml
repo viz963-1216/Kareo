@@ -1,9 +1,28 @@
-# TASK-J-003 full MVP acceptance. Manual only. Fails while any required item is FAIL or PENDING,
-# including every real-API E2E case in tests/e2e/acceptance-cases.json. Needs no secrets.
+# TASK-J-003 full MVP acceptance for ONE release target: an exact commit on an exact deployment.
+# Fails while any required item is FAIL or PENDING, including every real-API E2E case in
+# tests/e2e/acceptance-cases.json, and fails (exit 2) when the target is missing. Needs no secrets.
+#
+# Target:
+#   workflow_dispatch  → inputs.commit (full 40-hex SHA) + inputs.base_url
+#   pull_request→main  → the PR head SHA + repository variable KAREO_RELEASE_BASE_URL
+# The deployed version is not assumed from the checkout: the E2E runner reads
+# <base_url>/kareo-version.json (Netlify COMMIT_REF) and the gate only counts results whose
+# observed version equals the target. See docs/INTEGRATION_ACCEPTANCE.md.
 name: Release gate
 
 on:
   workflow_dispatch:
+    inputs:
+      commit:
+        description: Full 40-character SHA of the commit being released
+        required: true
+      base_url:
+        description: HTTPS URL of the deployment to verify (e.g. https://kareo-tw.netlify.app)
+        required: true
+      run_api_e2e:
+        description: Run the real-API E2E runner against base_url first (writes synthetic records)
+        type: boolean
+        default: true
   pull_request:
     branches: [main]
 
@@ -14,9 +33,33 @@ jobs:
   release-gate:
     name: MVP release gate (strict)
     runs-on: ubuntu-latest
+    env:
+      KAREO_RELEASE_COMMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.commit || github.event.pull_request.head.sha }}
+      KAREO_RELEASE_BASE_URL: ${{ github.event_name == 'workflow_dispatch' && inputs.base_url || vars.KAREO_RELEASE_BASE_URL }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Static checks run on the commit being released, not on whatever the workflow ref points to.
+          ref: ${{ env.KAREO_RELEASE_COMMIT }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node scripts/acceptance-gate.mjs --mode=release
+      - name: Check release target
+        run: |
+          test -n "$KAREO_RELEASE_COMMIT" || { echo "::error::No target commit"; exit 2; }
+          test -n "$KAREO_RELEASE_BASE_URL" || { echo "::error::No target base URL (set inputs.base_url or repository variable KAREO_RELEASE_BASE_URL)"; exit 2; }
+          test "$(git rev-parse HEAD)" = "$KAREO_RELEASE_COMMIT" || { echo "::error::Checkout is not the target commit"; exit 2; }
+      - name: Real-API E2E against the target deployment (records observed version)
+        if: github.event_name == 'pull_request' || inputs.run_api_e2e
+        # A failing runner must not skip the gate: the gate reports the recorded mismatch or FAIL.
+        continue-on-error: true
+        run: node tests/e2e/run-api-e2e.mjs --out="tests/e2e/results/ci-${{ github.run_id }}-${{ github.run_attempt }}.json"
+      - name: Release gate
+        run: node scripts/acceptance-gate.mjs --mode=release
+      - name: Keep E2E results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-results-${{ github.run_id }}-${{ github.run_attempt }}
+          path: tests/e2e/results/*.json
+          if-no-files-found: ignore
