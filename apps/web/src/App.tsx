@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
-import { mockApi } from "./api/mockAdapter";
+import { api } from "./api";
 import { ScrollToTop } from "./components/ScrollToTop";
 import type { AssessmentRequest, AssessmentResponse } from "./types/api";
 import { AssessmentPage } from "./pages/AssessmentPage";
 import { ConsentPage } from "./pages/ConsentPage";
 import { HomePage } from "./pages/HomePage";
 import { ResultPage } from "./pages/ResultPage";
+import { RecommendationPage } from "./pages/RecommendationPage";
 
 export default function App() {
   const [sessionId, setSessionId] = useState("");
@@ -14,20 +15,14 @@ export default function App() {
   const [result, setResult] = useState<AssessmentResponse | null>(null);
 
   async function acceptConsent() {
-    const session = await mockApi.createSession();
-    await mockApi.acceptConsent({
-      sessionId: session.sessionId,
-      disclaimerVersion: "MOCK-1.0",
-      privacyVersion: "MOCK-1.0",
-      termsVersion: "MOCK-1.0",
-      accepted: true,
-    });
+    const session = await api.createSession();
+    await api.acceptConsent(session.sessionId);
     setSessionId(session.sessionId);
     setHasConsent(true);
   }
 
   async function submitAssessment(request: AssessmentRequest) {
-    const response = await mockApi.submitAssessment(request);
+    const response = await api.submitAssessment(request);
     setResult(response);
   }
 
@@ -48,6 +43,10 @@ export default function App() {
           element={hasConsent ? <AssessmentPage sessionId={sessionId} onSubmit={submitAssessment} /> : <Navigate to="/consent" replace />}
         />
         <Route path="/result" element={<ResultPage result={result} />} />
+        <Route
+          path="/recommendations/:serviceType"
+          element={<RecommendationPage assessmentId={result?.assessmentId ?? null} />}
+        />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <footer>

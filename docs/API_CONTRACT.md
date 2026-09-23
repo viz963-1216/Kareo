@@ -1,7 +1,7 @@
 # Kareo / 長照一點通 — API Contract
 
-Version: v0.1  
-Status: LOCKED FOR MVP  
+Version: v0.2.1（J-002-r3，2026-09-23）  
+Status: v0.1 內容 LOCKED FOR MVP；**v0.2 新增項目（標示「v0.2」的段落）為 PROPOSED**（MVP_DECISIONS D-04／D-05／D-06），Jerry 核准前屬可逆實作，不得宣稱已核准  
 Owner: Jerry
 
 ---
@@ -51,6 +51,65 @@ Jerry Review
 /api/v1
 ```
 
+v0.2 變更說明：MVP 尚未對外上線，以下 session 持有證明、冪等與錯誤碼屬 v1 內的補強，沒有既有正式使用者受影響，因此不另開 `/v2`（§22）。
+
+## 3.1 Session 持有證明（v0.2）
+
+除下列公開 endpoint 外，所有 API 必須帶 Header：
+
+```text
+X-Kareo-Session-Token: <sessionToken>
+```
+
+不需要 session 的公開 endpoint：
+
+```text
+POST /api/v1/session
+GET  /api/v1/providers/{providerId}
+GET  /api/v1/external-services/transportation
+GET  /api/v1/knowledge/status
+```
+
+- Body 中的 `sessionId` 必須與 token 所屬 session 相同，否則 `FORBIDDEN`。
+- 引用的 `assessmentId`／`recommendationId` 不屬於同一 session 時回 `NOT_FOUND`（不透露是否存在）。
+- 規則細節見 ARCHITECTURE §20。
+
+## 3.2 HTTP Status 對照（v0.2）
+
+| error.code | HTTP |
+|---|---|
+| `INVALID_REQUEST` | 400 |
+| `VALIDATION_ERROR` | 400 |
+| `SESSION_INVALID` | 401 |
+| `CONSENT_REQUIRED` | 403 |
+| `FORBIDDEN` | 403 |
+| `NOT_FOUND` | 404 |
+| `IDEMPOTENCY_CONFLICT` | 409 |
+| `INVALID_STATUS_TRANSITION` | 409（僅內部工具） |
+| `PAYLOAD_TOO_LARGE` | 413 |
+| `RATE_LIMITED` | 429（附 `Retry-After` header） |
+| `INTERNAL_ERROR` | 500 |
+| `KNOWLEDGE_UNAVAILABLE` | 503 |
+| `AI_UNAVAILABLE` | 503（保留；MVP 不使用 AI，不會回傳） |
+
+`NO_PROVIDER_FOUND` 保留但 Recommendation 查無結果時仍回 `success: true` 與空陣列（§9），不得以錯誤回應。
+
+## 3.3 Idempotency-Key（v0.2）
+
+`POST /api/v1/leads` 必須帶：
+
+```text
+Idempotency-Key: <UUID>
+```
+
+- 同一 session＋同一 key＋同內容 → 回傳原結果（HTTP 200）。
+- 同一 session＋同一 key＋不同內容 → `IDEMPOTENCY_CONFLICT`。
+- 缺少或格式錯誤 → `VALIDATION_ERROR`。
+
+## 3.4 限制（v0.2）
+
+Body 上限 16 KB；`freeText` 500 字；限流規則見 ARCHITECTURE §20.4。超過限流回 `RATE_LIMITED`。
+
 ---
 
 # 4. 通用成功格式
@@ -88,6 +147,20 @@ KNOWLEDGE_UNAVAILABLE
 INTERNAL_ERROR
 ```
 
+v0.2 新增：
+
+```text
+SESSION_INVALID
+FORBIDDEN
+RATE_LIMITED
+PAYLOAD_TOO_LARGE
+IDEMPOTENCY_CONFLICT
+AI_UNAVAILABLE
+INVALID_STATUS_TRANSITION
+```
+
+HTTP status 見 §3.2。
+
 ---
 
 # 6. Session API / 使用者暫存工作階段
@@ -107,10 +180,31 @@ INTERNAL_ERROR
   "success": true,
   "data": {
     "sessionId": "SES-001",
-    "createdAt": "2026-09-14T22:00:00+08:00"
+    "sessionToken": "k7Qm...（至少 256 bits，base64url）",
+    "createdAt": "2026-09-14T22:00:00+08:00",
+    "expiresAt": "2026-09-21T22:00:00+08:00"
   }
 }
 ```
+
+v0.2：`sessionToken` 只在此回應出現一次，前端存於 `sessionStorage` 並在後續請求放入 `X-Kareo-Session-Token`。`expiresAt` 為目前閒置到期時間。
+
+## DELETE /api/v1/session（v0.2）
+
+用途：使用者刪除自己的資料（PRIVACY_AND_RETENTION §6.1）。需要 `X-Kareo-Session-Token`，無 Body。
+
+```json
+{
+  "success": true,
+  "data": {
+    "sessionId": "SES-001",
+    "status": "DELETION_REQUESTED",
+    "deletionScheduledBefore": "2026-09-21T22:00:00+08:00"
+  }
+}
+```
+
+呼叫後 token 立即失效；重複呼叫回 `SESSION_INVALID`。
 
 ---
 
@@ -143,6 +237,24 @@ INTERNAL_ERROR
 ```
 
 `accepted=false` 時不得開始正式 Assessment。
+
+v0.2：需要 `X-Kareo-Session-Token`。三個版本必須是 `contracts/legal/consent-versions.json` 中 `ACTIVE` 的組合，否則 `VALIDATION_ERROR`。
+
+## POST /api/v1/consent/withdraw（v0.2）
+
+需要 `X-Kareo-Session-Token`，無 Body。
+
+```json
+{
+  "success": true,
+  "data": {
+    "withdrawnAt": "2026-09-14T23:00:00+08:00",
+    "sessionStatus": "DELETION_REQUESTED"
+  }
+}
+```
+
+撤回後 session 進入刪除流程，token 失效，未終態 Lead 轉為 `CANCELLED`（`CONSENT_WITHDRAWN`）。
 
 ---
 
@@ -207,6 +319,8 @@ INTERNAL_ERROR
 }
 ```
 
+v0.2：需要 `X-Kareo-Session-Token`。錯誤：無有效同意 `CONSENT_REQUIRED`；無 PUBLISHED 知識 `KNOWLEDGE_UNAVAILABLE`。MVP 由規則引擎產生結果（ASSESSMENT_RULES），Response 格式不變。任何失敗都不得回傳成功格式的預設結果。
+
 Care Need Enum：
 
 ```text
@@ -223,6 +337,8 @@ TRANSPORTATION
 ## POST /api/v1/recommendations
 
 TRANSPORTATION 不使用此 API。
+
+v0.2：需要 `X-Kareo-Session-Token`；`assessmentId` 必須屬於同一 session。排序依 PRODUCT_SPEC §21–24：使用者提供精確位置**且** Provider 有已驗證座標時用 `DISTANCE`；只有行政區時用 `DISTRICT_ROTATION`；不得用未驗證座標計算距離、不得宣稱「最近」。目前 Provider 座標為資料缺口（MVP_DECISIONS D-07），所以真實資料暫時只會走 `DISTRICT_ROTATION`，但 `DISTANCE` 分支屬 MVP 必要功能，須實作與測試。只有縣市／沒有位置的回應待 D-13 決議。
 
 ### Request
 
@@ -390,14 +506,24 @@ MVP 只允許 External Link，禁止 iframe、Backend Integration、Database Int
 {
   "sessionId": "SES-001",
   "assessmentId": "ASM-001",
+  "recommendationId": "REC-001",
   "providerId": "PROV-001",
   "serviceType": "HOME_CARE",
   "contact": {
     "name": "王先生",
     "phone": "0912345678"
-  }
+  },
+  "contactConsent": true
 }
 ```
+
+v0.2 Headers：`X-Kareo-Session-Token`、`Idempotency-Key`（§3.3）。
+
+v0.2 驗證：
+
+- `contactConsent` 必須為 `true`，否則 `VALIDATION_ERROR`。
+- `assessmentId`、`recommendationId` 必須屬於同一 session；`providerId` 必須在該推薦結果中，`serviceType` 必須與推薦相同。
+- 同一 session＋provider＋serviceType 已有未終態 Lead → 回傳既有 Lead，`duplicate: true`。
 
 ### Response
 
@@ -407,10 +533,13 @@ MVP 只允許 External Link，禁止 iframe、Backend Integration、Database Int
   "data": {
     "leadId": "LEAD-001",
     "status": "NEW",
-    "createdAt": "2026-09-14T22:40:00+08:00"
+    "createdAt": "2026-09-14T22:40:00+08:00",
+    "duplicate": false
   }
 }
 ```
+
+Lead 的查件與狀態更新只經由受保護的內部指令（docs/LEAD_OPERATIONS.md §4），不提供公開 API。
 
 Lead Status：
 
@@ -641,3 +770,13 @@ Code
 ```
 
 若 Code 與本文件衝突，以 Contract 為準，停止修改並建立 Issue。
+
+---
+
+# 25. Change Log
+
+| 版本 | 日期 | 內容 | 下游 |
+|---|---|---|---|
+| v0.1 | 2026-09-14 | MVP 初版 | — |
+| v0.2 | 2026-09-23 | Session token 持有證明、DELETE session、Consent 撤回、Lead 冪等與聯絡同意、錯誤碼與 HTTP 對照、限制（J-002-r1） | B-011、B-006、B-005、B-010、C（adapter 由 J-003 接線）、contracts/mock |
+| v0.2.1 | 2026-09-23 | 狀態標示更正：v0.2 新增項目為 PROPOSED；§9 恢復原始 MVP 的 DISTANCE／DISTRICT_ROTATION 兩種排序（座標為資料缺口，D-07）；無位置／只有縣市回應待 D-13（J-002-r3） | B-005、B-011a、C-005、J-003 |

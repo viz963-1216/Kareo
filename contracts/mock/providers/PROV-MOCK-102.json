@@ -1,0 +1,33 @@
+{
+  "success": true,
+  "data": {
+    "id": "PROV-MOCK-102",
+    "name": "測試安心居家護理所",
+    "type": "HOME_MEDICAL_NURSING",
+    "address": "臺北市大同區民權西路102號",
+    "city": "臺北市",
+    "district": "大同區",
+    "phone": "02-41020202",
+    "website": "https://example.com/kareo-mock/prov-mock-102",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-102",
+    "verified": false,
+    "services": [
+      "HOME_MEDICAL_NURSING",
+      "HOME_CARE"
+    ],
+    "serviceAreas": [
+      {
+        "city": "臺北市",
+        "district": "大同區"
+      },
+      {
+        "city": "臺北市",
+        "district": "中山區"
+      },
+      {
+        "city": "新北市",
+        "district": "三重區"
+      }
+    ]
+  }
+}

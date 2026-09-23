@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "data": {
+    "id": "PROV-MOCK-103",
+    "name": "測試樂齡居家醫療中心",
+    "type": "HOME_MEDICAL_NURSING",
+    "address": "新北市新莊區中正路103號",
+    "city": "新北市",
+    "district": "新莊區",
+    "phone": "02-41030303",
+    "website": null,
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-103",
+    "verified": true,
+    "services": [
+      "HOME_MEDICAL_NURSING"
+    ],
+    "serviceAreas": [
+      {
+        "city": "新北市",
+        "district": "新莊區"
+      },
+      {
+        "city": "新北市",
+        "district": "三重區"
+      }
+    ]
+  }
+}
