@@ -2,19 +2,21 @@
 
 Owner: Engineer B — Backend  
 Type: Backend / Crawler  
-Status: QUEUED — **原始 MVP 必要項目**（PRODUCT_SPEC §42）；DO NOT START UNTIL B-008 MERGED
+Status: READY — **原始 MVP 必要項目**（PRODUCT_SPEC §42）；B-008 已合併（PR #26）；未見提交  
 
 ---
 
 # Goal / 目標
 
-建立官方 Knowledge 自動更新 Crawler：每日 00:10 Asia/Taipei 抓取、Snapshot、Hash、Diff、Change Queue，但不得自動 Publish。
+每天 00:10（Asia/Taipei）自動檢查 Source Registry 的官方來源：抓取 → Snapshot → Content Hash → 比對 → KnowledgeChange（`NEEDS_REVIEW`）→ 人工審核 → 發布（PRODUCT_SPEC §42–43、§49）。**Crawler 永遠不自動核准或發布。**
 
 ---
 
 # Prerequisite / 前置條件
 
-B-008 已 Merge；官方 Source Registry 已可用。
+- B-008 已合併（完成，PR #26）：Knowledge 表、KnowledgeChange、CrawlerRun、Publish Gate。
+- 來源清單以 `docs/knowledge/source-registry.md` 為準（D-02a PROPOSED），不自行加入來源；新北市來源擷取失敗的項目照實記錄 `FETCH_FAILED`。
+- 排程部署方式若會增加 Netlify／Supabase 用量或費用，先交 Jerry 決定（D-09），不自行購買。
 
 ---
 
@@ -71,26 +73,22 @@ docs/GIT_RULES.md
 
 # Required Deliverables / 必交付
 
-- Scheduled crawler
-- Raw Snapshot
-- Content Hash
-- Diff
-- KnowledgeChange
-- CrawlerRun
-- FETCH_FAILED 保留 Last Published
-- 00:10 Asia/Taipei schedule
-- Tests / failure simulation
+- 00:10 Asia/Taipei 排程（設定＋實際觸發紀錄）
+- Raw Snapshot、Content Hash、Diff、KnowledgeChange（`NEEDS_REVIEW`）、CrawlerRun
+- 抓取失敗／逾時／格式改變 → `FETCH_FAILED`，保留 Last Published，不清空、不寫半套
+- 審核人操作說明：去哪裡看每日變更、如何轉成新內容包（contracts/knowledge/README）
+- Tests／failure simulation
 
 ---
 
 # Acceptance Criteria
 
-- [ ] 抓取失敗不清空 Knowledge
-- [ ] Change 進 NEEDS_REVIEW
-- [ ] 不自動 Publish
-- [ ] Content Hash / Diff 可追溯
-- [ ] Timezone 正確
-- [ ] Tests 通過
+- [ ] 以 Source Registry active 來源完整執行一次：產生 CrawlerRun、Snapshot、contentHash；未變更時不產生 KnowledgeChange
+- [ ] 模擬內容改變 → KnowledgeChange 為 `NEEDS_REVIEW`，PUBLISHED 版本不變
+- [ ] 模擬失敗／逾時／格式改變 → `FETCH_FAILED`，Assessment 繼續使用 Last Published
+- [ ] Timezone 正確（00:10 Asia/Taipei），附排程設定與觸發紀錄
+- [ ] Content Hash／Diff 可追溯；Tests 通過
+- [ ] 部署後的每日紀錄由 J-003 驗收（E2E-26），J-004 列為 release 必要項
 
 ---
 
@@ -122,16 +120,9 @@ PR Title：
 
 ---
 
-## 2026-09-23 範圍更正（J-002-r3）
+---
 
-- 上一版標示「POST-MVP ALLOWED」與 PRODUCT_SPEC §42 不一致，已更正：B-009 屬原始 MVP，列入 J-003 完整驗收與 J-004 release gate 的必要項目。
-- 「MVP 先人工每日檢查、crawler 延後」是待核准的範圍變更提案（MVP_DECISIONS D-11）。**Jerry 核准前，本任務維持 MVP 必要**；核准後由 J-002 修訂 PRODUCT_SPEC 與本任務。
-- 前置：B-008 合併（Knowledge 表、KnowledgeChange、Publish Gate）；Source Registry（D-02a）核准。來源清單以 `docs/knowledge/source-registry.md` 為準，不自行加入來源。
-- 補充驗收：
-  - [ ] 以 Source Registry 的 active 來源執行一次完整抓取，產生 CrawlerRun、Snapshot、contentHash；未變更時不產生 KnowledgeChange。
-  - [ ] 模擬來源內容改變 → KnowledgeChange 進 `NEEDS_REVIEW`，PUBLISHED 版本不變。
-  - [ ] 模擬抓取失敗／逾時／格式改變 → `FETCH_FAILED`，保留 Last Published，不清空、不寫半套。
-  - [ ] 排程時間 00:10 Asia/Taipei 的設定與實際觸發紀錄（部署方式與費用影響先交 Jerry，D-09）。
-  - [ ] 提供操作說明，讓審核人知道去哪裡看每日變更。
+# 變更紀錄
 
-此補充不擴增產品範圍，只把 PRODUCT_SPEC 原始 MVP 已有的要求指到承接任務；所需規格更新由 TASK-J-002 先合併。
+- 2026-09-23 J-002-r3：更正「POST-MVP ALLOWED」→ 原始 MVP 必要。
+- 2026-09-23 J-002-r4：補充驗收整併進主文；B-008 已合併 → READY；D-11（crawler 延後）未核准、已擱置，不再作為本任務的前提或替代方案。

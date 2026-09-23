@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — Data Model
 
-Version: v0.2（J-002-r1，2026-09-23）  
+Version: v0.2.2（J-002-r4，2026-09-23；Assessment 加 rulesVersion／ruleTrace、locationPrecision 定義）  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -154,11 +154,20 @@ transportationNeed
 freeText
 status
 knowledgeVersion
+rulesVersion
+ruleTrace
 createdAt
 updatedAt
 ```
 
 第一版遵守 Data Minimization，不收過多敏感資料。
+
+v0.2.2 補充（J-002-r4）：
+
+- `city`／`district`／`lat`／`lng` 依 `locationPrecision` 可為 null，規則見 §9 與 API_CONTRACT §8。
+- `lat`／`lng` 只在 `GPS`／`EXACT` 時保存；建議寫入前四捨五入到小數 3 位（約 100 公尺，D-13e 待核准），不寫入 log、不複製到 Lead、不提供給服務單位；隨 Assessment 依 PRIVACY_AND_RETENTION §2 刪除。
+- `rulesVersion`：產生本結果的規則版本（ASSESSMENT_RULES，例如 `RULES-2026-09-23-r2`）。
+- `ruleTrace`：jsonb，只存規則 ID、模板 ID、引用的知識 recordId；**不存**自由文字或關鍵字命中片段。不回傳前端。
 
 ---
 
@@ -184,6 +193,16 @@ DISTRICT
 EXACT
 GPS
 ```
+
+| 值 | 意義 | 必填欄位 |
+|---|---|---|
+| `NONE` | 不提供位置（含 GPS 拒絕／失敗且未選行政區） | 無，city／district／lat／lng 皆 null |
+| `CITY` | 只有縣市 | city |
+| `DISTRICT` | 縣市＋行政區 | city、district |
+| `GPS` | 裝置定位座標＋使用者選的縣市、行政區 | city、district、lat、lng |
+| `EXACT` | 完整地址轉換的座標＋縣市、行政區 | city、district、lat、lng |
+
+推薦排序對應見 API_CONTRACT §9。
 
 ---
 
@@ -338,6 +357,8 @@ UNKNOWN
 
 只有 `ACTIVE` 可被推薦。
 
+`lat`／`lng`（v0.2.2 補充）：只填**已驗證**座標，來源、驗證方式與日期記錄於 A 的資料報告（`data/providers/qa/`，TASK-A-003）；無法驗證者保持 null，不得由地址或行政區中心點推估。推薦只有在所有候選都有已驗證座標時才使用距離排序（API_CONTRACT §9）。
+
 `verified=true` 代表平台已確認基本資料，不代表政府認證。
 
 ---
@@ -395,6 +416,8 @@ DISTRICT_ROTATION
 CITY_ROTATION
 NO_LOCATION
 ```
+
+`DISTANCE`、`DISTRICT_ROTATION` 為原始 MVP（PRODUCT_SPEC §21–23）；`CITY_ROTATION`、`NO_LOCATION` 的使用條件為 PROPOSED（MVP_DECISIONS D-13a／D-13b），對應見 API_CONTRACT §9。`locationPrecision` 記錄當次 Assessment 的精度。
 
 ---
 

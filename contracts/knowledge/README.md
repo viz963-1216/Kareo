@@ -4,7 +4,7 @@ Owner: Jerry
 Format version: 1.0（`content-pack.schema.json`）
 Downstream: TASK-B-008（匯入／狀態機／發布工具）、TASK-J-003（實際發布與留證）、TASK-B-010（規則引擎使用 PUBLISHED 知識）
 
-本資料夾是「人工整理並待審核的官方知識」進入 Knowledge DB 的唯一入口。每日自動更新（B-009 Crawler）屬原始 MVP（PRODUCT_SPEC §42）；延後 crawler 是待核准提案（MVP_DECISIONS D-11）。crawler 上線後發現的變更同樣經本資料夾的審核與發布規則，內容包不會被 crawler 自動核准。
+本資料夾是「人工整理並待審核的官方知識」進入 Knowledge DB 的唯一入口。每日自動更新（B-009 Crawler，每天 00:10 Asia/Taipei）屬原始 MVP（PRODUCT_SPEC §42），目前依原始範圍開發。crawler 上線後發現的變更同樣經本資料夾的審核與發布規則，內容包不會被 crawler 自動核准。
 
 ---
 
@@ -76,7 +76,9 @@ GET /api/v1/knowledge/status 回傳新版本
 
 - 每次 Assessment 記錄當下的 `knowledgeVersion`。
 - 規則引擎只能引用當下 PUBLISHED 版本中、與使用者縣市相符（`TAIWAN` 或該縣市）的紀錄（ASSESSMENT_RULES §6）。
-- 回應中若提到制度，只能使用已核准模板並維持「初步預估」語氣；MVP 不顯示給付金額。
+- 回應中的制度與補助說明只能使用 ASSESSMENT_RULES §6 的模板，維持「初步預估」語氣。金額、比率、分區等數值**只能**讀取 PUBLISHED 紀錄的 `ruleData`，以官方規則說明呈現，不計算個人核定額度（ASSESSMENT_RULES §6.3）。
+- 規則引擎依 `ruleData.type`＋jurisdiction 查找紀錄（對應表見 ASSESSMENT_RULES §6.4）；新增或修改 `ruleData.type` 需同步更新該對應表與 B-010 測試。
+- 臺北市、新北市的地方紀錄分開管理；缺少某縣市的地方紀錄時，不得以另一縣市或中央紀錄代替。
 
 ## 7. 審核清單（給 Jerry）
 

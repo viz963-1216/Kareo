@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — System Architecture
 
-Version: v0.5（J-002-r2，2026-09-23）  
+Version: v0.5.1（J-002-r4，2026-09-23；推薦分支與 Assessment 架構整併）  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -248,45 +248,42 @@ Service Type
 Provider Filter
 ↓
 Service Area Match
-├─ 精確位置 → Distance Ranking
-└─ 行政區   → Stable Rotation
+├─ 精確位置＋候選全有已驗證座標 → Distance Ranking（DISTANCE）
+├─ 精確位置但候選缺座標           → Stable Rotation（DISTRICT_ROTATION，PROPOSED D-13c）
+├─ 行政區                         → Stable Rotation（DISTRICT_ROTATION）
+├─ 只有縣市                       → Stable Rotation（CITY_ROTATION，PROPOSED D-13a）
+└─ 沒有位置                       → 不推薦，提示補充位置（NO_LOCATION，PROPOSED D-13b）
 ↓
-Top 3
+Top 3（0–3 家）
 ```
+
+完整規則與回應欄位：API_CONTRACT §9。沒有位置仍可完成 Assessment 與服務建議（PRODUCT_SPEC §24）。
 
 AI 不直接選 Provider。
 
 ---
 
-# 8. AI Architecture
+# 8. Assessment Architecture（原 AI Architecture）
+
+MVP（D-01 方案 B，Jerry 2026-09-23 核准）：Assessment Service 透過同一個 Adapter 介面呼叫**確定性規則引擎**（`docs/ASSESSMENT_RULES.md`），不呼叫任何外部 AI 服務：
 
 ```text
 使用者資訊
 ↓
 Assessment Service
 ↓
-AI Adapter
+Rule-based Assessment Engine（rulesVersion）＋ PUBLISHED Knowledge resolver
 ↓
-CareNeedProfile
+CareNeedProfile（summary 含可能適用的制度與補助說明，ASSESSMENT_RULES §6）
 ↓
 Recommendation Engine
 ↓
 Provider DB
 ```
 
-AI Provider 必須透過 Adapter 隔離。
+程式中的介面名稱（例如 `CareAssessmentAIAdapter`）沿用 B-003，不因命名重構；staging／production 必須組裝規則引擎與 PUBLISHED Knowledge resolver（B-010）。
 
-MVP（D-01 方案 B）：Assessment Service 透過同一個 Adapter 介面呼叫**確定性規則引擎**（`docs/ASSESSMENT_RULES.md`），不呼叫任何外部 AI 服務：
-
-```text
-使用者資訊
-↓
-Assessment Service
-↓
-Rule-based Assessment Engine（rulesVersion）
-↓
-CareNeedProfile
-```
+已被取代（保留作歷史）：原設計為「Assessment Service → AI Adapter → 外部 AI Provider」。未來若要引入 AI，需重新決策並修訂 PRODUCT_SPEC §16。
 
 ---
 
@@ -305,9 +302,7 @@ Compare
 ↓
 KnowledgeChange
 ↓
-AI Summary
-↓
-NEEDS_REVIEW
+NEEDS_REVIEW（摘要由人工撰寫於內容包；MVP 不使用 AI Summary）
 ↓
 Jerry / Admin Review
 ↓
@@ -583,7 +578,7 @@ STAGING 與 PRODUCTION 必須使用不同 Environment Variables / Secrets。
 
 所有 AI 能力必須透過 Adapter Boundary，禁止直接把 OpenAI / Claude / Gemini SDK 散落在 Business Logic 中。
 
-在 AI Provider 正式選型前，Backend 必須能使用 Fake / Deterministic Adapter 完成測試。
+（已被取代）原本要求「AI Provider 選型前以 Fake Adapter 測試」；MVP 不選 AI Provider，自動測試可繼續使用 Fake / Deterministic Adapter。
 
 Fake Adapter 只允許用於自動測試與本機開發；STAGING／PRODUCTION 的 Function 必須組裝規則引擎，不得組裝 Fake Adapter。
 
@@ -686,7 +681,7 @@ Lead 查件、知識發布、清理作業都使用受保護 CLI（InternalOperat
 
 # 21. Knowledge MVP Ingest Path（v0.2，J-002-r1）
 
-每日自動更新（Crawler，B-009）屬原始 MVP（PRODUCT_SPEC §42）；「MVP 先人工每日檢查、crawler 延後」是待核准的範圍變更提案（MVP_DECISIONS D-11），核准前不得當成定案。
+每日自動更新（Crawler，B-009，每天 00:10 Asia/Taipei）屬原始 MVP（PRODUCT_SPEC §42），目前依原始範圍開發。「crawler 延後」提案（MVP_DECISIONS D-11）未核准、已擱置，不影響任何任務。
 
 不論有無 crawler，正式知識都只經由人工審核的內容包進入。B-009 上線後，crawler 發現的變更同樣先成為 NEEDS_REVIEW，再經下列審核與發布：
 

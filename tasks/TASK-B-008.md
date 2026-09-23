@@ -2,13 +2,13 @@
 
 Owner: Engineer B — Backend  
 Type: Backend / Knowledge  
-Status: QUEUED — DO NOT START UNTIL B-003 MERGED AND JERRY SOURCE REGISTRY READY
+Status: MERGED（PR #26）— 模組完成，不代表整合完成或正式環境驗收（2026-09-23 J-002-r4 核對）；D-03 格式與 D-10 延伸使用尚無核准紀錄（MVP_DECISIONS 集中清單 #2）  
 
 ---
 
 # Goal / 目標
 
-建立 Knowledge DB 基礎、Publish Gate 與 `GET /api/v1/knowledge/status`。Crawler 由 B-009 承接（原始 MVP，延後提案 D-11 未核准）；本任務須提供 B-009 需要的 KnowledgeChange／CrawlerRun 寫入點。正式 Assessment 不得使用未 Published Knowledge。
+建立 Knowledge DB 基礎、Publish Gate 與 `GET /api/v1/knowledge/status`。Crawler 由 B-009 承接（原始 MVP）；本任務須提供 B-009 需要的 KnowledgeChange／CrawlerRun 寫入點。正式 Assessment 不得使用未 Published Knowledge。
 
 ---
 
@@ -127,8 +127,10 @@ PR Title：
 
 ---
 
-## 2026-09-23 核准狀態說明（J-002-r3）
+---
 
-- 內容包格式與發布規則（D-03）目前是 **PROPOSED**：B-008 可依此開發（PR #26 已送審），但**合併前需 Jerry 核准 D-03**，避免格式變動造成重做。
-- 知識發布／撤回使用 Postgres function（沿用 D-10 模式）需 Jerry 另行核准（ARCHITECTURE §22 第 6 點）。
-- 首批內容包 9 筆仍是 `NEEDS_REVIEW`；B-008 驗收可用它測試匯入，但匯入結果不得被當成已核准或已發布知識。
+## 核准狀態（J-002-r4 更新）
+
+- 本任務已合併（PR #26，2026-09-23）。**合併不等於核准**：D-03 內容包格式與 D-10 延伸使用（發布／撤回函式）在 PR 上沒有核准紀錄，列於 MVP_DECISIONS 集中清單 #2。若 Jerry 要求修改格式，由 J-002 更新規格後另開 B-008 修正任務（`B-008-r2`）。
+- 首批內容包 9 筆仍是 `NEEDS_REVIEW`；匯入結果不得被當成已核准或已發布知識。
+- 線上 `assessment` function 尚未使用 B-008 的 PUBLISHED resolver；接線由 B-010 負責。

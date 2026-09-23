@@ -70,3 +70,25 @@ contracts/mock/
 - 推薦：依 `serviceType` 讀取對應的 `recommendations/<serviceType>.json`；測試 0～3 家時取 `providers.slice(0, n)`，不要改動卡片內容或 ID。
 - 詳細頁：以卡片的 `id` 讀取 `providers/<id>.json`；找不到檔案時回傳 `errors/provider-not-found-response.json`，畫面顯示找不到，不得改用其他單位的資料。
 - 所有名稱、電話、網址都是測試資料（`example.com`、虛構電話），不代表真實單位。
+
+---
+
+## 位置情境與補助說明 fixtures（2026-09-23，J-002-r4）
+
+供 C-005 做 Mock 模組驗收。格式依 API_CONTRACT v0.2.2 §8–§9。標示 PROPOSED 的格式（D-13a–c）在 Jerry 核准前屬可逆準備。
+
+| 檔案 | 情境 | rankingType／locationPrecision | 狀態 |
+|---|---|---|---|
+| `recommendations/<serviceType>.json` | 只有行政區 | `DISTRICT_ROTATION`／`DISTRICT` | 原始 MVP |
+| `recommendations/ranking-variants/HOME_CARE-DISTANCE.json` | 精確位置，候選都有已驗證座標 | `DISTANCE`／`GPS` | 原始 MVP |
+| `recommendations/ranking-variants/HOME_CARE-DISTANCE-MISSING-COORDINATES.json` | 精確位置，但候選缺座標 → 改行政區輪替 | `DISTRICT_ROTATION`／`GPS` | PROPOSED D-13c |
+| `recommendations/ranking-variants/HOME_CARE-CITY_ROTATION.json` | 只有縣市 | `CITY_ROTATION`／`CITY` | PROPOSED D-13a |
+| `recommendations/ranking-variants/HOME_CARE-NO_LOCATION.json` | 沒有位置（前端正常情況不呼叫；防呆用） | `NO_LOCATION`／`NONE`，0 家 | PROPOSED D-13b |
+| `assessments/WITH-SUBSIDY-NEW_TAIPEI.json` | 結果頁含可能適用的補助說明（`summary` 以 `\n` 分段，ASSESSMENT_RULES §6） | — | 模板 PROPOSED（D-01a） |
+
+注意：
+
+1. `WITH-SUBSIDY-NEW_TAIPEI.json` 的金額、比率與來源文字取自 `KP-2026-09-23-001`，該內容包**仍是 NEEDS_REVIEW**；這裡只示範格式與排版，不代表已核准或已發布的知識，也不得被正式環境使用。
+2. 前端只負責逐行顯示 `summary` 與 `knowledgeVersion`，不得解析句子、不得自行計算或補上任何金額。
+3. 所有 `distanceKm` 只在 `DISTANCE` 為數值；其餘 fixture 一律為 `null`。
+

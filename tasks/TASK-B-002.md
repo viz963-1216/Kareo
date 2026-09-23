@@ -2,7 +2,7 @@
 
 Owner: Engineer B — Backend  
 Type: Backend / API / Database Foundation  
-Status: READY AFTER B-001-r2 APPROVAL
+Status: MERGED（B-002 分支已併入 staging）— 模組完成，不代表整合完成或正式環境驗收（2026-09-23 J-002-r4 核對）  
 
 ---
 

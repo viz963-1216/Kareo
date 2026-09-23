@@ -23,6 +23,9 @@ Release gate status: **CLOSED**
 | G0-7 | 刪除請求客服信箱已公布且有人處理 | | ⛔ |
 | G0-8 | 評估規則表 `RULES-*`（D-01 方案 B，不使用 AI）已由 Jerry 逐條確認 | | ⛔ |
 | G0-9 | Netlify 額度足以完成發布與發布後 smoke；Kareocar 已恢復 | | ⛔（2026-09-23 兩站暫停） |
+| G0-10 | 每日 00:10（Asia/Taipei）知識更新（B-009）在部署環境有觸發紀錄，變更進 NEEDS_REVIEW、失敗保留 Last Published | | ⛔ |
+| G0-11 | 精確位置：ACTIVE 同意版本含位置告知後才開啟「使用目前位置」（MVP_DECISIONS D-13g）；位置流程細節 D-13a–g 與補助呈現 D-14a–b 已有 Jerry 決定紀錄 | | ⛔ |
+| G0-12 | 臺北市、新北市地方制度知識已審核並發布（PRODUCT_SPEC §39、§46）；兩市各一例的 E2E 顯示各自的地方資訊、不互相套用 | | ⛔ |
 
 ## Gate 1 — 環境隔離
 
