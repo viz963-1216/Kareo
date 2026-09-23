@@ -42,6 +42,12 @@
   force = true
 
 [[redirects]]
+  from = "/api/v1/providers/*"
+  to = "/.netlify/functions/providerDetail"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/*"
   to = "/api-not-found.json"
   status = 404
@@ -58,6 +64,11 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/kareo-version.json"
+  [headers.values]
+    Cache-Control = "no-store"
 
 [[headers]]
   for = "/api/*"

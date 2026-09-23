@@ -1,121 +1,182 @@
 [
-    {
-      "providerId": "TP-HC-001",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "TP-HC-002",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "TP-HC-003",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "TP-HC-004",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "TP-HC-005",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "TP-HC-006",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "TP-HC-007",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "TP-HC-008",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "TP-HC-009",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "TP-HC-010",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "NTPC-HC-001",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "NTPC-HC-002",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "NTPC-HC-003",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "NTPC-HC-004",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "NTPC-HC-005",
-      "serviceType": "HOME_CARE"
-    },
-    {
-      "providerId": "TP-HMN-001",
-      "serviceType": "HOME_MEDICAL_NURSING"
-    },{
-      "providerId": "TP-HMN-002",
-      "serviceType": "HOME_MEDICAL_NURSING"
-    },
-    {
-      "providerId": "TP-HMN-003",
-      "serviceType": "HOME_MEDICAL_NURSING"
-    },
-    {
-      "providerId": "TP-AD-001",
-      "serviceType": "ASSISTIVE_DEVICE"
-    },
-    {
-      "providerId": "TP-AD-002",
-      "serviceType": "ASSISTIVE_DEVICE"
-    },
-    {
-      "providerId": "TP-AD-003",
-      "serviceType": "ASSISTIVE_DEVICE"
-    },
-    {
-      "providerId": "NTPC-AD-001",
-      "serviceType": "ASSISTIVE_DEVICE"
-    },
-    {
-      "providerId": "NTPC-AD-002",
-      "serviceType": "ASSISTIVE_DEVICE"
-    },
-    {
-      "providerId": "NTPC-AD-003",
-      "serviceType": "ASSISTIVE_DEVICE"
-    },
-    {
-      "providerId": "NTPC-AD-004",
-      "serviceType": "ASSISTIVE_DEVICE"
-    },
-    {
-      "providerId": "NTPC-AD-005",
-      "serviceType": "ASSISTIVE_DEVICE"
-    },
-    {
-      "providerId": "NTPC-AD-006",
-      "serviceType": "ASSISTIVE_DEVICE"
-    },
-    {
-      "providerId": "NTPC-AD-007",
-      "serviceType": "ASSISTIVE_DEVICE"
-    },
-    {
-      "providerId": "NTPC-AD-008",
-      "serviceType": "ASSISTIVE_DEVICE"
-    },
-    {
-      "providerId": "NTPC-AD-009",
-      "serviceType": "ASSISTIVE_DEVICE"
-    }
-  ]
+  {
+    "id": "PSV-TP-HC-001-HOME_CARE",
+    "providerId": "TP-HC-001",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-002-HOME_CARE",
+    "providerId": "TP-HC-002",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-003-HOME_CARE",
+    "providerId": "TP-HC-003",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-004-HOME_CARE",
+    "providerId": "TP-HC-004",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-005-HOME_CARE",
+    "providerId": "TP-HC-005",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-006-HOME_CARE",
+    "providerId": "TP-HC-006",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-007-HOME_CARE",
+    "providerId": "TP-HC-007",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-008-HOME_CARE",
+    "providerId": "TP-HC-008",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-009-HOME_CARE",
+    "providerId": "TP-HC-009",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-010-HOME_CARE",
+    "providerId": "TP-HC-010",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-HC-001-HOME_CARE",
+    "providerId": "NTPC-HC-001",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-HC-002-HOME_CARE",
+    "providerId": "NTPC-HC-002",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-HC-003-HOME_CARE",
+    "providerId": "NTPC-HC-003",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-HC-004-HOME_CARE",
+    "providerId": "NTPC-HC-004",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-HC-005-HOME_CARE",
+    "providerId": "NTPC-HC-005",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HMN-001-HOME_MEDICAL_NURSING",
+    "providerId": "TP-HMN-001",
+    "serviceType": "HOME_MEDICAL_NURSING",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HMN-002-HOME_MEDICAL_NURSING",
+    "providerId": "TP-HMN-002",
+    "serviceType": "HOME_MEDICAL_NURSING",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HMN-003-HOME_MEDICAL_NURSING",
+    "providerId": "TP-HMN-003",
+    "serviceType": "HOME_MEDICAL_NURSING",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-AD-001-ASSISTIVE_DEVICE",
+    "providerId": "TP-AD-001",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-AD-002-ASSISTIVE_DEVICE",
+    "providerId": "TP-AD-002",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-AD-003-ASSISTIVE_DEVICE",
+    "providerId": "TP-AD-003",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-AD-001-ASSISTIVE_DEVICE",
+    "providerId": "NTPC-AD-001",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-AD-002-ASSISTIVE_DEVICE",
+    "providerId": "NTPC-AD-002",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-AD-003-ASSISTIVE_DEVICE",
+    "providerId": "NTPC-AD-003",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-AD-004-ASSISTIVE_DEVICE",
+    "providerId": "NTPC-AD-004",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-AD-005-ASSISTIVE_DEVICE",
+    "providerId": "NTPC-AD-005",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-AD-006-ASSISTIVE_DEVICE",
+    "providerId": "NTPC-AD-006",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-AD-007-ASSISTIVE_DEVICE",
+    "providerId": "NTPC-AD-007",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-AD-008-ASSISTIVE_DEVICE",
+    "providerId": "NTPC-AD-008",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-NTPC-AD-009-ASSISTIVE_DEVICE",
+    "providerId": "NTPC-AD-009",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  }
+]

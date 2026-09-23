@@ -1,0 +1,17 @@
+[
+    {
+      "id": "TEST-INVALID-001",
+      "name": "A-004 Invalid Provider",
+      "type": "INVALID_TYPE",
+      "address": "新北市板橋區測試路1號",
+      "city": "臺北市",
+      "district": "中山區",
+      "lat": 999,
+      "lng": 999,
+      "phone": "INVALID_PHONE!",
+      "website": "not-a-url",
+      "googleMapsUrl": "invalid-url",
+      "status": "INVALID_STATUS",
+      "verified": true
+    }
+  ]

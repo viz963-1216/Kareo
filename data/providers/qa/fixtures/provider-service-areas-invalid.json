@@ -1,0 +1,9 @@
+[
+    {
+      "id": "TEST-INVALID-001-SA-001",
+      "providerId": "TEST-INVALID-001",
+      "city": "新北市",
+      "district": "板橋區",
+      "active": true
+    }
+  ]
