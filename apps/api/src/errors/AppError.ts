@@ -22,8 +22,9 @@ export class AppError extends Error {
   readonly code: ErrorCode;
   readonly statusCode: number;
 
-  constructor(code: ErrorCode, message: string) {
-    super(message);
+  // cause 只給伺服器端 log / 操作人員看；errorResponse() 只輸出 code 與 message，不會帶出 cause。
+  constructor(code: ErrorCode, message: string, options?: { cause?: unknown }) {
+    super(message, options);
     this.code = code;
     this.statusCode = STATUS_BY_CODE[code];
   }

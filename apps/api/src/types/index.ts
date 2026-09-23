@@ -219,6 +219,8 @@ export type ProviderImportMode = "commit" | "dry-run";
 export interface ProviderImportReport {
   mode: ProviderImportMode;
   written: boolean;
+  // 只有 commit 模式且寫入成功時才有值；數字來自資料庫交易實際寫入的筆數。
+  writtenCounts: { providers: number; providerServices: number; providerServiceAreas: number } | null;
   providersValid: number;
   providersRejected: Array<{ record: RawProviderRecord; reasons: string[] }>;
   servicesValid: number;

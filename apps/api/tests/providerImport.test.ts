@@ -179,3 +179,68 @@ describe("Provider Import (TASK-B-004)", () => {
     expect(repo.serviceAreas).toHaveLength(0);
   });
 });
+
+// 依 ARCHITECTURE §22 / MVP_DECISIONS D-10（B-004 r2，P1）。
+describe("Provider Import atomic write (TASK-B-004 r2, P1)", () => {
+  it("commit mode calls the atomic write exactly once, with all three tables in one call", async () => {
+    const repo = new InMemoryProviderRepository();
+
+    const report = await importProviderDataset(repo, fullyValidDataset(), { mode: "commit" });
+
+    expect(repo.atomicWriteCalls).toBe(1);
+    expect(report.writtenCounts).toEqual({ providers: 1, providerServices: 1, providerServiceAreas: 1 });
+  });
+
+  it("validation failure in commit mode never calls the atomic write", async () => {
+    const repo = new InMemoryProviderRepository();
+    const dataset = fullyValidDataset();
+    dataset.providerServices = [{ providerId: "PROV-001", serviceType: "HOME_CARE" }];
+
+    const report = await importProviderDataset(repo, dataset, { mode: "commit" });
+
+    expect(repo.atomicWriteCalls).toBe(0);
+    expect(report.written).toBe(false);
+    expect(report.writtenCounts).toBeNull();
+  });
+
+  it("dry-run never calls the atomic write", async () => {
+    const repo = new InMemoryProviderRepository();
+
+    await importProviderDataset(repo, fullyValidDataset(), { mode: "dry-run" });
+
+    expect(repo.atomicWriteCalls).toBe(0);
+  });
+
+  for (const stage of ["services", "serviceAreas"] as const) {
+    it(`write failure at ${stage === "services" ? "stage 2 (provider_services)" : "stage 3 (provider_service_areas)"}: ` +
+      "error propagates and no table keeps any new data", async () => {
+      const repo = new InMemoryProviderRepository();
+      repo.failOnTable = stage;
+
+      await expect(importProviderDataset(repo, fullyValidDataset(), { mode: "commit" })).rejects.toMatchObject({
+        code: "INTERNAL_ERROR",
+      });
+
+      expect(repo.atomicWriteCalls).toBe(1);
+      expect(repo.providers).toHaveLength(0);
+      expect(repo.services).toHaveLength(0);
+      expect(repo.serviceAreas).toHaveLength(0);
+    });
+  }
+
+  it("write failure leaves previously imported data exactly as it was", async () => {
+    const repo = new InMemoryProviderRepository();
+    await importProviderDataset(repo, fullyValidDataset(), { mode: "commit" });
+
+    const changed = fullyValidDataset();
+    changed.providers = [{ ...validProvider, name: "改名後" }];
+    repo.failOnTable = "serviceAreas";
+
+    await expect(importProviderDataset(repo, changed, { mode: "commit" })).rejects.toMatchObject({
+      code: "INTERNAL_ERROR",
+    });
+
+    expect(repo.providers).toHaveLength(1);
+    expect(repo.providers[0].name).toBe("測試居家照顧中心");
+  });
+});

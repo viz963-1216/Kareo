@@ -4,7 +4,8 @@ import { InMemoryProviderRepository } from "../src/repositories/inMemoryReposito
 import { AppError } from "../src/errors/AppError.js";
 
 async function seedProvider(repo: InMemoryProviderRepository) {
-  await repo.upsertProviders([
+  await repo.importDatasetAtomically({
+    providers: [
     {
       id: "PROV-001",
       name: "測試居家照顧中心",
@@ -22,11 +23,10 @@ async function seedProvider(repo: InMemoryProviderRepository) {
       createdAt: "2026-09-22T00:00:00+08:00",
       updatedAt: "2026-09-22T00:00:00+08:00",
     },
-  ]);
-  await repo.upsertProviderServices([{ id: "PSV-001", providerId: "PROV-001", serviceType: "HOME_CARE", active: true }]);
-  await repo.upsertProviderServiceAreas([
-    { id: "PSA-001", providerId: "PROV-001", city: "新北市", district: "三重區", active: true },
-  ]);
+    ],
+    services: [{ id: "PSV-001", providerId: "PROV-001", serviceType: "HOME_CARE", active: true }],
+    serviceAreas: [{ id: "PSA-001", providerId: "PROV-001", city: "新北市", district: "三重區", active: true }],
+  });
 }
 
 describe("Provider Detail (TASK-B-004)", () => {
@@ -61,7 +61,10 @@ describe("Provider Detail (TASK-B-004)", () => {
 
   it("not found: INACTIVE provider is not returned (only ACTIVE can be viewed)", async () => {
     const repo = new InMemoryProviderRepository();
-    await repo.upsertProviders([
+    await repo.importDatasetAtomically({
+      services: [],
+      serviceAreas: [],
+      providers: [
       {
         id: "PROV-002",
         name: "已停業服務中心",
@@ -79,7 +82,8 @@ describe("Provider Detail (TASK-B-004)", () => {
         createdAt: "2026-09-22T00:00:00+08:00",
         updatedAt: "2026-09-22T00:00:00+08:00",
       },
-    ]);
+      ],
+    });
 
     await expect(getProviderDetail(repo, "PROV-002")).rejects.toMatchObject({ code: "NOT_FOUND" });
   });

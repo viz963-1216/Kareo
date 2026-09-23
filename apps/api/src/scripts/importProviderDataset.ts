@@ -59,7 +59,15 @@ async function main(): Promise<number> {
   console.log(`Providers valid: ${report.providersValid}, rejected: ${report.providersRejected.length}`);
   console.log(`Services valid: ${report.servicesValid}, rejected: ${report.servicesRejected.length}`);
   console.log(`Service Areas valid: ${report.serviceAreasValid}, rejected: ${report.serviceAreasRejected.length}`);
-  console.log(report.written ? "Result: DATA WRITTEN" : "Result: NO DATA WRITTEN");
+  if (report.written && report.writtenCounts) {
+    const c = report.writtenCounts;
+    console.log(
+      `Result: DATA WRITTEN in one transaction (providers: ${c.providers}, ` +
+        `provider_services: ${c.providerServices}, provider_service_areas: ${c.providerServiceAreas})`
+    );
+  } else {
+    console.log("Result: NO DATA WRITTEN");
+  }
 
   if (hasRejections(report)) {
     console.log("\n--- Rejected Records (need A to fix source data) ---");

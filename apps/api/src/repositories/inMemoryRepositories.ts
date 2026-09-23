@@ -5,9 +5,12 @@ import type {
   AssessmentRepository,
   ConsentRepository,
   CreateAssessmentRecord,
+  ProviderDatasetWrite,
+  ProviderDatasetWriteCounts,
   ProviderRepository,
   SessionRepository,
 } from "./types.js";
+import { AppError } from "../errors/AppError.js";
 import type {
   Assessment,
   CareNeedProfile,
@@ -110,27 +113,42 @@ export class InMemoryProviderRepository implements ProviderRepository {
     };
   }
 
-  async upsertProviders(providers: Provider[]): Promise<void> {
-    for (const p of providers) {
-      const idx = this.providers.findIndex((x) => x.id === p.id);
-      if (idx >= 0) this.providers[idx] = p;
-      else this.providers.push(p);
-    }
-  }
+  // 測試用：記錄呼叫次數，並可指定讓某一張表的寫入失敗。
+  atomicWriteCalls = 0;
+  failOnTable: "providers" | "services" | "serviceAreas" | null = null;
 
-  async upsertProviderServices(services: ProviderService[]): Promise<void> {
-    for (const s of services) {
-      const idx = this.services.findIndex((x) => x.id === s.id);
-      if (idx >= 0) this.services[idx] = s;
-      else this.services.push(s);
-    }
-  }
+  // 模擬單一交易：先在副本上寫入三張表，全部成功才替換正式資料；任一步失敗則正式資料完全不變。
+  async importDatasetAtomically(dataset: ProviderDatasetWrite): Promise<ProviderDatasetWriteCounts> {
+    this.atomicWriteCalls += 1;
 
-  async upsertProviderServiceAreas(areas: ProviderServiceArea[]): Promise<void> {
-    for (const a of areas) {
-      const idx = this.serviceAreas.findIndex((x) => x.id === a.id);
-      if (idx >= 0) this.serviceAreas[idx] = a;
-      else this.serviceAreas.push(a);
-    }
+    const providers = [...this.providers];
+    const services = [...this.services];
+    const serviceAreas = [...this.serviceAreas];
+
+    upsertById(providers, dataset.providers);
+    if (this.failOnTable === "providers") throw new AppError("INTERNAL_ERROR", "模擬寫入失敗：providers");
+    upsertById(services, dataset.services);
+    if (this.failOnTable === "services") throw new AppError("INTERNAL_ERROR", "模擬寫入失敗：provider_services");
+    upsertById(serviceAreas, dataset.serviceAreas);
+    if (this.failOnTable === "serviceAreas")
+      throw new AppError("INTERNAL_ERROR", "模擬寫入失敗：provider_service_areas");
+
+    this.providers.splice(0, this.providers.length, ...providers);
+    this.services.splice(0, this.services.length, ...services);
+    this.serviceAreas.splice(0, this.serviceAreas.length, ...serviceAreas);
+
+    return {
+      providers: dataset.providers.length,
+      providerServices: dataset.services.length,
+      providerServiceAreas: dataset.serviceAreas.length,
+    };
+  }
+}
+
+function upsertById<T extends { id: string }>(target: T[], rows: T[]): void {
+  for (const row of rows) {
+    const idx = target.findIndex((x) => x.id === row.id);
+    if (idx >= 0) target[idx] = row;
+    else target.push(row);
   }
 }

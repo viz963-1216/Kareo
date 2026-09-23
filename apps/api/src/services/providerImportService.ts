@@ -158,6 +158,7 @@ export async function importProviderDataset(
   const report: ProviderImportReport = {
     mode: options.mode,
     written: false,
+    writtenCounts: null,
     providersValid: 0,
     providersRejected: [],
     servicesValid: 0,
@@ -205,9 +206,13 @@ export async function importProviderDataset(
     return report;
   }
 
-  await repo.upsertProviders(acceptedProviders);
-  await repo.upsertProviderServices(acceptedServices);
-  await repo.upsertProviderServiceAreas(acceptedAreas);
+  // 依 ARCHITECTURE §22：驗證全部在上方完成，寫入只呼叫一次、在單一交易內完成。
+  // 寫入失敗時錯誤直接往上拋（交易已回滾），不回傳 report，呼叫端不會誤以為成功。
+  report.writtenCounts = await repo.importDatasetAtomically({
+    providers: acceptedProviders,
+    services: acceptedServices,
+    serviceAreas: acceptedAreas,
+  });
   report.written = true;
 
   return report;

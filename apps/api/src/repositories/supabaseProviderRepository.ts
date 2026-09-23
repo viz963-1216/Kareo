@@ -1,7 +1,45 @@
 import { getSupabaseClient } from "./supabaseClient.js";
-import type { ProviderRepository } from "./types.js";
-import type { Provider, ProviderDetailResponse, ProviderService, ProviderServiceArea } from "../types/index.js";
+import type { ProviderDatasetWrite, ProviderDatasetWriteCounts, ProviderRepository } from "./types.js";
+import type { ProviderDetailResponse } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
+
+export const IMPORT_PROVIDER_DATASET_RPC = "import_provider_dataset";
+
+// 組成 0005_import_provider_dataset.sql 預期的 payload：key 與資料表欄位名稱一致。
+export function toImportPayload(dataset: ProviderDatasetWrite) {
+  return {
+    providers: dataset.providers.map((p) => ({
+      id: p.id,
+      name: p.name,
+      type: p.type,
+      address: p.address,
+      city: p.city,
+      district: p.district,
+      lat: p.lat,
+      lng: p.lng,
+      phone: p.phone,
+      website: p.website,
+      google_maps_url: p.googleMapsUrl,
+      status: p.status,
+      verified: p.verified,
+      created_at: p.createdAt,
+      updated_at: p.updatedAt,
+    })),
+    provider_services: dataset.services.map((s) => ({
+      id: s.id,
+      provider_id: s.providerId,
+      service_type: s.serviceType,
+      active: s.active,
+    })),
+    provider_service_areas: dataset.serviceAreas.map((a) => ({
+      id: a.id,
+      provider_id: a.providerId,
+      city: a.city,
+      district: a.district,
+      active: a.active,
+    })),
+  };
+}
 
 export class SupabaseProviderRepository implements ProviderRepository {
   async findDetailById(providerId: string): Promise<ProviderDetailResponse | null> {
@@ -57,66 +95,23 @@ export class SupabaseProviderRepository implements ProviderRepository {
     };
   }
 
-  async upsertProviders(providers: Provider[]): Promise<void> {
-    if (providers.length === 0) return;
+  // 依 ARCHITECTURE §22：一次 rpc，由 Postgres function 在單一交易內寫入三張表。
+  async importDatasetAtomically(dataset: ProviderDatasetWrite): Promise<ProviderDatasetWriteCounts> {
     const client = getSupabaseClient();
-    const { error } = await client.from("providers").upsert(
-      providers.map((p) => ({
-        id: p.id,
-        name: p.name,
-        type: p.type,
-        address: p.address,
-        city: p.city,
-        district: p.district,
-        lat: p.lat,
-        lng: p.lng,
-        phone: p.phone,
-        website: p.website,
-        google_maps_url: p.googleMapsUrl,
-        status: p.status,
-        verified: p.verified,
-        created_at: p.createdAt,
-        updated_at: p.updatedAt,
-      })),
-      { onConflict: "id" }
-    );
-    if (error) {
-      throw new AppError("INTERNAL_ERROR", "無法匯入 Provider 資料，請稍後再試。");
-    }
-  }
+    const { data, error } = await client.rpc(IMPORT_PROVIDER_DATASET_RPC, { payload: toImportPayload(dataset) });
 
-  async upsertProviderServices(services: ProviderService[]): Promise<void> {
-    if (services.length === 0) return;
-    const client = getSupabaseClient();
-    const { error } = await client.from("provider_services").upsert(
-      services.map((s) => ({
-        id: s.id,
-        provider_id: s.providerId,
-        service_type: s.serviceType,
-        active: s.active,
-      })),
-      { onConflict: "id" }
-    );
     if (error) {
-      throw new AppError("INTERNAL_ERROR", "無法匯入 Provider 服務類別，請稍後再試。");
+      // SQL 細節只放在 cause（給操作人員 log），不放進 message。
+      throw new AppError("INTERNAL_ERROR", "無法匯入 Provider 資料，交易已回滾，沒有寫入任何資料。", {
+        cause: error,
+      });
     }
-  }
 
-  async upsertProviderServiceAreas(areas: ProviderServiceArea[]): Promise<void> {
-    if (areas.length === 0) return;
-    const client = getSupabaseClient();
-    const { error } = await client.from("provider_service_areas").upsert(
-      areas.map((a) => ({
-        id: a.id,
-        provider_id: a.providerId,
-        city: a.city,
-        district: a.district,
-        active: a.active,
-      })),
-      { onConflict: "id" }
-    );
-    if (error) {
-      throw new AppError("INTERNAL_ERROR", "無法匯入 Provider 服務範圍，請稍後再試。");
-    }
+    const counts = data as { providers: number; provider_services: number; provider_service_areas: number };
+    return {
+      providers: counts.providers,
+      providerServices: counts.provider_services,
+      providerServiceAreas: counts.provider_service_areas,
+    };
   }
 }
