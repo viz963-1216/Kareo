@@ -82,7 +82,7 @@ Submission Version: J-003-r1
 
 ### 主流程
 
-- [ ] 新 session → 同意（ACTIVE 版本）→ 真實 Assessment（PUBLISHED 知識、真實 AI 或核准的規則引擎）
+- [ ] 新 session → 同意（ACTIVE 版本）→ 真實 Assessment（PUBLISHED 知識＋規則引擎 `RULES-*`，ASSESSMENT_RULES §9 案例抽測）
 - [ ] Recommendation：3 家、2 家、1 家、0 家（空狀態文案，不是錯誤）
 - [ ] Provider 詳情 → Google Maps 連結來自資料，不由前端組 URL
 - [ ] Lead 送出（含聯絡同意）→ 資料庫可查 → 接件人工具可看到 → 狀態更新 NEW→CONTACTED→ACCEPTED→CLOSED
@@ -92,7 +92,7 @@ Submission Version: J-003-r1
 
 - [ ] 拒絕同意／同意撤回後不能評估、不能送 Lead
 - [ ] 無 PUBLISHED 知識 → KNOWLEDGE_UNAVAILABLE，畫面不顯示假結果
-- [ ] AI 逾時／失敗 → AI_UNAVAILABLE，畫面不顯示假結果
+- [ ] 規則引擎：同一輸入重複送出結果相同；「不需要輪椅」等否定句不觸發關鍵字
 - [ ] 網路中斷後重試成功，不產生重複資料
 - [ ] Lead 重複送出（同一 Idempotency-Key、連點）→ 只有一筆
 - [ ] 跨 session：用 session B 的 token 讀寫 session A 的 assessment／lead → 被拒

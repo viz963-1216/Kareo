@@ -21,13 +21,13 @@ Release gate status: **CLOSED**
 | G0-5 | 同意文件版本為 `ACTIVE`（非 DRAFT），法務待確認事項已處理 | | ⛔ |
 | G0-6 | 主要／備援接件人已指定並完成實演（見 Gate 3） | | ⛔ |
 | G0-7 | 刪除請求客服信箱已公布且有人處理 | | ⛔ |
-| G0-8 | AI 方案（D-01）已核准；production API key 已由 Jerry 設定 | | ⛔ |
+| G0-8 | 評估規則表 `RULES-*`（D-01 方案 B，不使用 AI）已由 Jerry 逐條確認 | | ⛔ |
 | G0-9 | Netlify 額度足以完成發布與發布後 smoke；Kareocar 已恢復 | | ⛔（2026-09-23 兩站暫停） |
 
 ## Gate 1 — 環境隔離
 
 - [ ] **Production 使用獨立 Supabase 專案**，不與 staging 共用資料庫；不重用 Kareocar 資料庫。
-- [ ] Production 與 staging 的 Netlify 環境變數完全分開：`SUPABASE_URL`、`SUPABASE_SERVICE_ROLE_KEY`、AI API key 各自一組。
+- [ ] Production 與 staging 的 Netlify 環境變數完全分開：`SUPABASE_URL`、`SUPABASE_SERVICE_ROLE_KEY` 各自一組。MVP 不使用 AI，不應設定任何 AI API key。
 - [ ] 決定 production 前端的部署方式（**需要 Jerry 決定**）：
   - 方案 1：另建一個 Netlify site，production branch = `main`（staging site 維持 `staging`）。
   - 方案 2：同一 site 把 production branch 改為 `main`，`staging` 改為 branch deploy。
@@ -67,7 +67,6 @@ Release gate status: **CLOSED**
 | 可用性 | 外部 uptime 檢查 `/` 與 `GET /api/v1/knowledge/status` | （待指定） | ⛔ |
 | Netlify 額度 | 用量頁每週檢查；接近上限時暫停非必要部署 | Jerry | ⛔ |
 | Supabase 用量 | 專案用量頁每週檢查 | Jerry | ⛔ |
-| AI 費用 | 供應商月上限（D-01）＋應用端每日上限；超過時回 `AI_UNAVAILABLE` | Jerry | ⛔ |
 | 超額行為 | 見 RELEASE_RUNBOOK §5 | — | ⛔ |
 
 不啟用任何自動加值；付費或換平台由 Jerry 決策。
