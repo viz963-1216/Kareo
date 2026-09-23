@@ -7,6 +7,7 @@ import { AssessmentPage } from "./pages/AssessmentPage";
 import { ConsentPage } from "./pages/ConsentPage";
 import { HomePage } from "./pages/HomePage";
 import { ResultPage } from "./pages/ResultPage";
+import { RecommendationPage } from "./pages/RecommendationPage";
 
 export default function App() {
   const [sessionId, setSessionId] = useState("");
@@ -48,6 +49,10 @@ export default function App() {
           element={hasConsent ? <AssessmentPage sessionId={sessionId} onSubmit={submitAssessment} /> : <Navigate to="/consent" replace />}
         />
         <Route path="/result" element={<ResultPage result={result} />} />
+        <Route
+          path="/recommendations/:serviceType"
+          element={<RecommendationPage assessmentId={result?.assessmentId ?? null} />}
+        />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <footer>
