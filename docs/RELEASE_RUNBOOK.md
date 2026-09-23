@@ -66,7 +66,6 @@ smoke 產生的合成資料必須清除或標註，不得混入正式統計。
 |---|---|
 | Netlify 額度接近上限 | 停止非必要部署；文件 PR 已由 ignore 跳過建置 |
 | Netlify 額度用完（網站暫停） | 網站無法服務；由 Jerry 決定購買額度或等待週期重置；對外公告暫停與 1966 管道 |
-| AI 每日上限或供應商上限 | Assessment 回 `AI_UNAVAILABLE`；不以假結果替代；次日自動恢復或 Jerry 調整上限 |
 | Supabase 用量接近上限 | Jerry 評估升級或清理；不刪除正式資料 |
 | 接件逾時 | 備援接件人接手；超過 1 個工作天無人處理 → 暫停對外媒合入口 |
 
@@ -76,7 +75,7 @@ smoke 產生的合成資料必須清除或標註，不得混入正式統計。
 |---|---|---|
 | 每個工作天 2 次 | `lead list --status NEW` | 接件人 |
 | 每日 | 清理作業（保存期限）結果檢查 | 資料管理者 |
-| 每週 | Netlify／Supabase／AI 用量 | Jerry |
+| 每週 | Netlify／Supabase 用量 | Jerry |
 | 每週 | Functions 錯誤 log（不含個資）檢查 | Jerry |
 | 每月 | 知識來源複查（官方頁面是否更新） | Jerry |
 | 每季 | 備份還原演練 | Jerry |

@@ -47,9 +47,9 @@ A / B / C 不直接 Push `staging` 或 `main`。
 |---|---|---|---|
 | B-001、B-002 | MERGED | PR #3、#5 | — |
 | B-003 Assessment API + AI Adapter | MERGED | PR #12；線上組裝 Fake Adapter＋NullKnowledgeVersionResolver → 一律 `KNOWLEDGE_UNAVAILABLE` | 由 B-008／B-010 替換 |
-| B-004 Provider Domain + Import API | **CHANGES REQUESTED** | PR #16 review：三表匯入非整批一致；拒收未以非零狀態結束 | ▶ ACTIVE：依 review 修正 |
+| B-004 Provider Domain + Import API | **CHANGES REQUESTED** | PR #16：P2 已修正（Jerry 實測）；P1 依 D-10 方案 A 實作中 | ▶ ACTIVE；合併時 Jerry 需同時補 `providerDetail` 路由 |
 | B-007 Kareocar External Service API | MERGED | PR #14；**netlify.toml 缺路由**，由 J-003 補 | — |
-| B-008 Knowledge Foundation + Publish Gate | NOT STARTED → **可開工** | J-002 已提供 source registry、內容包格式與首批內容（`contracts/knowledge/`） | B-004 修正送出後開工 |
+| B-008 Knowledge Foundation + Publish Gate | NOT STARTED → **可開工** | J-002 已合併（`contracts/knowledge/`） | 已於 PR #16 通知 B 可開工 |
 | B-005 Recommendation Engine + API | NOT STARTED | 依賴 B-004 | 依 D-07 只做 `DISTRICT_ROTATION`；依 API_CONTRACT v0.2 §3.1 驗 session |
 | B-006 Lead API | NOT STARTED | 依賴 B-004 | 依 API_CONTRACT v0.2 §12、LEAD_OPERATIONS、DATA_MODEL §22／§36–38 |
 | B-010 Production Assessment Engine（規則引擎） | NOT STARTED | 依賴 B-008；D-01 已決定不用 AI | 依 `docs/ASSESSMENT_RULES.md` 實作 |
@@ -70,9 +70,9 @@ A / B / C 不直接 Push `staging` 或 `main`。
 | Task | 狀態 | 證據 |
 |---|---|---|
 | J-001 Netlify + Supabase staging | MERGED | PR #6 |
-| J-002 MVP Decisions / Knowledge / Privacy / Lead specs | IN PROGRESS | PR #19（J-002-r2） |
-| J-003 CI + Integration | IN PROGRESS | `feat/j-003-mvp` |
-| J-004 Release readiness | PREPARING | checklist／runbook 草稿；release gate 未開 |
+| J-002 MVP Decisions / Knowledge / Privacy / Lead specs | 規格 MERGED（PR #19）；內容待核准 | 決策、知識包逐筆審核、接件人、客服信箱仍待 Jerry |
+| J-003 CI + Integration | 第一階段 MERGED（PR #20）；E2E 未開始 | 等 B-004～B-011、C-004／C-005 與部署環境 |
+| J-004 Release readiness | 準備文件 MERGED（PR #22）；gate CLOSED | 未演練 |
 
 ## J-002 產生的修正要求
 
