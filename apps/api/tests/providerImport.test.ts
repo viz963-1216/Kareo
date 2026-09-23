@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { importProviderDataset } from "../src/services/providerImportService.js";
+import { hasRejections, importProviderDataset } from "../src/services/providerImportService.js";
 import { InMemoryProviderRepository } from "../src/repositories/inMemoryRepositories.js";
 import type { ProviderImportDataset } from "../src/types/index.js";
 
@@ -34,26 +34,63 @@ const validProvider = {
   verified: true,
 };
 
+function fullyValidDataset(): ProviderImportDataset {
+  return {
+    providers: [validProvider],
+    providerServices: [{ id: "PSV-001", providerId: "PROV-001", serviceType: "HOME_CARE", active: true }],
+    providerServiceAreas: [
+      { id: "PSA-001", providerId: "PROV-001", city: "新北市", district: "三重區", active: true },
+    ],
+  };
+}
+
 describe("Provider Import (TASK-B-004)", () => {
-  it("imports a fully valid dataset with no rejections", async () => {
+  it("commit mode: a fully valid dataset is written", async () => {
+    const repo = new InMemoryProviderRepository();
+
+    const report = await importProviderDataset(repo, fullyValidDataset(), { mode: "commit" });
+
+    expect(report.written).toBe(true);
+    expect(hasRejections(report)).toBe(false);
+    expect(report.providersValid).toBe(1);
+    expect(report.servicesValid).toBe(1);
+    expect(report.serviceAreasValid).toBe(1);
+    expect(repo.providers).toHaveLength(1);
+    expect(repo.services).toHaveLength(1);
+    expect(repo.serviceAreas).toHaveLength(1);
+  });
+
+  it("commit mode: ANY rejection means nothing is written — not even the valid providers", async () => {
     const repo = new InMemoryProviderRepository();
     const dataset: ProviderImportDataset = {
       providers: [validProvider],
-      providerServices: [{ id: "PSV-001", providerId: "PROV-001", serviceType: "HOME_CARE", active: true }],
+      providerServices: [{ providerId: "PROV-001", serviceType: "HOME_CARE" }], // 缺 id、active
       providerServiceAreas: [
         { id: "PSA-001", providerId: "PROV-001", city: "新北市", district: "三重區", active: true },
       ],
     };
 
-    const report = await importProviderDataset(repo, dataset);
+    const report = await importProviderDataset(repo, dataset, { mode: "commit" });
 
-    expect(report.providersAccepted).toBe(1);
-    expect(report.providersRejected).toHaveLength(0);
-    expect(report.servicesAccepted).toBe(1);
-    expect(report.servicesRejected).toHaveLength(0);
-    expect(report.serviceAreasAccepted).toBe(1);
-    expect(report.serviceAreasRejected).toHaveLength(0);
-    expect(repo.providers).toHaveLength(1);
+    expect(report.written).toBe(false);
+    expect(report.providersValid).toBe(1);
+    expect(report.servicesRejected).toHaveLength(1);
+    expect(repo.providers).toHaveLength(0);
+    expect(repo.services).toHaveLength(0);
+    expect(repo.serviceAreas).toHaveLength(0);
+  });
+
+  it("dry-run mode: never writes, even when the dataset is fully valid", async () => {
+    const repo = new InMemoryProviderRepository();
+
+    const report = await importProviderDataset(repo, fullyValidDataset(), { mode: "dry-run" });
+
+    expect(report.mode).toBe("dry-run");
+    expect(report.written).toBe(false);
+    expect(report.providersValid).toBe(1);
+    expect(repo.providers).toHaveLength(0);
+    expect(repo.services).toHaveLength(0);
+    expect(repo.serviceAreas).toHaveLength(0);
   });
 
   it("rejects (not guesses) provider_services records missing id/active — matches real A-002 staging dataset shape", async () => {
@@ -62,18 +99,17 @@ describe("Provider Import (TASK-B-004)", () => {
     const repo = new InMemoryProviderRepository();
     const dataset: ProviderImportDataset = {
       providers: [validProvider],
-      providerServices: [{ providerId: "PROV-001", serviceType: "HOME_CARE" }], // 缺 id、active
+      providerServices: [{ providerId: "PROV-001", serviceType: "HOME_CARE" }],
       providerServiceAreas: [],
     };
 
-    const report = await importProviderDataset(repo, dataset);
+    const report = await importProviderDataset(repo, dataset, { mode: "dry-run" });
 
-    expect(report.servicesAccepted).toBe(0);
+    expect(report.servicesValid).toBe(0);
     expect(report.servicesRejected).toHaveLength(1);
     const reasons = report.servicesRejected[0].reasons.join(" | ");
     expect(reasons).toMatch(/id/);
     expect(reasons).toMatch(/active/);
-    expect(repo.services).toHaveLength(0);
   });
 
   it("rejects a provider record with an invalid type enum", async () => {
@@ -84,67 +120,62 @@ describe("Provider Import (TASK-B-004)", () => {
       providerServiceAreas: [],
     };
 
-    const report = await importProviderDataset(repo, dataset);
-    expect(report.providersAccepted).toBe(0);
+    const report = await importProviderDataset(repo, dataset, { mode: "dry-run" });
+    expect(report.providersValid).toBe(0);
     expect(report.providersRejected).toHaveLength(1);
   });
 
-  it("rejects a service/area whose providerId does not exist among accepted providers", async () => {
+  it("rejects a service/area whose providerId does not exist among valid providers", async () => {
     const repo = new InMemoryProviderRepository();
     const dataset: ProviderImportDataset = {
-      providers: [], // Provider 本身沒過驗證（此例故意留空）
+      providers: [],
       providerServices: [{ id: "PSV-001", providerId: "PROV-999", serviceType: "HOME_CARE", active: true }],
       providerServiceAreas: [
         { id: "PSA-001", providerId: "PROV-999", city: "新北市", district: "三重區", active: true },
       ],
     };
 
-    const report = await importProviderDataset(repo, dataset);
+    const report = await importProviderDataset(repo, dataset, { mode: "dry-run" });
     expect(report.servicesRejected).toHaveLength(1);
     expect(report.servicesRejected[0].reasons.join(" ")).toMatch(/不存在於已驗證通過的 Provider 清單/);
     expect(report.serviceAreasRejected).toHaveLength(1);
   });
 
-  it("is idempotent: running the same import twice does not duplicate records", async () => {
+  it("commit mode is idempotent: running the same import twice does not duplicate records", async () => {
     const repo = new InMemoryProviderRepository();
-    const dataset: ProviderImportDataset = {
-      providers: [validProvider],
-      providerServices: [{ id: "PSV-001", providerId: "PROV-001", serviceType: "HOME_CARE", active: true }],
-      providerServiceAreas: [
-        { id: "PSA-001", providerId: "PROV-001", city: "新北市", district: "三重區", active: true },
-      ],
-    };
 
-    await importProviderDataset(repo, dataset);
-    await importProviderDataset(repo, dataset);
+    await importProviderDataset(repo, fullyValidDataset(), { mode: "commit" });
+    await importProviderDataset(repo, fullyValidDataset(), { mode: "commit" });
 
     expect(repo.providers).toHaveLength(1);
     expect(repo.services).toHaveLength(1);
     expect(repo.serviceAreas).toHaveLength(1);
   });
 
-  it("real A-002 staging dataset: providers import cleanly, but ALL provider_services are rejected " +
-    "for missing id/active (documents current known data gap, not a code bug)", async () => {
+  it("real A-002 staging dataset in commit mode: 30 services rejected for missing id/active, so NOTHING is written", async () => {
     const repo = new InMemoryProviderRepository();
     const dataset = readRealDataset();
 
-    const report = await importProviderDataset(repo, dataset);
+    const report = await importProviderDataset(repo, dataset, { mode: "commit" });
 
     expect(dataset.providers.length).toBe(30);
-    expect(report.providersAccepted).toBe(30);
+    expect(report.providersValid).toBe(30);
     expect(report.providersRejected).toHaveLength(0);
 
-    // 已知現況：provider-services.json 目前每筆都缺 id/active，全部應被拒收，不得被自動生成通過。
     expect(dataset.providerServices.length).toBe(30);
-    expect(report.servicesAccepted).toBe(0);
+    expect(report.servicesValid).toBe(0);
     expect(report.servicesRejected).toHaveLength(30);
     for (const rejected of report.servicesRejected) {
       expect(rejected.reasons.join(" ")).toMatch(/id/);
       expect(rejected.reasons.join(" ")).toMatch(/active/);
     }
 
-    // Service Area 來源資料本身欄位完整，應該可以正常匯入。
     expect(report.serviceAreasRejected).toHaveLength(0);
-    expect(report.serviceAreasAccepted).toBe(dataset.providerServiceAreas.length);
+    expect(report.serviceAreasValid).toBe(dataset.providerServiceAreas.length);
+
+    expect(report.written).toBe(false);
+    expect(repo.providers).toHaveLength(0);
+    expect(repo.services).toHaveLength(0);
+    expect(repo.serviceAreas).toHaveLength(0);
   });
 });

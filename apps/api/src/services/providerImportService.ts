@@ -2,6 +2,7 @@ import type { ProviderRepository } from "../repositories/types.js";
 import type {
   Provider,
   ProviderImportDataset,
+  ProviderImportMode,
   ProviderImportReport,
   ProviderService,
   ProviderServiceArea,
@@ -138,18 +139,30 @@ function validateProviderServiceArea(
   };
 }
 
+export function hasRejections(report: ProviderImportReport): boolean {
+  return (
+    report.providersRejected.length > 0 ||
+    report.servicesRejected.length > 0 ||
+    report.serviceAreasRejected.length > 0
+  );
+}
+
 // 依 tasks/TASK-B-004.md：Import 可重複執行（upsert by id，不增生）；
 // 驗證不合格的紀錄一律拒收並記錄理由，不猜值、不靜默略過。
+// mode 必填，不提供預設值，避免呼叫端誤把試匯入當成正式匯入（或反之）。
 export async function importProviderDataset(
   repo: ProviderRepository,
-  dataset: ProviderImportDataset
+  dataset: ProviderImportDataset,
+  options: { mode: ProviderImportMode }
 ): Promise<ProviderImportReport> {
   const report: ProviderImportReport = {
-    providersAccepted: 0,
+    mode: options.mode,
+    written: false,
+    providersValid: 0,
     providersRejected: [],
-    servicesAccepted: 0,
+    servicesValid: 0,
     servicesRejected: [],
-    serviceAreasAccepted: 0,
+    serviceAreasValid: 0,
     serviceAreasRejected: [],
   };
 
@@ -184,14 +197,18 @@ export async function importProviderDataset(
     }
   }
 
-  // 只寫入通過驗證的紀錄；upsert by id 確保重複執行 Import 不會增生資料。
+  report.providersValid = acceptedProviders.length;
+  report.servicesValid = acceptedServices.length;
+  report.serviceAreasValid = acceptedAreas.length;
+
+  if (options.mode === "dry-run" || hasRejections(report)) {
+    return report;
+  }
+
   await repo.upsertProviders(acceptedProviders);
   await repo.upsertProviderServices(acceptedServices);
   await repo.upsertProviderServiceAreas(acceptedAreas);
-
-  report.providersAccepted = acceptedProviders.length;
-  report.servicesAccepted = acceptedServices.length;
-  report.serviceAreasAccepted = acceptedAreas.length;
+  report.written = true;
 
   return report;
 }

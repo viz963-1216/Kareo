@@ -212,12 +212,18 @@ export interface ProviderImportDataset {
   providerServiceAreas: RawProviderServiceAreaRecord[];
 }
 
+// commit：正式匯入，任何一筆拒收則整批不寫入。dry-run：只驗證與產生報告，永不寫入。
+// 刻意不提供「部分接受並寫入」模式，避免誤用成正式 gate。
+export type ProviderImportMode = "commit" | "dry-run";
+
 export interface ProviderImportReport {
-  providersAccepted: number;
+  mode: ProviderImportMode;
+  written: boolean;
+  providersValid: number;
   providersRejected: Array<{ record: RawProviderRecord; reasons: string[] }>;
-  servicesAccepted: number;
+  servicesValid: number;
   servicesRejected: Array<{ record: RawProviderServiceRecord; reasons: string[] }>;
-  serviceAreasAccepted: number;
+  serviceAreasValid: number;
   serviceAreasRejected: Array<{ record: RawProviderServiceAreaRecord; reasons: string[] }>;
 }
 
