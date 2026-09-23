@@ -686,14 +686,16 @@ Lead 查件、知識發布、清理作業都使用受保護 CLI（InternalOperat
 
 # 21. Knowledge MVP Ingest Path（v0.2，J-002-r1）
 
-MVP 期間 Crawler（B-009）可延後。正式知識只經由人工整理的內容包進入：
+每日自動更新（Crawler，B-009）屬原始 MVP（PRODUCT_SPEC §42）；「MVP 先人工每日檢查、crawler 延後」是待核准的範圍變更提案（MVP_DECISIONS D-11），核准前不得當成定案。
+
+不論有無 crawler，正式知識都只經由人工審核的內容包進入。B-009 上線後，crawler 發現的變更同樣先成為 NEEDS_REVIEW，再經下列審核與發布：
 
 ```text
 官方來源（docs/knowledge/source-registry.md）
 ↓
 contracts/knowledge/packs/KP-*.json（NEEDS_REVIEW）
 ↓
-Jerry 審核（PR 合併＝審核證據）
+Jerry 逐筆審核（PR 中的審核紀錄＝審核證據；PR 合併本身不是審核）
 ↓
 B-008 import → approve → publish（J-003 在整合環境執行並留證）
 ↓

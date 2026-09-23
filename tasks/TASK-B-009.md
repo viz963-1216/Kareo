@@ -2,7 +2,7 @@
 
 Owner: Engineer B — Backend  
 Type: Backend / Crawler  
-Status: QUEUED — POST-MVP ALLOWED; DO NOT START UNTIL B-008 MERGED
+Status: QUEUED — **原始 MVP 必要項目**（PRODUCT_SPEC §42）；DO NOT START UNTIL B-008 MERGED
 
 ---
 
@@ -119,3 +119,19 @@ PR Title：
 ```text
 [B-009] Knowledge Crawler
 ```
+
+---
+
+## 2026-09-23 範圍更正（J-002-r3）
+
+- 上一版標示「POST-MVP ALLOWED」與 PRODUCT_SPEC §42 不一致，已更正：B-009 屬原始 MVP，列入 J-003 完整驗收與 J-004 release gate 的必要項目。
+- 「MVP 先人工每日檢查、crawler 延後」是待核准的範圍變更提案（MVP_DECISIONS D-11）。**Jerry 核准前，本任務維持 MVP 必要**；核准後由 J-002 修訂 PRODUCT_SPEC 與本任務。
+- 前置：B-008 合併（Knowledge 表、KnowledgeChange、Publish Gate）；Source Registry（D-02a）核准。來源清單以 `docs/knowledge/source-registry.md` 為準，不自行加入來源。
+- 補充驗收：
+  - [ ] 以 Source Registry 的 active 來源執行一次完整抓取，產生 CrawlerRun、Snapshot、contentHash；未變更時不產生 KnowledgeChange。
+  - [ ] 模擬來源內容改變 → KnowledgeChange 進 `NEEDS_REVIEW`，PUBLISHED 版本不變。
+  - [ ] 模擬抓取失敗／逾時／格式改變 → `FETCH_FAILED`，保留 Last Published，不清空、不寫半套。
+  - [ ] 排程時間 00:10 Asia/Taipei 的設定與實際觸發紀錄（部署方式與費用影響先交 Jerry，D-09）。
+  - [ ] 提供操作說明，讓審核人知道去哪裡看每日變更。
+
+此補充不擴增產品範圍，只把 PRODUCT_SPEC 原始 MVP 已有的要求指到承接任務；所需規格更新由 TASK-J-002 先合併。

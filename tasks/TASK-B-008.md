@@ -8,7 +8,7 @@ Status: QUEUED — DO NOT START UNTIL B-003 MERGED AND JERRY SOURCE REGISTRY REA
 
 # Goal / 目標
 
-建立 Knowledge DB 基礎、Publish Gate 與 `GET /api/v1/knowledge/status`。Crawler 可延後，但正式 Assessment 不得使用未 Published Knowledge。
+建立 Knowledge DB 基礎、Publish Gate 與 `GET /api/v1/knowledge/status`。Crawler 由 B-009 承接（原始 MVP，延後提案 D-11 未核准）；本任務須提供 B-009 需要的 KnowledgeChange／CrawlerRun 寫入點。正式 Assessment 不得使用未 Published Knowledge。
 
 ---
 
@@ -124,3 +124,11 @@ PR Title：
 排程提前為 B-003 後的優先任務。J-002 分批提供 source registry/內容格式與核准內容。補交可重複執行的首批內容匯入、驗證及人工發布工具；匯入使用既有狀態機的未發布狀態，不自動核准。測試無發布、有效期間、衝突、替換版本與非授權發布；J-003 負責依核准內容在整合環境實際發布並留證，B-010 才能完成真實 smoke。
 
 此補充不授權改寫高順位規格；所需規格更新由 TASK-J-002 先合併。
+
+---
+
+## 2026-09-23 核准狀態說明（J-002-r3）
+
+- 內容包格式與發布規則（D-03）目前是 **PROPOSED**：B-008 可依此開發（PR #26 已送審），但**合併前需 Jerry 核准 D-03**，避免格式變動造成重做。
+- 知識發布／撤回使用 Postgres function（沿用 D-10 模式）需 Jerry 另行核准（ARCHITECTURE §22 第 6 點）。
+- 首批內容包 9 筆仍是 `NEEDS_REVIEW`；B-008 驗收可用它測試匯入，但匯入結果不得被當成已核准或已發布知識。

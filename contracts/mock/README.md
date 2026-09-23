@@ -63,7 +63,7 @@ contracts/mock/
 4. **地址與服務範圍分開提供**：`address`／`city`／`district` 是單位所在地；`serviceAreas` 是可服務範圍，可以跨縣市（例如 `PROV-MOCK-102` 位於臺北市大同區，但服務範圍包含新北市三重區）。前端不得由地址推測服務範圍。
 5. 所有推薦的 `reasons` 寫「服務範圍包含三重區」，對應的 `serviceAreas` 都確實包含新北市三重區。
 6. `googleMapsUrl` 每家不同，可用來驗證連結來自資料而非前端組成。
-7. 依 MVP_DECISIONS D-07，fixtures 只提供 `DISTRICT_ROTATION`、`distanceKm = null`。
+7. 各服務的主 fixtures 為 `DISTRICT_ROTATION`、`distanceKm = null`。距離排序（PRODUCT_SPEC §21，原始 MVP）另提供 `recommendations/ranking-variants/HOME_CARE-DISTANCE.json`（`DISTANCE`、`locationPrecision = GPS`、`distanceKm` 與「距離約 X 公里」原因），前端 Mock 驗收需涵蓋兩種畫面。距離數值為測試資料。
 
 ### 前端使用方式（C，`/apps/web/**`）
 

@@ -30,7 +30,7 @@ Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更�
 
 ## Target
 
-10/19 功能凍結；10/20–10/21 發布演練與 smoke；10/22 交付。這是排程目標，未通過 release gate 不得冒稱完成。Crawler B-009、完整後台及會員系統可延後。
+10/19 功能凍結；10/20–10/21 發布演練與 smoke；10/22 交付。這是排程目標，未通過 release gate 不得冒稱完成。完整後台及會員系統不在 MVP。Crawler B-009 屬原始 MVP；延後需 Jerry 核准 D-11，核准前 release gate 將其列為必要項。
 
 
 ## Submission / Completion

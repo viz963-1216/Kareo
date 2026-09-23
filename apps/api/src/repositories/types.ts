@@ -7,6 +7,10 @@ import type {
   KnowledgeRecord,
   KnowledgeStatusResponse,
   Jurisdiction,
+  Provider,
+  ProviderDetailResponse,
+  ProviderService,
+  ProviderServiceArea,
   Session,
 } from "../types/index.js";
 
@@ -65,4 +69,25 @@ export interface KnowledgeRepository {
   }): Promise<{ republishedVersionId: string | null }>;
 
   getCurrentPublishedStatus(): Promise<KnowledgeStatusResponse | null>;
+}
+
+export interface ProviderDatasetWrite {
+  providers: Provider[];
+  services: ProviderService[];
+  serviceAreas: ProviderServiceArea[];
+}
+
+export interface ProviderDatasetWriteCounts {
+  providers: number;
+  providerServices: number;
+  providerServiceAreas: number;
+}
+
+// 依 tasks/TASK-B-004.md：不讓 Frontend 直接查核心 Business Tables，
+// Provider Detail 一律透過此 Repository -> Service -> Function 邊界存取。
+export interface ProviderRepository {
+  findDetailById(providerId: string): Promise<ProviderDetailResponse | null>;
+  // 依 ARCHITECTURE §22 / MVP_DECISIONS D-10：三張表只能透過這一個方法、在單一交易內寫入
+  // （全有或全無，upsert by id）。刻意不提供分表寫入方法，避免再出現半套資料。
+  importDatasetAtomically(dataset: ProviderDatasetWrite): Promise<ProviderDatasetWriteCounts>;
 }
