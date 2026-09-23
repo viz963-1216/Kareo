@@ -1,3 +1,4 @@
+import homeCareDistanceFixture from "../../../../contracts/mock/recommendations/ranking-variants/HOME_CARE-DISTANCE.json";
 import assistiveDeviceFixture from "../../../../contracts/mock/recommendations/ASSISTIVE_DEVICE.json";
 import homeCareFixture from "../../../../contracts/mock/recommendations/HOME_CARE.json";
 import homeMedicalNursingFixture from "../../../../contracts/mock/recommendations/HOME_MEDICAL_NURSING.json";
@@ -19,9 +20,14 @@ const recommendationFixtures: Record<RecommendationServiceType, RecommendationEn
 export function createRecommendationFixture(
   serviceType: RecommendationServiceType,
   count: RecommendationMockCount = 1,
-  _ranking: RecommendationMockRanking = "district",
+  ranking: RecommendationMockRanking = "district",
 ): RecommendationResponse {
-  const contractData = recommendationFixtures[serviceType].data;
+  if (ranking === "distance" && serviceType !== "HOME_CARE") {
+    throw new Error("此服務尚未提供距離排序測試資料，請使用行政區情境。");
+  }
+  const contractData = ranking === "distance"
+    ? (homeCareDistanceFixture as RecommendationEnvelope).data
+    : recommendationFixtures[serviceType].data;
   return {
     ...structuredClone(contractData),
     providers: structuredClone(contractData.providers.slice(0, count)),
