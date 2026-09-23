@@ -26,111 +26,73 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
-# Current Active Tasks
+# Verified Task Board（2026-09-23，J-002-r1 以程式碼與 PR 核實）
 
-| Engineer | Task | Status |
+狀態用語：`MERGED`＝PR 已合併 staging（只代表 Module Complete）；`CHANGES REQUESTED`＝PR 開啟中、需修正；`NOT STARTED`＝無分支、無 PR。
+
+## Engineer A
+
+| Task | 狀態 | 證據 | 下一步 |
+|---|---|---|---|
+| A-001 Provider Data Foundation | MERGED | PR #2 | — |
+| A-002 Official Provider Dataset v1 | MERGED（隨 A-003 進入 staging） | commit `329842c` | 見下方 A 修正要求 1 |
+| A-002 舊 PR | **SUPERSEDED** | PR #8 base 為 `feat/a-001-provider-data`；內容已在 staging，且比 staging 少 A-003 更新 | 建議 A 關閉 #8，勿合併 |
+| A-003 Geocoding + Service Area QA | MERGED | PR #13；30/30 Provider 無已驗證座標 | 依 D-07，MVP 不做距離排序 |
+| A-004 Provider Validation Gate | **CHANGES REQUESTED** | PR #18 review：ProviderService 未驗 `id`／`active`／ID 唯一，會假通過 | ▶ ACTIVE：依 review 修正 |
+| A-005 Provider QA Acceptance Cases | NOT STARTED | — | A-004 合併後 |
+
+## Engineer B
+
+| Task | 狀態 | 證據 | 下一步 |
+|---|---|---|---|
+| B-001、B-002 | MERGED | PR #3、#5 | — |
+| B-003 Assessment API + AI Adapter | MERGED | PR #12；線上組裝 Fake Adapter＋NullKnowledgeVersionResolver → 一律 `KNOWLEDGE_UNAVAILABLE` | 由 B-008／B-010 替換 |
+| B-004 Provider Domain + Import API | **CHANGES REQUESTED** | PR #16 review：三表匯入非整批一致；拒收未以非零狀態結束 | ▶ ACTIVE：依 review 修正 |
+| B-007 Kareocar External Service API | MERGED | PR #14；**netlify.toml 缺路由**，由 J-003 補 | — |
+| B-008 Knowledge Foundation + Publish Gate | NOT STARTED → **可開工** | J-002 已提供 source registry、內容包格式與首批內容（`contracts/knowledge/`） | B-004 修正送出後開工 |
+| B-005 Recommendation Engine + API | NOT STARTED | 依賴 B-004 | 依 D-07 只做 `DISTRICT_ROTATION`；依 API_CONTRACT v0.2 §3.1 驗 session |
+| B-006 Lead API | NOT STARTED | 依賴 B-004 | 依 API_CONTRACT v0.2 §12、LEAD_OPERATIONS、DATA_MODEL §22／§36–38 |
+| B-010 Production Assessment Engine | NOT STARTED | 依賴 B-008＋D-01 核准 | D-01 待 Jerry 決定 |
+| B-011 Session / Privacy / API Controls | NOT STARTED | 規格：ARCHITECTURE §20、PRIVACY_AND_RETENTION | 規格合併後即可開始 session token 部分 |
+| B-009 Knowledge Crawler | NOT STARTED（MVP 後） | — | — |
+
+## Engineer C
+
+| Task | 狀態 | 證據 | 下一步 |
+|---|---|---|---|
+| C-001、C-002 | MERGED | PR #4、#11 | — |
+| C-003 Recommendation + Top 3 UI | MERGED | PR #17（使用 Mock） | — |
+| C-004 Provider Detail + Google Maps | NOT STARTED → **可開工** | C-003 已合併 | ▶ ACTIVE |
+| C-005 Lead Flow + Final MVP UX QA | NOT STARTED | 依賴 C-004 | 需依 API_CONTRACT v0.2 §12 加入聯絡同意勾選、Idempotency-Key 由 adapter 處理 |
+
+## Jerry
+
+| Task | 狀態 | 證據 |
 |---|---|---|
-| A | TASK-A-002 Official Provider Dataset v1 | ▶ ACTIVE / START NOW |
-| B | TASK-B-003 Assessment API + AI Adapter Foundation | ▶ ACTIVE / START NOW |
-| C | TASK-C-002 Frontend MVP Foundation | ▶ ACTIVE / START NOW |
+| J-001 Netlify + Supabase staging | MERGED | PR #6 |
+| J-002 MVP Decisions / Knowledge / Privacy / Lead specs | IN PROGRESS | 本 PR（`feat/j-002-mvp`） |
+| J-003 CI + Integration | IN PROGRESS | `feat/j-003-mvp` |
+| J-004 Release readiness | PREPARING | checklist／runbook 草稿；release gate 未開 |
 
-目前每位工程師只維持一張 Active Task。
+## J-002 產生的修正要求
 
-後續 Task 雖已建立，但在前置條件完成前一律不得提前開工。
+**Engineer A**
 
----
+1. `data/providers/staging/provider-services.json` 30 筆全部缺 `id`、`active`（已驗證）。請依來源補齊，不得由 B 猜值；補齊後須通過修正版 A-004。
+2. PR #18：補 `id` 非空／唯一、`active` boolean 驗證與反例；區分 `Provider.type`（允許 `OTHER`）與 `ProviderService.serviceType`。
+3. PR #8：確認後關閉為 superseded。
 
-# Completed
+**Engineer B**
 
-| Engineer | Task | Status |
-|---|---|---|
-| A | TASK-A-001 Provider Data Foundation | ✅ MERGED |
-| B | TASK-B-001 Backend Foundation Plan | ✅ MERGED |
-| B | TASK-B-002 Backend API Foundation | ✅ MERGED |
-| C | TASK-C-001 Frontend Foundation Plan | ✅ MERGED |
+1. PR #16：提出整批一致性方案（例如單一資料庫交易的 RPC／staging table 後切換），補第二、三階段失敗測試；任何拒收時正式匯入不寫入並以非零狀態結束。若方案需要新 schema，先交 Jerry。
+2. 之後各 API 依 API_CONTRACT v0.2 實作 session token 驗證與新錯誤碼；`AppError` 的 code 清單需依 §3.2 擴充（屬 contract 已核准範圍）。
+3. `generateId()` 目前使用 `Math.random()`；B-011 需改用密碼學隨機值，至少用於 session token。
 
----
+**Engineer C**
 
-# Engineer A Queue
-
-| Task | Status | Dependency |
-|---|---|---|
-| A-002 Official Provider Dataset v1 | ▶ ACTIVE | — |
-| A-003 Provider Geocoding + Service Area QA | 🔒 QUEUED | A-002 merged |
-| A-004 Provider Validation Gate | 🔒 QUEUED | A-003 merged |
-| A-005 Provider QA Acceptance Cases | 🔒 QUEUED | A-004 merged |
-
-A 的責任維持：
-
-```text
-Provider Data
-Source Traceability
-Data Cleaning
-Geocoding / Service Area QA
-Validation
-QA Cases
-```
-
-A 不負責 Backend、Supabase 正式操作或全站 E2E 執行。
-
----
-
-# Engineer B Queue
-
-| Task | Status | Dependency |
-|---|---|---|
-| B-003 Assessment API + AI Adapter Foundation | ▶ ACTIVE | — |
-| B-008 Knowledge Foundation + Publish Gate | 🔒 NEXT PRIORITY | B-003 merged + J-002 source registry/format |
-| B-004 Provider Domain + Import API | 🔒 QUEUED | B-003 + A-002 merged |
-| B-005 Recommendation Engine + API | 🔒 QUEUED | B-004 merged |
-| B-006 Lead API | 🔒 QUEUED | B-004 merged |
-| B-007 Kareocar External Service API | 🔒 QUEUED | B-003 merged |
-| B-010 Production Assessment Engine | 🔒 QUEUED | B-003 + B-008 merged + J-002 AI/content approved |
-| B-011 Session / Privacy / API Controls | 🔒 QUEUED | J-002 security spec + relevant APIs merged |
-| B-009 Knowledge Crawler | 🔒 QUEUED / POST-MVP ALLOWED | B-008 merged |
-
-B 的責任維持：
-
-```text
-Backend API
-Database
-Provider Backend
-Assessment
-Recommendation
-Lead
-Knowledge
-Crawler
-```
-
-B 不修改 Frontend UI。
-
----
-
-# Engineer C Queue
-
-| Task | Status | Dependency |
-|---|---|---|
-| C-002 Frontend MVP Foundation | ▶ ACTIVE | — |
-| C-003 Recommendation + Top 3 UI | 🔒 QUEUED | C-002 merged |
-| C-004 Provider Detail + Google Maps | 🔒 QUEUED | C-003 merged |
-| C-005 Lead Flow + Final MVP UX QA | 🔒 QUEUED | C-004 merged |
-
-C 的責任維持：
-
-```text
-Homepage
-Consent
-Assessment UI
-Result
-Recommendation UI
-Provider UI
-Google Maps CTA
-Kareocar CTA
-Lead Form
-RWD / Accessibility / States
-```
-
-C 不修改 Backend Schema、Recommendation Logic 或 Supabase 核心資料。
+1. C-004 可開工。
+2. 前端送出的 consent 版本改為讀取核准清單（PRIVACY_AND_RETENTION §3.2），不寫死。
+3. session token、`Idempotency-Key` 由 API adapter 處理（J-003 接線），UI 不直接處理 token。
 
 ---
 

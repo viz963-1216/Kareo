@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — Data Model
 
-Version: v0.1  
+Version: v0.2（J-002-r1，2026-09-23）  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -77,11 +77,24 @@ Lead
 
 ```text
 id
+tokenHash
 createdAt
 updatedAt
+lastSeenAt
+expiresAt
+status
+deletedAt
 ```
 
 MVP 不強迫登入，以 Session 作為主要使用流程識別。
+
+v0.2 補充（ARCHITECTURE §20）：
+
+- `id` 不是秘密，不能單獨當作存取憑證。
+- `tokenHash`：session token 的 SHA-256 雜湊；明文 token 只在建立時回傳一次，不寫入資料庫或 log。
+- `expiresAt`：閒置 7 天或建立後 30 天（取較早者）。過期後所有需要 session 的 API 回 `SESSION_INVALID`。
+- `status`：`ACTIVE`／`DELETION_REQUESTED`／`DELETED`。
+- `deletedAt`：清理作業實際刪除關聯資料的時間。
 
 ---
 
@@ -110,9 +123,12 @@ disclaimerVersion
 privacyVersion
 termsVersion
 acceptedAt
+withdrawnAt
 ```
 
 沒有有效 Consent 時，不得開始正式 Assessment。
+
+v0.2 補充：「有效 Consent」＝同一 session、`withdrawnAt` 為空、三個版本組合為 `contracts/legal/consent-versions.json` 中 `ACTIVE` 的組合。撤回時只填 `withdrawnAt`，不刪除紀錄（PRIVACY_AND_RETENTION §3.3）。
 
 ---
 
@@ -415,14 +431,30 @@ reasons 必須是使用者看得懂的推薦理由。
 id
 sessionId
 assessmentId
+recommendationId
 providerId
 serviceType
 contactName
 contactPhone
+contactConsentAt
+idempotencyKey
 status
+statusReason
+assignedOperatorId
+firstContactedAt
+closedAt
 createdAt
 updatedAt
 ```
+
+v0.2 補充：
+
+- `recommendationId`：Lead 所依據的推薦結果；`providerId` 必須出現在該推薦的 providers 中。
+- `contactConsentAt`：使用者勾選媒合聯絡同意的時間（必填）。
+- `idempotencyKey`：前端送出時帶的 `Idempotency-Key`；`(sessionId, idempotencyKey)` 唯一。
+- `statusReason`：終態原因碼，見 LEAD_OPERATIONS §3。
+- `contactName`／`contactPhone`：刪除或保存期限到期時清空為 null，Lead 其餘欄位保留。
+- 狀態轉移規則見 LEAD_OPERATIONS §3，每次轉移寫入 LeadStatusEvent（§37）。
 
 Lead Status：
 
@@ -778,3 +810,89 @@ Code
 ```
 
 Code 與本文件不同時，以本文件為準並停止開發、建立 Issue。
+
+---
+
+# 36. InternalOperator / 內部操作者（v0.2）
+
+```text
+id
+displayName
+roles
+keyHash
+active
+createdAt
+revokedAt
+```
+
+roles：
+
+```text
+LEAD_OPERATOR
+DATA_STEWARD
+KNOWLEDGE_PUBLISHER
+```
+
+只供受保護內部指令使用（LEAD_OPERATIONS §4、contracts/knowledge/README §4）；不提供公開 API。`keyHash` 為操作者個人密鑰雜湊。
+
+---
+
+# 37. LeadStatusEvent / 媒合狀態歷程（v0.2）
+
+```text
+id
+leadId
+fromStatus
+toStatus
+reasonCode
+note
+operatorId
+createdAt
+```
+
+`note` 不得包含姓名、電話或健康細節。
+
+---
+
+# 38. LeadAccessEvent / 聯絡資料存取紀錄（v0.2）
+
+```text
+id
+leadId
+operatorId
+action
+createdAt
+```
+
+action：`REVEAL_CONTACT`。
+
+---
+
+# 39. RateLimitCounter / 限流計數（v0.2）
+
+```text
+key
+windowStart
+count
+expiresAt
+```
+
+`key` 由規則名稱＋session id 或 IP 雜湊組成，不存 IP 明文。必須持久化（資料庫），不得只用單一 function instance 記憶體（ARCHITECTURE §20.4）。
+
+---
+
+# 40. DeletionRun / 清理作業紀錄（v0.2）
+
+```text
+id
+startedAt
+finishedAt
+dryRun
+status
+sessionsDeleted
+leadsContactCleared
+errorMessage
+operatorId
+```
+
+status：`RUNNING`／`SUCCESS`／`FAILED`。`errorMessage` 不得包含個資。

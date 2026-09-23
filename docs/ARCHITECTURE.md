@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — System Architecture
 
-Version: v0.3  
+Version: v0.4（J-002-r1，2026-09-23）  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -565,9 +565,128 @@ STAGING 與 PRODUCTION 必須使用不同 Environment Variables / Secrets。
 
 ## AI Provider
 
-AI Provider 尚未鎖定。
+AI Provider 尚未鎖定。選型方案、費用上限與失敗行為見 `docs/MVP_DECISIONS.md` D-01（PROPOSED，待 Jerry 核准）。
 
 所有 AI 能力必須透過 Adapter Boundary，禁止直接把 OpenAI / Claude / Gemini SDK 散落在 Business Logic 中。
 
 在 AI Provider 正式選型前，Backend 必須能使用 Fake / Deterministic Adapter 完成測試。
 
+Fake Adapter 只允許用於自動測試與本機開發；STAGING／PRODUCTION 的 Function 不得組裝 Fake Adapter，AI 失敗時回 `AI_UNAVAILABLE`，不得回 Fake 成功結果。
+
+
+---
+
+# 20. Session Ownership, Security & Abuse Controls（v0.2，J-002-r1）
+
+決策 D-04（PROPOSED）。本節是 B-011 與各 API 的實作依據；對應 contract 見 API_CONTRACT §3.1–3.4。
+
+## 20.1 匿名 session 持有證明
+
+```text
+POST /api/v1/session
+↓
+Server 產生：
+  sessionId     可公開的識別碼
+  sessionToken  至少 256 bits 的密碼學隨機值（crypto.randomBytes / getRandomValues）
+↓
+DB 只存 SHA-256(sessionToken)
+↓
+Response 回傳一次 sessionToken
+↓
+之後所有 session 相關請求帶 Header：
+  X-Kareo-Session-Token: <sessionToken>
+```
+
+- `sessionId` 不是憑證；只有 `sessionId` 而沒有正確 token 的請求一律拒絕。
+- 不得用 `Math.random()` 產生任何憑證或可被猜測後造成越權的 ID。
+- 前端把 token 存在 `sessionStorage`（分頁關閉即消失），不放 URL、不放 cookie、不寫入 log。
+- MVP 不使用 cookie，因此不涉及 CSRF；若日後改用 cookie，必須 `HttpOnly; Secure; SameSite=Strict` 並加 CSRF 防護。
+
+## 20.2 有效期
+
+- 閒置 7 天或建立後 30 天，取較早者，過期回 `SESSION_INVALID`。
+- 每次成功請求更新 `lastSeenAt`（可節流為每 5 分鐘最多寫一次）。
+- 使用者刪除（`DELETE /api/v1/session`）或撤回同意後，token 立即失效。
+
+## 20.3 資源歸屬檢查
+
+每個需要 session 的 API 依序檢查：
+
+```text
+1. token 存在、雜湊相符、未過期、status = ACTIVE        → 否則 SESSION_INVALID (401)
+2. body 內 sessionId（若有）等於 token 所屬 session       → 否則 FORBIDDEN (403)
+3. 需要同意的操作：存在有效 Consent（DATA_MODEL §6）      → 否則 CONSENT_REQUIRED (403)
+4. 引用的 assessmentId / recommendationId / leadId 屬於同一 session
+                                                          → 否則 NOT_FOUND (404)，不透露資源存在
+5. Lead 的 providerId 出現在該 recommendationId 的推薦結果 → 否則 VALIDATION_ERROR (400)
+```
+
+Service role 繞過 RLS，因此上述檢查必須在 Service 層完成，不能只依賴資料庫存在性。
+
+## 20.4 濫用限制
+
+限流必須持久化於資料庫（DATA_MODEL §39），以原子更新計數；不得只用單一 function instance 的記憶體。
+
+| 規則 | 上限 | 鍵 |
+|---|---|---|
+| 建立 session | 20 次／小時 | IP 雜湊 |
+| Consent | 10 次／小時 | session |
+| Assessment | 3 次／小時 | session |
+| Assessment（AI 全站） | 300 次／日 | 全站 |
+| Recommendation | 30 次／小時 | session |
+| Provider detail | 60 次／小時 | IP 雜湊 |
+| Lead | 5 次／日 | session |
+| Lead（同一電話） | 3 次／日 | 電話雜湊 |
+
+超過回 `RATE_LIMITED (429)`，附 `Retry-After` header。上限數值屬 D-04 建議值，Jerry 核准後生效。
+
+Payload 限制：
+
+| 項目 | 上限 |
+|---|---|
+| Request body | 16 KB，超過回 `PAYLOAD_TOO_LARGE (413)` |
+| `freeText` | 500 字 |
+| `contact.name` | 1–30 字 |
+| `contact.phone` | 臺灣手機 `09\d{8}` 或市話 `0\d{1,2}-?\d{6,8}` |
+| `Idempotency-Key` | UUID 格式 |
+
+## 20.5 冪等與重複送出
+
+- `POST /api/v1/leads` 必須帶 `Idempotency-Key`。`(sessionId, key)` 相同且內容相同 → 回傳原結果；內容不同 → `IDEMPOTENCY_CONFLICT (409)`。
+- 同一 session＋provider＋serviceType 已有未終態 Lead → 回傳既有 Lead 並標示 `duplicate: true`。
+- 以資料庫唯一約束保證，不以應用層先查後寫代替（避免併發重複）。
+
+## 20.6 錯誤與 log
+
+- 公開錯誤只回 contract 定義的 code 與中文訊息；不得包含 stack、SQL、內部 ID 以外的系統資訊或 secret。
+- log 只記錄：request id、路由、錯誤 code、耗時、session id 前 8 碼。**不得記錄** token、姓名、電話、freeText、評估回答、AI 原始輸入輸出。
+
+## 20.7 刪除
+
+見 PRIVACY_AND_RETENTION §6。清理作業為受保護內部指令，支援 dry-run，寫入 DeletionRun（DATA_MODEL §40）。
+
+## 20.8 內部操作
+
+Lead 查件、知識發布、清理作業都使用受保護 CLI（InternalOperator 驗證，DATA_MODEL §36），不新增公開管理 endpoint。
+
+---
+
+# 21. Knowledge MVP Ingest Path（v0.2，J-002-r1）
+
+MVP 期間 Crawler（B-009）可延後。正式知識只經由人工整理的內容包進入：
+
+```text
+官方來源（docs/knowledge/source-registry.md）
+↓
+contracts/knowledge/packs/KP-*.json（NEEDS_REVIEW）
+↓
+Jerry 審核（PR 合併＝審核證據）
+↓
+B-008 import → approve → publish（J-003 在整合環境執行並留證）
+↓
+PUBLISHED KnowledgeVersion
+↓
+Assessment（B-010）
+```
+
+完整規則見 `contracts/knowledge/README.md`。內容包核准 ≠ 已發布。

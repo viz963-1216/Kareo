@@ -2,6 +2,8 @@
   "success": true,
   "data": {
     "sessionId": "SES-MOCK-001",
-    "createdAt": "2026-09-18T16:00:00+08:00"
+    "sessionToken": "MOCK-TOKEN-NOT-A-SECRET-0000000000000000000000",
+    "createdAt": "2026-09-18T16:00:00+08:00",
+    "expiresAt": "2026-09-25T16:00:00+08:00"
   }
 }
