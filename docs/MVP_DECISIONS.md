@@ -33,6 +33,7 @@ Last reviewed: 2026-09-23
 | D-07 | MVP 推薦排序只使用行政區輪替（無距離排序） | DECIDED-BY-SPEC＋資料事實 | D-07-v1 | Jerry | A-003 報告：30/30 Provider 無已驗證座標 | B-005、C-003 |
 | D-08 | MVP 不收集 GPS | PROPOSED | D-08-v1 | Jerry | — | C、B-011、隱私文件 |
 | D-09 | Netlify 部署額度與部署觸發策略 | PROPOSED；額度 **BLOCKED** | D-09-v1 | Jerry | — | J-003、J-004 |
+| D-10 | 多表原子寫入方式（B-004 Provider 匯入） | **APPROVED：方案 A，Postgres function 單一交易** | D-10-v1 | Jerry | Jerry 2026-09-23 於 PR #16 決定 | B-004、J-003 |
 
 ---
 
@@ -117,3 +118,16 @@ Last reviewed: 2026-09-23
 1. `netlify.toml` 加入 `ignore` 規則：只變更 docs／tasks／contracts 文件的提交**不觸發**建置。
 2. Jerry 集中合併、減少 staging 部署次數；E2E 驗收期間約定部署時段。
 3. 需要 Jerry 決定：是否在 9/29 前購買額度、是否取消降級、Kareocar 是否需要先恢復。這些都是付費決策，本任務不代為操作。
+
+## D-10 多表原子寫入（2026-09-23，Jerry）
+
+PR #16（B-004）review P1：三張 Provider 表依序寫入，失敗時會留下半套資料。B 提出三個方案：
+
+| 方案 | 做法 | 結果 |
+|---|---|---|
+| **A** | Postgres function 單一交易寫入三表，Node 驗證完只呼叫一次 rpc | **採用** |
+| B | Node 以 `pg` 直連並自行開交易 | 不採用：多一個套件與資料庫連線密鑰 |
+| C | 暫存表後一次發布 | 不採用：schema 變動最大 |
+
+規則見 ARCHITECTURE §22。不採用「失敗時程式手動補償刪除」，因為那不是原子操作。
+
