@@ -1,4 +1,5 @@
 import type { RecommendationProvider } from "../types/api";
+import { Link, useLocation } from "react-router-dom";
 
 const serviceLabels: Record<RecommendationProvider["type"], string> = {
   HOME_CARE: "居家照顧",
@@ -7,6 +8,7 @@ const serviceLabels: Record<RecommendationProvider["type"], string> = {
 };
 
 export function ProviderCard({ provider }: { provider: RecommendationProvider }) {
+  const location = useLocation();
   return (
     <article className="provider-card" aria-labelledby={`provider-${provider.id}`}>
       <div className="provider-card-heading">
@@ -51,6 +53,9 @@ export function ProviderCard({ provider }: { provider: RecommendationProvider })
         {provider.verified ? "平台已確認基本資料" : "基本資料尚未經平台確認"}；此標示不代表政府認證。
       </p>
 
+      <Link className="button primary provider-detail-link" to={`/providers/${encodeURIComponent(provider.id)}`} state={{ from: location.pathname + location.search }}>
+        查看詳細資料
+      </Link>
       <a
         className="button secondary"
         href={provider.googleMapsUrl}

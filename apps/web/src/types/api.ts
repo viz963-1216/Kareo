@@ -92,3 +92,18 @@ export interface RecommendationEnvelope {
   success: true;
   data: RecommendationResponse;
 }
+
+export interface ProviderDetail {
+  id: string;
+  name: string;
+  type: RecommendationServiceType | "OTHER";
+  address: string;
+  city: string;
+  district: string;
+  phone: string;
+  website: string | null;
+  googleMapsUrl: string;
+  verified: boolean;
+  services: RecommendationServiceType[];
+  serviceAreas: { city: string; district: string }[];
+}
