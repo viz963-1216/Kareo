@@ -1,0 +1,22 @@
+# TASK-J-003 full MVP acceptance. Manual only. Fails while any required item is FAIL or PENDING,
+# including every real-API E2E case in tests/e2e/acceptance-cases.json. Needs no secrets.
+name: Release gate
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  release-gate:
+    name: MVP release gate (strict)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/acceptance-gate.mjs --mode=release

@@ -46,7 +46,7 @@ jobs:
       - run: npm run build --prefix apps/web
       - name: Real-mode bundle must not contain mock fixtures
         run: |
-          if grep -R -l -E 'SES-MOCK|CON-MOCK|ASM-MOCK|KB-MOCK' apps/web/dist; then
+          if grep -R -l -E 'SES-MOCK|CON-MOCK|ASM-MOCK|KB-MOCK|PROV-MOCK|REC-MOCK' apps/web/dist; then
             echo "::error::Production bundle contains mock data"; exit 1
           fi
 
@@ -75,3 +75,23 @@ jobs:
         run: node scripts/validate-knowledge-pack.mjs .
       - name: Provider data gate (TASK-A-004)
         run: node scripts/check-provider-data.mjs
+
+  script-tests:
+    name: Adapter, deploy-ignore and gate tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --experimental-strip-types --test "tests/**/*.test.*"
+
+  acceptance-dev:
+    name: Acceptance (dev check — PENDING allowed, not MVP acceptance)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/acceptance-gate.mjs --mode=dev

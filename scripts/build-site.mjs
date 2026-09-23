@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
+import { frontendEnvProblems } from './lib/frontend-env.mjs';
 
 await rm('dist', { recursive: true, force: true });
 if (existsSync('apps/web/package.json')) {
@@ -8,7 +9,12 @@ if (existsSync('apps/web/package.json')) {
     throw new Error('Frontend requires a committed package-lock.json for npm ci.');
   }
   execFileSync('npm', ['ci', '--prefix', 'apps/web'], { stdio: 'inherit' });
-  execFileSync('npm', ['run', 'build', '--prefix', 'apps/web'], { stdio: 'inherit' });
+  const problems = frontendEnvProblems(process.env);
+  if (problems.length) throw new Error(`Frontend deploy settings rejected:\n- ${problems.join('\n- ')}`);
+  execFileSync('npm', ['run', 'build', '--prefix', 'apps/web'], {
+    stdio: 'inherit',
+    env: { ...process.env, VITE_KAREO_DEPLOY_CONTEXT: process.env.CONTEXT || 'local' },
+  });
   if (!existsSync('apps/web/dist/index.html')) {
     throw new Error('Frontend must produce apps/web/dist/index.html.');
   }
