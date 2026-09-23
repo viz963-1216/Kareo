@@ -2,7 +2,7 @@
 
 Owner: Jerry
 Format version: 1.0（`content-pack.schema.json`）
-Downstream: TASK-B-008（匯入／狀態機／發布工具）、TASK-J-003（實際發布與留證）、TASK-B-010（使用 PUBLISHED 知識）
+Downstream: TASK-B-008（匯入／狀態機／發布工具）、TASK-J-003（實際發布與留證）、TASK-B-010（規則引擎使用 PUBLISHED 知識）
 
 本資料夾是「人工整理並待審核的官方知識」進入 Knowledge DB 的唯一入口。MVP 不依賴 Crawler（B-009 可延後）。
 
@@ -75,8 +75,8 @@ GET /api/v1/knowledge/status 回傳新版本
 ## 6. Assessment 使用規則（B-010）
 
 - 每次 Assessment 記錄當下的 `knowledgeVersion`。
-- 模型只能收到當下 PUBLISHED 版本中、與使用者縣市相符（`TAIWAN` 或該縣市）的紀錄 `summary`／`ruleData`。
-- 回應中若提到制度或額度，只能引用上述紀錄，並維持「初步預估」語氣。
+- 規則引擎只能引用當下 PUBLISHED 版本中、與使用者縣市相符（`TAIWAN` 或該縣市）的紀錄（ASSESSMENT_RULES §6）。
+- 回應中若提到制度，只能使用已核准模板並維持「初步預估」語氣；MVP 不顯示給付金額。
 
 ## 7. 審核清單（給 Jerry）
 

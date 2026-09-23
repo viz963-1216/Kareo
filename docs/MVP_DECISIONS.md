@@ -1,6 +1,6 @@
 # Kareo MVP Decisions / MVP 決策紀錄
 
-Submission Version: J-002-r1
+Submission Version: J-002-r2
 Owner: Jerry
 Last reviewed: 2026-09-23
 
@@ -24,11 +24,11 @@ Last reviewed: 2026-09-23
 
 | ID | 決策 | 狀態 | 版本 | Decision owner | 核准證據 | 下游任務 |
 |---|---|---|---|---|---|---|
-| D-01 | Assessment AI 供應商／模型／費用上限／失敗行為 | PROPOSED | D-01-v1 | Jerry | — | B-010、J-003、J-004 |
+| D-01 | Assessment 判斷方式 | **APPROVED：方案 B 規則引擎，不使用 AI** | D-01-v2 | Jerry | Jerry 2026-09-23 於 PR #19 審查時決定（理由：AI token 成本） | B-010、J-003、J-004 |
 | D-02 | 知識來源白名單與首批內容包 `KP-2026-09-23-001` | PROPOSED（內容待逐筆審核） | D-02-v1 | Jerry（審核人） | — | B-008、J-003 首次發布、B-010 |
 | D-03 | 知識內容包格式、匯入驗證、發布／撤回規則 | PROPOSED | D-03-v1 | Jerry | — | B-008 |
 | D-04 | 匿名 session 持有證明、有效期、資源歸屬、濫用限制、冪等、刪除 | PROPOSED | D-04-v1 | Jerry | — | B-011、B-006、B-005、J-003 adapter |
-| D-05 | 隱私、同意版本、保存／刪除、委外 AI 資料流 | PROPOSED（法務待確認） | D-05-v1 | Jerry | — | B-011、C-005、J-004 |
+| D-05 | 隱私、同意版本、保存／刪除、外部資料流 | PROPOSED（法務待確認） | D-05-v1 | Jerry | — | B-011、C-005、J-004 |
 | D-06 | Lead 接件方式、角色、狀態轉移、回覆時程 | PROPOSED；接件人 **BLOCKED** | D-06-v1 | Jerry | — | B-006、J-004 |
 | D-07 | MVP 推薦排序只使用行政區輪替（無距離排序） | DECIDED-BY-SPEC＋資料事實 | D-07-v1 | Jerry | A-003 報告：30/30 Provider 無已驗證座標 | B-005、C-003 |
 | D-08 | MVP 不收集 GPS | PROPOSED | D-08-v1 | Jerry | — | C、B-011、隱私文件 |
@@ -36,77 +36,30 @@ Last reviewed: 2026-09-23
 
 ---
 
-## D-01 Assessment AI 方案
+## D-01 Assessment 判斷方式
 
-### 現況（已驗證）
+### 決定（2026-09-23，Jerry）
 
-- `apps/api/src/functions/assessment.ts` 目前使用 `FakeAssessmentAIAdapter`＋`NullKnowledgeVersionResolver`，正式 Assessment 一律回 `KNOWLEDGE_UNAVAILABLE`（刻意的安全行為）。
-- ARCHITECTURE §19：AI Provider 尚未鎖定，必須經 Adapter 隔離。
+**採方案 B：MVP 不使用 AI／LLM，以確定性規則引擎產生初步評估。** 理由：避免 AI token 費用。
 
-### 方案 A（建議）：Anthropic Claude API，規則先行＋模型生成摘要
+規則、關鍵字、排序與摘要模板：`docs/ASSESSMENT_RULES.md`（`RULES-2026-09-23-r1`，規則內容本身仍待 Jerry 逐條確認）。
 
-責任切分（降低模型可犯錯的範圍）：
+### 影響
 
-| 步驟 | 誰做 | 說明 |
-|---|---|---|
-| 1. `careNeeds` 基線 | **確定性規則**（B-010 實作於 server） | `needs.*` 回答 `YES` 的項目一定列入；模型不得移除 |
-| 2. `priority` 排序與可能補列 | 模型提出 → server 驗證 | 模型只能在 4 個 enum 內排序；補列 `UNKNOWN` 項目時需附理由，server 驗證 enum 與去重 |
-| 3. `summary` | 模型 | 只能引用本次請求附上的 PUBLISHED 知識摘錄；必須使用「初步預估／可能」語氣 |
-| 4. `warnings` | **server 固定文字** | 依 API_CONTRACT §15，由程式附加，不交給模型生成 |
-| 5. Provider | **不交給模型** | 推薦只由 Recommendation Engine（B-005）確定性處理 |
-
-模型選項（價格為 Anthropic 第一方 API 牌價，每百萬 token，2026-09 查詢；上線前請於 Console 再次確認）：
-
-| 模型 ID | 輸入 | 輸出 | 單次評估估算* | 1,000 次／月 |
-|---|---|---|---|---|
-| `claude-opus-5`（預設建議） | US$5 | US$25 | 約 US$0.03–0.06 | 約 US$30–60 |
-| `claude-sonnet-5` | US$2 | US$10 | 約 US$0.01–0.03 | 約 US$13–30 |
-| `claude-haiku-4-5` | US$1 | US$5 | 約 US$0.01 | 約 US$7–10 |
-
-\* 估算假設：輸入約 3,500 tokens（系統指示＋知識摘錄＋使用者結構化回答＋自由文字上限 500 字），輸出約 600 tokens＋少量推理。實際用量由 B-010 smoke test 以 `usage` 欄位量測後回填本表。
-
-選擇哪個模型是**費用決策，由 Jerry 決定**。建議先用 `claude-opus-5` 跑 B-010 的合成資料評測；若品質在較便宜模型上一樣成立，再由 Jerry 決定是否降級。
-
-費用與流量上限（建議值，需 Jerry 核准）：
-
-| 控制 | 建議值 | 實作位置 |
-|---|---|---|
-| 供應商端月上限 | US$50／月（Anthropic Console spend limit，由 Jerry 在帳號設定；不開自動加值） | 供應商帳號 |
-| 應用端每日上限 | 300 次 AI 呼叫／日（全站），超過回 `AI_UNAVAILABLE` | B-010／B-011（持久化計數） |
-| 每 session | 3 次 Assessment／小時 | B-011 限流 |
-| 單次 `max_tokens` | 2,000 | B-010 |
-| 自由文字上限 | 500 字（server 端截斷前先驗證，超過回 `VALIDATION_ERROR`） | B-011 |
-
-逾時與失敗行為（**不得退回 Fake 成功結果**）：
-
-| 情境 | 行為 |
+| 項目 | 結果 |
 |---|---|
-| 單次呼叫逾時 | 20 秒逾時；對 429／5xx／逾時最多重試 1 次（含退避） |
-| 重試後仍失敗、供應商中斷、超出每日上限 | 回 `503 AI_UNAVAILABLE`，**不寫入** COMPLETED Assessment；前端提示稍後再試或撥 1966 |
-| 模型輸出不符 schema／enum／缺預估語氣 | 視為失敗，回 `503 AI_UNAVAILABLE`，記錄錯誤類型（不含原文） |
-| 模型拒答（`stop_reason = refusal`） | 同上 |
-| 無 PUBLISHED 知識 | 回 `503 KNOWLEDGE_UNAVAILABLE`，**不呼叫模型** |
+| AI 費用 | 0 |
+| API 格式 | 不變（`careNeeds`、`priority`、`summary`、`warnings`），前端不需修改 |
+| 可測試性 | 同輸入同輸出；ASSESSMENT_RULES §9 列出必要測試 |
+| 隱私 | 評估資料不送外部服務；PRIVACY_AND_RETENTION §5 已改寫，L-2 不再適用 |
+| 規格 | PRODUCT_SPEC §16、ARCHITECTURE §8／§19 已修訂 |
+| 自由文字 | 只做 server 端關鍵字比對，補充使用者回答「不確定」的項目 |
+| 已知限制 | 關鍵字會有漏判與誤判，所以只作為補充；結果頁一律使用「可能需要」 |
+| B-010 | 改為實作規則引擎（見 `tasks/TASK-B-010.md`） |
 
-供應商資料處理條件：
+### 曾考慮但未採用：方案 A（Claude API）
 
-- 送出資料：結構化回答＋自由文字（已移除疑似電話／身分證字號樣式）。**不送**姓名、電話、sessionId、IP。
-- 使用結構化輸出（JSON schema）限制回傳格式；使用者輸入以「資料」包裝，不得覆寫系統指示（B-010 需測試提示注入）。
-- API key 只存在 Netlify Functions 環境變數；前端、log、repo 皆不得出現。
-- 供應商的資料保存與訓練使用條件**以 Jerry 核准當下的 Anthropic 商業條款為準**，由 Jerry 閱讀後把條款連結與日期填入 `docs/PRIVACY_AND_RETENTION.md` §5。此處不預先宣稱任何保存天數。
-- 健康相關資料會傳送至境外供應商處理，需在隱私告知中揭露（見 D-05），並列為法務待確認事項。
-
-### 方案 B（備援）：純規則引擎，不使用 LLM
-
-- `careNeeds`／`priority` 由規則決定，`summary` 由核准過的模板組成。
-- 優點：零 AI 成本、無境外健康資料傳輸、行為可完全測試。
-- 缺點：與 PRODUCT_SPEC §16「AI 的責任」不一致；必須**先修訂 PRODUCT_SPEC／ARCHITECTURE** 才能採用。
-- 觸發條件建議：若 10/12 前無法取得 D-05 的境外傳輸隱私確認，或 Jerry 不核准 AI 費用，改採方案 B。
-
-### 需要 Jerry 決定
-
-1. 採方案 A 或 B。
-2. 方案 A 的模型 ID 與月上限金額。
-3. 由誰在 Anthropic Console 建立 **staging 與 production 兩把不同的 API key**（本任務不代為申請或購買）。
+單次評估估計 US$0.01–0.06（視模型而定），並有境外處理健康資料的隱私問題。未來若要引入 AI，需重新決策並修訂 PRODUCT_SPEC §16。
 
 ---
 

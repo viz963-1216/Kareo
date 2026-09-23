@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — System Architecture
 
-Version: v0.4（J-002-r1，2026-09-23）  
+Version: v0.5（J-002-r2，2026-09-23）  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -275,6 +275,18 @@ Provider DB
 ```
 
 AI Provider 必須透過 Adapter 隔離。
+
+MVP（D-01 方案 B）：Assessment Service 透過同一個 Adapter 介面呼叫**確定性規則引擎**（`docs/ASSESSMENT_RULES.md`），不呼叫任何外部 AI 服務：
+
+```text
+使用者資訊
+↓
+Assessment Service
+↓
+Rule-based Assessment Engine（rulesVersion）
+↓
+CareNeedProfile
+```
 
 ---
 
@@ -565,13 +577,13 @@ STAGING 與 PRODUCTION 必須使用不同 Environment Variables / Secrets。
 
 ## AI Provider
 
-AI Provider 尚未鎖定。選型方案、費用上限與失敗行為見 `docs/MVP_DECISIONS.md` D-01（PROPOSED，待 Jerry 核准）。
+**MVP 不使用 AI Provider**（MVP_DECISIONS D-01 方案 B，Jerry 2026-09-23 決定）。Assessment 使用確定性規則引擎（`docs/ASSESSMENT_RULES.md`）。以下 Adapter 規則保留給未來引入 AI 時使用。
 
 所有 AI 能力必須透過 Adapter Boundary，禁止直接把 OpenAI / Claude / Gemini SDK 散落在 Business Logic 中。
 
 在 AI Provider 正式選型前，Backend 必須能使用 Fake / Deterministic Adapter 完成測試。
 
-Fake Adapter 只允許用於自動測試與本機開發；STAGING／PRODUCTION 的 Function 不得組裝 Fake Adapter，AI 失敗時回 `AI_UNAVAILABLE`，不得回 Fake 成功結果。
+Fake Adapter 只允許用於自動測試與本機開發；STAGING／PRODUCTION 的 Function 必須組裝規則引擎，不得組裝 Fake Adapter。
 
 
 ---
@@ -632,7 +644,6 @@ Service role 繞過 RLS，因此上述檢查必須在 Service 層完成，不能
 | 建立 session | 20 次／小時 | IP 雜湊 |
 | Consent | 10 次／小時 | session |
 | Assessment | 3 次／小時 | session |
-| Assessment（AI 全站） | 300 次／日 | 全站 |
 | Recommendation | 30 次／小時 | session |
 | Provider detail | 60 次／小時 | IP 雜湊 |
 | Lead | 5 次／日 | session |
@@ -659,7 +670,7 @@ Payload 限制：
 ## 20.6 錯誤與 log
 
 - 公開錯誤只回 contract 定義的 code 與中文訊息；不得包含 stack、SQL、內部 ID 以外的系統資訊或 secret。
-- log 只記錄：request id、路由、錯誤 code、耗時、session id 前 8 碼。**不得記錄** token、姓名、電話、freeText、評估回答、AI 原始輸入輸出。
+- log 只記錄：request id、路由、錯誤 code、耗時、session id 前 8 碼。**不得記錄** token、姓名、電話、freeText、評估回答、規則引擎命中的關鍵字片段。
 
 ## 20.7 刪除
 

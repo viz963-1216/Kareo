@@ -90,7 +90,7 @@ GET  /api/v1/knowledge/status
 | `RATE_LIMITED` | 429（附 `Retry-After` header） |
 | `INTERNAL_ERROR` | 500 |
 | `KNOWLEDGE_UNAVAILABLE` | 503 |
-| `AI_UNAVAILABLE` | 503 |
+| `AI_UNAVAILABLE` | 503（保留；MVP 不使用 AI，不會回傳） |
 
 `NO_PROVIDER_FOUND` 保留但 Recommendation 查無結果時仍回 `success: true` 與空陣列（§9），不得以錯誤回應。
 
@@ -319,7 +319,7 @@ v0.2：需要 `X-Kareo-Session-Token`。三個版本必須是 `contracts/legal/c
 }
 ```
 
-v0.2：需要 `X-Kareo-Session-Token`。錯誤：無有效同意 `CONSENT_REQUIRED`；無 PUBLISHED 知識 `KNOWLEDGE_UNAVAILABLE`；AI 逾時／失敗／輸出不合格 `AI_UNAVAILABLE`。任何失敗都不得回傳成功格式的預設結果。
+v0.2：需要 `X-Kareo-Session-Token`。錯誤：無有效同意 `CONSENT_REQUIRED`；無 PUBLISHED 知識 `KNOWLEDGE_UNAVAILABLE`。MVP 由規則引擎產生結果（ASSESSMENT_RULES），Response 格式不變。任何失敗都不得回傳成功格式的預設結果。
 
 Care Need Enum：
 

@@ -52,7 +52,7 @@ A / B / C 不直接 Push `staging` 或 `main`。
 | B-008 Knowledge Foundation + Publish Gate | NOT STARTED → **可開工** | J-002 已提供 source registry、內容包格式與首批內容（`contracts/knowledge/`） | B-004 修正送出後開工 |
 | B-005 Recommendation Engine + API | NOT STARTED | 依賴 B-004 | 依 D-07 只做 `DISTRICT_ROTATION`；依 API_CONTRACT v0.2 §3.1 驗 session |
 | B-006 Lead API | NOT STARTED | 依賴 B-004 | 依 API_CONTRACT v0.2 §12、LEAD_OPERATIONS、DATA_MODEL §22／§36–38 |
-| B-010 Production Assessment Engine | NOT STARTED | 依賴 B-008＋D-01 核准 | D-01 待 Jerry 決定 |
+| B-010 Production Assessment Engine（規則引擎） | NOT STARTED | 依賴 B-008；D-01 已決定不用 AI | 依 `docs/ASSESSMENT_RULES.md` 實作 |
 | B-011 Session / Privacy / API Controls | NOT STARTED | 規格：ARCHITECTURE §20、PRIVACY_AND_RETENTION | 規格合併後即可開始 session token 部分 |
 | B-009 Knowledge Crawler | NOT STARTED（MVP 後） | — | — |
 
@@ -70,7 +70,7 @@ A / B / C 不直接 Push `staging` 或 `main`。
 | Task | 狀態 | 證據 |
 |---|---|---|
 | J-001 Netlify + Supabase staging | MERGED | PR #6 |
-| J-002 MVP Decisions / Knowledge / Privacy / Lead specs | IN PROGRESS | 本 PR（`feat/j-002-mvp`） |
+| J-002 MVP Decisions / Knowledge / Privacy / Lead specs | IN PROGRESS | PR #19（J-002-r2） |
 | J-003 CI + Integration | IN PROGRESS | `feat/j-003-mvp` |
 | J-004 Release readiness | PREPARING | checklist／runbook 草稿；release gate 未開 |
 
@@ -147,7 +147,7 @@ Feature PR Merge 到 staging 只能稱為 Module Complete。
 | 新增 Task | Owner | 開工條件 / 交付 |
 |---|---|---|
 | [J-002](TASK-J-002.md) | Jerry | 現在開始；AI/安全/隱私/接件規格、官方來源與首批核准知識 |
-| [B-010](TASK-B-010.md) | B | 真實 Assessment engine；詳見任務依賴 |
+| [B-010](TASK-B-010.md) | B | 規則引擎 Assessment（不使用 AI）；詳見任務依賴 |
 | [B-011](TASK-B-011.md) | B | session 歸屬、限流、冪等、RLS、刪除/保存驗收 |
 | [J-003](TASK-J-003.md) | Jerry | CI 現在開始；模組完成後接真實 API 與 E2E |
 | [J-004](TASK-J-004.md) | Jerry | release、接件交接、額度、備份還原與回滾 |
@@ -155,7 +155,7 @@ Feature PR Merge 到 staging 只能稱為 Module Complete。
 ## Dependencies / 不得跳過的關卡
 
 - J-002 source registry/格式 → B-008；J-002 核准內容 + B-008 → J-003 首次人工發布。
-- B-003 + B-008 + J-002 AI 決策 → B-010；真實 smoke 需前述發布完成。
+- B-003 + B-008 + ASSESSMENT_RULES 確認 → B-010；真實 smoke 需前述發布完成。
 - A-002 → B-004 試匯入；A-003 → A-004 → B-004 正式資料匯入驗收。
 - J-002 安全/隱私/營運 contract → B-006 新增操作、B-011、C 的正式文案驗收。
 - A-005 + B-003…B-008 + B-010/B-011 + C-005 → J-003 最終 E2E → J-004 release。
