@@ -392,7 +392,7 @@ PR Title：
 ```text
 [A-001] Provider Data Foundation
 [B-003] Provider Recommendation
-[C-004] Top 3 Provider UI
+[C-004] Provider Detail + Google Maps
 ```
 
 只有 Jerry 的 Release PR 可以：
