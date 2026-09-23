@@ -543,6 +543,8 @@ Supabase 主要作為 Database / Auth / Server-side persistence layer。
 
 核心 Business Logic 不直接交給 Supabase Auto API。
 
+例外：需要跨資料表原子寫入時，可使用「只負責寫入」的 Postgres function（見 §22）。
+
 正式資料流：
 
 ```text
@@ -701,3 +703,33 @@ Assessment（B-010）
 ```
 
 完整規則見 `contracts/knowledge/README.md`。內容包核准 ≠ 已發布。
+
+---
+
+# 22. Atomic Write Functions / 原子寫入函式（v0.5，J-002-r2）
+
+決策：MVP_DECISIONS D-10（Jerry 2026-09-23 核准，來源 PR #16 B-004 P1）。
+
+Supabase REST 無法把多次寫入包在同一個交易內。需要「全有或全無」的多表寫入時，採用：
+
+```text
+Node Service：完成全部驗證與業務判斷
+↓
+一次呼叫 supabase.rpc('<function>', { payload })
+↓
+Postgres function：在單一交易內只做寫入（upsert）
+↓
+任一步失敗 → 整個交易回滾，沒有任何資料對外可見
+```
+
+規則：
+
+1. Function **只負責寫入**：不做驗證、不含業務規則、不做推薦或判斷；所有驗證留在 Node Service 層。
+2. 每個 function 以獨立 migration 建立，名稱以用途命名（例如 `import_provider_dataset`）。
+3. 權限：`revoke execute ... from public, anon, authenticated`；只 `grant execute ... to service_role`。不得開放給前端。
+4. 輸入為單一 `jsonb` payload；回傳寫入筆數。錯誤一律讓交易失敗並向上拋出，由 Service 層轉為安全的錯誤回應，不把 SQL 錯誤細節回給前端。
+5. 測試：
+   - 單元測試：證明 Service 只呼叫一次 rpc，且驗證失敗時完全不呼叫。
+   - 整合測試（J-003 於 staging Supabase 執行）：故意讓第二、第三張表寫入失敗，確認三張表都沒有新資料。
+6. 目前核准用途：Provider 匯入（B-004）。其他用途需再經 Jerry 核准並登記於 MVP_DECISIONS。
+
