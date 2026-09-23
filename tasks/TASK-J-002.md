@@ -37,3 +37,11 @@ Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更�
 
 從最新 `staging` 建立 `feat/j-002-mvp`，PR → `staging`，不得直接 push staging/main。
 Submission Version 從 `J-002-r1` 起，退回後遞增。PR 必填 Added / Changed / Fixed / Known Issues / Tests or QA / Scope Check，逐項附驗收證據；未通過不得標記完成。模組合併不等於全站已上線。
+
+---
+
+## 2026-09-23 進度（J-002-r3）
+
+- r1／r2 已合併（PR #19）。**合併不代表核准**：各交付的規格核准、內容核准與發布狀態見 `docs/MVP_DECISIONS.md`「交付物核准矩陣」。
+- r3 更正：D-07 改為資料缺口（原始 MVP 距離排序不變）、D-08 改為範圍變更提案、B-009 納回 MVP（延後提案 D-11）、補助說明缺口（D-12）、無位置回應（D-13）、新增 `docs/MVP_TRACEABILITY.md`。
+- 本任務**未完成**：知識內容 0 筆核准（目標 9/26）、D-02～D-06 未核准、接件人與法務 BLOCKED。

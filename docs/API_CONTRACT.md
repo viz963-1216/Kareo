@@ -1,7 +1,7 @@
 # Kareo / 長照一點通 — API Contract
 
-Version: v0.2（J-002-r1，2026-09-23）  
-Status: LOCKED FOR MVP  
+Version: v0.2.1（J-002-r3，2026-09-23）  
+Status: v0.1 內容 LOCKED FOR MVP；**v0.2 新增項目（標示「v0.2」的段落）為 PROPOSED**（MVP_DECISIONS D-04／D-05／D-06），Jerry 核准前屬可逆實作，不得宣稱已核准  
 Owner: Jerry
 
 ---
@@ -338,7 +338,7 @@ TRANSPORTATION
 
 TRANSPORTATION 不使用此 API。
 
-v0.2：需要 `X-Kareo-Session-Token`；`assessmentId` 必須屬於同一 session。MVP 只使用 `DISTRICT_ROTATION`（MVP_DECISIONS D-07），在 Provider 資料具備已驗證座標前不得回 `DISTANCE`。
+v0.2：需要 `X-Kareo-Session-Token`；`assessmentId` 必須屬於同一 session。排序依 PRODUCT_SPEC §21–24：使用者提供精確位置**且** Provider 有已驗證座標時用 `DISTANCE`；只有行政區時用 `DISTRICT_ROTATION`；不得用未驗證座標計算距離、不得宣稱「最近」。目前 Provider 座標為資料缺口（MVP_DECISIONS D-07），所以真實資料暫時只會走 `DISTRICT_ROTATION`，但 `DISTANCE` 分支屬 MVP 必要功能，須實作與測試。只有縣市／沒有位置的回應待 D-13 決議。
 
 ### Request
 
@@ -779,3 +779,4 @@ Code
 |---|---|---|---|
 | v0.1 | 2026-09-14 | MVP 初版 | — |
 | v0.2 | 2026-09-23 | Session token 持有證明、DELETE session、Consent 撤回、Lead 冪等與聯絡同意、錯誤碼與 HTTP 對照、限制（J-002-r1） | B-011、B-006、B-005、B-010、C（adapter 由 J-003 接線）、contracts/mock |
+| v0.2.1 | 2026-09-23 | 狀態標示更正：v0.2 新增項目為 PROPOSED；§9 恢復原始 MVP 的 DISTANCE／DISTRICT_ROTATION 兩種排序（座標為資料缺口，D-07）；無位置／只有縣市回應待 D-13（J-002-r3） | B-005、B-011a、C-005、J-003 |

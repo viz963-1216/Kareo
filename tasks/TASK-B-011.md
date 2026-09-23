@@ -6,7 +6,18 @@ Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / Input
 
-J-002 的安全/隱私/保存規格已合併；B-003/B-005/B-006/B-008/B-010 的相關 API 已完成後進行完整驗收。各 API 開發時即依核准規格實作基本防護，不等本任務才考慮。
+2026-09-23 修訂（J-002-r3）：分兩段，避免所有防護等到最後才實作。
+
+**B-011a Session／權限基礎（先做，供其他 API 開發使用）**
+
+- 範圍：`POST /session` 發 `sessionToken`（密碼學隨機、只存雜湊）、`X-Kareo-Session-Token` 驗證、有效期、Body `sessionId` 與 token 一致、資源歸屬檢查（不屬於同一 session → `NOT_FOUND`）、Consent 版本驗證（`contracts/legal/consent-versions.json` ACTIVE 組合）、v0.2 錯誤碼與 HTTP 對照（API_CONTRACT §3.2）、`Idempotency-Key` 的共用驗證元件。
+- 時機：B-004、B-008 之後，**B-005／B-006 開始前**。B-005、B-006、B-010 直接使用這些元件，不各自實作。
+- 依據：API_CONTRACT v0.2 §3（D-04 目前 PROPOSED；核准前屬可逆實作，提案修改時由 J-002 通知）。
+- 分支 `feat/b-011a-session-token`，Submission Version `B-011a-r1`。
+
+**B-011b 完整安全驗收（B-005／B-006／B-010 完成後）**
+
+下列「Deliverables / 驗收」全部項目，包括限流、RLS 權限測試、log 清理、保存期限清理、併發冪等與安全驗收矩陣。
 
 ## 開始前必讀
 
