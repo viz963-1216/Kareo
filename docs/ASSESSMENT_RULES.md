@@ -2,7 +2,7 @@
 
 Owner: Jerry
 Submission Version: J-002-r4
-Rules version: `RULES-2026-09-24-r4`（r4 依 Jerry 2026-09-24 功能指示新增身心障礙福利補助說明 §6.5 與 S-ELIG-DIS，D-17；**模板文字待 Jerry 確認**）。r3（S-LOCAL-*）、r2 為 **SPEC-APPROVED 2026-09-24**（MVP_DECISIONS D-01a）
+Rules version: `RULES-2026-09-24-r5`（**SPEC-APPROVED 2026-09-24**：r4 身心障礙福利補助 §6.5 文字經 Jerry 確認；r5 依 D-17a 新增 §6.6 個人自付估算，模板文字依 Jerry「要清算」指示撰寫）。r2、r3 為 SPEC-APPROVED 2026-09-24（D-01a）
 Decision: MVP_DECISIONS D-01 = 方案 B（不使用 AI，Jerry 2026-09-23 決定）
 
 > MVP 的 Assessment 完全由本文件的確定性規則產生，不呼叫任何 AI／LLM。
@@ -89,7 +89,7 @@ Summary 只能由下列模板組成，不得自由生成文字。`{}` 為程式�
 ### 6.1 輸出格式（沿用既有 `summary` 字串，不新增 API 欄位）
 
 - `summary` 由多個句子組成，句子之間以換行字元 `\n` 分隔；前端每一行顯示為一段（C-005）。
-- 句子順序固定：S-NEEDS／S-NONE → S-INSTITUTION → S-ELIG-* → S-SUB-*（依 §6.3 表格由上而下）→ S-DIS-*（§6.5）→ S-LOCAL-*（INFO／MISSING／NOCITY → CENTER）→ S-NEXT。
+- 句子順序固定：S-NEEDS／S-NONE → S-INSTITUTION → S-ELIG-* → S-SUB-*（依 §6.3 表格由上而下）→ S-DIS-*（§6.5）→ S-EST-*（§6.6，已知身分時；並依「取代」欄替換對應句）→ S-LOCAL-*（INFO／MISSING／NOCITY → CENTER）→ S-NEXT。
 - 某句所需的知識紀錄不在 PUBLISHED 版本、`effectiveFrom` 晚於今天（Asia/Taipei）或 `effectiveTo` 已過 → **省略該句**，不改用預設值或其他縣市資料。
 - 若 S-NEXT 無法產生 → 回 `KNOWLEDGE_UNAVAILABLE`（不產生部分結果）。
 - 回應中的 `knowledgeVersion` 即為本次引用的知識版本；前端需顯示（C-005）。
@@ -172,6 +172,38 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 - 不因 YES 而改變 careNeeds 或 priority；只影響 S-ELIG-DIS 與 §6.5。
 - 句子順序：S-SUB-* 之後、S-LOCAL-* 之前。
 
+### 6.6 個人自付估算（r5，D-17a）
+
+`incomeCategory` ≠ UNKNOWN 時，把 §6.3、§6.5 中「並列各身分」的句子換成**只顯示使用者自己**的比例與金額；UNKNOWN 時維持原本並列句，不出現本節任何句子。
+
+身分對照（規則表內容，隨 `rulesVersion` 維護；類別代碼與比率取自 `COPAY_RATES`／`DISABILITY_*` 紀錄）：
+
+| `incomeCategory` | 顯示文字 | 長照身分別（`COPAY_RATES.categories`） | 身障補助欄位（`incomeOrder`） |
+|---|---|---|---|
+| `LOW_INCOME` | 低收入戶 | `1` | `LOW_INCOME` |
+| `MIDDLE_LOW_INCOME` | 中低收入戶 | `1` | `MIDDLE_LOW_INCOME` |
+| `ALLOWANCE` | 領有中低收入老人生活津貼或身心障礙者生活補助 | `2` | `GENERAL` |
+| `GENERAL` | 一般戶 | `3` | `GENERAL` |
+
+| 模板 ID | 條件 | 文字 | 取代 |
+|---|---|---|---|
+| S-EST-INTRO | 已知身分，且下列至少一句出現 | 依您選擇的經濟身分（{顯示文字}，長照身分別約為第 {類別} 類），估算如下；實際身分別以主管機關認定為準： | — |
+| S-EST-COPAY | 同 S-SUB-COPAY 條件 | 使用長照服務的自付比例：{逐項「項目名稱 r%」，只列本次出現的 S-SUB 項目；交通依使用者分區}。 | S-SUB-COPAY |
+| S-EST-CARE | S-SUB-CARE 出現 | 照顧及專業服務：若核定第 {最低級} 級並用滿每月額度 {額度} 元，您每月約自付 {金額} 元；若核定第 {最高級} 級（{額度} 元），約自付 {金額} 元。 | — |
+| S-EST-RESPITE | S-SUB-RESPITE 出現 | 喘息服務：用滿每年額度時，您約自付 {最低額×r} 至 {最高額×r} 元。 | — |
+| S-EST-AD | S-SUB-AD 出現 | 輔具及居家無障礙：用滿額度時，您約自付 {各組額度×r}。 | — |
+| S-EST-TR | S-SUB-TR 出現且可確定分區（有行政區，或縣市無行政區例外） | 交通接送：每趟車資您自付 {r}%，用滿每月額度 {額度} 元時約自付 {金額} 元；超出額度的車資需全額自費。 | — |
+| S-EST-DIS-MED | S-DIS-MED 條件 | 居家使用的醫療輔具補助：依您的身分，例如{前 3 項「品名 最高補助 x 元」}，共 {項目數} 項；需三個月內的專科醫師診斷證明。 | S-DIS-MED |
+| S-EST-DIS-AD-LOCAL | S-DIS-AD-LOCAL 條件 | {city}身心障礙者輔具加碼補助：依您的身分，例如{最多 3 項「品名 最高補助 x 元」}。 | S-DIS-AD-LOCAL |
+| S-EST-DISCLAIMER | S-EST-INTRO 出現 | 以上為依您自選身分與官方公告上限的估算，不是核定金額；實際等級、額度與自付金額，須經照管專員評估及主管機關核定。 | 與 S-SUB-DISCLAIMER 併存 |
+
+計算規則：
+
+1. 自付金額＝額度 × 比率，依 `COPAY_RATES.rounding`（目前 `FLOOR`，小數點後無條件捨去）；比率為 0 時寫「您在額度內可能免自付」。
+2. 身障補助上限：`DISABILITY_MEDICAL_DEVICE_SUBSIDY.items[].max[欄位]`；地方加碼：`fullAmountAllIncome = true` → 上限全額，否則 上限 × `incomeShareOfMax[欄位]`（FLOOR）。
+3. 不推算長照需要等級；等級一律以「若核定第 X 級」表示最低與最高兩個例子。
+4. 所有數值只來自 PUBLISHED 知識；缺紀錄時省略該句（同 §6.1）。
+
 ### 6.4 內容對應與維護
 
 - 程式只依 `ruleData.type` 與 jurisdiction 找紀錄，不以 recordId 寫死。目前 `KP-2026-09-23-001` 的對應（2026-09-24 內容核准，尚未 PUBLISHED）：`ELIGIBILITY_ANY_OF`＝KR-2026-001、`LEVEL_RANGE`＝KR-2026-002、`BENEFIT_ITEMS`＝KR-2026-003、`BENEFIT_AMOUNTS`＝KR-2026-004、`TRANSPORT_ZONE`＝KR-2026-005、`COPAY_RATES`＝KR-2026-006、`BENEFIT_PERIODS`＝KR-2026-007、`APPLICATION_CHANNELS`＝KR-2026-008、`LOCAL_CENTER`（TAIPEI）＝KR-2026-009。
@@ -204,7 +236,7 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 - 保存期限依 PRIVACY_AND_RETENTION §2。
 - log 不得記錄原文。
 
-## 9. 必要測試案例（B-010 需全部實作；T14–T23 為 r2 新增，T24 為 r3 新增，T25–T31 為 r4 新增）
+## 9. 必要測試案例（B-010 需全部實作；T14–T23 為 r2 新增，T24 為 r3 新增，T25–T31 為 r4 新增，T32–T38 為 r5 新增）
 
 | # | 輸入重點 | 預期 careNeeds／priority |
 |---|---|---|
@@ -239,6 +271,13 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 | T29 | YES、臺北市、careNeeds 含 ASSISTIVE_DEVICE | 不出現新北市的 S-DIS-AD-LOCAL（地方隔離） |
 | T30 | YES，但 careNeeds 與 mobilityLevel 都不符合 S-DIS-MED／S-DIS-AD-LOCAL | 不出現 S-DIS-INTRO（沒有內容時不留空標題） |
 | T31 | `disabilityCertificate` = "MAYBE" | VALIDATION_ERROR |
+| T32 | `incomeCategory` 未提供或 UNKNOWN | 與 r4 輸出完全相同（不出現 S-EST-*） |
+| T33 | GENERAL、HOME_CARE | S-EST-COPAY 照顧及專業服務 16%；S-EST-CARE 第 2 級 10,020 元 → 1,603 元（FLOOR）、第 8 級 36,180 元 → 5,788 元；不出現並列三身分的 S-SUB-COPAY |
+| T34 | MIDDLE_LOW_INCOME | 長照身分別第 1 類、比率 0 → 「可能免自付」；身障補助用中低收入戶欄 |
+| T35 | ALLOWANCE、新北市烏來區、TRANSPORTATION | 第 2 類；交通第 4 區 7%，2,400 元 → 168 元 |
+| T36 | GENERAL、YES、新北市、ASSISTIVE_DEVICE | 非動力樓梯滑椅 20,000 × 50% → 10,000 元；標「※」項目顯示全額 |
+| T37 | 哨兵測試：比率、額度、身障上限換成哨兵值 | 估算只使用哨兵值 |
+| T38 | `incomeCategory` = "RICH" | VALIDATION_ERROR |
 
 ## 10. 規則的維護
 

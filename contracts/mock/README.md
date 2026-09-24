@@ -102,3 +102,7 @@ contracts/mock/
 ### 身心障礙福利補助 fixture（2026-09-24，D-17）
 
 `assessments/WITH-DISABILITY-NEW_TAIPEI.json`：使用者勾選領有身心障礙證明（`disabilityCertificate = YES`）時的 summary 範例（ASSESSMENT_RULES §6.5）。金額取自 KR-2026-018（待審核）與 KR-2026-016，只示範格式。第 3 行為省略標記，不是實際輸出。
+
+### 個人自付估算 fixture（2026-09-24，D-17a）
+
+`assessments/WITH-ESTIMATE-GENERAL-NEW_TAIPEI.json`：使用者選「一般戶」、勾選領有身心障礙證明時的 summary 範例（ASSESSMENT_RULES §6.6）。括號「……略……」行為省略標記。金額依已核准知識計算，只示範格式。

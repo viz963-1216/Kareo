@@ -5,13 +5,13 @@
   "createdAt": "2026-09-24T16:05:40+08:00",
   "createdBy": "J-002 (prepared for Jerry review)",
   "sourceRegistryVersion": "SR-2026-09-24-01",
-  "status": "NEEDS_REVIEW",
+  "status": "APPROVED",
   "review": {
-    "reviewedBy": null,
-    "reviewedAt": null,
-    "decision": null
+    "reviewedBy": "Jerry",
+    "reviewedAt": "2026-09-24T16:12:17+08:00",
+    "decision": "APPROVED"
   },
-  "intendedKnowledgeVersion": null,
+  "intendedKnowledgeVersion": "KB-2026-09-24-001",
   "records": [
     {
       "recordId": "KR-2026-018",
@@ -144,12 +144,12 @@
         "diagnosisValidMonths": 3,
         "maxItemsPerTwoYears": 4
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "官方來源：身心障礙者醫療復健費用及醫療輔具補助辦法（全國法規資料庫，修正日期 110-06-17）第 5 條附表，自 111-01-01 施行。取代 KR-2026-017（新北市 102.03.13 舊表）。第 7、8、9 項品名依原文「咳嗽(痰)機」「單相陽壓呼吸器」「雙相陽壓呼吸器」整理；excerpt 節錄前 10 項與備註 2、3、7、9。壓力衣、矽膠片等項目未收錄於 ruleData。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T16:12:17+08:00",
+        "decision": "APPROVED",
+        "notes": "官方來源：身心障礙者醫療復健費用及醫療輔具補助辦法（全國法規資料庫，修正日期 110-06-17）第 5 條附表，自 111-01-01 施行。取代 KR-2026-017（新北市 102.03.13 舊表）。第 7、8、9 項品名依原文「咳嗽(痰)機」「單相陽壓呼吸器」「雙相陽壓呼吸器」整理；excerpt 節錄前 10 項與備註 2、3、7、9。壓力衣、矽膠片等項目未收錄於 ruleData。 Jerry 2026-09-24 核准。"
       }
     }
   ]

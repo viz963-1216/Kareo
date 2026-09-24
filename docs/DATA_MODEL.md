@@ -148,6 +148,7 @@ caregiverSituation
 mobilityLevel
 dailyLivingLevel
 disabilityCertificate
+incomeCategory
 homeCareNeed
 medicalNursingNeed
 assistiveDeviceNeed
@@ -181,6 +182,20 @@ UNKNOWN
 ```
 
 是否領有身心障礙證明。選填，預設 `UNKNOWN`。屬健康相關敏感資料，保存與刪除同 Assessment（PRIVACY_AND_RETENTION §2）。
+
+---
+
+# 8b. incomeCategory（2026-09-24，D-17a）
+
+```text
+LOW_INCOME
+MIDDLE_LOW_INCOME
+ALLOWANCE
+GENERAL
+UNKNOWN
+```
+
+家庭經濟身分（使用者自選）。選填，預設 `UNKNOWN`。屬敏感資料，只用於估算；保存與刪除同 Assessment。
 
 ---
 

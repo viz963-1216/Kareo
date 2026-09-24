@@ -5,13 +5,13 @@
   "createdAt": "2026-09-24T12:05:27+08:00",
   "createdBy": "J-002 (prepared for Jerry review)",
   "sourceRegistryVersion": "SR-2026-09-24-01",
-  "status": "NEEDS_REVIEW",
+  "status": "APPROVED",
   "review": {
-    "reviewedBy": null,
-    "reviewedAt": null,
-    "decision": null
+    "reviewedBy": "Jerry",
+    "reviewedAt": "2026-09-24T16:12:17+08:00",
+    "decision": "APPROVED"
   },
-  "intendedKnowledgeVersion": null,
+  "intendedKnowledgeVersion": "KB-2026-09-24-001",
   "records": [
     {
       "recordId": "KR-2026-016",
@@ -183,12 +183,12 @@
         "maxItemsPerTwoYears": 4,
         "issuer": "新北市政府"
       },
-      "status": "NEEDS_REVIEW",
+      "status": "REJECTED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "來源為 Jerry 指定資料夾（D-15）檔案。**文件標示「102.03.13修」（2013 年）**，需 Jerry 確認是否仍為新北市現行標準；若已修訂，應退回。excerpt 只節錄前 9 項與備註（壓力衣、矽膠片等項目略）。身心障礙福利，非長照給付。 2026-09-24 查核：已被中央「身心障礙者醫療復健費用及醫療輔具補助辦法」附表（111-01-01 施行）取代，建議 REJECTED，改用 KP-2026-09-24-004 KR-2026-018；待 Jerry 決定。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T16:12:17+08:00",
+        "decision": "REJECTED",
+        "notes": "來源為 Jerry 指定資料夾（D-15）檔案。**文件標示「102.03.13修」（2013 年）**，需 Jerry 確認是否仍為新北市現行標準；若已修訂，應退回。excerpt 只節錄前 9 項與備註（壓力衣、矽膠片等項目略）。身心障礙福利，非長照給付。 2026-09-24 查核：已被中央「身心障礙者醫療復健費用及醫療輔具補助辦法」附表（111-01-01 施行）取代，建議 REJECTED，改用 KP-2026-09-24-004 KR-2026-018；待 Jerry 決定。 Jerry 2026-09-24 退回：已被中央附表取代，改用 KR-2026-018。"
       }
     }
   ]

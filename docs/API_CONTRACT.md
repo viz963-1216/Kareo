@@ -288,6 +288,7 @@ v0.2：需要 `X-Kareo-Session-Token`。三個版本必須是 `contracts/legal/c
     "transportation": "YES"
   },
   "disabilityCertificate": "UNKNOWN",
+  "incomeCategory": "UNKNOWN",
   "freeText": "最近上下樓比較困難，家人白天需要上班。"
 }
 ```
@@ -346,6 +347,11 @@ v0.2：需要 `X-Kareo-Session-Token`。錯誤：無有效同意 `CONSENT_REQUIR
 - 值：`YES`／`NO`／`UNKNOWN`（是否領有身心障礙證明）。選填；未提供時後端視為 `UNKNOWN`（向下相容，舊前端不會被拒）。其他值 → `VALIDATION_ERROR`。
 - 不收障礙類別、等級或證明影本。
 - `YES` 時，summary 另含身心障礙福利補助說明（ASSESSMENT_RULES §6.5）；`UNKNOWN` 時含一句提示；`NO` 時不提。回應格式不變。
+
+### incomeCategory（v0.3.2，2026-09-24，D-17a）
+
+- 值：`LOW_INCOME`（低收入戶）／`MIDDLE_LOW_INCOME`（中低收入戶）／`ALLOWANCE`（領有中低收入老人生活津貼或身心障礙者生活補助，但非低收、中低收）／`GENERAL`（以上皆非）／`UNKNOWN`。選填；未提供視為 `UNKNOWN`。其他值 → `VALIDATION_ERROR`。
+- 用途：結果頁的個人自付估算（ASSESSMENT_RULES §6.6）。不收收入金額、存款或證明文件。回應格式不變。
 
 ### summary 格式（v0.2.2）
 
@@ -926,3 +932,4 @@ Code
 | v0.2.3 | 2026-09-24 | 狀態更新：D-04、D-13a–g、D-14a–b 核准（PR #31 comment 5806704685）；內容不變 | B-011a、B-005、B-010、C-005 |
 | v0.3 | 2026-09-24 | 新增 §26 Admin Knowledge API（D-16，Jerry 核准）；知識來源 authority 新增 `KAREO_DRIVE`（D-15） | B-012、C-006、B-008-r2、J-003 |
 | v0.3.1 | 2026-09-24 | §8 Assessment Request 新增選填 `disabilityCertificate`（YES／NO／UNKNOWN，D-17）；回應格式不變 | B-010、C-005、J-003 |
+| v0.3.2 | 2026-09-24 | §8 Assessment Request 新增選填 `incomeCategory`（D-17a）；回應格式不變 | B-010、C-005、J-003 |

@@ -41,7 +41,7 @@ Last reviewed: 2026-09-23
 |---|---|---|---|---|---|---|
 | D-01 | Assessment 判斷方式 | **SPEC-APPROVED：方案 B 規則引擎，不使用 AI**（已修訂 PRODUCT_SPEC §16） | D-01-v2 | Jerry | [PR #19 comment 2026-09-23](https://github.com/viz963-1216/Kareo/pull/19#issuecomment-5788470099) | B-010、J-003、J-004 |
 | D-01a | 規則表、關鍵字、Summary 模板、**補助說明模板與知識對應**（ASSESSMENT_RULES §6） | **SPEC-APPROVED**：r2（2026-09-24）、**r3**（2026-09-24，修正 S-LOCAL-* 地方資訊模板） | r3 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)；r3：[PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | B-010、C-005、J-003 |
-| D-02 | 知識內容包：`KP-2026-09-23-001`（中央 9 筆）、`KP-2026-09-24-002`（臺北市 2 筆、新北市 4 筆）、`KP-2026-09-24-003`（KR-2026-016 已核准；017 待決）、`KP-2026-09-24-004`（KR-2026-018 待審） | **內容 APPROVED**（9／9、6／6，2026-09-24 Jerry）；目標版本皆為 `KB-2026-09-24-001`；**尚未 PUBLISHED** | D-02-v2 | Jerry（審核人） | 內容包逐筆 `review`；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227)（001）；002：[PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | J-003 首次發布、B-010 |
+| D-02 | 知識內容包：`KP-2026-09-23-001`（中央 9 筆）、`KP-2026-09-24-002`（臺北市 2 筆、新北市 4 筆）、`KP-2026-09-24-003`（KR-2026-016 核准、017 退回）、`KP-2026-09-24-004`（KR-2026-018 核准） | **內容 APPROVED**（9／9、6／6，2026-09-24 Jerry）；目標版本皆為 `KB-2026-09-24-001`；**尚未 PUBLISHED** | D-02-v2 | Jerry（審核人） | 內容包逐筆 `review`；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227)（001）；002：[PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | J-003 首次發布、B-010 |
 | D-02a | 官方來源白名單與 Source Registry `SR-2026-09-23-01` | **SPEC-APPROVED**（2026-09-24）；新北市來源擷取失敗（**DATA-GAP**，J-002 補） | D-02a-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-008（已合併）、B-009、J-002 地方知識 |
 | D-03 | 知識內容包格式、匯入驗證、發布／撤回規則 | **SPEC-APPROVED**（2026-09-24）；B-008 實作與規格有 2 處差異，由 **B-008-r2** 修正 | D-03-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806617991) | B-008-r2、J-003 首次發布 |
 | D-04 | 匿名 session 持有證明、有效期、資源歸屬、濫用限制、冪等、刪除（API_CONTRACT v0.2 §3） | **SPEC-APPROVED**（2026-09-24） | D-04-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-011a、B-010、B-005、B-006、J-003 adapter |
@@ -57,7 +57,8 @@ Last reviewed: 2026-09-23
 | D-14a–b | 補助說明呈現細節（來源連結、非服務縣市） | **SPEC-APPROVED**（2026-09-24，依 D-14 表建議） | D-14-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-010、C-005 |
 | D-15 | 知識來源新增「Jerry 指定 Google 雲端硬碟資料夾」（PRODUCT_SPEC §40–41 變更） | **SPEC-APPROVED**（2026-09-24，Jerry）；已修訂 PRODUCT_SPEC v0.4、schema（`KAREO_DRIVE`）、驗證腳本；B-008 匯入程式由 B-008-r2 更新 | D-15-v1 | Jerry | [PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | B-008-r2、J-002、J-003 |
 | D-16 | 知識審核與發布管理頁面（按鈕發布取代指令） | **SPEC-APPROVED**（2026-09-24，Jerry）；新增 TASK-B-012、TASK-C-006、API_CONTRACT §26 | D-16-v1 | Jerry | [PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | B-012、C-006、J-003 |
-| D-17 | Assessment 新增「是否領有身心障礙證明」選填題，結果頁說明可能適用的身心障礙福利補助（PRODUCT_SPEC §37 變更） | **SPEC-APPROVED**（2026-09-24，Jerry 指示）；規則表 r4 模板文字待確認；是否再問「家庭經濟身分」以算出單一金額待決定（D-17a） | D-17-v1 | Jerry | [PR #31 comment 2026-09-24（第三批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810344725) | B-010、C-005、J-003 |
+| D-17 | Assessment 新增「是否領有身心障礙證明」選填題，結果頁說明可能適用的身心障礙福利補助（PRODUCT_SPEC §37 變更） | **SPEC-APPROVED**（2026-09-24）；規則表 r4 文字確認 | D-17-v1 | Jerry | [PR #31 comment 2026-09-24（第三批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810344725)；r4 文字：PR 留言（待貼） | B-010、C-005、J-003 |
+| D-17a | Assessment 新增「家庭經濟身分」選填題，結果頁估算使用者自己的長照自付比例與金額、身障補助上限（取代原先「不計算個人金額」限制） | **SPEC-APPROVED**（2026-09-24，Jerry：「要清算」）；PRODUCT_SPEC v0.6、API_CONTRACT v0.3.2、規則表 r5 §6.6 | D-17a-v1 | Jerry | PR 留言（待貼） | B-010、C-005、J-003 |
 
 ---
 
@@ -281,7 +282,7 @@ B-008（PR #26）的 `publish_knowledge_version`／`withdraw_knowledge_version`�
 - 決定：Assessment 新增選填 `disabilityCertificate`（是／否／不確定）；回答「是」時，結果頁另外說明身心障礙福利補助（醫療輔具 KR-2026-018、新北市輔具加碼 KR-2026-016），與長照給付分開申請。
 - 已更新：PRODUCT_SPEC v0.5 §37、API_CONTRACT v0.3.1 §8、DATA_MODEL §7／§8a、PRIVACY_AND_RETENTION §2／§8、ASSESSMENT_RULES r4 §6.5（S-DIS-*、S-ELIG-DIS、T25–T31）、Mock `WITH-DISABILITY-NEW_TAIPEI.json`。
 - 金額呈現：依官方規定列出三種身分別（低收入戶／中低收入戶／一般戶）的上限，不推算個人核定金額。
-- **D-17a（待決定）**：若要「直接算出這位使用者的金額」，需再問一題「家庭經濟身分：低收入戶／中低收入戶／一般戶／不確定」。建議：**先不問**。理由：屬敏感的經濟資料（PRODUCT_SPEC §37 資料最小化）、使用者常不確定自己的身分別、錯誤身分會顯示錯誤金額；三種身分並列已能讓使用者對照。若決定要問，同一題也能讓長照自付比例（0／5／16%）只顯示使用者那一欄。
+- **D-17a（SPEC-APPROVED 2026-09-24，Jerry：「要清算」）**：新增選填題「家庭經濟身分」（低收入戶／中低收入戶／領有中低收入老人生活津貼或身心障礙者生活補助／以上皆非／不確定）。依長照給付辦法第 14 條，列冊中低收入戶屬長照身分別**第一類（0%）**，第二類為領有上述津貼或生活補助者，所以選項不能只分「低收／中低收／一般」。估算規則見 ASSESSMENT_RULES §6.6（FLOOR 取整、等級以最低／最高兩例表示、一律標示非核定）。風險：經濟資料屬敏感資料（PRIVACY §2）、使用者可能選錯身分——結果頁明示「依您自選身分的估算」。
 - 下游：B-010（PR #33）、C-005（PR #34）開 PR 時尚無此欄位，需追加修正。
 
 ---
@@ -298,9 +299,7 @@ B-008（PR #26）的 `publish_knowledge_version`／`withdraw_knowledge_version`�
 
 | 事項 | 狀態／還需要什麼 | 負責 |
 |---|---|---|
-| KR-2026-017（新北市 2013 年醫療輔具表）退回、改用 **KR-2026-018**（中央 2022 年官方附表，`KP-2026-09-24-004`） | 2026-09-24 查核：2013 年版已被取代（例如雙相陽壓呼吸器 120,000→140,000 元、新增蓄電式抽痰機與咳嗽機、刪除氧氣筒）；建議退回 017、核准 018 | Jerry |
-| 規則表 r4 模板文字（§6.5） | 依 D-17 新增；請確認用語 | Jerry |
-| D-17a 是否再問家庭經濟身分 | 建議先不問（見 D-17） | Jerry |
+| 已完成（2026-09-24） | KR-2026-017 退回、KR-2026-018 核准；規則表 r4 文字確認；D-17a 要估算個人金額 | — |
 | 雲端硬碟其他檔案 | 長照代碼.pdf 為舊版辦法（50 歲以上失智症）已停用；附表3、輔具代碼、收費標準 docx 僅供參考（MVP 不算品項價格；docx 有 CD02 計算錯誤）；交通須知為 1140411 舊版 | — |
 | 臺北市輔具／喘息的地方流程 | 社會局頁面只有附件，需人工開啟附件確認後補下一批 | J-002 |
 | D-05 法務與客服信箱 | Jerry 指示暫不填（2026-09-24） | Jerry |

@@ -53,7 +53,7 @@ CI 與整合接線（已交付，持續維護）：
 
 後續維護（J-003 自己的路徑，J-002-r4 不修改）：
 
-- [ ] 更新 `tests/e2e/acceptance-cases.json`：E2E-05 前置由 D-12 改為 D-01a；E2E-08 前置移除 D-08、改為 A-003-r2＋D-13g；E2E-10 前置改為 D-13b；新增「只有縣市 → CITY_ROTATION」「GPS 拒絕 → 行政區備援」「臺北市／新北市地方補助隔離」「Knowledge 版本切換」「身心障礙證明 是／否／不確定（D-17）」案例
+- [ ] 更新 `tests/e2e/acceptance-cases.json`：E2E-05 前置由 D-12 改為 D-01a；E2E-08 前置移除 D-08、改為 A-003-r2＋D-13g；E2E-10 前置改為 D-13b；新增「只有縣市 → CITY_ROTATION」「GPS 拒絕 → 行政區備援」「臺北市／新北市地方補助隔離」「Knowledge 版本切換」「身心障礙證明 是／否／不確定（D-17）」「家庭經濟身分估算（D-17a）」案例
 
 ## Target
 
