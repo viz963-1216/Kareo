@@ -728,5 +728,6 @@ Postgres function：在單一交易內只做寫入（upsert）
 5. 測試：
    - 單元測試：證明 Service 只呼叫一次 rpc，且驗證失敗時完全不呼叫。
    - 整合測試（J-003 於 staging Supabase 執行）：故意讓第二、第三張表寫入失敗，確認三張表都沒有新資料。
-6. 目前核准用途：Provider 匯入（B-004）。其他用途需再經 Jerry 核准並登記於 MVP_DECISIONS。
+6. 目前核准用途：Provider 匯入（B-004）；知識發布／撤回（B-008，2026-09-24 延伸核准，MVP_DECISIONS D-10）。其他用途需再經 Jerry 核准並登記於 MVP_DECISIONS。
+7. 已核准的例外：`publish_knowledge_version` 在函式內檢查紀錄必須為 APPROVED（額外安全檢查，不視為違反第 1 點）。
 
