@@ -43,13 +43,13 @@ Status: `SR-2026-09-23-01` 的來源 **SPEC-APPROVED 2026-09-24**（MVP_DECISION
 
 | sourceId | 名稱 | authority | jurisdiction | sourceUrl | 原發布機關／版本 | 擷取狀態 | active |
 |---|---|---|---|---|---|---|---|
-| `SRC-DRIVE-NTPC-AD-TOPUP` | 新北市政府身心障礙者輔具費用補助基準（新北市加碼） | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1V_dZRAeeUGYLKR_JrFFUg2g0un4nFmh5/view | 新北市政府社會局；文件未標示日期或版次 | 2026-09-24 瀏覽器讀取全文（2 頁） | true |
-| `SRC-DRIVE-NTPC-MED-AD` | 新北市身心障礙者醫療費用及醫療輔具補助標準表 | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1kl8JtMUNozsWeKxKzjBEG2bm_29R_690/view | 新北市政府；文件標示「102.03.13 修」（2013 年，需確認是否仍有效） | 瀏覽器只能讀到 9 頁中的前 4 頁 | true |
-| `SRC-DRIVE-LTC-PAY-T3` | 長期照顧給付及支付基準－附表3 | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/1WH5OA2sdc1gs8TG5RAzx1k-767F74Jaa/view | 衛生福利部（版本待讀取後填寫） | 待讀取 | true |
-| `SRC-DRIVE-AD-CODES` | 輔具代碼 | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/10W9SlpFhfN92bJJC8vQKGchtCUZZZ6-N/view | 待讀取後填寫 | 待讀取 | true |
-| `SRC-DRIVE-LTC-PAY-FEES` | 長期照顧給付及支付基準收費標準（docx） | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/17jbyW9we5UJn9o7UDAvq7mXr4nRPM8EE/view | 衛生福利部（版本待讀取後填寫） | 待讀取 | true |
-| `SRC-DRIVE-LTC-CODES` | 長照代碼 | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/1WocJI8bQUPeqM92H6zSBW5cymzB2tdmW/view | 待讀取後填寫 | 待讀取 | true |
-| `SRC-DRIVE-NTPC-TRANSPORT-RULES` | 新北市特約交通使用須知 | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1YuMFW3Jz3Y2thgrCAPj338HaNocvFH5C/view | 新北市政府衛生局高齡長期照顧處（版本待讀取後填寫；用於確認 KR-2026-014 的 1150805／1150417 版本） | 待讀取 | true |
+| `SRC-DRIVE-NTPC-AD-TOPUP` | 新北市政府身心障礙者輔具費用補助基準（新北市加碼） | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1V_dZRAeeUGYLKR_JrFFUg2g0un4nFmh5/view | 新北市政府社會局；文件未標示日期或版次 | OK（2026-09-24 由 Jerry 下載提供），PDF sha256 `20ce2c4c…883b`；→ KR-2026-016 | true |
+| `SRC-DRIVE-NTPC-MED-AD` | 新北市身心障礙者醫療費用及醫療輔具補助標準表 | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1kl8JtMUNozsWeKxKzjBEG2bm_29R_690/view | 新北市政府；文件標示「102.03.13 修」（2013 年，需確認是否仍有效） | OK，PDF sha256 `a7b9fda4…656a`；→ KR-2026-017 | true |
+| `SRC-DRIVE-LTC-PAY-T3` | 長期照顧給付及支付基準－附表3 | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/1WH5OA2sdc1gs8TG5RAzx1k-767F74Jaa/view | 衛生福利部；檔案未標示版次，頁碼自 30 起（節錄本） | OK，PDF sha256 `3a2d6a0e…`；**僅供參考**：MVP 不計算個別品項價格，未產生紀錄 | true |
+| `SRC-DRIVE-AD-CODES` | 輔具代碼 | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/10W9SlpFhfN92bJJC8vQKGchtCUZZZ6-N/view | 未標示版次，頁碼自 41 起；與附表3 為不同版次的 E／F 碼表 | OK，PDF sha256 `a4d68908…`；**僅供參考**，未產生紀錄 | true |
+| `SRC-DRIVE-LTC-PAY-FEES` | 長期照顧給付及支付基準收費標準（docx） | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/17jbyW9we5UJn9o7UDAvq7mXr4nRPM8EE/view | 整理表（非官方原文格式），未標示日期 | OK，docx sha256 `1cf2df08…`；**僅供參考**；發現錯誤：CD02 中低收 5% 應為 300，檔案寫 450 | true |
+| `SRC-DRIVE-LTC-CODES` | 長照代碼（內容為「長期照顧服務申請及給付辦法」條文說明對照表） | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/1WocJI8bQUPeqM92H6zSBW5cymzB2tdmW/view | **舊版**：第二條寫「五十歲以上失智症」，與現行條文（2026-01-01 起不限年齡，KR-2026-001）不符 | OK，PDF sha256 `e2d43847…`；**停用**，不得作為來源 | false |
+| `SRC-DRIVE-NTPC-TRANSPORT-RULES` | 新北市特約交通使用須知 | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1YuMFW3Jz3Y2thgrCAPj338HaNocvFH5C/view | 新北市政府衛生局高齡長期照顧處；檔案版本 **1140411**（早於官網的 1150417、1150805） | OK，PDF sha256 `5481bc26…`；較舊，KR-2026-014 維持以官網為準；未產生紀錄 | true |
 
 A+分站交通平台教育訓練手冊.pdf 為單位內部操作文件，不登錄為知識來源。
 
