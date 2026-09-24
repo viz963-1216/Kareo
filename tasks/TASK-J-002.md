@@ -39,6 +39,8 @@ Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/
 - [x] 提供 C-006 用的 `contracts/mock/admin/` fixtures（2026-09-24）。
 - [x] 臺北市輔具／喘息地方流程：開啟社會局附件整理為 `KP-2026-09-24-005`（4 筆）（2026-09-24）。
 - [x] Jerry 核准 `KP-2026-09-24-005`（4 筆）、4 個新來源與規則表 r6（2026-09-24）。
+- [x] PR #35 查核：KR-2026-019～021 summary／ruleData 與 excerpt 不一致，已修正並回到 NEEDS_REVIEW；規則表 r7 提案（2026-09-24）。
+- [ ] Jerry 重新核准 KR-2026-019～021 與規則表 r7；有官方網域連線時逐格核對 4 份原文。
 - [x] 取得「待 Jerry 決定」清單的決定（2026-09-24 第 1–8 項核准，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)），證據連結已填入 MVP_DECISIONS。
 - [ ] D-09 Netlify 額度（Jerry：日後補充）。
 - [ ] 法務確認（D-05 L-1～L-6）後把同意版本改為 ACTIVE（含位置告知）。Jerry 2026-09-24 指示暫不填。
