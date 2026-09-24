@@ -30,7 +30,7 @@ Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/
 - [x] `docs/knowledge/source-registry.md` 與 `contracts/knowledge/` 首批內容包、格式、匯入／發布／撤回規則（D-02a、D-03 PROPOSED；D-02 內容 NEEDS_REVIEW）。
 - [x] Session 安全、隱私保存、Lead 接件規格（D-04、D-05、D-06 PROPOSED）。
 - [x] `docs/MVP_TRACEABILITY.md`：每項原始需求 → 使用者行為 → 任務 → 前置 → 驗收 → 證據／狀態。
-- [x] **首批知識逐筆審核**（D-02）：2026-09-24 Jerry 全部核准（9／9），內容包逐筆 `review` 已填；PR #31 留言為審核證據。發布由 J-003 執行。
+- [x] **首批知識逐筆審核**（D-02）：2026-09-24 Jerry 全部核准（9／9），內容包逐筆 `review` 已填；審核證據：[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227)。發布由 J-003 執行。
 - [ ] **地方補助知識**（臺北市、新北市）與新北市來源補齊：以新內容包 `KP-*-002` 提交（NEEDS_REVIEW），不改寫既有內容包。目標 9/30。
 - [ ] 取得「待 Jerry 決定」清單的決定，把真實證據連結填入 MVP_DECISIONS；決定若改變 contract，更新 contract／fixture 並通知下游。
 - [ ] 法務確認（D-05 L-1～L-6）後把同意版本改為 ACTIVE（含位置告知）。
