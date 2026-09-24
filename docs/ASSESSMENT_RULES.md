@@ -2,7 +2,7 @@
 
 Owner: Jerry
 Submission Version: J-002-r4
-Rules version: `RULES-2026-09-23-r2`（**SPEC-APPROVED 2026-09-24**，MVP_DECISIONS D-01a，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)；r2 新增 §6.3 補助說明模板、移除模板內寫死的政策數值）
+Rules version: `RULES-2026-09-24-r3`（**PROPOSED**：r3 只修正地方資訊模板 S-LOCAL-*，待 Jerry 核准）。前一版 `RULES-2026-09-23-r2` 為 **SPEC-APPROVED 2026-09-24**（MVP_DECISIONS D-01a，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)）；r3 核准前，B-010 依 r2 實作，S-LOCAL-* 依 r3 做可逆實作
 Decision: MVP_DECISIONS D-01 = 方案 B（不使用 AI，Jerry 2026-09-23 決定）
 
 > MVP 的 Assessment 完全由本文件的確定性規則產生，不呼叫任何 AI／LLM。
@@ -89,7 +89,7 @@ Summary 只能由下列模板組成，不得自由生成文字。`{}` 為程式�
 ### 6.1 輸出格式（沿用既有 `summary` 字串，不新增 API 欄位）
 
 - `summary` 由多個句子組成，句子之間以換行字元 `\n` 分隔；前端每一行顯示為一段（C-005）。
-- 句子順序固定：S-NEEDS／S-NONE → S-INSTITUTION → S-ELIG-* → S-SUB-*（依 §6.3 表格由上而下）→ S-LOCAL-*（SUBSIDY／MISSING／NOCITY → CENTER）→ S-NEXT。
+- 句子順序固定：S-NEEDS／S-NONE → S-INSTITUTION → S-ELIG-* → S-SUB-*（依 §6.3 表格由上而下）→ S-LOCAL-*（INFO／MISSING／NOCITY → CENTER）→ S-NEXT。
 - 某句所需的知識紀錄不在 PUBLISHED 版本、`effectiveFrom` 晚於今天（Asia/Taipei）或 `effectiveTo` 已過 → **省略該句**，不改用預設值或其他縣市資料。
 - 若 S-NEXT 無法產生 → 回 `KNOWLEDGE_UNAVAILABLE`（不產生部分結果）。
 - 回應中的 `knowledgeVersion` 即為本次引用的知識版本；前端需顯示（C-005）。
@@ -132,8 +132,8 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 | S-SUB-COPAY | 至少一項 S-SUB-* 項目句出現 | 使用長照服務需依長照身分別自付部分費用，比率依服務項目不同，例如{第一個出現的項目}：{各類別顯示文字與比率}。身分別由主管機關認定。 | `COPAY_RATES`，TAIWAN |
 | S-SUB-SOURCE | 至少一項 S-SUB-* 句出現 | 以上制度與金額依據：{逐筆「來源機關顯示文字〈紀錄 title〉（effectiveFrom 起適用）」，以「、」串接}；平台知識版本 {knowledgeVersion}。 | S-SUB-* 實際引用的每一筆紀錄（依 recordId 去重，依 recordId 排序） |
 | S-SUB-DISCLAIMER | 至少一項 S-SUB-* 句出現 | 實際長照等級、給付額度與自付金額，須經照管專員評估核定後才確定。 | — |
-| S-LOCAL-SUBSIDY | 使用者縣市已知，且 PUBLISHED 版本有該縣市（TAIPEI／NEW_TAIPEI）的地方補助紀錄（category `SUBSIDY` 或 `BENEFIT`） | {city}地方補助：{紀錄 summary}（依據：{來源機關}〈{title}〉，{effectiveFrom} 起適用）。 | 該縣市 jurisdiction 的紀錄 |
-| S-LOCAL-MISSING | 使用者縣市已知，但沒有該縣市地方補助的 PUBLISHED 紀錄 | {city}的地方補助資訊目前尚未收錄於平台，請洽 {hotline.number} 或{city}長期照顧管理中心確認；平台不會以其他縣市的規定代替。 | `APPLICATION_CHANNELS`，TAIWAN |
+| S-LOCAL-INFO | 使用者縣市已知，PUBLISHED 版本有該縣市（TAIPEI／NEW_TAIPEI）的地方紀錄（`ruleData.type` 以 `LOCAL_` 開頭、`LOCAL_CENTER` 除外），且與需求相關：`LOCAL_TRANSPORT_RULES` → careNeeds 含 TRANSPORTATION；`LOCAL_ASSISTIVE_DEVICE_PROCESS` → 含 ASSISTIVE_DEVICE；`LOCAL_APPLICATION` → 一律 | {city}：{紀錄 summary}（依據：{來源機關}〈{title}〉，{effectiveFrom} 起適用）。每筆相關紀錄一句，依 recordId 排序 | 該縣市 jurisdiction 的紀錄 |
+| S-LOCAL-MISSING | 使用者縣市已知，但沒有任何 S-LOCAL-INFO 句會出現 | {city}的地方規定與資源目前尚未收錄於平台，請洽 {hotline.number} 或{city}長期照顧管理中心確認；平台不會以其他縣市的規定代替。 | `APPLICATION_CHANNELS`，TAIWAN |
 | S-LOCAL-NOCITY | `location.precision` = NONE | 各縣市另有地方補助與服務資源，提供居住縣市後可查看；目前平台收錄臺北市、新北市。 | — |
 | S-LOCAL-CENTER | 使用者縣市已知，且有該縣市 `LOCAL_CENTER` 紀錄 | {city}長期照顧管理中心：{address}，電話 {phone}。 | `LOCAL_CENTER`，該縣市 |
 
@@ -151,14 +151,15 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 1. 只列出官方紀錄中存在、且依 `effectiveFrom` 已生效的數值；金額加千分位，單位「元」；比率單位「%」。
 2. 一律使用「額度」「上限」「約」「依核定等級／組別」「可能」等字眼；**不得**寫「您可獲得」「已核定」「您的額度為」「確定符合」或任何個人化金額（「依核定等級」「評估核定後才確定」這類說明正式程序的用語可以使用）。
 3. 不依使用者資料推算長照需要等級、身分別或組別；只列官方規則的範圍。
-4. 臺北市、新北市的地方制度分開：只讀取與使用者縣市相同 jurisdiction 的地方紀錄；**缺少時用 S-LOCAL-MISSING，不套用另一縣市的規則**。
+4. 臺北市、新北市的地方制度分開：只讀取與使用者縣市相同 jurisdiction 的地方紀錄；**缺少時用 S-LOCAL-MISSING，不套用另一縣市的規則**。地方紀錄只呈現官方公告的使用規則與聯絡方式，不重算中央的額度或比率（兩者不一致時列為 CONFLICT，交 Jerry 判斷）。
 5. 內容仍為 `NEEDS_REVIEW` 的紀錄不得出現在正式結果；知識包未核准前，staging／production 的結果頁不會出現 S-SUB-* 句。
 
 ### 6.4 內容對應與維護
 
 - 程式只依 `ruleData.type` 與 jurisdiction 找紀錄，不以 recordId 寫死。目前 `KP-2026-09-23-001` 的對應（2026-09-24 內容核准，尚未 PUBLISHED）：`ELIGIBILITY_ANY_OF`＝KR-2026-001、`LEVEL_RANGE`＝KR-2026-002、`BENEFIT_ITEMS`＝KR-2026-003、`BENEFIT_AMOUNTS`＝KR-2026-004、`TRANSPORT_ZONE`＝KR-2026-005、`COPAY_RATES`＝KR-2026-006、`BENEFIT_PERIODS`＝KR-2026-007、`APPLICATION_CHANNELS`＝KR-2026-008、`LOCAL_CENTER`（TAIPEI）＝KR-2026-009。
 - 同一 type＋jurisdiction 在 PUBLISHED 版本出現多筆有效紀錄 → 視為衝突，省略相關句子並記錄錯誤（不自行挑選）。
-- 目前**沒有**任何臺北市或新北市地方補助紀錄，也沒有新北市 `LOCAL_CENTER` 紀錄；新北市來源擷取失敗（Source Registry）。因此在補齊並核准前，兩市都顯示 S-LOCAL-MISSING；臺北市另顯示 S-LOCAL-CENTER。補齊屬 J-002 知識內容工作（新內容包），不在程式內補文字。
+- 地方紀錄（`KP-2026-09-24-002`，NEEDS_REVIEW）：`LOCAL_TRANSPORT_RULES`（TAIPEI）＝KR-2026-010、`LOCAL_APPLICATION`（TAIPEI）＝KR-2026-011、`LOCAL_APPLICATION`（NEW_TAIPEI）＝KR-2026-012、`LOCAL_CENTER`（NEW_TAIPEI）＝KR-2026-013、`LOCAL_TRANSPORT_RULES`（NEW_TAIPEI）＝KR-2026-014、`LOCAL_ASSISTIVE_DEVICE_PROCESS`（NEW_TAIPEI）＝KR-2026-015。兩市官方頁面**未找到**中央給付以外的地方現金加碼補助（Source Registry 已知缺口 5）。在 KP-*-002 核准並發布前，兩市都顯示 S-LOCAL-MISSING；臺北市另顯示 S-LOCAL-CENTER。
+- 同一縣市、同一 `ruleData.type` 可有多筆（例如各分站），但 `LOCAL_CENTER` 每個縣市只能一筆有效紀錄；`branches` 只用於後續顯示，MVP 模板只使用 `address`、`phone`。
 - 顯示文字對照（criteria、期間、交通用途、身分別類別、來源機關）屬規則表內容，隨 `rulesVersion` 由 J-002 維護：
 
 | 對照 | code → 顯示文字 |
@@ -185,7 +186,7 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 - 保存期限依 PRIVACY_AND_RETENTION §2。
 - log 不得記錄原文。
 
-## 9. 必要測試案例（B-010 需全部實作；T14–T23 為 r2 新增）
+## 9. 必要測試案例（B-010 需全部實作；T14–T23 為 r2 新增，T24 為 r3 新增）
 
 | # | 輸入重點 | 預期 careNeeds／priority |
 |---|---|---|
@@ -202,8 +203,8 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 | T11 | 同一輸入跑 100 次 | 輸出完全相同 |
 | T12 | `livingSituation` = INSTITUTION、`caregiverSituation` = NO_CAREGIVER、`dailyLivingLevel` = INDEPENDENT | 不觸發 HC-R2／HC-R3；含 S-INSTITUTION |
 | T13 | 任何輸入 | summary 不含「您已核定」「確定符合」「CMS 第」「您可獲得」等字樣（S-SUB-DISCLAIMER 的「評估核定後才確定」除外）；warnings 必定存在 |
-| T14 | 臺北市＋任一行政區，transportation YES | S-SUB-TR 顯示第 1 區與該區額度（值取自知識）；有 S-LOCAL-CENTER（臺北市）；S-LOCAL-MISSING（臺北市） |
-| T15 | 新北市烏來區，transportation YES | S-SUB-TR 顯示第 4 區（行政區例外）；不出現臺北市 S-LOCAL-CENTER |
+| T14 | 臺北市＋任一行政區，transportation YES | S-SUB-TR 顯示第 1 區與該區額度（值取自知識）；有 S-LOCAL-CENTER（臺北市）；有臺北市 `LOCAL_TRANSPORT_RULES`／`LOCAL_APPLICATION` 已發布 → S-LOCAL-INFO，否則 S-LOCAL-MISSING |
+| T15 | 新北市烏來區，transportation YES | S-SUB-TR 顯示第 4 區（行政區例外）；只出現新北市的 S-LOCAL-INFO／S-LOCAL-CENTER，不出現臺北市的任何地方句 |
 | T16 | 新北市、precision = CITY，transportation YES | S-SUB-TR 使用「多數行政區…部分行政區…」描述 |
 | T17 | precision = NONE，transportation YES | S-SUB-TR 顯示額度範圍；S-LOCAL-NOCITY；不出現任何縣市地方句 |
 | T18 | PUBLISHED 版本缺 `BENEFIT_AMOUNTS` | 含金額的 S-SUB-* 句全部省略、其餘句子照常；不得出現任何預設數值 |
@@ -212,6 +213,7 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 | T21 | 同一 type＋jurisdiction 有兩筆有效 PUBLISHED 紀錄 | 相關句子省略並記錄錯誤，不自行挑選 |
 | T22 | 知識出現對照表沒有的 criteria code | 該項省略；測試提示需更新對照表 |
 | T23 | careNeeds 含 HOME_CARE、`caregiverSituation` = NO_CAREGIVER | 不出現 S-SUB-RESPITE |
+| T24 | 新北市、careNeeds 不含 TRANSPORTATION、ASSISTIVE_DEVICE | 只出現 `LOCAL_APPLICATION` 的 S-LOCAL-INFO，不出現交通或輔具的地方句 |
 
 ## 10. 規則的維護
 
