@@ -81,7 +81,7 @@ GitHub 核對結果：沒有開啟中的 PR。2026-09-23 合併：A-004（#18）
 | Task | 狀態 | 下一步 |
 |---|---|---|
 | J-001 Netlify + Supabase staging | MERGED（#6） | 部署因額度暫停（D-09） |
-| J-002 規格／知識／隱私／Lead／位置 | r1–r3 DOC-MERGED（#19、#28）；**r4 送審中（PR #31）**；D-02 知識 9 筆已核准（2026-09-24），尚未發布 | 見「待 Jerry 決定」 |
+| J-002 規格／知識／隱私／Lead／位置 | r1–r4 DOC-MERGED（#19、#28、#31）；r5（臺北市地方知識）送審中；知識 5 包：17 筆核准、1 筆退回、4 筆待審，皆尚未發布 | 見「待 Jerry 決定」 |
 | J-003 CI + Integration | r1–r3 MERGED（#20、#29）；**Integrated：否**；release gate FAIL（PENDING 未清） | 首次知識發布（待 D-02）；依開發順序逐段 E2E |
 | J-004 Release readiness | 準備文件 MERGED（#22）；gate CLOSED；未演練 | — |
 
