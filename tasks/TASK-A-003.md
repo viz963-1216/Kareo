@@ -2,45 +2,35 @@
 
 Owner: Engineer A — Data / QA / Research  
 Type: Data QA  
-Status: QUEUED — DO NOT START UNTIL A-002 MERGED
+Status: r1 MERGED（PR #13，模組完成）；**r2 已驗證座標 READY**（A-004 已合併）  
+Plan revision: 2026-09-23 / J-002-r4
 
 ---
 
 # Goal / 目標
 
-針對 A-002 正式 Provider Dataset 做第二輪品質補強：補可驗證的經緯度、檢查地址可解析性、整理 Provider Address 與 Service Area，並清楚標記仍無法確認的資料。
+讓 Provider Dataset 支援原始 MVP 的兩種推薦方式（PRODUCT_SPEC §18–23）：
+
+- **只有行政區**：服務範圍（ProviderServiceArea）每筆有來源，與實體地址分開（r1 已完成）。
+- **精確位置**：Provider 有**可追溯的已驗證座標**，讓 B-005 能依距離排序（r2）。r1 報告 30／30 筆沒有已驗證座標（刻意不猜），這是資料缺口（MVP_DECISIONS D-07），不是產品範圍縮減。
 
 ---
 
 # Prerequisite / 前置條件
 
-A-002 已 Merge 到 `staging`。只能使用可追溯來源；不知道的資料保留 null / UNKNOWN，不可猜測。
+- r1：A-002 已合併（完成）。
+- r2：A-004 已合併（完成，PR #18）；以 staging 的 `data/providers/staging/*.json` 為基礎。
+- 只能使用可追溯來源；不知道的資料保留 null／UNKNOWN，不可猜測。
+- 使用任何付費或需授權的 geocoding／地圖服務前，先交 Jerry 決定（費用與授權）；本任務不授權購買。
 
 ---
 
 # Branch / PR Rule
 
-從最新 `staging` 建立：
+- r1（已合併）：`feat/a-003-provider-geocoding-service-area-qa`
+- r2：從最新 `staging` 建立 `feat/a-003-verified-coordinates`，Submission Version `A-003-r2`，PR → `staging`。
 
-```text
-feat/a-003-provider-geocoding-service-area-qa
-```
-
-完成後：
-
-```text
-PR → staging
-```
-
-首次提交版次：
-
-```text
-A-003-r1
-```
-
-若退回修改，revision 依序遞增。
-
-不得直接 Push `staging` 或 `main`。
+退回修改時 revision 依序遞增。不得直接 Push `staging` 或 `main`。
 
 ---
 
@@ -48,10 +38,10 @@ A-003-r1
 
 ```text
 AGENTS.md
-docs/PRODUCT_SPEC.md
-docs/ARCHITECTURE.md
-docs/DATA_MODEL.md
-docs/API_CONTRACT.md
+docs/PRODUCT_SPEC.md（§18–24）
+docs/DATA_MODEL.md（§17 Provider lat/lng）
+docs/API_CONTRACT.md（§9 位置與排序）
+docs/MVP_DECISIONS.md（D-07、D-13c）
 docs/GIT_RULES.md
 ```
 
@@ -69,29 +59,36 @@ docs/GIT_RULES.md
 
 # Required Deliverables / 必交付
 
-至少完成：
-- 更新 Provider lat/lng（只有可驗證者）
-- 地址與行政區一致性檢查
-- Service Area 來源核對
-- Google Maps URL 可用性檢查
+r1（已交付）：
+
+- 地址與行政區一致性檢查、Service Area 來源核對、Google Maps URL 可用性檢查
 - `/data/providers/qa/geocoding-service-area-report.md`
+
+r2（待交付）：
+
+- `data/providers/staging/providers.json` 只填**已驗證**的 `lat`／`lng`（WGS84 十進位度數）；無法驗證者保持 `null`。
+- 每筆座標的來源、驗證方式（例如官方公開座標、官方地址＋人工於地圖核對門牌）與驗證日期，記錄在 `data/providers/qa/` 的座標報告（不改 Provider schema）。
+- **覆蓋率報告**：依服務類型 × 縣市 × 行政區列出「有已驗證座標／候選總數」，並標出「整個行政區候選都有座標」的組合——這些組合才會走 `DISTANCE`（API_CONTRACT §9、D-13c）。
+- 列出無法驗證的 Provider 與原因。
 
 ---
 
 # Acceptance Criteria
 
-- [ ] 已檢查 A-002 全部 Provider
-- [ ] 可驗證的 lat/lng 已補齊
-- [ ] 無法驗證者保留 null 並在報告列出
-- [ ] 不把實體地址推測成服務範圍
-- [ ] Service Area 每筆都有來源或明確 UNKNOWN
-- [ ] 沒有修改 /data/providers/** 以外檔案
+- [x] r1：已檢查 A-002 全部 Provider；Service Area 每筆有來源或明確 UNKNOWN；不把實體地址推測成服務範圍
+- [ ] r2：每筆非 null 座標都有來源、驗證方式與日期，可由他人重現核對
+- [ ] r2：沒有任何座標由地址文字、行政區中心點或其他推估方式產生
+- [ ] r2：覆蓋率報告（服務類型 × 縣市 × 行政區）完整，並指出可測試 DISTANCE 的組合
+- [ ] r2：`node data/providers/qa/validate-providers.mjs`（A-004 gate）通過，座標範圍合法
+- [ ] 沒有修改 `/data/providers/**` 以外檔案
+
+真實距離排序的 E2E 由 J-003 使用本報告挑選案例執行；A 不負責跨模組驗收。
 
 ---
 
 # Not In Scope
 
-Backend、Supabase、Recommendation、Frontend、正式 E2E。
+Backend、Supabase、Recommendation、Frontend、正式 E2E、購買 geocoding 服務。
 
 ---
 
@@ -117,17 +114,7 @@ PR Title：
 
 ---
 
-## 2026-09-23 補充驗收：已驗證座標（J-002-r3）
+# 變更紀錄
 
-PRODUCT_SPEC §21 要求有精確位置時依距離排序。A-003 報告 30／30 筆 Provider 沒有可追溯的已驗證座標，這是**資料缺口**（MVP_DECISIONS D-07），不是產品決策。
-
-- [ ] 為 Provider 取得可追溯的已驗證座標；每筆記錄來源、驗證方式與日期。
-- [ ] 無法驗證者保持 `null` 並列入報告，不從地址或行政區中心點推估。
-- [ ] 報告座標覆蓋率（依服務類型、縣市、行政區），讓 B-005／J-003 知道距離排序可測範圍。
-- [ ] 通過 A-004 座標範圍驗證。
-
-若使用付費 geocoding 或第三方服務，先交 Jerry 決定（費用與授權）。若 Jerry 核准 D-08（MVP 不收 GPS），本補充可延後。
-
-分支：從最新 `staging` 建 `feat/a-003-verified-coordinates`，Submission Version `A-003-r2`。
-
-此補充不擴增產品範圍，只把 PRODUCT_SPEC 原始 MVP 已有的要求指到承接任務；所需規格更新由 TASK-J-002 先合併。
+- 2026-09-23 J-002-r3：新增已驗證座標補充驗收（D-07 資料缺口）。
+- 2026-09-23 J-002-r4：補充整併進 Goal／Deliverables／AC；移除「若 D-08 核准可延後」（D-08 未核准、已擱置，精確位置依原始 MVP）；新增覆蓋率需對應 D-13c 的「整個行政區候選都有座標」。

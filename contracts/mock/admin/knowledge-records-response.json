@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "data": {
+    "records": [
+      {
+        "id": "KREC-MOCK-001",
+        "packId": "KP-MOCK-003",
+        "recordId": "KR-MOCK-016",
+        "title": "測試用地方補助紀錄",
+        "jurisdiction": "NEW_TAIPEI",
+        "category": "ASSISTIVE_DEVICE",
+        "sourceUrl": "https://www.ntpc.gov.tw/",
+        "summary": "測試資料，不代表真實制度。",
+        "effectiveFrom": "2026-10-01",
+        "status": "NEEDS_REVIEW"
+      }
+    ]
+  }
+}

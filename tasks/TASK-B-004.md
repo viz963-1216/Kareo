@@ -2,7 +2,7 @@
 
 Owner: Engineer B — Backend  
 Type: Backend / Database / Provider  
-Status: QUEUED — DO NOT START UNTIL B-003 + A-002 MERGED
+Status: MERGED（PR #16，B-004-r2）— 模組完成，不代表整合完成或正式環境驗收（2026-09-23 J-002-r4 核對）；staging Supabase 回滾測試由 J-003 執行  
 
 ---
 

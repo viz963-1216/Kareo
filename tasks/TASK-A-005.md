@@ -2,7 +2,7 @@
 
 Owner: Engineer A — Data / QA / Research  
 Type: QA Dataset  
-Status: QUEUED — DO NOT START UNTIL A-004 MERGED
+Status: READY（A-004 已合併，PR #18）；未見提交  
 
 ---
 
@@ -14,7 +14,7 @@ Status: QUEUED — DO NOT START UNTIL A-004 MERGED
 
 # Prerequisite / 前置條件
 
-A-004 已 Merge；B-005 前可先準備案例，實際 E2E 仍由 Jerry 執行。
+A-004 已合併（完成）。B-005 合併前即可準備案例；真實 E2E 由 J-003 執行。位置案例依 API_CONTRACT v0.2.2 §8–§9；座標案例使用 A-003-r2 覆蓋率報告（r2 未交付前，DISTANCE 案例以「需已驗證座標」標示 BLOCKED，不自行造座標）。
 
 ---
 
@@ -69,25 +69,26 @@ docs/GIT_RULES.md
 
 # Required Deliverables / 必交付
 
-至少涵蓋：
-- 0 / 1 / 2 / 3 家符合 Provider
-- 台北 / 新北
-- GPS 精確位置
-- District-only
-- 無位置
-- Service Area 不符合
-- 缺 lat/lng
-- Inactive / Unknown Provider
-- Duplicate / invalid data
-輸出 `/data/providers/qa/acceptance-cases.md` 與必要 fixture。
+`/data/providers/qa/acceptance-cases.md`（與必要 fixture），每個案例寫明 Input（服務類型、location.precision、city、district、座標是否提供）與 Expected（`rankingType`、`locationPrecision`、家數、`distanceKm` 是否為數值、notice 重點、不得出現的字樣），至少涵蓋：
+
+- 0／1／2／3 家符合 Provider（每種服務類型至少一組真實資料案例）
+- 臺北市、新北市各自的行政區案例；服務範圍跨縣市（地址在臺北、服務新北）
+- 精確位置（`GPS`）且候選全部有已驗證座標 → `DISTANCE`
+- 精確位置但候選部分／全部缺座標 → `DISTRICT_ROTATION`（D-13c）
+- 只有行政區 → `DISTRICT_ROTATION`，同 session 同日穩定
+- 只有縣市 → `CITY_ROTATION`（D-13a）
+- 沒有位置 → 前端不呼叫；API 若被呼叫為 `NO_LOCATION`、0 家（D-13b）
+- Service Area 不符合、Inactive／UNKNOWN Provider、ProviderService.active = false
+- Duplicate／invalid data（交給 A-004 gate 的反例）
 
 ---
 
 # Acceptance Criteria
 
-- [ ] 邊界案例完整
-- [ ] 每案例有 Input / Expected Result
-- [ ] 不自行定義新 API Contract
+- [ ] 上列情境全部有案例，每案例有 Input／Expected，可由 J-003 直接執行
+- [ ] Expected 引用 API_CONTRACT §9 的欄位與 enum，不自行定義新 Contract
+- [ ] D-13a–c（2026-09-24 核准）的案例與原始 MVP 案例分開標示，方便追溯依據
+- [ ] 需要已驗證座標的案例列出使用的 Provider 與 A-003-r2 報告依據；無法提供時標 BLOCKED 並說明
 - [ ] 不負責跨模組程式修改
 
 ---
@@ -117,3 +118,9 @@ PR Title：
 ```text
 [A-005] Provider QA Acceptance Cases
 ```
+
+---
+
+# 變更紀錄
+
+- 2026-09-23 J-002-r4：A-004 已合併 → READY；位置案例依 API_CONTRACT v0.2.2 §9 展開（精確位置、缺座標、行政區、縣市、無位置）。

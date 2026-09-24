@@ -2,7 +2,9 @@
 
 Owner: Engineer B — Backend  
 Type: Backend / Assessment / AI Adapter  
-Status: READY
+Status: MERGED（PR #12）— 模組完成，不代表整合完成或正式環境驗收（2026-09-23 J-002-r4 核對）；線上仍組裝 Fake Adapter＋Null resolver，由 B-010 替換  
+
+> **已被取代（J-002-r4 註記）**：本任務中「AI Provider 選型／真實 AI Adapter」的描述已被 D-01（MVP 不使用 AI，規則引擎）取代，保留作歷史。正式評估、知識接線與失敗行為由 TASK-B-010 承接；Adapter 介面名稱不需因此重構。
 
 ---
 

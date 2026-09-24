@@ -1,0 +1,156 @@
+{
+  "$schema": "../content-pack.schema.json",
+  "packId": "KP-2026-09-24-004",
+  "formatVersion": "1.0",
+  "createdAt": "2026-09-24T16:05:40+08:00",
+  "createdBy": "J-002 (prepared for Jerry review)",
+  "sourceRegistryVersion": "SR-2026-09-24-01",
+  "status": "APPROVED",
+  "review": {
+    "reviewedBy": "Jerry",
+    "reviewedAt": "2026-09-24T16:12:17+08:00",
+    "decision": "APPROVED"
+  },
+  "intendedKnowledgeVersion": "KB-2026-09-24-001",
+  "records": [
+    {
+      "recordId": "KR-2026-018",
+      "category": "HOME_MEDICAL_NURSING",
+      "jurisdiction": "TAIWAN",
+      "title": "身心障礙者醫療輔具補助標準（呼吸類）",
+      "source": {
+        "sourceId": "SRC-LAW-L0020178-T",
+        "authority": "LAW",
+        "url": "https://law.moj.gov.tw/LawClass/LawGetFile.ashx?FileId=0000293764&lan=C",
+        "fetchedAt": "2026-09-24T16:05:40+08:00",
+        "contentHash": "sha256:7a1c47a84711a8be8da451b8b31d6a4c0d93a4c25174362691ed39d61507f0be"
+      },
+      "publishedAt": "2021-06-17",
+      "effectiveFrom": "2022-01-01",
+      "effectiveTo": null,
+      "lastVerifiedAt": "2026-09-24T16:05:40+08:00",
+      "excerpt": "附表 醫療復健費用及醫療輔具補助標準\n…\n1 電動拍\n痰器\n15,000 11,300 7,500 3\n…\n2 非蓄電\n式抽痰\n機\n5,000 3,800 2,500 3\n…\n3 蓄電式\n( 交直流\n兩用) 抽\n痰機\n10,000 7,500 5,000 3\n…\n4 化痰機\n(噴霧器)\n5,000 3,800 2,500 3\n…\n5 血氧偵\n測儀( 血\n氧機)\n6,000 4,500 3,000 3\n…\n6 氧氣製\n造機\n25,000 18,800 12,500 5\n…\n7 咳嗽(痰)\n機\n(Cough\nAssist\nMachine)\n120,000 90,000 60,000 5\n…\n8 單相陽\n壓呼吸\n器 (C-\nPAP ：\nContinuous\nPositive\nAirway\nPressure)\n40,000 30,000 20,000 5\n…\n9 雙相陽\n壓呼吸\n器 (Bi-\nPAP ：\nBilevel\nPositive\nAirway\nPressure)\n140,000 105,000 70,000 5\n…\n10 UPS 不\n斷電系\n統\n2,500 1,900 1,300 3\n…（壓力衣、矽膠片等項目略）\n備註：\n2. 本表所列醫療輔具項目與身心障礙者輔具補助辦法規定之生活輔具項目合併計算，每人\n每二年依實際需要，以補助四項為原則；本表所列醫療輔具項目使用尚未達最低使用年\n限、申請項目二年已逾四項或未符合補助條件而確有使用本表所列醫療輔具項目之需求\n者，得由直轄市、縣(市)主管機關專案補助之。\n3. 本表之診斷證明書須為三個月內所開立；申請人為「全民健康保險居家醫療照護整合計\n畫」之收案對象者，本表醫療輔具編碼 1 至 5 項之診斷證明書，得由該計畫之訪視醫師\n開具，並檢附該計畫之居家訪視紀錄單；居家訪視紀錄單應載明訪視單位及訪視醫師之\n簽章。\n7. 本表之低收入戶及中低收入戶，依社會救助法之規定。\n9. 補助對象已接受衛生福利部中央健康保險署、衛生福利部國民健康署或其他相關同項補\n助者(如：罕見疾病醫療補助專案、全民健康保險呼吸器依賴患者整合性照護前瞻性支付\n方式計畫…等)，不得重複申請本表之補助項目。",
+      "summary": "領有身心障礙證明、居家需長期使用呼吸類醫療輔具者，可申請補助，每項上限依身分別（低收入戶／中低收入戶／一般戶）不同，例如電動拍痰器 15,000／11,300／7,500 元、氧氣製造機 25,000／18,800／12,500 元、雙相陽壓呼吸器 140,000／105,000／70,000 元。需三個月內專科醫師診斷證明；與生活輔具合併每人每二年以補助四項為原則；已領其他同性質補助者不得重複申請。",
+      "ruleData": {
+        "type": "DISABILITY_MEDICAL_DEVICE_SUBSIDY",
+        "requiresDisabilityCertificate": true,
+        "incomeOrder": [
+          "LOW_INCOME",
+          "MIDDLE_LOW_INCOME",
+          "GENERAL"
+        ],
+        "items": [
+          {
+            "code": 1,
+            "name": "電動拍痰器",
+            "max": [
+              15000,
+              11300,
+              7500
+            ],
+            "minUseYears": 3
+          },
+          {
+            "code": 2,
+            "name": "非蓄電式抽痰機",
+            "max": [
+              5000,
+              3800,
+              2500
+            ],
+            "minUseYears": 3
+          },
+          {
+            "code": 3,
+            "name": "蓄電式（交直流兩用）抽痰機",
+            "max": [
+              10000,
+              7500,
+              5000
+            ],
+            "minUseYears": 3
+          },
+          {
+            "code": 4,
+            "name": "化痰機（噴霧器）",
+            "max": [
+              5000,
+              3800,
+              2500
+            ],
+            "minUseYears": 3
+          },
+          {
+            "code": 5,
+            "name": "血氧偵測儀（血氧機）",
+            "max": [
+              6000,
+              4500,
+              3000
+            ],
+            "minUseYears": 3
+          },
+          {
+            "code": 6,
+            "name": "氧氣製造機",
+            "max": [
+              25000,
+              18800,
+              12500
+            ],
+            "minUseYears": 5
+          },
+          {
+            "code": 7,
+            "name": "咳嗽（痰）機",
+            "max": [
+              120000,
+              90000,
+              60000
+            ],
+            "minUseYears": 5
+          },
+          {
+            "code": 8,
+            "name": "單相陽壓呼吸器（C-PAP）",
+            "max": [
+              40000,
+              30000,
+              20000
+            ],
+            "minUseYears": 5
+          },
+          {
+            "code": 9,
+            "name": "雙相陽壓呼吸器（Bi-PAP）",
+            "max": [
+              140000,
+              105000,
+              70000
+            ],
+            "minUseYears": 5
+          },
+          {
+            "code": 10,
+            "name": "UPS 不斷電系統",
+            "max": [
+              2500,
+              1900,
+              1300
+            ],
+            "minUseYears": 3
+          }
+        ],
+        "diagnosisValidMonths": 3,
+        "maxItemsPerTwoYears": 4
+      },
+      "status": "APPROVED",
+      "review": {
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T16:12:17+08:00",
+        "decision": "APPROVED",
+        "notes": "官方來源：身心障礙者醫療復健費用及醫療輔具補助辦法（全國法規資料庫，修正日期 110-06-17）第 5 條附表，自 111-01-01 施行。取代 KR-2026-017（新北市 102.03.13 舊表）。第 7、8、9 項品名依原文「咳嗽(痰)機」「單相陽壓呼吸器」「雙相陽壓呼吸器」整理；excerpt 節錄前 10 項與備註 2、3、7、9。壓力衣、矽膠片等項目未收錄於 ruleData。 Jerry 2026-09-24 核准。"
+      }
+    }
+  ]
+}

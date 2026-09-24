@@ -2,7 +2,7 @@
 
 Owner: Engineer B — Backend  
 Type: Backend / External Service  
-Status: QUEUED — DO NOT START UNTIL B-003 MERGED
+Status: MERGED（PR #14；路由由 J-003 PR #20 補上）— 模組完成，不代表整合完成或正式環境驗收（2026-09-23 J-002-r4 核對）  
 
 ---
 

@@ -1,7 +1,7 @@
 # Kareo / 長照一點通 — API Contract
 
-Version: v0.2.1（J-002-r3，2026-09-23）  
-Status: v0.1 內容 LOCKED FOR MVP；**v0.2 新增項目（標示「v0.2」的段落）為 PROPOSED**（MVP_DECISIONS D-04／D-05／D-06），Jerry 核准前屬可逆實作，不得宣稱已核准  
+Version: v0.2.2（J-002-r4，2026-09-23）  
+Status: v0.1 內容 LOCKED FOR MVP；v0.2 session／安全段落（D-04）**SPEC-APPROVED 2026-09-24**；v0.2.2 位置與補助整併（D-13a–g、D-14a–b）**SPEC-APPROVED 2026-09-24**；Lead 接件（D-06）與同意版本（D-05）仍為 PROPOSED  
 Owner: Jerry
 
 ---
@@ -159,6 +159,8 @@ AI_UNAVAILABLE
 INVALID_STATUS_TRANSITION
 ```
 
+`AI_UNAVAILABLE`：保留給未來引入 AI 時使用。MVP 使用規則引擎（D-01），不會產生此錯誤碼；規則引擎、Knowledge resolver 或資料庫失敗依 §3.2 回 `KNOWLEDGE_UNAVAILABLE` 或 `INTERNAL_ERROR`，不得回成功格式的預設結果。
+
 HTTP status 見 §3.2。
 
 ---
@@ -285,6 +287,8 @@ v0.2：需要 `X-Kareo-Session-Token`。三個版本必須是 `contracts/legal/c
     "assistiveDevice": "YES",
     "transportation": "YES"
   },
+  "disabilityCertificate": "UNKNOWN",
+  "incomeCategory": "UNKNOWN",
   "freeText": "最近上下樓比較困難，家人白天需要上班。"
 }
 ```
@@ -321,6 +325,38 @@ v0.2：需要 `X-Kareo-Session-Token`。三個版本必須是 `contracts/legal/c
 
 v0.2：需要 `X-Kareo-Session-Token`。錯誤：無有效同意 `CONSENT_REQUIRED`；無 PUBLISHED 知識 `KNOWLEDGE_UNAVAILABLE`。MVP 由規則引擎產生結果（ASSESSMENT_RULES），Response 格式不變。任何失敗都不得回傳成功格式的預設結果。
 
+### location 欄位（v0.2.2，J-002-r4）
+
+`location` 物件**一律存在**；四個子欄位都**一律出現**，不適用時為 `null`（不省略）。`precision` 決定哪些欄位必填：
+
+| `precision` | 意義 | `city` | `district` | `lat`／`lng` | 取得方式 |
+|---|---|---|---|---|---|
+| `NONE` | 使用者不提供位置 | `null` | `null` | `null` | 使用者選「不提供」，或 GPS 失敗且未選行政區 |
+| `CITY` | 只有縣市 | 必填 | `null` | `null` | 使用者只選縣市 |
+| `DISTRICT` | 縣市＋行政區 | 必填 | 必填 | `null` | 使用者選縣市與行政區（MVP 預設路徑） |
+| `GPS` | 裝置定位 | 必填 | 必填 | 必填（WGS84 十進位度數） | 瀏覽器定位，使用者同意後取得；縣市與行政區仍由使用者選擇（D-13d） |
+| `EXACT` | 可定位的完整地址 | 必填 | 必填 | 必填 | 由完整地址轉換座標；轉換服務待 Jerry 決定（D-13d） |
+
+- `city` 只接受 `臺北市`、`新北市`（MVP 服務地區，PRODUCT_SPEC §7）。其他縣市的使用者以 `NONE` 送出（D-14b）。
+- 組合不符上表 → `VALIDATION_ERROR`（例如 `DISTRICT` 缺 `district`、`NONE` 卻帶座標、`lat` 超出 −90～90）。
+- **不提供位置仍可完成評估**：`NONE`／`CITY` 不得因缺少位置被拒。
+- 座標只用於推薦距離計算；保存與刪除依 PRIVACY_AND_RETENTION §2（D-13e）。
+
+### disabilityCertificate（v0.3.1，2026-09-24，D-17）
+
+- 值：`YES`／`NO`／`UNKNOWN`（是否領有身心障礙證明）。選填；未提供時後端視為 `UNKNOWN`（向下相容，舊前端不會被拒）。其他值 → `VALIDATION_ERROR`。
+- 不收障礙類別、等級或證明影本。
+- `YES` 時，summary 另含身心障礙福利補助說明（ASSESSMENT_RULES §6.5）；`UNKNOWN` 時含一句提示；`NO` 時不提。回應格式不變。
+
+### incomeCategory（v0.3.2，2026-09-24，D-17a）
+
+- 值：`LOW_INCOME`（低收入戶）／`MIDDLE_LOW_INCOME`（中低收入戶）／`ALLOWANCE`（領有中低收入老人生活津貼或身心障礙者生活補助，但非低收、中低收）／`GENERAL`（以上皆非）／`UNKNOWN`。選填；未提供視為 `UNKNOWN`。其他值 → `VALIDATION_ERROR`。
+- 用途：結果頁的個人自付估算（ASSESSMENT_RULES §6.6）。不收收入金額、存款或證明文件。回應格式不變。
+
+### summary 格式（v0.2.2）
+
+`careNeedProfile.summary` 仍是單一字串（不新增欄位）。內容由 ASSESSMENT_RULES §6 的模板組成，句子之間以 `\n` 分隔；包含需求、可能資格、可能適用的補助說明（金額／比率為官方規則說明，非核定結果）、地方資訊與下一步。前端逐行顯示，不解析內容。範例：`contracts/mock/assessments/WITH-SUBSIDY-NEW_TAIPEI.json`（Mock，數值不代表已核准知識）。
+
 Care Need Enum：
 
 ```text
@@ -338,7 +374,40 @@ TRANSPORTATION
 
 TRANSPORTATION 不使用此 API。
 
-v0.2：需要 `X-Kareo-Session-Token`；`assessmentId` 必須屬於同一 session。排序依 PRODUCT_SPEC §21–24：使用者提供精確位置**且** Provider 有已驗證座標時用 `DISTANCE`；只有行政區時用 `DISTRICT_ROTATION`；不得用未驗證座標計算距離、不得宣稱「最近」。目前 Provider 座標為資料缺口（MVP_DECISIONS D-07），所以真實資料暫時只會走 `DISTRICT_ROTATION`，但 `DISTANCE` 分支屬 MVP 必要功能，須實作與測試。只有縣市／沒有位置的回應待 D-13 決議。
+v0.2：需要 `X-Kareo-Session-Token`；`assessmentId` 必須屬於同一 session。
+
+### 位置與排序（v0.2.2，J-002-r4；依 PRODUCT_SPEC §20–24）
+
+位置來自該 Assessment 的 `location`（§8），Request 不另帶位置。所有候選都先經過：`status = ACTIVE` → 服務類型相符（ProviderService.active）→ 服務範圍相符（ProviderServiceArea.active；服務範圍與地址分開，PRODUCT_SPEC §19）。
+
+| Assessment `precision` | 服務範圍比對 | 條件 | `rankingType` | 排序 | `distanceKm` | 狀態 |
+|---|---|---|---|---|---|---|
+| `GPS`／`EXACT` | 縣市＋行政區 | 所有候選都有已驗證座標 | `DISTANCE` | Haversine 直線距離由近到遠；同距離依 `providerId` 升冪 | 數值（公里，四捨五入到小數 1 位） | 原始 MVP（§21） |
+| `GPS`／`EXACT` | 縣市＋行政區 | 任一候選缺已驗證座標（部分或全部） | `DISTRICT_ROTATION` | 同下列穩定輪替 | `null` | **APPROVED D-13c** |
+| `DISTRICT` | 縣市＋行政區 | — | `DISTRICT_ROTATION` | 穩定輪替（D-13f） | `null` | 原始 MVP（§22–23） |
+| `CITY` | 服務範圍含該縣市任一行政區 | — | `CITY_ROTATION` | 穩定輪替（seed 不含行政區） | `null` | **APPROVED D-13a** |
+| `NONE` | 不比對 | — | `NO_LOCATION` | 不推薦，`providers = []` | — | **APPROVED D-13b**（前端在 NONE 時不呼叫本 API） |
+
+規則：
+
+- **不得**用未驗證座標、地址或行政區中心點推估距離；`distanceKm` 與「距離約 X 公里」**只在** `rankingType = DISTANCE` 出現。
+- 除 `DISTANCE` 外，`notice` 必須說明「並非依實際距離排序」；任何 rankingType 都不得出現「最近」「附近」。
+- 最多回傳 3 家；1 或 2 家就回 1 或 2 家；0 家回 `success: true`＋空陣列＋提醒 `notice`，不得 Error（§20）。
+- 穩定輪替（D-13f 建議）：以 `sha256(sessionId|city|district|date|providerId)` 由小到大排序，`date` 為 Asia/Taipei 的 `YYYY-MM-DD`；`CITY_ROTATION` 的 seed 不含 `district`。同 session 同日結果相同，不同日期可輪替；禁止純 Random。
+- 每次推薦寫入 RecommendationRun（`rankingType`、`locationPrecision`）與 RecommendationItem（DATA_MODEL §20–21）。
+
+回應欄位（所有 rankingType 一致）：
+
+| 欄位 | 規則 |
+|---|---|
+| `rankingType` | 一律存在：`DISTANCE`／`DISTRICT_ROTATION`／`CITY_ROTATION`／`NO_LOCATION` |
+| `locationPrecision` | 一律存在，等於 Assessment 的 `location.precision`（空結果也要有） |
+| `providers` | 一律存在，0–3 筆 |
+| `providers[].distanceKm` | 一律存在；只有 `DISTANCE` 為數值，其餘為 `null` |
+| `providers[].reasons` | 可理解的推薦原因；只有 `DISTANCE` 可含「距離約 X 公里」 |
+| `notice` | 一律存在，依上表說明排序依據或補充位置提示 |
+
+Mock：`contracts/mock/recommendations/`（`DISTRICT_ROTATION`）與 `ranking-variants/`（`DISTANCE`、`DISTANCE` 缺座標改行政區、`CITY_ROTATION`、`NO_LOCATION`）。以上格式已於 2026-09-24 核准（D-13a–c）。
 
 ### Request
 
@@ -379,7 +448,7 @@ v0.2：需要 `X-Kareo-Session-Token`；`assessmentId` 必須屬於同一 sessio
         ]
       }
     ],
-    "notice": "以下結果依您提供的位置與需求進行初步推薦。"
+    "notice": "以下結果依您提供的位置與需求進行初步推薦，距離為直線距離的約略值。"
   }
 }
 ```
@@ -429,8 +498,66 @@ v0.2：需要 `X-Kareo-Session-Token`；`assessmentId` 必須屬於同一 sessio
     "recommendationId": "REC-003",
     "serviceType": "HOME_CARE",
     "rankingType": "DISTRICT_ROTATION",
+    "locationPrecision": "DISTRICT",
     "providers": [],
     "notice": "目前尚未找到符合條件的服務單位，建議查看更多官方資源或聯絡 1966。"
+  }
+}
+```
+
+
+### 精確位置但候選缺座標 Response（APPROVED D-13c）
+
+```json
+{
+  "success": true,
+  "data": {
+    "recommendationId": "REC-004",
+    "serviceType": "HOME_CARE",
+    "rankingType": "DISTRICT_ROTATION",
+    "locationPrecision": "GPS",
+    "providers": [
+      { "id": "PROV-010", "rank": 1, "distanceKm": null, "reasons": ["服務範圍包含三重區", "提供您需要的居家照顧服務"] }
+    ],
+    "notice": "部分服務單位尚無已確認的位置資料，本次改依您選擇的行政區推薦，並非依實際距離排序。"
+  }
+}
+```
+
+（`providers[]` 其餘欄位同上，此處省略。）
+
+### 只有縣市 Response（APPROVED D-13a）
+
+```json
+{
+  "success": true,
+  "data": {
+    "recommendationId": "REC-005",
+    "serviceType": "HOME_CARE",
+    "rankingType": "CITY_ROTATION",
+    "locationPrecision": "CITY",
+    "providers": [
+      { "id": "PROV-020", "rank": 1, "distanceKm": null, "reasons": ["服務範圍包含新北市部分行政區", "提供您需要的居家照顧服務"] }
+    ],
+    "notice": "目前只依您提供的縣市推薦，並非依實際距離排序，也不代表能服務您所在的行政區。補充行政區後可取得更適合的推薦。"
+  }
+}
+```
+
+### 沒有位置 Response（APPROVED D-13b）
+
+前端在 `NONE` 時不呼叫本 API，直接顯示服務建議與補充位置提示。若仍被呼叫：
+
+```json
+{
+  "success": true,
+  "data": {
+    "recommendationId": "REC-006",
+    "serviceType": "HOME_CARE",
+    "rankingType": "NO_LOCATION",
+    "locationPrecision": "NONE",
+    "providers": [],
+    "notice": "您尚未提供位置，因此無法推薦服務單位。提供縣市或行政區後，可以取得符合服務範圍的推薦。"
   }
 }
 ```
@@ -773,6 +900,27 @@ Code
 
 ---
 
+# 26. Admin Knowledge API（v0.3，2026-09-24，D-16）
+
+供 Jerry 在管理頁面（C-006）審核與發布知識。實作：TASK-B-012。
+
+- 驗證：`POST /api/v1/admin/session`，Body `{ "operatorId": "...", "operatorKey": "..." }` → `{ "adminToken": "...", "expiresAt": "..." }`（15 分鐘）。之後以 `X-Kareo-Admin-Token` 呼叫；只接受 `InternalOperator.roles` 含 `KNOWLEDGE_PUBLISHER` 且 `active` 的操作者。
+- 所有 admin 回應 `Cache-Control: no-store`；寫入操作必填 `reason`（發布除外），並寫入稽核紀錄。
+
+| 方法與路徑 | Request 重點 | Response 重點 |
+|---|---|---|
+| `GET /api/v1/admin/knowledge/status` | — | `publishedVersion`、`publishedAt`、`lastCrawlerRun { status, startedAt, finishedAt }` |
+| `GET /api/v1/admin/knowledge/changes?status=NEEDS_REVIEW` | — | `changes[] { id, sourceId, detectedAt, previousHash, currentHash, diffSummary, status }` |
+| `GET /api/v1/admin/knowledge/records?status=NEEDS_REVIEW` | — | `records[] { id, packId, recordId, title, jurisdiction, category, sourceUrl, summary, effectiveFrom, status }` |
+| `POST /api/v1/admin/knowledge/records/{id}/decision` | `{ "decision": "APPROVED" \| "REJECTED", "reason": "..." }` | 更新後的紀錄 |
+| `POST /api/v1/admin/knowledge/publish` | `{ "versionId": "KB-YYYY-MM-DD-NNN", "confirm": true }` | `{ versionId, publishedRecordCount, carriedForwardCount, supersededRecordCount }` |
+| `POST /api/v1/admin/knowledge/withdraw` | `{ "reason": "...", "republishVersionId": null, "confirm": true }` | `{ withdrawnVersionId, republishedVersionId }` |
+| `POST /api/v1/admin/knowledge/changes/{id}/dismiss` | `{ "reason": "..." }` | 更新後的變更 |
+
+錯誤：無 token／過期 → `SESSION_INVALID`；角色不符 → `FORBIDDEN`；發布條件不符（無 APPROVED 紀錄、版號已存在、`confirm` 不是 true）→ `VALIDATION_ERROR`，資料不變。
+
+---
+
 # 25. Change Log
 
 | 版本 | 日期 | 內容 | 下游 |
@@ -780,3 +928,8 @@ Code
 | v0.1 | 2026-09-14 | MVP 初版 | — |
 | v0.2 | 2026-09-23 | Session token 持有證明、DELETE session、Consent 撤回、Lead 冪等與聯絡同意、錯誤碼與 HTTP 對照、限制（J-002-r1） | B-011、B-006、B-005、B-010、C（adapter 由 J-003 接線）、contracts/mock |
 | v0.2.1 | 2026-09-23 | 狀態標示更正：v0.2 新增項目為 PROPOSED；§9 恢復原始 MVP 的 DISTANCE／DISTRICT_ROTATION 兩種排序（座標為資料缺口，D-07）；無位置／只有縣市回應待 D-13（J-002-r3） | B-005、B-011a、C-005、J-003 |
+| v0.2.2 | 2026-09-23 | §8 `location` 依 precision 定義必填／null 規則，`NONE`／`CITY` 可完成評估；`summary` 以 `\n` 分段承載補助說明（不新增欄位）；§9 統一位置與排序表、回應欄位一律出現、空結果補 `locationPrecision`、缺座標／只有縣市／沒有位置的 PROPOSED 回應（D-13a–c）；`AI_UNAVAILABLE` 標示 MVP 不使用（J-002-r4） | B-010（location 驗證、summary）、B-005、C-005、J-003、contracts/mock |
+| v0.2.3 | 2026-09-24 | 狀態更新：D-04、D-13a–g、D-14a–b 核准（PR #31 comment 5806704685）；內容不變 | B-011a、B-005、B-010、C-005 |
+| v0.3 | 2026-09-24 | 新增 §26 Admin Knowledge API（D-16，Jerry 核准）；知識來源 authority 新增 `KAREO_DRIVE`（D-15） | B-012、C-006、B-008-r2、J-003 |
+| v0.3.1 | 2026-09-24 | §8 Assessment Request 新增選填 `disabilityCertificate`（YES／NO／UNKNOWN，D-17）；回應格式不變 | B-010、C-005、J-003 |
+| v0.3.2 | 2026-09-24 | §8 Assessment Request 新增選填 `incomeCategory`（D-17a）；回應格式不變 | B-010、C-005、J-003 |

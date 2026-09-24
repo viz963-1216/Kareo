@@ -1,0 +1,7 @@
+{
+  "success": true,
+  "data": {
+    "adminToken": "ADMIN-TOKEN-MOCK",
+    "expiresAt": "2026-09-24T12:15:00+08:00"
+  }
+}

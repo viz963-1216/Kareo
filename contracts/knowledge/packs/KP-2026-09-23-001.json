@@ -5,13 +5,13 @@
   "createdAt": "2026-09-23T10:57:00+08:00",
   "createdBy": "J-002 (prepared for Jerry review)",
   "sourceRegistryVersion": "SR-2026-09-23-01",
-  "status": "NEEDS_REVIEW",
+  "status": "APPROVED",
   "review": {
-    "reviewedBy": null,
-    "reviewedAt": null,
-    "decision": null
+    "reviewedBy": "Jerry",
+    "reviewedAt": "2026-09-24T09:52:27+08:00",
+    "decision": "APPROVED"
   },
-  "intendedKnowledgeVersion": null,
+  "intendedKnowledgeVersion": "KB-2026-09-24-001",
   "records": [
     {
       "recordId": "KR-2026-001",
@@ -58,12 +58,12 @@
           "GROUP_HOME"
         ]
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "第 2 條第 1 項第 3、4 款自 2026-01-01 施行（辦法第 22 條）；其餘自 2025-09-01。1966 頁面同步說明失智症新增 49 歲以下。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T09:52:27+08:00",
+        "decision": "APPROVED",
+        "notes": "第 2 條第 1 項第 3、4 款自 2026-01-01 施行（辦法第 22 條）；其餘自 2025-09-01。1966 頁面同步說明失智症新增 49 歲以下。 2026-09-24 對照官方原文逐條／逐格比對一致（審核對照表：D-02-知識審核對照表），Jerry 於對話中指示全部核准。 審核註記：ruleData.requiresDisability 指「身心失能」前提，非身心障礙證明；欄位名稱待日後修正。"
       }
     },
     {
@@ -90,12 +90,12 @@
         "max": 8,
         "benefitEligibleMin": 2
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": null
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T09:52:27+08:00",
+        "decision": "APPROVED",
+        "notes": "2026-09-24 對照官方原文逐條／逐格比對一致（審核對照表：D-02-知識審核對照表），Jerry 於對話中指示全部核准。"
       }
     },
     {
@@ -137,12 +137,12 @@
           ]
         ]
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": null
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T09:52:27+08:00",
+        "decision": "APPROVED",
+        "notes": "2026-09-24 對照官方原文逐條／逐格比對一致（審核對照表：D-02-知識審核對照表），Jerry 於對話中指示全部核准。"
       }
     },
     {
@@ -199,12 +199,12 @@
           "8": 48510
         }
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "excerpt 為附表二 PDF 表格內容逐格轉錄（表格無法逐字貼上），審核人需對照 PDF 核對每一個數字。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T09:52:27+08:00",
+        "decision": "APPROVED",
+        "notes": "excerpt 為附表二 PDF 表格內容逐格轉錄（表格無法逐字貼上），審核人需對照 PDF 核對每一個數字。 2026-09-24 對照官方原文逐條／逐格比對一致（審核對照表：D-02-知識審核對照表），Jerry 於對話中指示全部核准。 審核註記：附表二備註二「第一組或第二組擇一申請；115/6/30 前已獲第一組者滿三年後始得申請第二組」未收錄於 ruleData，待下一批內容包補充。"
       }
     },
     {
@@ -244,12 +244,12 @@
           }
         }
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "2025-10-03 勘誤涉及附表三，審核人需確認 PDF 為勘誤後版本。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T09:52:27+08:00",
+        "decision": "APPROVED",
+        "notes": "2025-10-03 勘誤涉及附表三，審核人需確認 PDF 為勘誤後版本。 2026-09-24 對照官方原文逐條／逐格比對一致（審核對照表：D-02-知識審核對照表），Jerry 於對話中指示全部核准。 審核註記：核准時未另行核對 2025-10-03 勘誤函；PDF sha256 與擷取版相同。"
       }
     },
     {
@@ -319,12 +319,12 @@
         },
         "rounding": "FLOOR"
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "2025-10-03 勘誤涉及第 14 條與附表五，審核人需確認為勘誤後版本。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T09:52:27+08:00",
+        "decision": "APPROVED",
+        "notes": "2025-10-03 勘誤涉及第 14 條與附表五，審核人需確認為勘誤後版本。 2026-09-24 對照官方原文逐條／逐格比對一致（審核對照表：D-02-知識審核對照表），Jerry 於對話中指示全部核准。 審核註記：核准時未另行核對 2025-10-03 勘誤函；PDF sha256 與擷取版相同。"
       }
     },
     {
@@ -352,12 +352,12 @@
         "ASSISTIVE_DEVICE_AND_HOME_MODIFICATION": "EVERY_3_YEARS",
         "RESPITE": "YEARLY"
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": null
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T09:52:27+08:00",
+        "decision": "APPROVED",
+        "notes": "2026-09-24 對照官方原文逐條／逐格比對一致（審核對照表：D-02-知識審核對照表），Jerry 於對話中指示全部核准。"
       }
     },
     {
@@ -391,12 +391,12 @@
           "hours": "Mon-Fri 08:30-12:00,13:30-17:30"
         }
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "頁面未標示公告日，publishedAt 留空；effectiveFrom 以擷取日表示。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T09:52:27+08:00",
+        "decision": "APPROVED",
+        "notes": "頁面未標示公告日，publishedAt 留空；effectiveFrom 以擷取日表示。 2026-09-24 對照官方原文逐條／逐格比對一致（審核對照表：D-02-知識審核對照表），Jerry 於對話中指示全部核准。"
       }
     },
     {
@@ -424,12 +424,12 @@
         "fax": "02-2537-6533",
         "address": "臺北市中山區錦州街233號"
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "頁面標示資料更新 115-09-04。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T09:52:27+08:00",
+        "decision": "APPROVED",
+        "notes": "頁面標示資料更新 115-09-04。 2026-09-24 對照官方原文逐條／逐格比對一致（審核對照表：D-02-知識審核對照表），Jerry 於對話中指示全部核准。"
       }
     }
   ]

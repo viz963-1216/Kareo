@@ -70,3 +70,39 @@ contracts/mock/
 - 推薦：依 `serviceType` 讀取對應的 `recommendations/<serviceType>.json`；測試 0～3 家時取 `providers.slice(0, n)`，不要改動卡片內容或 ID。
 - 詳細頁：以卡片的 `id` 讀取 `providers/<id>.json`；找不到檔案時回傳 `errors/provider-not-found-response.json`，畫面顯示找不到，不得改用其他單位的資料。
 - 所有名稱、電話、網址都是測試資料（`example.com`、虛構電話），不代表真實單位。
+
+---
+
+## 位置情境與補助說明 fixtures（2026-09-23，J-002-r4）
+
+供 C-005 做 Mock 模組驗收。格式依 API_CONTRACT v0.2.2 §8–§9。D-13a–c 與 D-01a 已於 2026-09-24 核准。
+
+| 檔案 | 情境 | rankingType／locationPrecision | 狀態 |
+|---|---|---|---|
+| `recommendations/<serviceType>.json` | 只有行政區 | `DISTRICT_ROTATION`／`DISTRICT` | 原始 MVP |
+| `recommendations/ranking-variants/HOME_CARE-DISTANCE.json` | 精確位置，候選都有已驗證座標 | `DISTANCE`／`GPS` | 原始 MVP |
+| `recommendations/ranking-variants/HOME_CARE-DISTANCE-MISSING-COORDINATES.json` | 精確位置，但候選缺座標 → 改行政區輪替 | `DISTRICT_ROTATION`／`GPS` | 已核准 D-13c |
+| `recommendations/ranking-variants/HOME_CARE-CITY_ROTATION.json` | 只有縣市 | `CITY_ROTATION`／`CITY` | 已核准 D-13a |
+| `recommendations/ranking-variants/HOME_CARE-NO_LOCATION.json` | 沒有位置（前端正常情況不呼叫；防呆用） | `NO_LOCATION`／`NONE`，0 家 | 已核准 D-13b |
+| `assessments/WITH-SUBSIDY-NEW_TAIPEI.json` | 結果頁含可能適用的補助說明（`summary` 以 `\n` 分段，ASSESSMENT_RULES §6） | — | 模板已核准（D-01a） |
+
+注意：
+
+1. `WITH-SUBSIDY-NEW_TAIPEI.json` 的金額、比率與來源文字取自 `KP-2026-09-23-001`，該內容包已於 2026-09-24 內容核准但**尚未發布**；Mock 使用 `KB-MOCK-001`，只示範格式與排版，不代表已發布的知識，也不得被正式環境使用。
+2. 前端只負責逐行顯示 `summary` 與 `knowledgeVersion`，不得解析句子、不得自行計算或補上任何金額。
+3. 所有 `distanceKm` 只在 `DISTANCE` 為數值；其餘 fixture 一律為 `null`。
+
+
+---
+
+## Admin Knowledge fixtures（2026-09-24，D-16）
+
+供 C-006 管理頁面 Mock 驗收，格式依 API_CONTRACT §26。`contracts/mock/admin/`：`session-response`、`knowledge-status-response`、`knowledge-changes-response`、`knowledge-records-response`、`knowledge-publish-response`。所有內容為測試資料（`*-MOCK-*`），不代表真實版本或制度。錯誤情境沿用 API_CONTRACT §5 通用錯誤格式。
+
+### 身心障礙福利補助 fixture（2026-09-24，D-17）
+
+`assessments/WITH-DISABILITY-NEW_TAIPEI.json`：使用者勾選領有身心障礙證明（`disabilityCertificate = YES`）時的 summary 範例（ASSESSMENT_RULES §6.5）。金額取自 KR-2026-018（待審核）與 KR-2026-016，只示範格式。第 3 行為省略標記，不是實際輸出。
+
+### 個人自付估算 fixture（2026-09-24，D-17a）
+
+`assessments/WITH-ESTIMATE-GENERAL-NEW_TAIPEI.json`：使用者選「一般戶」、勾選領有身心障礙證明時的 summary 範例（ASSESSMENT_RULES §6.6）。括號「……略……」行為省略標記。金額依已核准知識計算，只示範格式。
