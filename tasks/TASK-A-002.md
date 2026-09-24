@@ -2,7 +2,7 @@
 
 Owner: Engineer A — Data / QA / Research  
 Type: Data / Research / QA  
-Status: READY
+Status: MERGED（隨 A-003 PR #13 進入 staging；服務 id／active 由 A-004 PR #18 補齊）— 模組完成，不代表整合完成或正式環境驗收（2026-09-23 J-002-r4 核對）  
 
 ---
 

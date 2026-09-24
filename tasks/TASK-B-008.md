@@ -2,13 +2,13 @@
 
 Owner: Engineer B — Backend  
 Type: Backend / Knowledge  
-Status: QUEUED — DO NOT START UNTIL B-003 MERGED AND JERRY SOURCE REGISTRY READY
+Status: r1 MERGED（PR #26）— 模組完成，非整合完成；D-03、D-10 延伸使用 2026-09-24 核准；**r2 READY**（修正發布版號與失效紀錄，首次知識發布前必須完成）  
 
 ---
 
 # Goal / 目標
 
-建立 Knowledge DB 基礎、Publish Gate 與 `GET /api/v1/knowledge/status`。Crawler 由 B-009 承接（原始 MVP，延後提案 D-11 未核准）；本任務須提供 B-009 需要的 KnowledgeChange／CrawlerRun 寫入點。正式 Assessment 不得使用未 Published Knowledge。
+建立 Knowledge DB 基礎、Publish Gate 與 `GET /api/v1/knowledge/status`。Crawler 由 B-009 承接（原始 MVP）；本任務須提供 B-009 需要的 KnowledgeChange／CrawlerRun 寫入點。正式 Assessment 不得使用未 Published Knowledge。
 
 ---
 
@@ -127,8 +127,72 @@ PR Title：
 
 ---
 
-## 2026-09-23 核准狀態說明（J-002-r3）
+---
 
-- 內容包格式與發布規則（D-03）目前是 **PROPOSED**：B-008 可依此開發（PR #26 已送審），但**合併前需 Jerry 核准 D-03**，避免格式變動造成重做。
-- 知識發布／撤回使用 Postgres function（沿用 D-10 模式）需 Jerry 另行核准（ARCHITECTURE §22 第 6 點）。
-- 首批內容包 9 筆仍是 `NEEDS_REVIEW`；B-008 驗收可用它測試匯入，但匯入結果不得被當成已核准或已發布知識。
+## 核准狀態
+
+- r1 已合併（PR #26，2026-09-23）。D-03 內容包格式與 D-10 延伸使用（發布／撤回函式）於 2026-09-24 由 Jerry 核准：[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806617991)。
+  - 接受的例外：`publish_knowledge_version` 在函式內檢查紀錄必須為 APPROVED。
+  - MVP 暫行做法：發布／撤回權限只依 service_role 金鑰，`approvedBy`／`createdBy` 由指令參數填寫。
+- 首批內容包 9 筆已於 2026-09-24 內容核准（D-02），目標版本 `KB-2026-09-24-001`；匯入資料庫後仍為 `NEEDS_REVIEW`，需經 approve → publish 才成為 PUBLISHED。
+- 線上 `assessment` function 尚未使用 B-008 的 PUBLISHED resolver；接線由 B-010 負責。
+
+---
+
+# B-008-r2 — 發布版號與失效紀錄修正
+
+## Goal / 目標
+
+讓首次知識發布完全符合已核准的 D-03（`contracts/knowledge/README.md` §4）：發布出來的正式版號等於 Jerry 核准的 `intendedKnowledgeVersion`，且已失效的紀錄不會被發布。
+
+## Prerequisite / 前置條件
+
+- r1 已合併（完成）；D-03、D-10 延伸使用已核准（完成）。
+- 不需要其他任務。**B 的下一個 Active Task**（排在 B-011a 之前；範圍小，且卡住首次知識發布）。
+
+## Branch / PR Rule
+
+從最新 `staging` 建立 `fix/b-008-r2-publish-version`，PR → `staging`。Submission Version `B-008-r2`。
+PR Title：`[B-008] Publish uses intended knowledge version`
+
+## Allowed Paths
+
+```text
+/apps/api/**
+```
+
+## Deliverables
+
+1. **版號來自內容包**：`publishKnowledgeVersion` 讀取內容包的 `intendedKnowledgeVersion` 作為 KnowledgeVersion id，傳給 `publish_knowledge_version`。
+   - 內容包 `status` 不是 `APPROVED`，或 `intendedKnowledgeVersion` 為 null／不符 `KB-YYYY-MM-DD-NNN` → 拒絕發布，不呼叫 rpc，非零結束。
+   - 該版號已存在於 `knowledge_versions`（任何狀態）→ 拒絕發布，不覆寫、不改用其他號碼。
+   - 發布流程不再使用 `generateKnowledgeVersionId()` 產生版號。
+2. **排除已失效紀錄**：以 Asia/Taipei 的發布日判斷，`effectiveTo` 早於發布日的紀錄不納入 `recordIds`，並在輸出列出被排除的 recordId；全部被排除 → 拒絕發布，不呼叫 rpc。`effectiveFrom` 晚於發布日的紀錄**可以**納入（README §4）。
+3. 驗證都放在 Node Service 層（ARCHITECTURE §22 第 1 點）；不修改內容包格式。
+5. **一個版本包含全部有效紀錄（D-03-v2，2026-09-24 核准）**：
+   - 發布指令可接受多個內容包檔案；所有內容包必須是 `APPROVED` 且 `intendedKnowledgeVersion` 相同，否則拒絕。首批：`KP-2026-09-23-001`＋`KP-2026-09-24-002` → `KB-2026-09-24-001`。
+   - 發布新版本時，前一個 PUBLISHED 版本中**未被新內容取代**（同 `jurisdiction + ruleData.type + title` 沒有新紀錄）且仍有效的紀錄，一併帶入新版本；被取代或已失效者 → SUPERSEDED。
+   - 若需要調整 `publish_knowledge_version`（例如讓紀錄可屬於多個版本），先交 Jerry 決定 schema 變更，不自行修改。
+6. **接受 Jerry 指定資料夾來源（D-15，2026-09-24 核准）**：匯入驗證的 `AUTHORITIES` 加入 `KAREO_DRIVE`；`authority = KAREO_DRIVE` 時 URL 須符合 `https://drive.google.com/file/d/<fileId>/…`，且 sourceId 已登錄於 Source Registry（其他來源維持 gov.tw／gov.taipei 規則）。
+4. 更新操作說明（指令用法、輸出範例、失敗訊息）。
+
+## Acceptance Criteria
+
+- [ ] 以 `KP-2026-09-23-001` 的測試資料發布，建立的版本 id 等於 `KB-2026-09-24-001`
+- [ ] 001＋002 一起發布：版本內有 15 筆 PUBLISHED；再發布一個只含 1 筆更新的內容包時，其餘 14 筆仍為 PUBLISHED；`intendedKnowledgeVersion` 不一致的多個內容包被拒絕
+- [ ] `intendedKnowledgeVersion` 缺漏、格式錯、內容包非 APPROVED → 失敗且 rpc 未被呼叫（測試證明）
+- [ ] 版號已存在 → 失敗且 rpc 未被呼叫，既有版本不變
+- [ ] `effectiveTo` 早於發布日的紀錄被排除並列出；全部失效 → 失敗且 rpc 未被呼叫
+- [ ] `effectiveFrom` 晚於發布日的紀錄仍會納入
+- [ ] `KAREO_DRIVE` 來源：已登錄且 URL 正確 → 可匯入；未登錄或非 Drive 檔案網址 → 拒絕
+- [ ] 既有 B-008 測試全部通過；`npm run typecheck`、`npm test`（apps/api）通過
+- [ ] 不連正式或 staging 資料庫做測試；實際首次發布由 J-003 執行
+
+## Not In Scope
+
+資料表或函式變更、內容包格式變更、授權操作者機制（InternalOperator）、Admin UI、首次發布本身。
+
+## 變更紀錄
+
+- 2026-09-24 J-002-r4：D-03 與 B-008 實作比對發現 2 處差異（版號、失效紀錄），依 Jerry 核准開立 r2。
+- 2026-09-24：發現規格缺口（發布會讓其他內容包的紀錄失效），新增第 5 點；D-03-v2、D-15 核准，新增第 6 點。

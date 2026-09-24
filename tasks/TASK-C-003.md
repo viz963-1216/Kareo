@@ -2,7 +2,7 @@
 
 Owner: Engineer C — Frontend  
 Type: Frontend / Recommendation  
-Status: QUEUED — DO NOT START UNTIL C-002 MERGED
+Status: MERGED（PR #17，Mock 模組驗收）— 模組完成，不代表整合完成或正式環境驗收（2026-09-23 J-002-r4 核對）  
 
 ---
 

@@ -2,7 +2,7 @@
 
 Owner: Engineer C — Frontend  
 Type: Frontend / Provider  
-Status: QUEUED — DO NOT START UNTIL C-003 MERGED
+Status: MERGED（PR #27，Mock 模組驗收；API 入口衝突與距離 Mock 已於合併前修正）— 模組完成，不代表整合完成或正式環境驗收（2026-09-23 J-002-r4 核對）  
 
 ---
 

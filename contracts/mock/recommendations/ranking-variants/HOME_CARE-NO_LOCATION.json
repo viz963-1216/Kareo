@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "data": {
+    "recommendationId": "REC-MOCK-HC-NOLOC-001",
+    "serviceType": "HOME_CARE",
+    "rankingType": "NO_LOCATION",
+    "locationPrecision": "NONE",
+    "providers": [],
+    "notice": "您尚未提供位置，因此無法推薦服務單位。提供縣市或行政區後，可以取得符合服務範圍的推薦。"
+  }
+}

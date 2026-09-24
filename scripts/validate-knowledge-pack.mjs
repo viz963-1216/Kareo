@@ -19,11 +19,13 @@ const activeSources = new Set(
 
 const CATEGORIES = ['ELIGIBILITY', 'BENEFIT', 'COPAY', 'ASSISTIVE_DEVICE', 'TRANSPORTATION', 'RESPITE', 'HOME_CARE', 'HOME_MEDICAL_NURSING', 'APPLICATION', 'OTHER'];
 const JURISDICTIONS = ['TAIWAN', 'TAIPEI', 'NEW_TAIPEI'];
-const AUTHORITIES = ['MOHW', 'LAW', 'TAIPEI_GOV', 'NEW_TAIPEI_GOV'];
+const AUTHORITIES = ['MOHW', 'LAW', 'TAIPEI_GOV', 'NEW_TAIPEI_GOV', 'KAREO_DRIVE'];
 const STATUSES = ['NEEDS_REVIEW', 'APPROVED', 'REJECTED', 'CONFLICT'];
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const DATETIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
 const OFFICIAL_URL = /^https:\/\/([a-z0-9-]+\.)*(gov\.tw|gov\.taipei)\//;
+// D-15 (2026-09-24): files in Jerry's designated Google Drive folder, registered in source-registry.md.
+const DRIVE_FILE_URL = /^https:\/\/drive\.google\.com\/file\/d\/[A-Za-z0-9_-]+(\/|$)/;
 
 let errors = 0;
 const fail = (file, msg) => { errors += 1; console.error(`FAIL ${file}: ${msg}`); };
@@ -60,7 +62,9 @@ for (const file of packs) {
     const s = r.source ?? {};
     if (!activeSources.has(s.sourceId)) fail(where, `source ${s.sourceId} not active in source-registry.md`);
     if (!AUTHORITIES.includes(s.authority)) fail(where, 'bad source.authority');
-    if (!OFFICIAL_URL.test(s.url ?? '')) fail(where, 'source.url must be an official https gov domain');
+    if (s.authority === 'KAREO_DRIVE') {
+      if (!DRIVE_FILE_URL.test(s.url ?? '')) fail(where, 'KAREO_DRIVE source.url must be a drive.google.com/file/d/<id> link');
+    } else if (!OFFICIAL_URL.test(s.url ?? '')) fail(where, 'source.url must be an official https gov domain');
     if (!DATETIME.test(s.fetchedAt ?? '')) fail(where, 'bad source.fetchedAt');
     if (!/^sha256:[0-9a-f]{64}$/.test(s.contentHash ?? '')) fail(where, 'bad source.contentHash');
     if (r.publishedAt !== null && !DATE.test(r.publishedAt ?? '')) fail(where, 'bad publishedAt');

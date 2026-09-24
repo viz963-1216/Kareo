@@ -2,7 +2,7 @@
 
 Owner: Engineer B  
 Type: Backend / Architecture Preparation  
-Status: READY
+Status: MERGED（PR #3）— 模組完成，不代表整合完成或正式環境驗收（2026-09-23 J-002-r4 核對）  
 
 ---
 

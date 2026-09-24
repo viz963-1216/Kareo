@@ -2,7 +2,7 @@
 
 Owner: Engineer A — Data / QA / Research  
 Type: Data Validation  
-Status: QUEUED — DO NOT START UNTIL A-003 MERGED
+Status: MERGED（PR #18，A-004-r2）— 模組完成，不代表整合完成或正式環境驗收（2026-09-23 J-002-r4 核對）  
 
 ---
 

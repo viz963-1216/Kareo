@@ -1,47 +1,65 @@
-# TASK-J-002 — MVP Decisions + Initial Knowledge + Privacy / Lead Specifications
+# TASK-J-002 — MVP Decisions + Knowledge + Privacy / Lead / Location Specifications
 
 Owner: Jerry  
-Status: QUEUED（依下列前置條件啟動）  
-Plan revision: 2026-09-19 / 10-22 MVP
+Status: 進行中。r1／r2 已合併（PR #19）、r3 已合併（PR #28）、**r4 送審中**（`docs/j-002-mvp-alignment`）。合併≠核准：各項核准狀態見 `docs/MVP_DECISIONS.md`  
+Plan revision: 2026-09-23 / J-002-r4 / 10-22 MVP
 
-## Goal / Input
+## Goal / 目標
 
-READY NOW。輸入為現有產品規格與 2026-10-22 MVP 期限。先交付可讓 B/C 開發的規格，再交付首批經審核的官方知識內容。
+讓產品規格、架構、資料契約、A／B／C／J 任務與驗收要求一致，維持**原始 MVP**（PRODUCT_SPEC）＋Jerry 已核准變更（目前：D-01 規則引擎、D-10 Provider 匯入原子寫入），不縮減、不擴增範圍。交付 B／C 開發需要的規格，以及首批經審核的官方知識內容。
+
+## Prerequisite / 前置條件
+
+無（READY）。規格衝突依 AGENTS §1 優先順序；無法判斷時列入 MVP_DECISIONS「待 Jerry 決定」，不自行定案。
 
 ## 開始前必讀
 
 `AGENTS.md`、`docs/PRODUCT_SPEC.md`、`docs/ARCHITECTURE.md`、`docs/DATA_MODEL.md`、`docs/API_CONTRACT.md`、`docs/GIT_RULES.md`、`tasks/README.md`。
-高順位規格優先；本任務不自行定義新欄位、API 或產品規則。需要的規格先由 J-002 合併。
 
 ## Allowed Paths / Forbidden Paths
 
 Allowed: `/docs/**`、`/contracts/**`、`/tasks/**`
-Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更改其他模組業務邏輯。
+Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/**`）；不得提交 secret、真實個資或更改其他模組業務邏輯；不操作正式資料庫、不發布 Knowledge、不部署、不新增付費服務。
 
 ## Deliverables / 驗收
 
-- [ ] `docs/MVP_DECISIONS.md`：選定 Assessment AI provider/model、費用上限、逾時/失敗行為與供應商資料處理條件；不得由 B 猜測或自行購買。若改採規則引擎，先修訂產品/架構規格。
-- [ ] `docs/knowledge/source-registry.md` 與 `contracts/knowledge/` 首批內容包：官方原始 URL、管轄地、生效/擷取日期、適用條件、來源摘錄與版本、審核人/日期。涵蓋 MVP Assessment 所需制度，不以測試知識充當正式內容；衝突、過期與未確認項目不得核准。
-- [ ] 為 B-008 定義內容包格式、匯入驗證、版本發布/撤回規則；「內容核准」不代表已在資料庫發布，實際發布由 J-003 驗證。
-- [ ] `docs/PRIVACY_AND_RETENTION.md` 與對應文案/contract：資料用途、保存期限、聯絡/刪除管道、同意版本與撤回、委外 AI 資料流；列明姓名電話、健康回答、GPS 各自必要性。需要正式法務判斷時列為待確認，不宣稱已合規。
-- [ ] 更新 ARCHITECTURE / DATA_MODEL / API_CONTRACT：匿名 session 的持有證明（不可只憑公開 sessionId）、有效期、資源歸屬檢查、濫用限制、重複 Lead 請求處理、刪除策略及錯誤格式。原規格未涵蓋的設計先合併，B-011 才實作。
-- [ ] `docs/LEAD_OPERATIONS.md`：指定接件人、查看方式、回覆目標時間、允許的狀態轉移、責任角色與個資存取方式；MVP 可使用受保護內部指令，不要求建立完整 CRM。更新必要 contract/schema 後 B-006 才實作新增操作。
-- [ ] 逐項記錄 decision owner / 狀態 / 版本 / 下游任務。不得用「之後再決定」解鎖依賴；可按上述交付物分批 PR。
+- [x] Assessment 方式：規則引擎（D-01 SPEC-APPROVED）與規則表 `docs/ASSESSMENT_RULES.md`（r2，含補助說明模板與知識對應；2026-09-24 核准）。**不再**選擇 AI provider／model、不購買 token（已被 D-01 取代）。
+- [x] 補助說明：模板、內容對應與 contract（ASSESSMENT_RULES §6.3–§6.4、API_CONTRACT §8 summary 格式、Mock fixture）。
+- [x] 位置流程：API_CONTRACT §8–§9、DATA_MODEL §7／§9／§17／§20、ARCHITECTURE §7；原始規格未決定的細節列為 D-13a–g（每項附建議）。
+- [x] 位置用途、保存與同意告知草案（PRIVACY_AND_RETENTION §2、§8，DRAFT）。
+- [x] `docs/knowledge/source-registry.md` 與 `contracts/knowledge/` 首批內容包、格式、匯入／發布／撤回規則（D-02a、D-03 已核准；D-02 內容已核准，2026-09-24）。
+- [x] Session 安全（D-04 已核准）、隱私保存（D-05 PROPOSED，法務待確認）、Lead 接件規格（D-06 PROPOSED，人選待指定）。
+- [x] `docs/MVP_TRACEABILITY.md`：每項原始需求 → 使用者行為 → 任務 → 前置 → 驗收 → 證據／狀態。
+- [x] **首批知識逐筆審核**（D-02）：2026-09-24 Jerry 全部核准（9／9），內容包逐筆 `review` 已填；審核證據：[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227)。發布由 J-003 執行。
+- [x] **地方知識草稿**：`KP-2026-09-24-002`（臺北市 2 筆、新北市 4 筆，NEEDS_REVIEW）、來源登錄 `SR-2026-09-24-01`、規則表 r3（修正 S-LOCAL-*）已提交（2026-09-24）。官方頁面未找到地方現金加碼補助。
+- [x] Jerry 核准 `KP-2026-09-24-002`（6 筆）與新來源（2026-09-24）。
+- [x] 規則表 r3、D-03-v2、D-15（雲端硬碟資料夾來源）、D-16（管理頁面）核准（2026-09-24）。
+- [x] 讀取雲端硬碟 8 個檔案（Jerry 下載提供），整理 `KP-2026-09-24-003`（2 筆 NEEDS_REVIEW）；Source Registry 補登並註記各檔狀態（2026-09-24）。
+- [x] Jerry 審核：KR-2026-016 核准、017 退回、018 核准；規則表 r4、r5（D-17、D-17a）確認（2026-09-24）。
+- [x] 提供 C-006 用的 `contracts/mock/admin/` fixtures（2026-09-24）。
+- [ ] 臺北市輔具／喘息地方流程（需人工開啟社會局附件）。
+- [x] 取得「待 Jerry 決定」清單的決定（2026-09-24 第 1–8 項核准，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)），證據連結已填入 MVP_DECISIONS。
+- [ ] D-09 Netlify 額度（Jerry：日後補充）。
+- [ ] 法務確認（D-05 L-1～L-6）後把同意版本改為 ACTIVE（含位置告知）。Jerry 2026-09-24 指示暫不填。
+- [x] 主要接件人：蘇子傑，09:00–21:00（LEAD_OPERATIONS §2、§5）。
+- [x] 接件服務日別：週一至週五；不設備援接件人（2026-09-24）。
+
+未決定的事項不得用「之後再決定」解鎖依賴；PROPOSED 只允許可逆實作。
 
 ## Target
 
-9/23 前完成 AI、安全、隱私與 Lead 操作規格；9/26 前完成首批知識內容審核。這是計畫目標，不代表內容已完成或外部審查已取得。
-
+9/24：D-02 審核（完成）；9/26：D-03／D-04 決定；9/30：地方補助知識、D-13／D-14 決定。目標日期不代表已完成或外部審查已取得。
 
 ## Submission / Completion
 
-從最新 `staging` 建立 `feat/j-002-mvp`，PR → `staging`，不得直接 push staging/main。
-Submission Version 從 `J-002-r1` 起，退回後遞增。PR 必填 Added / Changed / Fixed / Known Issues / Tests or QA / Scope Check，逐項附驗收證據；未通過不得標記完成。模組合併不等於全站已上線。
+從最新 `staging` 建立分支（r4：`docs/j-002-mvp-alignment`），PR → `staging`，不得直接 push staging/main，不自行合併或部署。
+Submission Version 從 `J-002-r1` 起，退回後遞增。PR 必填 Added / Changed / Fixed / Known Issues / Tests or QA / Scope Check。
 
----
+PR Title：`[J-002] <本次修正摘要>`（r4：`[J-002] Align tasks and acceptance with original MVP`）
 
-## 2026-09-23 進度（J-002-r3）
+## 變更紀錄
 
-- r1／r2 已合併（PR #19）。**合併不代表核准**：各交付的規格核准、內容核准與發布狀態見 `docs/MVP_DECISIONS.md`「交付物核准矩陣」。
-- r3 更正：D-07 改為資料缺口（原始 MVP 距離排序不變）、D-08 改為範圍變更提案、B-009 納回 MVP（延後提案 D-11）、補助說明缺口（D-12）、無位置回應（D-13）、新增 `docs/MVP_TRACEABILITY.md`。
-- 本任務**未完成**：知識內容 0 筆核准（目標 9/26）、D-02～D-06 未核准、接件人與法務 BLOCKED。
+- r1（PR #19）：MVP 決策、知識包、隱私、Lead 營運、session 安全規格。
+- r2（PR #19）：Assessment 改規則引擎（D-01）；D-10 原子寫入。
+- r3（PR #28）：恢復原始 MVP 範圍、分離提案與核准狀態、需求追蹤表。
+- r4：D-08／D-11／D-12 標示未核准、已擱置（依原始 MVP 開發）；補助說明模板與 contract；位置流程統一與 D-13a–g／D-14a–b 建議；清理 AI 指示；任務狀態、依賴與驗收整併。

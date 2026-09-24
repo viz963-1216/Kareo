@@ -5,7 +5,7 @@ Submission Version: J-003-r3
 
 > 只有「部署環境中，以真實 API 與真實資料實際操作成功」才算通過。
 > Mock、單元測試、PR 合併都**不算**整合完成。平台額度或模組缺漏造成的阻擋一律記為 `PENDING`，必要項目 PENDING 時完整驗收判定為**失敗**。
-> 需求對應見 `docs/MVP_TRACEABILITY.md`（J-002-r3）；決策狀態見 `docs/MVP_DECISIONS.md`。
+> 需求對應見 `docs/MVP_TRACEABILITY.md`（J-002-r4）；決策狀態見 `docs/MVP_DECISIONS.md`。
 
 ---
 
@@ -84,7 +84,7 @@ C 的 Mock 模組驗收（C-003／C-004／C-005）只證明畫面與 contract �
 ↓
 初步評估 ⛔ 後端一律 KNOWLEDGE_UNAVAILABLE（B-008 PR #26 審核中、B-010 未見提交、0 筆知識核准）
 ↓
-制度／補助說明 ⛔ 缺補助說明模板（D-12）
+制度／補助說明 ⛔ 模板已由 J-002-r4 補上並核准（ASSESSMENT_RULES §6.3，D-01a）；待 B-010 實作、C-005 顯示、知識 PUBLISHED
 ↓
 推薦 ⛔ API 不存在（B-005 未見提交）；精確位置另缺已驗證座標（D-07）
 ↓
@@ -93,7 +93,7 @@ C 的 Mock 模組驗收（C-003／C-004／C-005）只證明畫面與 contract �
 送出媒合 ⛔ B-006、C-005 未見提交
 ↓
 內部查件與狀態更新 ⛔ 未開始；接件人 BLOCKED（D-06）
-（另）每日知識更新 ⛔ B-009 未見提交（D-11 未核准）
+（另）每日知識更新 ⛔ B-009 未見提交（原始 MVP 必要，無替代方案）
 （另）Kareocar 外連 ⚠ API 與路由可用；Kareocar 站因 Netlify 額度暫停（D-09）
 ```
 
@@ -103,7 +103,7 @@ C 的 Mock 模組驗收（C-003／C-004／C-005）只證明畫面與 contract �
 
 ## Contract 差異：目前後端 vs 目標 contract
 
-目標為 API_CONTRACT v0.2（**D-04／D-05／D-06 仍是 PROPOSED**）。前端 adapter 已依目標實作，但**後端未提供的能力一律視為依賴未完成**，不因 adapter 寫好而算整合完成。
+目標為 API_CONTRACT v0.2（D-04 已於 2026-09-24 核准；**D-05／D-06 仍是 PROPOSED**）。前端 adapter 已依目標實作，但**後端未提供的能力一律視為依賴未完成**，不因 adapter 寫好而算整合完成。
 
 | 項目 | 目前 staging 後端（`9af91e5`） | 目標 contract | 前端 adapter（J-003-r2） | 狀態／負責 |
 |---|---|---|---|---|
@@ -226,8 +226,8 @@ J-003-r1 的已知問題在本版修正：
 
 - [ ] 新 session → 同意（ACTIVE 版本）→ 真實 Assessment（PUBLISHED 知識＋規則引擎 `RULES-*`，ASSESSMENT_RULES §9 案例抽測）
 - [ ] Recommendation：3 家、2 家、1 家、0 家（空狀態文案，不是錯誤）
-- [ ] 位置：精確位置（DISTANCE）、只有行政區（DISTRICT_ROTATION）、沒有位置、Provider 缺座標
-- [ ] 結果頁：可能適用制度與補助說明（D-12 決議後）
+- [ ] 位置（API_CONTRACT v0.2.2 §9）：精確位置（DISTANCE）、精確位置但缺座標（DISTRICT_ROTATION＋說明）、GPS 拒絕 → 行政區備援、只有行政區（DISTRICT_ROTATION）、只有縣市（CITY_ROTATION）、沒有位置（完成評估、不呼叫推薦）
+- [ ] 結果頁：可能適用制度與補助說明（ASSESSMENT_RULES §6.3）；數值與 PUBLISHED 紀錄一致；臺北市、新北市各一例，地方資訊不互相套用
 - [ ] Provider 詳情 → Google Maps 連結來自資料，不由前端組 URL
 - [ ] Lead 送出（含聯絡同意）→ 資料庫可查 → 接件人工具可看到 → 狀態更新 NEW→CONTACTED→ACCEPTED→CLOSED
 - [ ] Kareocar：另開分頁到 `https://kareocar.netlify.app/`，無 iframe
@@ -235,7 +235,7 @@ J-003-r1 的已知問題在本版修正：
 ### 錯誤與邊界
 
 - [ ] 拒絕同意／同意撤回後不能評估、不能送 Lead
-- [ ] 無 PUBLISHED 知識 → KNOWLEDGE_UNAVAILABLE，畫面不顯示假結果
+- [ ] 無 PUBLISHED 知識 → KNOWLEDGE_UNAVAILABLE，畫面不顯示假結果；發布新版本後 Assessment 引用新 `knowledgeVersion`；資料庫／resolver 失敗不回成功格式
 - [ ] 規則引擎：同一輸入重複送出結果相同；「不需要輪椅」等否定句不觸發關鍵字
 - [ ] 網路中斷後重試成功，不產生重複資料
 - [ ] Lead 重複送出（同一 Idempotency-Key、連點）→ 只有一筆
@@ -253,11 +253,11 @@ J-003-r1 的已知問題在本版修正：
 
 ## 首次知識發布（待執行）
 
-條件：Jerry 核准 D-03 格式、逐筆核准 `KP-2026-09-23-001` 內容（逐筆）、B-008 合併。
+條件：Jerry 核准 D-03 格式（✅ 2026-09-24）、B-008-r2 合併（發布版號＝`intendedKnowledgeVersion`）、逐筆核准 `KP-2026-09-23-001` 內容（✅ 2026-09-24，9／9）、B-008 合併（✅ #26）。目標版本 `KB-2026-09-24-001`。
 
 | 項目 | 紀錄 |
 |---|---|
-| 內容包與核准 PR | （待填） |
+| 內容包與核准 PR | `KP-2026-09-23-001`（9 筆 APPROVED，2026-09-24）；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227) |
 | 匯入指令與輸出 | （待填） |
 | 核准／發布操作者 | （待填，真實人員） |
 | KnowledgeVersion | （待填） |

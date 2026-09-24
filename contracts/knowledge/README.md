@@ -4,7 +4,7 @@ Owner: Jerry
 Format version: 1.0（`content-pack.schema.json`）
 Downstream: TASK-B-008（匯入／狀態機／發布工具）、TASK-J-003（實際發布與留證）、TASK-B-010（規則引擎使用 PUBLISHED 知識）
 
-本資料夾是「人工整理並待審核的官方知識」進入 Knowledge DB 的唯一入口。每日自動更新（B-009 Crawler）屬原始 MVP（PRODUCT_SPEC §42）；延後 crawler 是待核准提案（MVP_DECISIONS D-11）。crawler 上線後發現的變更同樣經本資料夾的審核與發布規則，內容包不會被 crawler 自動核准。
+本資料夾是「人工整理並待審核的官方知識」進入 Knowledge DB 的唯一入口。每日自動更新（B-009 Crawler，每天 00:10 Asia/Taipei）屬原始 MVP（PRODUCT_SPEC §42），目前依原始範圍開發。crawler 上線後發現的變更同樣經本資料夾的審核與發布規則，內容包不會被 crawler 自動核准。
 
 ---
 
@@ -34,7 +34,7 @@ contracts/knowledge/
 匯入指令只讀一個內容包檔案，並且：
 
 1. 以 `content-pack.schema.json` 驗證；任一欄位不合格，**整批拒絕，不寫入任何資料**，以非零狀態結束。
-2. 驗證每個 `source.sourceId` 存在於 `docs/knowledge/source-registry.md` 且 `active = true`，URL 網域屬於白名單。
+2. 驗證每個 `source.sourceId` 存在於 `docs/knowledge/source-registry.md` 且 `active = true`，URL 網域屬於白名單（gov.tw／gov.taipei）；`authority = KAREO_DRIVE` 時，URL 必須是 `https://drive.google.com/file/d/<fileId>/…` 且該 fileId 已登錄於 Source Registry 的 Jerry 指定資料夾區段（D-15）。
 3. 同一包內 `recordId` 不得重複；同一 `jurisdiction + category + title` 若與已 PUBLISHED 紀錄內容不同，標記 `CONFLICT`，不得自動覆蓋。
 4. 匯入後的資料庫紀錄狀態一律為 `NEEDS_REVIEW`，**匯入不代表核准**，即使內容包本身已是 `APPROVED`。
 5. 以 `(packId, recordId)` 冪等：重複匯入同一包不產生重複紀錄。
@@ -76,7 +76,9 @@ GET /api/v1/knowledge/status 回傳新版本
 
 - 每次 Assessment 記錄當下的 `knowledgeVersion`。
 - 規則引擎只能引用當下 PUBLISHED 版本中、與使用者縣市相符（`TAIWAN` 或該縣市）的紀錄（ASSESSMENT_RULES §6）。
-- 回應中若提到制度，只能使用已核准模板並維持「初步預估」語氣；MVP 不顯示給付金額。
+- 回應中的制度與補助說明只能使用 ASSESSMENT_RULES §6 的模板，維持「初步預估」語氣。金額、比率、分區等數值**只能**讀取 PUBLISHED 紀錄的 `ruleData`，以官方規則說明呈現，不計算個人核定額度（ASSESSMENT_RULES §6.3）。
+- 規則引擎依 `ruleData.type`＋jurisdiction 查找紀錄（對應表見 ASSESSMENT_RULES §6.4）；新增或修改 `ruleData.type` 需同步更新該對應表與 B-010 測試。
+- 臺北市、新北市的地方紀錄分開管理；缺少某縣市的地方紀錄時，不得以另一縣市或中央紀錄代替。
 
 ## 7. 審核清單（給 Jerry）
 

@@ -2,7 +2,7 @@
 
 Owner: Engineer A  
 Type: Data / QA  
-Status: READY
+Status: MERGED（PR #2）— 模組完成，不代表整合完成或正式環境驗收（2026-09-23 J-002-r4 核對）  
 
 ---
 
