@@ -8,7 +8,7 @@ Plan revision: 2026-09-23 / J-002-r4 / 10-22 MVP
 
 讓使用者完成**真實**的免費初評，取得可能需要的服務、可能適用的制度與補助說明，以及下一步（PRODUCT_SPEC §1、§3、§14–16、§33–34、§44、§50–51）：
 
-- 依 `docs/ASSESSMENT_RULES.md`（`RULES-2026-09-23-r2` 已核准；地方資訊模板 S-LOCAL-* 依 `RULES-2026-09-24-r3`，待核准）實作確定性規則引擎，取代線上的 Fake Adapter（D-01 SPEC-APPROVED：MVP 不使用 AI）。
+- 依 `docs/ASSESSMENT_RULES.md`（`RULES-2026-09-23-r2` 已核准；地方資訊模板 S-LOCAL-* 依 `RULES-2026-09-24-r3`，2026-09-24 核准）實作確定性規則引擎，取代線上的 Fake Adapter（D-01 SPEC-APPROVED：MVP 不使用 AI）。
 - 線上 `assessment` function 接上 B-008 的 **PUBLISHED Knowledge resolver**，取代 `NullKnowledgeVersionResolver`。
 - `summary` 依 §6 模板產生，包含補助說明（S-SUB-*）與地方資訊（S-LOCAL-*）；**所有政策數值只從 PUBLISHED Knowledge 讀取**。
 - `location` 依 API_CONTRACT v0.2.2 §8 的 precision 規則驗證：`NONE`／`CITY` 可以完成評估。

@@ -2,7 +2,7 @@
 
 Owner: Jerry
 Submission Version: J-002-r4
-Rules version: `RULES-2026-09-24-r3`（**PROPOSED**：r3 只修正地方資訊模板 S-LOCAL-*，待 Jerry 核准）。前一版 `RULES-2026-09-23-r2` 為 **SPEC-APPROVED 2026-09-24**（MVP_DECISIONS D-01a，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)）；r3 核准前，B-010 依 r2 實作，S-LOCAL-* 依 r3 做可逆實作
+Rules version: `RULES-2026-09-24-r3`（**SPEC-APPROVED 2026-09-24**：r3 修正地方資訊模板 S-LOCAL-*）。前一版 `RULES-2026-09-23-r2` 為 **SPEC-APPROVED 2026-09-24**（MVP_DECISIONS D-01a，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)）
 Decision: MVP_DECISIONS D-01 = 方案 B（不使用 AI，Jerry 2026-09-23 決定）
 
 > MVP 的 Assessment 完全由本文件的確定性規則產生，不呼叫任何 AI／LLM。

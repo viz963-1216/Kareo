@@ -317,7 +317,7 @@ PUBLISHED
 
 排程：`Asia/Taipei` 每日 `00:10`。
 
-白名單來源：衛生福利部、1966 / 長照專區、全國法規資料庫、臺北市政府、新北市政府。
+白名單來源：衛生福利部、1966 / 長照專區、全國法規資料庫、臺北市政府、新北市政府；以及 Jerry 指定的 Google 雲端硬碟資料夾（`1h3pDfDYOy1Qo4OOiP9duUJ4DUK0NJ6Fh`，PRODUCT_SPEC §40、MVP_DECISIONS D-15）中已登錄於 Source Registry 的檔案。雲端硬碟檔案不由 B-009 公開抓取；檔案更新時由 Jerry 通知並以新內容包提交。
 
 Crawler 抓取失敗時繼續使用 Last Published Knowledge Version。
 

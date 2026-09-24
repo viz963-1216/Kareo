@@ -37,6 +37,21 @@ Status: `SR-2026-09-23-01` 的來源 **SPEC-APPROVED 2026-09-24**（MVP_DECISION
 
 ---
 
+## Jerry 指定資料夾（D-15，2026-09-24）
+
+資料夾：Google 雲端硬碟「Kareo／2.網頁架構補充資料」，folder id `1h3pDfDYOy1Qo4OOiP9duUJ4DUK0NJ6Fh`。只有下表登錄的檔案可作為來源（`authority = KAREO_DRIVE`）；檔案真實性與版本由 Jerry 負責。B-009 不公開抓取這些檔案；Jerry 更新檔案時，J-002 以新內容包提交。
+
+| sourceId | 名稱 | authority | jurisdiction | sourceUrl | 原發布機關／版本 | 擷取狀態 | active |
+|---|---|---|---|---|---|---|---|
+| `SRC-DRIVE-NTPC-AD-TOPUP` | 新北市政府身心障礙者輔具費用補助基準（新北市加碼） | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1V_dZRAeeUGYLKR_JrFFUg2g0un4nFmh5/view | 新北市政府（版本待讀取後填寫） | 待讀取 | true |
+| `SRC-DRIVE-NTPC-MED-AD` | 新北市身心障礙者醫療費用及醫療輔具補助標準表 | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1kl8JtMUNozsWeKxKzjBEG2bm_29R_690/view | 新北市政府（版本待讀取後填寫） | 待讀取 | true |
+| `SRC-DRIVE-LTC-PAY-T3` | 長期照顧給付及支付基準－附表3 | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/1WH5OA2sdc1gs8TG5RAzx1k-767F74Jaa/view | 衛生福利部（版本待讀取後填寫） | 待讀取 | true |
+| `SRC-DRIVE-AD-CODES` | 輔具代碼 | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/10W9SlpFhfN92bJJC8vQKGchtCUZZZ6-N/view | 待讀取後填寫 | 待讀取 | true |
+
+其餘 4 個檔案（長期照顧給付及支付基準收費標準.docx、長照代碼.pdf、新北市特約交通使用須知.pdf、A+分站交通平台教育訓練手冊.pdf）的檔案 ID 尚未取得，讀取後補登。教育訓練手冊為單位內部操作文件，建議不作為使用者知識來源。
+
+---
+
 ## 已知缺口（不得以非官方資料補齊）
 
 1. ~~新北市照管中心聯絡方式~~：2026-09-24 已由高齡長期照顧處網站取得，見 `KP-2026-09-24-002` KR-2026-013（待審核）。

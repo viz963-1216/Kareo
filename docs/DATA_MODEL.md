@@ -511,7 +511,10 @@ MOHW
 LAW
 TAIPEI_GOV
 NEW_TAIPEI_GOV
+KAREO_DRIVE
 ```
+
+`KAREO_DRIVE`（2026-09-24，D-15）：Jerry 指定資料夾中的檔案；`sourceUrl` 為 `https://drive.google.com/file/d/<fileId>/view`，原發布機關記錄於 Source Registry。
 
 jurisdiction：
 
@@ -856,7 +859,7 @@ DATA_STEWARD
 KNOWLEDGE_PUBLISHER
 ```
 
-只供受保護內部指令使用（LEAD_OPERATIONS §4、contracts/knowledge/README §4）；不提供公開 API。`keyHash` 為操作者個人密鑰雜湊。
+只供受保護內部指令與管理 API 使用（LEAD_OPERATIONS §4、contracts/knowledge/README §4、API_CONTRACT §26）；管理 API 只接受以個人密鑰換得的短效管理 token，不提供一般使用者 API。`keyHash` 為操作者個人密鑰雜湊。
 
 ---
 

@@ -92,3 +92,9 @@ contracts/mock/
 2. 前端只負責逐行顯示 `summary` 與 `knowledgeVersion`，不得解析句子、不得自行計算或補上任何金額。
 3. 所有 `distanceKm` 只在 `DISTANCE` 為數值；其餘 fixture 一律為 `null`。
 
+
+---
+
+## Admin Knowledge fixtures（2026-09-24，D-16）
+
+供 C-006 管理頁面 Mock 驗收，格式依 API_CONTRACT §26。`contracts/mock/admin/`：`session-response`、`knowledge-status-response`、`knowledge-changes-response`、`knowledge-records-response`、`knowledge-publish-response`。所有內容為測試資料（`*-MOCK-*`），不代表真實版本或制度。錯誤情境沿用 API_CONTRACT §5 通用錯誤格式。

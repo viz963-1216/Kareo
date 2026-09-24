@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — Product Spec
 
-Version: v0.3（J-002-r2，2026-09-23）  
+Version: v0.4（J-002-r4，2026-09-24：§40–41 新增 Jerry 指定資料夾來源，MVP_DECISIONS D-15）  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -482,9 +482,16 @@ MVP 僅允許官方白名單。
 
 地方：臺北市政府、新北市政府。
 
+**Jerry 指定資料夾（2026-09-24 變更，MVP_DECISIONS D-15）**：Google 雲端硬碟「Kareo／2.網頁架構補充資料」資料夾（folder id `1h3pDfDYOy1Qo4OOiP9duUJ4DUK0NJ6Fh`）內、由 Jerry 放入的文件，可作為知識來源。條件：
+
+- 只限這一個資料夾；其他雲端硬碟、網站或檔案仍不得作為來源。
+- 每個檔案須逐一登錄於 Source Registry（檔案 ID、名稱、原發布機關、內容雜湊），未登錄者不得使用。
+- 文件真實性與版本由 Jerry 負責；紀錄仍須經 NEEDS_REVIEW → Jerry 審核 → APPROVED → PUBLISHED，不因來自此資料夾而免審。
+- 同一內容若官方網站有公開版本，優先引用官方網址。
+
 # 41. 非官方網站
 
-禁止自動把部落格、Facebook、LINE、一般新聞、SEO 文章或商業網站當正式 Assessment Knowledge。
+禁止自動把部落格、Facebook、LINE、一般新聞、SEO 文章或商業網站當正式 Assessment Knowledge。§40 的 Jerry 指定資料夾是唯一例外，且只限該資料夾中已登錄的檔案。
 
 # 42. Knowledge 自動更新
 

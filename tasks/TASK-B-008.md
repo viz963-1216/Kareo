@@ -169,20 +169,22 @@ PR Title：`[B-008] Publish uses intended knowledge version`
    - 發布流程不再使用 `generateKnowledgeVersionId()` 產生版號。
 2. **排除已失效紀錄**：以 Asia/Taipei 的發布日判斷，`effectiveTo` 早於發布日的紀錄不納入 `recordIds`，並在輸出列出被排除的 recordId；全部被排除 → 拒絕發布，不呼叫 rpc。`effectiveFrom` 晚於發布日的紀錄**可以**納入（README §4）。
 3. 驗證都放在 Node Service 層（ARCHITECTURE §22 第 1 點）；不修改內容包格式。
-5. **（待 Jerry 核准 D-03-v2 後實作）一個版本包含全部有效紀錄**：
+5. **一個版本包含全部有效紀錄（D-03-v2，2026-09-24 核准）**：
    - 發布指令可接受多個內容包檔案；所有內容包必須是 `APPROVED` 且 `intendedKnowledgeVersion` 相同，否則拒絕。首批：`KP-2026-09-23-001`＋`KP-2026-09-24-002` → `KB-2026-09-24-001`。
    - 發布新版本時，前一個 PUBLISHED 版本中**未被新內容取代**（同 `jurisdiction + ruleData.type + title` 沒有新紀錄）且仍有效的紀錄，一併帶入新版本；被取代或已失效者 → SUPERSEDED。
    - 若需要調整 `publish_knowledge_version`（例如讓紀錄可屬於多個版本），先交 Jerry 決定 schema 變更，不自行修改。
+6. **接受 Jerry 指定資料夾來源（D-15，2026-09-24 核准）**：匯入驗證的 `AUTHORITIES` 加入 `KAREO_DRIVE`；`authority = KAREO_DRIVE` 時 URL 須符合 `https://drive.google.com/file/d/<fileId>/…`，且 sourceId 已登錄於 Source Registry（其他來源維持 gov.tw／gov.taipei 規則）。
 4. 更新操作說明（指令用法、輸出範例、失敗訊息）。
 
 ## Acceptance Criteria
 
 - [ ] 以 `KP-2026-09-23-001` 的測試資料發布，建立的版本 id 等於 `KB-2026-09-24-001`
-- [ ] （D-03-v2 核准後）001＋002 一起發布：版本內有 15 筆 PUBLISHED；再發布一個只含 1 筆更新的內容包時，其餘 14 筆仍為 PUBLISHED；`intendedKnowledgeVersion` 不一致的多個內容包被拒絕
+- [ ] 001＋002 一起發布：版本內有 15 筆 PUBLISHED；再發布一個只含 1 筆更新的內容包時，其餘 14 筆仍為 PUBLISHED；`intendedKnowledgeVersion` 不一致的多個內容包被拒絕
 - [ ] `intendedKnowledgeVersion` 缺漏、格式錯、內容包非 APPROVED → 失敗且 rpc 未被呼叫（測試證明）
 - [ ] 版號已存在 → 失敗且 rpc 未被呼叫，既有版本不變
 - [ ] `effectiveTo` 早於發布日的紀錄被排除並列出；全部失效 → 失敗且 rpc 未被呼叫
 - [ ] `effectiveFrom` 晚於發布日的紀錄仍會納入
+- [ ] `KAREO_DRIVE` 來源：已登錄且 URL 正確 → 可匯入；未登錄或非 Drive 檔案網址 → 拒絕
 - [ ] 既有 B-008 測試全部通過；`npm run typecheck`、`npm test`（apps/api）通過
 - [ ] 不連正式或 staging 資料庫做測試；實際首次發布由 J-003 執行
 
@@ -193,4 +195,4 @@ PR Title：`[B-008] Publish uses intended knowledge version`
 ## 變更紀錄
 
 - 2026-09-24 J-002-r4：D-03 與 B-008 實作比對發現 2 處差異（版號、失效紀錄），依 Jerry 核准開立 r2。
-- 2026-09-24：發現規格缺口（發布會讓其他內容包的紀錄失效），新增第 5 點，待 D-03-v2 核准。
+- 2026-09-24：發現規格缺口（發布會讓其他內容包的紀錄失效），新增第 5 點；D-03-v2、D-15 核准，新增第 6 點。

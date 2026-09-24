@@ -40,7 +40,7 @@ Last reviewed: 2026-09-23
 | ID | 決策 | 狀態 | 版本 | Decision owner | 核准證據 | 下游任務 |
 |---|---|---|---|---|---|---|
 | D-01 | Assessment 判斷方式 | **SPEC-APPROVED：方案 B 規則引擎，不使用 AI**（已修訂 PRODUCT_SPEC §16） | D-01-v2 | Jerry | [PR #19 comment 2026-09-23](https://github.com/viz963-1216/Kareo/pull/19#issuecomment-5788470099) | B-010、J-003、J-004 |
-| D-01a | 規則表、關鍵字、Summary 模板、**補助說明模板與知識對應**（ASSESSMENT_RULES §6） | r2 **SPEC-APPROVED**（2026-09-24）；**r3 PROPOSED**（2026-09-24：修正 S-LOCAL-* 地方資訊模板，r2 的 `SUBSIDY` 類別不存在於 schema） | r3 | Jerry | r2：[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-010、C-005、J-003 |
+| D-01a | 規則表、關鍵字、Summary 模板、**補助說明模板與知識對應**（ASSESSMENT_RULES §6） | **SPEC-APPROVED**：r2（2026-09-24）、**r3**（2026-09-24，修正 S-LOCAL-* 地方資訊模板） | r3 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)；r3：PR #31 comment（待貼） | B-010、C-005、J-003 |
 | D-02 | 知識內容包：`KP-2026-09-23-001`（中央 9 筆）、`KP-2026-09-24-002`（臺北市 2 筆、新北市 4 筆） | **內容 APPROVED**（9／9、6／6，2026-09-24 Jerry）；目標版本皆為 `KB-2026-09-24-001`；**尚未 PUBLISHED** | D-02-v2 | Jerry（審核人） | 內容包逐筆 `review`；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227)（001）；002 待補留言 | J-003 首次發布、B-010 |
 | D-02a | 官方來源白名單與 Source Registry `SR-2026-09-23-01` | **SPEC-APPROVED**（2026-09-24）；新北市來源擷取失敗（**DATA-GAP**，J-002 補） | D-02a-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-008（已合併）、B-009、J-002 地方知識 |
 | D-03 | 知識內容包格式、匯入驗證、發布／撤回規則 | **SPEC-APPROVED**（2026-09-24）；B-008 實作與規格有 2 處差異，由 **B-008-r2** 修正 | D-03-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806617991) | B-008-r2、J-003 首次發布 |
@@ -55,6 +55,8 @@ Last reviewed: 2026-09-23
 | D-12 | 結果頁不顯示給付金額／部分負擔 | **SHELVED（未核准、已擱置）**：補助說明依原始 MVP，模板見 ASSESSMENT_RULES §6.3 | D-12-v1 | Jerry | — | 無（不影響任何任務） |
 | D-13a–g | 位置流程中原始規格未決定的細節（只有縣市、無位置回應、缺座標、GPS 取得、座標保存、輪替演算法、正式啟用條件） | **SPEC-APPROVED**（2026-09-24，依 D-13 表建議） | D-13-v2 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-005、B-010、C-005、A-003-r2、J-003 |
 | D-14a–b | 補助說明呈現細節（來源連結、非服務縣市） | **SPEC-APPROVED**（2026-09-24，依 D-14 表建議） | D-14-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-010、C-005 |
+| D-15 | 知識來源新增「Jerry 指定 Google 雲端硬碟資料夾」（PRODUCT_SPEC §40–41 變更） | **SPEC-APPROVED**（2026-09-24，Jerry）；已修訂 PRODUCT_SPEC v0.4、schema（`KAREO_DRIVE`）、驗證腳本；B-008 匯入程式由 B-008-r2 更新 | D-15-v1 | Jerry | PR #31 comment（待貼） | B-008-r2、J-002、J-003 |
+| D-16 | 知識審核與發布管理頁面（按鈕發布取代指令） | **SPEC-APPROVED**（2026-09-24，Jerry）；新增 TASK-B-012、TASK-C-006、API_CONTRACT §26 | D-16-v1 | Jerry | PR #31 comment（待貼） | B-012、C-006、J-003 |
 
 ---
 
@@ -127,7 +129,7 @@ B-008（PR #26，9/23 合併）與規格比對結果（2026-09-24）：
 |---|---|---|---|
 | 1 | 發布時建立的 KnowledgeVersion 使用內容包的 `intendedKnowledgeVersion`（README §4） | `generateKnowledgeVersionId()` 自行產生，末三碼取自發布當下秒數與毫秒 | **B-008-r2 修正**；修正前不得首次發布 |
 | 2 | `effectiveTo` 早於發布日的紀錄不得納入（README §4） | 發布時未檢查 | **B-008-r2 修正** |
-| 4 | （規格缺口，2026-09-24 發現）一個版本應包含**所有**目前有效的已核准紀錄 | `publish_knowledge_version` 只發布同一內容包的紀錄，並把其他 PUBLISHED 紀錄全部 SUPERSEDED；發布第二個內容包會讓第一包的紀錄失效 | **D-03-v2 提案（PROPOSED）**：一次發布可指定多個內容包（`intendedKnowledgeVersion` 必須相同），並將前一版中未被取代、仍有效的紀錄帶入新版本；由 B-008-r2 實作。核准前，首批發布需同時匯入 001、002 並一起發布 |
+| 4 | （規格缺口，2026-09-24 發現）一個版本應包含**所有**目前有效的已核准紀錄 | `publish_knowledge_version` 只發布同一內容包的紀錄，並把其他 PUBLISHED 紀錄全部 SUPERSEDED；發布第二個內容包會讓第一包的紀錄失效 | **D-03-v2（SPEC-APPROVED 2026-09-24）**：一次發布可指定多個內容包（`intendedKnowledgeVersion` 必須相同），並將前一版中未被取代、仍有效的紀錄帶入新版本；由 B-008-r2 實作 |
 | 3 | 白名單、網域、整批拒收、匯入一律 NEEDS_REVIEW、`(packId, recordId)` 冪等、CONFLICT、dry-run、只發布 APPROVED、同時只有一個 PUBLISHED、撤回不刪資料並記錄原因 | 符合 | — |
 
 ## D-04 Session 安全
@@ -257,6 +259,22 @@ B-008（PR #26）的 `publish_knowledge_version`／`withdraw_knowledge_version`�
 
 ---
 
+## D-15 知識來源：Jerry 指定資料夾（SPEC-APPROVED，2026-09-24）
+
+- 決定：Google 雲端硬碟「Kareo／2.網頁架構補充資料」（folder id `1h3pDfDYOy1Qo4OOiP9duUJ4DUK0NJ6Fh`）中 Jerry 放入的文件可作為知識來源；**只限這個資料夾**。
+- 條件：每個檔案逐一登錄於 Source Registry（`authority = KAREO_DRIVE`、檔案 ID、原發布機關、雜湊）；文件真實性與版本由 Jerry 負責；紀錄仍須經審核才可發布；官方網站有同內容時優先引用官方網址。
+- 影響：PRODUCT_SPEC §40–41（v0.4）、ARCHITECTURE §9、DATA_MODEL §23、content-pack.schema.json、`scripts/validate-knowledge-pack.mjs`、contracts/knowledge/README §3 已更新；B-008 匯入程式的來源網域檢查由 **B-008-r2** 更新；B-009 不公開抓取雲端硬碟檔案，檔案更新時由 Jerry 通知、J-002 以新內容包提交。
+- 風險：雲端硬碟檔案無法由第三方驗證為官方版本；若檔案被替換，平台不會自動發現。建議每次放入新版本時在檔名註明日期。
+
+## D-16 知識審核與發布管理頁面（SPEC-APPROVED，2026-09-24）
+
+- 決定：建立管理頁面，讓 Jerry 以按鈕完成「看每日變更 → 核准／退回 → 發布／撤回」，取代指令操作。
+- 範圍：TASK-B-012（Admin Knowledge API，API_CONTRACT §26）、TASK-C-006（管理頁面）。沿用 InternalOperator 個人密鑰，換取 15 分鐘管理 token；不建立一般帳號系統。
+- 不變的規則：不自動核准或發布；頁面不編輯政策內容，內容仍以內容包提交。
+- 依賴：B-008-r2 → B-009 → B-012 → C-006（C-006 可先以 Mock 開發）。
+
+---
+
 ## 待 Jerry 決定（集中清單）
 
 2026-09-24 Jerry 核准第 1–8 項（[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)）。第 1–5 項為規格決策，已改為 SPEC-APPROVED；第 6–8 項只核准做法，仍需實際輸入才算完成。
@@ -269,7 +287,7 @@ B-008（PR #26）的 `publish_knowledge_version`／`withdraw_knowledge_version`�
 
 | 事項 | 狀態／還需要什麼 | 負責 |
 |---|---|---|
-| **核准 D-03-v2**（一個版本可包含多個內容包，並帶入前版仍有效的紀錄）與**規則表 r3**（S-LOCAL-* 地方資訊模板） | 兩者都卡住「001＋002 一起成為第一個正式版本」與日後每日更新；建議都核准 | Jerry |
+| 雲端硬碟 PDF 讀取方式 | Drive 檢視器以圖片呈現 PDF、分頁在背景時無法截圖，需 Jerry 同意下載檔案到本機讀取，或把 Chrome 分頁切到前景 | Jerry |
 | 臺北市輔具／喘息的地方流程 | 社會局頁面只有附件，需人工開啟附件確認後補下一批 | J-002 |
 | D-05 法務與客服信箱 | Jerry 指示暫不填（2026-09-24） | Jerry |
 | D-06 接件人 | 完成：蘇子傑，週一至週五 09:00–21:00；不設備援接件人（2026-09-24） | — |

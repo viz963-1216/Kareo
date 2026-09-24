@@ -887,6 +887,27 @@ Code
 
 ---
 
+# 26. Admin Knowledge API（v0.3，2026-09-24，D-16）
+
+供 Jerry 在管理頁面（C-006）審核與發布知識。實作：TASK-B-012。
+
+- 驗證：`POST /api/v1/admin/session`，Body `{ "operatorId": "...", "operatorKey": "..." }` → `{ "adminToken": "...", "expiresAt": "..." }`（15 分鐘）。之後以 `X-Kareo-Admin-Token` 呼叫；只接受 `InternalOperator.roles` 含 `KNOWLEDGE_PUBLISHER` 且 `active` 的操作者。
+- 所有 admin 回應 `Cache-Control: no-store`；寫入操作必填 `reason`（發布除外），並寫入稽核紀錄。
+
+| 方法與路徑 | Request 重點 | Response 重點 |
+|---|---|---|
+| `GET /api/v1/admin/knowledge/status` | — | `publishedVersion`、`publishedAt`、`lastCrawlerRun { status, startedAt, finishedAt }` |
+| `GET /api/v1/admin/knowledge/changes?status=NEEDS_REVIEW` | — | `changes[] { id, sourceId, detectedAt, previousHash, currentHash, diffSummary, status }` |
+| `GET /api/v1/admin/knowledge/records?status=NEEDS_REVIEW` | — | `records[] { id, packId, recordId, title, jurisdiction, category, sourceUrl, summary, effectiveFrom, status }` |
+| `POST /api/v1/admin/knowledge/records/{id}/decision` | `{ "decision": "APPROVED" \| "REJECTED", "reason": "..." }` | 更新後的紀錄 |
+| `POST /api/v1/admin/knowledge/publish` | `{ "versionId": "KB-YYYY-MM-DD-NNN", "confirm": true }` | `{ versionId, publishedRecordCount, carriedForwardCount, supersededRecordCount }` |
+| `POST /api/v1/admin/knowledge/withdraw` | `{ "reason": "...", "republishVersionId": null, "confirm": true }` | `{ withdrawnVersionId, republishedVersionId }` |
+| `POST /api/v1/admin/knowledge/changes/{id}/dismiss` | `{ "reason": "..." }` | 更新後的變更 |
+
+錯誤：無 token／過期 → `SESSION_INVALID`；角色不符 → `FORBIDDEN`；發布條件不符（無 APPROVED 紀錄、版號已存在、`confirm` 不是 true）→ `VALIDATION_ERROR`，資料不變。
+
+---
+
 # 25. Change Log
 
 | 版本 | 日期 | 內容 | 下游 |
@@ -896,3 +917,4 @@ Code
 | v0.2.1 | 2026-09-23 | 狀態標示更正：v0.2 新增項目為 PROPOSED；§9 恢復原始 MVP 的 DISTANCE／DISTRICT_ROTATION 兩種排序（座標為資料缺口，D-07）；無位置／只有縣市回應待 D-13（J-002-r3） | B-005、B-011a、C-005、J-003 |
 | v0.2.2 | 2026-09-23 | §8 `location` 依 precision 定義必填／null 規則，`NONE`／`CITY` 可完成評估；`summary` 以 `\n` 分段承載補助說明（不新增欄位）；§9 統一位置與排序表、回應欄位一律出現、空結果補 `locationPrecision`、缺座標／只有縣市／沒有位置的 PROPOSED 回應（D-13a–c）；`AI_UNAVAILABLE` 標示 MVP 不使用（J-002-r4） | B-010（location 驗證、summary）、B-005、C-005、J-003、contracts/mock |
 | v0.2.3 | 2026-09-24 | 狀態更新：D-04、D-13a–g、D-14a–b 核准（PR #31 comment 5806704685）；內容不變 | B-011a、B-005、B-010、C-005 |
+| v0.3 | 2026-09-24 | 新增 §26 Admin Knowledge API（D-16，Jerry 核准）；知識來源 authority 新增 `KAREO_DRIVE`（D-15） | B-012、C-006、B-008-r2、J-003 |
