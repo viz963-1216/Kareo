@@ -5,13 +5,13 @@
   "createdAt": "2026-09-24T16:25:01+08:00",
   "createdBy": "J-002 (prepared for Jerry review)",
   "sourceRegistryVersion": "SR-2026-09-24-01",
-  "status": "NEEDS_REVIEW",
+  "status": "APPROVED",
   "review": {
-    "reviewedBy": null,
-    "reviewedAt": null,
-    "decision": null
+    "reviewedBy": "Jerry",
+    "reviewedAt": "2026-09-25T02:06:41+08:00",
+    "decision": "APPROVED"
   },
-  "intendedKnowledgeVersion": null,
+  "intendedKnowledgeVersion": "KB-2026-09-24-001",
   "records": [
     {
       "recordId": "KR-2026-019",
@@ -84,12 +84,12 @@
         ],
         "itemsAndCapsPublishedYearly": true
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "臺北市社會局「長期照顧輔具服務」頁附件（頁面資料更新 115-07-30）。計畫本文未標示發布或生效日期；effectiveFrom 2026-09-24 為擷取日，不是政策生效日。修正：原 summary 把 GPS 寫成「長照 2 級以上＋另限失智症」，excerpt 第肆點第一款 GPS 只要求設籍居住與失智症診斷，未列長照等級；補上 GPS 須先核定才能購置（第伍點一(一)）與需評估品項以評估報告日起算（第伍點一(二)但書）；刪除 excerpt 沒有的「長照給付以外的品項」推論。待確認：「其他政府機關相同性質之補助」是否包含中央長照輔具給付（附表二），原文未說明。前一版（commit 66437b9）曾經 Jerry 2026-09-24 核准（PR #35 comment 5810649551）；2026-09-24 查核後修正 summary／ruleData，該核准不涵蓋本版，待 Jerry 重新核准。 2026-09-25 本機查核（commit 42cdc65）：以 curl 下載 source.url，PDF SHA-256 與 contentHash 相符；以 macOS PDFKit 逐頁取文字（本機無 pdftotext），並將頁面轉圖逐格目視核對。 頁碼定位（全文 2 頁）：補助內容每年公告、不得重複申請＝p1「參、一／二」；GPS 資格＝p1「肆、一」；其他品項資格（長照 2 級以上＋五款之一）＝p1「肆、二（一）～（五）」；GPS 先核定、核定後 6 個月內核銷＝p1「伍、一、（一）」；其他品項發票開立日起 6 個月、需評估品項評估報告開立後 6 個月內依建議購買＝p1「伍、一、（二）」及但書；特約廠商代償墊付（核可編號＋評估報告後 6 個月內）＝p2「伍、二」。結果：summary 與 ruleData 均與原文一致，本次未改內容。仍無法確認：(a) 計畫無公告日、生效日、文號或版次；(d)「其他政府機關相同性質之補助」原文無定義，是否包含中央長照輔具給付（附表二 E／F 碼）不明，需洽社會局。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-25T02:06:41+08:00",
+        "decision": "APPROVED",
+        "notes": "臺北市社會局「長期照顧輔具服務」頁附件（頁面資料更新 115-07-30）。計畫本文未標示發布或生效日期；effectiveFrom 2026-09-24 為擷取日，不是政策生效日。修正：原 summary 把 GPS 寫成「長照 2 級以上＋另限失智症」，excerpt 第肆點第一款 GPS 只要求設籍居住與失智症診斷，未列長照等級；補上 GPS 須先核定才能購置（第伍點一(一)）與需評估品項以評估報告日起算（第伍點一(二)但書）；刪除 excerpt 沒有的「長照給付以外的品項」推論。待確認：「其他政府機關相同性質之補助」是否包含中央長照輔具給付（附表二），原文未說明。前一版（commit 66437b9）曾經 Jerry 2026-09-24 核准（PR #35 comment 5810649551）；2026-09-24 查核後修正 summary／ruleData，該核准不涵蓋本版，待 Jerry 重新核准。 2026-09-25 本機查核（commit 42cdc65）：以 curl 下載 source.url，PDF SHA-256 與 contentHash 相符；以 macOS PDFKit 逐頁取文字（本機無 pdftotext），並將頁面轉圖逐格目視核對。 頁碼定位（全文 2 頁）：補助內容每年公告、不得重複申請＝p1「參、一／二」；GPS 資格＝p1「肆、一」；其他品項資格（長照 2 級以上＋五款之一）＝p1「肆、二（一）～（五）」；GPS 先核定、核定後 6 個月內核銷＝p1「伍、一、（一）」；其他品項發票開立日起 6 個月、需評估品項評估報告開立後 6 個月內依建議購買＝p1「伍、一、（二）」及但書；特約廠商代償墊付（核可編號＋評估報告後 6 個月內）＝p2「伍、二」。結果：summary 與 ruleData 均與原文一致，本次未改內容。仍無法確認：(a) 計畫無公告日、生效日、文號或版次；(d)「其他政府機關相同性質之補助」原文無定義，是否包含中央長照輔具給付（附表二 E／F 碼）不明，需洽社會局。 Jerry 2026-09-25 核准本修正版（原文複查後，commit e562b9e）。"
       }
     },
     {
@@ -252,12 +252,12 @@
         "copayAppliesWhen": "PURCHASE_BELOW_MAX",
         "copayAtOrAboveMax": "UNSPECIFIED"
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "115 年度（依檔名；文件內未見公告或生效日期）。effectiveFrom 2026-09-24 為擷取日，不是 115 年度公告生效日；effectiveTo 未知，116 年度公告後需以新內容包取代。部分負擔比率與中央附表五輔具項目一致（0／10／30%，KR-2026-006）。excerpt 為品項列與備註節錄。修正：備註二只規定「購置金額低於最高補助金額」時依實際支出按比率核算，原 summary 寫成一律自付 0／10／30%，已改為忠於原文並新增 ruleData.copayAppliesWhen；「多數品項需輔具評估」無法由 excerpt 驗證，改為「部分品項」。待確認：購置金額等於或高於最高額度時是否仍扣部分負擔（原文未明示）。前一版（commit 66437b9）曾經 Jerry 2026-09-24 核准（PR #35 comment 5810649551）；2026-09-24 查核後修正 summary／ruleData，該核准不涵蓋本版，待 Jerry 重新核准。 2026-09-25 本機查核（commit 42cdc65）：以 curl 下載 source.url，PDF SHA-256 與 contentHash 相符；以 macOS PDFKit 逐頁取文字（本機無 pdftotext），並將頁面轉圖逐格目視核對。 頁碼定位（全文 4 頁）：品項 1～4＝p1；5～13＝p2；14～17＝p3；18＝p3～p4；備註一、二＝p4。18 項最高補助金額與最低使用年限逐格核對全部相符。(c) 第 1、2 項年限在表格內為「2」與「年」分兩行排版，單位為年。(e) 需輔具評估：第 4、7、18 項（各自欄位）及第 14～17 項（合併儲存格）；第 1 項須地區型以上醫院失智症診斷書；限居家使用：第 8～12 項（合併儲存格「其他規定：限居家使用者申請」）；第 6、7 項每次申請為 1 批、總補助以該項上限為限；第 4 項每戶限 1 台；第 14 項須與第 15～17 項同時申請。本次修正：summary 由「部分品項須輔具評估或限居家使用」改為逐項列明；ruleData.items 加 itemNo 與上述旗標；新增 copayAtOrAboveMax = UNSPECIFIED。仍無法確認：(a) 項目表標題與內文無年度、公告日、生效日或文號，「115 年」只見於官網附件檔名；(b) 購置金額等於或高於最高額度時是否仍扣部分負擔，備註二未規定。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-25T02:06:41+08:00",
+        "decision": "APPROVED",
+        "notes": "115 年度（依檔名；文件內未見公告或生效日期）。effectiveFrom 2026-09-24 為擷取日，不是 115 年度公告生效日；effectiveTo 未知，116 年度公告後需以新內容包取代。部分負擔比率與中央附表五輔具項目一致（0／10／30%，KR-2026-006）。excerpt 為品項列與備註節錄。修正：備註二只規定「購置金額低於最高補助金額」時依實際支出按比率核算，原 summary 寫成一律自付 0／10／30%，已改為忠於原文並新增 ruleData.copayAppliesWhen；「多數品項需輔具評估」無法由 excerpt 驗證，改為「部分品項」。待確認：購置金額等於或高於最高額度時是否仍扣部分負擔（原文未明示）。前一版（commit 66437b9）曾經 Jerry 2026-09-24 核准（PR #35 comment 5810649551）；2026-09-24 查核後修正 summary／ruleData，該核准不涵蓋本版，待 Jerry 重新核准。 2026-09-25 本機查核（commit 42cdc65）：以 curl 下載 source.url，PDF SHA-256 與 contentHash 相符；以 macOS PDFKit 逐頁取文字（本機無 pdftotext），並將頁面轉圖逐格目視核對。 頁碼定位（全文 4 頁）：品項 1～4＝p1；5～13＝p2；14～17＝p3；18＝p3～p4；備註一、二＝p4。18 項最高補助金額與最低使用年限逐格核對全部相符。(c) 第 1、2 項年限在表格內為「2」與「年」分兩行排版，單位為年。(e) 需輔具評估：第 4、7、18 項（各自欄位）及第 14～17 項（合併儲存格）；第 1 項須地區型以上醫院失智症診斷書；限居家使用：第 8～12 項（合併儲存格「其他規定：限居家使用者申請」）；第 6、7 項每次申請為 1 批、總補助以該項上限為限；第 4 項每戶限 1 台；第 14 項須與第 15～17 項同時申請。本次修正：summary 由「部分品項須輔具評估或限居家使用」改為逐項列明；ruleData.items 加 itemNo 與上述旗標；新增 copayAtOrAboveMax = UNSPECIFIED。仍無法確認：(a) 項目表標題與內文無年度、公告日、生效日或文號，「115 年」只見於官網附件檔名；(b) 購置金額等於或高於最高額度時是否仍扣部分負擔，備註二未規定。 Jerry 2026-09-25 核准本修正版（原文複查後，commit e562b9e）。"
       }
     },
     {
@@ -295,12 +295,12 @@
         "deadlineFrom": "APPROVAL_DATE",
         "ltcContractedVendorOnly": true
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "臺北市社會局附件「居家無障礙環境改善補助申請與施工注意事項」，未標示日期；effectiveFrom 2026-09-24 為擷取日，不是政策生效日。額度依中央附表二（KR-2026-004），本紀錄只記流程。修正：summary 補上長照對象條件（長照需要等級第 2 級以上）、須先核定、變更須先確認；ruleData 補 ltcLevelMin、approvalRequiredBeforeWork、deadlineFrom。前一版（commit 66437b9）曾經 Jerry 2026-09-24 核准（PR #35 comment 5810649551）；2026-09-24 查核後修正 summary／ruleData，該核准不涵蓋本版，待 Jerry 重新核准。 2026-09-25 本機查核（commit 42cdc65）：以 curl 下載 source.url，PDF SHA-256 與 contentHash 相符；以 macOS PDFKit 逐頁取文字（本機無 pdftotext），並將頁面轉圖逐格目視核對。 頁碼定位（全文 3 頁）：長照對象 2 級以上、身障對象條件＝p1「一、1、」；照管專員照會輔具中心、到府評估並開立報告與核定通知＝p1「一、2、長照輔具」；核定日起 6 個月內找特約廠商（身障可找非特約）、變更須先與輔具中心確認、完工驗收＝p1「一、3、」；長照只付自付額由廠商代償墊付＝p1「一、4、長照輔具」；未完成評估與核定即施工無法補助＝p3「三、1、」。結果：summary 與 ruleData 均與原文一致，本次未改內容。仍無法確認：文件無日期或版次。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-25T02:06:41+08:00",
+        "decision": "APPROVED",
+        "notes": "臺北市社會局附件「居家無障礙環境改善補助申請與施工注意事項」，未標示日期；effectiveFrom 2026-09-24 為擷取日，不是政策生效日。額度依中央附表二（KR-2026-004），本紀錄只記流程。修正：summary 補上長照對象條件（長照需要等級第 2 級以上）、須先核定、變更須先確認；ruleData 補 ltcLevelMin、approvalRequiredBeforeWork、deadlineFrom。前一版（commit 66437b9）曾經 Jerry 2026-09-24 核准（PR #35 comment 5810649551）；2026-09-24 查核後修正 summary／ruleData，該核准不涵蓋本版，待 Jerry 重新核准。 2026-09-25 本機查核（commit 42cdc65）：以 curl 下載 source.url，PDF SHA-256 與 contentHash 相符；以 macOS PDFKit 逐頁取文字（本機無 pdftotext），並將頁面轉圖逐格目視核對。 頁碼定位（全文 3 頁）：長照對象 2 級以上、身障對象條件＝p1「一、1、」；照管專員照會輔具中心、到府評估並開立報告與核定通知＝p1「一、2、長照輔具」；核定日起 6 個月內找特約廠商（身障可找非特約）、變更須先與輔具中心確認、完工驗收＝p1「一、3、」；長照只付自付額由廠商代償墊付＝p1「一、4、長照輔具」；未完成評估與核定即施工無法補助＝p3「三、1、」。結果：summary 與 ruleData 均與原文一致，本次未改內容。仍無法確認：文件無日期或版次。 Jerry 2026-09-25 核准本修正版（原文複查後，commit e562b9e）。"
       }
     },
     {

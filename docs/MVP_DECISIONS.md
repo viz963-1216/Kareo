@@ -40,7 +40,7 @@ Last reviewed: 2026-09-23
 | ID | 決策 | 狀態 | 版本 | Decision owner | 核准證據 | 下游任務 |
 |---|---|---|---|---|---|---|
 | D-01 | Assessment 判斷方式 | **SPEC-APPROVED：方案 B 規則引擎，不使用 AI**（已修訂 PRODUCT_SPEC §16） | D-01-v2 | Jerry | [PR #19 comment 2026-09-23](https://github.com/viz963-1216/Kareo/pull/19#issuecomment-5788470099) | B-010、J-003、J-004 |
-| D-01a | 規則表、關鍵字、Summary 模板、補助說明模板與知識對應（ASSESSMENT_RULES §6） | **SPEC-APPROVED**：r2–r6（2026-09-24；r3 地方資訊模板、r4／r5 身障與估算、r6 臺北市地方紀錄對應） | r6 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)；r6：[PR #35 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/35#issuecomment-5810649551) | B-010、C-005、J-003 |
+| D-01a | 規則表、關鍵字、Summary 模板、補助說明模板與知識對應（ASSESSMENT_RULES §6） | **SPEC-APPROVED**：r2–r7（2026-09-24／25；r3 地方資訊模板、r4／r5 身障與估算、r6 臺北市地方紀錄對應、r7 S-EST-LOCAL-AD 文字） | r7 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)；r6：[PR #35 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/35#issuecomment-5810649551) | B-010、C-005、J-003 |
 | D-02 | 知識內容包：`KP-2026-09-23-001`（中央 9 筆）、`KP-2026-09-24-002`（臺北市 2 筆、新北市 4 筆）、`KP-2026-09-24-003`（KR-2026-016 核准、017 退回）、`KP-2026-09-24-004`（KR-2026-018 核准）、`KP-2026-09-24-005`（臺北市 4 筆：KR-2026-022 核准；KR-2026-019～021 查核後修正，**回到 NEEDS_REVIEW**） | **內容 APPROVED**（9／9、6／6，2026-09-24 Jerry）；目標版本皆為 `KB-2026-09-24-001`；**尚未 PUBLISHED** | D-02-v2 | Jerry（審核人） | 內容包逐筆 `review`；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227)（001）；002：[PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | J-003 首次發布、B-010 |
 | D-02a | 官方來源白名單與 Source Registry `SR-2026-09-23-01` | **SPEC-APPROVED**（2026-09-24）；新北市來源擷取失敗（**DATA-GAP**，J-002 補） | D-02a-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-008（已合併）、B-009、J-002 地方知識 |
 | D-03 | 知識內容包格式、匯入驗證、發布／撤回規則 | **SPEC-APPROVED**（2026-09-24）；B-008 實作與規格有 2 處差異，由 **B-008-r2** 修正 | D-03-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806617991) | B-008-r2、J-003 首次發布 |
@@ -301,7 +301,7 @@ B-008（PR #26）的 `publish_knowledge_version`／`withdraw_knowledge_version`�
 |---|---|---|
 | 已完成（2026-09-24） | KR-2026-017 退回、KR-2026-018 核准；規則表 r4 文字確認；D-17a 要估算個人金額 | — |
 | 已完成（2026-09-24） | `KP-2026-09-24-005` 臺北市地方知識 4 筆與 4 個來源核准；規則表 r6 核准（其後查核：KR-2026-019～021 內容修正，該核准不涵蓋修正版）（[PR #35 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/35#issuecomment-5810649551)） | — |
-| `KP-2026-09-24-005` 修正版（2026-09-24 查核、2026-09-25 原文複查） | 4 份原文 SHA-256 相符並逐頁、逐格核對：KR-2026-019、021 內容無誤；KR-2026-020 18 項金額與年限全部相符，補品項旗標與 `copayAtOrAboveMax`；KR-2026-022 無誤（維持 APPROVED）。待 Jerry 重新核准 KR-2026-019～021 與規則表 r7。仍待確認：計畫與項目表無公告日／文號；等於或高於上限是否扣部分負擔；「其他政府機關相同性質之補助」是否含中央長照輔具給付 | Jerry |
+| `KP-2026-09-24-005` 修正版（2026-09-25 原文複查） | **完成**：KR-2026-019～021 修正版與規則表 r7 由 Jerry 2026-09-25 核准（PR #35 留言，待貼）；KR-2026-022 維持核准。**待辦**：洽臺北市社會局確認 (a) 公告文號與生效日、(b) 等於或高於上限是否扣部分負擔、(d)「相同性質之補助」是否含中央長照輔具給付（Jerry 指定聯繫人） | Jerry |
 | 雲端硬碟其他檔案 | 長照代碼.pdf 為舊版辦法（50 歲以上失智症）已停用；附表3、輔具代碼、收費標準 docx 僅供參考（MVP 不算品項價格；docx 有 CD02 計算錯誤）；交通須知為 1140411 舊版 | — |
 | 臺北市輔具／喘息的地方流程 | 社會局頁面只有附件，需人工開啟附件確認後補下一批 | J-002 |
 | D-05 法務與客服信箱 | Jerry 指示暫不填（2026-09-24） | Jerry |
