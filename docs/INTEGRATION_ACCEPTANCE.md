@@ -1,7 +1,7 @@
 # Kareo Integration Acceptance / 整合驗收紀錄
 
 Owner: Jerry（TASK-J-003）
-Submission Version: J-003-r3
+Submission Version: J-003-r4
 
 > 只有「部署環境中，以真實 API 與真實資料實際操作成功」才算通過。
 > Mock、單元測試、PR 合併都**不算**整合完成。平台額度或模組缺漏造成的阻擋一律記為 `PENDING`，必要項目 PENDING 時完整驗收判定為**失敗**。
@@ -16,7 +16,9 @@ Submission Version: J-003-r3
 | 開發檢查（每個 PR，CI `acceptance-dev`） | `node scripts/acceptance-gate.mjs --mode=dev` | 允許 | 只有 FAIL → 1 | 「目前沒有壞掉的東西」。沒給目標時 E2E 一律 PENDING（不評估）。exit 0 **不是** MVP 通過，輸出最後一行會明寫 |
 | 完整驗收／release gate（手動 workflow `Release gate`、PR → main） | `node scripts/acceptance-gate.mjs --mode=release --commit=<40 碼 SHA> --base-url=<https URL>` | **不允許** | 任何 FAIL 或 PENDING → 1；缺目標或格式錯 → 2 | **這一個 commit** 部署在**這一個環境**時，原始 MVP 所有必要項目都有真實證據 |
 
-Gate 內容：路由／contract／禁止欄位（`check-integration.mjs`）、知識包格式、**知識內容是否已核准**（格式正確 ≠ 核准）、Provider 資料 gate（A-004），以及 `tests/e2e/acceptance-cases.json` 的 27 個 E2E 案例。
+Gate 內容：路由／contract／禁止欄位（`check-integration.mjs`，含 §26 管理 API）、**打包後的 Functions 能否載入與執行**（`check-functions-runtime.mjs`，J-003-r4）、**驗收案例完整性**（MVP_TRACEABILITY 引用的案例不得缺、每個案例都要被引用，J-003-r4）、知識包格式、**知識內容是否已核准**（格式正確 ≠ 核准）、Provider 資料 gate（A-004），以及 `tests/e2e/acceptance-cases.json` 的 43 個 E2E 案例。
+
+另有兩種**不算 E2E** 的本機檢查，結果只記在本文件：`tests/db/verify-db.mjs`（隔離 PostgreSQL／PGlite：migration、RLS、Provider 匯入回滾、知識發布／撤回）與 `tests/integration/`（交回模組的重現案例、首次發布預演）。
 
 ### Release 目標與部署版本證據（J-003-r3）
 
@@ -71,37 +73,91 @@ C 的 Mock 模組驗收（C-003／C-004／C-005）只證明畫面與 contract �
 
 ---
 
-## 目前結論（2026-09-23，J-003-r3）
+## 目前結論（2026-09-25，J-003-r4）
 
-**Integrated：否。** 完整驗收（release 模式）：**FAIL**（10 PASS、0 FAIL、33 PENDING；目標 staging `9af91e5`，部署暫停，無任何可採計的 E2E 紀錄）。
+**Integrated：否。** 完整驗收（release 模式）：**FAIL**（目標 staging `fd4154ae16107ac599bd39bba58795c564370d76` @ `https://kareo-tw.netlify.app`；部署暫停，版本標記 HTTP 503，**沒有任何可採計的 E2E 紀錄**；43 個 E2E 案例全部 PENDING）。
 
-真實使用者流程目前能走到哪一步：
+- staging 目前只有 B-002／B-003／B-004／B-007／B-008（r1）後端；B-011a、B-010、B-008-r2、B-009、C-005、A-005、J-002-r5 都還是**未合併的 PR**。B-005、B-006、B-011b、B-012、C-006、A-003-r2 **沒有任何提交**。
+- 本版的整合試驗（下表「試驗組合」）是在隔離 worktree 把上述 PR 合併後執行的本機檢查，**不代表 staging 已具備**，也不能填入 E2E 結果。
+- 首次知識發布**未執行**：B-008-r2 未合併且有新發現的缺陷；`KP-2026-09-24-005` 仍在 PR #35；staging Supabase 的隔離與憑證未確認（見〈首次知識發布〉）。
+- 正式 Consent 版本仍為 DRAFT（D-05 法務 BLOCKED）；本版沒有、也不會把它改成 ACTIVE。
+
+真實使用者流程目前能走到哪一步（staging `fd4154a`）：
 
 ```text
-首頁 ✅（程式可建置；部署環境暫停，未能實測）
+首頁 ✅ 可建置（部署暫停，未能實測）
 ↓
-同意 ⛔ 沒有 ACTIVE 同意版本（D-05，法務 BLOCKED）；後端尚未驗證版本是否 ACTIVE
+新 session ⛔ 不發 token（B-011a #32 未合併）
 ↓
-初步評估 ⛔ 後端一律 KNOWLEDGE_UNAVAILABLE（B-008 PR #26 審核中、B-010 未見提交、0 筆知識核准）
+同意 ⛔ 沒有 ACTIVE 同意版本（D-05）；B-011a 合併前後端不驗證版本
 ↓
-制度／補助說明 ⛔ 模板已由 J-002-r4 補上並核准（ASSESSMENT_RULES §6.3，D-01a）；待 B-010 實作、C-005 顯示、知識 PUBLISHED
+評估 ⛔ 線上仍是 Fake Adapter＋Null resolver → 一律 KNOWLEDGE_UNAVAILABLE（B-010 #33 未合併、無 PUBLISHED 知識）
 ↓
-推薦 ⛔ API 不存在（B-005 未見提交）；精確位置另缺已驗證座標（D-07）
+需求／制度／補助結果 ⛔ B-010、C-005 未合併；C-005 缺 disabilityCertificate／incomeCategory
 ↓
-服務單位詳情 ⛔ B-004 已合併 staging（PR #16），`/api/v1/providers/*` 路由由本版補上；C-004 PR #27 審核中；尚無正式 Provider 匯入（A-004 PR #18）
+推薦 ⛔ 無 API（B-005 未提交）
 ↓
-送出媒合 ⛔ B-006、C-005 未見提交
+Provider 詳情／Google Maps ⚠ API 與路由已在 staging；尚無正式 Provider 匯入（E2E-27）
 ↓
-內部查件與狀態更新 ⛔ 未開始；接件人 BLOCKED（D-06）
-（另）每日知識更新 ⛔ B-009 未見提交（原始 MVP 必要，無替代方案）
-（另）Kareocar 外連 ⚠ API 與路由可用；Kareocar 站因 Netlify 額度暫停（D-09）
+Lead 送出 ⛔ 無 API（B-006 未提交）
+↓
+資料庫關聯與內部查件 ⛔ 未開始
+（另）Kareocar 外連 ⛔ kareocar.netlify.app 同樣 HTTP 503（D-09）
+（另）每日知識更新 ⛔ B-009 #37 未合併；排程入口本版已備妥（knowledge-crawler.yml）
+（另）知識管理頁 ⛔ B-012／C-006 未提交
 ```
 
-**Netlify 團隊額度用完，`kareo-tw` 與 `kareocar` 兩個站都暫停中**（MVP_DECISIONS D-09），部署後驗收目前無法執行。
+## 整合狀態表（2026-09-25）
+
+資料來源：`git fetch`＋GitHub PR API（2026-09-25 02:20 +08:00）。「已驗證」只列本版實際執行過的檢查；「試驗」＝隔離 worktree 中 staging＋#32＋#33＋#36＋#37＋#35＋#30＋#34 的組合。
+
+| 模組 | 最新 PR／commit | 合併 | 已驗證（本版） | 缺口 | 負責 |
+|---|---|---|---|---|---|
+| B-008 r1 | #26 `0a368dd` | ✅ staging | DB（staging migrations）：K1–K3、K5、K6、K8 PASS | K4（新版本讓未取代紀錄失效）、K9（失效紀錄帶入）＝D-03 差異，由 r2 修正；**K7 撤回的版本可在同一步立即重新發布**；核准不綁定內容（見交回 H-3） | B（clausstar-afk） |
+| B-008-r2 | #36 `1c73987` | ❌ | 試驗：可乾淨合併；DB K1–K4、K8、K9 PASS；首次發布預演 5 包 21／21 筆 | **K5 舊版本無法追溯、K6 撤回後回復上一版只剩部分紀錄**（carry-forward 直接改寫 `knowledge_records.version`）；K7；核准不綁定內容 | B |
+| B-011a | #32 `92d787f` | ❌ | 試驗：typecheck PASS；打包後 **consent function 無法載入**（`createRequire` 讀 JSON，esbuild 不內嵌）→ 本版以 `included_files` 修正並驗證 | 合併前 staging 不發 token、不驗 ACTIVE 版本；`DELETE /session`、`/consent/withdraw` 屬 B-011b | B |
+| B-010 | #33 `2612c05` | ❌ | 試驗：與 B-011a **文字合併後** service 會先驗 token（`requireValidSession`→`requireMatchingSessionId`→Consent），function 帶 `X-Kareo-Session-Token`；首次發布預演：臺北／新北地方行各自獨立、KR-2026-018 兩市皆適用 | **`apps/api/tests/assessment.test.ts` 與 B-011a 衝突**；取 B-010 版本後 26／234 測試失敗（都是未帶 token）；B-010 本身未使用 B-011a 共用元件；規則為 r5，PR #35 已核准 r6／r7 | B |
+| B-005 推薦 | — | ❌ 未提交 | — | 全部（`POST /api/v1/recommendations` 無 function／路由） | B |
+| B-006 Lead | — | ❌ 未提交 | — | 全部（`POST /api/v1/leads`、冪等、內部查件） | B |
+| B-009 Crawler | #37 `80bd5fc` | ❌ | 試驗：與 B-010 在 3 個檔案有**加總型衝突**（types.ts、兩個 knowledge repository，合併後 typecheck PASS）；排程入口本版備妥 | **PDF 雜湊與 Source Registry 基準不一致 → 未變更也每天產生變更**；**同一變更每天重複建立 NEEDS_REVIEW**；未保存 raw snapshot（TASK-B-009 交付項）；原建議的 Netlify Scheduled Function 有約 30 秒限制，不適合 | B |
+| B-011b | — | ❌ 未提交 | — | 撤回、刪除、限流、完整安全驗收 | B |
+| B-012 Admin API | — | ❌ 未提交 | — | API_CONTRACT §26 共 8 個端點無 function | B |
+| C-005 | #34 `6e5cca6` | ❌（mergeable: dirty） | 試驗：`apps/web` 合併後 real 模式 build PASS、bundle 無 mock、前端測試 48／48；呼叫的端點與方法符合 contract | 分支仍含 squash 前的 J-002 commit `a14903a` → 21 個 docs／tasks／contracts 衝突，需同步 staging；**缺 `disabilityCertificate`、`incomeCategory`**；本機另有重複的 C-005-r1（`e3a065a`，vicky19946）待 Jerry 決定 | C |
+| C-006 管理頁 | — | ❌ 未提交 | — | 全部 | C |
+| A-003-r2 座標 | — | ❌ 未提交 | — | 0／30 已驗證座標（DATA-GAP） | A |
+| A-004 | #18 `53b090c` | ✅ staging | `check-provider-data.mjs` PASS；DB P1／P2（匯入交易回滾）PASS | 正式匯入 staging Supabase 未執行（E2E-27） | A |
+| A-005 | #30 `a67156e` | ❌（落後 staging 12 commits，可乾淨合併） | — | AC-009 仍寫「待 D-13 決議」（D-13b 已核准：`NO_LOCATION`、空陣列）；AC-007／AC-011 未依 D-13c（任一缺座標 → 整批 `DISTRICT_ROTATION`、precision 仍 `GPS`）；缺 `CITY_ROTATION`（D-13a）案例 | A（luke81168） |
+| J-002-r5 | #35 `d10c327` | ❌ | 試驗：`KP-2026-09-24-005` 4 筆可匯入、可與其他 4 包一起發布 | 合併前首次發布會缺臺北市 4 筆 | Jerry |
+
+## 已知整合風險核對（2026-09-25 重新確認）
+
+| # | 風險 | 結果 | 證據 |
+|---|---|---|---|
+| 1 | B-010 是否使用 B-011a 的共用 token 與歸屬檢查 | **否（B-010 本身）**。PR #33 明寫待 #32 合併後的 B-010-r3 處理；試驗組合中 git 文字合併剛好把 B-011a 的檢查接上，但這不是 B-010 的交付 | 試驗 `assessmentService.ts` L247–259；PR #33 說明 |
+| 2 | B-010／B-011a assessment 程式與測試衝突 | **仍存在**：`apps/api/tests/assessment.test.ts` 內容衝突；service 可自動合併 | 試驗 vitest：26 failed／208 passed（全部 `SESSION_INVALID: 缺少…X-Kareo-Session-Token`） |
+| 3 | C-005 是否含 disabilityCertificate、incomeCategory 與對應 request | **否** | `grep -rn "disabilityCertificate\|incomeCategory" apps/web/src` 在 `6e5cca6` 無結果 |
+| 4 | B-008 核准是否綁定實際內容；撤回是否禁止立即重新發布同一版本 | **兩者皆否**；另發現 r2 的 carry-forward 破壞舊版本追溯與回復 | `tests/integration/repro/b008-approval-binding.repro.ts`（FAIL）；`tests/db/verify-db.mjs` K5／K6／K7 |
+| 5 | B-009 快照、相同變更去重、PDF 雜湊 | **三者皆未正確處理** | `tests/integration/repro/b009-hash-dedupe.repro.ts`（2 FAIL）；`crawlerService.ts` 無 snapshot 寫入 |
+| 6 | A-005 是否依最新位置契約更新預期結果 | **否** | `data/providers/qa/acceptance-cases.md`（#30）AC-007、AC-009、AC-011 |
+
+## 交回各任務的修正要求（J-003 不改模組業務邏輯）
+
+| ID | 交回 | 可重現方式 | 精確修正要求 |
+|---|---|---|---|
+| H-1 | B-010-r3 | 試驗組合 `npx vitest run tests/assessment.test.ts` | 合併 #32 後以 B-011a 的 `requireValidSession`／`requireMatchingSessionId` 為唯一入口（不另建）；`buildDeps` 建立 session 時取得 `sessionToken`，所有 `createAssessment` 呼叫帶 token；保留 B-011a 的 SESSION_INVALID／FORBIDDEN 測試；依 PR #35 核准的規則 r6／r7 更新 `RULES_VERSION` 與 S-EST-LOCAL-AD |
+| H-2 | B-008-r3 | `node tests/db/verify-db.mjs --migrations=<含 0011 的目錄>` K5、K6 | 帶入新版本時不得覆寫舊紀錄的 `version`：以「版本—紀錄」關聯表（或等效方式）記錄每個版本包含的紀錄；resolver 依關聯表取快照；`withdraw` 的 `republishVersionId` 必須完整回復該版本當時的紀錄集合 |
+| H-3 | B-008-r3 | `tests/integration/repro/b008-approval-binding.repro.ts` | 匯入時 `(packId, recordId)` 已存在但內容（contentHash、summary、ruleData、effective 日期）不同 → 拒絕並列出，不得靜默略過；`approve` 前比對資料庫紀錄與內容包紀錄的內容雜湊，不一致就拒絕核准 |
+| H-4 | B-008-r3 | `verify-db.mjs` K7 | `withdraw_knowledge_version` 拒絕 `republishVersionId` 等於正在撤回的版本；只允許回復未被撤回（`withdrawn_at is null`）的 ARCHIVED 版本 |
+| H-5 | B-009-r2 | `tests/integration/repro/b009-hash-dedupe.repro.ts` | PDF 以 `arrayBuffer()` 位元組計算 SHA-256（與 Source Registry「PDF sha256」相同基準），HTML 依來源定義的正文基準；比對基準改為「該來源最近一次 snapshot」而非內容包雜湊；同一 `newContentHash` 已有 NEEDS_REVIEW 變更時不再建立；每次抓取保存 raw snapshot（TASK-B-009 交付項） |
+| H-6 | B-009-r2 | — | 移除「Netlify Scheduled Function `10 16 * * *`」建議（約 30 秒上限）；排程入口改由 J-003 的 `.github/workflows/knowledge-crawler.yml` 呼叫 `dist/scripts/runCrawler.js` |
+| H-7 | C-005-r2 | `grep` 同上 | 同步最新 staging（不要帶入 `a14903a` 的 docs 內容）；依 API_CONTRACT v0.3.1／v0.3.2 新增兩題選填（YES／NO／UNKNOWN；LOW_INCOME／MIDDLE_LOW_INCOME／ALLOWANCE／GENERAL／UNKNOWN），未回答送 `UNKNOWN`；Mock 用 `WITH-DISABILITY-NEW_TAIPEI.json`、`WITH-ESTIMATE-GENERAL-NEW_TAIPEI.json` 驗收；決定 `e3a065a` 的去留 |
+| H-8 | A-005-r2 | — | 同步 staging；AC-009 依 D-13b（`NO_LOCATION`、空陣列、提醒）；AC-007／AC-011 依 D-13c；新增 `CITY_ROTATION`（D-13a）與同日穩定／跨日輪替（D-13f）案例 |
+| H-9 | B-002（或 J-003 已處理） | `node scripts/check-functions-runtime.mjs` | 已由本版修正：Supabase 未設定時回應不再帶環境變數名稱，細節只寫 function log |
+
 
 ---
 
-## Contract 差異：目前後端 vs 目標 contract
+## Contract 差異：目前後端 vs 目標 contract（J-003-r3 紀錄，staging `9af91e5`；最新狀態見〈整合狀態表〉）
 
 目標為 API_CONTRACT v0.2（D-04 已於 2026-09-24 核准；**D-05／D-06 仍是 PROPOSED**）。前端 adapter 已依目標實作，但**後端未提供的能力一律視為依賴未完成**，不因 adapter 寫好而算整合完成。
 
@@ -251,13 +307,37 @@ J-003-r1 的已知問題在本版修正：
 
 ---
 
-## 首次知識發布（待執行）
+## 首次知識發布（待執行；2026-09-25 條件核對）
 
-條件：Jerry 核准 D-03 格式（✅ 2026-09-24）、B-008-r2 合併（發布版號＝`intendedKnowledgeVersion`）、逐筆核准 `KP-2026-09-23-001` 內容（✅ 2026-09-24，9／9）、B-008 合併（✅ #26）。目標版本 `KB-2026-09-24-001`。
+目標版本 `KB-2026-09-24-001`。**本版未執行任何雲端寫入**：下列條件未全部成立。
+
+| 條件 | 狀態 | 證據 |
+|---|---|---|
+| 內容已由 Jerry 核准 | ✅ 5 包：`KP-2026-09-23-001`（9）、`-24-002`（6）、`-24-003`（1 核准＋1 退回）、`-24-004`（1）、`-24-005`（4）＝ **21 筆**，每筆有 `review.reviewedBy` | [PR #31 comment（001）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227)、[PR #31 comment（002）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910)、[PR #31 第三批（KR-016）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810344725)、[PR #31 第四批（KR-017 退回、KR-018 核准）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810416966)、005：[PR #35（KR-022）](https://github.com/viz963-1216/Kareo/pull/35#issuecomment-5810649551)、[PR #35 修正版 KR-019〜021](https://github.com/viz963-1216/Kareo/pull/35#issuecomment-5819498531)、[PR #35 疑點核准](https://github.com/viz963-1216/Kareo/pull/35#issuecomment-5819667212)（commit `d10c327`） |
+| 全部內容包都在同一個 commit | ❌ `KP-2026-09-24-005` 只在 **PR #35（未合併）** | 發布前需先合併 #35，否則版本會漏掉臺北市 4 筆 |
+| `intendedKnowledgeVersion` 一致 | ✅ 5 包皆 `KB-2026-09-24-001` | `contracts/knowledge/packs/*.json` |
+| B-008 必要修正已合併並驗證 | ❌ B-008-r2（#36）未合併；另有 H-2／H-3／H-4 | 〈整合狀態表〉、`tests/db/verify-db.mjs` |
+| 預演 | ✅（本機、in-memory、試驗組合）5 包 21 筆全部匯入、核准、發布為 `KB-2026-09-24-001`，0 筆因失效排除；B-010 在該快照上的臺北市／新北市案例地方行不互相出現 | `tests/integration/first-publish-dryrun.ts` |
+| 目標為確認過的 staging（非 production） | ❌ 未確認：本機沒有 staging Supabase 憑證，也無法確認專案隔離 | — |
+
+建議順序：#36 B-008-r2 → B-008-r3（H-2／H-3／H-4）→ #35 J-002-r5 → Jerry 確認 staging Supabase 專案 → 依下列指令執行。
+
+目標環境：Jerry 確認的 **staging** Supabase 專案（`SUPABASE_URL`／`SUPABASE_SERVICE_ROLE_KEY` 只放在執行者的 shell 環境，不寫入 repo、PR 或對話）。影響：新增 21 筆 `knowledge_records`、1 筆 `knowledge_versions`（PUBLISHED）；staging 上的 Assessment 從 `KNOWLEDGE_UNAVAILABLE` 變成引用 `KB-2026-09-24-001`。已發布版本不得覆寫；要修正只能撤回後發布新版本號。
+
+```bash
+npm ci --prefix apps/api && npm run build --prefix apps/api
+for p in KP-2026-09-23-001 KP-2026-09-24-002 KP-2026-09-24-003 KP-2026-09-24-004 KP-2026-09-24-005; do node apps/api/dist/scripts/importKnowledgePack.js --dry-run contracts/knowledge/packs/$p.json || break; done
+for p in KP-2026-09-23-001 KP-2026-09-24-002 KP-2026-09-24-003 KP-2026-09-24-004 KP-2026-09-24-005; do node apps/api/dist/scripts/importKnowledgePack.js --commit contracts/knowledge/packs/$p.json || break; done
+for p in KP-2026-09-23-001 KP-2026-09-24-002 KP-2026-09-24-003 KP-2026-09-24-004 KP-2026-09-24-005; do node apps/api/dist/scripts/approveKnowledgePack.js contracts/knowledge/packs/$p.json || break; done
+node apps/api/dist/scripts/publishKnowledgeVersion.js "<執行者>" "Jerry" --notes="first publication, 5 packs, 21 records" -- contracts/knowledge/packs/KP-2026-09-23-001.json contracts/knowledge/packs/KP-2026-09-24-002.json contracts/knowledge/packs/KP-2026-09-24-003.json contracts/knowledge/packs/KP-2026-09-24-004.json contracts/knowledge/packs/KP-2026-09-24-005.json
+curl -s https://<staging 網址>/api/v1/knowledge/status
+```
+
+預期：dry-run 全部 0 拒收；`Approved` 合計 21；`Published version: KB-2026-09-24-001`、`Published records: 21`；status 回 `KB-2026-09-24-001`。任何一步不符就停止，不要改用其他版本號重試。
 
 | 項目 | 紀錄 |
 |---|---|
-| 內容包與核准 PR | `KP-2026-09-23-001`（9 筆 APPROVED，2026-09-24）；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227) |
+| 內容包與核准 PR | 見上表 |
 | 匯入指令與輸出 | （待填） |
 | 核准／發布操作者 | （待填，真實人員） |
 | KnowledgeVersion | （待填） |
