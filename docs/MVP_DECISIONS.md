@@ -57,8 +57,8 @@ Last reviewed: 2026-09-23
 | D-14a–b | 補助說明呈現細節（來源連結、非服務縣市） | **SPEC-APPROVED**（2026-09-24，依 D-14 表建議） | D-14-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-010、C-005 |
 | D-15 | 知識來源新增「Jerry 指定 Google 雲端硬碟資料夾」（PRODUCT_SPEC §40–41 變更） | **SPEC-APPROVED**（2026-09-24，Jerry）；已修訂 PRODUCT_SPEC v0.4、schema（`KAREO_DRIVE`）、驗證腳本；B-008 匯入程式由 B-008-r2 更新 | D-15-v1 | Jerry | [PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | B-008-r2、J-002、J-003 |
 | D-16 | 知識審核與發布管理頁面（按鈕發布取代指令） | **SPEC-APPROVED**（2026-09-24，Jerry）；新增 TASK-B-012、TASK-C-006、API_CONTRACT §26 | D-16-v1 | Jerry | [PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | B-012、C-006、J-003 |
-| D-17 | Assessment 新增「是否領有身心障礙證明」選填題，結果頁說明可能適用的身心障礙福利補助（PRODUCT_SPEC §37 變更） | **SPEC-APPROVED**（2026-09-24）；規則表 r4 文字確認 | D-17-v1 | Jerry | [PR #31 comment 2026-09-24（第三批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810344725)；r4 文字：PR 留言（待貼） | B-010、C-005、J-003 |
-| D-17a | Assessment 新增「家庭經濟身分」選填題，結果頁估算使用者自己的長照自付比例與金額、身障補助上限（取代原先「不計算個人金額」限制） | **SPEC-APPROVED**（2026-09-24，Jerry：「要清算」）；PRODUCT_SPEC v0.6、API_CONTRACT v0.3.2、規則表 r5 §6.6 | D-17a-v1 | Jerry | PR 留言（待貼） | B-010、C-005、J-003 |
+| D-17 | Assessment 新增「是否領有身心障礙證明」選填題，結果頁說明可能適用的身心障礙福利補助（PRODUCT_SPEC §37 變更） | **SPEC-APPROVED**（2026-09-24）；規則表 r4 文字確認 | D-17-v1 | Jerry | [PR #31 comment 2026-09-24（第三批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810344725)；r4 文字：[PR #31 comment 2026-09-24（第四批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810416966) | B-010、C-005、J-003 |
+| D-17a | Assessment 新增「家庭經濟身分」選填題，結果頁估算使用者自己的長照自付比例與金額、身障補助上限（取代原先「不計算個人金額」限制） | **SPEC-APPROVED**（2026-09-24，Jerry：「要清算」）；PRODUCT_SPEC v0.6、API_CONTRACT v0.3.2、規則表 r5 §6.6 | D-17a-v1 | Jerry | [PR #31 comment 2026-09-24（第四批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810416966) | B-010、C-005、J-003 |
 
 ---
 
