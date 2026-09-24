@@ -178,6 +178,48 @@ Lead 送出 ⛔ 無 API（B-006 未提交）
 
 ## 執行紀錄
 
+### Run 2026-09-25-01 — 本機，J-003-r4 分支＋整合試驗組合
+
+| 項目 | 內容 |
+|---|---|
+| 驗證的 commit | J-003-r4 `c75b3f978864cfac326644eb005823e4f847f78e`（staging `fd4154ae16107ac599bd39bba58795c564370d76`＋本版），工作目錄無未提交修改 |
+| 試驗組合 | 隔離 worktree，**不是 staging**：staging `fd4154a`＋#32 `92d787f`＋#33 `2612c05`＋#36 `1c73987`＋#37 `80bd5fc`＋#35 `d10c327`＋#30 `a67156e`＋#34 `6e5cca6`（合併結果 `918334a`，衝突解法見〈整合狀態表〉）＋本版 `netlify.toml`／`supabaseClient.ts` |
+| 環境 | 本機 macOS，Node v24（CI 為 Node 22）；PGlite 0.3.16（PostgreSQL 17.5，in-process） |
+| 執行時間 | 2026-09-24T18:44:58Z–18:45:11Z（J-003-r4 分支）；試驗組合同日 02:20–02:45 +08:00 |
+| Provider 資料 | `data/providers/staging`（A-004 gate PASS）；未匯入任何雲端資料庫 |
+| Knowledge | 無 PUBLISHED 版本（雲端）；預演使用 5 個已核准內容包（in-memory） |
+| rulesVersion | staging：無規則引擎（Fake Adapter）；試驗組合：B-010-r2 `RULES-2026-09-24-r5` |
+| 真實外部服務 | `https://kareo-tw.netlify.app/kareo-version.json` HTTP 503；`https://kareocar.netlify.app/` HTTP 503（D-09）；未使用 Supabase |
+| 資料 | 全部合成；無真實姓名、電話、健康資料或憑證 |
+
+J-003-r4 分支（`c75b3f9`）：
+
+| # | 檢查 | 指令 | 預期 | 實際 | 結果 |
+|---|---|---|---|---|---|
+| 1 | Backend typecheck／tests | `npm run typecheck --prefix apps/api`、`npm test --prefix apps/api` | 通過 | 11 檔、93 項通過 | PASS |
+| 2 | Frontend real build | `npm run build --prefix apps/web` | 通過、bundle 無 mock | 通過；無 `*-MOCK` | PASS |
+| 3 | 版本標記 | `node scripts/build-site.mjs` | `dist/kareo-version.json` 為目標 SHA | `c75b3f9…`（`git rev-parse HEAD`） | PASS |
+| 4 | 路由／contract | `node scripts/check-integration.mjs` | 0 FAIL；缺的 endpoint 列 PENDING | 10 PASS、11 PENDING（withdraw、recommendations、leads、§26 管理 API 8 個）、0 FAIL | PASS（dev） |
+| 5 | 打包後 Functions | `node scripts/check-functions-runtime.mjs` | 6 個 function 可載入；錯誤方法 4xx JSON；錯誤不外洩 | 12 PASS、1 PENDING（`DELETE /session` 未實作，B-011b）；修正前 3 FAIL（回應含 `SUPABASE_URL`） | PASS（dev） |
+| 6 | Script／adapter／gate／runner 測試 | `node --experimental-strip-types --test "tests/**/*.test.*"` | 通過 | 54／54 | PASS |
+| 7 | 知識包格式／Provider gate | `validate-knowledge-pack.mjs`、`check-provider-data.mjs` | 通過 | 通過（格式 ≠ 核准 ≠ 發布） | PASS |
+| 8 | 開發檢查 | `node scripts/acceptance-gate.mjs --mode=dev` | exit 0，PENDING 不算通過 | exit 0：26 PASS、0 FAIL、55 PENDING | PASS（**不是 MVP 通過**） |
+| 9 | 完整驗收 | `… --mode=release --commit=c75b3f97… --base-url=https://kareo-tw.netlify.app` | exit 1 | exit 1：43 E2E＋12 項 PENDING；無目標 → exit 2 | **FAIL** |
+| 10 | Runner 對 staging | `node tests/e2e/run-api-e2e.mjs --base-url=https://kareo-tw.netlify.app --commit=c75b3f97…` | 版本不符就不跑 | 版本標記 HTTP 503 → 未跑任何案例（未提交結果檔） | PENDING（D-09） |
+| 11 | 隔離 DB（staging migrations 0001–0007） | `npm ci --prefix tests/db && node tests/db/verify-db.mjs` | 全部 PASS | 12 PASS、3 FAIL：K4、K9（D-03 差異，B-008-r2）、K7（H-4） | FAIL → 交回 B-008 |
+
+試驗組合（`918334a`，只證明「合併後會怎樣」）：
+
+| # | 檢查 | 結果 |
+|---|---|---|
+| T1 | 合併衝突 | B-010×B-011a：`tests/assessment.test.ts`；B-010×B-009：`repositories/types.ts`、`inMemoryKnowledgeRepository.ts`、`supabaseKnowledgeRepository.ts`（加總型）；C-005×staging：21 個 docs／tasks／contracts 檔（squash 前 commit） |
+| T2 | `apps/api` typecheck／vitest | typecheck PASS；vitest 208 PASS、**26 FAIL**（全部是 B-010 測試未帶 session token，H-1） |
+| T3 | 打包後 Functions | **不加** `included_files`：consent 無法載入（`Cannot find module '../../../../contracts/legal/consent-versions.json'`）；加上後 13／13 PASS |
+| T4 | Frontend（含 C-005）real build／測試 | build PASS、無 mock；48／48 |
+| T5 | 隔離 DB（0001–0012） | 12 migration 依序套用 PASS；RLS／權限 PASS；Provider 回滾 PASS；K4、K9 PASS；**K5、K6、K7 FAIL**（H-2、H-4） |
+| T6 | 交回重現案例 | `b008-approval-binding` FAIL（H-3）；`b009-hash-dedupe` 2 FAIL（H-5） |
+| T7 | 首次發布預演 | 5 包、21／21 筆發布為 `KB-2026-09-24-001`，0 筆排除；臺北市／新北市地方行不互相出現；KR-2026-018 兩市皆適用 |
+
 ### Run 2026-09-23-03 — 本機，J-003-r3 分支
 
 | 項目 | 內容 |
