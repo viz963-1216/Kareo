@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "data": {
+    "changes": [
+      {
+        "id": "KC-MOCK-001",
+        "sourceId": "SRC-TPE-DOSW-LTC-TRANSPORT",
+        "detectedAt": "2026-09-25T00:11:02+08:00",
+        "previousHash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "currentHash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "diffSummary": "「收費方式」段落文字變更（測試資料）",
+        "status": "NEEDS_REVIEW"
+      }
+    ]
+  }
+}

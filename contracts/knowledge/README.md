@@ -34,7 +34,7 @@ contracts/knowledge/
 匯入指令只讀一個內容包檔案，並且：
 
 1. 以 `content-pack.schema.json` 驗證；任一欄位不合格，**整批拒絕，不寫入任何資料**，以非零狀態結束。
-2. 驗證每個 `source.sourceId` 存在於 `docs/knowledge/source-registry.md` 且 `active = true`，URL 網域屬於白名單。
+2. 驗證每個 `source.sourceId` 存在於 `docs/knowledge/source-registry.md` 且 `active = true`，URL 網域屬於白名單（gov.tw／gov.taipei）；`authority = KAREO_DRIVE` 時，URL 必須是 `https://drive.google.com/file/d/<fileId>/…` 且該 fileId 已登錄於 Source Registry 的 Jerry 指定資料夾區段（D-15）。
 3. 同一包內 `recordId` 不得重複；同一 `jurisdiction + category + title` 若與已 PUBLISHED 紀錄內容不同，標記 `CONFLICT`，不得自動覆蓋。
 4. 匯入後的資料庫紀錄狀態一律為 `NEEDS_REVIEW`，**匯入不代表核准**，即使內容包本身已是 `APPROVED`。
 5. 以 `(packId, recordId)` 冪等：重複匯入同一包不產生重複紀錄。

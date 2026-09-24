@@ -84,7 +84,7 @@ C 的 Mock 模組驗收（C-003／C-004／C-005）只證明畫面與 contract �
 ↓
 初步評估 ⛔ 後端一律 KNOWLEDGE_UNAVAILABLE（B-008 PR #26 審核中、B-010 未見提交、0 筆知識核准）
 ↓
-制度／補助說明 ⛔ 模板已由 J-002-r4 補上（ASSESSMENT_RULES §6.3，PROPOSED）；待 B-010 實作、C-005 顯示、知識 PUBLISHED
+制度／補助說明 ⛔ 模板已由 J-002-r4 補上並核准（ASSESSMENT_RULES §6.3，D-01a）；待 B-010 實作、C-005 顯示、知識 PUBLISHED
 ↓
 推薦 ⛔ API 不存在（B-005 未見提交）；精確位置另缺已驗證座標（D-07）
 ↓
@@ -103,7 +103,7 @@ C 的 Mock 模組驗收（C-003／C-004／C-005）只證明畫面與 contract �
 
 ## Contract 差異：目前後端 vs 目標 contract
 
-目標為 API_CONTRACT v0.2（**D-04／D-05／D-06 仍是 PROPOSED**）。前端 adapter 已依目標實作，但**後端未提供的能力一律視為依賴未完成**，不因 adapter 寫好而算整合完成。
+目標為 API_CONTRACT v0.2（D-04 已於 2026-09-24 核准；**D-05／D-06 仍是 PROPOSED**）。前端 adapter 已依目標實作，但**後端未提供的能力一律視為依賴未完成**，不因 adapter 寫好而算整合完成。
 
 | 項目 | 目前 staging 後端（`9af91e5`） | 目標 contract | 前端 adapter（J-003-r2） | 狀態／負責 |
 |---|---|---|---|---|
@@ -253,11 +253,11 @@ J-003-r1 的已知問題在本版修正：
 
 ## 首次知識發布（待執行）
 
-條件：Jerry 核准 D-03 格式、逐筆核准 `KP-2026-09-23-001` 內容（逐筆）、B-008 合併。
+條件：Jerry 核准 D-03 格式（✅ 2026-09-24）、B-008-r2 合併（發布版號＝`intendedKnowledgeVersion`）、逐筆核准 `KP-2026-09-23-001` 內容（✅ 2026-09-24，9／9）、B-008 合併（✅ #26）。目標版本 `KB-2026-09-24-001`。
 
 | 項目 | 紀錄 |
 |---|---|
-| 內容包與核准 PR | （待填） |
+| 內容包與核准 PR | `KP-2026-09-23-001`（9 筆 APPROVED，2026-09-24）；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227) |
 | 匯入指令與輸出 | （待填） |
 | 核准／發布操作者 | （待填，真實人員） |
 | KnowledgeVersion | （待填） |

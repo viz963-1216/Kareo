@@ -249,10 +249,10 @@ Provider Filter
 ↓
 Service Area Match
 ├─ 精確位置＋候選全有已驗證座標 → Distance Ranking（DISTANCE）
-├─ 精確位置但候選缺座標           → Stable Rotation（DISTRICT_ROTATION，PROPOSED D-13c）
+├─ 精確位置但候選缺座標           → Stable Rotation（DISTRICT_ROTATION，D-13c）
 ├─ 行政區                         → Stable Rotation（DISTRICT_ROTATION）
-├─ 只有縣市                       → Stable Rotation（CITY_ROTATION，PROPOSED D-13a）
-└─ 沒有位置                       → 不推薦，提示補充位置（NO_LOCATION，PROPOSED D-13b）
+├─ 只有縣市                       → Stable Rotation（CITY_ROTATION，D-13a）
+└─ 沒有位置                       → 不推薦，提示補充位置（NO_LOCATION，D-13b）
 ↓
 Top 3（0–3 家）
 ```
@@ -317,7 +317,7 @@ PUBLISHED
 
 排程：`Asia/Taipei` 每日 `00:10`。
 
-白名單來源：衛生福利部、1966 / 長照專區、全國法規資料庫、臺北市政府、新北市政府。
+白名單來源：衛生福利部、1966 / 長照專區、全國法規資料庫、臺北市政府、新北市政府；以及 Jerry 指定的 Google 雲端硬碟資料夾（`1h3pDfDYOy1Qo4OOiP9duUJ4DUK0NJ6Fh`，PRODUCT_SPEC §40、MVP_DECISIONS D-15）中已登錄於 Source Registry 的檔案。雲端硬碟檔案不由 B-009 公開抓取；檔案更新時由 Jerry 通知並以新內容包提交。
 
 Crawler 抓取失敗時繼續使用 Last Published Knowledge Version。
 
@@ -587,7 +587,7 @@ Fake Adapter 只允許用於自動測試與本機開發；STAGING／PRODUCTION �
 
 # 20. Session Ownership, Security & Abuse Controls（v0.2，J-002-r1）
 
-決策 D-04（PROPOSED）。本節是 B-011 與各 API 的實作依據；對應 contract 見 API_CONTRACT §3.1–3.4。
+決策 D-04（SPEC-APPROVED 2026-09-24）。本節是 B-011 與各 API 的實作依據；對應 contract 見 API_CONTRACT §3.1–3.4。
 
 ## 20.1 匿名 session 持有證明
 
@@ -728,5 +728,6 @@ Postgres function：在單一交易內只做寫入（upsert）
 5. 測試：
    - 單元測試：證明 Service 只呼叫一次 rpc，且驗證失敗時完全不呼叫。
    - 整合測試（J-003 於 staging Supabase 執行）：故意讓第二、第三張表寫入失敗，確認三張表都沒有新資料。
-6. 目前核准用途：Provider 匯入（B-004）。其他用途需再經 Jerry 核准並登記於 MVP_DECISIONS。
+6. 目前核准用途：Provider 匯入（B-004）；知識發布／撤回（B-008，2026-09-24 延伸核准，MVP_DECISIONS D-10）。其他用途需再經 Jerry 核准並登記於 MVP_DECISIONS。
+7. 已核准的例外：`publish_knowledge_version` 在函式內檢查紀錄必須為 APPROVED（額外安全檢查，不視為違反第 1 點）。
 

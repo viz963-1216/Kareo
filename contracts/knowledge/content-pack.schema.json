@@ -2,81 +2,283 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://kareo/contracts/knowledge/content-pack.schema.json",
   "title": "Kareo Knowledge Content Pack",
-  "description": "Format version 1.0. Owned by Jerry. See contracts/knowledge/README.md for import, review, publish and withdraw rules.",
+  "description": "Format version 1.0. Owned by Jerry. See contracts/knowledge/README.md for import, review, publish and withdraw rules. 2026-09-24 (D-15): authority KAREO_DRIVE allows files from Jerry's designated Google Drive folder that are registered in docs/knowledge/source-registry.md.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["packId", "formatVersion", "createdAt", "createdBy", "sourceRegistryVersion", "status", "review", "intendedKnowledgeVersion", "records"],
+  "required": [
+    "packId",
+    "formatVersion",
+    "createdAt",
+    "createdBy",
+    "sourceRegistryVersion",
+    "status",
+    "review",
+    "intendedKnowledgeVersion",
+    "records"
+  ],
   "properties": {
-    "$schema": { "type": "string" },
-    "packId": { "type": "string", "pattern": "^KP-\\d{4}-\\d{2}-\\d{2}-\\d{3}$" },
-    "formatVersion": { "const": "1.0" },
-    "createdAt": { "$ref": "#/$defs/isoDateTime" },
-    "createdBy": { "type": "string", "minLength": 1 },
-    "sourceRegistryVersion": { "type": "string", "pattern": "^SR-\\d{4}-\\d{2}-\\d{2}-\\d{2}$" },
-    "status": { "enum": ["NEEDS_REVIEW", "APPROVED", "REJECTED"] },
-    "review": { "$ref": "#/$defs/review" },
+    "$schema": {
+      "type": "string"
+    },
+    "packId": {
+      "type": "string",
+      "pattern": "^KP-\\d{4}-\\d{2}-\\d{2}-\\d{3}$"
+    },
+    "formatVersion": {
+      "const": "1.0"
+    },
+    "createdAt": {
+      "$ref": "#/$defs/isoDateTime"
+    },
+    "createdBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceRegistryVersion": {
+      "type": "string",
+      "pattern": "^SR-\\d{4}-\\d{2}-\\d{2}-\\d{2}$"
+    },
+    "status": {
+      "enum": [
+        "NEEDS_REVIEW",
+        "APPROVED",
+        "REJECTED"
+      ]
+    },
+    "review": {
+      "$ref": "#/$defs/review"
+    },
     "intendedKnowledgeVersion": {
       "description": "Filled only when the pack is APPROVED; e.g. KB-2026-09-26-001. Publishing happens in the database via B-008, not by editing this file.",
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "pattern": "^KB-\\d{4}-\\d{2}-\\d{2}-\\d{3}$"
     },
-    "records": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/record" } }
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    }
   },
   "allOf": [
     {
-      "if": { "properties": { "status": { "const": "APPROVED" } } },
+      "if": {
+        "properties": {
+          "status": {
+            "const": "APPROVED"
+          }
+        }
+      },
       "then": {
         "properties": {
-          "review": { "properties": { "reviewedBy": { "type": "string", "minLength": 1 }, "reviewedAt": { "$ref": "#/$defs/isoDateTime" }, "decision": { "const": "APPROVED" } } },
-          "intendedKnowledgeVersion": { "type": "string" }
+          "review": {
+            "properties": {
+              "reviewedBy": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reviewedAt": {
+                "$ref": "#/$defs/isoDateTime"
+              },
+              "decision": {
+                "const": "APPROVED"
+              }
+            }
+          },
+          "intendedKnowledgeVersion": {
+            "type": "string"
+          }
         }
       }
     }
   ],
   "$defs": {
-    "isoDateTime": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$" },
-    "isoDate": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "isoDateTime": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "isoDate": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
     "review": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["reviewedBy", "reviewedAt", "decision"],
+      "required": [
+        "reviewedBy",
+        "reviewedAt",
+        "decision"
+      ],
       "properties": {
-        "reviewedBy": { "type": ["string", "null"] },
-        "reviewedAt": { "type": ["string", "null"] },
-        "decision": { "enum": [null, "APPROVED", "REJECTED", "CONFLICT"] },
-        "notes": { "type": ["string", "null"] }
+        "reviewedBy": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decision": {
+          "enum": [
+            null,
+            "APPROVED",
+            "REJECTED",
+            "CONFLICT"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     },
     "record": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["recordId", "category", "jurisdiction", "title", "source", "publishedAt", "effectiveFrom", "effectiveTo", "lastVerifiedAt", "excerpt", "summary", "ruleData", "status", "review"],
+      "required": [
+        "recordId",
+        "category",
+        "jurisdiction",
+        "title",
+        "source",
+        "publishedAt",
+        "effectiveFrom",
+        "effectiveTo",
+        "lastVerifiedAt",
+        "excerpt",
+        "summary",
+        "ruleData",
+        "status",
+        "review"
+      ],
       "properties": {
-        "recordId": { "type": "string", "pattern": "^KR-\\d{4}-\\d{3}$" },
-        "category": { "enum": ["ELIGIBILITY", "BENEFIT", "COPAY", "ASSISTIVE_DEVICE", "TRANSPORTATION", "RESPITE", "HOME_CARE", "HOME_MEDICAL_NURSING", "APPLICATION", "OTHER"] },
-        "jurisdiction": { "enum": ["TAIWAN", "TAIPEI", "NEW_TAIPEI"] },
-        "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "recordId": {
+          "type": "string",
+          "pattern": "^KR-\\d{4}-\\d{3}$"
+        },
+        "category": {
+          "enum": [
+            "ELIGIBILITY",
+            "BENEFIT",
+            "COPAY",
+            "ASSISTIVE_DEVICE",
+            "TRANSPORTATION",
+            "RESPITE",
+            "HOME_CARE",
+            "HOME_MEDICAL_NURSING",
+            "APPLICATION",
+            "OTHER"
+          ]
+        },
+        "jurisdiction": {
+          "enum": [
+            "TAIWAN",
+            "TAIPEI",
+            "NEW_TAIPEI"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
         "source": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["sourceId", "authority", "url", "fetchedAt", "contentHash"],
+          "required": [
+            "sourceId",
+            "authority",
+            "url",
+            "fetchedAt",
+            "contentHash"
+          ],
           "properties": {
-            "sourceId": { "type": "string", "pattern": "^SRC-[A-Z0-9-]+$" },
-            "authority": { "enum": ["MOHW", "LAW", "TAIPEI_GOV", "NEW_TAIPEI_GOV"] },
-            "url": { "type": "string", "pattern": "^https://([a-z0-9-]+\\.)*(gov\\.tw|gov\\.taipei)/" },
-            "fetchedAt": { "$ref": "#/$defs/isoDateTime" },
-            "contentHash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+            "sourceId": {
+              "type": "string",
+              "pattern": "^SRC-[A-Z0-9-]+$"
+            },
+            "authority": {
+              "enum": [
+                "MOHW",
+                "LAW",
+                "TAIPEI_GOV",
+                "NEW_TAIPEI_GOV",
+                "KAREO_DRIVE"
+              ]
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^https://(([a-z0-9-]+\\.)*(gov\\.tw|gov\\.taipei)/|drive\\.google\\.com/file/d/[A-Za-z0-9_-]+(/|$))"
+            },
+            "fetchedAt": {
+              "$ref": "#/$defs/isoDateTime"
+            },
+            "contentHash": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
           }
         },
-        "publishedAt": { "oneOf": [{ "$ref": "#/$defs/isoDate" }, { "type": "null" }] },
-        "effectiveFrom": { "$ref": "#/$defs/isoDate" },
-        "effectiveTo": { "oneOf": [{ "$ref": "#/$defs/isoDate" }, { "type": "null" }] },
-        "lastVerifiedAt": { "$ref": "#/$defs/isoDateTime" },
-        "excerpt": { "type": "string", "minLength": 1, "maxLength": 4000 },
-        "summary": { "type": "string", "minLength": 1, "maxLength": 400 },
-        "ruleData": { "type": "object" },
-        "status": { "enum": ["NEEDS_REVIEW", "APPROVED", "REJECTED", "CONFLICT"] },
-        "review": { "$ref": "#/$defs/review" }
+        "publishedAt": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/isoDate"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effectiveFrom": {
+          "$ref": "#/$defs/isoDate"
+        },
+        "effectiveTo": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/isoDate"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lastVerifiedAt": {
+          "$ref": "#/$defs/isoDateTime"
+        },
+        "excerpt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400
+        },
+        "ruleData": {
+          "type": "object"
+        },
+        "status": {
+          "enum": [
+            "NEEDS_REVIEW",
+            "APPROVED",
+            "REJECTED",
+            "CONFLICT"
+          ]
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        }
       }
     }
   }

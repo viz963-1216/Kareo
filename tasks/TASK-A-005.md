@@ -87,7 +87,7 @@ docs/GIT_RULES.md
 
 - [ ] 上列情境全部有案例，每案例有 Input／Expected，可由 J-003 直接執行
 - [ ] Expected 引用 API_CONTRACT §9 的欄位與 enum，不自行定義新 Contract
-- [ ] 標示 PROPOSED（D-13a–c）的案例與原始 MVP 案例分開，Jerry 修改提案時容易更新
+- [ ] D-13a–c（2026-09-24 核准）的案例與原始 MVP 案例分開標示，方便追溯依據
 - [ ] 需要已驗證座標的案例列出使用的 Provider 與 A-003-r2 報告依據；無法提供時標 BLOCKED 並說明
 - [ ] 不負責跨模組程式修改
 

@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "data": {
+    "versionId": "KB-MOCK-002",
+    "publishedRecordCount": 1,
+    "carriedForwardCount": 15,
+    "supersededRecordCount": 0
+  }
+}
