@@ -5,13 +5,13 @@
   "createdAt": "2026-09-24T16:25:01+08:00",
   "createdBy": "J-002 (prepared for Jerry review)",
   "sourceRegistryVersion": "SR-2026-09-24-01",
-  "status": "NEEDS_REVIEW",
+  "status": "APPROVED",
   "review": {
-    "reviewedBy": null,
-    "reviewedAt": null,
-    "decision": null
+    "reviewedBy": "Jerry",
+    "reviewedAt": "2026-09-24T16:28:50+08:00",
+    "decision": "APPROVED"
   },
-  "intendedKnowledgeVersion": null,
+  "intendedKnowledgeVersion": "KB-2026-09-24-001",
   "records": [
     {
       "recordId": "KR-2026-019",
@@ -53,12 +53,12 @@
         ],
         "prepayByContractedVendor": true
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "臺北市社會局「長期照顧輔具服務」頁附件（頁面資料更新 115-07-30）。計畫本文未標示日期；補助項目與額度每年公告（見 KR-2026-020）。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T16:28:50+08:00",
+        "decision": "APPROVED",
+        "notes": "臺北市社會局「長期照顧輔具服務」頁附件（頁面資料更新 115-07-30）。計畫本文未標示日期；補助項目與額度每年公告（見 KR-2026-020）。 Jerry 2026-09-24 核准。"
       }
     },
     {
@@ -182,12 +182,12 @@
         },
         "categoryBasis": "長期照顧服務申請及給付辦法第14條第1項"
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "115 年度公告（檔名）。部分負擔比率與中央附表五輔具項目一致（0／10／30%）。excerpt 為品項列與備註節錄。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T16:28:50+08:00",
+        "decision": "APPROVED",
+        "notes": "115 年度公告（檔名）。部分負擔比率與中央附表五輔具項目一致（0／10／30%）。excerpt 為品項列與備註節錄。 Jerry 2026-09-24 核准。"
       }
     },
     {
@@ -220,12 +220,12 @@
         ],
         "deadlineMonths": 6
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "臺北市社會局附件「居家無障礙環境改善補助注意事項」，未標示日期。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T16:28:50+08:00",
+        "decision": "APPROVED",
+        "notes": "臺北市社會局附件「居家無障礙環境改善補助注意事項」，未標示日期。 Jerry 2026-09-24 核准。"
       }
     },
     {
@@ -256,12 +256,12 @@
         ],
         "ltcLevelMin": 2
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "臺北市政府衛生局新聞稿（資料更新 114-04-18）；額度依中央附表二（KR-2026-004），本紀錄只記服務方式。新聞稿中的個案故事未收錄。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T16:28:50+08:00",
+        "decision": "APPROVED",
+        "notes": "臺北市政府衛生局新聞稿（資料更新 114-04-18）；額度依中央附表二（KR-2026-004），本紀錄只記服務方式。新聞稿中的個案故事未收錄。 Jerry 2026-09-24 核准。"
       }
     }
   ]

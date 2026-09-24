@@ -2,7 +2,7 @@
 
 Owner: Jerry
 Submission Version: J-002-r4
-Rules version: `RULES-2026-09-24-r5`（**SPEC-APPROVED 2026-09-24**：r4 身心障礙福利補助 §6.5 文字經 Jerry 確認；r5 依 D-17a 新增 §6.6 個人自付估算，模板文字依 Jerry「要清算」指示撰寫）。r2、r3 為 SPEC-APPROVED 2026-09-24（D-01a）
+Rules version: `RULES-2026-09-24-r6`（**SPEC-APPROVED 2026-09-24**：r6 新增臺北市地方紀錄類型 `LOCAL_AD_TOPUP`、`LOCAL_AD_TOPUP_PLAN`、`LOCAL_RESPITE_OPTIONS` 的顯示對應與 S-EST-LOCAL-AD）。r2–r5 皆為 SPEC-APPROVED 2026-09-24（D-01a、D-17、D-17a）
 Decision: MVP_DECISIONS D-01 = 方案 B（不使用 AI，Jerry 2026-09-23 決定）
 
 > MVP 的 Assessment 完全由本文件的確定性規則產生，不呼叫任何 AI／LLM。
@@ -133,7 +133,7 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 | S-SUB-COPAY | 至少一項 S-SUB-* 項目句出現 | 使用長照服務需依長照身分別自付部分費用，比率依服務項目不同，例如{第一個出現的項目}：{各類別顯示文字與比率}。身分別由主管機關認定。 | `COPAY_RATES`，TAIWAN |
 | S-SUB-SOURCE | 至少一項 S-SUB-* 句出現 | 以上制度與金額依據：{逐筆「來源機關顯示文字〈紀錄 title〉（effectiveFrom 起適用）」，以「、」串接}；平台知識版本 {knowledgeVersion}。 | S-SUB-* 實際引用的每一筆紀錄（依 recordId 去重，依 recordId 排序） |
 | S-SUB-DISCLAIMER | 至少一項 S-SUB-* 句出現 | 實際長照等級、給付額度與自付金額，須經照管專員評估核定後才確定。 | — |
-| S-LOCAL-INFO | 使用者縣市已知，PUBLISHED 版本有該縣市（TAIPEI／NEW_TAIPEI）的地方紀錄（`ruleData.type` 以 `LOCAL_` 開頭、`LOCAL_CENTER` 除外），且與需求相關：`LOCAL_TRANSPORT_RULES` → careNeeds 含 TRANSPORTATION；`LOCAL_ASSISTIVE_DEVICE_PROCESS` → 含 ASSISTIVE_DEVICE；`LOCAL_APPLICATION` → 一律；**（r6 提案，PROPOSED）**`LOCAL_AD_TOPUP`、`LOCAL_AD_TOPUP_PLAN` → 含 ASSISTIVE_DEVICE；`LOCAL_RESPITE_OPTIONS` → careNeeds 含 HOME_CARE 且 `caregiverSituation` ∈ {FAMILY_AVAILABLE, FAMILY_LIMITED}。`ruleData.requiresDisabilityCertificate = true` 的紀錄不由本句處理，改由 §6.5 S-DIS-*（只在使用者回答領有身心障礙證明時出現） | {city}：{紀錄 summary}（依據：{來源機關}〈{title}〉，{effectiveFrom} 起適用）。每筆相關紀錄一句，依 recordId 排序 | 該縣市 jurisdiction 的紀錄 |
+| S-LOCAL-INFO | 使用者縣市已知，PUBLISHED 版本有該縣市（TAIPEI／NEW_TAIPEI）的地方紀錄（`ruleData.type` 以 `LOCAL_` 開頭、`LOCAL_CENTER` 除外），且與需求相關：`LOCAL_TRANSPORT_RULES` → careNeeds 含 TRANSPORTATION；`LOCAL_ASSISTIVE_DEVICE_PROCESS` → 含 ASSISTIVE_DEVICE；`LOCAL_APPLICATION` → 一律；（r6）`LOCAL_AD_TOPUP`、`LOCAL_AD_TOPUP_PLAN` → 含 ASSISTIVE_DEVICE；`LOCAL_RESPITE_OPTIONS` → careNeeds 含 HOME_CARE 且 `caregiverSituation` ∈ {FAMILY_AVAILABLE, FAMILY_LIMITED}。`ruleData.requiresDisabilityCertificate = true` 的紀錄不由本句處理，改由 §6.5 S-DIS-*（只在使用者回答領有身心障礙證明時出現） | {city}：{紀錄 summary}（依據：{來源機關}〈{title}〉，{effectiveFrom} 起適用）。每筆相關紀錄一句，依 recordId 排序 | 該縣市 jurisdiction 的紀錄 |
 | S-LOCAL-MISSING | 使用者縣市已知，但沒有任何 S-LOCAL-INFO 句會出現 | {city}的地方規定與資源目前尚未收錄於平台，請洽 {hotline.number} 或{city}長期照顧管理中心確認；平台不會以其他縣市的規定代替。 | `APPLICATION_CHANNELS`，TAIWAN |
 | S-LOCAL-NOCITY | `location.precision` = NONE | 各縣市另有地方補助與服務資源，提供居住縣市後可查看；目前平台收錄臺北市、新北市。 | — |
 | S-LOCAL-CENTER | 使用者縣市已知，且有該縣市 `LOCAL_CENTER` 紀錄 | {city}長期照顧管理中心：{address}，電話 {phone}。 | `LOCAL_CENTER`，該縣市 |
@@ -195,7 +195,7 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 | S-EST-TR | S-SUB-TR 出現且可確定分區（有行政區，或縣市無行政區例外） | 交通接送：每趟車資您自付 {r}%，用滿每月額度 {額度} 元時約自付 {金額} 元；超出額度的車資需全額自費。 | — |
 | S-EST-DIS-MED | S-DIS-MED 條件 | 居家使用的醫療輔具補助：依您的身分，例如{前 3 項「品名 最高補助 x 元」}，共 {項目數} 項；需三個月內的專科醫師診斷證明。 | S-DIS-MED |
 | S-EST-DIS-AD-LOCAL | S-DIS-AD-LOCAL 條件 | {city}身心障礙者輔具加碼補助：依您的身分，例如{最多 3 項「品名 最高補助 x 元」}。 | S-DIS-AD-LOCAL |
-| S-EST-LOCAL-AD（r6 提案） | 已知身分，且 S-LOCAL-INFO 出現 `LOCAL_AD_TOPUP` 紀錄 | {city}自辦輔具補助：依您的長照身分別（第 {類別} 類），購置時您自付 {copayPercentByCategory[類別]}%，補助以各品項最高額度為限。 | — |
+| S-EST-LOCAL-AD（r6） | 已知身分，且 S-LOCAL-INFO 出現 `LOCAL_AD_TOPUP` 紀錄 | {city}自辦輔具補助：依您的長照身分別（第 {類別} 類），購置時您自付 {copayPercentByCategory[類別]}%，補助以各品項最高額度為限。 | — |
 | S-EST-DISCLAIMER | S-EST-INTRO 出現 | 以上為依您自選身分與官方公告上限的估算，不是核定金額；實際等級、額度與自付金額，須經照管專員評估及主管機關核定。 | 與 S-SUB-DISCLAIMER 併存 |
 
 計算規則：
@@ -209,7 +209,7 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 
 - 程式只依 `ruleData.type` 與 jurisdiction 找紀錄，不以 recordId 寫死。目前 `KP-2026-09-23-001` 的對應（2026-09-24 內容核准，尚未 PUBLISHED）：`ELIGIBILITY_ANY_OF`＝KR-2026-001、`LEVEL_RANGE`＝KR-2026-002、`BENEFIT_ITEMS`＝KR-2026-003、`BENEFIT_AMOUNTS`＝KR-2026-004、`TRANSPORT_ZONE`＝KR-2026-005、`COPAY_RATES`＝KR-2026-006、`BENEFIT_PERIODS`＝KR-2026-007、`APPLICATION_CHANNELS`＝KR-2026-008、`LOCAL_CENTER`（TAIPEI）＝KR-2026-009。
 - 同一 type＋jurisdiction 在 PUBLISHED 版本出現多筆有效紀錄 → 視為衝突，省略相關句子並記錄錯誤（不自行挑選）。
-- 地方紀錄（`KP-2026-09-24-002`，NEEDS_REVIEW）：`LOCAL_TRANSPORT_RULES`（TAIPEI）＝KR-2026-010、`LOCAL_APPLICATION`（TAIPEI）＝KR-2026-011、`LOCAL_APPLICATION`（NEW_TAIPEI）＝KR-2026-012、`LOCAL_CENTER`（NEW_TAIPEI）＝KR-2026-013、`LOCAL_TRANSPORT_RULES`（NEW_TAIPEI）＝KR-2026-014、`LOCAL_ASSISTIVE_DEVICE_PROCESS`（NEW_TAIPEI）＝KR-2026-015。兩市官方頁面**未找到**中央給付以外的地方現金加碼補助（Source Registry 已知缺口 5）。在 KP-*-002 核准並發布前，兩市都顯示 S-LOCAL-MISSING；臺北市另顯示 S-LOCAL-CENTER。
+- 地方紀錄（`KP-2026-09-24-002`，NEEDS_REVIEW）：`LOCAL_TRANSPORT_RULES`（TAIPEI）＝KR-2026-010、`LOCAL_APPLICATION`（TAIPEI）＝KR-2026-011、`LOCAL_APPLICATION`（NEW_TAIPEI）＝KR-2026-012、`LOCAL_CENTER`（NEW_TAIPEI）＝KR-2026-013、`LOCAL_TRANSPORT_RULES`（NEW_TAIPEI）＝KR-2026-014、`LOCAL_ASSISTIVE_DEVICE_PROCESS`（NEW_TAIPEI）＝KR-2026-015。兩市官方頁面**未找到**中央給付以外的地方現金加碼補助（Source Registry 已知缺口 5）。臺北市另有 `KP-2026-09-24-005`（KR-2026-019～022：自辦輔具補助計畫與 115 年 18 項、居家無障礙流程、喘息服務方式，2026-09-24 核准）。所有地方紀錄發布前，兩市都顯示 S-LOCAL-MISSING；臺北市另顯示 S-LOCAL-CENTER。
 - 同一縣市、同一 `ruleData.type` 可有多筆（例如各分站），但 `LOCAL_CENTER` 每個縣市只能一筆有效紀錄；`branches` 只用於後續顯示，MVP 模板只使用 `address`、`phone`。
 - 顯示文字對照（criteria、期間、交通用途、身分別類別、來源機關）屬規則表內容，隨 `rulesVersion` 由 J-002 維護：
 
