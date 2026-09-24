@@ -2,8 +2,10 @@ import type {
   Assessment,
   CareNeedProfile,
   Consent,
+  CrawlerRun,
   CreateConsentInput,
   KnowledgeCategory,
+  KnowledgeChange,
   KnowledgeRecord,
   KnowledgeStatusResponse,
   Jurisdiction,
@@ -69,6 +71,12 @@ export interface KnowledgeRepository {
   }): Promise<{ republishedVersionId: string | null }>;
 
   getCurrentPublishedStatus(): Promise<KnowledgeStatusResponse | null>;
+
+  // Crawler（TASK-B-009）：依 source_id 找該來源目前最新一筆紀錄（不限狀態，任何 fetchedAt 最新者）
+  // 作為 content hash 比對基準；沒有紀錄時回 null（來源尚未經人工匯入過任何內容）。
+  findLatestRecordBySourceId(sourceId: string): Promise<KnowledgeRecord | null>;
+  insertKnowledgeChange(change: KnowledgeChange): Promise<void>;
+  insertCrawlerRun(run: CrawlerRun): Promise<void>;
 }
 
 export interface ProviderDatasetWrite {

@@ -1,7 +1,15 @@
 // 測試用 Fake Repository：模擬 Supabase Postgres function 的原子行為（在記憶體中的副本上操作，
 // 全部成功才寫回正式資料，任一步失敗則完全不變），不得用於 Production。
 import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
-import type { KnowledgeCategory, KnowledgeRecord, KnowledgeStatusResponse, KnowledgeVersion, Jurisdiction } from "../types/index.js";
+import type {
+  CrawlerRun,
+  KnowledgeCategory,
+  KnowledgeChange,
+  KnowledgeRecord,
+  KnowledgeStatusResponse,
+  KnowledgeVersion,
+  Jurisdiction,
+} from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
 
 const NOTICE = "長照制度及補助可能隨時調整，實際資格仍請洽 1966 或所在地長期照顧管理中心。";
@@ -9,6 +17,8 @@ const NOTICE = "長照制度及補助可能隨時調整，實際資格仍請洽 
 export class InMemoryKnowledgeRepository implements KnowledgeRepository {
   readonly records: KnowledgeRecord[] = [];
   readonly versions: KnowledgeVersion[] = [];
+  readonly changes: KnowledgeChange[] = [];
+  readonly crawlerRuns: CrawlerRun[] = [];
 
   // 測試用：讓 publish / withdraw 模擬寫入失敗（驗證失敗時不留半套資料）。
   failNextPublish = false;
@@ -134,6 +144,19 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
     }
 
     return { republishedVersionId: republishVersionId };
+  }
+
+  async findLatestRecordBySourceId(sourceId: string): Promise<KnowledgeRecord | null> {
+    const matches = this.records.filter((r) => r.sourceId === sourceId).sort((a, b) => b.fetchedAt.localeCompare(a.fetchedAt));
+    return matches[0] ? { ...matches[0] } : null;
+  }
+
+  async insertKnowledgeChange(change: KnowledgeChange): Promise<void> {
+    this.changes.push({ ...change });
+  }
+
+  async insertCrawlerRun(run: CrawlerRun): Promise<void> {
+    this.crawlerRuns.push({ ...run });
   }
 
   async getCurrentPublishedStatus(): Promise<KnowledgeStatusResponse | null> {
