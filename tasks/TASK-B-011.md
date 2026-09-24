@@ -13,12 +13,12 @@ Plan revision: 2026-09-23 / J-002-r4 / 10-22 MVP
 | **B-011a** 共用 session／歸屬保護 | `POST /session` 發 `sessionToken`（密碼學隨機、只存雜湊）、`X-Kareo-Session-Token` 驗證與有效期、Body `sessionId` 與 token 一致、資源歸屬檢查（不屬同一 session → `NOT_FOUND`）、Consent 版本驗證（`contracts/legal/consent-versions.json` 的 ACTIVE 組合）、v0.2 錯誤碼與 HTTP 對照（API_CONTRACT §3.2）、`Idempotency-Key` 共用驗證元件；既有 `generateId()` 的 `Math.random()` 不得用於 token | B-010、B-005、B-006 **開始前** |
 | **B-011b** 完整安全驗收 | 限流、RLS 權限測試、log 清理、`DELETE /session`、`POST /consent/withdraw`、保存期限清理、併發冪等、安全驗收矩陣 | B-005、B-006、B-010 合併後 |
 
-依據：API_CONTRACT v0.2 §3、ARCHITECTURE §20（D-04 PROPOSED，核准前屬可逆實作；提案修改時由 J-002 通知）。
+依據：API_CONTRACT v0.2 §3、ARCHITECTURE §20（D-04 已於 2026-09-24 核准）。
 
 ## Prerequisite / 前置條件
 
 - B-011a：B-004、B-008 已合併（完成）。不依賴 B-005／B-006／B-010。
-- B-011b：B-005、B-006、B-010 已合併；D-05 保存期限（PROPOSED）。
+- B-011b：B-005、B-006、B-010 已合併；D-05 保存期限（PROPOSED，法務待確認）。
 - 無 ACTIVE 同意版本（D-05 法務 BLOCKED）時，後端仍須拒絕 DRAFT 版本；測試使用明確標示的測試版本設定。
 
 ## 開始前必讀

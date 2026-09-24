@@ -75,16 +75,16 @@ contracts/mock/
 
 ## 位置情境與補助說明 fixtures（2026-09-23，J-002-r4）
 
-供 C-005 做 Mock 模組驗收。格式依 API_CONTRACT v0.2.2 §8–§9。標示 PROPOSED 的格式（D-13a–c）在 Jerry 核准前屬可逆準備。
+供 C-005 做 Mock 模組驗收。格式依 API_CONTRACT v0.2.2 §8–§9。D-13a–c 與 D-01a 已於 2026-09-24 核准。
 
 | 檔案 | 情境 | rankingType／locationPrecision | 狀態 |
 |---|---|---|---|
 | `recommendations/<serviceType>.json` | 只有行政區 | `DISTRICT_ROTATION`／`DISTRICT` | 原始 MVP |
 | `recommendations/ranking-variants/HOME_CARE-DISTANCE.json` | 精確位置，候選都有已驗證座標 | `DISTANCE`／`GPS` | 原始 MVP |
-| `recommendations/ranking-variants/HOME_CARE-DISTANCE-MISSING-COORDINATES.json` | 精確位置，但候選缺座標 → 改行政區輪替 | `DISTRICT_ROTATION`／`GPS` | PROPOSED D-13c |
-| `recommendations/ranking-variants/HOME_CARE-CITY_ROTATION.json` | 只有縣市 | `CITY_ROTATION`／`CITY` | PROPOSED D-13a |
-| `recommendations/ranking-variants/HOME_CARE-NO_LOCATION.json` | 沒有位置（前端正常情況不呼叫；防呆用） | `NO_LOCATION`／`NONE`，0 家 | PROPOSED D-13b |
-| `assessments/WITH-SUBSIDY-NEW_TAIPEI.json` | 結果頁含可能適用的補助說明（`summary` 以 `\n` 分段，ASSESSMENT_RULES §6） | — | 模板 PROPOSED（D-01a） |
+| `recommendations/ranking-variants/HOME_CARE-DISTANCE-MISSING-COORDINATES.json` | 精確位置，但候選缺座標 → 改行政區輪替 | `DISTRICT_ROTATION`／`GPS` | 已核准 D-13c |
+| `recommendations/ranking-variants/HOME_CARE-CITY_ROTATION.json` | 只有縣市 | `CITY_ROTATION`／`CITY` | 已核准 D-13a |
+| `recommendations/ranking-variants/HOME_CARE-NO_LOCATION.json` | 沒有位置（前端正常情況不呼叫；防呆用） | `NO_LOCATION`／`NONE`，0 家 | 已核准 D-13b |
+| `assessments/WITH-SUBSIDY-NEW_TAIPEI.json` | 結果頁含可能適用的補助說明（`summary` 以 `\n` 分段，ASSESSMENT_RULES §6） | — | 模板已核准（D-01a） |
 
 注意：
 

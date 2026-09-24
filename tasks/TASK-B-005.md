@@ -18,7 +18,7 @@ ACTIVE Provider → Service Type Match → Service Area Match
 → Top 3（0–3 家）
 ```
 
-`DISTANCE` 與 `DISTRICT_ROTATION` 都是原始 MVP 必要功能；`CITY_ROTATION`、`NO_LOCATION` 與缺座標時的處理依 D-13a–c 建議實作（PROPOSED，可逆）。
+`DISTANCE` 與 `DISTRICT_ROTATION` 都是原始 MVP 必要功能；`CITY_ROTATION`、`NO_LOCATION` 與缺座標時的處理依 D-13a–c 實作（2026-09-24 核准）。
 
 ---
 

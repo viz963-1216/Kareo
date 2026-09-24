@@ -15,7 +15,7 @@ Status: READY — **原始 MVP 必要項目**（PRODUCT_SPEC §42）；B-008 已
 # Prerequisite / 前置條件
 
 - B-008 已合併（完成，PR #26）：Knowledge 表、KnowledgeChange、CrawlerRun、Publish Gate。
-- 來源清單以 `docs/knowledge/source-registry.md` 為準（D-02a PROPOSED），不自行加入來源；新北市來源擷取失敗的項目照實記錄 `FETCH_FAILED`。
+- 來源清單以 `docs/knowledge/source-registry.md` 為準（D-02a 已核准，2026-09-24），不自行加入來源；新北市來源擷取失敗的項目照實記錄 `FETCH_FAILED`。
 - 排程部署方式若會增加 Netlify／Supabase 用量或費用，先交 Jerry 決定（D-09），不自行購買。
 
 ---

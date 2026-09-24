@@ -2,7 +2,7 @@
 
 Owner: Jerry
 Submission Version: J-002-r4
-Rules version: `RULES-2026-09-23-r2`（PROPOSED：規則表與文案待 Jerry 逐條確認；r2 新增 §6.3 補助說明模板、移除模板內寫死的政策數值）
+Rules version: `RULES-2026-09-23-r2`（**SPEC-APPROVED 2026-09-24**，MVP_DECISIONS D-01a，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)；r2 新增 §6.3 補助說明模板、移除模板內寫死的政策數值）
 Decision: MVP_DECISIONS D-01 = 方案 B（不使用 AI，Jerry 2026-09-23 決定）
 
 > MVP 的 Assessment 完全由本文件的確定性規則產生，不呼叫任何 AI／LLM。
@@ -169,7 +169,7 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 | 來源機關（`source.authority`） | `LAW` → 全國法規資料庫；`MOHW` → 衛生福利部；`TAIPEI_GOV` → 臺北市政府；`NEW_TAIPEI_GOV` → 新北市政府 |
 | 1966 服務時間 | `hotline.hours` 字串依「Mon-Fri 08:30-12:00,13:30-17:30」格式轉為「週一至週五 8:30–12:00、13:30–17:30」；格式無法解析時省略括號內容 |
 
-- 模板文字（本節）屬 D-01a，逐條待 Jerry 確認；確認前 B-010 依此實作屬可逆準備。
+- 模板文字（本節）屬 D-01a，2026-09-24 已核准；修改需遞增 `rulesVersion` 並經 Jerry 核准。
 
 ## 7. Warnings（固定，依 API_CONTRACT §15）
 

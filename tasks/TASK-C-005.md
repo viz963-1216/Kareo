@@ -25,7 +25,7 @@ Plan revision: 2026-09-23 / J-002-r4
 - C-004 已合併（完成）。
 - Contract：API_CONTRACT v0.2.2 §8（location、summary 格式）、§9（位置與排序）、§12（Lead）。
 - Mock fixtures：`contracts/mock/assessments/WITH-SUBSIDY-NEW_TAIPEI.json`、`contracts/mock/recommendations/**`（含 `ranking-variants/` 五種情境）、`contracts/mock/lead-response.json`（說明見 `contracts/mock/README.md`）。
-- 標示 PROPOSED 的格式（D-13a–g、D-14a–b）與 DRAFT 文案（D-05）：可依此實作，屬可逆準備；Jerry 修改時由 J-002 更新 fixture。
+- D-13a–g、D-14a–b 已核准（2026-09-24）。同意與位置告知文案（D-05）仍為 DRAFT：可依此排版，正式上線與正式收集座標需 ACTIVE 版本。
 
 ---
 

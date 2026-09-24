@@ -3,12 +3,14 @@
 Submission Version: J-002-r1
 Owner: Jerry
 Registry version: SR-2026-09-23-01
+Status: **SPEC-APPROVED 2026-09-24**（MVP_DECISIONS D-02a，[PR #31 comment](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)）；新北市來源 FETCH_FAILED 待補
 
 本登錄是 B-008 的正式輸入。只有列在這裡、`active = true` 的來源可以產生 `KnowledgeRecord`。
 白名單範圍依 ARCHITECTURE §9：衛生福利部、1966／長照專區、全國法規資料庫、臺北市政府、新北市政府。
 
 擷取方式：2026-09-23 由 J-002 直接下載官方頁面原文／附件 PDF，逐字擷取條文或表格；**不使用第三方整理或 AI 摘要作為來源**。
 雜湊值為擷取當下原始檔（HTML 或 PDF）的 SHA-256，用來判斷來源日後是否變動。
+注意（2026-09-24 複查）：全國法規資料庫 HTML 頁含瀏覽人次等動態內容，原始檔 SHA-256 每次不同，但條文未變；PDF 附表的 SHA-256 則穩定。每日比對（B-009）應以條文正文或 PDF 為準，不以整頁 HTML 判斷變更。
 
 ---
 

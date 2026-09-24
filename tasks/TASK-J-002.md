@@ -23,16 +23,17 @@ Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/
 
 ## Deliverables / 驗收
 
-- [x] Assessment 方式：規則引擎（D-01 SPEC-APPROVED）與規則表 `docs/ASSESSMENT_RULES.md`（r2 PROPOSED，含補助說明模板與知識對應）。**不再**選擇 AI provider／model、不購買 token（已被 D-01 取代）。
+- [x] Assessment 方式：規則引擎（D-01 SPEC-APPROVED）與規則表 `docs/ASSESSMENT_RULES.md`（r2，含補助說明模板與知識對應；2026-09-24 核准）。**不再**選擇 AI provider／model、不購買 token（已被 D-01 取代）。
 - [x] 補助說明：模板、內容對應與 contract（ASSESSMENT_RULES §6.3–§6.4、API_CONTRACT §8 summary 格式、Mock fixture）。
 - [x] 位置流程：API_CONTRACT §8–§9、DATA_MODEL §7／§9／§17／§20、ARCHITECTURE §7；原始規格未決定的細節列為 D-13a–g（每項附建議）。
 - [x] 位置用途、保存與同意告知草案（PRIVACY_AND_RETENTION §2、§8，DRAFT）。
-- [x] `docs/knowledge/source-registry.md` 與 `contracts/knowledge/` 首批內容包、格式、匯入／發布／撤回規則（D-02a、D-03 PROPOSED；D-02 內容 NEEDS_REVIEW）。
-- [x] Session 安全、隱私保存、Lead 接件規格（D-04、D-05、D-06 PROPOSED）。
+- [x] `docs/knowledge/source-registry.md` 與 `contracts/knowledge/` 首批內容包、格式、匯入／發布／撤回規則（D-02a、D-03 已核准；D-02 內容已核准，2026-09-24）。
+- [x] Session 安全（D-04 已核准）、隱私保存（D-05 PROPOSED，法務待確認）、Lead 接件規格（D-06 PROPOSED，人選待指定）。
 - [x] `docs/MVP_TRACEABILITY.md`：每項原始需求 → 使用者行為 → 任務 → 前置 → 驗收 → 證據／狀態。
 - [x] **首批知識逐筆審核**（D-02）：2026-09-24 Jerry 全部核准（9／9），內容包逐筆 `review` 已填；審核證據：[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227)。發布由 J-003 執行。
 - [ ] **地方補助知識**（臺北市、新北市）與新北市來源補齊：以新內容包 `KP-*-002` 提交（NEEDS_REVIEW），不改寫既有內容包。目標 9/30。
-- [ ] 取得「待 Jerry 決定」清單的決定，把真實證據連結填入 MVP_DECISIONS；決定若改變 contract，更新 contract／fixture 並通知下游。
+- [x] 取得「待 Jerry 決定」清單的決定（2026-09-24 第 1–8 項核准，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)），證據連結已填入 MVP_DECISIONS。
+- [ ] D-09 Netlify 額度（Jerry：日後補充）。
 - [ ] 法務確認（D-05 L-1～L-6）後把同意版本改為 ACTIVE（含位置告知）。
 
 未決定的事項不得用「之後再決定」解鎖依賴；PROPOSED 只允許可逆實作。

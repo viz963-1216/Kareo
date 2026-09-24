@@ -249,10 +249,10 @@ Provider Filter
 ↓
 Service Area Match
 ├─ 精確位置＋候選全有已驗證座標 → Distance Ranking（DISTANCE）
-├─ 精確位置但候選缺座標           → Stable Rotation（DISTRICT_ROTATION，PROPOSED D-13c）
+├─ 精確位置但候選缺座標           → Stable Rotation（DISTRICT_ROTATION，D-13c）
 ├─ 行政區                         → Stable Rotation（DISTRICT_ROTATION）
-├─ 只有縣市                       → Stable Rotation（CITY_ROTATION，PROPOSED D-13a）
-└─ 沒有位置                       → 不推薦，提示補充位置（NO_LOCATION，PROPOSED D-13b）
+├─ 只有縣市                       → Stable Rotation（CITY_ROTATION，D-13a）
+└─ 沒有位置                       → 不推薦，提示補充位置（NO_LOCATION，D-13b）
 ↓
 Top 3（0–3 家）
 ```
@@ -587,7 +587,7 @@ Fake Adapter 只允許用於自動測試與本機開發；STAGING／PRODUCTION �
 
 # 20. Session Ownership, Security & Abuse Controls（v0.2，J-002-r1）
 
-決策 D-04（PROPOSED）。本節是 B-011 與各 API 的實作依據；對應 contract 見 API_CONTRACT §3.1–3.4。
+決策 D-04（SPEC-APPROVED 2026-09-24）。本節是 B-011 與各 API 的實作依據；對應 contract 見 API_CONTRACT §3.1–3.4。
 
 ## 20.1 匿名 session 持有證明
 

@@ -165,7 +165,7 @@ updatedAt
 v0.2.2 補充（J-002-r4）：
 
 - `city`／`district`／`lat`／`lng` 依 `locationPrecision` 可為 null，規則見 §9 與 API_CONTRACT §8。
-- `lat`／`lng` 只在 `GPS`／`EXACT` 時保存；建議寫入前四捨五入到小數 3 位（約 100 公尺，D-13e 待核准），不寫入 log、不複製到 Lead、不提供給服務單位；隨 Assessment 依 PRIVACY_AND_RETENTION §2 刪除。
+- `lat`／`lng` 只在 `GPS`／`EXACT` 時保存；寫入前四捨五入到小數 3 位（約 100 公尺，D-13e 已核准），不寫入 log、不複製到 Lead、不提供給服務單位；隨 Assessment 依 PRIVACY_AND_RETENTION §2 刪除。
 - `rulesVersion`：產生本結果的規則版本（ASSESSMENT_RULES，例如 `RULES-2026-09-23-r2`）。
 - `ruleTrace`：jsonb，只存規則 ID、模板 ID、引用的知識 recordId；**不存**自由文字或關鍵字命中片段。不回傳前端。
 
@@ -417,7 +417,7 @@ CITY_ROTATION
 NO_LOCATION
 ```
 
-`DISTANCE`、`DISTRICT_ROTATION` 為原始 MVP（PRODUCT_SPEC §21–23）；`CITY_ROTATION`、`NO_LOCATION` 的使用條件為 PROPOSED（MVP_DECISIONS D-13a／D-13b），對應見 API_CONTRACT §9。`locationPrecision` 記錄當次 Assessment 的精度。
+`DISTANCE`、`DISTRICT_ROTATION` 為原始 MVP（PRODUCT_SPEC §21–23）；`CITY_ROTATION`、`NO_LOCATION` 的使用條件已核准（MVP_DECISIONS D-13a／D-13b，2026-09-24），對應見 API_CONTRACT §9。`locationPrecision` 記錄當次 Assessment 的精度。
 
 ---
 

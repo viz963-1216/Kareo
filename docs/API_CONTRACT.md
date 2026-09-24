@@ -1,7 +1,7 @@
 # Kareo / 長照一點通 — API Contract
 
 Version: v0.2.2（J-002-r4，2026-09-23）  
-Status: v0.1 內容 LOCKED FOR MVP；**v0.2 新增項目（標示「v0.2」的段落）為 PROPOSED**（MVP_DECISIONS D-04／D-05／D-06）；v0.2.2 標示「PROPOSED D-13x／D-14x」的段落待 Jerry 決定，其餘為原始 MVP 的整併，Jerry 核准前屬可逆實作，不得宣稱已核准  
+Status: v0.1 內容 LOCKED FOR MVP；v0.2 session／安全段落（D-04）**SPEC-APPROVED 2026-09-24**；v0.2.2 位置與補助整併（D-13a–g、D-14a–b）**SPEC-APPROVED 2026-09-24**；Lead 接件（D-06）與同意版本（D-05）仍為 PROPOSED  
 Owner: Jerry
 
 ---
@@ -370,10 +370,10 @@ v0.2：需要 `X-Kareo-Session-Token`；`assessmentId` 必須屬於同一 sessio
 | Assessment `precision` | 服務範圍比對 | 條件 | `rankingType` | 排序 | `distanceKm` | 狀態 |
 |---|---|---|---|---|---|---|
 | `GPS`／`EXACT` | 縣市＋行政區 | 所有候選都有已驗證座標 | `DISTANCE` | Haversine 直線距離由近到遠；同距離依 `providerId` 升冪 | 數值（公里，四捨五入到小數 1 位） | 原始 MVP（§21） |
-| `GPS`／`EXACT` | 縣市＋行政區 | 任一候選缺已驗證座標（部分或全部） | `DISTRICT_ROTATION` | 同下列穩定輪替 | `null` | **PROPOSED D-13c** |
+| `GPS`／`EXACT` | 縣市＋行政區 | 任一候選缺已驗證座標（部分或全部） | `DISTRICT_ROTATION` | 同下列穩定輪替 | `null` | **APPROVED D-13c** |
 | `DISTRICT` | 縣市＋行政區 | — | `DISTRICT_ROTATION` | 穩定輪替（D-13f） | `null` | 原始 MVP（§22–23） |
-| `CITY` | 服務範圍含該縣市任一行政區 | — | `CITY_ROTATION` | 穩定輪替（seed 不含行政區） | `null` | **PROPOSED D-13a** |
-| `NONE` | 不比對 | — | `NO_LOCATION` | 不推薦，`providers = []` | — | **PROPOSED D-13b**（前端在 NONE 時不呼叫本 API） |
+| `CITY` | 服務範圍含該縣市任一行政區 | — | `CITY_ROTATION` | 穩定輪替（seed 不含行政區） | `null` | **APPROVED D-13a** |
+| `NONE` | 不比對 | — | `NO_LOCATION` | 不推薦，`providers = []` | — | **APPROVED D-13b**（前端在 NONE 時不呼叫本 API） |
 
 規則：
 
@@ -394,7 +394,7 @@ v0.2：需要 `X-Kareo-Session-Token`；`assessmentId` 必須屬於同一 sessio
 | `providers[].reasons` | 可理解的推薦原因；只有 `DISTANCE` 可含「距離約 X 公里」 |
 | `notice` | 一律存在，依上表說明排序依據或補充位置提示 |
 
-Mock：`contracts/mock/recommendations/`（`DISTRICT_ROTATION`）與 `ranking-variants/`（`DISTANCE`、`DISTANCE` 缺座標改行政區、`CITY_ROTATION`、`NO_LOCATION`）。PROPOSED 的回應格式核准前，B／C 依此實作屬可逆準備。
+Mock：`contracts/mock/recommendations/`（`DISTRICT_ROTATION`）與 `ranking-variants/`（`DISTANCE`、`DISTANCE` 缺座標改行政區、`CITY_ROTATION`、`NO_LOCATION`）。以上格式已於 2026-09-24 核准（D-13a–c）。
 
 ### Request
 
@@ -493,7 +493,7 @@ Mock：`contracts/mock/recommendations/`（`DISTRICT_ROTATION`）與 `ranking-va
 ```
 
 
-### 精確位置但候選缺座標 Response（PROPOSED D-13c）
+### 精確位置但候選缺座標 Response（APPROVED D-13c）
 
 ```json
 {
@@ -513,7 +513,7 @@ Mock：`contracts/mock/recommendations/`（`DISTRICT_ROTATION`）與 `ranking-va
 
 （`providers[]` 其餘欄位同上，此處省略。）
 
-### 只有縣市 Response（PROPOSED D-13a）
+### 只有縣市 Response（APPROVED D-13a）
 
 ```json
 {
@@ -531,7 +531,7 @@ Mock：`contracts/mock/recommendations/`（`DISTRICT_ROTATION`）與 `ranking-va
 }
 ```
 
-### 沒有位置 Response（PROPOSED D-13b）
+### 沒有位置 Response（APPROVED D-13b）
 
 前端在 `NONE` 時不呼叫本 API，直接顯示服務建議與補充位置提示。若仍被呼叫：
 
@@ -895,3 +895,4 @@ Code
 | v0.2 | 2026-09-23 | Session token 持有證明、DELETE session、Consent 撤回、Lead 冪等與聯絡同意、錯誤碼與 HTTP 對照、限制（J-002-r1） | B-011、B-006、B-005、B-010、C（adapter 由 J-003 接線）、contracts/mock |
 | v0.2.1 | 2026-09-23 | 狀態標示更正：v0.2 新增項目為 PROPOSED；§9 恢復原始 MVP 的 DISTANCE／DISTRICT_ROTATION 兩種排序（座標為資料缺口，D-07）；無位置／只有縣市回應待 D-13（J-002-r3） | B-005、B-011a、C-005、J-003 |
 | v0.2.2 | 2026-09-23 | §8 `location` 依 precision 定義必填／null 規則，`NONE`／`CITY` 可完成評估；`summary` 以 `\n` 分段承載補助說明（不新增欄位）；§9 統一位置與排序表、回應欄位一律出現、空結果補 `locationPrecision`、缺座標／只有縣市／沒有位置的 PROPOSED 回應（D-13a–c）；`AI_UNAVAILABLE` 標示 MVP 不使用（J-002-r4） | B-010（location 驗證、summary）、B-005、C-005、J-003、contracts/mock |
+| v0.2.3 | 2026-09-24 | 狀態更新：D-04、D-13a–g、D-14a–b 核准（PR #31 comment 5806704685）；內容不變 | B-011a、B-005、B-010、C-005 |
