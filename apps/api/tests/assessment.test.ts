@@ -33,6 +33,8 @@ const validBody: CreateAssessmentInput = {
   mobilityLevel: "NEEDS_ASSISTANCE",
   dailyLivingLevel: "PARTIAL_ASSISTANCE",
   needs: { homeCare: "YES", medicalNursing: "UNKNOWN", assistiveDevice: "YES", transportation: "YES" },
+  disabilityCertificate: "UNKNOWN",
+  incomeCategory: "UNKNOWN",
   freeText: "最近上下樓比較困難，家人白天需要上班。",
 };
 
@@ -111,6 +113,40 @@ describe("Assessment service — session / consent gate", () => {
     await expect(createAssessment(deps, { ...validBody, sessionId: sessionB.id })).rejects.toMatchObject({
       code: "CONSENT_REQUIRED",
     });
+  });
+});
+
+describe("Assessment service — disabilityCertificate / incomeCategory (API_CONTRACT v0.3.1/v0.3.2, D-17/D-17a)", () => {
+  it("T25: disabilityCertificate omitted → defaults to UNKNOWN (backward compatible, no error)", async () => {
+    const { disabilityCertificate, ...bodyWithoutField } = validBody;
+    void disabilityCertificate;
+    const { deps, body } = await buildDeps();
+    const { sessionId } = body;
+    const result = await createAssessment(deps, { ...bodyWithoutField, sessionId });
+    expect(result.assessment.disabilityCertificate).toBe("UNKNOWN");
+  });
+
+  it("T31: disabilityCertificate = 'MAYBE' → VALIDATION_ERROR", async () => {
+    const { deps, body } = await buildDeps();
+    await expect(createAssessment(deps, { ...body, disabilityCertificate: "MAYBE" })).rejects.toMatchObject({
+      code: "VALIDATION_ERROR",
+    });
+  });
+
+  it("T38: incomeCategory = 'RICH' → VALIDATION_ERROR", async () => {
+    const { deps, body } = await buildDeps();
+    await expect(createAssessment(deps, { ...body, incomeCategory: "RICH" })).rejects.toMatchObject({
+      code: "VALIDATION_ERROR",
+    });
+  });
+
+  it("incomeCategory omitted → defaults to UNKNOWN (backward compatible, no error)", async () => {
+    const { incomeCategory, ...bodyWithoutField } = validBody;
+    void incomeCategory;
+    const { deps, body } = await buildDeps();
+    const { sessionId } = body;
+    const result = await createAssessment(deps, { ...bodyWithoutField, sessionId });
+    expect(result.assessment.incomeCategory).toBe("UNKNOWN");
   });
 });
 

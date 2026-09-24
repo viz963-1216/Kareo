@@ -1,10 +1,10 @@
-import type { AssessmentNeedsInput, CareNeed, CreateAssessmentInput } from "../types/index.js";
+import type { AssessmentNeedsInput, CareNeed, CreateAssessmentInput, IncomeCategory } from "../types/index.js";
 
-// 依 docs/ASSESSMENT_RULES.md（RULES-2026-09-23-r2，J-002-r4，PROPOSED / D-01a 待 Jerry 逐條確認）。
+// 依 docs/ASSESSMENT_RULES.md（RULES-2026-09-24-r5，SPEC-APPROVED 2026-09-24）。
 // 本檔只放規則表本身（規則 ID、條件、關鍵字、分數、顯示文字對照），不放任何政策數值：
 // 金額、比率、年齡門檻、分區、電話、服務時間一律從 PUBLISHED Knowledge 讀取（ASSESSMENT_RULES §6、§10）。
 // 規則表修改時必須遞增 RULES_VERSION 並同步調整 tests/assessmentEngine.test.ts。
-export const RULES_VERSION = "RULES-2026-09-23-r2";
+export const RULES_VERSION = "RULES-2026-09-24-r5";
 
 // 同分時的固定順序（§5），也是 careNeeds 的輸出順序。
 export const CARE_NEED_ORDER: readonly CareNeed[] = [
@@ -183,6 +183,34 @@ export const CITY_JURISDICTION: Record<string, "TAIPEI" | "NEW_TAIPEI"> = {
   臺北市: "TAIPEI",
   新北市: "NEW_TAIPEI",
 };
+
+// §6.6 個人自付估算（r5，D-17a）身分對照表。ALLOWANCE 的長照身分別是「2」，但身障補助欄位沿用 GENERAL
+// （§6.6 表格：incomeOrder 只有 LOW_INCOME／MIDDLE_LOW_INCOME／GENERAL 三欄，沒有 ALLOWANCE 專屬欄位）。
+export const INCOME_CATEGORY_LABELS: Record<Exclude<IncomeCategory, "UNKNOWN">, string> = {
+  LOW_INCOME: "低收入戶",
+  MIDDLE_LOW_INCOME: "中低收入戶",
+  ALLOWANCE: "領有中低收入老人生活津貼或身心障礙者生活補助",
+  GENERAL: "一般戶",
+};
+
+export const INCOME_CATEGORY_COPAY_TIER: Record<Exclude<IncomeCategory, "UNKNOWN">, "1" | "2" | "3"> = {
+  LOW_INCOME: "1",
+  MIDDLE_LOW_INCOME: "1",
+  ALLOWANCE: "2",
+  GENERAL: "3",
+};
+
+export const INCOME_CATEGORY_DISABILITY_FIELD: Record<Exclude<IncomeCategory, "UNKNOWN">, "LOW_INCOME" | "MIDDLE_LOW_INCOME" | "GENERAL"> = {
+  LOW_INCOME: "LOW_INCOME",
+  MIDDLE_LOW_INCOME: "MIDDLE_LOW_INCOME",
+  ALLOWANCE: "GENERAL",
+  GENERAL: "GENERAL",
+};
+
+// §6.6 計算規則 1：自付金額＝額度 × 比率，FLOOR（無條件捨去）。
+export function floorByRate(amount: number, ratePercent: number): number {
+  return Math.floor((amount * ratePercent) / 100);
+}
 
 // §7 固定 warnings。文字依 API_CONTRACT §15（高於 ASSESSMENT_RULES 的規格順位）；兩份文件文字不一致已於 PR 列出。
 export const MANDATORY_WARNINGS: readonly string[] = [

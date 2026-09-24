@@ -13,6 +13,8 @@ import type {
   CaregiverSituation,
   CreateAssessmentInput,
   DailyLivingLevel,
+  DisabilityCertificate,
+  IncomeCategory,
   LivingSituation,
   LocationPrecision,
   MobilityLevel,
@@ -62,6 +64,9 @@ const DAILY_LIVING_LEVELS: DailyLivingLevel[] = [
   "UNKNOWN",
 ];
 const SERVICE_NEEDS: ServiceNeed[] = ["YES", "NO", "UNKNOWN"];
+// API_CONTRACT v0.3.1／v0.3.2（D-17／D-17a）：選填，未提供時視為 UNKNOWN（向下相容），其他值 VALIDATION_ERROR。
+const DISABILITY_CERTIFICATES: DisabilityCertificate[] = ["YES", "NO", "UNKNOWN"];
+const INCOME_CATEGORIES: IncomeCategory[] = ["LOW_INCOME", "MIDDLE_LOW_INCOME", "ALLOWANCE", "GENERAL", "UNKNOWN"];
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
@@ -192,6 +197,16 @@ export function validateCreateAssessmentInput(body: unknown): CreateAssessmentIn
     throw new AppError("VALIDATION_ERROR", "needs.transportation 不合法。");
   }
 
+  // 選填，未提供時視為 UNKNOWN（向下相容，舊前端不會被拒）；其他值 VALIDATION_ERROR。
+  const disabilityCertificate = input.disabilityCertificate ?? "UNKNOWN";
+  if (!isOneOf(disabilityCertificate, DISABILITY_CERTIFICATES)) {
+    throw new AppError("VALIDATION_ERROR", "disabilityCertificate 不合法。");
+  }
+  const incomeCategory = input.incomeCategory ?? "UNKNOWN";
+  if (!isOneOf(incomeCategory, INCOME_CATEGORIES)) {
+    throw new AppError("VALIDATION_ERROR", "incomeCategory 不合法。");
+  }
+
   if (typeof input.freeText !== "string") {
     throw new AppError("VALIDATION_ERROR", "freeText 格式不合法。");
   }
@@ -205,6 +220,8 @@ export function validateCreateAssessmentInput(body: unknown): CreateAssessmentIn
     mobilityLevel: input.mobilityLevel,
     dailyLivingLevel: input.dailyLivingLevel,
     needs: needs as unknown as AssessmentNeedsInput,
+    disabilityCertificate,
+    incomeCategory,
     freeText: input.freeText,
   };
 }
@@ -278,6 +295,8 @@ export async function createAssessment(
       caregiverSituation: input.caregiverSituation,
       mobilityLevel: input.mobilityLevel,
       dailyLivingLevel: input.dailyLivingLevel,
+      disabilityCertificate: input.disabilityCertificate,
+      incomeCategory: input.incomeCategory,
       homeCareNeed: input.needs.homeCare,
       medicalNursingNeed: input.needs.medicalNursing,
       assistiveDeviceNeed: input.needs.assistiveDevice,

@@ -41,6 +41,8 @@ export class SupabaseAssessmentRepository implements AssessmentRepository {
           caregiver_situation: assessment.caregiverSituation,
           mobility_level: assessment.mobilityLevel,
           daily_living_level: assessment.dailyLivingLevel,
+          disability_certificate: assessment.disabilityCertificate,
+          income_category: assessment.incomeCategory,
           home_care_need: assessment.homeCareNeed,
           medical_nursing_need: assessment.medicalNursingNeed,
           assistive_device_need: assessment.assistiveDeviceNeed,

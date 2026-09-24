@@ -7,6 +7,14 @@ import type { KnowledgeSnapshot, KnowledgeSnapshotRecord } from "../../src/asses
 import type { CreateAssessmentInput } from "../../src/types/index.js";
 
 const PACK_PATH = fileURLToPath(new URL("../../../../contracts/knowledge/packs/KP-2026-09-23-001.json", import.meta.url));
+// D-17（r4）身心障礙福利補助所需的兩筆真實已核准紀錄（KP-2026-09-24-003／004），
+// 供 T25-T31 對照 contracts/mock/assessments/WITH-DISABILITY-NEW_TAIPEI.json 的逐字金額。
+const DISABILITY_MED_PACK_PATH = fileURLToPath(
+  new URL("../../../../contracts/knowledge/packs/KP-2026-09-24-004.json", import.meta.url)
+);
+const LOCAL_AD_TOPUP_PACK_PATH = fileURLToPath(
+  new URL("../../../../contracts/knowledge/packs/KP-2026-09-24-003.json", import.meta.url)
+);
 
 interface PackRecord {
   recordId: string;
@@ -23,8 +31,8 @@ interface PackRecord {
 export const FIXTURE_TODAY = "2026-09-24";
 export const FIXTURE_VERSION = "KB-FIXTURE-001";
 
-export function packRecords(): KnowledgeSnapshotRecord[] {
-  const pack = JSON.parse(readFileSync(PACK_PATH, "utf8")) as { records: PackRecord[] };
+function loadPack(path: string): KnowledgeSnapshotRecord[] {
+  const pack = JSON.parse(readFileSync(path, "utf8")) as { records: PackRecord[] };
   return pack.records.map((r) => ({
     id: `KREC-${r.recordId}`,
     packRecordId: r.recordId,
@@ -37,6 +45,14 @@ export function packRecords(): KnowledgeSnapshotRecord[] {
     ruleData: structuredClone(r.ruleData),
     authority: r.source.authority,
   }));
+}
+
+export function packRecords(): KnowledgeSnapshotRecord[] {
+  return [
+    ...loadPack(PACK_PATH),
+    ...loadPack(DISABILITY_MED_PACK_PATH),
+    ...loadPack(LOCAL_AD_TOPUP_PACK_PATH).filter((r) => r.ruleData.type === "LOCAL_DISABILITY_AD_TOPUP"),
+  ];
 }
 
 export function fixtureSnapshot(
@@ -63,6 +79,8 @@ export const baseInput: CreateAssessmentInput = {
   mobilityLevel: "UNKNOWN",
   dailyLivingLevel: "UNKNOWN",
   needs: { homeCare: "UNKNOWN", medicalNursing: "UNKNOWN", assistiveDevice: "UNKNOWN", transportation: "UNKNOWN" },
+  disabilityCertificate: "UNKNOWN",
+  incomeCategory: "UNKNOWN",
   freeText: "",
 };
 
