@@ -29,3 +29,7 @@ export class AppError extends Error {
     this.statusCode = STATUS_BY_CODE[code];
   }
 }
+
+// PRODUCT_SPEC §51 的固定引導文字（無可用知識時）。集中在此，避免規則引擎檔案出現任何政策數值（ASSESSMENT_RULES §10）。
+export const KNOWLEDGE_UNAVAILABLE_MESSAGE =
+  "目前平台資料不足以做出可靠預估，建議聯絡 1966 或所在地長期照顧管理中心確認。";

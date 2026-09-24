@@ -2,8 +2,9 @@ import { createAssessment } from "../services/assessmentService.js";
 import { SupabaseSessionRepository } from "../repositories/supabaseSessionRepository.js";
 import { SupabaseConsentRepository } from "../repositories/supabaseConsentRepository.js";
 import { SupabaseAssessmentRepository } from "../repositories/supabaseAssessmentRepository.js";
-import { FakeAssessmentAIAdapter } from "../adapters/fakeAssessmentAIAdapter.js";
-import { NullKnowledgeVersionResolver } from "../adapters/knowledgeVersionResolver.js";
+import { SupabaseKnowledgeRepository } from "../repositories/supabaseKnowledgeRepository.js";
+import { RuleBasedAssessmentEngine } from "../assessment/ruleBasedAssessmentEngine.js";
+import { DatabaseKnowledgeResolver } from "../adapters/knowledgeVersionResolver.js";
 import { successResponse, internalErrorResponse, errorResponse, type HttpResponse } from "../lib/response.js";
 import { AppError } from "../errors/AppError.js";
 
@@ -12,10 +13,9 @@ interface NetlifyEvent {
   body: string | null;
 }
 
-// 正式 AI Provider（OpenAI / Claude / Gemini）尚未拍板，依 tasks/TASK-B-003.md「AI Adapter Rule」，
-// 目前線上一律使用 Deterministic Fake Adapter，待未來 Task 決定並接上真實 Provider 後在此替換。
-// Knowledge DB（TASK-B-008）尚未實作，因此使用 NullKnowledgeVersionResolver，
-// 這會讓所有正式 Assessment 目前回 KNOWLEDGE_UNAVAILABLE，是刻意的安全行為，不是 Bug。
+// TASK-B-010：正式組裝 ASSESSMENT_RULES 規則引擎（D-01：MVP 不使用 AI）＋ B-008 的 PUBLISHED Knowledge。
+// 不得組裝 Fake Adapter、Fake/Null Knowledge resolver 或測試知識；沒有 PUBLISHED 版本時回 KNOWLEDGE_UNAVAILABLE。
+// Session token（X-Kareo-Session-Token）驗證由 B-011a 提供，合併 B-011a 後於此加上，B-010 不另建一套。
 export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
   if (event.httpMethod !== "POST") {
     return errorResponse(new AppError("INVALID_REQUEST", "僅支援 POST /api/v1/assessments。"));
@@ -34,12 +34,13 @@ export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
         sessionRepo: new SupabaseSessionRepository(),
         consentRepo: new SupabaseConsentRepository(),
         assessmentRepo: new SupabaseAssessmentRepository(),
-        aiAdapter: new FakeAssessmentAIAdapter(),
-        knowledgeVersionResolver: new NullKnowledgeVersionResolver(),
+        aiAdapter: new RuleBasedAssessmentEngine(),
+        knowledgeResolver: new DatabaseKnowledgeResolver(new SupabaseKnowledgeRepository()),
       },
       parsedBody
     );
 
+    // rulesVersion／ruleTrace 只存資料庫，不回傳前端（DATA_MODEL v0.2.2 §7）。
     return successResponse({
       assessmentId: result.assessment.id,
       knowledgeVersion: result.assessment.knowledgeVersion,

@@ -1,6 +1,9 @@
 import type { AssessmentRepository, ConsentRepository, SessionRepository } from "../repositories/types.js";
 import type { CareAssessmentAIAdapter } from "../adapters/aiAdapter.js";
-import type { PublishedKnowledgeVersionResolver } from "../adapters/knowledgeVersionResolver.js";
+import type { PublishedKnowledgeResolver } from "../adapters/knowledgeVersionResolver.js";
+import type { KnowledgeSnapshot } from "../assessment/knowledgeSnapshot.js";
+import { taipeiDate } from "../assessment/knowledgeSnapshot.js";
+import { CITY_JURISDICTION } from "../assessment/rules.js";
 import type {
   AgeRange,
   Assessment,
@@ -15,14 +18,21 @@ import type {
   MobilityLevel,
   ServiceNeed,
 } from "../types/index.js";
-import { AppError } from "../errors/AppError.js";
+import { AppError, KNOWLEDGE_UNAVAILABLE_MESSAGE } from "../errors/AppError.js";
 
 export interface AssessmentServiceDeps {
   sessionRepo: SessionRepository;
   consentRepo: ConsentRepository;
   assessmentRepo: AssessmentRepository;
-  aiAdapter: CareAssessmentAIAdapter;
-  knowledgeVersionResolver: PublishedKnowledgeVersionResolver;
+  aiAdapter: CareAssessmentAIAdapter; // 正式環境為 RuleBasedAssessmentEngine（介面名稱沿用 B-003）
+  knowledgeResolver: PublishedKnowledgeResolver;
+  now?: () => Date;
+  // 只接收不含使用者資料的事件（不含 freeText、座標、token、資料庫錯誤原文）。
+  log?: (event: Record<string, string>) => void;
+}
+
+function defaultLog(event: Record<string, string>): void {
+  console.warn(JSON.stringify({ scope: "assessment", ...event }));
 }
 
 const AGE_RANGES: AgeRange[] = ["UNDER_50", "50_64", "65_74", "75_84", "85_PLUS", "UNKNOWN"];
@@ -61,8 +71,66 @@ function isOneOf<T extends string>(value: unknown, allowed: readonly T[]): value
   return typeof value === "string" && (allowed as readonly string[]).includes(value);
 }
 
-function isNullableNumber(value: unknown): value is number | null {
-  return value === null || value === undefined || typeof value === "number";
+// 依 API_CONTRACT v0.2.2 §8（J-002-r4）：location 物件一律存在、四個子欄位一律出現（不適用為 null），
+// 由 precision 決定必填組合；city 只接受 MVP 服務縣市。NONE／CITY 可以完成評估。
+const LOCATION_FIELDS = ["city", "district", "precision", "lat", "lng"] as const;
+
+function validateLocation(value: unknown): AssessmentLocationInput {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    throw new AppError("VALIDATION_ERROR", "缺少 location。");
+  }
+  const location = value as Record<string, unknown>;
+  for (const field of LOCATION_FIELDS) {
+    if (!(field in location)) throw new AppError("VALIDATION_ERROR", `缺少 location.${field}。`);
+  }
+  if (!isOneOf(location.precision, LOCATION_PRECISIONS)) {
+    throw new AppError("VALIDATION_ERROR", "location.precision 不合法。");
+  }
+  const precision = location.precision;
+  const { city, district, lat, lng } = location;
+
+  const needsCity = precision !== "NONE";
+  const needsDistrict = precision === "DISTRICT" || precision === "GPS" || precision === "EXACT";
+  const needsCoordinates = precision === "GPS" || precision === "EXACT";
+
+  if (needsCity) {
+    if (typeof city !== "string" || !(city in CITY_JURISDICTION)) {
+      throw new AppError("VALIDATION_ERROR", "location.city 不合法。");
+    }
+  } else if (city !== null) {
+    throw new AppError("VALIDATION_ERROR", "location.precision 為 NONE 時 city 必須為 null。");
+  }
+
+  if (needsDistrict) {
+    if (!isNonEmptyString(district)) throw new AppError("VALIDATION_ERROR", "缺少 location.district。");
+  } else if (district !== null) {
+    throw new AppError("VALIDATION_ERROR", "location.precision 不需要 district 時必須為 null。");
+  }
+
+  if (needsCoordinates) {
+    if (!isCoordinate(lat, 90) || !isCoordinate(lng, 180)) {
+      throw new AppError("VALIDATION_ERROR", "location.lat / location.lng 格式不合法。");
+    }
+  } else if (lat !== null || lng !== null) {
+    throw new AppError("VALIDATION_ERROR", "location.precision 不需要座標時 lat / lng 必須為 null。");
+  }
+
+  return {
+    city: needsCity ? (city as string) : null,
+    district: needsDistrict ? (district as string).trim() : null,
+    precision,
+    // D-13e（PROPOSED 建議）：座標寫入前四捨五入到小數 3 位（約 100 公尺）。
+    lat: needsCoordinates ? roundCoordinate(lat as number) : null,
+    lng: needsCoordinates ? roundCoordinate(lng as number) : null,
+  };
+}
+
+function isCoordinate(value: unknown, limit: number): value is number {
+  return typeof value === "number" && Number.isFinite(value) && value >= -limit && value <= limit;
+}
+
+function roundCoordinate(value: number): number {
+  return Math.round(value * 1000) / 1000;
 }
 
 // 依 tasks/TASK-B-003.md 流程圖，Consent Gate 必須先於完整欄位驗證執行，
@@ -92,22 +160,7 @@ export function validateCreateAssessmentInput(body: unknown): CreateAssessmentIn
     throw new AppError("VALIDATION_ERROR", "ageRange 不合法。");
   }
 
-  const location = input.location as Record<string, unknown> | undefined;
-  if (typeof location !== "object" || location === null) {
-    throw new AppError("VALIDATION_ERROR", "缺少 location。");
-  }
-  if (!isNonEmptyString(location.city)) {
-    throw new AppError("VALIDATION_ERROR", "缺少 location.city。");
-  }
-  if (!isNonEmptyString(location.district)) {
-    throw new AppError("VALIDATION_ERROR", "缺少 location.district。");
-  }
-  if (!isOneOf(location.precision, LOCATION_PRECISIONS)) {
-    throw new AppError("VALIDATION_ERROR", "location.precision 不合法。");
-  }
-  if (!isNullableNumber(location.lat) || !isNullableNumber(location.lng)) {
-    throw new AppError("VALIDATION_ERROR", "location.lat / location.lng 格式不合法。");
-  }
+  const location = validateLocation(input.location);
 
   if (!isOneOf(input.livingSituation, LIVING_SITUATIONS)) {
     throw new AppError("VALIDATION_ERROR", "livingSituation 不合法。");
@@ -146,7 +199,7 @@ export function validateCreateAssessmentInput(body: unknown): CreateAssessmentIn
   return {
     sessionId: input.sessionId,
     ageRange: input.ageRange,
-    location: location as unknown as AssessmentLocationInput,
+    location,
     livingSituation: input.livingSituation,
     caregiverSituation: input.caregiverSituation,
     mobilityLevel: input.mobilityLevel,
@@ -192,17 +245,26 @@ export async function createAssessment(
 
   const input = validateCreateAssessmentInput(body);
 
-  const knowledgeVersion = await deps.knowledgeVersionResolver.resolvePublishedVersion();
-  if (!knowledgeVersion) {
-    throw new AppError(
-      "KNOWLEDGE_UNAVAILABLE",
-      "目前平台資料不足以做出可靠預估，建議聯絡 1966 或所在地長期照顧管理中心確認。"
-    );
+  const log = deps.log ?? defaultLog;
+
+  // ASSESSMENT_RULES §2 步驟 1：本次評估只綁定這一份 PUBLISHED 快照；
+  // 無 PUBLISHED 版本、查詢失敗或逾時 → KNOWLEDGE_UNAVAILABLE，不產生結果、不寫入任何資料。
+  let knowledge: KnowledgeSnapshot | null;
+  try {
+    knowledge = await deps.knowledgeResolver.resolvePublishedKnowledge();
+  } catch (err) {
+    log({ event: "KNOWLEDGE_LOAD_FAILED", reason: err instanceof Error ? err.constructor.name : "Unknown" });
+    throw new AppError("KNOWLEDGE_UNAVAILABLE", KNOWLEDGE_UNAVAILABLE_MESSAGE);
+  }
+  if (!knowledge) {
+    throw new AppError("KNOWLEDGE_UNAVAILABLE", KNOWLEDGE_UNAVAILABLE_MESSAGE);
   }
 
-  // 依 tasks/TASK-B-003.md「AI Adapter Rule」：Adapter 只產生 CareNeedProfile，不得選 / 排 Provider。
-  const draft = await deps.aiAdapter.generateCareNeedProfile(input);
+  const today = taipeiDate((deps.now ?? (() => new Date()))());
+  const result = await deps.aiAdapter.generateCareNeedProfile(input, { knowledge, today });
+  for (const diagnostic of result.diagnostics) log({ ...diagnostic });
 
+  // Assessment 與 CareNeedProfile 在同一個交易內寫入（Repository 保證全有或全無）。
   const { assessment, careNeedProfile } = await deps.assessmentRepo.createAssessment({
     assessment: {
       sessionId: input.sessionId,
@@ -222,14 +284,11 @@ export async function createAssessment(
       transportationNeed: input.needs.transportation,
       freeText: input.freeText,
       status: "COMPLETED",
-      knowledgeVersion,
+      knowledgeVersion: knowledge.version,
+      rulesVersion: result.rulesVersion,
+      ruleTrace: result.ruleTrace,
     },
-    careNeedProfile: {
-      careNeeds: draft.careNeeds,
-      priority: draft.priority,
-      summary: draft.summary,
-      warnings: draft.warnings,
-    },
+    careNeedProfile: result.profile,
   });
 
   return { assessment, careNeedProfile };

@@ -1,7 +1,15 @@
 // 測試用 Fake Repository：模擬 Supabase Postgres function 的原子行為（在記憶體中的副本上操作，
 // 全部成功才寫回正式資料，任一步失敗則完全不變），不得用於 Production。
 import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
-import type { KnowledgeCategory, KnowledgeRecord, KnowledgeStatusResponse, KnowledgeVersion, Jurisdiction } from "../types/index.js";
+import type {
+  KnowledgeAuthority,
+  KnowledgeCategory,
+  KnowledgeRecord,
+  KnowledgeStatusResponse,
+  KnowledgeVersion,
+  Jurisdiction,
+} from "../types/index.js";
+import type { KnowledgeSnapshotRecord } from "../assessment/knowledgeSnapshot.js";
 import { AppError } from "../errors/AppError.js";
 
 const NOTICE = "長照制度及補助可能隨時調整，實際資格仍請洽 1966 或所在地長期照顧管理中心。";
@@ -9,6 +17,8 @@ const NOTICE = "長照制度及補助可能隨時調整，實際資格仍請洽 
 export class InMemoryKnowledgeRepository implements KnowledgeRepository {
   readonly records: KnowledgeRecord[] = [];
   readonly versions: KnowledgeVersion[] = [];
+  // 模擬 knowledge_sources.authority（sourceId → authority）。
+  readonly sourceAuthorities = new Map<string, KnowledgeAuthority>();
 
   // 測試用：讓 publish / withdraw 模擬寫入失敗（驗證失敗時不留半套資料）。
   failNextPublish = false;
@@ -152,5 +162,23 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
       lastVerifiedAt: verified ?? (version.publishedAt as string),
       notice: NOTICE,
     };
+  }
+
+  async findPublishedSnapshotRecords(versionId: string): Promise<KnowledgeSnapshotRecord[]> {
+    return this.records
+      .filter((r) => r.version === versionId && r.status === "PUBLISHED")
+      .sort((a, b) => a.packRecordId.localeCompare(b.packRecordId))
+      .map((r) => ({
+        id: r.id,
+        packRecordId: r.packRecordId,
+        title: r.title,
+        category: r.category,
+        jurisdiction: r.jurisdiction,
+        effectiveFrom: r.effectiveFrom,
+        effectiveTo: r.effectiveTo,
+        summary: r.summary,
+        ruleData: structuredClone(r.ruleData),
+        authority: this.sourceAuthorities.get(r.sourceId) ?? null,
+      }));
   }
 }

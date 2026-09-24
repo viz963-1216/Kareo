@@ -51,9 +51,10 @@ export type ServiceNeed = "YES" | "NO" | "UNKNOWN";
 export type AssessmentStatus = "DRAFT" | "COMPLETED" | "CANCELLED";
 export type CareNeed = "HOME_CARE" | "HOME_MEDICAL_NURSING" | "ASSISTIVE_DEVICE" | "TRANSPORTATION";
 
+// 依 API_CONTRACT v0.2.2 §8：四個子欄位一律出現，依 precision 不適用者為 null。
 export interface AssessmentLocationInput {
-  city: string;
-  district: string;
+  city: string | null;
+  district: string | null;
   precision: LocationPrecision;
   lat: number | null;
   lng: number | null;
@@ -79,13 +80,20 @@ export interface CreateAssessmentInput {
   freeText: string;
 }
 
+// 只含規則 ID、模板 ID、知識 recordId；不含自由文字或關鍵字命中片段。
+export interface AssessmentRuleTrace {
+  needs: Array<{ need: CareNeed; basis: "USER_YES" | "STRUCTURED_RULE" | "KEYWORD"; ruleIds: string[] }>;
+  templateIds: string[];
+  knowledgeRecordIds: string[];
+}
+
 // 依 docs/DATA_MODEL.md 第 7 節。
 export interface Assessment {
   id: string;
   sessionId: string;
   ageRange: AgeRange;
-  city: string;
-  district: string;
+  city: string | null;
+  district: string | null;
   locationPrecision: LocationPrecision;
   lat: number | null;
   lng: number | null;
@@ -100,6 +108,9 @@ export interface Assessment {
   freeText: string;
   status: AssessmentStatus;
   knowledgeVersion: string;
+  // DATA_MODEL v0.2.2 §7（J-002-r4）：不回傳前端。
+  rulesVersion: string;
+  ruleTrace: AssessmentRuleTrace;
   createdAt: string;
   updatedAt: string;
 }
