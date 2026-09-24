@@ -156,7 +156,7 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 
 ### 6.4 內容對應與維護
 
-- 程式只依 `ruleData.type` 與 jurisdiction 找紀錄，不以 recordId 寫死。目前 `KP-2026-09-23-001` 的對應（全部 `NEEDS_REVIEW`）：`ELIGIBILITY_ANY_OF`＝KR-2026-001、`LEVEL_RANGE`＝KR-2026-002、`BENEFIT_ITEMS`＝KR-2026-003、`BENEFIT_AMOUNTS`＝KR-2026-004、`TRANSPORT_ZONE`＝KR-2026-005、`COPAY_RATES`＝KR-2026-006、`BENEFIT_PERIODS`＝KR-2026-007、`APPLICATION_CHANNELS`＝KR-2026-008、`LOCAL_CENTER`（TAIPEI）＝KR-2026-009。
+- 程式只依 `ruleData.type` 與 jurisdiction 找紀錄，不以 recordId 寫死。目前 `KP-2026-09-23-001` 的對應（2026-09-24 內容核准，尚未 PUBLISHED）：`ELIGIBILITY_ANY_OF`＝KR-2026-001、`LEVEL_RANGE`＝KR-2026-002、`BENEFIT_ITEMS`＝KR-2026-003、`BENEFIT_AMOUNTS`＝KR-2026-004、`TRANSPORT_ZONE`＝KR-2026-005、`COPAY_RATES`＝KR-2026-006、`BENEFIT_PERIODS`＝KR-2026-007、`APPLICATION_CHANNELS`＝KR-2026-008、`LOCAL_CENTER`（TAIPEI）＝KR-2026-009。
 - 同一 type＋jurisdiction 在 PUBLISHED 版本出現多筆有效紀錄 → 視為衝突，省略相關句子並記錄錯誤（不自行挑選）。
 - 目前**沒有**任何臺北市或新北市地方補助紀錄，也沒有新北市 `LOCAL_CENTER` 紀錄；新北市來源擷取失敗（Source Registry）。因此在補齊並核准前，兩市都顯示 S-LOCAL-MISSING；臺北市另顯示 S-LOCAL-CENTER。補齊屬 J-002 知識內容工作（新內容包），不在程式內補文字。
 - 顯示文字對照（criteria、期間、交通用途、身分別類別、來源機關）屬規則表內容，隨 `rulesVersion` 由 J-002 維護：

@@ -132,5 +132,5 @@ PR Title：
 ## 核准狀態（J-002-r4 更新）
 
 - 本任務已合併（PR #26，2026-09-23）。**合併不等於核准**：D-03 內容包格式與 D-10 延伸使用（發布／撤回函式）在 PR 上沒有核准紀錄，列於 MVP_DECISIONS 集中清單 #2。若 Jerry 要求修改格式，由 J-002 更新規格後另開 B-008 修正任務（`B-008-r2`）。
-- 首批內容包 9 筆仍是 `NEEDS_REVIEW`；匯入結果不得被當成已核准或已發布知識。
+- 首批內容包 9 筆已於 2026-09-24 由 Jerry 核准（內容包 `APPROVED`）；匯入資料庫後仍為 `NEEDS_REVIEW`，需經 approve → publish 才成為 PUBLISHED（contracts/knowledge/README §3–4）。
 - 線上 `assessment` function 尚未使用 B-008 的 PUBLISHED resolver；接線由 B-010 負責。

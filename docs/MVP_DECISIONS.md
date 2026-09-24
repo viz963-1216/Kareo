@@ -41,7 +41,7 @@ Last reviewed: 2026-09-23
 |---|---|---|---|---|---|---|
 | D-01 | Assessment 判斷方式 | **SPEC-APPROVED：方案 B 規則引擎，不使用 AI**（已修訂 PRODUCT_SPEC §16） | D-01-v2 | Jerry | [PR #19 comment 2026-09-23](https://github.com/viz963-1216/Kareo/pull/19#issuecomment-5788470099) | B-010、J-003、J-004 |
 | D-01a | 規則表、關鍵字、Summary 模板、**補助說明模板與知識對應**（`RULES-2026-09-23-r2`，ASSESSMENT_RULES §6） | PROPOSED（逐條待確認） | r2 | Jerry | — | B-010、C-005、J-003 |
-| D-02 | 首批知識內容包 `KP-2026-09-23-001`（9 筆） | 內容 **NEEDS_REVIEW**（0 筆核准） | D-02-v1 | Jerry（審核人） | — | J-003 首次發布、B-010 |
+| D-02 | 首批知識內容包 `KP-2026-09-23-001`（9 筆） | **內容 APPROVED（9／9，2026-09-24 Jerry）；尚未 PUBLISHED** | D-02-v1 | Jerry（審核人） | 內容包逐筆 `review`；PR #31 留言（待補連結） | J-003 首次發布、B-010 |
 | D-02a | 官方來源白名單與 Source Registry `SR-2026-09-23-01` | PROPOSED；新北市來源擷取失敗（**DATA-GAP**） | D-02a-v1 | Jerry | — | B-008（已合併）、B-009、J-002 地方知識 |
 | D-03 | 知識內容包格式、匯入驗證、發布／撤回規則 | PROPOSED。**B-008 已依此合併（PR #26），但沒有核准紀錄** | D-03-v1 | Jerry | — | B-008、J-003 首次發布 |
 | D-04 | 匿名 session 持有證明、有效期、資源歸屬、濫用限制、冪等、刪除（API_CONTRACT v0.2 §3） | PROPOSED | D-04-v1 | Jerry | — | B-011a、B-005、B-006、J-003 adapter |
@@ -68,9 +68,9 @@ Last reviewed: 2026-09-23
 | 規則表＋補助說明模板（D-01a，r2） | PROPOSED | Jerry | — | B-010 實作與 §9 T1–T23 測試（規則表修改時同步調整）；C-005 依 Mock 排版 | B-010 正式驗收、J-003 真實 Assessment |
 | Source Registry（D-02a） | PROPOSED；新北市來源 DATA-GAP | Jerry | — | B-009 依 registry 設計抓取清單；J-002 補新北市來源 | B-009 正式驗收；新北市地方知識 |
 | 內容包格式與發布規則（D-03） | PROPOSED；**B-008 已合併（PR #26）** | Jerry | — | J-003 可在整合環境演練（不發布未核准內容） | 需補核准；若 Jerry 要求修改格式，另開 B-008 修正任務 |
-| 首批知識內容（D-02） | 9 筆 NEEDS_REVIEW，0 筆 APPROVED | Jerry 審核 | — | B-010 以明確標示的 fixture 測試 | 首次 PUBLISHED 版本、B-010 smoke、J-003 真實 Assessment |
+| 首批知識內容（D-02） | 9 筆 APPROVED（2026-09-24）；目標版本 `KB-2026-09-24-001`；**尚未發布** | Jerry 審核 | 內容包逐筆 `review`；PR #31 留言（待補連結） | J-003 首次知識發布；B-010 以明確標示的 fixture 測試 | 首次 PUBLISHED 版本、B-010 smoke、J-003 真實 Assessment |
 | 地方補助知識（臺北市、新北市） | **缺內容**（目前只有臺北市照管中心聯絡資訊） | J-002 整理、Jerry 審核 | — | 結果頁先顯示 S-LOCAL-MISSING | 兩市地方補助的真實 E2E |
-| Knowledge 正式發布 | 未發布（無 PUBLISHED 版本） | J-003 執行、Jerry 核准 | — | — | 需 D-02 內容核准＋整合環境 |
+| Knowledge 正式發布 | 未發布（無 PUBLISHED 版本） | J-003 執行、Jerry 核准 | — | J-003 可執行 import → approve → publish（D-02 已核准） | 整合環境可用（D-09 Netlify 暫停；Supabase staging 需確認） |
 | 每日知識更新（B-009） | 原始 MVP；未見提交 | B 實作 | PRODUCT_SPEC §42 | B-008 已合併，可開工 | 完整 MVP 驗收 |
 | Session 安全 contract（D-04） | PROPOSED | Jerry | — | B-011a、B-010、B-005、B-006 依 v0.2 做可逆實作 | 核准前不得宣稱 session 安全驗收通過 |
 | 隱私與同意版本（D-05），含位置告知草案 | PROPOSED；版本全部 DRAFT；法務 BLOCKED | Jerry＋法務 | — | C-005 可排版 DRAFT 文案與位置畫面；B-011a 依 ACTIVE 清單驗證版本 | 正式同意版本上線、正式啟用座標收集（D-13g）、J-004 |
@@ -111,7 +111,9 @@ Last reviewed: 2026-09-23
 ## D-02 首批知識內容
 
 - 來源登錄：`docs/knowledge/source-registry.md`（D-02a，PROPOSED）
-- 內容包：`contracts/knowledge/packs/KP-2026-09-23-001.json`（9 筆，全部 `NEEDS_REVIEW`，`review.reviewedBy = null`）
+- 內容包：`contracts/knowledge/packs/KP-2026-09-23-001.json`（9 筆）。**2026-09-24 Jerry 全部核准**：9 筆 `status = APPROVED`，逐筆 `review` 記錄審核人、時間與註記；目標版本 `intendedKnowledgeVersion = KB-2026-09-24-001`。
+- 審核前已對照 2026-09-24 官方原文逐條／逐格比對，文字與數字一致。審核註記：KR-2026-005／006 核准時未另行核對 2025-10-03 勘誤函（PDF 與擷取版相同）；KR-2026-004 未收錄附表二「第一組／第二組擇一申請」規則，待下一批補充；KR-2026-001 `requiresDisability` 欄位名稱待修正。
+- **內容核准 ≠ 已發布**：資料庫中仍沒有 PUBLISHED 版本，需由 J-003 經 B-008 import → approve → publish 建立。
 - PR #19 合併**不是**內容審核。需要 Jerry 逐筆核准或退回，並在 PR 留下審核紀錄；核准後由 J-003 經 B-008 流程在整合環境實際發布。
 - 在出現第一個 PUBLISHED 版本前，正式 Assessment 必須回 `KNOWLEDGE_UNAVAILABLE`，不得以 NEEDS_REVIEW 內容代替。
 
@@ -249,13 +251,12 @@ B-008（PR #26，**已於 2026-09-23 合併**）的 `publish_knowledge_version`�
 
 | # | 事項 | 建議 | 若未決定的影響 |
 |---|---|---|---|
-| 1 | D-02 首批 9 筆知識逐筆審核 | 依 contracts/knowledge/README §7 清單逐筆核准；KR-2026-005／006 先確認為 2025-10-03 勘誤後版本 | 沒有 PUBLISHED 版本，真實 Assessment、補助說明全部無法驗收 |
-| 2 | D-03 內容包格式、D-10 延伸使用（B-008 已合併） | 補核准現行格式與發布／撤回函式（兩者都需全有或全無） | B-008 目前處於「已合併但未核准」；若要改格式需另開修正任務 |
-| 3 | D-04 Session 安全 contract | 依 API_CONTRACT v0.2 §3 核准 | B-011a／B-010／B-005／B-006 只能做可逆實作 |
-| 4 | D-01a 規則表 r2（含補助說明模板、顯示文字對照、HOME_MEDICAL_NURSING → 照顧及專業服務的對應） | 逐條確認；HOME_MEDICAL_NURSING 對應建議保留（專業服務涵蓋居家護理類服務），若不同意則只顯示於 HOME_CARE | B-010 無法完成正式驗收 |
-| 5 | D-13a–g 位置細節 | 採上表建議 | B-005、C-005 只能做可逆實作 |
-| 6 | D-14a–b 補助呈現細節 | 採上表建議 | 同上 |
-| 7 | 地方補助知識：臺北市、新北市的補助項目與新北市來源（D-02a DATA-GAP） | 指定 J-002 下一批內容包（KP-*-002）整理兩市地方補助與新北市照管中心資訊，列入 9/30 目標 | 結果頁只能顯示 S-LOCAL-MISSING；「台北市補助不套用新北市」只能以缺漏案例驗收 |
-| 8 | D-05 法務（L-1～L-6）與客服信箱 | 優先確認 L-6（位置）與 L-1（健康資料） | 同意版本維持 DRAFT，無法正式上線、無法正式收集座標 |
-| 9 | D-06 接件人與備援人 | 指定真人並取得同意 | 無法開放正式媒合 |
-| 10 | D-09 Netlify 額度 | 決定是否在 9/29 前購買額度或維持集中合併 | 部署後 E2E 無法執行 |
+| 1 | D-03 內容包格式、D-10 延伸使用（B-008 已合併） | 補核准現行格式與發布／撤回函式（兩者都需全有或全無） | B-008 目前處於「已合併但未核准」；若要改格式需另開修正任務 |
+| 2 | D-04 Session 安全 contract | 依 API_CONTRACT v0.2 §3 核准 | B-011a／B-010／B-005／B-006 只能做可逆實作 |
+| 3 | D-01a 規則表 r2（含補助說明模板、顯示文字對照、HOME_MEDICAL_NURSING → 照顧及專業服務的對應） | 逐條確認；HOME_MEDICAL_NURSING 對應建議保留（專業服務涵蓋居家護理類服務），若不同意則只顯示於 HOME_CARE | B-010 無法完成正式驗收 |
+| 4 | D-13a–g 位置細節 | 採上表建議 | B-005、C-005 只能做可逆實作 |
+| 5 | D-14a–b 補助呈現細節 | 採上表建議 | 同上 |
+| 6 | 地方補助知識：臺北市、新北市的補助項目與新北市來源（D-02a DATA-GAP） | 指定 J-002 下一批內容包（KP-*-002）整理兩市地方補助與新北市照管中心資訊，列入 9/30 目標 | 結果頁只能顯示 S-LOCAL-MISSING；「台北市補助不套用新北市」只能以缺漏案例驗收 |
+| 7 | D-05 法務（L-1～L-6）與客服信箱 | 優先確認 L-6（位置）與 L-1（健康資料） | 同意版本維持 DRAFT，無法正式上線、無法正式收集座標 |
+| 8 | D-06 接件人與備援人 | 指定真人並取得同意 | 無法開放正式媒合 |
+| 9 | D-09 Netlify 額度 | 決定是否在 9/29 前購買額度或維持集中合併 | 部署後 E2E 無法執行 |

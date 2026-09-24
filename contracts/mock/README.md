@@ -88,7 +88,7 @@ contracts/mock/
 
 注意：
 
-1. `WITH-SUBSIDY-NEW_TAIPEI.json` 的金額、比率與來源文字取自 `KP-2026-09-23-001`，該內容包**仍是 NEEDS_REVIEW**；這裡只示範格式與排版，不代表已核准或已發布的知識，也不得被正式環境使用。
+1. `WITH-SUBSIDY-NEW_TAIPEI.json` 的金額、比率與來源文字取自 `KP-2026-09-23-001`，該內容包已於 2026-09-24 內容核准但**尚未發布**；Mock 使用 `KB-MOCK-001`，只示範格式與排版，不代表已發布的知識，也不得被正式環境使用。
 2. 前端只負責逐行顯示 `summary` 與 `knowledgeVersion`，不得解析句子、不得自行計算或補上任何金額。
 3. 所有 `distanceKm` 只在 `DISTANCE` 為數值；其餘 fixture 一律為 `null`。
 
