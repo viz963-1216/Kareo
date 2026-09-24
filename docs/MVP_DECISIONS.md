@@ -41,12 +41,12 @@ Last reviewed: 2026-09-23
 |---|---|---|---|---|---|---|
 | D-01 | Assessment 判斷方式 | **SPEC-APPROVED：方案 B 規則引擎，不使用 AI**（已修訂 PRODUCT_SPEC §16） | D-01-v2 | Jerry | [PR #19 comment 2026-09-23](https://github.com/viz963-1216/Kareo/pull/19#issuecomment-5788470099) | B-010、J-003、J-004 |
 | D-01a | 規則表、關鍵字、Summary 模板、**補助說明模板與知識對應**（ASSESSMENT_RULES §6） | r2 **SPEC-APPROVED**（2026-09-24）；**r3 PROPOSED**（2026-09-24：修正 S-LOCAL-* 地方資訊模板，r2 的 `SUBSIDY` 類別不存在於 schema） | r3 | Jerry | r2：[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-010、C-005、J-003 |
-| D-02 | 首批知識內容包 `KP-2026-09-23-001`（9 筆） | **內容 APPROVED（9／9，2026-09-24 Jerry）；尚未 PUBLISHED** | D-02-v1 | Jerry（審核人） | 內容包逐筆 `review`；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227) | J-003 首次發布、B-010 |
+| D-02 | 知識內容包：`KP-2026-09-23-001`（中央 9 筆）、`KP-2026-09-24-002`（臺北市 2 筆、新北市 4 筆） | **內容 APPROVED**（9／9、6／6，2026-09-24 Jerry）；目標版本皆為 `KB-2026-09-24-001`；**尚未 PUBLISHED** | D-02-v2 | Jerry（審核人） | 內容包逐筆 `review`；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227)（001）；002 待補留言 | J-003 首次發布、B-010 |
 | D-02a | 官方來源白名單與 Source Registry `SR-2026-09-23-01` | **SPEC-APPROVED**（2026-09-24）；新北市來源擷取失敗（**DATA-GAP**，J-002 補） | D-02a-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-008（已合併）、B-009、J-002 地方知識 |
 | D-03 | 知識內容包格式、匯入驗證、發布／撤回規則 | **SPEC-APPROVED**（2026-09-24）；B-008 實作與規格有 2 處差異，由 **B-008-r2** 修正 | D-03-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806617991) | B-008-r2、J-003 首次發布 |
 | D-04 | 匿名 session 持有證明、有效期、資源歸屬、濫用限制、冪等、刪除（API_CONTRACT v0.2 §3） | **SPEC-APPROVED**（2026-09-24） | D-04-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-011a、B-010、B-005、B-006、J-003 adapter |
 | D-05 | 隱私、同意版本、保存／刪除、外部資料流 | PROPOSED；**做法已核准**（優先確認 L-6、L-1，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)）；法務意見與客服信箱 **BLOCKED**，版本維持 DRAFT | D-05-v1 | Jerry | — | B-011、C-005、J-004 |
-| D-06 | Lead 接件方式、角色、狀態轉移、回覆時程 | PROPOSED；主要接件人 **蘇子傑**（09:00–21:00，2026-09-24 指定）；服務日別與備援接件人 **待定** | D-06-v1 | Jerry | — | B-006、J-004 |
+| D-06 | Lead 接件方式、角色、狀態轉移、回覆時程 | PROPOSED；主要接件人 **蘇子傑**，週一至週五 09:00–21:00；**不設備援接件人**（2026-09-24 Jerry 決定，以逾時暫停媒合入口替代） | D-06-v1 | Jerry | — | B-006、J-004 |
 | D-07 | 推薦排序：有精確位置依距離、只有行政區穩定輪替、無位置不宣稱附近（PRODUCT_SPEC §21–24） | **原始 MVP 要求（不變）**；Provider 座標 **DATA-GAP**（0／30） | D-07-v3 | Jerry | PRODUCT_SPEC §20–24 | A-003-r2、B-005、C-005、J-003 |
 | D-08 | MVP 不收集 GPS | **SHELVED（未核准、已擱置）**：精確位置依原始 MVP 開發 | D-08-v2 | Jerry | — | 無（不影響任何任務） |
 | D-09 | Netlify 部署額度與部署觸發策略 | PROPOSED；額度 **BLOCKED** | D-09-v1 | Jerry | — | J-003、J-004 |
@@ -69,12 +69,12 @@ Last reviewed: 2026-09-23
 | Source Registry（D-02a） | SPEC-APPROVED（2026-09-24）；新北市來源 DATA-GAP | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-009 依 registry 設計抓取清單；J-002 補新北市來源 | B-009 正式驗收；新北市地方知識 |
 | 內容包格式與發布規則（D-03） | SPEC-APPROVED（2026-09-24）；B-008 已合併，差異待 B-008-r2 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806617991) | B-008-r2（READY） | **首次知識發布需等 B-008-r2 合併**（版號須等於 `intendedKnowledgeVersion`） |
 | 首批知識內容（D-02） | 9 筆 APPROVED（2026-09-24）；目標版本 `KB-2026-09-24-001`；**尚未發布** | Jerry 審核 | 內容包逐筆 `review`；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227) | J-003 首次知識發布；B-010 以明確標示的 fixture 測試 | 首次 PUBLISHED 版本、B-010 smoke、J-003 真實 Assessment |
-| 地方知識（臺北市、新北市） | **草稿已提交** `KP-2026-09-24-002`（6 筆 NEEDS_REVIEW）＋來源登錄 `SR-2026-09-24-01`（6 個新來源）＋規則表 r3（修正 S-LOCAL-*）；兩市官方頁面未找到地方現金加碼補助 | J-002 整理、Jerry 審核 | — | 審核後由 J-003 發布 | 臺北市輔具／喘息地方流程仍缺（Source Registry 缺口 6） |
+| 地方知識（臺北市、新北市） | `KP-2026-09-24-002` 6 筆 **APPROVED**（2026-09-24）＋來源 `SR-2026-09-24-01` 核准；規則表 r3（S-LOCAL-*）仍 PROPOSED；兩市未找到地方現金加碼補助 | J-002 整理、Jerry 審核 | 內容包逐筆 `review` | 與 001 一起發布為 `KB-2026-09-24-001`（需 B-008-r2 支援多內容包） | 臺北市輔具／喘息地方流程仍缺 |
 | Knowledge 正式發布 | 未發布（無 PUBLISHED 版本） | J-003 執行、Jerry 核准 | — | B-008-r2 合併後，J-003 執行 import → approve → publish（D-02、D-03 已核准） | 整合環境可用（D-09 Netlify 暫停；Supabase staging 需確認） |
 | 每日知識更新（B-009） | 原始 MVP；未見提交 | B 實作 | PRODUCT_SPEC §42 | B-008 已合併，可開工 | 完整 MVP 驗收 |
 | Session 安全 contract（D-04） | SPEC-APPROVED（2026-09-24） | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-011a、B-010、B-005、B-006 依 v0.2 實作 | — |
 | 隱私與同意版本（D-05），含位置告知草案 | PROPOSED；版本全部 DRAFT；法務 BLOCKED | Jerry＋法務 | — | C-005 可排版 DRAFT 文案與位置畫面；B-011a 依 ACTIVE 清單驗證版本 | 正式同意版本上線、正式啟用座標收集（D-13g）、J-004 |
-| Lead 接件（D-06） | PROPOSED；主要接件人已指定（蘇子傑，09:00–21:00）；日別、備援人待定 | Jerry | — | B-006 依 LEAD_OPERATIONS 實作 API 與內部指令 | 真人接件演練需備援人（Gate 3 要求 Jerry 以外至少一人）；對外文案需日別 |
+| Lead 接件（D-06） | PROPOSED；接件人與時段已定（蘇子傑，週一至週五 09:00–21:00）；不設備援 | Jerry | — | B-006 依 LEAD_OPERATIONS 實作 API 與內部指令 | J-004 真人接件演練與「暫停媒合入口」開關演練 |
 | 推薦排序（D-07） | 原始 MVP；座標 DATA-GAP | A／B／C／J | PRODUCT_SPEC §20–24 | B-005 全部分支；C-005 位置畫面；A-003-r2 座標 | 真實距離排序 E2E（需已驗證座標） |
 | 位置細節（D-13a–g） | SPEC-APPROVED（2026-09-24） | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | 依 API_CONTRACT v0.2.2 §8–§9 實作 | 正式收集座標需 D-05 同意版本 ACTIVE（D-13g） |
 | 補助說明細節（D-14a–b） | SPEC-APPROVED（2026-09-24） | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | 依建議實作（不新增欄位） | — |
@@ -127,6 +127,7 @@ B-008（PR #26，9/23 合併）與規格比對結果（2026-09-24）：
 |---|---|---|---|
 | 1 | 發布時建立的 KnowledgeVersion 使用內容包的 `intendedKnowledgeVersion`（README §4） | `generateKnowledgeVersionId()` 自行產生，末三碼取自發布當下秒數與毫秒 | **B-008-r2 修正**；修正前不得首次發布 |
 | 2 | `effectiveTo` 早於發布日的紀錄不得納入（README §4） | 發布時未檢查 | **B-008-r2 修正** |
+| 4 | （規格缺口，2026-09-24 發現）一個版本應包含**所有**目前有效的已核准紀錄 | `publish_knowledge_version` 只發布同一內容包的紀錄，並把其他 PUBLISHED 紀錄全部 SUPERSEDED；發布第二個內容包會讓第一包的紀錄失效 | **D-03-v2 提案（PROPOSED）**：一次發布可指定多個內容包（`intendedKnowledgeVersion` 必須相同），並將前一版中未被取代、仍有效的紀錄帶入新版本；由 B-008-r2 實作。核准前，首批發布需同時匯入 001、002 並一起發布 |
 | 3 | 白名單、網域、整批拒收、匯入一律 NEEDS_REVIEW、`(packId, recordId)` 冪等、CONFLICT、dry-run、只發布 APPROVED、同時只有一個 PUBLISHED、撤回不刪資料並記錄原因 | 符合 | — |
 
 ## D-04 Session 安全
@@ -268,7 +269,7 @@ B-008（PR #26）的 `publish_knowledge_version`／`withdraw_knowledge_version`�
 
 | 事項 | 狀態／還需要什麼 | 負責 |
 |---|---|---|
-| **審核 `KP-2026-09-24-002`**（臺北市、新北市地方知識 6 筆）＋來源登錄 `SR-2026-09-24-01` 新增的 6 個來源＋規則表 r3 | 2026-09-24 草稿已提交；需 Jerry 逐筆審核。審核重點：KR-2026-013 石碇區地址誤植、板橋兩分站重疊；KR-2026-014 須知版本 1150805／1150417 不一致 | Jerry |
+| **核准 D-03-v2**（一個版本可包含多個內容包，並帶入前版仍有效的紀錄）與**規則表 r3**（S-LOCAL-* 地方資訊模板） | 兩者都卡住「001＋002 一起成為第一個正式版本」與日後每日更新；建議都核准 | Jerry |
 | 臺北市輔具／喘息的地方流程 | 社會局頁面只有附件，需人工開啟附件確認後補下一批 | J-002 |
 | D-05 法務與客服信箱 | Jerry 指示暫不填（2026-09-24） | Jerry |
-| D-06 接件人 | 主要接件人已指定：蘇子傑，09:00–21:00。**待定**：服務日別（每天或僅工作日、國定假日）、備援接件人 | Jerry |
+| D-06 接件人 | 完成：蘇子傑，週一至週五 09:00–21:00；不設備援接件人（2026-09-24） | — |
