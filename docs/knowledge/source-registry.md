@@ -43,12 +43,15 @@ Status: `SR-2026-09-23-01` 的來源 **SPEC-APPROVED 2026-09-24**（MVP_DECISION
 
 | sourceId | 名稱 | authority | jurisdiction | sourceUrl | 原發布機關／版本 | 擷取狀態 | active |
 |---|---|---|---|---|---|---|---|
-| `SRC-DRIVE-NTPC-AD-TOPUP` | 新北市政府身心障礙者輔具費用補助基準（新北市加碼） | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1V_dZRAeeUGYLKR_JrFFUg2g0un4nFmh5/view | 新北市政府（版本待讀取後填寫） | 待讀取 | true |
-| `SRC-DRIVE-NTPC-MED-AD` | 新北市身心障礙者醫療費用及醫療輔具補助標準表 | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1kl8JtMUNozsWeKxKzjBEG2bm_29R_690/view | 新北市政府（版本待讀取後填寫） | 待讀取 | true |
+| `SRC-DRIVE-NTPC-AD-TOPUP` | 新北市政府身心障礙者輔具費用補助基準（新北市加碼） | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1V_dZRAeeUGYLKR_JrFFUg2g0un4nFmh5/view | 新北市政府社會局；文件未標示日期或版次 | 2026-09-24 瀏覽器讀取全文（2 頁） | true |
+| `SRC-DRIVE-NTPC-MED-AD` | 新北市身心障礙者醫療費用及醫療輔具補助標準表 | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1kl8JtMUNozsWeKxKzjBEG2bm_29R_690/view | 新北市政府；文件標示「102.03.13 修」（2013 年，需確認是否仍有效） | 瀏覽器只能讀到 9 頁中的前 4 頁 | true |
 | `SRC-DRIVE-LTC-PAY-T3` | 長期照顧給付及支付基準－附表3 | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/1WH5OA2sdc1gs8TG5RAzx1k-767F74Jaa/view | 衛生福利部（版本待讀取後填寫） | 待讀取 | true |
 | `SRC-DRIVE-AD-CODES` | 輔具代碼 | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/10W9SlpFhfN92bJJC8vQKGchtCUZZZ6-N/view | 待讀取後填寫 | 待讀取 | true |
+| `SRC-DRIVE-LTC-PAY-FEES` | 長期照顧給付及支付基準收費標準（docx） | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/17jbyW9we5UJn9o7UDAvq7mXr4nRPM8EE/view | 衛生福利部（版本待讀取後填寫） | 待讀取 | true |
+| `SRC-DRIVE-LTC-CODES` | 長照代碼 | `KAREO_DRIVE` | `TAIWAN` | https://drive.google.com/file/d/1WocJI8bQUPeqM92H6zSBW5cymzB2tdmW/view | 待讀取後填寫 | 待讀取 | true |
+| `SRC-DRIVE-NTPC-TRANSPORT-RULES` | 新北市特約交通使用須知 | `KAREO_DRIVE` | `NEW_TAIPEI` | https://drive.google.com/file/d/1YuMFW3Jz3Y2thgrCAPj338HaNocvFH5C/view | 新北市政府衛生局高齡長期照顧處（版本待讀取後填寫；用於確認 KR-2026-014 的 1150805／1150417 版本） | 待讀取 | true |
 
-其餘 4 個檔案（長期照顧給付及支付基準收費標準.docx、長照代碼.pdf、新北市特約交通使用須知.pdf、A+分站交通平台教育訓練手冊.pdf）的檔案 ID 尚未取得，讀取後補登。教育訓練手冊為單位內部操作文件，建議不作為使用者知識來源。
+A+分站交通平台教育訓練手冊.pdf 為單位內部操作文件，不登錄為知識來源。
 
 ---
 
