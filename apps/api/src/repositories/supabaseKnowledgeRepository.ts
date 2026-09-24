@@ -142,9 +142,16 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
     return (data ?? []).map((r) => r.id as string);
   }
 
+  async versionExists(versionId: string): Promise<boolean> {
+    const client = getSupabaseClient();
+    const { data, error } = await client.from("knowledge_versions").select("id").eq("id", versionId).maybeSingle();
+    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢 Knowledge 版本，請稍後再試。");
+    return data !== null;
+  }
+
   async publishVersion(
     input: PublishVersionInput
-  ): Promise<{ publishedRecordCount: number; supersededRecordCount: number }> {
+  ): Promise<{ publishedRecordCount: number; supersededRecordCount: number; carriedForwardCount: number }> {
     const client = getSupabaseClient();
     const { data, error } = await client.rpc("publish_knowledge_version", {
       payload: {
@@ -160,7 +167,7 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
         cause: error,
       });
     }
-    const result = data as { publishedRecordCount: number; supersededRecordCount: number };
+    const result = data as { publishedRecordCount: number; supersededRecordCount: number; carriedForwardCount: number };
     return result;
   }
 

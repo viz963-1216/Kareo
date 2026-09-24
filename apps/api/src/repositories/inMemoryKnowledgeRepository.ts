@@ -51,12 +51,21 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
     return updated;
   }
 
+  async versionExists(versionId: string): Promise<boolean> {
+    return this.versions.some((v) => v.id === versionId);
+  }
+
+  // 模擬 migration 0011 的 publish_knowledge_version：取代／失效的舊 PUBLISHED 紀錄 → SUPERSEDED；
+  // 其餘未被取代且未失效的舊 PUBLISHED 紀錄帶入新版本（D-03-v2）。
   async publishVersion(
     input: PublishVersionInput
-  ): Promise<{ publishedRecordCount: number; supersededRecordCount: number }> {
+  ): Promise<{ publishedRecordCount: number; supersededRecordCount: number; carriedForwardCount: number }> {
     if (this.failNextPublish) {
       this.failNextPublish = false;
       throw new AppError("INTERNAL_ERROR", "模擬發布失敗");
+    }
+    if (this.versions.some((v) => v.id === input.versionId)) {
+      throw new AppError("INTERNAL_ERROR", `publish_knowledge_version: version ${input.versionId} already exists`);
     }
 
     const missing = input.recordIds.filter(
@@ -66,15 +75,24 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
       throw new AppError("INTERNAL_ERROR", `publish_knowledge_version: recordIds not APPROVED: ${missing.join(",")}`);
     }
 
+    const today = new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    const newRecords = this.records.filter((r) => input.recordIds.includes(r.id));
+
     let supersededRecordCount = 0;
-    for (const v of this.versions) {
-      if (v.status === "PUBLISHED") v.status = "ARCHIVED";
-    }
-    for (const r of this.records) {
-      if (r.status === "PUBLISHED") {
-        r.status = "SUPERSEDED";
+    for (const old of this.records) {
+      if (old.status !== "PUBLISHED") continue;
+      const replaced = newRecords.some(
+        (n) => n.jurisdiction === old.jurisdiction && (n.ruleData as Record<string, unknown>)?.type === (old.ruleData as Record<string, unknown>)?.type && n.title === old.title
+      );
+      const expired = old.effectiveTo !== null && old.effectiveTo < today;
+      if (replaced || expired) {
+        old.status = "SUPERSEDED";
         supersededRecordCount++;
       }
+    }
+
+    for (const v of this.versions) {
+      if (v.status === "PUBLISHED") v.status = "ARCHIVED";
     }
 
     this.versions.push({
@@ -86,6 +104,14 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
       notes: input.notes,
     });
 
+    let carriedForwardCount = 0;
+    for (const r of this.records) {
+      if (r.status === "PUBLISHED" && r.version !== input.versionId) {
+        r.version = input.versionId;
+        carriedForwardCount++;
+      }
+    }
+
     let publishedRecordCount = 0;
     for (const r of this.records) {
       if (input.recordIds.includes(r.id) && r.status === "APPROVED") {
@@ -95,7 +121,7 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
       }
     }
 
-    return { publishedRecordCount, supersededRecordCount };
+    return { publishedRecordCount, supersededRecordCount, carriedForwardCount };
   }
 
   async withdrawCurrentVersion(input: {

@@ -53,13 +53,15 @@ const CATEGORIES: KnowledgeCategory[] = [
   "OTHER",
 ];
 const JURISDICTIONS: Jurisdiction[] = ["TAIWAN", "TAIPEI", "NEW_TAIPEI"];
-const AUTHORITIES = ["MOHW", "LAW", "TAIPEI_GOV", "NEW_TAIPEI_GOV"];
+// KAREO_DRIVE（D-15，2026-09-24 核准）：Jerry 指定資料夾來源，不是官方網站；URL 規則不同於其他來源。
+const AUTHORITIES = ["MOHW", "LAW", "TAIPEI_GOV", "NEW_TAIPEI_GOV", "KAREO_DRIVE"];
 const RECORD_STATUSES = ["NEEDS_REVIEW", "APPROVED", "REJECTED", "CONFLICT"];
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const ISO_DATETIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
 const CONTENT_HASH = /^sha256:[0-9a-f]{64}$/;
 const SOURCE_URL = /^https:\/\/([a-z0-9-]+\.)*(gov\.tw|gov\.taipei)\//;
+const KAREO_DRIVE_URL = /^https:\/\/drive\.google\.com\/file\/d\/[A-Za-z0-9_-]+\//;
 const RECORD_ID = /^KR-\d{4}-\d{3}$/;
 const SOURCE_ID = /^SRC-[A-Z0-9-]+$/;
 
@@ -91,7 +93,12 @@ function validateRecord(raw: RawContentPackRecord, packId: string, registry: Map
   } else {
     if (!isNonEmptyString(source.sourceId) || !SOURCE_ID.test(source.sourceId)) reasons.push("source.sourceId 格式不合法");
     if (!isOneOf(source.authority, AUTHORITIES)) reasons.push("source.authority 不合法");
-    if (!isNonEmptyString(source.url) || !SOURCE_URL.test(source.url)) reasons.push("source.url 不在白名單網域（僅允許 gov.tw / gov.taipei）");
+    if (source.authority === "KAREO_DRIVE") {
+      if (!isNonEmptyString(source.url) || !KAREO_DRIVE_URL.test(source.url))
+        reasons.push("source.url 格式不合法（KAREO_DRIVE 來源須為 https://drive.google.com/file/d/<fileId>/… 網址）");
+    } else if (!isNonEmptyString(source.url) || !SOURCE_URL.test(source.url)) {
+      reasons.push("source.url 不在白名單網域（僅允許 gov.tw / gov.taipei）");
+    }
     if (!isNonEmptyString(source.fetchedAt) || !ISO_DATETIME.test(source.fetchedAt)) reasons.push("source.fetchedAt 格式不合法");
     if (!isNonEmptyString(source.contentHash) || !CONTENT_HASH.test(source.contentHash))
       reasons.push("source.contentHash 格式不合法（需為 sha256:<64 hex>）");

@@ -10,6 +10,7 @@ const REGISTRY_MD = `
 |---|---|---|---|---|---|---|---|
 | \`SRC-LAW-001\` | 長照辦法 | \`LAW\` | \`TAIWAN\` | https://law.moj.gov.tw/x | v1 | OK | true |
 | \`SRC-INACTIVE\` | 停用來源 | \`MOHW\` | \`TAIWAN\` | https://1966.gov.tw/x | v1 | OK | false |
+| \`SRC-DRIVE-NTPC-AD-TOPUP\` | 新北市輔具加碼 | \`KAREO_DRIVE\` | \`NEW_TAIPEI\` | https://drive.google.com/file/d/1V_dZRAeeUGYLKR_JrFFUg2g0un4nFmh5/view | v1 | OK | true |
 `;
 
 function validRecord(overrides: Partial<Record<string, unknown>> = {}) {
@@ -227,5 +228,47 @@ describe("importContentPack", () => {
     expect(report.written).toBe(true);
     const imported = repo.records.find((r) => r.packId === "KP-2026-09-23-001");
     expect(imported?.status).toBe("CONFLICT");
+  });
+});
+
+describe("KAREO_DRIVE source (D-15, B-008-r2)", () => {
+  const driveRecord = (overrides: Partial<Record<string, unknown>> = {}) =>
+    validRecord({
+      source: {
+        sourceId: "SRC-DRIVE-NTPC-AD-TOPUP",
+        authority: "KAREO_DRIVE",
+        url: "https://drive.google.com/file/d/1V_dZRAeeUGYLKR_JrFFUg2g0un4nFmh5/view",
+        fetchedAt: "2026-09-24T10:00:00+08:00",
+        contentHash: "sha256:" + "c".repeat(64),
+      },
+      ...overrides,
+    });
+
+  it("imports a record whose sourceId is registered as KAREO_DRIVE with a valid drive.google.com URL", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    const report = await importContentPack(repo, validPack([driveRecord()]), registry, { mode: "commit" });
+    expect(report.recordsRejected).toEqual([]);
+    expect(report.recordsValid).toBe(1);
+  });
+
+  it("rejects a KAREO_DRIVE record whose URL is not a drive.google.com/file/d/... link", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    const pack = validPack([driveRecord({ source: { ...driveRecord().source as object, url: "https://1966.gov.tw/x" } })]);
+    const report = await importContentPack(repo, pack, registry, { mode: "commit" });
+    expect(report.recordsRejected).toHaveLength(1);
+    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/KAREO_DRIVE 來源須為/);
+  });
+
+  it("rejects a KAREO_DRIVE sourceId that is not registered in source-registry.md", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    const pack = validPack([
+      driveRecord({ source: { ...driveRecord().source as object, sourceId: "SRC-DRIVE-UNREGISTERED" } }),
+    ]);
+    const report = await importContentPack(repo, pack, registry, { mode: "commit" });
+    expect(report.recordsRejected).toHaveLength(1);
+    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/不存在於 source-registry/);
   });
 });

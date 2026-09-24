@@ -59,9 +59,16 @@ export interface KnowledgeRepository {
   // KnowledgeRecord 沒有獨立的 approvedBy 欄位（依 DATA_MODEL.md 第 24 節），審核人記錄在 KnowledgeVersion.approvedBy。
   approveRecords(recordIds: string[]): Promise<string[]>;
 
+  // 版號是否已存在（任何狀態）：B-008-r2／D-03，發布前的第一層檢查（SQL function 內還有第二層防禦）。
+  versionExists(versionId: string): Promise<boolean>;
+
   // Publish / Withdraw：跨 knowledge_versions 與 knowledge_records 兩張表，依 ARCHITECTURE §22 用單一交易的
   // Postgres function 包住（同 B-004 D-10 的模式），不提供分開寫入的方法。
-  publishVersion(input: PublishVersionInput): Promise<{ publishedRecordCount: number; supersededRecordCount: number }>;
+  publishVersion(input: PublishVersionInput): Promise<{
+    publishedRecordCount: number;
+    supersededRecordCount: number;
+    carriedForwardCount: number;
+  }>;
   withdrawCurrentVersion(input: {
     reason: string;
     withdrawnBy: string;
