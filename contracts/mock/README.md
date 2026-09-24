@@ -98,3 +98,7 @@ contracts/mock/
 ## Admin Knowledge fixtures（2026-09-24，D-16）
 
 供 C-006 管理頁面 Mock 驗收，格式依 API_CONTRACT §26。`contracts/mock/admin/`：`session-response`、`knowledge-status-response`、`knowledge-changes-response`、`knowledge-records-response`、`knowledge-publish-response`。所有內容為測試資料（`*-MOCK-*`），不代表真實版本或制度。錯誤情境沿用 API_CONTRACT §5 通用錯誤格式。
+
+### 身心障礙福利補助 fixture（2026-09-24，D-17）
+
+`assessments/WITH-DISABILITY-NEW_TAIPEI.json`：使用者勾選領有身心障礙證明（`disabilityCertificate = YES`）時的 summary 範例（ASSESSMENT_RULES §6.5）。金額取自 KR-2026-018（待審核）與 KR-2026-016，只示範格式。第 3 行為省略標記，不是實際輸出。

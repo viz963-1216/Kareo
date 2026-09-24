@@ -2,7 +2,7 @@
 
 Owner: Jerry
 Submission Version: J-002-r4
-Rules version: `RULES-2026-09-24-r3`（**SPEC-APPROVED 2026-09-24**：r3 修正地方資訊模板 S-LOCAL-*）。前一版 `RULES-2026-09-23-r2` 為 **SPEC-APPROVED 2026-09-24**（MVP_DECISIONS D-01a，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)）
+Rules version: `RULES-2026-09-24-r4`（r4 依 Jerry 2026-09-24 功能指示新增身心障礙福利補助說明 §6.5 與 S-ELIG-DIS，D-17；**模板文字待 Jerry 確認**）。r3（S-LOCAL-*）、r2 為 **SPEC-APPROVED 2026-09-24**（MVP_DECISIONS D-01a）
 Decision: MVP_DECISIONS D-01 = 方案 B（不使用 AI，Jerry 2026-09-23 決定）
 
 > MVP 的 Assessment 完全由本文件的確定性規則產生，不呼叫任何 AI／LLM。
@@ -89,7 +89,7 @@ Summary 只能由下列模板組成，不得自由生成文字。`{}` 為程式�
 ### 6.1 輸出格式（沿用既有 `summary` 字串，不新增 API 欄位）
 
 - `summary` 由多個句子組成，句子之間以換行字元 `\n` 分隔；前端每一行顯示為一段（C-005）。
-- 句子順序固定：S-NEEDS／S-NONE → S-INSTITUTION → S-ELIG-* → S-SUB-*（依 §6.3 表格由上而下）→ S-LOCAL-*（INFO／MISSING／NOCITY → CENTER）→ S-NEXT。
+- 句子順序固定：S-NEEDS／S-NONE → S-INSTITUTION → S-ELIG-* → S-SUB-*（依 §6.3 表格由上而下）→ S-DIS-*（§6.5）→ S-LOCAL-*（INFO／MISSING／NOCITY → CENTER）→ S-NEXT。
 - 某句所需的知識紀錄不在 PUBLISHED 版本、`effectiveFrom` 晚於今天（Asia/Taipei）或 `effectiveTo` 已過 → **省略該句**，不改用預設值或其他縣市資料。
 - 若 S-NEXT 無法產生 → 回 `KNOWLEDGE_UNAVAILABLE`（不產生部分結果）。
 - 回應中的 `knowledgeVersion` 即為本次引用的知識版本；前端需顯示（C-005）。
@@ -104,6 +104,7 @@ Summary 只能由下列模板組成，不得自由生成文字。`{}` 為程式�
 | S-ELIG-AGE | `ageRange` ∈ {65_74, 75_84, 85_PLUS}，且 criteria 含 `AGE_65_PLUS` | 依年齡，可能符合長照服務的申請條件，實際仍需經照管專員評估。 | `ELIGIBILITY_ANY_OF`，TAIWAN |
 | S-ELIG-OTHER | `ageRange` ∈ {UNDER_50, 50_64} | 若{其餘 criteria 的顯示文字，以「、」「或」串接}，也可能符合申請條件，實際仍需經照管專員評估。 | 同上 |
 | S-ELIG-UNKNOWN | `ageRange` = UNKNOWN | 是否符合申請條件，需依{全部 criteria 的顯示文字}等情況由照管專員評估。 | 同上 |
+| S-ELIG-DIS | `disabilityCertificate` = YES，且 criteria 含 `DISABILITY_CERTIFICATE`（取代 S-ELIG-OTHER／S-ELIG-UNKNOWN） | 您表示領有身心障礙證明，依規定可能符合長照服務的申請條件，實際仍需經照管專員評估。 | `ELIGIBILITY_ANY_OF`，TAIWAN |
 | S-NEXT | 一律 | 下一步可撥打長照專線 {hotline.number}（{hotline.hours 顯示文字}）申請到府評估。 | `APPLICATION_CHANNELS`，TAIWAN |
 
 criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表沒有的 code 時，**省略該項**並在測試中失敗提示更新對照表，不自行猜文字）：
@@ -132,7 +133,7 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 | S-SUB-COPAY | 至少一項 S-SUB-* 項目句出現 | 使用長照服務需依長照身分別自付部分費用，比率依服務項目不同，例如{第一個出現的項目}：{各類別顯示文字與比率}。身分別由主管機關認定。 | `COPAY_RATES`，TAIWAN |
 | S-SUB-SOURCE | 至少一項 S-SUB-* 句出現 | 以上制度與金額依據：{逐筆「來源機關顯示文字〈紀錄 title〉（effectiveFrom 起適用）」，以「、」串接}；平台知識版本 {knowledgeVersion}。 | S-SUB-* 實際引用的每一筆紀錄（依 recordId 去重，依 recordId 排序） |
 | S-SUB-DISCLAIMER | 至少一項 S-SUB-* 句出現 | 實際長照等級、給付額度與自付金額，須經照管專員評估核定後才確定。 | — |
-| S-LOCAL-INFO | 使用者縣市已知，PUBLISHED 版本有該縣市（TAIPEI／NEW_TAIPEI）的地方紀錄（`ruleData.type` 以 `LOCAL_` 開頭、`LOCAL_CENTER` 除外），且與需求相關：`LOCAL_TRANSPORT_RULES` → careNeeds 含 TRANSPORTATION；`LOCAL_ASSISTIVE_DEVICE_PROCESS` → 含 ASSISTIVE_DEVICE；`LOCAL_APPLICATION` → 一律；**（r4 提案，PROPOSED）**`LOCAL_DISABILITY_AD_TOPUP` → 含 ASSISTIVE_DEVICE；`LOCAL_MEDICAL_DEVICE_SUBSIDY` → 含 HOME_MEDICAL_NURSING。`requiresDisabilityCertificate = true` 的紀錄，句首加「若領有身心障礙證明，」 | {city}：{紀錄 summary}（依據：{來源機關}〈{title}〉，{effectiveFrom} 起適用）。每筆相關紀錄一句，依 recordId 排序 | 該縣市 jurisdiction 的紀錄 |
+| S-LOCAL-INFO | 使用者縣市已知，PUBLISHED 版本有該縣市（TAIPEI／NEW_TAIPEI）的地方紀錄（`ruleData.type` 以 `LOCAL_` 開頭、`LOCAL_CENTER` 除外），且與需求相關：`LOCAL_TRANSPORT_RULES` → careNeeds 含 TRANSPORTATION；`LOCAL_ASSISTIVE_DEVICE_PROCESS` → 含 ASSISTIVE_DEVICE；`LOCAL_APPLICATION` → 一律。`ruleData.requiresDisabilityCertificate = true` 的紀錄不由本句處理，改由 §6.5 S-DIS-*（只在使用者回答領有身心障礙證明時出現） | {city}：{紀錄 summary}（依據：{來源機關}〈{title}〉，{effectiveFrom} 起適用）。每筆相關紀錄一句，依 recordId 排序 | 該縣市 jurisdiction 的紀錄 |
 | S-LOCAL-MISSING | 使用者縣市已知，但沒有任何 S-LOCAL-INFO 句會出現 | {city}的地方規定與資源目前尚未收錄於平台，請洽 {hotline.number} 或{city}長期照顧管理中心確認；平台不會以其他縣市的規定代替。 | `APPLICATION_CHANNELS`，TAIWAN |
 | S-LOCAL-NOCITY | `location.precision` = NONE | 各縣市另有地方補助與服務資源，提供居住縣市後可查看；目前平台收錄臺北市、新北市。 | — |
 | S-LOCAL-CENTER | 使用者縣市已知，且有該縣市 `LOCAL_CENTER` 紀錄 | {city}長期照顧管理中心：{address}，電話 {phone}。 | `LOCAL_CENTER`，該縣市 |
@@ -154,6 +155,23 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 4. 臺北市、新北市的地方制度分開：只讀取與使用者縣市相同 jurisdiction 的地方紀錄；**缺少時用 S-LOCAL-MISSING，不套用另一縣市的規則**。地方紀錄只呈現官方公告的使用規則與聯絡方式，不重算中央的額度或比率（兩者不一致時列為 CONFLICT，交 Jerry 判斷）。
 5. 內容仍為 `NEEDS_REVIEW` 的紀錄不得出現在正式結果；知識包未核准前，staging／production 的結果頁不會出現 S-SUB-* 句。
 
+### 6.5 身心障礙福利補助說明（r4，D-17）
+
+只在 `disabilityCertificate` = YES 時出現（UNKNOWN 只出現 S-DIS-HINT）。這些是身心障礙福利，**與長照給付分開申請**；金額一律按官方身分別列出上限，不推算個人核定金額。
+
+| 模板 ID | 條件 | 文字 | 知識來源（`ruleData.type`，jurisdiction） |
+|---|---|---|---|
+| S-DIS-INTRO | YES，且下列至少一句出現 | 因您表示領有身心障礙證明，另可能適用下列身心障礙福利補助（與長照給付分開申請）： | — |
+| S-DIS-MED | YES，careNeeds 含 HOME_MEDICAL_NURSING，或 `mobilityLevel` = BEDRIDDEN | 居家使用的醫療輔具補助：例如{前 3 項品名與上限，格式「品名 低收／中低收／一般戶 元」}，共 {項目數} 項，每項上限依身分別而定；需三個月內的專科醫師診斷證明。 | `DISABILITY_MEDICAL_DEVICE_SUBSIDY`，TAIWAN |
+| S-DIS-AD-LOCAL | YES，careNeeds 含 ASSISTIVE_DEVICE，且使用者縣市有 `LOCAL_DISABILITY_AD_TOPUP` 紀錄 | {city}身心障礙者輔具加碼補助：例如{最多 3 項品名與上限}；{全額說明}。 | `LOCAL_DISABILITY_AD_TOPUP`，該縣市 |
+| S-DIS-SOURCE | 至少一句 S-DIS-* 出現 | 身心障礙福利補助依據：{逐筆「來源機關〈title〉（effectiveFrom 起適用）」}；實際補助以主管機關核定為準。 | 本次引用的紀錄 |
+| S-DIS-HINT | `disabilityCertificate` = UNKNOWN | 若領有身心障礙證明，另有醫療輔具等身心障礙福利補助可申請，可洽戶籍所在地衛生局或社會局。 | — |
+
+- 全額說明：`LOCAL_DISABILITY_AD_TOPUP.items[].fullAmountAllIncome = true` 的品項寫「標示項目不論身分別皆可補助至上限」；其餘品項寫「依身分別補助上限的 100%／75%／50%」（數值取自 `incomeShareOfMax`）。
+- 品項挑選：依 ruleData 陣列順序取前 3 項，不依使用者狀況挑選（避免推測病情）。
+- 不因 YES 而改變 careNeeds 或 priority；只影響 S-ELIG-DIS 與 §6.5。
+- 句子順序：S-SUB-* 之後、S-LOCAL-* 之前。
+
 ### 6.4 內容對應與維護
 
 - 程式只依 `ruleData.type` 與 jurisdiction 找紀錄，不以 recordId 寫死。目前 `KP-2026-09-23-001` 的對應（2026-09-24 內容核准，尚未 PUBLISHED）：`ELIGIBILITY_ANY_OF`＝KR-2026-001、`LEVEL_RANGE`＝KR-2026-002、`BENEFIT_ITEMS`＝KR-2026-003、`BENEFIT_AMOUNTS`＝KR-2026-004、`TRANSPORT_ZONE`＝KR-2026-005、`COPAY_RATES`＝KR-2026-006、`BENEFIT_PERIODS`＝KR-2026-007、`APPLICATION_CHANNELS`＝KR-2026-008、`LOCAL_CENTER`（TAIPEI）＝KR-2026-009。
@@ -167,7 +185,7 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 | 期間（`BENEFIT_PERIODS`） | `MONTHLY_6M_POOL` → 按月給付，以 6 個月為一期；`EVERY_3_YEARS` → 每 3 年給付一次；`YEARLY` → 每年給付一次 |
 | 交通用途 | `MEDICAL` → 就醫；`REHABILITATION` → 復健；`DIALYSIS` → 透析治療 |
 | 身分別 | `1` → 第一類（低收入戶、中低收入戶等）；`2` → 第二類；`3` → 第三類（一般戶） |
-| 來源機關（`source.authority`） | `LAW` → 全國法規資料庫；`MOHW` → 衛生福利部；`TAIPEI_GOV` → 臺北市政府；`NEW_TAIPEI_GOV` → 新北市政府 |
+| 來源機關（`source.authority`） | `LAW` → 全國法規資料庫；`MOHW` → 衛生福利部；`TAIPEI_GOV` → 臺北市政府；`NEW_TAIPEI_GOV` → 新北市政府；`KAREO_DRIVE` → 顯示 `ruleData.issuer`（原發布機關）；缺 `issuer` 時該句省略來源名稱、只寫標題 |
 | 1966 服務時間 | `hotline.hours` 字串依「Mon-Fri 08:30-12:00,13:30-17:30」格式轉為「週一至週五 8:30–12:00、13:30–17:30」；格式無法解析時省略括號內容 |
 
 - 模板文字（本節）屬 D-01a，2026-09-24 已核准；修改需遞增 `rulesVersion` 並經 Jerry 核准。
@@ -186,7 +204,7 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 - 保存期限依 PRIVACY_AND_RETENTION §2。
 - log 不得記錄原文。
 
-## 9. 必要測試案例（B-010 需全部實作；T14–T23 為 r2 新增，T24 為 r3 新增）
+## 9. 必要測試案例（B-010 需全部實作；T14–T23 為 r2 新增，T24 為 r3 新增，T25–T31 為 r4 新增）
 
 | # | 輸入重點 | 預期 careNeeds／priority |
 |---|---|---|
@@ -214,6 +232,13 @@ criteria 顯示文字對照（隨 `rulesVersion` 維護；知識出現對照表�
 | T22 | 知識出現對照表沒有的 criteria code | 該項省略；測試提示需更新對照表 |
 | T23 | careNeeds 含 HOME_CARE、`caregiverSituation` = NO_CAREGIVER | 不出現 S-SUB-RESPITE |
 | T24 | 新北市、careNeeds 不含 TRANSPORTATION、ASSISTIVE_DEVICE | 只出現 `LOCAL_APPLICATION` 的 S-LOCAL-INFO，不出現交通或輔具的地方句 |
+| T25 | `disabilityCertificate` 未提供 | 視為 UNKNOWN；出現 S-DIS-HINT；不回 VALIDATION_ERROR |
+| T26 | `disabilityCertificate` = NO | 不出現任何 S-DIS-* 與 S-ELIG-DIS |
+| T27 | YES、`ageRange` = 50_64 | 出現 S-ELIG-DIS，不出現 S-ELIG-OTHER |
+| T28 | YES、新北市、careNeeds 含 ASSISTIVE_DEVICE 與 HOME_MEDICAL_NURSING | S-DIS-INTRO＋S-DIS-MED＋S-DIS-AD-LOCAL＋S-DIS-SOURCE；金額只來自知識（哨兵測試同 T20） |
+| T29 | YES、臺北市、careNeeds 含 ASSISTIVE_DEVICE | 不出現新北市的 S-DIS-AD-LOCAL（地方隔離） |
+| T30 | YES，但 careNeeds 與 mobilityLevel 都不符合 S-DIS-MED／S-DIS-AD-LOCAL | 不出現 S-DIS-INTRO（沒有內容時不留空標題） |
+| T31 | `disabilityCertificate` = "MAYBE" | VALIDATION_ERROR |
 
 ## 10. 規則的維護
 

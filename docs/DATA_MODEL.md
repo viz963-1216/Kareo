@@ -147,6 +147,7 @@ livingSituation
 caregiverSituation
 mobilityLevel
 dailyLivingLevel
+disabilityCertificate
 homeCareNeed
 medicalNursingNeed
 assistiveDeviceNeed
@@ -168,6 +169,18 @@ v0.2.2 補充（J-002-r4）：
 - `lat`／`lng` 只在 `GPS`／`EXACT` 時保存；寫入前四捨五入到小數 3 位（約 100 公尺，D-13e 已核准），不寫入 log、不複製到 Lead、不提供給服務單位；隨 Assessment 依 PRIVACY_AND_RETENTION §2 刪除。
 - `rulesVersion`：產生本結果的規則版本（ASSESSMENT_RULES，例如 `RULES-2026-09-23-r2`）。
 - `ruleTrace`：jsonb，只存規則 ID、模板 ID、引用的知識 recordId；**不存**自由文字或關鍵字命中片段。不回傳前端。
+
+---
+
+# 8a. disabilityCertificate（2026-09-24，D-17）
+
+```text
+YES
+NO
+UNKNOWN
+```
+
+是否領有身心障礙證明。選填，預設 `UNKNOWN`。屬健康相關敏感資料，保存與刪除同 Assessment（PRIVACY_AND_RETENTION §2）。
 
 ---
 

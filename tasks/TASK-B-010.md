@@ -51,6 +51,12 @@ Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更�
 - [ ] 不呼叫任何外部 AI／LLM，不新增相關套件或金鑰
 - [ ] 附可重現測試指令；真實 smoke（合成使用者資料＋已發布知識）證據，或明列阻塞；真實環境驗收由 J-003
 
+## 追加需求（2026-09-24，D-17；PR #33 開立後新增，需以修正版提交）
+
+- [ ] Assessment Request 接受選填 `disabilityCertificate`（YES／NO／UNKNOWN，未提供視為 UNKNOWN），保存於 Assessment（DATA_MODEL §8a，需要 migration）
+- [ ] 實作 ASSESSMENT_RULES r4：S-ELIG-DIS、§6.5 S-DIS-*；T25–T31 全部通過
+- [ ] `KAREO_DRIVE` 來源顯示 `ruleData.issuer`（§6.4）
+
 ## Not In Scope
 
 任何 AI／LLM 服務、Provider 排序、前端畫面、補助計算器或個人核定額度、官方資格認定、介面命名重構、撰寫或修改知識內容（屬 J-002）。

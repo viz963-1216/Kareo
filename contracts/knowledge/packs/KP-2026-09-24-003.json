@@ -93,14 +93,15 @@
           "MIDDLE_LOW_INCOME": 0.75,
           "GENERAL": 0.5
         },
-        "assessmentCenter": "新北市輔具資源中心"
+        "assessmentCenter": "新北市輔具資源中心",
+        "issuer": "新北市政府社會局"
       },
-      "status": "NEEDS_REVIEW",
+      "status": "APPROVED",
       "review": {
-        "reviewedBy": null,
-        "reviewedAt": null,
-        "decision": null,
-        "notes": "來源為 Jerry 指定資料夾（D-15）檔案；文件未標示公告日、生效日或版次，effectiveFrom 以擷取日表示，需 Jerry 確認仍為現行版本。身心障礙福利（依身心障礙者輔具費用補助辦法），非長照給付；Assessment 未收集身心障礙證明，結果頁需說明資格條件。附註：標「※」者各身分別均補全額；非動力樓梯滑椅未標「※」，依身分別補 100%／75%／50%。"
+        "reviewedBy": "Jerry",
+        "reviewedAt": "2026-09-24T16:05:40+08:00",
+        "decision": "APPROVED",
+        "notes": "來源為 Jerry 指定資料夾（D-15）檔案；文件未標示公告日、生效日或版次，effectiveFrom 以擷取日表示，需 Jerry 確認仍為現行版本。身心障礙福利（依身心障礙者輔具費用補助辦法），非長照給付；Assessment 未收集身心障礙證明，結果頁需說明資格條件。附註：標「※」者各身分別均補全額；非動力樓梯滑椅未標「※」，依身分別補 100%／75%／50%。 Jerry 2026-09-24 核准（文件無日期照原文接受）。"
       }
     },
     {
@@ -179,14 +180,15 @@
           "GENERAL"
         ],
         "diagnosisValidMonths": 3,
-        "maxItemsPerTwoYears": 4
+        "maxItemsPerTwoYears": 4,
+        "issuer": "新北市政府"
       },
       "status": "NEEDS_REVIEW",
       "review": {
         "reviewedBy": null,
         "reviewedAt": null,
         "decision": null,
-        "notes": "來源為 Jerry 指定資料夾（D-15）檔案。**文件標示「102.03.13修」（2013 年）**，需 Jerry 確認是否仍為新北市現行標準；若已修訂，應退回。excerpt 只節錄前 9 項與備註（壓力衣、矽膠片等項目略）。身心障礙福利，非長照給付。"
+        "notes": "來源為 Jerry 指定資料夾（D-15）檔案。**文件標示「102.03.13修」（2013 年）**，需 Jerry 確認是否仍為新北市現行標準；若已修訂，應退回。excerpt 只節錄前 9 項與備註（壓力衣、矽膠片等項目略）。身心障礙福利，非長照給付。 2026-09-24 查核：已被中央「身心障礙者醫療復健費用及醫療輔具補助辦法」附表（111-01-01 施行）取代，建議 REJECTED，改用 KP-2026-09-24-004 KR-2026-018；待 Jerry 決定。"
       }
     }
   ]
