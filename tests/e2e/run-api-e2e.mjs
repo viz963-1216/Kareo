@@ -144,14 +144,72 @@ if (!consented) {
 
 // Endpoints that later cases need: report PENDING with the reason, never PASS.
 for (const [caseIds, method, path] of [
-  [['E2E-07', 'E2E-08', 'E2E-09', 'E2E-11'], 'POST', '/api/v1/recommendations'],
-  [['E2E-13', 'E2E-14'], 'POST', '/api/v1/leads'],
+  [['E2E-07', 'E2E-08', 'E2E-09', 'E2E-11', 'E2E-28'], 'POST', '/api/v1/recommendations'],
+  [['E2E-13', 'E2E-14', 'E2E-36'], 'POST', '/api/v1/leads'],
 ]) {
   const r = await call(method, path, { token: a.token, body: {} });
   const reason = routeMissing(r) ? `${path} not deployed` : `${path} deployed; automated case not written yet (needs A-005 data cases)`;
   for (const id of caseIds) record(id, 'PENDING', reason);
 }
-for (const id of ['E2E-18', 'E2E-19', 'E2E-20']) record(id, 'PENDING', 'needs B-011a／B-011b deployed; automated case not written yet');
+
+// E2E-18 cross-session, assessment part: session B's token must not act for session A. Consent is checked
+// after ownership (ARCHITECTURE §20.3), so this needs tokens but not an ACTIVE consent version.
+if (!a.token) record('E2E-18', 'PENDING', 'no session tokens issued yet (B-011a)');
+else {
+  const b = await newSession();
+  const r = await call('POST', '/api/v1/assessments', { token: b.token, body: assessmentBody(a.id) });
+  if (r.status === 403 && code(r) === 'FORBIDDEN') record('E2E-18', 'PENDING', 'assessment: B token + A sessionId → 403 FORBIDDEN; recommendation／lead parts need B-005／B-006');
+  else record('E2E-18', 'FAIL', `B token + A sessionId → ${r.status} ${code(r)} (expected 403 FORBIDDEN)`);
+}
+
+// E2E-19 withdraw consent (API_CONTRACT §7: no body; the session enters deletion and its token stops working).
+{
+  const r = await call('POST', '/api/v1/consent/withdraw', { token: a.token });
+  if (routeMissing(r)) record('E2E-19', 'PENDING', '/api/v1/consent/withdraw not deployed (B-011b)');
+  else if (!consented) record('E2E-19', 'PENDING', `withdraw endpoint answered ${r.status}; no consented session to verify (E2E-02)`);
+  else {
+    const after = await call('POST', '/api/v1/assessments', { token: a.token, body: assessmentBody(a.id) });
+    if (r.status === 200 && r.json?.data?.withdrawnAt && code(after) === 'SESSION_INVALID') record('E2E-19', 'PENDING', 'withdraw → token refused for assessment; recommendation／lead parts need B-005／B-006');
+    else record('E2E-19', 'FAIL', `withdraw ${r.status} ${code(r) ?? ''}; assessment afterwards ${after.status} ${code(after)} (expected SESSION_INVALID)`);
+  }
+}
+record('E2E-20', 'PENDING', 'rate limiting (B-011b) not deployed; automated case not written yet');
+
+// E2E-37 DELETE /session invalidates the token at once. Deletion of stored rows is checked by an operator.
+{
+  const d = await newSession();
+  if (!d.token) record('E2E-37', 'PENDING', 'no session tokens issued yet (B-011a)');
+  else {
+    const r = await call('DELETE', '/api/v1/session', { token: d.token });
+    if (routeMissing(r) || code(r) === 'INVALID_REQUEST') record('E2E-37', 'PENDING', `DELETE /api/v1/session not implemented (${r.status} ${code(r)}; B-011b)`);
+    else if (r.status !== 200) record('E2E-37', 'FAIL', `DELETE /session → ${r.status} ${code(r)}`);
+    else {
+      const reuse = await call('POST', '/api/v1/assessments', { token: d.token, body: assessmentBody(d.id) });
+      if (code(reuse) === 'SESSION_INVALID') record('E2E-37', 'PENDING', 'token invalid after DELETE; row deletion (incl. coordinates) needs an ops record');
+      else record('E2E-37', 'FAIL', `token still accepted after DELETE /session: ${reuse.status} ${code(reuse)}`);
+    }
+  }
+}
+
+// E2E-33／34 API parts: optional D-17／D-17a fields (API_CONTRACT v0.3.1–0.3.2).
+// Invalid values must be VALIDATION_ERROR; each valid value must complete. Summary content against the
+// PUBLISHED records is an ops check, so a clean run here stays PENDING.
+if (!consented) {
+  for (const id of ['E2E-33', 'E2E-34']) record(id, 'PENDING', 'no consented session (E2E-02 not passing)');
+} else {
+  const probe = async (extra, location) => call('POST', '/api/v1/assessments', { token: a.token, body: { ...assessmentBody(a.id, location), ...extra } });
+  for (const [id, field, values] of [
+    ['E2E-33', 'disabilityCertificate', ['YES', 'NO', 'UNKNOWN']],
+    ['E2E-34', 'incomeCategory', ['LOW_INCOME', 'MIDDLE_LOW_INCOME', 'ALLOWANCE', 'GENERAL', 'UNKNOWN']],
+  ]) {
+    const bad = await probe({ [field]: 'E2E-INVALID' });
+    if (code(bad) === 'KNOWLEDGE_UNAVAILABLE') { record(id, 'PENDING', 'KNOWLEDGE_UNAVAILABLE: no PUBLISHED knowledge (E2E-25)'); continue; }
+    const outcomes = [];
+    for (const v of values) { const r = await probe({ [field]: v }); outcomes.push(`${v}→${r.status}${code(r) ? ` ${code(r)}` : ''}`); }
+    const ok = code(bad) === 'VALIDATION_ERROR' && outcomes.every((o) => /→200$/.test(o));
+    record(id, ok ? 'PENDING' : 'FAIL', `${field}: invalid→${bad.status} ${code(bad)}; ${outcomes.join(', ')}${ok ? '; summary vs PUBLISHED needs an ops record' : ''}`);
+  }
+}
 
 // E2E-16 API part only; the browser (new tab, no iframe) and target-site checks are manual.
 {

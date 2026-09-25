@@ -1,0 +1,23 @@
+[
+    {
+      "id": "QA-A005-P-ACTIVE-SA-001",
+      "providerId": "QA-A005-P-ACTIVE",
+      "city": "新北市",
+      "district": "板橋區",
+      "active": true
+    },
+    {
+      "id": "QA-A005-P-INACTIVE-SA-001",
+      "providerId": "QA-A005-P-INACTIVE",
+      "city": "新北市",
+      "district": "板橋區",
+      "active": true
+    },
+    {
+      "id": "QA-A005-P-UNKNOWN-SA-001",
+      "providerId": "QA-A005-P-UNKNOWN",
+      "city": "新北市",
+      "district": "板橋區",
+      "active": true
+    }
+  ]

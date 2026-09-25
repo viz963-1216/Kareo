@@ -31,6 +31,8 @@ jobs:
       - run: npm ci --prefix apps/api
       - run: npm run typecheck --prefix apps/api
       - run: npm test --prefix apps/api
+      - name: Built functions load and run (esbuild bundle + netlify.toml included_files)
+        run: node scripts/check-functions-runtime.mjs
 
   web:
     name: Frontend build (real API mode)
@@ -94,4 +96,25 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+          cache-dependency-path: apps/api/package-lock.json
+      # esbuild for the built-functions items of the gate
+      - run: npm ci --prefix apps/api
       - run: node scripts/acceptance-gate.mjs --mode=dev
+
+  # Local isolated PostgreSQL (PGlite): all migrations in order, RLS／privileges, Provider import rollback and
+  # the knowledge publish／withdraw lifecycle. Informational until the B-008 hand-back items are fixed
+  # (K4／K9 need B-008-r2; K5／K6／K7 are open defects — docs/INTEGRATION_ACCEPTANCE.md). Not a deployment check.
+  db-verify:
+    name: Isolated DB verification (informational)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: tests/db/package-lock.json
+      - run: npm ci --prefix tests/db
+      - run: node tests/db/verify-db.mjs | tee -a "$GITHUB_STEP_SUMMARY"
