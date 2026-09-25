@@ -1,4 +1,5 @@
 import type { AssessmentRepository, ConsentRepository, SessionRepository } from "../repositories/types.js";
+import { requireMatchingSessionId, requireValidSession } from "./sessionSecurityService.js";
 import type { CareAssessmentAIAdapter } from "../adapters/aiAdapter.js";
 import type { PublishedKnowledgeVersionResolver } from "../adapters/knowledgeVersionResolver.js";
 import type {
@@ -156,19 +157,12 @@ export function validateCreateAssessmentInput(body: unknown): CreateAssessmentIn
   };
 }
 
-// Consent Gate：依 tasks/TASK-B-003.md，沒有 Session 或沒有有效 Consent 一律 CONSENT_REQUIRED。
+// Consent Gate：依 tasks/TASK-B-003.md，沒有有效 Consent 一律 CONSENT_REQUIRED。
+// Session 本身是否有效改由 requireValidSession（TASK-B-011a）在更早的步驟把關，
+// 這裡只需確認「這個已驗證過的 session 有沒有仍然有效（withdrawnAt 為空）的 Consent」。
 // Consent 記錄只在 accepted=true 時才會被建立（見 consentService），
 // 因此「找得到 Consent」即代表已完成有效同意，不需要額外的 accepted 欄位判斷。
-async function requireValidConsent(
-  sessionRepo: SessionRepository,
-  consentRepo: ConsentRepository,
-  sessionId: string
-): Promise<void> {
-  const sessionExists = await sessionRepo.exists(sessionId);
-  if (!sessionExists) {
-    throw new AppError("CONSENT_REQUIRED", "請先建立 Session 並完成同意流程。");
-  }
-
+async function requireValidConsent(consentRepo: ConsentRepository, sessionId: string): Promise<void> {
   const consent = await consentRepo.findLatestBySession(sessionId);
   if (!consent) {
     throw new AppError("CONSENT_REQUIRED", "請先完成服務說明與免責聲明同意。");
@@ -182,13 +176,17 @@ export interface CreateAssessmentResult {
 
 export async function createAssessment(
   deps: AssessmentServiceDeps,
-  body: unknown
+  body: unknown,
+  sessionTokenHeader: unknown
 ): Promise<CreateAssessmentResult> {
-  // 依 tasks/TASK-B-003.md 流程：Valid Session -> Valid Consent Gate -> Assessment Input Validation。
-  // 先只取出 sessionId 確認 Consent Gate，再進行完整欄位驗證，避免在確認使用者已同意前，
+  // 依 tasks/TASK-B-003.md 流程 + TASK-B-011a：
+  // Valid Session Token -> Body sessionId 一致 -> Valid Consent Gate -> Assessment Input Validation。
+  // 先只取出 sessionId 做輕量檢查，再進行完整欄位驗證，避免在確認使用者身分與同意前，
   // 就先深入解析/驗證整份 Assessment 內容。
+  const session = await requireValidSession(deps.sessionRepo, sessionTokenHeader);
   const sessionId = extractSessionId(body);
-  await requireValidConsent(deps.sessionRepo, deps.consentRepo, sessionId);
+  requireMatchingSessionId(session, sessionId);
+  await requireValidConsent(deps.consentRepo, sessionId);
 
   const input = validateCreateAssessmentInput(body);
 
