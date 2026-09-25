@@ -1,0 +1,47 @@
+[
+    {
+      "id": "QA-A005-P-ACTIVE",
+      "name": "A-005 QA Active Provider",
+      "type": "HOME_CARE",
+      "address": "新北市板橋區測試路1號",
+      "city": "新北市",
+      "district": "板橋區",
+      "lat": null,
+      "lng": null,
+      "phone": null,
+      "website": null,
+      "googleMapsUrl": null,
+      "status": "ACTIVE",
+      "verified": true
+    },
+    {
+      "id": "QA-A005-P-INACTIVE",
+      "name": "A-005 QA Inactive Provider",
+      "type": "HOME_CARE",
+      "address": "新北市板橋區測試路2號",
+      "city": "新北市",
+      "district": "板橋區",
+      "lat": null,
+      "lng": null,
+      "phone": null,
+      "website": null,
+      "googleMapsUrl": null,
+      "status": "INACTIVE",
+      "verified": true
+    },
+    {
+      "id": "QA-A005-P-UNKNOWN",
+      "name": "A-005 QA Unknown Provider",
+      "type": "HOME_CARE",
+      "address": "新北市板橋區測試路3號",
+      "city": "新北市",
+      "district": "板橋區",
+      "lat": null,
+      "lng": null,
+      "phone": null,
+      "website": null,
+      "googleMapsUrl": null,
+      "status": "UNKNOWN",
+      "verified": true
+    }
+  ]
