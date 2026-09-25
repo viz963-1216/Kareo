@@ -1,0 +1,13 @@
+{
+  "name": "kareo-db-verify",
+  "version": "0.0.0",
+  "private": true,
+  "description": "J-003 isolated database verification (PGlite). Not part of the deployed site.",
+  "type": "module",
+  "scripts": {
+    "verify": "node verify-db.mjs"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.3.16"
+  }
+}
