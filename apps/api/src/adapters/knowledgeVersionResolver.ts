@@ -1,39 +1,71 @@
-// 依 tasks/TASK-B-003.md「Knowledge Version Rule」：
-// 每筆 Assessment 必須記錄 knowledgeVersion，但本 Task 不實作完整 Knowledge DB（見 TASK-B-008）。
-// 正式行為：有 Current Published Knowledge Version → 回傳版本；
-//          沒有 Published Version → null（Service 層據此回 KNOWLEDGE_UNAVAILABLE）。
-// 不得在 Production 實作中假造 KB-xxxx 版本號。
-export interface PublishedKnowledgeVersionResolver {
-  resolvePublishedVersion(): Promise<string | null>;
+import { freezeSnapshot, type KnowledgeSnapshot, type KnowledgeSnapshotRecord } from "../assessment/knowledgeSnapshot.js";
+import type { KnowledgeStatusResponse } from "../types/index.js";
+
+// 正式 Assessment 使用的 PUBLISHED Knowledge 來源（取代 B-003 的 NullKnowledgeVersionResolver）。
+// 回傳 null 代表目前沒有 PUBLISHED 版本（Service 據此回 KNOWLEDGE_UNAVAILABLE）；
+// 查詢失敗或逾時一律拋出例外，不得回傳空快照或假版本號。
+export interface PublishedKnowledgeResolver {
+  resolvePublishedKnowledge(): Promise<KnowledgeSnapshot | null>;
 }
 
-// TASK-B-008 提供的真實實作：查詢 Knowledge DB 目前的 PUBLISHED 版本。
-// 是否要在 B-003 的 assessment.ts 正式接上這個 Resolver（取代 NullKnowledgeVersionResolver），
-// 屬於跨 Task 的接線決策，本 Task 先只提供這個實作，接線留待另行確認（見 TASK-B-008 PR 說明）。
-export class DatabaseKnowledgeVersionResolver implements PublishedKnowledgeVersionResolver {
-  constructor(private readonly repo: { getCurrentPublishedStatus(): Promise<{ version: string } | null> }) {}
+export interface PublishedKnowledgeSource {
+  getCurrentPublishedStatus(): Promise<KnowledgeStatusResponse | null>;
+  findPublishedSnapshotRecords(versionId: string): Promise<KnowledgeSnapshotRecord[]>;
+}
 
-  async resolvePublishedVersion(): Promise<string | null> {
-    const status = await this.repo.getCurrentPublishedStatus();
-    return status?.version ?? null;
+export class KnowledgeVersionChangedError extends Error {}
+export class KnowledgeTimeoutError extends Error {}
+
+export interface DatabaseKnowledgeResolverOptions {
+  timeoutMs?: number;
+  maxAttempts?: number;
+}
+
+// 讀取順序：目前 PUBLISHED 版本 → 該版本的 PUBLISHED 紀錄 → 再確認版本沒有在途中切換。
+// 若讀取期間剛好發布/撤回（版本不同），整份重讀；仍不一致則失敗，不拼湊兩個版本的內容。
+export class DatabaseKnowledgeResolver implements PublishedKnowledgeResolver {
+  private readonly timeoutMs: number;
+  private readonly maxAttempts: number;
+
+  constructor(
+    private readonly source: PublishedKnowledgeSource,
+    options: DatabaseKnowledgeResolverOptions = {}
+  ) {
+    this.timeoutMs = options.timeoutMs ?? 5000;
+    this.maxAttempts = options.maxAttempts ?? 2;
+  }
+
+  async resolvePublishedKnowledge(): Promise<KnowledgeSnapshot | null> {
+    return withTimeout(this.load(), this.timeoutMs);
+  }
+
+  private async load(): Promise<KnowledgeSnapshot | null> {
+    for (let attempt = 0; attempt < this.maxAttempts; attempt++) {
+      const status = await this.source.getCurrentPublishedStatus();
+      if (!status) return null;
+      const records = await this.source.findPublishedSnapshotRecords(status.version);
+      const confirm = await this.source.getCurrentPublishedStatus();
+      if (confirm?.version === status.version) {
+        return freezeSnapshot({ version: status.version, records });
+      }
+    }
+    throw new KnowledgeVersionChangedError("PUBLISHED knowledge version changed while loading");
   }
 }
 
-// 目前 Knowledge DB（TASK-B-008）尚未實作，Production 環境沒有任何管道可以
-// 產生「真正已審核發布」的 Knowledge Version，因此本 Resolver 一律回傳 null，
-// 讓 Assessment 依規則回 KNOWLEDGE_UNAVAILABLE，而不是假造一個版本號。
-// TASK-B-008 完成後，應改接真實的 Knowledge DB Resolver。
-export class NullKnowledgeVersionResolver implements PublishedKnowledgeVersionResolver {
-  async resolvePublishedVersion(): Promise<string | null> {
-    return null;
-  }
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new KnowledgeTimeoutError(`knowledge load exceeded ${ms}ms`)), ms);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
 }
 
-// 測試專用：回傳固定的測試版本號，不代表正式 Knowledge。
-export class FakePublishedKnowledgeVersionResolver implements PublishedKnowledgeVersionResolver {
-  constructor(private readonly version: string | null = "KB-TEST-001") {}
+// 測試專用：回傳固定的合成知識快照，不代表正式 Knowledge，不得在 functions/ 組裝。
+export class FakePublishedKnowledgeResolver implements PublishedKnowledgeResolver {
+  constructor(private readonly snapshot: KnowledgeSnapshot | null) {}
 
-  async resolvePublishedVersion(): Promise<string | null> {
-    return this.version;
+  async resolvePublishedKnowledge(): Promise<KnowledgeSnapshot | null> {
+    return this.snapshot ? freezeSnapshot(this.snapshot) : null;
   }
 }

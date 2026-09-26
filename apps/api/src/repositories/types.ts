@@ -14,6 +14,7 @@ import type {
   ProviderServiceArea,
   Session,
 } from "../types/index.js";
+import type { KnowledgeSnapshotRecord } from "../assessment/knowledgeSnapshot.js";
 
 // Repository Boundary：Service 層只依賴這些介面，不直接依賴 Supabase SDK，
 // 確保業務邏輯（Consent 檢查等）不會被 Supabase 自動 API 繞過。
@@ -72,6 +73,9 @@ export interface KnowledgeRepository {
   }): Promise<{ republishedVersionId: string | null }>;
 
   getCurrentPublishedStatus(): Promise<KnowledgeStatusResponse | null>;
+
+  // B-010：取出指定 PUBLISHED 版本的全部 PUBLISHED 紀錄（含來源機關），供 Assessment 建立單一版本的知識快照。
+  findPublishedSnapshotRecords(versionId: string): Promise<KnowledgeSnapshotRecord[]>;
 }
 
 export interface ProviderDatasetWrite {

@@ -64,10 +64,15 @@ export type DailyLivingLevel =
 export type ServiceNeed = "YES" | "NO" | "UNKNOWN";
 export type AssessmentStatus = "DRAFT" | "COMPLETED" | "CANCELLED";
 export type CareNeed = "HOME_CARE" | "HOME_MEDICAL_NURSING" | "ASSISTIVE_DEVICE" | "TRANSPORTATION";
+// 依 docs/DATA_MODEL.md §8a（2026-09-24，D-17）。選填，未提供視為 UNKNOWN。
+export type DisabilityCertificate = "YES" | "NO" | "UNKNOWN";
+// 依 docs/DATA_MODEL.md §8b（2026-09-24，D-17a）。選填，未提供視為 UNKNOWN。
+export type IncomeCategory = "LOW_INCOME" | "MIDDLE_LOW_INCOME" | "ALLOWANCE" | "GENERAL" | "UNKNOWN";
 
+// 依 API_CONTRACT v0.2.2 §8：四個子欄位一律出現，依 precision 不適用者為 null。
 export interface AssessmentLocationInput {
-  city: string;
-  district: string;
+  city: string | null;
+  district: string | null;
   precision: LocationPrecision;
   lat: number | null;
   lng: number | null;
@@ -90,7 +95,16 @@ export interface CreateAssessmentInput {
   mobilityLevel: MobilityLevel;
   dailyLivingLevel: DailyLivingLevel;
   needs: AssessmentNeedsInput;
+  disabilityCertificate: DisabilityCertificate;
+  incomeCategory: IncomeCategory;
   freeText: string;
+}
+
+// 只含規則 ID、模板 ID、知識 recordId；不含自由文字或關鍵字命中片段。
+export interface AssessmentRuleTrace {
+  needs: Array<{ need: CareNeed; basis: "USER_YES" | "STRUCTURED_RULE" | "KEYWORD"; ruleIds: string[] }>;
+  templateIds: string[];
+  knowledgeRecordIds: string[];
 }
 
 // 依 docs/DATA_MODEL.md 第 7 節。
@@ -98,8 +112,8 @@ export interface Assessment {
   id: string;
   sessionId: string;
   ageRange: AgeRange;
-  city: string;
-  district: string;
+  city: string | null;
+  district: string | null;
   locationPrecision: LocationPrecision;
   lat: number | null;
   lng: number | null;
@@ -107,6 +121,8 @@ export interface Assessment {
   caregiverSituation: CaregiverSituation;
   mobilityLevel: MobilityLevel;
   dailyLivingLevel: DailyLivingLevel;
+  disabilityCertificate: DisabilityCertificate;
+  incomeCategory: IncomeCategory;
   homeCareNeed: ServiceNeed;
   medicalNursingNeed: ServiceNeed;
   assistiveDeviceNeed: ServiceNeed;
@@ -114,6 +130,9 @@ export interface Assessment {
   freeText: string;
   status: AssessmentStatus;
   knowledgeVersion: string;
+  // DATA_MODEL v0.2.2 §7（J-002-r4）：不回傳前端。
+  rulesVersion: string;
+  ruleTrace: AssessmentRuleTrace;
   createdAt: string;
   updatedAt: string;
 }
@@ -268,7 +287,9 @@ export interface ExternalServiceResponse {
 
 // ===== Knowledge（TASK-B-008，依 docs/DATA_MODEL.md 第 23-27 節）=====
 
-export type KnowledgeAuthority = "MOHW" | "LAW" | "TAIPEI_GOV" | "NEW_TAIPEI_GOV";
+// KAREO_DRIVE（2026-09-24，D-17）：來源不是政府/法規公告網頁，而是 Jerry 指定資料夾（D-15）的檔案；
+// 顯示文字改用 ruleData.issuer（原發布機關），見 ASSESSMENT_RULES §6.4。
+export type KnowledgeAuthority = "MOHW" | "LAW" | "TAIPEI_GOV" | "NEW_TAIPEI_GOV" | "KAREO_DRIVE";
 export type Jurisdiction = "TAIWAN" | "TAIPEI" | "NEW_TAIPEI";
 
 export interface KnowledgeSource {
