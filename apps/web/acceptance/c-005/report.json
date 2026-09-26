@@ -1,0 +1,431 @@
+{
+  "generatedAt": "2026-09-24T02:10:22.207Z",
+  "base": "http://localhost:5173",
+  "mode": "mock (vite dev)",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 900,
+      "shots": [
+        {
+          "file": "desktop-00-home.jpg",
+          "path": "/",
+          "h1": "先釐清需求，再找到適合的下一步。",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "desktop-01-consent.jpg",
+          "path": "/consent",
+          "h1": "服務說明與同意",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "consentPrechecked": false
+        },
+        {
+          "file": "desktop-02-result-no-location.jpg",
+          "path": "/result",
+          "h1": "依目前資料的初步預估",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "desktop-03-rec-no-location-not-called.jpg",
+          "path": "/recommendations/HOME_CARE",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "desktop-04-location-notice.jpg",
+          "path": "/assessment",
+          "h1": "告訴我們目前的照護情況",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "desktop-05-gps-denied.jpg",
+          "path": "/assessment",
+          "h1": "告訴我們目前的照護情況",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "desktop-06-result-subsidy-district.jpg",
+          "path": "/result",
+          "h1": "依目前資料的初步預估",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "desktop-07-rec-district-3.jpg",
+          "path": "/recommendations/HOME_CARE?mockProviders=3",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 3,
+          "distanceShown": false
+        },
+        {
+          "file": "desktop-08-rec-district-1.jpg",
+          "path": "/recommendations/HOME_CARE?mockProviders=1",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 1,
+          "distanceShown": false
+        },
+        {
+          "file": "desktop-09-rec-district-2.jpg",
+          "path": "/recommendations/HOME_CARE?mockProviders=2",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 2,
+          "distanceShown": false
+        },
+        {
+          "file": "desktop-10-rec-empty-0.jpg",
+          "path": "/recommendations/HOME_CARE?mockProviders=0",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 0,
+          "distanceShown": false
+        },
+        {
+          "file": "desktop-11-rec-distance-3.jpg",
+          "path": "/recommendations/HOME_CARE?mockProviders=3&mockRanking=distance",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 3,
+          "distanceShown": true
+        },
+        {
+          "file": "desktop-12-rec-missing-coordinates.jpg",
+          "path": "/recommendations/HOME_CARE?mockProviders=3&mockRanking=missing-coordinates",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 3,
+          "distanceShown": false
+        },
+        {
+          "file": "desktop-13-rec-city-rotation.jpg",
+          "path": "/recommendations/HOME_CARE?mockProviders=3&mockRanking=city",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 3,
+          "distanceShown": false
+        },
+        {
+          "file": "desktop-14-rec-error.jpg",
+          "path": "/recommendations/HOME_CARE?mockState=error",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 0,
+          "distanceShown": false
+        },
+        {
+          "file": "desktop-15-rec-session-expired.jpg",
+          "path": "/recommendations/HOME_CARE?mockState=session-expired",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 0,
+          "distanceShown": false
+        },
+        {
+          "file": "desktop-16-provider-detail.jpg",
+          "path": "/providers/PROV-MOCK-001",
+          "h1": "測試居家照顧中心",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "externalLinks": [
+            "noopener noreferrer"
+          ]
+        },
+        {
+          "file": "desktop-17-lead-validation.jpg",
+          "path": "/match?mockState=error-once",
+          "h1": "留下聯絡方式",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "focused": "name"
+        },
+        {
+          "file": "desktop-18-lead-failed-kept-input.jpg",
+          "path": "/match?mockState=error-once",
+          "h1": "留下聯絡方式",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "requestsFromTripleClick": 1,
+          "keptName": "王先生"
+        },
+        {
+          "file": "desktop-19-lead-success.jpg",
+          "path": "/match?mockState=error-once",
+          "h1": "需求已送出",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "localStorage": "{}",
+          "urlHasPhone": false
+        },
+        {
+          "file": "desktop-20-gps-success.jpg",
+          "path": "/assessment",
+          "h1": "告訴我們目前的照護情況",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "desktop-21-rec-after-gps-distance.jpg",
+          "path": "/recommendations/HOME_CARE?mockProviders=3",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "explanation": "依您提供的目前位置，以直線距離的約略值排序；實際路程可能不同。"
+        },
+        {
+          "file": "desktop-22-delete-failed-not-deleted.jpg",
+          "path": "/result?mockState=error-once",
+          "h1": "依目前資料的初步預估",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "desktop-23-session-deleted.jpg",
+          "path": "/session-ended",
+          "h1": "已送出刪除要求",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        }
+      ],
+      "leadTabOrder": [
+        "name",
+        "phone",
+        "checkbox",
+        "submit"
+      ]
+    },
+    "tablet": {
+      "width": 768,
+      "height": 1024,
+      "shots": [
+        {
+          "file": "tablet-01-consent.jpg",
+          "path": "/consent",
+          "h1": "服務說明與同意",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "consentPrechecked": false
+        },
+        {
+          "file": "tablet-02-result-no-location.jpg",
+          "path": "/result",
+          "h1": "依目前資料的初步預估",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "tablet-04-location-notice.jpg",
+          "path": "/assessment",
+          "h1": "告訴我們目前的照護情況",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "tablet-05-gps-denied.jpg",
+          "path": "/assessment",
+          "h1": "告訴我們目前的照護情況",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "tablet-06-result-subsidy-district.jpg",
+          "path": "/result",
+          "h1": "依目前資料的初步預估",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "tablet-11-rec-distance-3.jpg",
+          "path": "/recommendations/HOME_CARE?mockProviders=3&mockRanking=distance",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 3,
+          "distanceShown": true
+        },
+        {
+          "file": "tablet-10-rec-empty-0.jpg",
+          "path": "/recommendations/HOME_CARE?mockProviders=0",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 0,
+          "distanceShown": false
+        },
+        {
+          "file": "tablet-17-lead-validation.jpg",
+          "path": "/match?mockState=error-once",
+          "h1": "留下聯絡方式",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "focused": "name"
+        },
+        {
+          "file": "tablet-18-lead-failed-kept-input.jpg",
+          "path": "/match?mockState=error-once",
+          "h1": "留下聯絡方式",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "requestsFromTripleClick": 1,
+          "keptName": "王先生"
+        },
+        {
+          "file": "tablet-19-lead-success.jpg",
+          "path": "/match?mockState=error-once",
+          "h1": "需求已送出",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "localStorage": "{}",
+          "urlHasPhone": false
+        }
+      ]
+    },
+    "mobile": {
+      "width": 375,
+      "height": 812,
+      "shots": [
+        {
+          "file": "mobile-01-consent.jpg",
+          "path": "/consent",
+          "h1": "服務說明與同意",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "consentPrechecked": false
+        },
+        {
+          "file": "mobile-02-result-no-location.jpg",
+          "path": "/result",
+          "h1": "依目前資料的初步預估",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "mobile-04-location-notice.jpg",
+          "path": "/assessment",
+          "h1": "告訴我們目前的照護情況",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "mobile-05-gps-denied.jpg",
+          "path": "/assessment",
+          "h1": "告訴我們目前的照護情況",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "mobile-06-result-subsidy-district.jpg",
+          "path": "/result",
+          "h1": "依目前資料的初步預估",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0
+        },
+        {
+          "file": "mobile-11-rec-distance-3.jpg",
+          "path": "/recommendations/HOME_CARE?mockProviders=3&mockRanking=distance",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 3,
+          "distanceShown": true
+        },
+        {
+          "file": "mobile-10-rec-empty-0.jpg",
+          "path": "/recommendations/HOME_CARE?mockProviders=0",
+          "h1": "居家照顧服務單位",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "cards": 0,
+          "distanceShown": false
+        },
+        {
+          "file": "mobile-17-lead-validation.jpg",
+          "path": "/match?mockState=error-once",
+          "h1": "留下聯絡方式",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "focused": "name"
+        },
+        {
+          "file": "mobile-18-lead-failed-kept-input.jpg",
+          "path": "/match?mockState=error-once",
+          "h1": "留下聯絡方式",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "requestsFromTripleClick": 1,
+          "keptName": "王先生"
+        },
+        {
+          "file": "mobile-19-lead-success.jpg",
+          "path": "/match?mockState=error-once",
+          "h1": "需求已送出",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "localStorage": "{}",
+          "urlHasPhone": false
+        }
+      ]
+    }
+  }
+}
