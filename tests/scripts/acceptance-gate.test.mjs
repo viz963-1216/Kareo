@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { test } from 'node:test';
-import { e2eItems, verdict } from '../../scripts/acceptance-gate.mjs';
+import { caseIntegrityItems, e2eItems, verdict } from '../../scripts/acceptance-gate.mjs';
 import { normalizeEnvironment, resolveReleaseTarget } from '../../scripts/lib/release-target.mjs';
 
 const SHA = 'a'.repeat(40);
@@ -216,4 +216,30 @@ test('CLI: release needs a target; the current repository still fails release (M
   const dev = node('--mode=dev');
   assert.match(dev.stdout, /NOT MVP acceptance|DEV CHECK FAILED/);
   assert.equal(node().status, 2);
+});
+
+function integrity(cases, traceMd) {
+  const dir = mkdtempSync(join(tmpdir(), 'kareo-cases-'));
+  writeFileSync(join(dir, 'cases.json'), JSON.stringify({ cases }));
+  writeFileSync(join(dir, 'trace.md'), traceMd);
+  return caseIntegrityItems(join(dir, 'cases.json'), join(dir, 'trace.md'))[0];
+}
+const c = (id, extra = {}) => ({ id, kind: 'api', title: id, spec: 's', requires: [], trace: [1], ...extra });
+const TRACE = '## 1. 初評\n| a | E2E-01／02 |\n## 2. 補助\n| b | E2E-03 |\n';
+
+test('case integrity: every traced case exists, every case is traced, every section has a case', () => {
+  assert.equal(integrity([c('E2E-01'), c('E2E-02'), c('E2E-03', { trace: [2] })], TRACE).status, 'PASS');
+});
+
+test('case integrity: deleting a case that MVP_TRACEABILITY references fails the gate', () => {
+  const r = integrity([c('E2E-01'), c('E2E-03', { trace: [2] })], TRACE);
+  assert.equal(r.status, 'FAIL');
+  assert.match(r.detail, /missing from the case list: E2E-02/);
+});
+
+test('case integrity: untraced cases, uncovered sections and malformed cases fail', () => {
+  assert.match(integrity([c('E2E-01'), c('E2E-02'), c('E2E-03', { trace: [2] }), c('E2E-04', { trace: [2] })], TRACE).detail, /not referenced .*E2E-04/);
+  assert.match(integrity([c('E2E-01'), c('E2E-02'), c('E2E-03')], TRACE).detail, /sections without a case: 2/);
+  assert.match(integrity([c('E2E-01', { kind: 'mock' }), c('E2E-02'), c('E2E-03', { trace: [2] })], TRACE).detail, /kind must be/);
+  assert.match(integrity([c('E2E-01'), c('E2E-01'), c('E2E-02'), c('E2E-03', { trace: [2] })], TRACE).detail, /duplicate id/);
 });

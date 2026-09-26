@@ -1,142 +1,92 @@
-﻿# A-003-r2 Verified Coordinates Report
+# A-003-r3 Provider Coordinate Verification Report
 
-Submission Version: A-003-r2
-Report date: 2026-09-25
-Dataset: `data/providers/staging/*.json`
-Provider count: 30嚗lat` / `lng` ?桀??券??`null`嚗頛?*?芯耨??* `providers.json`嚗?
+Submission Version: A-003-r3
 
----
+Report date: 2026-09-26
+Dataset: `data/providers/staging/providers.json`, `provider-services.json`, `provider-service-areas.json`
 
-## 1. ?格???潸???
+## 結論
 
-A-003-r2 ?格?嚗? Provider Dataset ?舀 PRODUCT_SPEC 禮21 蝎曄Ⅱ雿蔭頝??嚗DISTANCE`嚗?銝衣?銝??詨??漣璅???
-r1 撌脩Ⅱ隤?30嚗?0 蝑??歇撽?摨扳?嚗????嚗惇 MVP_DECISIONS **D-07 鞈?蝻箏**嚗??舐???葬皜?
+本次重新查核後，先前寫入的 30 組高精度座標沒有可重現的座標取得證據：既有 Google Maps 地址搜尋 URL 只能協助核對地址，不能證明其地圖視窗／搜尋中心所顯示的任意座標就是該 Provider 的 WGS84 座標。因此本版已將該 30 筆 `lat`／`lng` 還原為 `null`，不把地址、行政區中心或搜尋結果推估成座標。
 
-?祈憚?湔閬?嚗?
+下表由目前的 `providers.json` 逐筆抄錄 Provider ID、名稱、地址與地址搜尋 URL。URL 僅為地址參考入口，**不是**座標證據；在取得可定位實際地點、可追溯且能重現的公開／官方座標來源前，全部維持 `PENDING`。沒有任何可用於 `DISTANCE` 的已驗證座標。
 
-| 閬? | 隤芣? |
-|---|---|
-| ?芣?餈賣滲?歇撽???WGS84 ?脖?摨扳? | 瘥???`null` ??`lat`嚗lng` 敹???皞?URL??霅撘?撽??交?嚗?曹?鈭粹??暹撠?|
-| 銝?典??????踹?銝剖?暺??其摯??| 銝?敺???銝脯??祆?嚗??踹? centroid??隡潮??遙??geocode 蝯?憛怠甇??鞈? |
-| ?⊥?撽?撠梁雁??`lat`/`lng=null` | 銝?停銝‵嚗null` ?芣?葫 |
-| 銝蝙?其?鞎餅??????geocoding ?? | TASK-A-003 銝?甈頃鞎瘀?雿輻???漱 Jerry 瘙箏?鞎餌??甈?|
+## 逐筆對照
 
-`DISTANCE` ?璇辣嚗PI_CONTRACT 禮9?-13c嚗?雿輻??靘移蝣箔?蝵殷?**銝府??憿? ? 蝮?? ? 銵???典**?賣?撌脤?霅漣璅閬遙銝?蝻箏漣璅??湔??`DISTRICT_ROTATION`嚗?敺毽??敺＊蝷?`distanceKm`??
+| Provider ID | 名稱 | 地址 | lat | lng | 地址參考 URL | 驗證方式 | 日期 | 狀態 | 未驗證原因 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| TP-HC-001 | 財團法人天主教失智老人社會福利基金會附設臺北市私立聖若瑟居家式服務類長期照顧服務機構 | 臺北市萬華區東園街140巷7號2樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E6%9D%B1%E5%9C%92%E8%A1%97140%E5%B7%B77%E8%99%9F2%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-HC-002 | 財團法人台北市立心慈善基金會附設臺北市私立立心居家式服務類長期照顧服務機構 | 臺北市萬華區艋舺大道120巷39弄3號2樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E8%89%8B%E8%88%BA%E5%A4%A7%E9%81%93120%E5%B7%B739%E5%BC%843%E8%99%9F2%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-HC-003 | 臺北市私立寬安居家長照機構 | 臺北市萬華區莒光路328號6樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E8%8E%92%E5%85%89%E8%B7%AF328%E8%99%9F6%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-HC-004 | 財團法人中華民國佛教慈濟慈善事業基金會臺北市私立慈濟居家長照機構 | 臺北市萬華區莒光路222號5樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E8%8E%92%E5%85%89%E8%B7%AF222%E8%99%9F5%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-HC-005 | 中華民國紅十字會附設私立博愛居家長照機構 | 臺北市萬華區康定路62號11樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E5%BA%B7%E5%AE%9A%E8%B7%AF62%E8%99%9F11%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-HC-006 | 臺北市私立大心居家長照機構 | 臺北市萬華區康定路348號2樓之1 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E5%BA%B7%E5%AE%9A%E8%B7%AF348%E8%99%9F2%E6%A8%93%E4%B9%8B1 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-HC-007 | 有限責任臺北市全國照服員勞動合作社附設臺北市私立全方位居家長照機構 | 臺北市萬華區青年路106巷9號 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E9%9D%92%E5%B9%B4%E8%B7%AF106%E5%B7%B79%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-HC-008 | 臺北市私立璞馨居家長照機構 | 臺北市萬華區東園街66巷21弄51號2樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E6%9D%B1%E5%9C%92%E8%A1%9766%E5%B7%B721%E5%BC%8451%E8%99%9F2%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-HC-009 | 紙飛機服務科技股份有限公司附設臺北市私立紙飛機居家長照機構 | 臺北市萬華區西園路1段200號8樓之2 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E8%A5%BF%E5%9C%92%E8%B7%AF1%E6%AE%B5200%E8%99%9F8%E6%A8%93%E4%B9%8B2 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-HC-010 | 私立愛吾愛居家長照機構 | 臺北市萬華區大理街171之1號2樓207室 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E5%A4%A7%E7%90%86%E8%A1%97171%E4%B9%8B1%E8%99%9F2%E6%A8%93207%E5%AE%A4 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-HC-001 | 萓品管理顧問有限公司附設新北市私立禾善居家長照機構 | 新北市樹林區仁愛街3號1樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%A8%B9%E6%9E%97%E5%8D%80%E4%BB%81%E6%84%9B%E8%A1%973%E8%99%9F1%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-HC-002 | 社團法人中華長照協會附設新北市私立永樂居家式服務類長期照顧服務機構 | 新北市永和區文化路155號 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%B0%B8%E5%92%8C%E5%8D%80%E6%96%87%E5%8C%96%E8%B7%AF155%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-HC-003 | 台灣全齡長照股份有限公司附設新北市私立禾薪居家長照機構 | 新北市新莊區新莊路16之2號1樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%96%B0%E8%8E%8A%E5%8D%80%E6%96%B0%E8%8E%8A%E8%B7%AF16%E4%B9%8B2%E8%99%9F1%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-HC-004 | 新北市私立旺福居家長照機構 | 新北市三重區福隆路48號1樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%89%E9%87%8D%E5%8D%80%E7%A6%8F%E9%9A%86%E8%B7%AF48%E8%99%9F1%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-HC-005 | 新北市私立全曜居家式服務類長期照顧服務機構 | 新北市三重區長元街100之2號1~2樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%89%E9%87%8D%E5%8D%80%E9%95%B7%E5%85%83%E8%A1%97100%E4%B9%8B2%E8%99%9F1~2%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-HMN-001 | 台灣基督長老教會馬偕醫療財團法人附設馬偕居家護理所 | 臺北市中山區中山北路二段96巷9號1-3樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E4%B8%AD%E5%B1%B1%E5%8C%97%E8%B7%AF%E4%BA%8C%E6%AE%B596%E5%B7%B79%E8%99%9F1-3%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-HMN-002 | 臺北市立聯合醫院附設陽明居家護理所 | 臺北市士林區雨聲街105號6樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E5%A3%AB%E6%9E%97%E5%8D%80%E9%9B%A8%E8%81%B2%E8%A1%97105%E8%99%9F6%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-HMN-003 | 國立臺灣大學醫學院附設醫院北護分院附設居家護理所 | 臺北市萬華區康定路37號 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E5%BA%B7%E5%AE%9A%E8%B7%AF37%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-AD-001 | 晨玉有限公司 | 臺北市中山區南京東路2段150號5樓526室 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E5%8D%97%E4%BA%AC%E6%9D%B1%E8%B7%AF2%E6%AE%B5150%E8%99%9F5%E6%A8%93526%E5%AE%A4 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-AD-002 | 諾貝兒寶貝股份有限公司內湖分公司 | 臺北市內湖區民權東路6段18巷6號B1樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E5%85%A7%E6%B9%96%E5%8D%80%E6%B0%91%E6%AC%8A%E6%9D%B1%E8%B7%AF6%E6%AE%B518%E5%B7%B76%E8%99%9FB1%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| TP-AD-003 | 可能設計有限公司 | 臺北市文山區興隆路1段55巷27弄1之5 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E6%96%87%E5%B1%B1%E5%8D%80%E8%88%88%E9%9A%86%E8%B7%AF1%E6%AE%B555%E5%B7%B727%E5%BC%841%E4%B9%8B5 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-AD-001 | 弘采介護有限公司 | 新北市新店區中正路501-6號4樓(吉成特區) | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%96%B0%E5%BA%97%E5%8D%80%E4%B8%AD%E6%AD%A3%E8%B7%AF501-6%E8%99%9F4%E6%A8%93(%E5%90%89%E6%88%90%E7%89%B9%E5%8D%80) | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-AD-002 | 大瀚醫療儀器有限公司 | 新北市板橋區校前街28號 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%9D%BF%E6%A9%8B%E5%8D%80%E6%A0%A1%E5%89%8D%E8%A1%9728%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-AD-003 | 宏宇醫療器材行 | 新北市板橋區南雅南路二段134號1樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%9D%BF%E6%A9%8B%E5%8D%80%E5%8D%97%E9%9B%85%E5%8D%97%E8%B7%AF%E4%BA%8C%E6%AE%B5134%E8%99%9F1%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-AD-004 | 吉評醫療器材股份有限公司 | 新北市新店區安康路一段359-25號 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%96%B0%E5%BA%97%E5%8D%80%E5%AE%89%E5%BA%B7%E8%B7%AF%E4%B8%80%E6%AE%B5359-25%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-AD-005 | 學府松藥局 | 新北市土城區學府路一段38號 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E5%9C%9F%E5%9F%8E%E5%8D%80%E5%AD%B8%E5%BA%9C%E8%B7%AF%E4%B8%80%E6%AE%B538%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-AD-006 | 兆謙益企業有限公司 | 新北市林口區源泉街12號 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%9E%97%E5%8F%A3%E5%8D%80%E6%BA%90%E6%B3%89%E8%A1%9712%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-AD-007 | 瑞康醫療器材有限公司 | 新北市中和區圓通路295-1號 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%92%8C%E5%8D%80%E5%9C%93%E9%80%9A%E8%B7%AF295-1%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-AD-008 | 鴻銘醫療儀器行 | 新北市淡水區民生路47-2號 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%B7%A1%E6%B0%B4%E5%8D%80%E6%B0%91%E7%94%9F%E8%B7%AF47-2%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-AD-009 | 美德耐股份有限公司雙和門市部 | 新北市中和區中正路291號 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%92%8C%E5%8D%80%E4%B8%AD%E6%AD%A3%E8%B7%AF291%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
 
-?砍????30 摰嗥?撌脤?鈭箏極撽?銝行?蝷?`VERIFIED`嚗GS84 摨扳?撌脣神??`providers.json`?OME_CARE ?迤撘?ProviderServiceArea ???撌脤?霅漣璅??臭? DISTANCE 撽嚗OME_MEDICAL_NURSING ??ASSISTIVE_DEVICE ?撩 ProviderServiceArea嚗?銝?敺??冽葫??蝭???
+摘要：已驗證 0／30；待查 30／30；`providers.json` 的非 null 座標 0。
 
----
+## 可實際推薦候選的覆蓋率
 
-## 2. 摨扳?撽?蝝??
+候選定義：Provider `status=ACTIVE`、對應 `ProviderService.active=true`、且 `ProviderServiceArea.active=true`。僅以 ProviderServiceArea 計算服務地區，不由地址推測。
 
-甈?嚗rovider ID??蝔晞???????撣??踹??at?ng??皞?URL??霅撘?霅???瘜?霅???
+| Service Type | City | District | 已驗證／候選總數 | DISTANCE 狀態 | 原因 |
+| --- | --- | --- | --- | --- | --- |
+| HOME_CARE | 新北市 | 三重區 | 0／2 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 新北市 | 土城區 | 0／1 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 新北市 | 中和區 | 0／3 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 新北市 | 五股區 | 0／1 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 新北市 | 永和區 | 0／2 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 新北市 | 板橋區 | 0／3 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 新北市 | 泰山區 | 0／1 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 新北市 | 新店區 | 0／1 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 新北市 | 新莊區 | 0／2 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 新北市 | 樹林區 | 0／2 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 新北市 | 蘆洲區 | 0／2 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 臺北市 | 士林區 | 0／3 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 臺北市 | 大同區 | 0／10 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 臺北市 | 大安區 | 0／4 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 臺北市 | 中山區 | 0／7 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 臺北市 | 中正區 | 0／9 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 臺北市 | 內湖區 | 0／3 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 臺北市 | 文山區 | 0／3 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 臺北市 | 北投區 | 0／3 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 臺北市 | 松山區 | 0／3 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 臺北市 | 信義區 | 0／3 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 臺北市 | 南港區 | 0／3 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_CARE | 臺北市 | 萬華區 | 0／10 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
+| HOME_MEDICAL_NURSING | 臺北市 | （無 Service Area 行政區） | 0／0 | BLOCKED | 缺 ProviderServiceArea；不得由地址推測。 |
+| ASSISTIVE_DEVICE | 臺北市 | （無 Service Area 行政區） | 0／0 | BLOCKED | 缺 ProviderServiceArea；不得由地址推測。 |
+| ASSISTIVE_DEVICE | 新北市 | （無 Service Area 行政區） | 0／0 | BLOCKED | 缺 ProviderServiceArea；不得由地址推測。 |
 
-撽??交?嚗??芸???霅 `???
-???`VERIFIED`嚗歇?餈賣滲 WGS84嚗銵?30 蝑?嚗UNVERIFIABLE`嚗歇?岫銝瘜?敺餈賣滲靘?嚗銵?0 蝑???
+## 可重現檢查
 
-| Provider ID | ?迂 | ??憿? | ?啣? | ?? | 銵? | lat | lng | 靘? URL | 撽??孵? | 撽??交? | ???| ?⊥?撽??? |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| TP-HC-001 | 鞎∪?瘜犖憭拐蜓?仃?箄犖蝷暹?蝳?粹???閮剛??蝘????摰嗅???憿?憿扳???瑽?| HOME_CARE | ?箏?撣?臬??勗?銵?40撌???璅?| ?箏?撣?| ?祈? | 25.02366130014502 | 121.49709769752369 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E6%9D%B1%E5%9C%92%E8%A1%97140%E5%B7%B77%E8%99%9F2%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-HC-002 | 鞎∪?瘜犖?啣?撣?敹?????身?箏?撣?蝡?敹?摰嗅???憿?憿扳???瑽?| HOME_CARE | ?箏?撣?臬??憭折?120撌?9撘???璅?| ?箏?撣?| ?祈? | 25.032268941594165 | 121.50232508033588 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E8%89%8B%E8%88%BA%E5%A4%A7%E9%81%93120%E5%B7%B739%E5%BC%843%E8%99%9F2%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-HC-003 | ?箏?撣?蝡祝摰?摰園?扳?瑽?| HOME_CARE | ?箏?撣?臬???頝?28??璅?| ?箏?撣?| ?祈? | 25.03154100057121 | 121.49743596499466 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E8%8E%92%E5%85%89%E8%B7%AF328%E8%99%9F6%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-HC-004 | 鞎∪?瘜犖銝剛瘞?雿?????鈭平?粹????蝘???撅振?瑞璈? | HOME_CARE | ?箏?撣?臬???頝?22??璅?| ?箏?撣?| ?祈? | 25.03155446398612 | 121.50028081101811 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E8%8E%92%E5%85%89%E8%B7%AF222%E8%99%9F5%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-HC-005 | 銝剛瘞?蝝?摮??身蝘???撅振?瑞璈? | HOME_CARE | ?箏?撣?臬?摨瑕?頝?2??1璅?| ?箏?撣?| ?祈? | 25.042641384308848 | 121.50221318033613 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E5%BA%B7%E5%AE%9A%E8%B7%AF62%E8%99%9F11%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-HC-006 | ?箏?撣?蝡之敹?摰園?扳?瑽?| HOME_CARE | ?箏?撣?臬?摨瑕?頝?48??璅?1 | ?箏?撣?| ?祈? | 25.034971977892535 | 121.50107232767101 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E5%BA%B7%E5%AE%9A%E8%B7%AF348%E8%99%9F2%E6%A8%93%E4%B9%8B1 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-HC-007 | ??鞎砌遙?箏?撣??????蝷暸?閮剛??蝘??冽雿?摰園?扳?瑽?| HOME_CARE | ?箏?撣?臬??僑頝?06撌???| ?箏?撣?| ?祈? | 25.022951036012568 | 121.50212570917088 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E9%9D%92%E5%B9%B4%E8%B7%AF106%E5%B7%B79%E8%99%9F | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-HC-008 | ?箏?撣?蝡?擐典?摰園?扳?瑽?| HOME_CARE | ?箏?撣?臬??勗?銵?6撌?1撘?1??璅?| ?箏?撣?| ?祈? | 25.02684515105079 | 121.49539858218269 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E6%9D%B1%E5%9C%92%E8%A1%9766%E5%B7%B721%E5%BC%8451%E8%99%9F2%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-HC-009 | 蝝?璈?????∩遢???砍?身?箏?撣?蝡?憌?撅振?瑞璈? | HOME_CARE | ?箏?撣?臬?镼踹?頝?畾?00??璅?2 | ?箏?撣?| ?祈? | 25.040095709195132 | 121.4999964689787 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E8%A5%BF%E5%9C%92%E8%B7%AF1%E6%AE%B5200%E8%99%9F8%E6%A8%93%E4%B9%8B2 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-HC-010 | 蝘????摰園?扳?瑽?| HOME_CARE | ?箏?撣?臬?憭抒?銵?71銋???璅?07摰?| ?箏?撣?| ?祈? | 25.03420021262302 | 121.49497205334767 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E5%A4%A7%E7%90%86%E8%A1%97171%E4%B9%8B1%E8%99%9F2%E6%A8%93207%E5%AE%A4 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-HC-001 | ??蝞∠?憿批????砍?身?啣?撣?蝡汙??摰園?扳?瑽?| HOME_CARE | ?啣?撣邦??隞?銵???璅?| ?啣?撣?| 璅寞?? | 24.98193085436304 | 121.42143099752228 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%A8%B9%E6%9E%97%E5%8D%80%E4%BB%81%E6%84%9B%E8%A1%973%E8%99%9F1%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-HC-002 | 蝷曉?瘜犖銝剛?瑞???身?啣?撣?蝡偶璅?摰嗅???憿?憿扳???瑽?| HOME_CARE | ?啣?撣偶????頝?55??| ?啣?撣?| 瘞詨?? | 25.016450179807318 | 121.5105323398529 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%B0%B8%E5%92%8C%E5%8D%80%E6%96%87%E5%8C%96%E8%B7%AF155%E8%99%9F | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-HC-003 | ?啁?券翩?瑞?∩遢???砍?身?啣?撣?蝡汙?芸?摰園?扳?瑽?| HOME_CARE | ?啣?撣???啗?頝?6銋???璅?| ?啣?撣?| ?啗?? | 25.03782715255017 | 121.45892318033589 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%96%B0%E8%8E%8A%E5%8D%80%E6%96%B0%E8%8E%8A%E8%B7%AF16%E4%B9%8B2%E8%99%9F1%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-HC-004 | ?啣?撣?蝡蝳?摰園?扳?瑽?| HOME_CARE | ?啣?撣???蝳?頝?8??璅?| ?啣?撣?| 銝?? | 25.07876126045252 | 121.49245243800792 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%89%E9%87%8D%E5%8D%80%E7%A6%8F%E9%9A%86%E8%B7%AF48%E8%99%9F1%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-HC-005 | ?啣?撣?蝡??摰嗅???憿?憿扳???瑽?| HOME_CARE | ?啣?撣????瑕?銵?00銋???~2璅?| ?啣?撣?| 銝?? | 25.06698174435174 | 121.50278753800765 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%89%E9%87%8D%E5%8D%80%E9%95%B7%E5%85%83%E8%A1%97100%E4%B9%8B2%E8%99%9F1~2%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-HMN-001 | ?啁?箇?瑁??收??瓷??鈭粹?閮剝收??摰嗉風?? | HOME_MEDICAL_NURSING | ?箏?撣葉撅勗?銝剖控?楝鈭挾96撌???-3璅?| ?箏?撣?| 銝剖控? | 25.060173430666076 | 121.52220782266622 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E4%B8%AD%E5%B1%B1%E5%8C%97%E8%B7%AF%E4%BA%8C%E6%AE%B596%E5%B7%B79%E8%99%9F1-3%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-HMN-002 | ?箏?撣??臬??恍?身?賣?撅振霅瑞?? | HOME_MEDICAL_NURSING | ?箏?撣ㄚ???刻銵?05??璅?| ?箏?撣?| 憯急?? | 25.105332283432617 | 121.53200083985594 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E5%A3%AB%E6%9E%97%E5%8D%80%E9%9B%A8%E8%81%B2%E8%A1%97105%E8%99%9F6%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-HMN-003 | ???箇憭批飛?怠飛?ａ?閮剝?Ｗ?霅瑕??ａ?閮剖?摰嗉風?? | HOME_MEDICAL_NURSING | ?箏?撣?臬?摨瑕?頝?7??| ?箏?撣?| ?祈? | 25.042495064318132 | 121.50271259752438 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E8%90%AC%E8%8F%AF%E5%8D%80%E5%BA%B7%E5%AE%9A%E8%B7%AF37%E8%99%9F | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-AD-001 | ?函????砍 | ASSISTIVE_DEVICE | ?箏?撣葉撅勗??漪?梯楝2畾?50??璅?26摰?| ?箏?撣?| 銝剖控? | 25.05210838136686 | 121.53426636784255 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E5%8D%97%E4%BA%AC%E6%9D%B1%E8%B7%AF2%E6%AE%B5150%E8%99%9F5%E6%A8%93526%E5%AE%A4 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-AD-002 | 隢曇??窄鞎隞賣???詨皝??砍 | ASSISTIVE_DEVICE | ?箏?撣皝?瘞??梯楝6畾?8撌??1璅?| ?箏?撣?| ?扳?? | 25.06645776356088 | 121.57785119567815 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E5%85%A7%E6%B9%96%E5%8D%80%E6%B0%91%E6%AC%8A%E6%9D%B1%E8%B7%AF6%E6%AE%B518%E5%B7%B76%E8%99%9FB1%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| TP-AD-003 | ?航閮剛????砍 | ASSISTIVE_DEVICE | ?箏?撣?撅勗???頝?畾?5撌?7撘?銋? | ?箏?撣?| ?控? | 25.005039560752778 | 121.54123775262069 | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E6%96%87%E5%B1%B1%E5%8D%80%E8%88%88%E9%9A%86%E8%B7%AF1%E6%AE%B555%E5%B7%B727%E5%BC%841%E4%B9%8B5 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-AD-001 | 撘?隞風???砍 | ASSISTIVE_DEVICE | ?啣?撣摨?銝剜迤頝?01-6??璅????孵?) | ?啣?撣?| ?啣?? | 24.98410457531086 | 121.53352270916953 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%96%B0%E5%BA%97%E5%8D%80%E4%B8%AD%E6%AD%A3%E8%B7%AF501-6%E8%99%9F4%E6%A8%93(%E5%90%89%E6%88%90%E7%89%B9%E5%8D%80) | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-AD-002 | 憭抒???冽????| ASSISTIVE_DEVICE | ?啣?撣璈??∪?銵?8??| ?啣?撣?| ?踵?? | 25.00323706880326 | 121.46068408033494 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%9D%BF%E6%A9%8B%E5%8D%80%E6%A0%A1%E5%89%8D%E8%A1%9728%E8%99%9F | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-AD-003 | 摰??怎??冽?銵?| ASSISTIVE_DEVICE | ?啣?撣璈????楝鈭挾134??璅?| ?啣?撣?| ?踵?? | 24.996924922633138 | 121.4517998245111 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%9D%BF%E6%A9%8B%E5%8D%80%E5%8D%97%E9%9B%85%E5%8D%97%E8%B7%AF%E4%BA%8C%E6%AE%B5134%E8%99%9F1%E6%A8%93 | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-AD-004 | ???怎??冽??∩遢???砍 | ASSISTIVE_DEVICE | ?啣?撣摨?摰熒頝臭?畾?59-25??| ?啣?撣?| ?啣?? | 24.96398760752499 | 121.51848942266288 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%96%B0%E5%BA%97%E5%8D%80%E5%AE%89%E5%BA%B7%E8%B7%AF%E4%B8%80%E6%AE%B5359-25%E8%99%9F | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-AD-005 | 摮詨??曇撅 | ASSISTIVE_DEVICE | ?啣?撣???摮詨?頝臭?畾?8??| ?啣?撣?| ??? | 24.988864517219366 | 121.45794872266376 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E5%9C%9F%E5%9F%8E%E5%8D%80%E5%AD%B8%E5%BA%9C%E8%B7%AF%E4%B8%80%E6%AE%B538%E8%99%9F | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-AD-006 | ????璆剜????| ASSISTIVE_DEVICE | ?啣?撣????皞?銵?2??| ?啣?撣?| ?? | 25.072499307189776 | 121.35844196499599 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%9E%97%E5%8F%A3%E5%8D%80%E6%BA%90%E6%B3%89%E8%A1%9712%E8%99%9F | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-AD-007 | ?熒?怎??冽????砍 | ASSISTIVE_DEVICE | ?啣?撣葉???楝295-1??| ?啣?撣?| 銝剖?? | 24.992223156944252 | 121.49496992635792 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%92%8C%E5%8D%80%E5%9C%93%E9%80%9A%E8%B7%AF295-1%E8%99%9F | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-AD-008 | 暾駁??怎???刻? | ASSISTIVE_DEVICE | ?啣?撣楚瘞游?瘞?頝?7-2??| ?啣?撣?| 瘛⊥偌? | 25.138319330963746 | 121.46207135150406 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%B7%A1%E6%B0%B4%E5%8D%80%E6%B0%91%E7%94%9F%E8%B7%AF47-2%E8%99%9F | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
-| NTPC-AD-009 | 蝢噸?隞賣???賊???撣 | ASSISTIVE_DEVICE | ?啣?撣葉??銝剜迤頝?91??| ?啣?撣?| 銝剖?? | 24.992288076844602 | 121.4936121110168 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%92%8C%E5%8D%80%E4%B8%AD%E6%AD%A3%E8%B7%AF291%E8%99%9F | 摰靘??啣?嚗犖撌交 Google Maps ?詨????| 2026-09-25 | VERIFIED | ??|
+```bash
+node data/providers/qa/validate-providers.mjs
+node --input-type=module -e "import fs from 'node:fs'; const p=JSON.parse(fs.readFileSync('data/providers/staging/providers.json','utf8')); const r=fs.readFileSync('data/providers/qa/verified-coordinates-report.md','utf8'); const ids=p.map(x=>x.id); if (!ids.every(id=>r.includes('| '+id+' |'))) throw new Error('report is missing provider'); if (p.some(x=>x.lat !== null || x.lng !== null)) throw new Error('unverified coordinate remains'); console.log({providers:p.length, reportRows:ids.length, nonNullCoordinates:0});"
+git diff --check
+```
 
-??嚗ERIFIED 30嚗?0嚗NVERIFIABLE 0嚗?0?歇撖怠 `providers.json` ?? null 摨扳?嚗?0??
-
----
-
-## 3. 閬????
-
-?摰儔嚗府 `serviceType` ??`ProviderService.active=true`?rovider `status=ACTIVE`嚗? `ProviderServiceArea.active=true` 瘨菔?閰脩腦撣?銵???
-**銝?**??Provider 撖阡??啣??冽葫??蝭???
-
-`?臬?航粥 DISTANCE`嚗??嗚歇撽?摨扳?摰嗆嚗蝮賣???蝮賣 ??1???**BLOCKED**嚗-13c嚗遙銝?蝻箏歇撽?摨扳? ??`DISTRICT_ROTATION`嚗?
-
-### 3.1 HOME_CARE ? 蝮?? ? 銵?嚗? Service Area ????
-
-| ??憿? | 蝮?? | 銵? | 撌脤?霅漣璅振?賂??蝮賣 | ?臬?航粥 DISTANCE | ?桀??? |
-|---|---|---|---|---|---|
-| HOME_CARE | ?啣?撣?| 銝?? | 2嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?啣?撣?| ??? | 1嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?啣?撣?| 銝剖?? | 3嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?啣?撣?| 鈭? | 1嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?啣?撣?| 瘞詨?? | 2嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?啣?撣?| ?踵?? | 3嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?啣?撣?| 瘜啣控? | 1嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?啣?撣?| ?啣?? | 1嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?啣?撣?| ?啗?? | 2嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?啣?撣?| 璅寞?? | 2嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?啣?撣?| ?散? | 2嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?箏?撣?| 憯急?? | 3嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?箏?撣?| 憭批?? | 10嚗?0 | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?箏?撣?| 憭批?? | 4嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?箏?撣?| 銝剖控? | 7嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?箏?撣?| 銝剜迤? | 9嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?箏?撣?| ?扳?? | 3嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?箏?撣?| ?控? | 3嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?箏?撣?| ??? | 3嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?箏?撣?| ?曉控? | 3嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?箏?撣?| 靽∠儔? | 3嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?箏?撣?| ?葛? | 3嚗? | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-| HOME_CARE | ?箏?撣?| ?祈? | 10嚗?0 | YES | ??? VERIFIED 摨扳?嚗靘?DISTANCE 撽 |
-
-
-?舀葫閰?`DISTANCE` ??HOME_CARE 蝯?嚗???
-
-NTPC-HC-003 銝銝”隞颱??銝哨???`ProviderServiceArea`嚗?
-
-### 3.2 HOME_MEDICAL_NURSING
-
-?桀? **0** 蝑?district-level `ProviderServiceArea`??敺撖阡??啣???刻??踹?????
-
-| ??憿? | 蝮?? | 銵? | 撌脤?霅漣璅振?賂??蝮賣 | ?臬?航粥 DISTANCE | ?桀??? |
-|---|---|---|---|---|---|
-| HOME_MEDICAL_NURSING | ?箏?撣?| 嚗 Service Area 銵?嚗?| 0嚗?嚗瘜遣蝡??踹??嚗?| BLOCKED | ??ProviderServiceArea嚗? 摰?Provider 摨扳???VERIFIED嚗?銝??勗??冽葫??蝭?嚗?撖?DISTANCE ?⊥??瑁? |
-
-Provider 撖阡??啣???典嚗?靘??改?**銝**?刻?嚗?TP-HMN-001 銝剖控??P-HMN-002 憯急???P-HMN-003 ?祈???
-
-### 3.3 ASSISTIVE_DEVICE
-
-?桀? **0** 蝑?district-level `ProviderServiceArea`??敺撖阡??啣???刻??踹?????
-
-| ??憿? | 蝮?? | 銵? | 撌脤?霅漣璅振?賂??蝮賣 | ?臬?航粥 DISTANCE | ?桀??? |
-|---|---|---|---|---|---|
-| ASSISTIVE_DEVICE | ?箏?撣?| 嚗 Service Area 銵?嚗?| 0嚗?嚗瘜遣蝡??踹??嚗?| BLOCKED | ??ProviderServiceArea嚗??3 摰?Provider 摨扳???VERIFIED嚗?銝??勗??冽葫??蝭? |
-| ASSISTIVE_DEVICE | ?啣?撣?| 嚗 Service Area 銵?嚗?| 0嚗?嚗瘜遣蝡??踹??嚗?| BLOCKED | ??ProviderServiceArea嚗??9 摰?Provider 摨扳???VERIFIED嚗?銝??勗??冽葫??蝭? |
-
----
-
-## 4. ?祈憚?芸???
-
-- ?芯耨??`data/providers/staging/providers.json` ??`lat`嚗lng`??
-- ?芯蝙?其?鞎餅???? geocoding??
-- ?芯誑?啣????踹?銝剖?暺??其摯?澆神?乩遙雿漣璅?
-- ?芯耨??Backend?rontend?PI Contract??
-
-敺?嚗漣璅?鈭箏極撽?撌脣???銝???撌脤?蝞?芯?閬? HOME_MEDICAL_NURSING ??ASSISTIVE_DEVICE ?瑁??祕 DISTANCE嚗??????航蕭皞舐?甇?? ProviderServiceArea嚗?敺誑 Provider ?啣??冽葫??
+此 PR 只完成資料與報告層級的驗證；J-003 的真實 E2E、正式部署及 DISTANCE 排序仍為 PENDING，不可標示 PASS。
