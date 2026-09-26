@@ -357,6 +357,23 @@ export interface KnowledgeChange {
   reviewedBy: string | null;
 }
 
+// 依 docs/DATA_MODEL.md 第 28 節（TASK-B-009）。
+export type CrawlerRunStatus = "RUNNING" | "SUCCESS" | "PARTIAL" | "FAILED";
+
+export interface CrawlerRun {
+  id: string;
+  sourceId: string;
+  startedAt: string;
+  finishedAt: string | null;
+  status: CrawlerRunStatus;
+  itemsChecked: number;
+  changesDetected: number;
+  // B-009-r2：本次抓取用來比對的雜湊（PDF 為原始位元組雜湊，文字來源為正規化文字雜湊），
+  // 即使沒有偵測到變更也保留，供稽核追溯「當天到底看到了什麼」；FAILED 時為 null（沒有算出雜湊）。
+  contentHash: string | null;
+  errorMessage: string | null;
+}
+
 // 依 docs/API_CONTRACT.md 第 13 節。
 export interface KnowledgeStatusResponse {
   version: string;

@@ -1,6 +1,13 @@
 import { getSupabaseClient } from "./supabaseClient.js";
 import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
-import type { KnowledgeCategory, KnowledgeRecord, KnowledgeStatusResponse, Jurisdiction } from "../types/index.js";
+import type {
+  CrawlerRun,
+  KnowledgeCategory,
+  KnowledgeChange,
+  KnowledgeRecord,
+  KnowledgeStatusResponse,
+  Jurisdiction,
+} from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
 
 const NOTICE = "長照制度及補助可能隨時調整，實際資格仍請洽 1966 或所在地長期照顧管理中心。";
@@ -181,6 +188,86 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
       throw new AppError("INTERNAL_ERROR", "無法撤回 Knowledge 版本，交易已回滾。", { cause: error });
     }
     return data as { republishedVersionId: string | null };
+  }
+
+  async findLatestRecordBySourceId(sourceId: string): Promise<KnowledgeRecord | null> {
+    const client = getSupabaseClient();
+    const { data, error } = await client
+      .from("knowledge_records")
+      .select(
+        "id, source_id, title, category, jurisdiction, source_url, published_at, effective_from, effective_to, fetched_at, last_verified_at, content_hash, status, version, raw_text, summary, rule_data, created_at, updated_at, pack_id, pack_record_id"
+      )
+      .eq("source_id", sourceId)
+      .order("fetched_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢 Knowledge 紀錄，請稍後再試。");
+    if (!data) return null;
+    return {
+      id: data.id,
+      sourceId: data.source_id,
+      title: data.title,
+      category: data.category,
+      jurisdiction: data.jurisdiction,
+      sourceUrl: data.source_url,
+      publishedAt: data.published_at,
+      effectiveFrom: data.effective_from,
+      effectiveTo: data.effective_to,
+      fetchedAt: data.fetched_at,
+      lastVerifiedAt: data.last_verified_at,
+      contentHash: data.content_hash,
+      status: data.status,
+      version: data.version,
+      rawText: data.raw_text,
+      summary: data.summary,
+      ruleData: data.rule_data,
+      createdAt: data.created_at,
+      updatedAt: data.updated_at,
+      packId: data.pack_id,
+      packRecordId: data.pack_record_id,
+    };
+  }
+
+  async insertKnowledgeChange(change: KnowledgeChange): Promise<{ inserted: boolean }> {
+    const client = getSupabaseClient();
+    const { error } = await client.from("knowledge_changes").insert({
+      id: change.id,
+      knowledge_record_id: change.knowledgeRecordId,
+      old_content_hash: change.oldContentHash,
+      new_content_hash: change.newContentHash,
+      old_content: change.oldContent,
+      new_content: change.newContent,
+      ai_summary: change.aiSummary,
+      status: change.status,
+      detected_at: change.detectedAt,
+      reviewed_at: change.reviewedAt,
+      reviewed_by: change.reviewedBy,
+    });
+    if (error) {
+      // 23505 = unique_violation：migration 0013 的 partial unique index
+      // (knowledge_record_id, new_content_hash) where status='NEEDS_REVIEW' 擋下了重複寫入——
+      // 代表同一筆尚未審核的變更已存在（重跑／重試／併發皆可能觸發），是預期內、安全的情況，
+      // 不是真正的錯誤（B-009-r2，Jerry PR #37 第 3 項：資料庫層冪等／唯一性保障）。
+      if (error.code === "23505") return { inserted: false };
+      throw new AppError("INTERNAL_ERROR", "無法寫入 KnowledgeChange，請稍後再試。", { cause: error });
+    }
+    return { inserted: true };
+  }
+
+  async insertCrawlerRun(run: CrawlerRun): Promise<void> {
+    const client = getSupabaseClient();
+    const { error } = await client.from("crawler_runs").insert({
+      id: run.id,
+      source_id: run.sourceId,
+      started_at: run.startedAt,
+      finished_at: run.finishedAt,
+      status: run.status,
+      items_checked: run.itemsChecked,
+      changes_detected: run.changesDetected,
+      content_hash: run.contentHash,
+      error_message: run.errorMessage,
+    });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法寫入 CrawlerRun，請稍後再試。", { cause: error });
   }
 
   async getCurrentPublishedStatus(): Promise<KnowledgeStatusResponse | null> {
