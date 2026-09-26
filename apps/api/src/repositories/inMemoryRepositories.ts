@@ -8,6 +8,8 @@ import type {
   ProviderDatasetWrite,
   ProviderDatasetWriteCounts,
   ProviderRepository,
+  RecommendationCandidateQuery,
+  RecommendationRepository,
   SessionRepository,
 } from "./types.js";
 import { AppError } from "../errors/AppError.js";
@@ -21,6 +23,8 @@ import type {
   ProviderDetailResponse,
   ProviderService,
   ProviderServiceArea,
+  RecommendationItem,
+  RecommendationRun,
   Session,
 } from "../types/index.js";
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
@@ -108,6 +112,11 @@ export class InMemoryAssessmentRepository implements AssessmentRepository {
     this.careNeedProfiles.push(careNeedProfile);
     return { assessment, careNeedProfile };
   }
+
+  async findById(id: string): Promise<Assessment | null> {
+    const found = this.assessments.find((a) => a.id === id);
+    return found ? { ...found } : null;
+  }
 }
 
 export class InMemoryProviderRepository implements ProviderRepository {
@@ -168,6 +177,36 @@ export class InMemoryProviderRepository implements ProviderRepository {
       providerServices: dataset.services.length,
       providerServiceAreas: dataset.serviceAreas.length,
     };
+  }
+
+  async findEligibleForRecommendation(query: RecommendationCandidateQuery): Promise<Provider[]> {
+    const eligibleProviderIds = new Set(
+      this.services.filter((s) => s.serviceType === query.serviceType && s.active).map((s) => s.providerId)
+    );
+    const areaMatchProviderIds = new Set(
+      this.serviceAreas
+        .filter((a) => a.active && a.city === query.city && (query.district === null || a.district === query.district))
+        .map((a) => a.providerId)
+    );
+    return this.providers
+      .filter(
+        (p) =>
+          p.status === "ACTIVE" && eligibleProviderIds.has(p.id) && areaMatchProviderIds.has(p.id)
+      )
+      .map((p) => ({ ...p }));
+  }
+}
+
+export class InMemoryRecommendationRepository implements RecommendationRepository {
+  readonly runs: RecommendationRun[] = [];
+  readonly items: RecommendationItem[] = [];
+
+  async insertRun(run: RecommendationRun): Promise<void> {
+    this.runs.push({ ...run });
+  }
+
+  async insertItems(items: RecommendationItem[]): Promise<void> {
+    this.items.push(...items.map((i) => ({ ...i })));
   }
 }
 

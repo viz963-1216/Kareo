@@ -69,4 +69,42 @@ export class SupabaseAssessmentRepository implements AssessmentRepository {
 
     return { assessment, careNeedProfile };
   }
+
+  async findById(id: string): Promise<Assessment | null> {
+    const client = getSupabaseClient();
+    const { data, error } = await client
+      .from("assessments")
+      .select(
+        "id, session_id, age_range, city, district, location_precision, lat, lng, living_situation, caregiver_situation, mobility_level, daily_living_level, home_care_need, medical_nursing_need, assistive_device_need, transportation_need, free_text, status, knowledge_version, created_at, updated_at"
+      )
+      .eq("id", id)
+      .maybeSingle();
+
+    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢 Assessment，請稍後再試。", { cause: error });
+    if (!data) return null;
+
+    return {
+      id: data.id,
+      sessionId: data.session_id,
+      ageRange: data.age_range,
+      city: data.city,
+      district: data.district,
+      locationPrecision: data.location_precision,
+      lat: data.lat,
+      lng: data.lng,
+      livingSituation: data.living_situation,
+      caregiverSituation: data.caregiver_situation,
+      mobilityLevel: data.mobility_level,
+      dailyLivingLevel: data.daily_living_level,
+      homeCareNeed: data.home_care_need,
+      medicalNursingNeed: data.medical_nursing_need,
+      assistiveDeviceNeed: data.assistive_device_need,
+      transportationNeed: data.transportation_need,
+      freeText: data.free_text,
+      status: data.status,
+      knowledgeVersion: data.knowledge_version,
+      createdAt: data.created_at,
+      updatedAt: data.updated_at,
+    };
+  }
 }
