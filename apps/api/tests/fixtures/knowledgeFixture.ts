@@ -15,6 +15,10 @@ const DISABILITY_MED_PACK_PATH = fileURLToPath(
 const LOCAL_AD_TOPUP_PACK_PATH = fileURLToPath(
   new URL("../../../../contracts/knowledge/packs/KP-2026-09-24-003.json", import.meta.url)
 );
+// r6/r7（T39-T43）：臺北市自辦輔具補助計畫、輔具流程、喘息選項（KP-2026-09-24-005，全部 APPROVED）。
+const TAIPEI_LOCAL_R6_PACK_PATH = fileURLToPath(
+  new URL("../../../../contracts/knowledge/packs/KP-2026-09-24-005.json", import.meta.url)
+);
 
 interface PackRecord {
   recordId: string;
@@ -52,6 +56,7 @@ export function packRecords(): KnowledgeSnapshotRecord[] {
     ...loadPack(PACK_PATH),
     ...loadPack(DISABILITY_MED_PACK_PATH),
     ...loadPack(LOCAL_AD_TOPUP_PACK_PATH).filter((r) => r.ruleData.type === "LOCAL_DISABILITY_AD_TOPUP"),
+    ...loadPack(TAIPEI_LOCAL_R6_PACK_PATH),
   ];
 }
 

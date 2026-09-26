@@ -253,6 +253,14 @@ describe("ASSESSMENT_RULES §9 required cases", () => {
     const knowledge = fixtureSnapshot((rs) => {
       const channels = byType(rs, "APPLICATION_CHANNELS").ruleData;
       channels.hotline = { number: "0999-777", hours: "Tue-Thu 07:07-09:09" };
+      // r6/r7 新增的臺北市地方紀錄（LOCAL_AD_TOPUP_PLAN／LOCAL_AD_TOPUP／LOCAL_ASSISTIVE_DEVICE_PROCESS／
+      // LOCAL_RESPITE_OPTIONS）的 summary 本身是真實官方頁面內容（非本程式產生），逐字引用進 S-LOCAL-INFO，
+      // 剛好含有跟本測試其他哨兵值重疊的原文（例如「第 2 級」）。這裡也換成哨兵文字，讓「原始政策數值
+      // 不得出現在任何地方」的斷言對得上「所有知識來源都已换成哨兵值」，而不是弱化這個測試案例。
+      for (const type of ["LOCAL_AD_TOPUP_PLAN", "LOCAL_AD_TOPUP", "LOCAL_ASSISTIVE_DEVICE_PROCESS", "LOCAL_RESPITE_OPTIONS"]) {
+        for (const r of rs) if (r.ruleData.type === type && r.jurisdiction === "TAIPEI") r.summary = `哨兵內容－${type}`;
+      }
+      byType(rs, "LOCAL_AD_TOPUP").ruleData.copayPercentByCategory = { "1": 71, "2": 72, "3": 73 };
       byType(rs, "LEVEL_RANGE").ruleData.benefitEligibleMin = 97;
       const amounts = byType(rs, "BENEFIT_AMOUNTS").ruleData;
       amounts.careAndProfessionalMonthly = { "91": 111111, "93": 333333 };
@@ -465,6 +473,61 @@ describe("ASSESSMENT_RULES §9 required cases", () => {
     expect(r.profile.summary).toContain("您每月約自付 73,000 元");
     expect(r.profile.summary).toContain("約自付 146,000 元");
     for (const original of ["16%", "10,020", "36,180", "7,500", "11,300"]) expect(r.profile.summary).not.toContain(original);
+  });
+
+  it("T39: 臺北市, ASSISTIVE_DEVICE, incomeCategory UNKNOWN → S-LOCAL-INFO shows LOCAL_AD_TOPUP_PLAN/LOCAL_AD_TOPUP/LOCAL_ASSISTIVE_DEVICE_PROCESS in recordId order; no S-EST-LOCAL-AD", async () => {
+    const r = await run(input({ location: TAIPEI_DISTRICT, needs: { assistiveDevice: "YES" } }));
+    const localInfoLines = r.ruleTrace.templateIds
+      .map((id, i) => ({ id, i }))
+      .filter((x) => x.id === "S-LOCAL-INFO")
+      .map((x) => r.lines[x.i]);
+    expect(localInfoLines[0]).toContain("臺北市失能者生活輔助器具自辦補助計畫");
+    expect(localInfoLines[1]).toContain("臺北市失能者生活輔助器具自辦補助：115 年補助項目");
+    expect(localInfoLines[2]).toContain("臺北市居家無障礙環境改善申請與施工流程");
+    expect(r.ruleTrace.templateIds).not.toContain("S-EST-LOCAL-AD");
+  });
+
+  it("T40: 新北市, ASSISTIVE_DEVICE, GENERAL → no 臺北市 local sentences, no S-EST-LOCAL-AD (jurisdiction isolation)", async () => {
+    const r = await run(input({ location: NTPC("板橋區"), incomeCategory: "GENERAL", needs: { assistiveDevice: "YES" } }));
+    expect(r.profile.summary).not.toContain("臺北市");
+    expect(r.ruleTrace.templateIds).not.toContain("S-EST-LOCAL-AD");
+  });
+
+  it("T41: 臺北市, ASSISTIVE_DEVICE, GENERAL, copayPercentByCategory sentinel → S-EST-LOCAL-AD shows only the sentinel rate and the 'below max' wording", async () => {
+    const knowledge = fixtureSnapshot((rs) => {
+      byType(rs, "LOCAL_AD_TOPUP").ruleData.copayPercentByCategory = { "1": 81, "2": 82, "3": 83 };
+    });
+    const r = await run(
+      input({ location: TAIPEI_DISTRICT, incomeCategory: "GENERAL", needs: { assistiveDevice: "YES" } }),
+      knowledge
+    );
+    expect(r.lines).toContain(
+      "臺北市自辦輔具補助：依您選擇的身分（長照身分別約為第 3 類），購置金額低於品項最高補助額度時，補助依實際支出扣除您自付的 83% 計算；各品項補助以最高額度為限，實際以社會局核定為準。"
+    );
+  });
+
+  it("T42: same as T41 but copayAppliesWhen is missing → S-EST-LOCAL-AD is omitted, other sentences unaffected", async () => {
+    const knowledge = fixtureSnapshot((rs) => {
+      delete (byType(rs, "LOCAL_AD_TOPUP").ruleData as Record<string, unknown>).copayAppliesWhen;
+    });
+    const r = await run(
+      input({ location: TAIPEI_DISTRICT, incomeCategory: "GENERAL", needs: { assistiveDevice: "YES" } }),
+      knowledge
+    );
+    expect(r.ruleTrace.templateIds).not.toContain("S-EST-LOCAL-AD");
+    expect(r.ruleTrace.templateIds).toContain("S-EST-INTRO");
+  });
+
+  it("T43: 臺北市, HOME_CARE, caregiverSituation=FAMILY_LIMITED → LOCAL_RESPITE_OPTIONS shows; NO_CAREGIVER → it does not", async () => {
+    const withCaregiver = await run(
+      input({ location: TAIPEI_DISTRICT, caregiverSituation: "FAMILY_LIMITED", needs: { homeCare: "YES" } })
+    );
+    expect(withCaregiver.profile.summary).toContain("臺北市喘息服務的三種方式");
+
+    const withoutCaregiver = await run(
+      input({ location: TAIPEI_DISTRICT, caregiverSituation: "NO_CAREGIVER", needs: { homeCare: "YES" } })
+    );
+    expect(withoutCaregiver.profile.summary).not.toContain("臺北市喘息服務的三種方式");
   });
 });
 

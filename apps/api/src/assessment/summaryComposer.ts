@@ -159,7 +159,7 @@ export function composeSummary(
   sentences.push(...disability.sentences);
 
   // S-EST-*（§6.6，r5／D-17a）
-  sentences.push(...estimateSentences(input, view, today, subsidy, disability));
+  sentences.push(...estimateSentences(input, priority, view, today, subsidy, disability));
 
   // S-LOCAL-*
   sentences.push(...localSentences(input, priority, view, hotline));
@@ -744,6 +744,7 @@ function amountOrExempt(rate: number, amount: number): string {
 
 function estimateSentences(
   input: CreateAssessmentInput,
+  priority: CareNeed[],
   view: KnowledgeView,
   today: string,
   subsidy: SubsidyResult,
@@ -885,6 +886,29 @@ function estimateSentences(
     }
   }
 
+  // S-EST-LOCAL-AD（r6；文字依 r7）：臺北市自辦輔具補助，只在 copayAppliesWhen=PURCHASE_BELOW_MAX
+  // 時出現（原文只規定購置金額低於上限的情形，等於或高於上限時未規定，不自行推論——見 ASSESSMENT_RULES
+  // §6.6 r7 附註）。
+  if (input.location.city) {
+    const jurisdiction = CITY_JURISDICTION[input.location.city];
+    if (jurisdiction) {
+      const localAdTopup = view
+        .findLocalInfo(jurisdiction, priority, input.caregiverSituation)
+        .find((r) => r.ruleData?.type === "LOCAL_AD_TOPUP");
+      if (localAdTopup) {
+        const rates = localAdTopup.ruleData.copayPercentByCategory;
+        const rate = isRecord(rates) ? effectiveNumber(rates[tier], today) : null;
+        if (localAdTopup.ruleData.copayAppliesWhen === "PURCHASE_BELOW_MAX" && rate !== null) {
+          body.push({
+            templateId: "S-EST-LOCAL-AD",
+            text: `${input.location.city}自辦輔具補助：依您選擇的身分（長照身分別約為第 ${tier} 類），購置金額低於品項最高補助額度時，補助依實際支出扣除您自付的 ${rate}% 計算；各品項補助以最高額度為限，實際以社會局核定為準。`,
+            records: [],
+          });
+        }
+      }
+    }
+  }
+
   if (body.length === 0) return [];
 
   const label = INCOME_CATEGORY_LABELS[input.incomeCategory];
@@ -941,7 +965,7 @@ function localSentences(
   if (!jurisdiction) return [];
   const out: Sentence[] = [];
 
-  const infos = view.findLocalInfo(jurisdiction, priority);
+  const infos = view.findLocalInfo(jurisdiction, priority, input.caregiverSituation);
   const renderable = infos.filter((r) => r.authority && AUTHORITY_LABELS[r.authority] && isNonEmptyString(r.summary));
   if (renderable.length > 0) {
     for (const r of renderable) {

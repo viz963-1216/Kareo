@@ -1,4 +1,4 @@
-import type { CareNeed, Jurisdiction, KnowledgeAuthority, KnowledgeCategory } from "../types/index.js";
+import type { CareNeed, CaregiverSituation, Jurisdiction, KnowledgeAuthority, KnowledgeCategory } from "../types/index.js";
 
 // 一次 Assessment 使用的知識快照：只含「同一個 PUBLISHED KnowledgeVersion」的紀錄。
 // 由 resolver 一次讀出並凍結，整個評估過程只讀這份快照，避免途中版本切換造成內容與 knowledgeVersion 不一致。
@@ -80,13 +80,19 @@ export class KnowledgeView {
     return matches[0] ?? null;
   }
 
-  // 地方紀錄（§6.3 S-LOCAL-INFO，RULES-2026-09-24-r3）：只讀與使用者縣市相同 jurisdiction、
-  // ruleData.type 以 LOCAL_ 開頭（LOCAL_CENTER 除外）的紀錄，且與目前 careNeeds 相關：
-  // LOCAL_TRANSPORT_RULES 只在含 TRANSPORTATION 時列入；LOCAL_ASSISTIVE_DEVICE_PROCESS 只在含
-  // ASSISTIVE_DEVICE 時列入；LOCAL_APPLICATION 與其他未知的 LOCAL_ 類型一律列入（§6.4 只依
-  // ruleData.type 判斷，不自行排除未列出的類型）。ruleData.requiresDisabilityCertificate = true
-  // 的紀錄（例如 LOCAL_DISABILITY_AD_TOPUP）不由本句處理，改由 §6.5 S-DIS-*。依 recordId 排序。
-  findLocalInfo(jurisdiction: "TAIPEI" | "NEW_TAIPEI", careNeeds: readonly CareNeed[]): KnowledgeSnapshotRecord[] {
+  // 地方紀錄（§6.3 S-LOCAL-INFO，RULES-2026-09-25-r7）：只讀與使用者縣市相同 jurisdiction、
+  // ruleData.type 以 LOCAL_ 開頭（LOCAL_CENTER 除外）的紀錄，且與目前 careNeeds／caregiverSituation 相關：
+  // LOCAL_TRANSPORT_RULES 只在含 TRANSPORTATION 時列入；LOCAL_ASSISTIVE_DEVICE_PROCESS、
+  // LOCAL_AD_TOPUP、LOCAL_AD_TOPUP_PLAN（r6）只在含 ASSISTIVE_DEVICE 時列入；LOCAL_RESPITE_OPTIONS
+  // （r6）只在含 HOME_CARE 且 caregiverSituation ∈ {FAMILY_AVAILABLE, FAMILY_LIMITED} 時列入；
+  // LOCAL_APPLICATION 與其他未知的 LOCAL_ 類型一律列入（§6.4 只依 ruleData.type 判斷，不自行排除
+  // 未列出的類型）。ruleData.requiresDisabilityCertificate = true 的紀錄（例如
+  // LOCAL_DISABILITY_AD_TOPUP）不由本句處理，改由 §6.5 S-DIS-*。依 recordId 排序。
+  findLocalInfo(
+    jurisdiction: "TAIPEI" | "NEW_TAIPEI",
+    careNeeds: readonly CareNeed[],
+    caregiverSituation: CaregiverSituation
+  ): KnowledgeSnapshotRecord[] {
     return this.effective()
       .filter((r) => {
         if (r.jurisdiction !== jurisdiction) return false;
@@ -94,7 +100,12 @@ export class KnowledgeView {
         if (typeof type !== "string" || !type.startsWith("LOCAL_") || type === "LOCAL_CENTER") return false;
         if (r.ruleData?.requiresDisabilityCertificate === true) return false;
         if (type === "LOCAL_TRANSPORT_RULES") return careNeeds.includes("TRANSPORTATION");
-        if (type === "LOCAL_ASSISTIVE_DEVICE_PROCESS") return careNeeds.includes("ASSISTIVE_DEVICE");
+        if (type === "LOCAL_ASSISTIVE_DEVICE_PROCESS" || type === "LOCAL_AD_TOPUP" || type === "LOCAL_AD_TOPUP_PLAN") {
+          return careNeeds.includes("ASSISTIVE_DEVICE");
+        }
+        if (type === "LOCAL_RESPITE_OPTIONS") {
+          return careNeeds.includes("HOME_CARE") && (caregiverSituation === "FAMILY_AVAILABLE" || caregiverSituation === "FAMILY_LIMITED");
+        }
         return true;
       })
       .sort((a, b) => a.packRecordId.localeCompare(b.packRecordId));

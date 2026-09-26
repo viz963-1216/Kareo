@@ -4,7 +4,7 @@ import type { AssessmentNeedsInput, CareNeed, CreateAssessmentInput, IncomeCateg
 // 本檔只放規則表本身（規則 ID、條件、關鍵字、分數、顯示文字對照），不放任何政策數值：
 // 金額、比率、年齡門檻、分區、電話、服務時間一律從 PUBLISHED Knowledge 讀取（ASSESSMENT_RULES §6、§10）。
 // 規則表修改時必須遞增 RULES_VERSION 並同步調整 tests/assessmentEngine.test.ts。
-export const RULES_VERSION = "RULES-2026-09-24-r5";
+export const RULES_VERSION = "RULES-2026-09-25-r7";
 
 // 同分時的固定順序（§5），也是 careNeeds 的輸出順序。
 export const CARE_NEED_ORDER: readonly CareNeed[] = [
