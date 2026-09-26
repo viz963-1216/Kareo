@@ -33,15 +33,34 @@ describe("Function handlers (no live Supabase configured)", () => {
     expect(JSON.stringify(body)).not.toMatch(/at\s+\w+\s+\(.*:\d+:\d+\)/); // stack trace pattern
   });
 
-  it("consent handler rejects invalid JSON body", async () => {
+  it("consent handler rejects invalid JSON body (checked before the session token, since it's cheaper)", async () => {
     const res = await consentHandler({ httpMethod: "POST", body: "{not-json" });
     expect(res.statusCode).toBe(400);
     expect(JSON.parse(res.body).error.code).toBe("INVALID_REQUEST");
   });
 
-  it("consent handler returns VALIDATION_ERROR before touching Supabase when accepted=false", async () => {
+  // TASK-B-011a：Session Token 驗證現在排在最前面（ARCHITECTURE §20.3 第 1 步），
+  // 沒有帶 Token 時，本機就能判斷格式錯誤，完全不需要碰 Supabase。
+  it("consent handler rejects with no session token, without touching Supabase (SESSION_INVALID)", async () => {
     const res = await consentHandler({
       httpMethod: "POST",
+      body: JSON.stringify({
+        sessionId: "SES-TEST0001",
+        disclaimerVersion: "1.0",
+        privacyVersion: "1.0",
+        termsVersion: "1.0",
+        accepted: true,
+      }),
+    });
+
+    expect(res.statusCode).toBe(401);
+    expect(JSON.parse(res.body).error.code).toBe("SESSION_INVALID");
+  });
+
+  it("consent handler with a token but no Supabase configured returns safe INTERNAL_ERROR", async () => {
+    const res = await consentHandler({
+      httpMethod: "POST",
+      headers: { "x-kareo-session-token": "any-token-value" },
       body: JSON.stringify({
         sessionId: "SES-TEST0001",
         disclaimerVersion: "1.0",
@@ -50,9 +69,11 @@ describe("Function handlers (no live Supabase configured)", () => {
         accepted: false,
       }),
     });
+    const body = JSON.parse(res.body);
 
-    expect(res.statusCode).toBe(400);
-    expect(JSON.parse(res.body).error.code).toBe("VALIDATION_ERROR");
+    expect(res.statusCode).toBe(500);
+    expect(body.error.code).toBe("INTERNAL_ERROR");
+    expect(JSON.stringify(body)).not.toMatch(/eyJ[a-zA-Z0-9_-]{10,}/);
   });
 
   it("assessment handler rejects non-POST method", async () => {
@@ -67,9 +88,19 @@ describe("Function handlers (no live Supabase configured)", () => {
     expect(JSON.parse(res.body).error.code).toBe("INVALID_REQUEST");
   });
 
-  it("assessment handler returns safe INTERNAL_ERROR when Supabase is not configured (no leaked secrets)", async () => {
+  it("assessment handler rejects with no session token, without touching Supabase (SESSION_INVALID)", async () => {
     const res = await assessmentHandler({
       httpMethod: "POST",
+      body: JSON.stringify({ sessionId: "SES-TEST0001" }),
+    });
+    expect(res.statusCode).toBe(401);
+    expect(JSON.parse(res.body).error.code).toBe("SESSION_INVALID");
+  });
+
+  it("assessment handler with a token but no Supabase configured returns safe INTERNAL_ERROR (no leaked secrets)", async () => {
+    const res = await assessmentHandler({
+      httpMethod: "POST",
+      headers: { "x-kareo-session-token": "any-token-value" },
       body: JSON.stringify({
         sessionId: "SES-TEST0001",
         ageRange: "75_84",

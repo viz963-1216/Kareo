@@ -44,7 +44,7 @@ Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更�
 
 ## Acceptance Criteria
 
-- [ ] ASSESSMENT_RULES §9 **T1–T24** 全部實作並通過（含 T20 哨兵測試：程式沒有寫死政策數值）
+- [ ] ASSESSMENT_RULES §9 **T1–T43** 全部實作並通過（含 T20 哨兵測試：程式沒有寫死政策數值）
 - [ ] 另測：資料庫失敗、resolver 失敗、無 PUBLISHED 版本、知識版本切換後結果引用新版本
 - [ ] 每種 location precision 的合法與非法組合測試；`NONE`、`CITY` 可完成評估
 - [ ] 回應格式與 `contracts/mock/assessment-response.json`、`contracts/mock/assessments/WITH-SUBSIDY-NEW_TAIPEI.json` 相容，無 API_CONTRACT §14 禁止欄位，warnings 必定存在
@@ -56,6 +56,7 @@ Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更�
 - [ ] Assessment Request 接受選填 `disabilityCertificate`（YES／NO／UNKNOWN，未提供視為 UNKNOWN），保存於 Assessment（DATA_MODEL §8a，需要 migration）
 - [ ] 實作 ASSESSMENT_RULES r4：S-ELIG-DIS、§6.5 S-DIS-*；T25–T31 全部通過
 - [ ] `KAREO_DRIVE` 來源顯示 `ruleData.issuer`（§6.4）
+- [ ] 規則表 r6：臺北市地方紀錄 `LOCAL_AD_TOPUP`、`LOCAL_AD_TOPUP_PLAN`、`LOCAL_RESPITE_OPTIONS` 顯示於 S-LOCAL-INFO；S-EST-LOCAL-AD 依 r7 文字（2026-09-25 核准）；T39–T43 全部通過
 - [ ] （D-17a）接受選填 `incomeCategory`（LOW_INCOME／MIDDLE_LOW_INCOME／ALLOWANCE／GENERAL／UNKNOWN）並保存；實作 ASSESSMENT_RULES r5 §6.6 個人自付估算（FLOOR 取整）；T32–T38 全部通過
 
 ## Not In Scope
