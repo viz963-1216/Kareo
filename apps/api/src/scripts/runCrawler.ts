@@ -5,10 +5,12 @@
 // 用法（需先 npm run build；需 SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY）：
 //   node dist/scripts/runCrawler.js [source-registry.md]
 //
-// 排程設定（J-003 負責在部署環境接上，本指令本身不綁定特定排程機制；netlify.toml 屬 Root
-// Config，不在 B-009 Allowed Paths 內，本檔不自行修改）：
+// 排程設定（B-009-r2 更新：J-003 已在 .github/workflows/knowledge-crawler.yml 接上 GitHub Actions
+// 排程，本指令不再需要另外接 Netlify Scheduled Function；.github/workflows/** 不在 B-009 Allowed
+// Paths 內，本檔只確保 CLI 契約與該 workflow 相容：無參數執行時使用預設 source-registry.md 路徑、
+// exit code 0=SUCCESS／1=PARTIAL 或 FAILED，皆已符合該 workflow 最後一步的期待）：
 //   目標時間 00:10 Asia/Taipei = 16:10 UTC（無日光節約時間問題，Asia/Taipei 全年 UTC+8）。
-//   例如 Netlify Scheduled Function 的 cron 表達式：`10 16 * * *`。
+//   cron 表達式：`10 16 * * *`（見 .github/workflows/knowledge-crawler.yml）。
 //
 // 審核人操作說明（找不到 contracts/knowledge/README.md 內對應章節可加這段——該檔不在 B-009
 // Allowed Paths 內，這裡先留操作說明，供 Jerry／J-002 決定是否要搬過去）：

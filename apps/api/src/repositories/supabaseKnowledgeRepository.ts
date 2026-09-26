@@ -228,7 +228,7 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
     };
   }
 
-  async insertKnowledgeChange(change: KnowledgeChange): Promise<void> {
+  async insertKnowledgeChange(change: KnowledgeChange): Promise<{ inserted: boolean }> {
     const client = getSupabaseClient();
     const { error } = await client.from("knowledge_changes").insert({
       id: change.id,
@@ -243,7 +243,15 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
       reviewed_at: change.reviewedAt,
       reviewed_by: change.reviewedBy,
     });
-    if (error) throw new AppError("INTERNAL_ERROR", "無法寫入 KnowledgeChange，請稍後再試。", { cause: error });
+    if (error) {
+      // 23505 = unique_violation：migration 0013 的 partial unique index
+      // (knowledge_record_id, new_content_hash) where status='NEEDS_REVIEW' 擋下了重複寫入——
+      // 代表同一筆尚未審核的變更已存在（重跑／重試／併發皆可能觸發），是預期內、安全的情況，
+      // 不是真正的錯誤（B-009-r2，Jerry PR #37 第 3 項：資料庫層冪等／唯一性保障）。
+      if (error.code === "23505") return { inserted: false };
+      throw new AppError("INTERNAL_ERROR", "無法寫入 KnowledgeChange，請稍後再試。", { cause: error });
+    }
+    return { inserted: true };
   }
 
   async insertCrawlerRun(run: CrawlerRun): Promise<void> {
@@ -256,6 +264,7 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
       status: run.status,
       items_checked: run.itemsChecked,
       changes_detected: run.changesDetected,
+      content_hash: run.contentHash,
       error_message: run.errorMessage,
     });
     if (error) throw new AppError("INTERNAL_ERROR", "無法寫入 CrawlerRun，請稍後再試。", { cause: error });

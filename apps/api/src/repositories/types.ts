@@ -78,7 +78,10 @@ export interface KnowledgeRepository {
   // Crawler（TASK-B-009）：依 source_id 找該來源目前最新一筆紀錄（不限狀態，任何 fetchedAt 最新者）
   // 作為 content hash 比對基準；沒有紀錄時回 null（來源尚未經人工匯入過任何內容）。
   findLatestRecordBySourceId(sourceId: string): Promise<KnowledgeRecord | null>;
-  insertKnowledgeChange(change: KnowledgeChange): Promise<void>;
+  // 冪等：同一 (knowledgeRecordId, newContentHash) 若已存在一筆 status='NEEDS_REVIEW' 的
+  // KnowledgeChange，不會重複建立（DB 層以 partial unique index 保障，見 migration 0013），
+  // 回傳 inserted=false；呼叫端據此判斷這次是否為「真正的新變更」（B-009-r2，Jerry PR #37 第 3 項）。
+  insertKnowledgeChange(change: KnowledgeChange): Promise<{ inserted: boolean }>;
   insertCrawlerRun(run: CrawlerRun): Promise<void>;
 }
 

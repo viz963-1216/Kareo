@@ -146,16 +146,37 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
     return { republishedVersionId: republishVersionId };
   }
 
+  // 測試用：模擬 Repository 本身不可用（例如資料庫暫時無法連線），下一次呼叫任一 Crawler 相關
+  // 方法會丟出例外，呼叫後自動重置（只影響下一次呼叫）。
+  failNextCrawlerRepoCall = false;
+
+  private throwIfSimulatedFailure(): void {
+    if (this.failNextCrawlerRepoCall) {
+      this.failNextCrawlerRepoCall = false;
+      throw new AppError("INTERNAL_ERROR", "模擬 Repository 無法使用（測試用）");
+    }
+  }
+
   async findLatestRecordBySourceId(sourceId: string): Promise<KnowledgeRecord | null> {
+    this.throwIfSimulatedFailure();
     const matches = this.records.filter((r) => r.sourceId === sourceId).sort((a, b) => b.fetchedAt.localeCompare(a.fetchedAt));
     return matches[0] ? { ...matches[0] } : null;
   }
 
-  async insertKnowledgeChange(change: KnowledgeChange): Promise<void> {
+  async insertKnowledgeChange(change: KnowledgeChange): Promise<{ inserted: boolean }> {
+    this.throwIfSimulatedFailure();
+    // 同一 (knowledgeRecordId, newContentHash) 若已有一筆未審核（NEEDS_REVIEW）的變更，視為
+    // 同一個尚待處理的變更，不重複建立（比照 migration 0013 的 partial unique index 語意）。
+    const alreadyPending = this.changes.some(
+      (c) => c.knowledgeRecordId === change.knowledgeRecordId && c.newContentHash === change.newContentHash && c.status === "NEEDS_REVIEW"
+    );
+    if (alreadyPending) return { inserted: false };
     this.changes.push({ ...change });
+    return { inserted: true };
   }
 
   async insertCrawlerRun(run: CrawlerRun): Promise<void> {
+    this.throwIfSimulatedFailure();
     this.crawlerRuns.push({ ...run });
   }
 
