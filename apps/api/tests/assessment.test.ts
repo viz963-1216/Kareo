@@ -272,6 +272,7 @@ describe("Assessment", () => {
       createAssessment: async () => {
         throw new AppError("INTERNAL_ERROR", "模擬資料庫錯誤");
       },
+      findById: async () => null,
     };
     const body = { ...validBody, sessionId };
 

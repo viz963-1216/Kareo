@@ -186,6 +186,56 @@ export interface ProviderDetailResponse {
   serviceAreas: Array<{ city: string; district: string }>;
 }
 
+// ===== Recommendation（TASK-B-005，依 docs/DATA_MODEL.md 第 20-21 節）=====
+
+export type RankingType = "DISTANCE" | "DISTRICT_ROTATION" | "CITY_ROTATION" | "NO_LOCATION";
+
+export interface RecommendationRun {
+  id: string;
+  assessmentId: string;
+  serviceType: ProviderServiceType;
+  rankingType: RankingType;
+  locationPrecision: LocationPrecision;
+  knowledgeVersion: string;
+  createdAt: string;
+}
+
+export interface RecommendationItem {
+  id: string;
+  recommendationRunId: string;
+  providerId: string;
+  rank: 1 | 2 | 3;
+  score: number;
+  distanceKm: number | null;
+  reasons: string[];
+  createdAt: string;
+}
+
+// 依 docs/API_CONTRACT.md 第 9 節 Response 格式（providers[] 單筆）。
+export interface RecommendationProviderResult {
+  id: string;
+  name: string;
+  type: ProviderType;
+  address: string;
+  district: string;
+  phone: string | null;
+  website: string | null;
+  googleMapsUrl: string | null;
+  verified: boolean;
+  rank: 1 | 2 | 3;
+  distanceKm: number | null;
+  reasons: string[];
+}
+
+export interface RecommendationResult {
+  recommendationId: string;
+  serviceType: ProviderServiceType;
+  rankingType: RankingType;
+  locationPrecision: LocationPrecision;
+  providers: RecommendationProviderResult[];
+  notice: string;
+}
+
 // TASK-B-004 Import 用：A 提供的 staging dataset 原始（未驗證）格式。
 // 欄位刻意設為寬鬆 unknown/optional，因為來源資料可能缺欄位（例如 provider-services
 // 目前缺 id/active），必須先驗證才能決定是否匯入，不得自行猜值。
