@@ -102,9 +102,10 @@ jobs:
       - run: npm ci --prefix apps/api
       - run: node scripts/acceptance-gate.mjs --mode=dev
 
-  # Local isolated PostgreSQL (PGlite): all migrations in order, RLS／privileges, Provider import rollback and
-  # the knowledge publish／withdraw lifecycle. Informational until the B-008 hand-back items are fixed
-  # (K4／K9 need B-008-r2; K5／K6／K7 are open defects — docs/INTEGRATION_ACCEPTANCE.md). Not a deployment check.
+  # Local isolated PostgreSQL (PGlite): all migrations in order (fresh and as an upgrade from 0008 with existing
+  # published knowledge), RLS／privileges, Provider import rollback, knowledge publish／withdraw, crawler and
+  # recommendation schema. Informational (continue-on-error) until the B-008 hand-back passes; then this job
+  # becomes required. A green job here does NOT mean the database checks passed — read the step output.
   db-verify:
     name: Isolated DB verification (informational)
     runs-on: ubuntu-latest
@@ -117,4 +118,8 @@ jobs:
           cache: npm
           cache-dependency-path: tests/db/package-lock.json
       - run: npm ci --prefix tests/db
-      - run: node tests/db/verify-db.mjs | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Fresh database
+        run: node tests/db/verify-db.mjs | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Upgrade path from 0008 with existing data
+        if: always()
+        run: node tests/db/verify-db.mjs --upgrade-from=0008 | tee -a "$GITHUB_STEP_SUMMARY"
