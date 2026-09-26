@@ -57,6 +57,12 @@
   force = true
 
 [[redirects]]
+  from = "/api/v1/recommendations"
+  to = "/.netlify/functions/recommendations"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/*"
   to = "/api-not-found.json"
   status = 404
