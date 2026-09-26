@@ -64,7 +64,11 @@ if (!srcFails) record('PASS', 'source forbidden fields', 'none found');
 
 // 5. Contract endpoints vs routes
 const contract = readFileSync('docs/API_CONTRACT.md', 'utf8');
-const endpoints = [...new Set([...contract.matchAll(/^## (GET|POST|DELETE|PUT|PATCH) (\/api\/v1\/[^\s（(]+)/gm)].map((m) => `${m[1]} ${m[2]}`))];
+// Section headings, plus the admin API table (§26, D-16) whose endpoints are listed inline as `METHOD /path`.
+const endpoints = [...new Set([
+  ...[...contract.matchAll(/^## (GET|POST|DELETE|PUT|PATCH) (\/api\/v1\/[^\s（(]+)/gm)].map((m) => `${m[1]} ${m[2]}`),
+  ...[...contract.matchAll(/`(GET|POST|DELETE|PUT|PATCH) (\/api\/v1\/admin\/[^`?\s]+)/g)].map((m) => `${m[1]} ${m[2]}`),
+])];
 for (const ep of endpoints) {
   const path = ep.split(' ')[1].replace(/\{[^}]+\}/g, '*');
   const match = [...routed.keys()].some((from) => from === path || (from.endsWith('*') && path.startsWith(from.slice(0, -1))) || from.replace(/:[^/]+/g, '*') === path);
