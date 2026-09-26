@@ -25,7 +25,7 @@ Plan revision: 2026-09-23 / J-002-r4
 - C-004 已合併（完成）。
 - Contract：API_CONTRACT v0.2.2 §8（location、summary 格式）、§9（位置與排序）、§12（Lead）。
 - Mock fixtures：`contracts/mock/assessments/WITH-SUBSIDY-NEW_TAIPEI.json`、`contracts/mock/recommendations/**`（含 `ranking-variants/` 五種情境）、`contracts/mock/lead-response.json`（說明見 `contracts/mock/README.md`）。
-- 標示 PROPOSED 的格式（D-13a–g、D-14a–b）與 DRAFT 文案（D-05）：可依此實作，屬可逆準備；Jerry 修改時由 J-002 更新 fixture。
+- D-13a–g、D-14a–b 已核准（2026-09-24）。同意與位置告知文案（D-05）仍為 DRAFT：可依此排版，正式上線與正式收集座標需 ACTIVE 版本。
 
 ---
 
@@ -78,6 +78,12 @@ Plan revision: 2026-09-23 / J-002-r4
 
 ---
 
+**F. 身心障礙證明選填題（2026-09-24，D-17；PR #34 開立後新增，需以修正版提交）**
+
+- 評估頁新增「是否領有身心障礙證明」：是／否／不確定（預設不確定），附一句說明「只用來顯示您可能適用的補助」。
+- 送出 `disabilityCertificate`；結果頁照常逐行顯示 summary（以 `WITH-DISABILITY-NEW_TAIPEI.json` 驗收）。
+- （D-17a）評估頁新增選填「家庭經濟身分」：低收入戶／中低收入戶／領有中低收入老人生活津貼或身心障礙者生活補助／以上皆非／不確定（預設不確定），附說明「只用來估算您可能要自付的金額，不需要提供證明」；送出 `incomeCategory`；以 `WITH-ESTIMATE-GENERAL-NEW_TAIPEI.json` 驗收結果頁。
+
 # Acceptance Criteria（Mock 模組驗收）
 
 - [ ] 結果頁以 `WITH-SUBSIDY-NEW_TAIPEI.json` 逐行顯示補助說明與 `knowledgeVersion`；程式碼中沒有任何政策金額或比率
@@ -85,6 +91,8 @@ Plan revision: 2026-09-23 / J-002-r4
 - [ ] 推薦：DISTANCE、DISTANCE-MISSING-COORDINATES、DISTRICT_ROTATION、CITY_ROTATION 各有正確畫面；NONE 不呼叫 API
 - [ ] 除 DISTANCE 外不顯示距離；任何畫面不出現「最近」「附近」
 - [ ] 0／1／2／3 家與 Empty State
+- [ ] 家庭經濟身分五個選項都能送出，結果頁以 `WITH-ESTIMATE-GENERAL-NEW_TAIPEI.json` 顯示估算段落
+- [ ] 身心障礙證明選填題三個選項都能送出；結果頁以 `WITH-DISABILITY-NEW_TAIPEI.json` 顯示身心障礙福利補助段落
 - [ ] Lead Flow 可用 Mock 完成；連點只送出一次；失敗可重試
 - [ ] 正式資格用語維持「預估／可能」；1966 提醒出現在評估前、結果、補助說明、推薦與頁尾（PRODUCT_SPEC §34）
 - [ ] RWD 與 Keyboard 基本通過；不直接連 Supabase；不修改 Backend／Contract

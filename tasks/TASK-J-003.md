@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r1（PR #20）、r2／r3（PR #29）已合併：CI、路由、Real API adapter、release gate。**Integrated：否**；完整驗收 FAIL（PENDING 未清）  
+Status: 進行中。r1（PR #20）、r2／r3（PR #29）已合併：CI、路由、Real API adapter、release gate。r4（2026-09-25）：整合狀態表、43 個驗收案例、打包後 Functions 檢查、隔離 DB 驗證、排程入口、交回清單。**Integrated：否**；完整驗收 FAIL（43 個 E2E 全部 PENDING，部署暫停）  
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -11,7 +11,7 @@ Plan revision: 2026-09-19 / 10-22 MVP
 ## Prerequisite / 前置條件
 
 - CI／gate 骨架：已完成（r1–r3）。
-- 首次知識發布：D-02 內容核准（Jerry）＋B-008（已合併）。不等待最終 E2E，避免與 B-010 循環依賴。
+- 首次知識發布：D-02 內容核准、D-03 格式核准（2026-09-24 已完成）＋**B-008-r2 合併**（發布版號必須等於 `intendedKnowledgeVersion`）。目標版本 `KB-2026-09-24-001`。不等待最終 E2E，避免與 B-010 循環依賴。
 - 階段 E2E（依開發順序逐步開啟，見 tasks/README「建議開發順序」）：B-011a → B-010 → B-005 → B-006 → C-005 → B-009 → B-011b；A-003-r2 提供距離排序的真實案例、A-005 提供推薦案例。
 - 部署環境可用（D-09 Netlify 額度；目前暫停）。平台阻擋一律記 PENDING。
 
@@ -32,7 +32,10 @@ CI 與整合接線（已交付，持續維護）：
 - [x] PR CI：frontend build、backend tests／typecheck、A-004 data validation、contract／mock 檢查；缺模組列 PENDING
 - [x] PR 不需 production secret；部署與 E2E 獨立手動觸發，不因 docs commit 消耗部署額度
 - [x] Real API adapter；正式模式不回 Mock 成功資料
-- [ ] 新 function 的路由（`/api/v1/recommendations`、`/api/v1/leads`、`/api/v1/consent/withdraw`）在 B-005／B-006／B-011b 合併時補上
+- [ ] 新 function 的路由（`/api/v1/recommendations`、`/api/v1/leads`、`/api/v1/consent/withdraw`、§26 管理 API）在 B-005／B-006／B-011b／B-012 合併時補上（r4：endpoint 覆蓋檢查已納入 §26，11 個 PENDING）
+- [x] 打包後 Functions 的實際執行（r4：`scripts/check-functions-runtime.mjs`，CI 與 gate）；`included_files` 帶上執行期讀取的 consent 版本檔
+- [x] 每日知識更新排程入口（r4：`.github/workflows/knowledge-crawler.yml`，16:10 UTC＝00:10 Asia/Taipei、20 分鐘上限、不重疊）；需 B-009 合併與 GitHub environment `staging` secrets
+- [x] 隔離 DB 驗證（r4：`tests/db/verify-db.mjs`，migration 依序套用、RLS、Provider 匯入回滾、知識發布／撤回）
 
 知識與資料：
 
@@ -53,7 +56,7 @@ CI 與整合接線（已交付，持續維護）：
 
 後續維護（J-003 自己的路徑，J-002-r4 不修改）：
 
-- [ ] 更新 `tests/e2e/acceptance-cases.json`：E2E-05 前置由 D-12 改為 D-01a；E2E-08 前置移除 D-08、改為 A-003-r2＋D-13g；E2E-10 前置改為 D-13b；新增「只有縣市 → CITY_ROTATION」「GPS 拒絕 → 行政區備援」「臺北市／新北市地方補助隔離」「Knowledge 版本切換」案例
+- [x] 更新 `tests/e2e/acceptance-cases.json`（r4）：E2E-05 前置由 D-12 改為 D-01a；E2E-08 前置移除 D-08、改為 A-003-r2＋D-13g；E2E-10 前置改為 D-13b；E2E-26 移除 D-11；新增 E2E-28〜43（只有縣市、GPS 拒絕、兩市隔離、版本切換與追溯、未發布／撤回／失效／不適用知識、D-17、D-17a、補助用語、Lead 併發、刪除 session、crawler 失敗保留上一版、快照／PDF 雜湊／去重、D-16 管理頁、主流程一次走完、錯誤不外洩、session 失效流程）；gate 檢查 MVP_TRACEABILITY 引用的案例不得缺
 
 ## Target
 
@@ -78,3 +81,4 @@ Submission Version 從 `J-003-r1` 起，退回後遞增。PR 必填 Added / Chan
 
 - 2026-09-23 J-002-r3：加入驗收分層。
 - 2026-09-23 J-002-r4：移除 AI／付費 AI smoke 相關要求（D-01 規則引擎），改為驗證規則引擎、Knowledge resolver 與 API 失敗行為；位置與補助驗收依 API_CONTRACT v0.2.2；B-009 不再有 D-11 替代方案。
+- 2026-09-25 J-003-r4：整合狀態表與風險重新核對、驗收案例 27→43、案例完整性檢查、打包後 Functions 檢查、`included_files`、Supabase 未設定時不外洩環境變數名稱、隔離 DB 驗證、crawler 排程入口、交回清單 H-1〜H-9。

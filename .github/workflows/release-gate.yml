@@ -54,6 +54,8 @@ jobs:
         # A failing runner must not skip the gate: the gate reports the recorded mismatch or FAIL.
         continue-on-error: true
         run: node tests/e2e/run-api-e2e.mjs --out="tests/e2e/results/ci-${{ github.run_id }}-${{ github.run_attempt }}.json"
+      - name: API toolchain (esbuild for the built-functions check)
+        run: npm ci --prefix apps/api
       - name: Release gate
         run: node scripts/acceptance-gate.mjs --mode=release
       - name: Keep E2E results

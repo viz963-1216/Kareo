@@ -8,7 +8,7 @@ Plan revision: 2026-09-23 / J-002-r4 / 10-22 MVP
 
 讓使用者完成**真實**的免費初評，取得可能需要的服務、可能適用的制度與補助說明，以及下一步（PRODUCT_SPEC §1、§3、§14–16、§33–34、§44、§50–51）：
 
-- 依 `docs/ASSESSMENT_RULES.md`（`RULES-2026-09-23-r2`）實作確定性規則引擎，取代線上的 Fake Adapter（D-01 SPEC-APPROVED：MVP 不使用 AI）。
+- 依 `docs/ASSESSMENT_RULES.md`（`RULES-2026-09-23-r2` 已核准；地方資訊模板 S-LOCAL-* 依 `RULES-2026-09-24-r3`，2026-09-24 核准）實作確定性規則引擎，取代線上的 Fake Adapter（D-01 SPEC-APPROVED：MVP 不使用 AI）。
 - 線上 `assessment` function 接上 B-008 的 **PUBLISHED Knowledge resolver**，取代 `NullKnowledgeVersionResolver`。
 - `summary` 依 §6 模板產生，包含補助說明（S-SUB-*）與地方資訊（S-LOCAL-*）；**所有政策數值只從 PUBLISHED Knowledge 讀取**。
 - `location` 依 API_CONTRACT v0.2.2 §8 的 precision 規則驗證：`NONE`／`CITY` 可以完成評估。
@@ -19,7 +19,7 @@ Plan revision: 2026-09-23 / J-002-r4 / 10-22 MVP
 
 - B-003、B-008 已合併（完成）。
 - **B-011a 已合併**（session token 與共用錯誤碼；避免與本任務同時修改 `assessment` function）。
-- 規則表 D-01a r2 為 PROPOSED：可依此實作，**正式驗收**需 Jerry 確認；規則表修改時同步調整測試。
+- 規則表 D-01a r2 已核准（2026-09-24）；日後規則表修改時同步調整測試。
 - 自動測試使用明確標示的 fixture 知識；真實 smoke 需要環境中已發布的正式知識（D-02 核准＋J-003 首次發布）。未就緒時在 PR 明列阻塞。
 
 ## 開始前必讀
@@ -44,12 +44,20 @@ Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更�
 
 ## Acceptance Criteria
 
-- [ ] ASSESSMENT_RULES §9 **T1–T23** 全部實作並通過（含 T20 哨兵測試：程式沒有寫死政策數值）
+- [ ] ASSESSMENT_RULES §9 **T1–T43** 全部實作並通過（含 T20 哨兵測試：程式沒有寫死政策數值）
 - [ ] 另測：資料庫失敗、resolver 失敗、無 PUBLISHED 版本、知識版本切換後結果引用新版本
 - [ ] 每種 location precision 的合法與非法組合測試；`NONE`、`CITY` 可完成評估
 - [ ] 回應格式與 `contracts/mock/assessment-response.json`、`contracts/mock/assessments/WITH-SUBSIDY-NEW_TAIPEI.json` 相容，無 API_CONTRACT §14 禁止欄位，warnings 必定存在
 - [ ] 不呼叫任何外部 AI／LLM，不新增相關套件或金鑰
 - [ ] 附可重現測試指令；真實 smoke（合成使用者資料＋已發布知識）證據，或明列阻塞；真實環境驗收由 J-003
+
+## 追加需求（2026-09-24，D-17；PR #33 開立後新增，需以修正版提交）
+
+- [ ] Assessment Request 接受選填 `disabilityCertificate`（YES／NO／UNKNOWN，未提供視為 UNKNOWN），保存於 Assessment（DATA_MODEL §8a，需要 migration）
+- [ ] 實作 ASSESSMENT_RULES r4：S-ELIG-DIS、§6.5 S-DIS-*；T25–T31 全部通過
+- [ ] `KAREO_DRIVE` 來源顯示 `ruleData.issuer`（§6.4）
+- [ ] 規則表 r6：臺北市地方紀錄 `LOCAL_AD_TOPUP`、`LOCAL_AD_TOPUP_PLAN`、`LOCAL_RESPITE_OPTIONS` 顯示於 S-LOCAL-INFO；S-EST-LOCAL-AD 依 r7 文字（2026-09-25 核准）；T39–T43 全部通過
+- [ ] （D-17a）接受選填 `incomeCategory`（LOW_INCOME／MIDDLE_LOW_INCOME／ALLOWANCE／GENERAL／UNKNOWN）並保存；實作 ASSESSMENT_RULES r5 §6.6 個人自付估算（FLOOR 取整）；T32–T38 全部通過
 
 ## Not In Scope
 

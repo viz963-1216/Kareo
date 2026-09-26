@@ -20,7 +20,7 @@ Status: QUEUED — 依賴 B-011a、B-005（B-004 已合併）；未見提交
 - B-004 已合併（完成）。
 - **B-011a 已合併**：token、歸屬檢查、`Idempotency-Key` 共用元件。
 - **B-005 已合併**：Lead 需驗證 `recommendationId` 屬於同一 session、`providerId` 在該推薦結果中（API_CONTRACT §12）。為避免循環，B-006 不修改 B-005 的表結構。
-- 規格：API_CONTRACT v0.2 §12、DATA_MODEL §22／§36–38、LEAD_OPERATIONS（D-04、D-06 PROPOSED，可逆實作）。
+- 規格：API_CONTRACT v0.2 §12、DATA_MODEL §22／§36–38、LEAD_OPERATIONS（D-04 已核准；D-06 接件規格 PROPOSED、人選 BLOCKED，API 與內部指令可先實作）。
 
 ---
 
