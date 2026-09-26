@@ -10,6 +10,7 @@ const REGISTRY_MD = `
 |---|---|---|---|---|---|---|---|
 | \`SRC-LAW-001\` | 長照辦法 | \`LAW\` | \`TAIWAN\` | https://law.moj.gov.tw/x | v1 | OK | true |
 | \`SRC-INACTIVE\` | 停用來源 | \`MOHW\` | \`TAIWAN\` | https://1966.gov.tw/x | v1 | OK | false |
+| \`SRC-DRIVE-NTPC-AD-TOPUP\` | 新北市輔具加碼 | \`KAREO_DRIVE\` | \`NEW_TAIPEI\` | https://drive.google.com/file/d/1V_dZRAeeUGYLKR_JrFFUg2g0un4nFmh5/view | v1 | OK | true |
 `;
 
 function validRecord(overrides: Partial<Record<string, unknown>> = {}) {
@@ -227,5 +228,121 @@ describe("importContentPack", () => {
     expect(report.written).toBe(true);
     const imported = repo.records.find((r) => r.packId === "KP-2026-09-23-001");
     expect(imported?.status).toBe("CONFLICT");
+  });
+});
+
+describe("KAREO_DRIVE source (D-15, B-008-r2)", () => {
+  const driveRecord = (overrides: Partial<Record<string, unknown>> = {}) =>
+    validRecord({
+      source: {
+        sourceId: "SRC-DRIVE-NTPC-AD-TOPUP",
+        authority: "KAREO_DRIVE",
+        url: "https://drive.google.com/file/d/1V_dZRAeeUGYLKR_JrFFUg2g0un4nFmh5/view",
+        fetchedAt: "2026-09-24T10:00:00+08:00",
+        contentHash: "sha256:" + "c".repeat(64),
+      },
+      ...overrides,
+    });
+
+  it("imports a record whose sourceId is registered as KAREO_DRIVE with a valid drive.google.com URL", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    const report = await importContentPack(repo, validPack([driveRecord()]), registry, { mode: "commit" });
+    expect(report.recordsRejected).toEqual([]);
+    expect(report.recordsValid).toBe(1);
+  });
+
+  it("rejects a KAREO_DRIVE record whose URL is not a drive.google.com/file/d/... link", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    const pack = validPack([driveRecord({ source: { ...driveRecord().source as object, url: "https://1966.gov.tw/x" } })]);
+    const report = await importContentPack(repo, pack, registry, { mode: "commit" });
+    expect(report.recordsRejected).toHaveLength(1);
+    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/KAREO_DRIVE 來源須為/);
+  });
+
+  it("rejects a KAREO_DRIVE sourceId that is not registered in source-registry.md", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    const pack = validPack([
+      driveRecord({ source: { ...driveRecord().source as object, sourceId: "SRC-DRIVE-UNREGISTERED" } }),
+    ]);
+    const report = await importContentPack(repo, pack, registry, { mode: "commit" });
+    expect(report.recordsRejected).toHaveLength(1);
+    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/不存在於 source-registry/);
+  });
+});
+
+describe("B-008-r3 (J-003 H-2): re-import with the same (packId, recordId) but different content", () => {
+  it("same content re-imported twice: idempotent, no correction, no duplicate row", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    await importContentPack(repo, validPack(), registry, { mode: "commit" });
+    const second = await importContentPack(repo, validPack(), registry, { mode: "commit" });
+
+    expect(second.recordsCorrected).toBe(0);
+    expect(second.recordsValid).toBe(0);
+    expect(repo.records.filter((r) => r.packId === "KP-2026-09-23-001")).toHaveLength(1);
+  });
+
+  it("changed content on a NEEDS_REVIEW record: updates content in place, forces status back to NEEDS_REVIEW, does not silently skip", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    await importContentPack(repo, validPack([validRecord({ summary: "舊版摘要" })]), registry, { mode: "commit" });
+    const original = repo.records.find((r) => r.packId === "KP-2026-09-23-001")!;
+
+    const corrected = validRecord({
+      summary: "修正後摘要",
+      source: { ...validRecord().source, contentHash: "sha256:" + "b".repeat(64) },
+    });
+    const report = await importContentPack(repo, validPack([corrected]), registry, { mode: "commit" });
+
+    expect(report.recordsCorrected).toBe(1);
+    expect(report.written).toBe(true);
+    expect(repo.records).toHaveLength(1); // updated in place, not a second row
+    const updated = repo.records[0];
+    expect(updated.id).toBe(original.id);
+    expect(updated.summary).toBe("修正後摘要");
+    expect(updated.contentHash).toBe("sha256:" + "b".repeat(64));
+    expect(updated.status).toBe("NEEDS_REVIEW"); // forced back to review even though the pack record itself says NEEDS_REVIEW/APPROVED
+  });
+
+  it("changed content whose pack record is already APPROVED still lands as NEEDS_REVIEW (approval is a separate deliberate step)", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    await importContentPack(repo, validPack([validRecord({ summary: "舊版摘要" })]), registry, { mode: "commit" });
+
+    const corrected = validRecord({
+      summary: "修正後摘要（已核准）",
+      status: "APPROVED",
+      review: { reviewedBy: "Jerry", reviewedAt: "2026-09-25T10:00:00+08:00", decision: "APPROVED", notes: null },
+      source: { ...validRecord().source, contentHash: "sha256:" + "c".repeat(64) },
+    });
+    await importContentPack(repo, validPack([corrected]), registry, { mode: "commit" });
+
+    expect(repo.records[0].status).toBe("NEEDS_REVIEW");
+    expect(repo.records[0].summary).toBe("修正後摘要（已核准）");
+  });
+
+  it("attempting to correct a record that is already PUBLISHED is rejected, not silently applied (history must not be mutated)", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    await importContentPack(repo, validPack([validRecord({ summary: "已發布版本" })]), registry, { mode: "commit" });
+    const original = repo.records[0];
+    original.status = "PUBLISHED";
+    original.version = "KB-2026-09-25-001";
+
+    const corrected = validRecord({
+      summary: "想要更改已發布內容",
+      source: { ...validRecord().source, contentHash: "sha256:" + "d".repeat(64) },
+    });
+    const report = await importContentPack(repo, validPack([corrected]), registry, { mode: "commit" });
+
+    expect(report.written).toBe(false);
+    expect(report.recordsRejected).toHaveLength(1);
+    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/已發布於正式版本/);
+    // the PUBLISHED record itself must be completely untouched
+    expect(repo.records[0].summary).toBe("已發布版本");
+    expect(repo.records[0].status).toBe("PUBLISHED");
   });
 });

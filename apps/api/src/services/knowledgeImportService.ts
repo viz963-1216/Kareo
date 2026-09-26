@@ -53,13 +53,15 @@ const CATEGORIES: KnowledgeCategory[] = [
   "OTHER",
 ];
 const JURISDICTIONS: Jurisdiction[] = ["TAIWAN", "TAIPEI", "NEW_TAIPEI"];
-const AUTHORITIES = ["MOHW", "LAW", "TAIPEI_GOV", "NEW_TAIPEI_GOV"];
+// KAREO_DRIVE（D-15，2026-09-24 核准）：Jerry 指定資料夾來源，不是官方網站；URL 規則不同於其他來源。
+const AUTHORITIES = ["MOHW", "LAW", "TAIPEI_GOV", "NEW_TAIPEI_GOV", "KAREO_DRIVE"];
 const RECORD_STATUSES = ["NEEDS_REVIEW", "APPROVED", "REJECTED", "CONFLICT"];
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const ISO_DATETIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
 const CONTENT_HASH = /^sha256:[0-9a-f]{64}$/;
 const SOURCE_URL = /^https:\/\/([a-z0-9-]+\.)*(gov\.tw|gov\.taipei)\//;
+const KAREO_DRIVE_URL = /^https:\/\/drive\.google\.com\/file\/d\/[A-Za-z0-9_-]+\//;
 const RECORD_ID = /^KR-\d{4}-\d{3}$/;
 const SOURCE_ID = /^SRC-[A-Z0-9-]+$/;
 
@@ -91,7 +93,12 @@ function validateRecord(raw: RawContentPackRecord, packId: string, registry: Map
   } else {
     if (!isNonEmptyString(source.sourceId) || !SOURCE_ID.test(source.sourceId)) reasons.push("source.sourceId 格式不合法");
     if (!isOneOf(source.authority, AUTHORITIES)) reasons.push("source.authority 不合法");
-    if (!isNonEmptyString(source.url) || !SOURCE_URL.test(source.url)) reasons.push("source.url 不在白名單網域（僅允許 gov.tw / gov.taipei）");
+    if (source.authority === "KAREO_DRIVE") {
+      if (!isNonEmptyString(source.url) || !KAREO_DRIVE_URL.test(source.url))
+        reasons.push("source.url 格式不合法（KAREO_DRIVE 來源須為 https://drive.google.com/file/d/<fileId>/… 網址）");
+    } else if (!isNonEmptyString(source.url) || !SOURCE_URL.test(source.url)) {
+      reasons.push("source.url 不在白名單網域（僅允許 gov.tw / gov.taipei）");
+    }
     if (!isNonEmptyString(source.fetchedAt) || !ISO_DATETIME.test(source.fetchedAt)) reasons.push("source.fetchedAt 格式不合法");
     if (!isNonEmptyString(source.contentHash) || !CONTENT_HASH.test(source.contentHash))
       reasons.push("source.contentHash 格式不合法（需為 sha256:<64 hex>）");
@@ -174,7 +181,11 @@ export interface ImportRecordRejection {
 }
 
 // 依 contracts/knowledge/README.md §3：整批驗證，任一筆不合格就整批不寫入；
-// 已存在的 (packId, recordId) 視為已匯入，跳過但不算拒收（冪等，重複匯入不產生重複紀錄）；
+// 已存在且內容雜湊相同的 (packId, recordId) 視為已匯入，跳過但不算拒收（冪等，重複匯入不產生重複紀錄）。
+// 已存在但內容雜湊不同（B-008-r3，J-003 H-2）：不可靜默略過——核准必須綁定實際被審核的內容，不能只
+// 靠 (packId, recordId) 或 status 判斷。尚未 PUBLISHED 的紀錄會更新內容並強制回 NEEDS_REVIEW，即使
+// 內容包本身已是 APPROVED（核准仍要走獨立的 approveKnowledgePack 步驟，讀取「這次」的內容）；已經
+// PUBLISHED 的歷史紀錄不可被匯入覆寫，回報為拒收（需要走新版本發布流程，不得竄改已發布歷史）。
 // 內容包中 status=REJECTED 的紀錄不建立 KnowledgeRecord（沒有值得再審的內容）。
 // 匯入後資料庫狀態一律 NEEDS_REVIEW，除非偵測到與現有 PUBLISHED 紀錄衝突則標記 CONFLICT
 // （即使內容包本身已是 APPROVED，也不代表資料庫核准，見 README §3 第 4 點）。
@@ -192,6 +203,7 @@ export async function importContentPack(
       packId: isNonEmptyString(raw.packId) ? raw.packId : null,
       recordsValid: 0,
       recordsRejected: [{ recordId: null, reasons: shell.reasons }],
+      recordsCorrected: 0,
     };
   }
 
@@ -214,17 +226,45 @@ export async function importContentPack(
   }
 
   if (rejections.length > 0) {
-    return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: rejections };
+    return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: rejections, recordsCorrected: 0 };
   }
 
-  const candidateIds = validated.map((v) => v.value.packRecordId);
-  const alreadyImported = await repo.findByPackRecordIds(packId, candidateIds);
-  const toImport = validated.filter(
-    (v) => v.packDecision !== "REJECTED" && !alreadyImported.has(v.value.packRecordId)
-  );
+  // 找出這個 packId 目前資料庫裡已有的紀錄（含內容），依 packRecordId 建索引，用來判斷
+  // 「全新」／「內容相同（略過）」／「內容不同（更正）」／「已發布不可覆寫（拒收）」。
+  const existingRecords = await repo.findRecordsByPackId(packId);
+  const existingByPackRecordId = new Map(existingRecords.map((r) => [r.packRecordId, r]));
+
+  const toInsert: Array<{ value: (typeof validated)[number]["value"] }> = [];
+  const toCorrect: Array<{ id: string; value: (typeof validated)[number]["value"] }> = [];
+  const publishedConflicts: ImportRecordRejection[] = [];
+
+  for (const item of validated) {
+    if (item.packDecision === "REJECTED") continue; // 內容包本身標記拒收，不建立也不更新任何紀錄。
+    const existing = existingByPackRecordId.get(item.value.packRecordId);
+    if (!existing) {
+      toInsert.push(item);
+      continue;
+    }
+    if (existing.contentHash === item.value.contentHash) {
+      continue; // 內容相同，冪等略過。
+    }
+    if (existing.status === "PUBLISHED") {
+      publishedConflicts.push({
+        recordId: item.value.packRecordId,
+        reasons: [`此紀錄（資料庫 id ${existing.id}）已發布於正式版本，不可用匯入覆寫已發布的歷史內容；需要走新版本發布流程。`],
+      });
+      continue;
+    }
+    toCorrect.push({ id: existing.id, value: item.value });
+  }
+
+  if (publishedConflicts.length > 0) {
+    // 缺筆／部分失敗不得回報全部成功：本次匯入整批不寫入，讓操作者先解決已發布紀錄的處理方式。
+    return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: publishedConflicts, recordsCorrected: 0 };
+  }
 
   const records: KnowledgeRecord[] = [];
-  for (const item of toImport) {
+  for (const item of toInsert) {
     const existingPublished = await repo.findPublishedByKey(item.value.jurisdiction, item.value.category, item.value.title);
     const status: KnowledgeRecordStatus =
       existingPublished && existingPublished.contentHash !== item.value.contentHash ? "CONFLICT" : "NEEDS_REVIEW";
@@ -233,9 +273,27 @@ export async function importContentPack(
   }
 
   if (options.mode === "dry-run") {
-    return { mode: "dry-run", written: false, packId, recordsValid: records.length, recordsRejected: [] };
+    return {
+      mode: "dry-run",
+      written: false,
+      packId,
+      recordsValid: records.length,
+      recordsRejected: [],
+      recordsCorrected: toCorrect.length,
+    };
   }
 
   await repo.insertRecords(records);
-  return { mode: "commit", written: records.length > 0, packId, recordsValid: records.length, recordsRejected: [] };
+  for (const item of toCorrect) {
+    await repo.updateRecordContent(item.id, item.value);
+  }
+
+  return {
+    mode: "commit",
+    written: records.length > 0 || toCorrect.length > 0,
+    packId,
+    recordsValid: records.length,
+    recordsRejected: [],
+    recordsCorrected: toCorrect.length,
+  };
 }
