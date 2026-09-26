@@ -5,11 +5,16 @@ Files here do not run in CI and never count as E2E results (`tests/e2e/`). They 
 combination or the module's own branch). Names end in `.ts` / `.repro.ts` so the root `tests/**/*.test.*`
 glob and `apps/api` Vitest do not pick them up here.
 
-| File | For | Today (trial: staging `fd4154a` + #32 #33 #36 #37 #35 #30 #34) |
+Results are per commit; older results stay in `docs/INTEGRATION_ACCEPTANCE.md` run records.
+
+| File | For | Result (2026-09-27, J-003-r5) |
 |---|---|---|
-| `repro/b008-approval-binding.repro.ts` | B-008-r3 (hand-back H-3) | FAIL — a corrected text re-imported under the same `(packId, recordId)` is skipped silently and the old text is approved |
-| `repro/b009-hash-dedupe.repro.ts` | B-009-r2 (H-5) | 2 FAIL — unchanged PDF creates a change; the same change is created again the next day |
-| `first-publish-dryrun.ts` | J-003 first publication pre-flight | PASS — 5 packs, 21/21 records published as `KB-2026-09-24-001`; Taipei／New Taipei local lines do not cross |
+| `repro/b008-approval-binding.repro.ts` | B-008 H-3 (first round) | PASS on #36 `7b77e9c` (resolved; was FAIL on `1c73987`) |
+| `repro/b008-content-fingerprint.repro.ts` | B-008 H-3 (second round, Codex cases A／B／D／F) | A, B, D FAIL; F PASS on `7b77e9c` |
+| `repro/b009-hash-dedupe.repro.ts` | B-009 H-5 (PDF hash, de-duplication) | PASS 2/2 on #37 `467cb14` (resolved; was FAIL on `80bd5fc`) |
+| `repro/b009-baseline.repro.ts` | B-009: unchanged HTML vs raw-HTML baseline | FAIL on `467cb14` |
+| `repro/b005-distance-and-write.repro.ts` | B-005: ranking by rounded distance; orphan run on items failure | 2 FAIL on #40 `1a12c62` (`e867dbb` only adds the J-003 route) |
+| `first-publish-dryrun.ts` | J-003 first publication pre-flight | PASS (21/21) on the trial staging `d7d5107` + #33 + #36 + #40 + #37 |
 
 ```bash
 cp tests/integration/repro/b008-approval-binding.repro.ts apps/api/tests/b008-approval-binding.test.ts
@@ -18,3 +23,6 @@ cd apps/api && npx vitest run tests/b008-approval-binding.test.ts
 
 Database-level checks (migrations, RLS, Provider import rollback, knowledge publish／withdraw) are in
 `tests/db/verify-db.mjs`; they run against an in-process PostgreSQL and work on `staging` as it is.
+`--upgrade-from=0008` checks the upgrade path (existing published knowledge, then the new migrations).
+`tests/db/detect-applied-migrations.sql` is a read-only catalog query that shows which migrations a real
+database already has.

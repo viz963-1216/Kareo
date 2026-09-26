@@ -32,9 +32,9 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
-# Task Board（2026-09-23，J-002-r4 依 staging `8c59a99`、GitHub PR 與遠端分支核對）
+# Task Board（2026-09-27，J-003-r5 依 staging `d7d5107`、GitHub PR 與遠端分支核對）
 
-GitHub 核對結果：沒有開啟中的 PR。2026-09-23 合併：A-004（#18）、B-004（#16）、B-008（#26）、C-004（#27）、J-002-r3（#28）、J-003-r3（#29）。C-004 的 API 入口衝突與距離 Mock 已在合併前修正（PR #27 留言）。Issue #25（C-004 Mock fixtures）仍為 open，內容已由 PR #24／#27 處理，待 Jerry 關閉。目前**沒有任何任務達到 INTEGRATED 或 PROD-ACCEPTED**。
+「模組」欄只代表 PR 狀態；「整合」欄只在 J-003 有對應證據時才寫。逐項證據與交回清單見 `docs/INTEGRATION_ACCEPTANCE.md`〈整合狀態表（2026-09-27）〉。
 
 ## Engineer A
 
@@ -42,48 +42,45 @@ GitHub 核對結果：沒有開啟中的 PR。2026-09-23 合併：A-004（#18）
 |---|---|---|---|---|
 | A-001、A-002 | MERGED（#2；A-002 隨 #13） | 未確認 | — | — |
 | A-003 r1 | MERGED（#13） | — | — | — |
-| **A-003-r2 已驗證座標** | READY；未見提交 | — | A-004 ✅ | ▶ 補可追溯座標＋覆蓋率報告（精確位置距離排序的資料前置） |
-| A-004 Validation Gate | MERGED（#18，r2；服務 id／active 已補齊） | — | — | 供 B-004 正式匯入（J-003） |
-| **A-005 QA Cases** | READY；未見提交 | — | A-004 ✅ | 依 API_CONTRACT §9 補位置與家數案例 |
+| **A-003-r3 已驗證座標** | IN REVIEW（#39 `3e44e27`）：報告可讀；**30／30 座標仍為 null／PENDING** | 否：DISTANCE 無法真實驗收 | A-004 ✅ | 依 #39 Jerry 2026-09-27 留言補可追溯座標；座標任務**未完成** |
+| A-004 Validation Gate | MERGED（#18） | 未確認：正式匯入未執行 | — | 供 B-004 正式匯入（J-003） |
+| A-005 QA Cases | MERGED（#30 `ffc0796`，位置案例已依 D-13 更新） | — | — | 供 B-005／J-003 推薦驗收 |
 
-## Engineer B（維持單一 Active Task）
+## Engineer B（修正順序：#36 B-008 → #40 B-005 → #37 B-009；#33 由 Jerry 合併）
 
 | Task | 模組 | 整合 | 前置 | 下一步 |
 |---|---|---|---|---|
-| B-001、B-002 | MERGED（#3；B-002 分支已併入） | 未確認 | — | — |
-| B-003 Assessment API 基礎 | MERGED（#12） | **否**：線上仍為 Fake Adapter＋Null resolver，一律 `KNOWLEDGE_UNAVAILABLE` | — | 由 B-010 替換 |
-| B-004 Provider Domain + Import | MERGED（#16） | 未確認：正式匯入與 staging 回滾測試未執行（J-003） | — | — |
-| B-007 Kareocar API | MERGED（#14） | 未確認：Kareocar 站因 Netlify 額度暫停（D-09） | — | — |
-| B-008 Knowledge Foundation | MERGED（#26）；D-03、D-10 延伸使用已核准（9/24） | 未確認：尚無 PUBLISHED 版本 | — | — |
-| **B-008-r2 發布版號＋失效紀錄修正** | READY；未見提交 | — | — | ▶ **下一個 Active Task**（卡住首次知識發布） |
-| **B-011a Session／歸屬保護** | READY；未見提交 | — | B-004 ✅、B-008 ✅ | B-008-r2 之後 |
-| B-010 規則引擎＋正式知識接線（含補助說明、location 驗證） | IN REVIEW（PR #33，需確認是否依 B-011a） | — | B-011a | 規則表 D-01a r2 確認後才算正式驗收 |
-| B-005 Recommendation（全部 rankingType） | QUEUED；未見提交 | — | B-011a | 距離真實案例需 A-003-r2 |
-| B-006 Lead API＋內部查件 | QUEUED；未見提交 | — | B-011a、B-005 | 真人接件需 D-06 |
-| B-009 每日知識更新（00:10） | READY（B-008 ✅）；未見提交 | — | B-008 ✅ | 原始 MVP 必要；排在 B-006 之後 |
-| B-011b 完整安全驗收 | QUEUED | — | B-005、B-006、B-010 | — |
-| B-012 Admin Knowledge API（D-16） | QUEUED；未見提交 | — | B-008-r2、B-009、B-011a | 管理頁面發布知識 |
+| B-001、B-002 | MERGED | 未確認 | — | — |
+| B-003 Assessment API 基礎 | MERGED（#12） | 否：staging 線上仍為 Fake Adapter | — | 由 B-010 替換 |
+| B-004 Provider Domain + Import | MERGED（#16） | 未確認：正式匯入與 staging 回滾未執行 | — | — |
+| B-007 Kareocar API | MERGED（#14） | 否：Kareocar 站 503（D-09） | — | — |
+| B-008 r1 | MERGED（#26） | 否：無 PUBLISHED 版本 | — | — |
+| **B-008-r2／r3** | IN REVIEW（#36 `7b77e9c`） | 否 | — | 內容指紋綁定（repro A／B／D FAIL）；`knowledge_version_records` 回填（U2／U3）；`/knowledge/status` 讀版本成員（K10）；migration 0013→0012 |
+| B-011a Session／歸屬保護 | MERGED（#32） | 否（部署暫停） | — | — |
+| **B-010 規則引擎** | IN REVIEW（#33 `98e933f`）：前輪修正已通過（222/222、r7） | 否 | B-011a ✅ | 合併候選；#36 合併後快照改讀版本成員（K10）並更新 4 個 publishVersion 測試 |
+| **B-005 Recommendation** | IN REVIEW（#40 `e867dbb`，路由由 J-003 補上） | 否 | B-011a ✅ | 距離先取整、寫入非原子（repro FAIL）；與 #33 的 6 個型別錯誤；migration 0009→0013 |
+| B-006 Lead API＋內部查件 | 未見提交 | — | B-005 | — |
+| **B-009 每日知識更新** | IN REVIEW（#37 `467cb14`） | 否 | — | PDF 雜湊與去重已解決；原始快照、HTML 比較基準仍 FAIL；migration 0012／0013→0014／0015 |
+| B-011b 完整安全驗收 | 未見提交 | — | B-005、B-006、B-010 | — |
+| B-012 Admin Knowledge API（D-16） | 未見提交 | — | B-008、B-009 | — |
 
 ## Engineer C
 
 | Task | 模組 | 整合 | 前置 | 下一步 |
 |---|---|---|---|---|
-| C-001、C-002 | MERGED（#4、#11，Mock） | 未確認 | — | — |
-| C-003 Top 3 UI | MERGED（#17，Mock） | 未確認：推薦 API 尚不存在 | — | 真實驗收由 J-003 |
-| C-004 Provider Detail＋Maps | MERGED（#27，Mock） | 未確認：尚無正式 Provider 匯入 | — | 真實驗收由 J-003 |
-| **C-005 補助說明顯示＋位置三情境＋Lead＋UX** | IN REVIEW（PR #34） | — | C-004 ✅ | Jerry review |
-| C-006 知識審核與發布頁（D-16） | QUEUED；未見提交 | — | Mock（J-002 提供）；真實接線依 B-012 | C-005 之後 |
-
-**C 的驗收分層**：C-003／C-004／C-005 都是 **Mock 模組驗收**（`VITE_KAREO_API_MODE=mock`，fixtures 來自 `contracts/mock/`）。真實 API 串接與 E2E 屬 J-003，記錄在 `docs/INTEGRATION_ACCEPTANCE.md`。兩者不得互相代替。
+| C-001〜C-004 | MERGED（Mock） | 未確認 | — | 真實驗收由 J-003 |
+| **C-005** | IN REVIEW（#34 `599e0a2`：J-003 已同步 staging，diff 只剩 apps/web） | 否 | — | C-005-r2：`disabilityCertificate`／`incomeCategory`；移植 e3a065a 的 6 項補強（見 #34 留言） |
+| C-006 知識審核與發布頁（D-16） | 未見提交 | — | B-012 | — |
 
 ## Jerry
 
 | Task | 狀態 | 下一步 |
 |---|---|---|
-| J-001 Netlify + Supabase staging | MERGED（#6） | 部署因額度暫停（D-09） |
-| J-002 規格／知識／隱私／Lead／位置 | r1–r4 DOC-MERGED（#19、#28、#31）；r5（臺北市地方知識）送審中；知識 5 包：18 筆核准、3 筆待重新核准（KR-2026-019～021，PR #35 查核修正）、1 筆退回，皆尚未發布（目標 `KB-2026-09-24-001`） | 見「待 Jerry 決定」 |
-| J-003 CI + Integration | r1–r3 MERGED（#20、#29）；**Integrated：否**；release gate FAIL（PENDING 未清） | 首次知識發布（待 D-02）；依開發順序逐段 E2E |
-| J-004 Release readiness | 準備文件 MERGED（#22）；gate CLOSED；未演練 | — |
+| J-001 Netlify + Supabase staging | MERGED（#6） | 部署仍 503 `usage_exceeded`（2026-09-27 重新查證，D-09） |
+| J-002 規格／知識 | r1–r5 DOC-MERGED（#19、#28、#31、#35）；5 包 21 筆核准、1 筆退回，**尚未發布** | — |
+| J-003 CI + Integration | r1–r4 MERGED（#20、#29、#38）；r5 IN REVIEW；**Integrated：否** | 見 INTEGRATION_ACCEPTANCE |
+| J-004 Release readiness | 準備文件 MERGED（#22）；gate CLOSED | — |
+
 
 ---
 
@@ -140,29 +137,21 @@ J-002：D-02、D-03 核准 ✅ ＋ B-008-r2 ─→ J-003 首次知識發布 ─�
 
 ---
 
-# 修正要求（依最新 staging）
+# 修正要求（2026-09-27，依最新 PR 與 J-003-r5 驗證）
 
-**Engineer A**
+逐項狀態、commit 與可重現命令見 `docs/INTEGRATION_ACCEPTANCE.md`〈交回清單〉。各 PR 上已有 Jerry／Codex 第二輪提示詞與 J-003-r5 留言（2026-09-27），本節只列摘要。
 
-1. A-003-r2：已驗證座標與覆蓋率報告（TASK-A-003）。
-2. A-005：依 API_CONTRACT v0.2.2 §9 的位置與家數案例（TASK-A-005）。
-3. PR #8（A-002 舊 PR）已關閉，無需處理。
+**Engineer A**：#39 補可追溯的已驗證座標（目前 0／30）；缺 Service Area 的類別另列證據缺口。
 
-**Engineer B**
+**Engineer B**（依序）：
+1. #36 B-008：審核內容指紋與原子核准；版本成員回填；`/knowledge/status` 讀版本成員；migration 改 `0012_knowledge_version_traceability.sql`。
+2. #40 B-005：未取整距離排序；Run＋Items 原子寫入；與 #33 的型別衝突；migration 改 `0013_recommendation.sql`；推送前先 pull J-003 的路由 commit `e867dbb`。
+3. #37 B-009：原始快照保存；同一表示法比較；migration 改 `0014_crawler_runs.sql`、`0015_crawler_hash_traceability.sql`。
+4. #33 B-010（#36 合併後）：快照改讀 `knowledge_version_records`；更新 4 個 publishVersion 測試。
 
-1. 下一個 Active Task：**B-008-r2**（TASK-B-008 末段：發布版號用 `intendedKnowledgeVersion`、排除已失效紀錄）；接著 B-011a（TASK-B-011）。`generateId()` 的 `Math.random()` 不得用於 token。
-2. B-010：規則引擎＋PUBLISHED resolver 接線、補助說明模板、location precision 驗證（`NONE`／`CITY` 可完成評估）；政策數值不得寫死（哨兵測試 T20）。
-3. B-005：全部 rankingType 分支與回應欄位一律出現（API_CONTRACT §9）。
+**Engineer C**：#34 C-005-r2：先 pull J-003 的 staging 同步 commit `599e0a2`；新增兩題選填；移植 e3a065a 的 6 項。
 
-**Engineer C**
-
-1. C-005 可立即開工（Mock）：結果頁逐行顯示補助說明與 `knowledgeVersion`、位置三情境與 GPS 備援、各 rankingType 畫面、Lead Flow。
-2. 前端送出的 consent 版本讀取部署設定，不寫死；session token、`Idempotency-Key` 由 API adapter 處理。
-
-**Jerry（J-003）**
-
-1. 更新 `tests/e2e/acceptance-cases.json` 的前置與新增案例（TASK-J-003「後續維護」）。
-2. D-02、D-03 已核准：B-008-r2 合併後，在整合環境執行首次知識發布（目標 `KB-2026-09-24-001`）並留證。
+**Jerry（J-003）**：merge 順序依 migration 編號（#33 → #36 → #40 → #37）；唯讀確認 staging 已套用的 migration（`tests/db/detect-applied-migrations.sql`）；B-008 驗證通過後才提出首次知識發布執行步驟。
 
 ---
 
