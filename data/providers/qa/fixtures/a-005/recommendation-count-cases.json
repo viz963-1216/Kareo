@@ -1,0 +1,38 @@
+{
+    "submissionVersion": "A-005-r1",
+    "purpose": "QA acceptance fixture for Recommendation provider count boundary cases.",
+    "cases": [
+      {
+        "caseId": "AC-001",
+        "scenario": "0 matching providers",
+        "matchingProviderCount": 0,
+        "expectedProviderCount": 0,
+        "expectedSuccess": true,
+        "expectedEmptyProviders": true,
+        "mustNotReturnError": true
+      },
+      {
+        "caseId": "AC-002",
+        "scenario": "1 matching provider",
+        "matchingProviderCount": 1,
+        "expectedProviderCount": 1,
+        "expectedSuccess": true,
+        "mustNotFillToThree": true
+      },
+      {
+        "caseId": "AC-003",
+        "scenario": "2 matching providers",
+        "matchingProviderCount": 2,
+        "expectedProviderCount": 2,
+        "expectedSuccess": true,
+        "mustNotFillToThree": true
+      },
+      {
+        "caseId": "AC-004",
+        "scenario": "3 matching providers",
+        "matchingProviderCount": 3,
+        "expectedProviderCount": 3,
+        "expectedSuccess": true
+      }
+    ]
+  }

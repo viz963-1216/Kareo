@@ -1,0 +1,55 @@
+# TASK-J-003 schedule entry for the B-009 knowledge crawler (PRODUCT_SPEC §42: every day 00:10 Asia/Taipei).
+#
+# Why GitHub Actions and not a Netlify Scheduled Function: scheduled functions stop after ~30 seconds, while
+# one crawl checks every active Source Registry entry in sequence with a 20-second timeout each (minutes in
+# total). A cut-off run would leave some sources unchecked without a FAILED record. Actions gives the job a
+# 20-minute limit and does not consume Netlify deploy credits (MVP_DECISIONS D-09).
+#
+# Timing: 16:10 UTC = 00:10 Asia/Taipei (no DST). GitHub may start scheduled runs late under load and only
+# runs schedules from the default branch (main), so this fires after a release to main. Manual runs use
+# workflow_dispatch (also only listed once the file is on main).
+# Duplicate triggers: runs never overlap (concurrency group, queued, not cancelled). A second run on the
+# same day re-checks sources; it must not create duplicate KnowledgeChange rows (B-009 de-duplication,
+# acceptance case E2E-26／E2E-39).
+# The crawler only writes CrawlerRun／KnowledgeChange (NEEDS_REVIEW). It never approves or publishes.
+#
+# Needs repository environment "staging" with secrets SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY
+# (set by Jerry in GitHub settings; never in the repo, PR or chat).
+name: Knowledge crawler
+
+on:
+  schedule:
+    - cron: '10 16 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: knowledge-crawler
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    name: Daily official-source check (00:10 Asia/Taipei)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: staging
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/api/package-lock.json
+      - name: Preconditions
+        run: |
+          test -f apps/api/src/scripts/runCrawler.ts || { echo "::error::B-009 crawler is not on this branch (apps/api/src/scripts/runCrawler.ts missing)"; exit 1; }
+          test -n "$SUPABASE_URL" && test -n "$SUPABASE_SERVICE_ROLE_KEY" || { echo "::error::environment 'staging' secrets SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY are not set"; exit 1; }
+      - run: npm ci --prefix apps/api
+      - run: npm run build --prefix apps/api
+      - name: Crawl (exit 1 when any source failed; failures are recorded as CrawlerRun FAILED)
+        run: node apps/api/dist/scripts/runCrawler.js

@@ -6,11 +6,13 @@ import { SupabaseKnowledgeRepository } from "../repositories/supabaseKnowledgeRe
 import { RuleBasedAssessmentEngine } from "../assessment/ruleBasedAssessmentEngine.js";
 import { DatabaseKnowledgeResolver } from "../adapters/knowledgeVersionResolver.js";
 import { successResponse, internalErrorResponse, errorResponse, type HttpResponse } from "../lib/response.js";
+import { getSessionTokenHeader } from "../lib/headers.js";
 import { AppError } from "../errors/AppError.js";
 
 interface NetlifyEvent {
   httpMethod: string;
   body: string | null;
+  headers?: Record<string, string | undefined> | null;
 }
 
 // TASK-B-010：正式組裝 ASSESSMENT_RULES 規則引擎（D-01：MVP 不使用 AI）＋ B-008 的 PUBLISHED Knowledge。
@@ -37,7 +39,8 @@ export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
         aiAdapter: new RuleBasedAssessmentEngine(),
         knowledgeResolver: new DatabaseKnowledgeResolver(new SupabaseKnowledgeRepository()),
       },
-      parsedBody
+      parsedBody,
+      getSessionTokenHeader(event)
     );
 
     // rulesVersion／ruleTrace 只存資料庫，不回傳前端（DATA_MODEL v0.2.2 §7）。

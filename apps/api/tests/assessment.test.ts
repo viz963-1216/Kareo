@@ -38,13 +38,22 @@ const validBody: CreateAssessmentInput = {
   freeText: "最近上下樓比較困難，家人白天需要上班。",
 };
 
-async function buildDeps(overrides: Partial<AssessmentServiceDeps> = {}) {
+async function buildDeps(overrides: Partial<AssessmentServiceDeps> = {}): Promise<{
+  deps: AssessmentServiceDeps;
+  sessionRepo: InMemorySessionRepository;
+  consentRepo: InMemoryConsentRepository;
+  assessmentRepo: InMemoryAssessmentRepository;
+  logs: Record<string, string>[];
+  sessionId: string;
+  sessionToken: string;
+  body: CreateAssessmentInput;
+}> {
   const sessionRepo = new InMemorySessionRepository();
   const consentRepo = new InMemoryConsentRepository();
   const assessmentRepo = new InMemoryAssessmentRepository();
-  const session = await sessionRepo.createSession();
+  const created = await sessionRepo.createSession();
   await consentRepo.createConsent({
-    sessionId: session.id,
+    sessionId: created.id,
     disclaimerVersion: "1.0",
     privacyVersion: "1.0",
     termsVersion: "1.0",
@@ -61,15 +70,25 @@ async function buildDeps(overrides: Partial<AssessmentServiceDeps> = {}) {
     log: (e) => logs.push(e),
     ...overrides,
   };
-  return { deps, sessionRepo, consentRepo, assessmentRepo, logs, body: { ...validBody, sessionId: session.id } };
+
+  return {
+    deps,
+    sessionRepo,
+    consentRepo,
+    assessmentRepo,
+    logs,
+    sessionId: created.id,
+    sessionToken: created.sessionToken,
+    body: { ...validBody, sessionId: created.id },
+  };
 }
 
 afterEach(() => vi.restoreAllMocks());
 
-describe("Assessment service — session / consent gate", () => {
-  it("creates an assessment with valid session + consent and stores knowledgeVersion, rulesVersion and ruleTrace", async () => {
-    const { deps, body, assessmentRepo } = await buildDeps();
-    const result = await createAssessment(deps, body);
+describe("Assessment service — session / consent gate (TASK-B-011a)", () => {
+  it("creates an assessment with valid session token + consent and stores knowledgeVersion, rulesVersion and ruleTrace", async () => {
+    const { deps, body, sessionToken, assessmentRepo } = await buildDeps();
+    const result = await createAssessment(deps, body, sessionToken);
 
     expect(result.assessment.id).toMatch(/^ASM-/);
     expect(result.assessment.status).toBe("COMPLETED");
@@ -81,37 +100,200 @@ describe("Assessment service — session / consent gate", () => {
     expect(assessmentRepo.careNeedProfiles).toHaveLength(1);
   });
 
-  it("rejects an unknown session (CONSENT_REQUIRED) without loading knowledge or writing", async () => {
-    const resolver: PublishedKnowledgeResolver = { resolvePublishedKnowledge: vi.fn() };
-    const { deps, assessmentRepo } = await buildDeps({ knowledgeResolver: resolver });
-    await expect(createAssessment(deps, { ...validBody, sessionId: "SES-DOES-NOT-EXIST" })).rejects.toMatchObject({
-      code: "CONSENT_REQUIRED",
+  it("rejects with no session token at all (SESSION_INVALID), before touching consent", async () => {
+    const { deps } = await buildDeps();
+    const body = { ...validBody, sessionId: "SES-DOES-NOT-EXIST" };
+
+    await expect(createAssessment(deps, body, undefined)).rejects.toMatchObject({ code: "SESSION_INVALID" });
+  });
+
+  it("rejects a forged/unknown session token (SESSION_INVALID)", async () => {
+    const { deps, sessionId } = await buildDeps();
+    const body = { ...validBody, sessionId };
+
+    await expect(createAssessment(deps, body, "forged-token-that-does-not-exist")).rejects.toMatchObject({
+      code: "SESSION_INVALID",
     });
+  });
+
+  it("rejects an expired session token (SESSION_INVALID)", async () => {
+    const { deps, sessionRepo, sessionId, sessionToken } = await buildDeps();
+    const session = sessionRepo.sessions.find((s) => s.id === sessionId)!;
+    session.expiresAt = new Date(Date.now() - 1000).toISOString(); // 已過期
+
+    const body = { ...validBody, sessionId };
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "SESSION_INVALID" });
+  });
+
+  it("rejects a token from a different, deleted/inactive session (SESSION_INVALID)", async () => {
+    const { deps, sessionRepo, sessionId, sessionToken } = await buildDeps();
+    const session = sessionRepo.sessions.find((s) => s.id === sessionId)!;
+    session.status = "DELETED";
+
+    const body = { ...validBody, sessionId };
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "SESSION_INVALID" });
+  });
+
+  it("session A's token cannot be used to act as session B (FORBIDDEN) — no cross-session access", async () => {
+    const { deps, sessionToken } = await buildDeps(); // session A
+    const otherSessionRepo = new InMemorySessionRepository();
+    const sessionB = await otherSessionRepo.createSession(); // 不同的 session B
+
+    const body = { ...validBody, sessionId: sessionB.id };
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "FORBIDDEN" });
+  });
+
+  it("rejects when session token is valid but has no consent (CONSENT_REQUIRED), without loading knowledge or writing", async () => {
+    const resolver: PublishedKnowledgeResolver = { resolvePublishedKnowledge: vi.fn() };
+    const { deps, sessionId, sessionToken, assessmentRepo } = await buildDeps({
+      consentRepo: new InMemoryConsentRepository(), // 空的，沒有任何 Consent
+      knowledgeResolver: resolver,
+    });
+    const body = { ...validBody, sessionId };
+
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "CONSENT_REQUIRED" });
     expect(resolver.resolvePublishedKnowledge).not.toHaveBeenCalled();
     expect(assessmentRepo.assessments).toHaveLength(0);
   });
 
-  it("rejects a session without consent (CONSENT_REQUIRED)", async () => {
-    const sessionRepo = new InMemorySessionRepository();
-    const session = await sessionRepo.createSession();
-    const { deps } = await buildDeps({ sessionRepo, consentRepo: new InMemoryConsentRepository() });
-    await expect(createAssessment(deps, { ...validBody, sessionId: session.id })).rejects.toMatchObject({
-      code: "CONSENT_REQUIRED",
-    });
+  it("rejects invalid input (missing ageRange) with VALIDATION_ERROR", async () => {
+    const { deps, sessionId, sessionToken } = await buildDeps();
+    const body = { ...validBody, sessionId, ageRange: undefined };
+
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
   });
 
-  it("consent gate runs before field validation", async () => {
-    const { deps } = await buildDeps();
-    await expect(
-      createAssessment(deps, { ...validBody, sessionId: "SES-NO-CONSENT", ageRange: "NOT_A_REAL_AGE_RANGE" })
-    ).rejects.toMatchObject({ code: "CONSENT_REQUIRED" });
+  it("Consent Gate runs before full field validation (CONSENT_REQUIRED takes priority over invalid fields)", async () => {
+    // 依 tasks/TASK-B-003.md + TASK-B-011a 流程：Valid Session Token -> Body sessionId 一致
+    // -> Valid Consent Gate -> Assessment Input Validation。
+    // Session token 有效但沒有 Consent 時，即使其餘欄位也不合法，仍必須回 CONSENT_REQUIRED，而不是 VALIDATION_ERROR。
+    const { deps, sessionId, sessionToken } = await buildDeps({ consentRepo: new InMemoryConsentRepository() });
+    const body = { ...validBody, sessionId, ageRange: "NOT_A_REAL_AGE_RANGE" };
+
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "CONSENT_REQUIRED" });
+  });
+
+  it("a rejected consent submission (accepted=false) never allows an Assessment to proceed", async () => {
+    // 對應 tasks/TASK-B-003.md Testing 第 3 項：accepted=false 不得通過。
+    // 依 B-002 的 Consent 設計，accepted=false 的請求本來就不會建立 Consent 記錄，
+    // 這裡驗證端對端行為：曾經送過 accepted=false 的 Session，之後嘗試 Assessment 仍應被 CONSENT_REQUIRED 擋下。
+    const consentRepo = new InMemoryConsentRepository();
+    const { deps, sessionId, sessionToken } = await buildDeps({ consentRepo });
+    expect(consentRepo.consents).toHaveLength(0); // 模擬使用者送出 accepted=false：不會有任何紀錄。
+
+    const body = { ...validBody, sessionId };
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "CONSENT_REQUIRED" });
+  });
+
+  it("a withdrawn consent no longer counts as valid (CONSENT_REQUIRED)", async () => {
+    const { deps, consentRepo, sessionId, sessionToken } = await buildDeps();
+    const consent = consentRepo.consents.find((c) => c.sessionId === sessionId)!;
+    consent.withdrawnAt = new Date().toISOString();
+
+    const body = { ...validBody, sessionId };
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "CONSENT_REQUIRED" });
   });
 
   it("session A's consent cannot be used by session B (consent is looked up per session)", async () => {
     const { deps, sessionRepo } = await buildDeps();
     const sessionB = await sessionRepo.createSession(); // 沒有同意
-    await expect(createAssessment(deps, { ...validBody, sessionId: sessionB.id })).rejects.toMatchObject({
+    const body = { ...validBody, sessionId: sessionB.id };
+    await expect(createAssessment(deps, body, sessionB.sessionToken)).rejects.toMatchObject({
       code: "CONSENT_REQUIRED",
+    });
+  });
+
+  it("validateCreateAssessmentInput rejects invalid enum values", () => {
+    expect(() => validateCreateAssessmentInput({ ...validBody, mobilityLevel: "FLYING" })).toThrow(AppError);
+  });
+
+  it("the rule engine produces a valid CareNeedProfile with only allowed CareNeed enum values", async () => {
+    const { deps, body, sessionToken } = await buildDeps();
+
+    const result = await createAssessment(deps, body, sessionToken);
+    const allowed = ["HOME_CARE", "HOME_MEDICAL_NURSING", "ASSISTIVE_DEVICE", "TRANSPORTATION"];
+
+    expect(result.careNeedProfile.careNeeds.length).toBeGreaterThan(0);
+    for (const need of result.careNeedProfile.careNeeds) {
+      expect(allowed).toContain(need);
+    }
+    // homeCare=YES, assistiveDevice=YES, transportation=YES → 三項應出現在 careNeeds 中
+    expect(result.careNeedProfile.careNeeds).toEqual(
+      expect.arrayContaining(["HOME_CARE", "ASSISTIVE_DEVICE", "TRANSPORTATION"])
+    );
+  });
+
+  it("CareNeedProfile output never contains provider-related fields", async () => {
+    const { deps, body, sessionToken } = await buildDeps();
+    const result = await createAssessment(deps, body, sessionToken);
+    expect(Object.keys(result.careNeedProfile).sort()).toEqual(
+      ["id", "assessmentId", "careNeeds", "priority", "summary", "warnings", "createdAt"].sort()
+    );
+  });
+
+  it("warnings always contain the mandatory preliminary-estimate disclaimer", async () => {
+    const { deps, body, sessionToken } = await buildDeps();
+
+    const result = await createAssessment(deps, body, sessionToken);
+
+    expect(result.careNeedProfile.warnings).toEqual(
+      expect.arrayContaining([
+        "本結果僅為初步預估。",
+        "實際資格、長照等級與補助仍需由正式長照評估確認。",
+      ])
+    );
+  });
+
+  it("creates assessment when a Published Knowledge Version is available", async () => {
+    const { deps, body, sessionToken } = await buildDeps({
+      knowledgeResolver: new FakePublishedKnowledgeResolver(fixtureSnapshot(undefined, "KB-TEST-002")),
+    });
+
+    const result = await createAssessment(deps, body, sessionToken);
+    expect(result.assessment.knowledgeVersion).toBe("KB-TEST-002");
+  });
+
+  it("rejects with KNOWLEDGE_UNAVAILABLE when there is no Published Knowledge Version", async () => {
+    const { deps, body, sessionToken } = await buildDeps({
+      knowledgeResolver: new FakePublishedKnowledgeResolver(null),
+    });
+
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "KNOWLEDGE_UNAVAILABLE" });
+  });
+
+  it("propagates repository errors as-is for the function layer to convert into a safe INTERNAL_ERROR", async () => {
+    const { deps, body, sessionToken, assessmentRepo } = await buildDeps();
+    assessmentRepo.failNextCreate = true;
+
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "INTERNAL_ERROR" });
+  });
+
+  it("response shape matches API_CONTRACT.md (assessmentId, knowledgeVersion, careNeedProfile)", async () => {
+    const { deps, body, sessionToken } = await buildDeps();
+
+    const result = await createAssessment(deps, body, sessionToken);
+    const responseData = {
+      assessmentId: result.assessment.id,
+      knowledgeVersion: result.assessment.knowledgeVersion,
+      careNeedProfile: {
+        id: result.careNeedProfile.id,
+        careNeeds: result.careNeedProfile.careNeeds,
+        priority: result.careNeedProfile.priority,
+        summary: result.careNeedProfile.summary,
+        warnings: result.careNeedProfile.warnings,
+      },
+    };
+
+    expect(responseData).toEqual({
+      assessmentId: expect.any(String),
+      knowledgeVersion: expect.any(String),
+      careNeedProfile: {
+        id: expect.any(String),
+        careNeeds: expect.any(Array),
+        priority: expect.any(Array),
+        summary: expect.any(String),
+        warnings: expect.any(Array),
+      },
     });
   });
 });
@@ -120,22 +302,22 @@ describe("Assessment service — disabilityCertificate / incomeCategory (API_CON
   it("T25: disabilityCertificate omitted → defaults to UNKNOWN (backward compatible, no error)", async () => {
     const { disabilityCertificate, ...bodyWithoutField } = validBody;
     void disabilityCertificate;
-    const { deps, body } = await buildDeps();
+    const { deps, body, sessionToken } = await buildDeps();
     const { sessionId } = body;
-    const result = await createAssessment(deps, { ...bodyWithoutField, sessionId });
+    const result = await createAssessment(deps, { ...bodyWithoutField, sessionId }, sessionToken);
     expect(result.assessment.disabilityCertificate).toBe("UNKNOWN");
   });
 
   it("T31: disabilityCertificate = 'MAYBE' → VALIDATION_ERROR", async () => {
-    const { deps, body } = await buildDeps();
-    await expect(createAssessment(deps, { ...body, disabilityCertificate: "MAYBE" })).rejects.toMatchObject({
-      code: "VALIDATION_ERROR",
-    });
+    const { deps, body, sessionToken } = await buildDeps();
+    await expect(
+      createAssessment(deps, { ...body, disabilityCertificate: "MAYBE" }, sessionToken)
+    ).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
   });
 
   it("T38: incomeCategory = 'RICH' → VALIDATION_ERROR", async () => {
-    const { deps, body } = await buildDeps();
-    await expect(createAssessment(deps, { ...body, incomeCategory: "RICH" })).rejects.toMatchObject({
+    const { deps, body, sessionToken } = await buildDeps();
+    await expect(createAssessment(deps, { ...body, incomeCategory: "RICH" }, sessionToken)).rejects.toMatchObject({
       code: "VALIDATION_ERROR",
     });
   });
@@ -143,9 +325,9 @@ describe("Assessment service — disabilityCertificate / incomeCategory (API_CON
   it("incomeCategory omitted → defaults to UNKNOWN (backward compatible, no error)", async () => {
     const { incomeCategory, ...bodyWithoutField } = validBody;
     void incomeCategory;
-    const { deps, body } = await buildDeps();
+    const { deps, body, sessionToken } = await buildDeps();
     const { sessionId } = body;
-    const result = await createAssessment(deps, { ...bodyWithoutField, sessionId });
+    const result = await createAssessment(deps, { ...bodyWithoutField, sessionId }, sessionToken);
     expect(result.assessment.incomeCategory).toBe("UNKNOWN");
   });
 });
@@ -160,8 +342,8 @@ describe("Assessment service — location (API_CONTRACT v0.2.2 §8)", () => {
     ["GPS", { city: "臺北市", district: "大安區", precision: "GPS", lat: 25.0339, lng: 121.5436 }],
     ["EXACT", { city: "新北市", district: "三重區", precision: "EXACT", lat: 25.06, lng: 121.49 }],
   ])("accepts a valid %s location and completes the assessment", async (_name, location) => {
-    const { deps, body } = await buildDeps();
-    const result = await createAssessment(deps, { ...body, location });
+    const { deps, body, sessionToken } = await buildDeps();
+    const result = await createAssessment(deps, { ...body, location }, sessionToken);
     expect(result.careNeedProfile.careNeeds.length).toBeGreaterThan(0);
   });
 
@@ -190,21 +372,23 @@ describe("Assessment service — location (API_CONTRACT v0.2.2 §8)", () => {
   });
 
   it("rounds GPS/EXACT coordinates to 3 decimals before storing (D-13e proposal)", async () => {
-    const { deps, body } = await buildDeps();
-    const result = await createAssessment(deps, {
-      ...body,
-      location: { city: "臺北市", district: "大安區", precision: "GPS", lat: 25.033964, lng: 121.543681 },
-    });
+    const { deps, body, sessionToken } = await buildDeps();
+    const result = await createAssessment(
+      deps,
+      { ...body, location: { city: "臺北市", district: "大安區", precision: "GPS", lat: 25.033964, lng: 121.543681 } },
+      sessionToken
+    );
     expect(result.assessment.lat).toBe(25.034);
     expect(result.assessment.lng).toBe(121.544);
   });
 
   it("without any location the assessment still completes and stores null city/district", async () => {
-    const { deps, body } = await buildDeps();
-    const result = await createAssessment(deps, {
-      ...body,
-      location: { city: null, district: null, precision: "NONE", lat: null, lng: null },
-    });
+    const { deps, body, sessionToken } = await buildDeps();
+    const result = await createAssessment(
+      deps,
+      { ...body, location: { city: null, district: null, precision: "NONE", lat: null, lng: null } },
+      sessionToken
+    );
     expect(result.assessment.city).toBeNull();
     expect(result.assessment.district).toBeNull();
     expect(result.careNeedProfile.careNeeds).toEqual(["HOME_CARE", "ASSISTIVE_DEVICE", "TRANSPORTATION"]);
@@ -218,8 +402,10 @@ describe("Assessment service — location (API_CONTRACT v0.2.2 §8)", () => {
 
 describe("Assessment service — knowledge failures never produce a fake success or partial write", () => {
   it("T10: no PUBLISHED version → KNOWLEDGE_UNAVAILABLE, nothing written", async () => {
-    const { deps, body, assessmentRepo } = await buildDeps({ knowledgeResolver: new FakePublishedKnowledgeResolver(null) });
-    await expect(createAssessment(deps, body)).rejects.toMatchObject({ code: "KNOWLEDGE_UNAVAILABLE" });
+    const { deps, body, sessionToken, assessmentRepo } = await buildDeps({
+      knowledgeResolver: new FakePublishedKnowledgeResolver(null),
+    });
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "KNOWLEDGE_UNAVAILABLE" });
     expect(assessmentRepo.assessments).toHaveLength(0);
     expect(assessmentRepo.careNeedProfiles).toHaveLength(0);
   });
@@ -231,8 +417,8 @@ describe("Assessment service — knowledge failures never produce a fake success
         throw new Error(leaky);
       },
     };
-    const { deps, body, assessmentRepo, logs } = await buildDeps({ knowledgeResolver: resolver });
-    const err = await createAssessment(deps, body).catch((e) => e);
+    const { deps, body, sessionToken, assessmentRepo, logs } = await buildDeps({ knowledgeResolver: resolver });
+    const err = await createAssessment(deps, body, sessionToken).catch((e) => e);
     expect(err).toMatchObject({ code: "KNOWLEDGE_UNAVAILABLE" });
     expect(err.message).not.toContain("knowledge_records");
     expect(JSON.stringify(logs)).not.toContain("knowledge_records");
@@ -245,18 +431,18 @@ describe("Assessment service — knowledge failures never produce a fake success
       getCurrentPublishedStatus: () => new Promise<never>(() => {}),
       findPublishedSnapshotRecords: async () => [],
     };
-    const { deps, body, assessmentRepo, logs } = await buildDeps({
+    const { deps, body, sessionToken, assessmentRepo, logs } = await buildDeps({
       knowledgeResolver: new DatabaseKnowledgeResolver(hanging, { timeoutMs: 20 }),
     });
-    await expect(createAssessment(deps, body)).rejects.toMatchObject({ code: "KNOWLEDGE_UNAVAILABLE" });
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "KNOWLEDGE_UNAVAILABLE" });
     expect(logs).toContainEqual({ event: "KNOWLEDGE_LOAD_FAILED", reason: "KnowledgeTimeoutError" });
     expect(assessmentRepo.assessments).toHaveLength(0);
   });
 
   it("assessment write failure → INTERNAL_ERROR and neither table has a row (atomic write)", async () => {
-    const { deps, body, assessmentRepo } = await buildDeps();
+    const { deps, body, sessionToken, assessmentRepo } = await buildDeps();
     assessmentRepo.failNextCreate = true;
-    await expect(createAssessment(deps, body)).rejects.toMatchObject({ code: "INTERNAL_ERROR" });
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "INTERNAL_ERROR" });
     expect(assessmentRepo.assessments).toHaveLength(0);
     expect(assessmentRepo.careNeedProfiles).toHaveLength(0);
   });
@@ -309,11 +495,12 @@ describe("Assessment service — knowledge version binding (with the B-008 repos
       toKnowledgeRecord({ ...base, id: "KREC-REVIEW", packRecordId: "KR-9001", title: "未審核", jurisdiction: "TAIPEI", category: "BENEFIT", summary: "未審核的地方補助" }, "NEEDS_REVIEW"),
       toKnowledgeRecord({ ...base, id: "KREC-CONFLICT", packRecordId: "KR-9002", title: "衝突", jurisdiction: "TAIPEI", category: "BENEFIT", summary: "衝突的地方補助" }, "CONFLICT")
     );
-    const { deps, body } = await buildDeps({ knowledgeResolver: new DatabaseKnowledgeResolver(repo) });
-    const result = await createAssessment(deps, {
-      ...body,
-      location: { city: "臺北市", district: "大安區", precision: "DISTRICT", lat: null, lng: null },
-    });
+    const { deps, body, sessionToken } = await buildDeps({ knowledgeResolver: new DatabaseKnowledgeResolver(repo) });
+    const result = await createAssessment(
+      deps,
+      { ...body, location: { city: "臺北市", district: "大安區", precision: "DISTRICT", lat: null, lng: null } },
+      sessionToken
+    );
     expect(result.assessment.knowledgeVersion).toBe(versionId);
     expect(result.careNeedProfile.summary).not.toContain("未審核");
     expect(result.careNeedProfile.summary).not.toContain("衝突的地方補助");
@@ -323,8 +510,10 @@ describe("Assessment service — knowledge version binding (with the B-008 repos
 
   it("after a version switch, earlier assessments keep their original knowledgeVersion; new ones cite the new version", async () => {
     const { repo, versionId: v1 } = await knowledgeRepoWithPublished();
-    const { deps, body, assessmentRepo } = await buildDeps({ knowledgeResolver: new DatabaseKnowledgeResolver(repo) });
-    const first = await createAssessment(deps, body);
+    const { deps, body, sessionToken, assessmentRepo } = await buildDeps({
+      knowledgeResolver: new DatabaseKnowledgeResolver(repo),
+    });
+    const first = await createAssessment(deps, body, sessionToken);
 
     // 發布新版本：金額換成合成新值
     const next = packRecords().map((r) => ({ ...r, id: `${r.id}-V2` }));
@@ -335,7 +524,7 @@ describe("Assessment service — knowledge version binding (with the B-008 repos
     const { versionId: v2 } = await publishVersion(repo, { recordIds: next.map((r) => r.id), createdBy: "t", approvedBy: "t" });
     expect(v2).not.toBe(v1);
 
-    const second = await createAssessment(deps, body);
+    const second = await createAssessment(deps, body, sessionToken);
     expect(first.assessment.knowledgeVersion).toBe(v1);
     expect(second.assessment.knowledgeVersion).toBe(v2);
     expect(assessmentRepo.assessments[0].knowledgeVersion).toBe(v1);
@@ -373,8 +562,8 @@ describe("Assessment service — knowledge version binding (with the B-008 repos
   it("withdrawn version with nothing republished → KNOWLEDGE_UNAVAILABLE", async () => {
     const { repo } = await knowledgeRepoWithPublished();
     await repo.withdrawCurrentVersion({ reason: "test", withdrawnBy: "test" });
-    const { deps, body } = await buildDeps({ knowledgeResolver: new DatabaseKnowledgeResolver(repo) });
-    await expect(createAssessment(deps, body)).rejects.toMatchObject({ code: "KNOWLEDGE_UNAVAILABLE" });
+    const { deps, body, sessionToken } = await buildDeps({ knowledgeResolver: new DatabaseKnowledgeResolver(repo) });
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "KNOWLEDGE_UNAVAILABLE" });
   });
 });
 
@@ -388,12 +577,19 @@ describe("Assessment service — privacy of free text and logs", () => {
     const knowledge = fixtureSnapshot((rs) => {
       (rs.find((r) => r.ruleData.type === "ELIGIBILITY_ANY_OF")!.ruleData.criteria as unknown[]).push({ code: "X_NEW" });
     });
-    const { deps, body } = await buildDeps({ knowledgeResolver: new FakePublishedKnowledgeResolver(knowledge), log: undefined });
-    const result = await createAssessment(deps, {
-      ...body,
-      freeText: secret,
-      location: { city: "臺北市", district: "大安區", precision: "GPS", lat: 25.033964, lng: 121.543681 },
+    const { deps, body, sessionToken } = await buildDeps({
+      knowledgeResolver: new FakePublishedKnowledgeResolver(knowledge),
+      log: undefined,
     });
+    const result = await createAssessment(
+      deps,
+      {
+        ...body,
+        freeText: secret,
+        location: { city: "臺北市", district: "大安區", precision: "GPS", lat: 25.033964, lng: 121.543681 },
+      },
+      sessionToken
+    );
     const printed = JSON.stringify([...warn.mock.calls, ...log.mock.calls, ...error.mock.calls]);
     expect(warn).toHaveBeenCalled();
     for (const fragment of ["阿公", "0912345678", "傷口", "25.03", "121.54"]) expect(printed).not.toContain(fragment);
@@ -402,8 +598,8 @@ describe("Assessment service — privacy of free text and logs", () => {
   });
 
   it("response data never includes forbidden official fields", async () => {
-    const { deps, body } = await buildDeps();
-    const result = await createAssessment(deps, body);
+    const { deps, body, sessionToken } = await buildDeps();
+    const result = await createAssessment(deps, body, sessionToken);
     const serialized = JSON.stringify(result.careNeedProfile);
     for (const field of ["officialCMSLevel", "officialEligibility", "approvedBenefit"]) expect(serialized).not.toContain(field);
   });

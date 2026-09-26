@@ -12,10 +12,9 @@ export function getSupabaseClient(): SupabaseClient {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !serviceRoleKey) {
-    throw new AppError(
-      "INTERNAL_ERROR",
-      "Supabase 尚未設定，請確認 SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 環境變數。"
-    );
+    // 設定缺漏只寫進 function log（不含值）；回應沿用一般 INTERNAL_ERROR 文案，不向使用者透露環境變數名稱（J-003）。
+    console.error("Supabase 尚未設定，請確認 SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 環境變數。");
+    throw new AppError("INTERNAL_ERROR", "系統發生錯誤，請稍後再試。");
   }
 
   cachedClient = createClient(url, serviceRoleKey, {
