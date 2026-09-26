@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import {
+  approvePackRecords,
   approveRecords,
   getKnowledgeStatus,
   KNOWLEDGE_VERSION_ID,
@@ -100,6 +101,53 @@ describe("approveRecords", () => {
     const repo = new InMemoryKnowledgeRepository();
     await expect(approveRecords(repo, [])).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
     await expect(approveRecords(repo, "not-an-array")).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
+  });
+});
+
+describe("approvePackRecords (B-008-r3, J-003 H-2: approval must be bound to the reviewed content)", () => {
+  it("approves only when the database's current content hash matches what the pack declares", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    repo.records.push(record({ id: "KREC-001", status: "NEEDS_REVIEW", contentHash: "sha256:" + "a".repeat(64) }));
+
+    const result = await approvePackRecords(repo, [
+      { dbId: "KREC-001", packRecordId: "KR-2026-001", dbContentHash: "sha256:" + "a".repeat(64), expectedContentHash: "sha256:" + "a".repeat(64) },
+    ]);
+
+    expect(result.approved).toEqual(["KREC-001"]);
+    expect(result.contentMismatched).toEqual([]);
+  });
+
+  it("refuses to approve when the database content differs from what this pack approval declares (approval/import race)", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    // 資料庫目前內容的雜湊是 'b'（例如核准前又被另一次匯入更正過），但這次核准請求宣稱的是 'a'。
+    repo.records.push(record({ id: "KREC-001", status: "NEEDS_REVIEW", contentHash: "sha256:" + "b".repeat(64) }));
+
+    const result = await approvePackRecords(repo, [
+      { dbId: "KREC-001", packRecordId: "KR-2026-001", dbContentHash: "sha256:" + "b".repeat(64), expectedContentHash: "sha256:" + "a".repeat(64) },
+    ]);
+
+    expect(result.approved).toEqual([]);
+    expect(result.contentMismatched).toEqual([{ packRecordId: "KR-2026-001", dbId: "KREC-001" }]);
+    expect(repo.records[0].status).toBe("NEEDS_REVIEW"); // 完全未被核准
+  });
+
+  it("a batch with both matching and mismatched records approves only the matching ones", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    repo.records.push(record({ id: "KREC-001", status: "NEEDS_REVIEW", contentHash: "sha256:" + "a".repeat(64) }));
+    repo.records.push(record({ id: "KREC-002", status: "NEEDS_REVIEW", contentHash: "sha256:" + "c".repeat(64), packRecordId: "KR-2026-002" }));
+
+    const result = await approvePackRecords(repo, [
+      { dbId: "KREC-001", packRecordId: "KR-2026-001", dbContentHash: "sha256:" + "a".repeat(64), expectedContentHash: "sha256:" + "a".repeat(64) },
+      { dbId: "KREC-002", packRecordId: "KR-2026-002", dbContentHash: "sha256:" + "c".repeat(64), expectedContentHash: "sha256:" + "z".repeat(64) },
+    ]);
+
+    expect(result.approved).toEqual(["KREC-001"]);
+    expect(result.contentMismatched).toEqual([{ packRecordId: "KR-2026-002", dbId: "KREC-002" }]);
+  });
+
+  it("rejects an empty candidate list", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    await expect(approvePackRecords(repo, [])).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
   });
 });
 
@@ -298,8 +346,9 @@ describe("publishVersion — D-03-v2 replace / expire / carry forward", () => {
     expect(second.carriedForwardCount).toBe(1);
     const carried = repo.records.find((r) => r.id === "KREC-001");
     expect(carried?.status).toBe("PUBLISHED");
-    expect(carried?.version).toBe(second.versionId);
-    void first;
+    // B-008-r3（J-003 H-3）：version 是「第一次發布時的版本」，carry-forward 不可覆寫它，
+    // 否則舊版本的紀錄集合就無法追溯（見下面 traceability／restore 兩個測試）。
+    expect(carried?.version).toBe(first.versionId);
   });
 
   it("a previous PUBLISHED record NOT replaced but already expired is SUPERSEDED, not carried forward", async () => {
@@ -418,6 +467,102 @@ describe("publishVersion — real content packs (KP-2026-09-23-001 + KP-2026-09-
     expect(second.carriedForwardCount).toBe(14);
     expect(repo.records.filter((r) => r.status === "PUBLISHED")).toHaveLength(15);
     expect(repo.records.find((r) => r.id === targetOld!.id)?.status).toBe("SUPERSEDED"); // 被取代的舊版本
+  });
+});
+
+describe("publishVersion / withdrawVersion — version traceability and full restore (B-008-r3, J-003 H-3/H-4)", () => {
+  it("an earlier version's record set is fully derivable after a second version carries most of it forward and replaces one record", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    repo.records.push(record({ id: "A", status: "APPROVED", title: "A", ruleData: { type: "T_A" } }));
+    repo.records.push(record({ id: "B", status: "APPROVED", packRecordId: "KR-2026-B", title: "B", ruleData: { type: "T_B" } }));
+    repo.records.push(record({ id: "C", status: "APPROVED", packRecordId: "KR-2026-C", title: "C", ruleData: { type: "T_C" } }));
+    const v1 = await publishVersion(repo, {
+      packs: [pack({ intendedKnowledgeVersion: "KB-2026-09-26-001" })],
+      candidateRecords: [candidate("A"), candidate("B"), candidate("C")],
+      createdBy: "x",
+      approvedBy: "y",
+    });
+    const v1PublishedIds = repo.records.filter((r) => r.status === "PUBLISHED").map((r) => r.id).sort();
+    expect(v1PublishedIds).toEqual(["A", "B", "C"]);
+
+    // v2 replaces A only (same jurisdiction+type+title); B and C carry forward untouched.
+    repo.records.push(record({ id: "A2", status: "APPROVED", packRecordId: "KR-2026-A2", title: "A", ruleData: { type: "T_A" } }));
+    await publishVersion(repo, {
+      packs: [pack({ intendedKnowledgeVersion: "KB-2026-09-26-002" })],
+      candidateRecords: [candidate("A2")],
+      createdBy: "x",
+      approvedBy: "y",
+    });
+
+    // Traceability: v1's original record set must still be derivable via the immutable version field,
+    // exactly as it was when v1 was published — unaffected by what v2 did.
+    const v1Now = repo.records.filter((r) => r.version === v1.versionId).map((r) => r.id).sort();
+    expect(v1Now).toEqual(v1PublishedIds);
+  });
+
+  it("withdrawing the newer version and restoring the older one brings back its exact original content, including carried-forward records", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    repo.records.push(record({ id: "A", status: "APPROVED", title: "A", ruleData: { type: "T_A" } }));
+    repo.records.push(record({ id: "B", status: "APPROVED", packRecordId: "KR-2026-B", title: "B", ruleData: { type: "T_B" } }));
+    const v1 = await publishVersion(repo, {
+      packs: [pack({ intendedKnowledgeVersion: "KB-2026-09-26-101" })],
+      candidateRecords: [candidate("A"), candidate("B")],
+      createdBy: "x",
+      approvedBy: "y",
+    });
+    const v1Set = repo.records.filter((r) => r.status === "PUBLISHED").map((r) => r.id).sort();
+
+    repo.records.push(record({ id: "A2", status: "APPROVED", packRecordId: "KR-2026-A2", title: "A", ruleData: { type: "T_A" } }));
+    await publishVersion(repo, {
+      packs: [pack({ intendedKnowledgeVersion: "KB-2026-09-26-102" })],
+      candidateRecords: [candidate("A2")],
+      createdBy: "x",
+      approvedBy: "y",
+    });
+
+    await withdrawVersion(repo, { reason: "j003 h4", withdrawnBy: "Jerry", republishVersionId: v1.versionId });
+
+    const restored = repo.records.filter((r) => r.status === "PUBLISHED").map((r) => r.id).sort();
+    expect(restored).toEqual(v1Set); // exactly [A, B] again — B (carried-forward) must come back too
+    expect(repo.records.find((r) => r.id === "A2")?.status).toBe("SUPERSEDED"); // v2's replacement is undone
+  });
+
+  it("rejects withdrawing a version and republishing the exact same version id in the same call; nothing changes", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    repo.records.push(record({ id: "A", status: "APPROVED" }));
+    const v1 = await publishVersion(repo, {
+      packs: [pack({ intendedKnowledgeVersion: "KB-2026-09-26-201" })],
+      candidateRecords: [candidate("A")],
+      createdBy: "x",
+      approvedBy: "y",
+    });
+
+    await expect(
+      withdrawVersion(repo, { reason: "x", withdrawnBy: "y", republishVersionId: v1.versionId })
+    ).rejects.toMatchObject({ code: "INTERNAL_ERROR" });
+
+    expect(repo.versions.find((v) => v.id === v1.versionId)?.status).toBe("PUBLISHED");
+    expect(repo.records.find((r) => r.id === "A")?.status).toBe("PUBLISHED");
+  });
+
+  it("an invalid restore target (not an ARCHIVED version) rolls back the whole withdraw; the version being withdrawn stays PUBLISHED", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    repo.records.push(record({ id: "A", status: "APPROVED" }));
+    const v1 = await publishVersion(repo, {
+      packs: [pack({ intendedKnowledgeVersion: "KB-2026-09-26-301" })],
+      candidateRecords: [candidate("A")],
+      createdBy: "x",
+      approvedBy: "y",
+    });
+
+    await expect(
+      withdrawVersion(repo, { reason: "x", withdrawnBy: "y", republishVersionId: "KB-DOES-NOT-EXIST" })
+    ).rejects.toMatchObject({ code: "INTERNAL_ERROR" });
+
+    // InMemoryKnowledgeRepository throws before committing any state change (matches the SQL
+    // function's transactional rollback semantics — see PGlite verification in the PR).
+    expect(repo.versions.find((v) => v.id === v1.versionId)?.status).toBe("PUBLISHED");
+    expect(repo.records.find((r) => r.id === "A")?.status).toBe("PUBLISHED");
   });
 });
 

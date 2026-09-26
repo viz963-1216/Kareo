@@ -41,6 +41,44 @@ export async function approveRecords(repo: KnowledgeRepository, recordIds: unkno
   return { approved, notApproved };
 }
 
+export interface PackApprovalCandidate {
+  dbId: string;
+  packRecordId: string;
+  dbContentHash: string;
+  expectedContentHash: string;
+}
+
+export interface ApprovePackRecordsResult {
+  approved: string[];
+  notApproved: string[];
+  // B-008-r3（J-003 H-2 後半）：核准當下資料庫內容的雜湊跟 pack 宣告的雜湊不一致（核准與匯入之間
+  // 出現競態，例如核准前又被另一次匯入更新了內容）。這些一律不核准，回報讓操作者重新確認。
+  contentMismatched: Array<{ packRecordId: string; dbId: string }>;
+}
+
+// approveKnowledgePack.ts 用：核准前逐筆核對「資料庫目前內容」跟「這次核准當下 pack 宣告的內容」
+// 是否一致，避免只靠 (packId, recordId) 或 status 就核准——核准必須綁定實際被審核的那份內容。
+export async function approvePackRecords(
+  repo: KnowledgeRepository,
+  candidates: PackApprovalCandidate[]
+): Promise<ApprovePackRecordsResult> {
+  if (!Array.isArray(candidates) || candidates.length === 0) {
+    throw new AppError("VALIDATION_ERROR", "沒有可核准的紀錄。");
+  }
+
+  const matched = candidates.filter((c) => c.dbContentHash === c.expectedContentHash);
+  const contentMismatched = candidates
+    .filter((c) => c.dbContentHash !== c.expectedContentHash)
+    .map((c) => ({ packRecordId: c.packRecordId, dbId: c.dbId }));
+
+  if (matched.length === 0) {
+    return { approved: [], notApproved: [], contentMismatched };
+  }
+
+  const { approved, notApproved } = await approveRecords(repo, matched.map((c) => c.dbId));
+  return { approved, notApproved, contentMismatched };
+}
+
 // 發布指令可一次接受多個內容包（D-03-v2）：全部必須是 APPROVED 狀態、intendedKnowledgeVersion 相同。
 // 本函式只看 shell 層的 status／intendedKnowledgeVersion；每個內容包實際核准了哪些紀錄由 CLI 用
 // repo.findRecordsByPackId() 查詢後篩出 APPROVED 的紀錄，傳進 candidateRecords。

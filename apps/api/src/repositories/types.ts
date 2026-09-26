@@ -58,6 +58,14 @@ export interface KnowledgeRepository {
   findPublishedByKey(jurisdiction: Jurisdiction, category: KnowledgeCategory, title: string): Promise<KnowledgeRecord | null>;
   insertRecords(records: KnowledgeRecord[]): Promise<void>;
 
+  // B-008-r3（J-003 H-2）：同 (packId, packRecordId) 但內容包實質內容改變時，更新既有紀錄的內容並
+  // 強制重回 NEEDS_REVIEW（不可靜默略過、也不可讓舊文字停留在 APPROVED）。只允許更新「尚未 PUBLISHED」
+  // 的紀錄；呼叫端須先確認目前狀態不是 PUBLISHED（已發布的歷史紀錄不可被匯入覆寫）。
+  updateRecordContent(
+    id: string,
+    content: Omit<KnowledgeRecord, "id" | "createdAt" | "updatedAt" | "packId" | "packRecordId" | "status" | "version">
+  ): Promise<void>;
+
   // Approve：單一 UPDATE，內建於 WHERE status = 'NEEDS_REVIEW'，回傳實際更新的 id，供呼叫端偵測「有 id 沒被更新」。
   // KnowledgeRecord 沒有獨立的 approvedBy 欄位（依 DATA_MODEL.md 第 24 節），審核人記錄在 KnowledgeVersion.approvedBy。
   approveRecords(recordIds: string[]): Promise<string[]>;

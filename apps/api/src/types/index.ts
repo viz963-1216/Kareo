@@ -419,4 +419,7 @@ export interface ContentPackImportReport {
   packId: string | null;
   recordsValid: number;
   recordsRejected: Array<{ recordId: string | null; reasons: string[] }>;
+  // B-008-r3（J-003 H-2）：同 (packId, recordId) 但內容實質改變時更新既有紀錄並強制回 NEEDS_REVIEW
+  // 的筆數，跟「全新匯入」的 recordsValid 分開統計，方便操作者知道這次匯入實際做了什麼。
+  recordsCorrected: number;
 }
