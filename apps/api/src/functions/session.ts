@@ -10,6 +10,7 @@ interface NetlifyEvent {
   httpMethod: string;
 }
 
+// POST /api/v1/session：依 API_CONTRACT §3.1 為公開 endpoint，不需要 X-Kareo-Session-Token。
 export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
   if (event.httpMethod !== "POST") {
     return errorResponse(new AppError("INVALID_REQUEST", "僅支援 POST /api/v1/session。"));
@@ -18,7 +19,13 @@ export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
   try {
     const repo = new SupabaseSessionRepository();
     const session = await createSession(repo);
-    return successResponse({ sessionId: session.id, createdAt: session.createdAt });
+    // sessionToken 只在這裡回傳一次，見 ARCHITECTURE §20.1；資料庫只存雜湊。
+    return successResponse({
+      sessionId: session.id,
+      sessionToken: session.sessionToken,
+      createdAt: session.createdAt,
+      expiresAt: session.expiresAt,
+    });
   } catch (err) {
     if (err instanceof AppError) return errorResponse(err);
     return internalErrorResponse();

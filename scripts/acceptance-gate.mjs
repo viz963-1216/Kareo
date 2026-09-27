@@ -30,6 +30,17 @@ export function staticItems() {
     items.push({ status: 'FAIL', item: 'integration checks', detail: `exited ${integration.status}` });
   }
 
+  const runtime = run('scripts/check-functions-runtime.mjs');
+  const runtimeItems = [];
+  for (const line of runtime.out.split('\n')) {
+    const m = line.match(/^(PASS|FAIL|PENDING)\s+(.+?)\s{2,}(.*)$/);
+    if (m) runtimeItems.push({ status: m[1], item: `functions: ${m[2].trim()}`, detail: m[3].trim() });
+  }
+  if (runtime.status !== 0 && !runtimeItems.some((i) => i.status === 'FAIL')) runtimeItems.push({ status: 'FAIL', item: 'functions runtime check', detail: `exited ${runtime.status}` });
+  items.push(...runtimeItems);
+
+  items.push(...caseIntegrityItems());
+
   const pack = run('scripts/validate-knowledge-pack.mjs', ['.']);
   items.push({
     status: pack.status !== 0 ? 'FAIL' : /^PENDING/m.test(pack.out) ? 'PENDING' : 'PASS',
@@ -45,6 +56,43 @@ export function staticItems() {
     detail: provider.out.trim().split('\n').pop(),
   });
   return items;
+}
+
+// The acceptance case list is the release contract: every case must be well formed, every case referenced by
+// docs/MVP_TRACEABILITY.md must exist (so no required case can be deleted to turn the gate green), every case
+// must be traced back to a requirement row, and every traceability section must have at least one case.
+export function caseIntegrityItems(casesFile = 'tests/e2e/acceptance-cases.json', traceFile = 'docs/MVP_TRACEABILITY.md') {
+  const problems = [];
+  let cases = [];
+  try { cases = JSON.parse(readFileSync(casesFile, 'utf8')).cases; } catch (e) { return [{ status: 'FAIL', item: 'acceptance cases', detail: `${casesFile}: ${e.message}` }]; }
+  if (!Array.isArray(cases) || !cases.length) return [{ status: 'FAIL', item: 'acceptance cases', detail: 'no cases' }];
+  const ids = new Set();
+  for (const [i, c] of cases.entries()) {
+    const at = c?.id ?? `cases[${i}]`;
+    if (!/^E2E-\d{2}$/.test(c?.id ?? '')) problems.push(`${at}: id must look like E2E-00`);
+    if (ids.has(c?.id)) problems.push(`${at}: duplicate id`);
+    ids.add(c?.id);
+    if (!['api', 'ui', 'ops'].includes(c?.kind)) problems.push(`${at}: kind must be api／ui／ops`);
+    if (typeof c?.title !== 'string' || !c.title || typeof c?.spec !== 'string' || !c.spec) problems.push(`${at}: title and spec are required`);
+    if (!Array.isArray(c?.requires) || !c.requires.every((r) => typeof r === 'string' && r)) problems.push(`${at}: requires must be a string array`);
+    if (!Array.isArray(c?.trace) || !c.trace.length || !c.trace.every((n) => Number.isInteger(n))) problems.push(`${at}: trace must list MVP_TRACEABILITY section numbers`);
+  }
+  let trace = '';
+  try { trace = readFileSync(traceFile, 'utf8'); } catch (e) { problems.push(`${traceFile}: ${e.message}`); }
+  // "E2E-17／18／19" is shorthand for E2E-17, E2E-18, E2E-19.
+  const referenced = new Set([...trace.matchAll(/E2E-(\d{2}(?:[／/]\d{2})*)/g)].flatMap((m) => m[1].split(/[／/]/).map((n) => `E2E-${n}`)));
+  const missing = [...referenced].filter((id) => !ids.has(id)).sort();
+  const untraced = [...ids].filter((id) => !referenced.has(id)).sort();
+  const sections = [...trace.matchAll(/^## (\d+)\. /gm)].map((m) => Number(m[1]));
+  const uncovered = sections.filter((n) => !cases.some((c) => c.trace?.includes(n)));
+  if (missing.length) problems.push(`referenced by ${traceFile} but missing from the case list: ${missing.join(', ')}`);
+  if (untraced.length) problems.push(`not referenced by any ${traceFile} row: ${untraced.join(', ')}`);
+  if (uncovered.length) problems.push(`traceability sections without a case: ${uncovered.join(', ')}`);
+  return [{
+    status: problems.length ? 'FAIL' : 'PASS',
+    item: 'acceptance cases',
+    detail: problems.length ? problems.join('; ') : `${cases.length} cases, all referenced by ${traceFile}; ${sections.length} sections covered`,
+  }];
 }
 
 // Format validity is not approval: at least one pack record must be APPROVED by a named reviewer.

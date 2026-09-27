@@ -1,48 +1,85 @@
 import { describe, it, expect } from "vitest";
 import { createConsent, validateCreateConsentInput } from "../src/services/consentService.js";
-import { InMemoryConsentRepository } from "../src/repositories/inMemoryRepositories.js";
+import { InMemoryConsentRepository, InMemorySessionRepository } from "../src/repositories/inMemoryRepositories.js";
+import { FakeConsentVersionChecker } from "../src/services/consentVersionService.js";
 import { AppError } from "../src/errors/AppError.js";
 
-const validBody = {
-  sessionId: "SES-TEST0001",
-  disclaimerVersion: "1.0",
-  privacyVersion: "1.0",
-  termsVersion: "1.0",
-  accepted: true,
-};
+const ACTIVE_VERSIONS = { disclaimerVersion: "1.0", privacyVersion: "1.0", termsVersion: "1.0" };
+const checker = new FakeConsentVersionChecker([ACTIVE_VERSIONS]);
+
+async function seedSession() {
+  const sessionRepo = new InMemorySessionRepository();
+  const created = await sessionRepo.createSession();
+  return { sessionRepo, sessionId: created.id, sessionToken: created.sessionToken };
+}
 
 describe("Consent", () => {
-  it("creates consent when accepted=true", async () => {
-    const repo = new InMemoryConsentRepository();
-    const consent = await createConsent(repo, validBody);
+  it("creates consent when accepted=true and session token is valid", async () => {
+    const { sessionRepo, sessionId, sessionToken } = await seedSession();
+    const consentRepo = new InMemoryConsentRepository();
+    const body = { sessionId, ...ACTIVE_VERSIONS, accepted: true };
+
+    const consent = await createConsent(sessionRepo, consentRepo, checker, body, sessionToken);
 
     expect(consent.id).toMatch(/^CON-/);
-    expect(consent.sessionId).toBe(validBody.sessionId);
+    expect(consent.sessionId).toBe(sessionId);
     expect(consent.acceptedAt).toBeTruthy();
-    expect(repo.consents).toHaveLength(1);
+    expect(consent.withdrawnAt).toBeNull();
+    expect(consentRepo.consents).toHaveLength(1);
   });
 
   it("rejects when accepted=false (not treated as valid consent)", async () => {
-    const repo = new InMemoryConsentRepository();
-    const body = { ...validBody, accepted: false };
+    const { sessionRepo, sessionId, sessionToken } = await seedSession();
+    const consentRepo = new InMemoryConsentRepository();
+    const body = { sessionId, ...ACTIVE_VERSIONS, accepted: false };
 
-    await expect(createConsent(repo, body)).rejects.toThrow(AppError);
-    expect(repo.consents).toHaveLength(0);
+    await expect(createConsent(sessionRepo, consentRepo, checker, body, sessionToken)).rejects.toThrow(AppError);
+    expect(consentRepo.consents).toHaveLength(0);
+  });
+
+  it("rejects without a session token, before touching the consent repository (SESSION_INVALID)", async () => {
+    const sessionRepo = new InMemorySessionRepository();
+    const consentRepo = new InMemoryConsentRepository();
+    const body = { sessionId: "SES-X", ...ACTIVE_VERSIONS, accepted: true };
+
+    await expect(createConsent(sessionRepo, consentRepo, checker, body, undefined)).rejects.toMatchObject({
+      code: "SESSION_INVALID",
+    });
+    expect(consentRepo.consents).toHaveLength(0);
+  });
+
+  it("rejects when body sessionId does not match the token's session (FORBIDDEN)", async () => {
+    const { sessionRepo, sessionToken } = await seedSession();
+    const consentRepo = new InMemoryConsentRepository();
+    const body = { sessionId: "SES-SOMEONE-ELSE", ...ACTIVE_VERSIONS, accepted: true };
+
+    await expect(createConsent(sessionRepo, consentRepo, checker, body, sessionToken)).rejects.toMatchObject({
+      code: "FORBIDDEN",
+    });
+  });
+
+  it("rejects a version combination that is not ACTIVE", () => {
+    expect(() =>
+      validateCreateConsentInput(
+        { sessionId: "SES-1", disclaimerVersion: "9.9", privacyVersion: "9.9", termsVersion: "9.9", accepted: true },
+        checker
+      )
+    ).toThrow(AppError);
   });
 
   it("rejects when sessionId is missing", () => {
-    const body = { ...validBody, sessionId: undefined };
-    expect(() => validateCreateConsentInput(body)).toThrow(AppError);
+    const body = { ...ACTIVE_VERSIONS, sessionId: undefined, accepted: true };
+    expect(() => validateCreateConsentInput(body, checker)).toThrow(AppError);
   });
 
   it("rejects invalid request body (not an object)", () => {
-    expect(() => validateCreateConsentInput(null)).toThrow(AppError);
-    expect(() => validateCreateConsentInput("invalid")).toThrow(AppError);
+    expect(() => validateCreateConsentInput(null, checker)).toThrow(AppError);
+    expect(() => validateCreateConsentInput("invalid", checker)).toThrow(AppError);
   });
 
   it("error has VALIDATION_ERROR code for missing fields", () => {
     try {
-      validateCreateConsentInput({ sessionId: "SES-1" });
+      validateCreateConsentInput({ sessionId: "SES-1" }, checker);
       expect.fail("should have thrown");
     } catch (err) {
       expect(err).toBeInstanceOf(AppError);

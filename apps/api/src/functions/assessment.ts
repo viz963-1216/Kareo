@@ -5,11 +5,13 @@ import { SupabaseAssessmentRepository } from "../repositories/supabaseAssessment
 import { FakeAssessmentAIAdapter } from "../adapters/fakeAssessmentAIAdapter.js";
 import { NullKnowledgeVersionResolver } from "../adapters/knowledgeVersionResolver.js";
 import { successResponse, internalErrorResponse, errorResponse, type HttpResponse } from "../lib/response.js";
+import { getSessionTokenHeader } from "../lib/headers.js";
 import { AppError } from "../errors/AppError.js";
 
 interface NetlifyEvent {
   httpMethod: string;
   body: string | null;
+  headers?: Record<string, string | undefined> | null;
 }
 
 // 正式 AI Provider（OpenAI / Claude / Gemini）尚未拍板，依 tasks/TASK-B-003.md「AI Adapter Rule」，
@@ -37,7 +39,8 @@ export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
         aiAdapter: new FakeAssessmentAIAdapter(),
         knowledgeVersionResolver: new NullKnowledgeVersionResolver(),
       },
-      parsedBody
+      parsedBody,
+      getSessionTokenHeader(event)
     );
 
     return successResponse({

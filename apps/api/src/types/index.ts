@@ -1,9 +1,22 @@
-// 依 docs/DATA_MODEL.md 第 4、6 節。欄位/型態不得自行新增或修改。
+// 依 docs/DATA_MODEL.md 第 4、6 節（v0.2）。欄位/型態不得自行新增或修改。
+
+export type SessionStatus = "ACTIVE" | "DELETION_REQUESTED" | "DELETED";
 
 export interface Session {
   id: string;
   createdAt: string;
   updatedAt: string;
+  // v0.2（TASK-B-011a）：tokenHash 只在 Repository 內部使用，不對外回傳；
+  // lastSeenAt/expiresAt 用於有效期判斷；status/deletedAt 對應 ARCHITECTURE §20.2、20.7。
+  lastSeenAt: string | null;
+  expiresAt: string;
+  status: SessionStatus;
+  deletedAt: string | null;
+}
+
+// POST /api/v1/session 建立時，明文 token 只在這裡短暫存在，回傳給呼叫端後即丟棄，不進資料庫。
+export interface CreatedSession extends Session {
+  sessionToken: string;
 }
 
 export interface Consent {
@@ -13,6 +26,7 @@ export interface Consent {
   privacyVersion: string;
   termsVersion: string;
   acceptedAt: string;
+  withdrawnAt: string | null;
 }
 
 export interface CreateConsentInput {

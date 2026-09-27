@@ -1,0 +1,32 @@
+[
+    {
+      "id": "QA-A005-DUP-001",
+      "name": "A-005 QA Duplicate Provider A",
+      "type": "HOME_CARE",
+      "address": "新北市板橋區測試路10號",
+      "city": "新北市",
+      "district": "板橋區",
+      "lat": null,
+      "lng": null,
+      "phone": null,
+      "website": null,
+      "googleMapsUrl": null,
+      "status": "ACTIVE",
+      "verified": true
+    },
+    {
+      "id": "QA-A005-DUP-001",
+      "name": "A-005 QA Duplicate Provider B",
+      "type": "HOME_CARE",
+      "address": "新北市板橋區測試路11號",
+      "city": "新北市",
+      "district": "板橋區",
+      "lat": null,
+      "lng": null,
+      "phone": null,
+      "website": null,
+      "googleMapsUrl": null,
+      "status": "ACTIVE",
+      "verified": true
+    }
+  ]

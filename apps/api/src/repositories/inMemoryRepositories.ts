@@ -15,6 +15,7 @@ import type {
   Assessment,
   CareNeedProfile,
   Consent,
+  CreatedSession,
   CreateConsentInput,
   Provider,
   ProviderDetailResponse,
@@ -23,19 +24,43 @@ import type {
   Session,
 } from "../types/index.js";
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
+import { computeExpiresAt, generateSessionToken, hashSessionToken } from "../services/sessionSecurityService.js";
 
 export class InMemorySessionRepository implements SessionRepository {
   readonly sessions: Session[] = [];
+  // 測試用：token 只在建立當下回傳，記憶體版額外保留雜湊對照表供 findByTokenHash 使用。
+  private readonly tokenHashBySessionId = new Map<string, string>();
 
-  async createSession(): Promise<Session> {
+  async createSession(): Promise<CreatedSession> {
     const now = nowTaipeiISOString();
-    const session: Session = { id: generateId("SES"), createdAt: now, updatedAt: now };
+    const nowDate = new Date();
+    const sessionToken = generateSessionToken();
+    const session: Session = {
+      id: generateId("SES"),
+      createdAt: now,
+      updatedAt: now,
+      lastSeenAt: null,
+      expiresAt: computeExpiresAt(nowDate, nowDate).toISOString(),
+      status: "ACTIVE",
+      deletedAt: null,
+    };
     this.sessions.push(session);
-    return session;
+    this.tokenHashBySessionId.set(session.id, hashSessionToken(sessionToken));
+    return { ...session, sessionToken };
   }
 
-  async exists(sessionId: string): Promise<boolean> {
-    return this.sessions.some((s) => s.id === sessionId);
+  async findByTokenHash(tokenHash: string): Promise<Session | null> {
+    for (const session of this.sessions) {
+      if (this.tokenHashBySessionId.get(session.id) === tokenHash) return { ...session };
+    }
+    return null;
+  }
+
+  async touchSession(sessionId: string, updates: { lastSeenAt: string; expiresAt: string }): Promise<void> {
+    const session = this.sessions.find((s) => s.id === sessionId);
+    if (!session) throw new AppError("INTERNAL_ERROR", "找不到要更新的 Session。");
+    session.lastSeenAt = updates.lastSeenAt;
+    session.expiresAt = updates.expiresAt;
   }
 }
 
@@ -50,6 +75,7 @@ export class InMemoryConsentRepository implements ConsentRepository {
       privacyVersion: input.privacyVersion,
       termsVersion: input.termsVersion,
       acceptedAt: nowTaipeiISOString(),
+      withdrawnAt: null,
     };
     this.consents.push(consent);
     return consent;
@@ -57,7 +83,7 @@ export class InMemoryConsentRepository implements ConsentRepository {
 
   async findLatestBySession(sessionId: string): Promise<Consent | null> {
     const matches = this.consents
-      .filter((c) => c.sessionId === sessionId)
+      .filter((c) => c.sessionId === sessionId && c.withdrawnAt === null)
       .sort((a, b) => (a.acceptedAt < b.acceptedAt ? 1 : -1));
     return matches[0] ?? null;
   }

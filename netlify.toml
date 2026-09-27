@@ -12,6 +12,9 @@
 
 [functions]
   node_bundler = "esbuild"
+  # Files read at runtime (not import-bundled) must ship with the functions. B-011a reads the consent
+  # version list with createRequire(), which esbuild does not inline (scripts/check-functions-runtime.mjs).
+  included_files = ["contracts/legal/consent-versions.json"]
 
 # Deploy Previews may use the frontend mock adapter; every other context calls the real API.
 [context.deploy-preview.environment]

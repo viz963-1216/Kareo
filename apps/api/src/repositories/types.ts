@@ -2,6 +2,7 @@ import type {
   Assessment,
   CareNeedProfile,
   Consent,
+  CreatedSession,
   CreateConsentInput,
   KnowledgeCategory,
   KnowledgeRecord,
@@ -17,14 +18,16 @@ import type {
 // Repository Boundary：Service 層只依賴這些介面，不直接依賴 Supabase SDK，
 // 確保業務邏輯（Consent 檢查等）不會被 Supabase 自動 API 繞過。
 export interface SessionRepository {
-  createSession(): Promise<Session>;
-  exists(sessionId: string): Promise<boolean>;
+  // 依 TASK-B-011a：建立時同時產生密碼學隨機 token，回傳明文（只此一次），資料庫只存雜湊。
+  createSession(): Promise<CreatedSession>;
+  findByTokenHash(tokenHash: string): Promise<Session | null>;
+  touchSession(sessionId: string, updates: { lastSeenAt: string; expiresAt: string }): Promise<void>;
 }
 
 export interface ConsentRepository {
   createConsent(input: CreateConsentInput): Promise<Consent>;
-  // 依 accepted=true 才會建立 Consent 記錄（見 consentService），
-  // 因此「存在最新一筆 Consent」即代表該 Session 已完成有效同意。
+  // 依 accepted=true 才會建立 Consent 記錄（見 consentService），且只回傳 withdrawnAt 為空的最新一筆；
+  // 因此「找得到 Consent」即代表該 Session 已完成「目前仍有效」的同意（依 DATA_MODEL.md v0.2）。
   findLatestBySession(sessionId: string): Promise<Consent | null>;
 }
 

@@ -1,0 +1,20 @@
+[
+    {
+      "id": "PSV-QA-A005-P-ACTIVE-HOME_CARE",
+      "providerId": "QA-A005-P-ACTIVE",
+      "serviceType": "HOME_CARE",
+      "active": true
+    },
+    {
+      "id": "PSV-QA-A005-P-INACTIVE-HOME_CARE",
+      "providerId": "QA-A005-P-INACTIVE",
+      "serviceType": "HOME_CARE",
+      "active": true
+    },
+    {
+      "id": "PSV-QA-A005-P-UNKNOWN-HOME_CARE",
+      "providerId": "QA-A005-P-UNKNOWN",
+      "serviceType": "HOME_CARE",
+      "active": true
+    }
+  ]
