@@ -15,6 +15,8 @@ import type {
   RecommendationResponse,
 } from "../types/api";
 import basicAssessmentFixture from "../../../../contracts/mock/assessment-response.json";
+import disabilityNewTaipeiFixture from "../../../../contracts/mock/assessments/WITH-DISABILITY-NEW_TAIPEI.json";
+import estimateGeneralNewTaipeiFixture from "../../../../contracts/mock/assessments/WITH-ESTIMATE-GENERAL-NEW_TAIPEI.json";
 import subsidyNewTaipeiFixture from "../../../../contracts/mock/assessments/WITH-SUBSIDY-NEW_TAIPEI.json";
 import leadFixture from "../../../../contracts/mock/lead-response.json";
 import provider001 from "../../../../contracts/mock/providers/PROV-MOCK-001.json";
@@ -27,7 +29,7 @@ import provider201 from "../../../../contracts/mock/providers/PROV-MOCK-201.json
 import provider202 from "../../../../contracts/mock/providers/PROV-MOCK-202.json";
 import provider203 from "../../../../contracts/mock/providers/PROV-MOCK-203.json";
 import { ApiError } from "./realAdapter";
-import type { MockState, RecommendationMockCount, RecommendationMockRanking } from "./mockScenarios";
+import { assessmentMockScenario, type MockState, type RecommendationMockCount, type RecommendationMockRanking } from "./mockScenarios";
 import { createRecommendationFixture, rankingForPrecision } from "./recommendationMockFixtures";
 
 const wait = (milliseconds = 450) => new Promise((resolve) => window.setTimeout(resolve, milliseconds));
@@ -122,14 +124,25 @@ export const mockApi = {
     if (request.needs.assistiveDevice === "YES") careNeeds.push("ASSISTIVE_DEVICE");
     if (request.needs.transportation === "YES") careNeeds.push("TRANSPORTATION");
 
-    // Contract fixtures first (contracts/mock/README.md, J-002-r4):
-    //  - 新北市三重區 → WITH-SUBSIDY-NEW_TAIPEI.json (summary lines include possible subsidies);
+    // Contract fixtures first (contracts/mock/README.md, J-002-r4 / D-17 / D-17a):
+    //  - 新北市三重區＋身障證明 YES＋一般戶 → WITH-ESTIMATE-GENERAL-NEW_TAIPEI.json;
+    //  - 新北市三重區＋身障證明 YES → WITH-DISABILITY-NEW_TAIPEI.json;
+    //  - 其他新北市三重區情境 → WITH-SUBSIDY-NEW_TAIPEI.json;
     //  - any other answer with at least one need → assessment-response.json (no subsidy lines, i.e. the
     //    platform has no citable published data for that case).
+    // The estimate fixture already contains its disability section. Never concatenate summaries or calculate
+    // amounts in the frontend; income categories without a matching fixture keep the existing subsidy result.
     // Fixture care needs are fixed and do not follow the answers. No fixture covers "no needs", so that
     // case keeps the generated empty profile to exercise the EMPTY state.
     let response: AssessmentResponse;
-    if (careNeeds.length === 0) {
+    const scenario = assessmentMockScenario({
+      hasCareNeeds: careNeeds.length > 0,
+      city: request.location.city,
+      district: request.location.district,
+      disabilityCertificate: request.disabilityCertificate,
+      incomeCategory: request.incomeCategory,
+    });
+    if (scenario === "empty") {
       response = {
         assessmentId: "ASM-MOCK-001",
         knowledgeVersion: "KB-MOCK-001",
@@ -144,7 +157,11 @@ export const mockApi = {
           ],
         },
       };
-    } else if (request.location.city === "新北市" && request.location.district === "三重區") {
+    } else if (scenario === "estimate-general-new-taipei") {
+      response = structuredClone(estimateGeneralNewTaipeiFixture.data) as AssessmentResponse;
+    } else if (scenario === "disability-new-taipei") {
+      response = structuredClone(disabilityNewTaipeiFixture.data) as AssessmentResponse;
+    } else if (scenario === "subsidy-new-taipei") {
       response = structuredClone(subsidyNewTaipeiFixture.data) as AssessmentResponse;
     } else {
       response = structuredClone(basicAssessmentFixture.data) as AssessmentResponse;
@@ -180,7 +197,11 @@ export const mockApi = {
     const existing = leadsByKey.get(idempotencyKey);
     if (existing) return structuredClone(existing);
     simulateFailure("lead", state, "媒合需求暫時無法送出，請稍後再試。");
-    const lead = { ...(leadFixture.data as LeadResponse), createdAt: new Date().toISOString() };
+    const lead = {
+      ...(leadFixture.data as LeadResponse),
+      createdAt: new Date().toISOString(),
+      duplicate: state === "duplicate" ? true : leadFixture.data.duplicate,
+    };
     leadsByKey.set(idempotencyKey, lead);
     return structuredClone(lead);
   },

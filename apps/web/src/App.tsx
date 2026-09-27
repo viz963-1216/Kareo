@@ -1,10 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
 import { BrowserRouter, Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { api } from "./api";
+import { defaultAssessmentForm } from "./assessment/assessmentRequest";
 import { FormalAssessmentReminder } from "./components/FormalAssessmentReminder";
 import { ScrollToTop } from "./components/ScrollToTop";
 import type { AssessmentLocation, AssessmentResponse } from "./types/api";
-import { AssessmentPage, defaultAssessmentForm, type AssessmentForm, type AssessmentSubmission } from "./pages/AssessmentPage";
+import { AssessmentPage, type AssessmentForm, type AssessmentSubmission } from "./pages/AssessmentPage";
 import { ConsentPage } from "./pages/ConsentPage";
 import { HomePage } from "./pages/HomePage";
 import { LeadPage } from "./pages/LeadPage";

@@ -8,7 +8,8 @@ import { join } from "node:path";
 
 const OUT = process.argv[2];
 const BASE = "http://localhost:5173";
-const PORT = 9333;
+// Use an isolated debugging port so an interrupted prior run cannot capture or terminate this run's page.
+const PORT = 9300 + Math.floor(Math.random() * 500);
 mkdirSync(OUT, { recursive: true });
 
 const chrome = spawn("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", [
@@ -31,11 +32,20 @@ let id = 0;
 const pending = new Map();
 ws.addEventListener("message", (event) => {
   const msg = JSON.parse(event.data);
-  if (msg.id && pending.has(msg.id)) { pending.get(msg.id)(msg); pending.delete(msg.id); }
+  if (msg.id && pending.has(msg.id)) {
+    const request = pending.get(msg.id);
+    pending.delete(msg.id);
+    if (msg.error) request.reject(new Error(`${request.method}: ${msg.error.message}`));
+    else request.resolve(msg.result);
+  }
+});
+ws.addEventListener("close", () => {
+  for (const request of pending.values()) request.reject(new Error(`Chrome debugging connection closed during ${request.method}`));
+  pending.clear();
 });
 const send = (method, params = {}) => new Promise((resolve, reject) => {
   const i = ++id;
-  pending.set(i, (msg) => (msg.error ? reject(new Error(`${method}: ${msg.error.message}`)) : resolve(msg.result)));
+  pending.set(i, { method, resolve, reject });
   ws.send(JSON.stringify({ id: i, method, params }));
 });
 const run = async (expression) => {
@@ -79,7 +89,8 @@ async function flow(vp, full) {
   if (full) await shot(vp, "00-home");
   await run(`go('/consent'); await w(300);`);
   await shot(vp, "01-consent", await run(`return { consentPrechecked: document.querySelector('input[type=checkbox]').checked };`));
-  await run(`document.querySelector('input[type=checkbox]').click(); await w(50); btn('同意並開始評估').click(); await w(1200);`);
+  const consentSubmitting = await run(`document.querySelector('input[type=checkbox]').click(); await w(50); btn('同意並開始評估').click(); await w(50); const form = document.querySelector('form'); const box = form.querySelector('input[type=checkbox]'); const status = form.querySelector('[role=status]'); const result = { ariaBusy: form.getAttribute('aria-busy'), checkboxDisabled: box.disabled, statusText: status?.innerText }; await w(1150); return result;`);
+  report.viewports[vp.name].consentSubmitting = consentSubmitting;
 
   // No location → result without recommendations
   await run(`btn('查看初步結果').click(); await w(1300);`);
@@ -90,12 +101,14 @@ async function flow(vp, full) {
   }
 
   // GPS denied → still completes with district
-  await run(`geo('denied'); go('/assessment'); await w(300); const [c, d] = document.querySelectorAll('#location select'); setSel(c, '新北市'); await w(50); setSel(document.querySelectorAll('#location select')[1], '三重區'); await w(50); btn('使用目前位置').click(); await w(100); document.querySelector('.location-notice').scrollIntoView();`);
+  await run(`geo('denied'); go('/assessment'); await w(300); const [c, d] = document.querySelectorAll('#location select'); setSel(c, '新北市'); await w(50); setSel(document.querySelectorAll('#location select')[1], '三重區'); setSel(document.querySelector('select[aria-describedby="disability-certificate-hint"]'), 'YES'); setSel(document.querySelector('select[aria-describedby="income-category-hint"]'), 'UNKNOWN'); await w(50); btn('使用目前位置').click(); await w(100); document.querySelector('.location-notice').scrollIntoView();`);
   await shot(vp, "04-location-notice");
   await run(`btn('我了解').click(); await w(600); document.querySelector('.gps-box').scrollIntoView();`);
   await shot(vp, "05-gps-denied");
   await run(`btn('查看初步結果').click(); await w(1300);`);
-  await shot(vp, "06-result-subsidy-district");
+  await shot(vp, "06-result-disability-district", await run(`return { hasDisabilitySection: document.body.innerText.includes('身心障礙福利補助') };`));
+  await run(`go('/assessment'); await w(300); setSel(document.querySelector('select[aria-describedby="income-category-hint"]'), 'GENERAL'); btn('查看初步結果').click(); await w(1300);`);
+  await shot(vp, "06b-result-estimate-general", await run(`return { hasEstimateSection: document.body.innerText.includes('一般戶') && document.body.innerText.includes('自付') };`));
 
   const recs = full
     ? [["07-rec-district-3", "mockProviders=3"], ["08-rec-district-1", "mockProviders=1"], ["09-rec-district-2", "mockProviders=2"], ["10-rec-empty-0", "mockProviders=0"],
@@ -109,7 +122,7 @@ async function flow(vp, full) {
 
   if (full) {
     await run(`go('/recommendations/HOME_CARE?mockProviders=3'); await w(1300); btn('查看詳細資料').click(); await w(1200);`);
-    await shot(vp, "16-provider-detail", await run(`return { externalLinks: [...document.querySelectorAll('main a[target=_blank]')].map(a => a.rel) };`));
+    await shot(vp, "16-provider-detail", await run(`return { externalLinks: [...document.querySelectorAll('main a[target=_blank]')].map(a => a.rel), hasLeadCta: Boolean(btn('我要媒合')) };`));
   }
 
   // Lead
@@ -130,11 +143,17 @@ async function flow(vp, full) {
     const url = performance.getEntriesByType('resource').map(e => e.name).find(n => n.includes('/src/api/mockAdapter.ts')); const m = await import(url); const before = m.mockApi.leadRequestCount();
     setInput(document.querySelector('input[name=name]'), '王先生'); setInput(document.querySelector('input[name=phone]'), '0912-345-678'); await w(50);
     document.querySelector('.lead-form input[type=checkbox]').click(); await w(50);
-    const b = document.querySelector('.lead-form button'); b.click(); b.click(); b.click(); await w(1400);
-    return { requestsFromTripleClick: m.mockApi.leadRequestCount() - before, keptName: document.querySelector('input[name=name]')?.value };`);
+    const b = document.querySelector('.lead-form button'); b.click(); b.click(); b.click(); await w(30);
+    const disabledDuringSubmit = [...document.querySelectorAll('.lead-form input')].every(input => input.disabled);
+    await w(1370);
+    return { requestsFromTripleClick: m.mockApi.leadRequestCount() - before, keptName: document.querySelector('input[name=name]')?.value, disabledDuringSubmit, errorFocused: document.activeElement?.getAttribute('role') === 'alert' };`);
   await shot(vp, "18-lead-failed-kept-input", leadCounts);
   await run(`document.querySelector('.lead-form button').click(); await w(1400);`);
   await shot(vp, "19-lead-success", await run(`return { localStorage: JSON.stringify(localStorage), urlHasPhone: location.href.includes('0912') };`));
+  if (full) {
+    await run(`go('/recommendations/HOME_CARE?mockProviders=3'); await w(1300); btn('我要媒合').click(); await w(300); goWithState('/match?mockState=duplicate'); await w(100); setInput(document.querySelector('input[name=name]'), '王先生'); setInput(document.querySelector('input[name=phone]'), '0912-345-678'); document.querySelector('.lead-form input[type=checkbox]').click(); document.querySelector('.lead-form button').click(); await w(1200);`);
+    await shot(vp, "19b-lead-duplicate", await run(`return { duplicateMessage: document.body.innerText.includes('不會重複建立') };`));
+  }
 
   // GPS success → DISTANCE
   if (full) {
@@ -155,6 +174,9 @@ try {
   await flow({ name: "mobile", width: 375, height: 812 }, false);
   writeFileSync(join(OUT, "report.json"), JSON.stringify(report, null, 2) + "\n");
   console.log("ok", Object.values(report.viewports).reduce((n, v) => n + v.shots.length, 0), "shots");
+} catch (error) {
+  writeFileSync(join(OUT, "capture-error.log"), `${error?.stack ?? error}\n`);
+  throw error;
 } finally {
   ws.close();
   chrome.kill();

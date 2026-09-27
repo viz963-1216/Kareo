@@ -86,7 +86,7 @@ export function ProviderCard({ provider, rankingType, recommendationId, serviceT
         <Link className="button primary" to="/match" state={lead}>
           我要媒合
         </Link>
-        <Link className="button secondary" to={`/providers/${encodeURIComponent(provider.id)}`} state={{ from }}>
+        <Link className="button secondary" to={`/providers/${encodeURIComponent(provider.id)}`} state={{ from, lead }}>
           查看詳細資料
         </Link>
         <a

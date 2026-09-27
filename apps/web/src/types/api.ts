@@ -1,4 +1,6 @@
 export type YesNoUnknown = "YES" | "NO" | "UNKNOWN";
+export type DisabilityCertificate = YesNoUnknown;
+export type IncomeCategory = "LOW_INCOME" | "MIDDLE_LOW_INCOME" | "ALLOWANCE" | "GENERAL" | "UNKNOWN";
 export type CareNeed =
   | "HOME_CARE"
   | "HOME_MEDICAL_NURSING"
@@ -53,6 +55,10 @@ export interface AssessmentRequest {
     assistiveDevice: YesNoUnknown;
     transportation: YesNoUnknown;
   };
+  /** API_CONTRACT v0.3.1: omitted values are treated as UNKNOWN for older clients. */
+  disabilityCertificate?: DisabilityCertificate;
+  /** API_CONTRACT v0.3.2: omitted values are treated as UNKNOWN for older clients. */
+  incomeCategory?: IncomeCategory;
   freeText: string;
 }
 

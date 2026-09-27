@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { consentIsDraft, consentVersions } from "../api";
 import { DraftBadge } from "../components/DraftBadge";
@@ -15,6 +15,11 @@ export function ConsentPage({ onAccept }: Props) {
   const [accepted, setAccepted] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [error, setError] = useState("");
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (status === "error") errorRef.current?.focus();
+  }, [status]);
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -49,16 +54,18 @@ export function ConsentPage({ onAccept }: Props) {
         )}
       </section>
       <p>全程免費，不需登入。位置為選填，不提供也能完成評估。</p>
-      <form onSubmit={handleSubmit} className="stack">
+      <form onSubmit={handleSubmit} className="stack" aria-busy={status === "loading"}>
         <label className="checkbox">
           <input
             type="checkbox"
             checked={accepted}
+            disabled={status === "loading"}
             onChange={(event) => setAccepted(event.target.checked)}
           />
           <span>我已閱讀並同意上述服務說明、免責聲明與隱私告知。</span>
         </label>
-        {status === "error" && <p className="error" role="alert">{error}</p>}
+        {status === "loading" && <p className="loading" role="status">正在建立使用階段並記錄您的同意，請稍候。</p>}
+        {status === "error" && <div className="error" role="alert" ref={errorRef} tabIndex={-1}><h2>同意程序尚未完成</h2><p>{error}</p></div>}
         <button className="button primary" disabled={!accepted || status === "loading"}>
           {status === "loading" ? "處理中…" : "同意並開始評估"}
         </button>

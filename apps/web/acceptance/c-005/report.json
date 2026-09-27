@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T02:10:22.207Z",
+  "generatedAt": "2026-09-27T01:32:32.426Z",
   "base": "http://localhost:5173",
   "mode": "mock (vite dev)",
   "viewports": {
@@ -57,12 +57,22 @@
           "iframes": 0
         },
         {
-          "file": "desktop-06-result-subsidy-district.jpg",
+          "file": "desktop-06-result-disability-district.jpg",
           "path": "/result",
           "h1": "依目前資料的初步預估",
           "noHorizontalScroll": true,
           "nearWords": false,
-          "iframes": 0
+          "iframes": 0,
+          "hasDisabilitySection": true
+        },
+        {
+          "file": "desktop-06b-result-estimate-general.jpg",
+          "path": "/result",
+          "h1": "依目前資料的初步預估",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "hasEstimateSection": true
         },
         {
           "file": "desktop-07-rec-district-3.jpg",
@@ -163,7 +173,8 @@
           "iframes": 0,
           "externalLinks": [
             "noopener noreferrer"
-          ]
+          ],
+          "hasLeadCta": true
         },
         {
           "file": "desktop-17-lead-validation.jpg",
@@ -182,7 +193,9 @@
           "nearWords": false,
           "iframes": 0,
           "requestsFromTripleClick": 1,
-          "keptName": "王先生"
+          "keptName": "王先生",
+          "disabledDuringSubmit": true,
+          "errorFocused": true
         },
         {
           "file": "desktop-19-lead-success.jpg",
@@ -193,6 +206,15 @@
           "iframes": 0,
           "localStorage": "{}",
           "urlHasPhone": false
+        },
+        {
+          "file": "desktop-19b-lead-duplicate.jpg",
+          "path": "/match?mockState=duplicate",
+          "h1": "需求已送出",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "duplicateMessage": true
         },
         {
           "file": "desktop-20-gps-success.jpg",
@@ -228,6 +250,11 @@
           "iframes": 0
         }
       ],
+      "consentSubmitting": {
+        "ariaBusy": "true",
+        "checkboxDisabled": true,
+        "statusText": "正在建立使用階段並記錄您的同意，請稍候。"
+      },
       "leadTabOrder": [
         "name",
         "phone",
@@ -273,12 +300,22 @@
           "iframes": 0
         },
         {
-          "file": "tablet-06-result-subsidy-district.jpg",
+          "file": "tablet-06-result-disability-district.jpg",
           "path": "/result",
           "h1": "依目前資料的初步預估",
           "noHorizontalScroll": true,
           "nearWords": false,
-          "iframes": 0
+          "iframes": 0,
+          "hasDisabilitySection": true
+        },
+        {
+          "file": "tablet-06b-result-estimate-general.jpg",
+          "path": "/result",
+          "h1": "依目前資料的初步預估",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "hasEstimateSection": true
         },
         {
           "file": "tablet-11-rec-distance-3.jpg",
@@ -317,7 +354,9 @@
           "nearWords": false,
           "iframes": 0,
           "requestsFromTripleClick": 1,
-          "keptName": "王先生"
+          "keptName": "王先生",
+          "disabledDuringSubmit": true,
+          "errorFocused": true
         },
         {
           "file": "tablet-19-lead-success.jpg",
@@ -329,7 +368,12 @@
           "localStorage": "{}",
           "urlHasPhone": false
         }
-      ]
+      ],
+      "consentSubmitting": {
+        "ariaBusy": "true",
+        "checkboxDisabled": true,
+        "statusText": "正在建立使用階段並記錄您的同意，請稍候。"
+      }
     },
     "mobile": {
       "width": 375,
@@ -369,12 +413,22 @@
           "iframes": 0
         },
         {
-          "file": "mobile-06-result-subsidy-district.jpg",
+          "file": "mobile-06-result-disability-district.jpg",
           "path": "/result",
           "h1": "依目前資料的初步預估",
           "noHorizontalScroll": true,
           "nearWords": false,
-          "iframes": 0
+          "iframes": 0,
+          "hasDisabilitySection": true
+        },
+        {
+          "file": "mobile-06b-result-estimate-general.jpg",
+          "path": "/result",
+          "h1": "依目前資料的初步預估",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "hasEstimateSection": true
         },
         {
           "file": "mobile-11-rec-distance-3.jpg",
@@ -413,7 +467,9 @@
           "nearWords": false,
           "iframes": 0,
           "requestsFromTripleClick": 1,
-          "keptName": "王先生"
+          "keptName": "王先生",
+          "disabledDuringSubmit": true,
+          "errorFocused": true
         },
         {
           "file": "mobile-19-lead-success.jpg",
@@ -425,7 +481,12 @@
           "localStorage": "{}",
           "urlHasPhone": false
         }
-      ]
+      ],
+      "consentSubmitting": {
+        "ariaBusy": "true",
+        "checkboxDisabled": true,
+        "statusText": "正在建立使用階段並記錄您的同意，請稍候。"
+      }
     }
   }
 }

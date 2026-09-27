@@ -2,13 +2,14 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { isSessionProblem, preciseLocationEnabled } from "../api";
 import type { MockState } from "../api/mockScenarios";
+import { buildAssessmentRequest } from "../assessment/assessmentRequest";
 import { DraftBadge } from "../components/DraftBadge";
 import { FormalAssessmentReminder } from "../components/FormalAssessmentReminder";
 import { SessionProblem } from "../components/SessionProblem";
 import { buildLocation, DISTRICTS, isServiceCity, SERVICE_CITIES, type Coordinates } from "../location/location";
 import { useGeolocation } from "../location/useGeolocation";
 import { useMockState } from "../session/useMockState";
-import type { AssessmentRequest, YesNoUnknown } from "../types/api";
+import type { AssessmentRequest, DisabilityCertificate, IncomeCategory, YesNoUnknown } from "../types/api";
 
 export interface AssessmentForm {
   ageRange: AssessmentRequest["ageRange"];
@@ -25,25 +26,10 @@ export interface AssessmentForm {
   medicalNursing: YesNoUnknown;
   assistiveDevice: YesNoUnknown;
   transportation: YesNoUnknown;
+  disabilityCertificate: DisabilityCertificate;
+  incomeCategory: IncomeCategory;
   freeText: string;
 }
-
-// Location starts empty: it is optional and never pre-filled for the user (PRODUCT_SPEC §24).
-export const defaultAssessmentForm: AssessmentForm = {
-  ageRange: "75_84",
-  city: "",
-  district: "",
-  coords: null,
-  livingSituation: "WITH_FAMILY",
-  caregiverSituation: "FAMILY_LIMITED",
-  mobilityLevel: "NEEDS_ASSISTANCE",
-  dailyLivingLevel: "PARTIAL_ASSISTANCE",
-  homeCare: "YES",
-  medicalNursing: "UNKNOWN",
-  assistiveDevice: "YES",
-  transportation: "YES",
-  freeText: "",
-};
 
 export interface AssessmentSubmission {
   request: AssessmentRequest;
@@ -122,22 +108,7 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
     setError(null);
     try {
       await onSubmit({
-        request: {
-          sessionId,
-          ageRange: form.ageRange,
-          location: built.location,
-          livingSituation: form.livingSituation,
-          caregiverSituation: form.caregiverSituation,
-          mobilityLevel: form.mobilityLevel,
-          dailyLivingLevel: form.dailyLivingLevel,
-          needs: {
-            homeCare: form.homeCare,
-            medicalNursing: form.medicalNursing,
-            assistiveDevice: form.assistiveDevice,
-            transportation: form.transportation,
-          },
-          freeText: form.freeText.trim(),
-        },
+        request: buildAssessmentRequest(sessionId, form, built.location),
         form,
         mockState,
       });
@@ -251,6 +222,37 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
           <legend>日常活動</legend>
           {select("行動狀況", "mobilityLevel", [["INDEPENDENT", "可自行行動"], ["NEEDS_ASSISTANCE", "需要協助"], ["WHEELCHAIR", "使用輪椅"], ["BEDRIDDEN", "長時間臥床"], ["UNKNOWN", "不確定"]])}
           {select("日常生活協助程度", "dailyLivingLevel", [["INDEPENDENT", "可自行完成"], ["PARTIAL_ASSISTANCE", "部分需要協助"], ["HIGH_ASSISTANCE", "大部分需要協助"], ["FULL_ASSISTANCE", "完全需要協助"], ["UNKNOWN", "不確定"]])}
+        </fieldset>
+        <fieldset>
+          <legend>補助與自付估算資訊（選填）</legend>
+          <label>
+            是否領有身心障礙證明
+            <select
+              value={form.disabilityCertificate}
+              onChange={(event) => set("disabilityCertificate", event.target.value)}
+              aria-describedby="disability-certificate-hint"
+            >
+              {option("YES", "是")}
+              {option("NO", "否")}
+              {option("UNKNOWN", "不確定")}
+            </select>
+            <span className="field-hint" id="disability-certificate-hint">只用來顯示您可能適用的補助</span>
+          </label>
+          <label>
+            家庭經濟身分
+            <select
+              value={form.incomeCategory}
+              onChange={(event) => set("incomeCategory", event.target.value)}
+              aria-describedby="income-category-hint"
+            >
+              {option("LOW_INCOME", "低收入戶")}
+              {option("MIDDLE_LOW_INCOME", "中低收入戶")}
+              {option("ALLOWANCE", "領有中低收入老人生活津貼或身心障礙者生活補助")}
+              {option("GENERAL", "以上皆非")}
+              {option("UNKNOWN", "不確定")}
+            </select>
+            <span className="field-hint" id="income-category-hint">只用來估算您可能要自付的金額，不需要提供證明</span>
+          </label>
         </fieldset>
         <fieldset>
           <legend>可能需要的服務</legend>

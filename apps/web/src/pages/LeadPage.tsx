@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { api, isSessionProblem } from "../api";
 import { DraftBadge } from "../components/DraftBadge";
@@ -46,6 +46,11 @@ export function LeadPage({ sessionId, assessmentId }: Props) {
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const consentRef = useRef<HTMLInputElement>(null);
+  const failureRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (status === "error") failureRef.current?.focus();
+  }, [status]);
 
   if (!assessmentId || !sessionId || !selection) {
     return (
@@ -154,6 +159,7 @@ export function LeadPage({ sessionId, assessmentId }: Props) {
             autoComplete="name"
             maxLength={NAME_MAX_LENGTH + 10}
             value={values.name}
+            disabled={status === "submitting"}
             onChange={(event) => update("name", event.target.value)}
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? "lead-name-error" : "lead-name-hint"}
@@ -170,6 +176,7 @@ export function LeadPage({ sessionId, assessmentId }: Props) {
             inputMode="tel"
             autoComplete="tel"
             value={values.phone}
+            disabled={status === "submitting"}
             onChange={(event) => update("phone", event.target.value)}
             aria-invalid={Boolean(errors.phone)}
             aria-describedby={errors.phone ? "lead-phone-error" : undefined}
@@ -182,6 +189,7 @@ export function LeadPage({ sessionId, assessmentId }: Props) {
               ref={consentRef}
               type="checkbox"
               checked={values.contactConsent}
+              disabled={status === "submitting"}
               onChange={(event) => update("contactConsent", event.target.checked)}
               aria-invalid={Boolean(errors.contactConsent)}
               aria-describedby={errors.contactConsent ? "lead-consent-error" : undefined}
@@ -193,12 +201,15 @@ export function LeadPage({ sessionId, assessmentId }: Props) {
         </div>
 
         {status === "error" && (isSessionProblem(failure)
-          ? <SessionProblem message={failureMessage} />
-          : <p className="error" role="alert">{failureMessage} 需求尚未送出，您填寫的內容仍保留，可以再試一次。</p>)}
+          ? <div ref={failureRef} tabIndex={-1}><SessionProblem message={failureMessage} /></div>
+          : <div className="error" role="alert" ref={failureRef} tabIndex={-1}><h2>媒合需求尚未送出</h2><p>{failureMessage} 您填寫的內容仍保留，可以再試一次。</p></div>)}
         {status === "submitting" && <p className="loading" role="status">正在送出需求，請稍候，不需要重複點擊。</p>}
-        <button className="button primary" disabled={status === "submitting"}>
-          {status === "submitting" ? "正在送出…" : status === "error" ? "再試一次送出" : "送出媒合需求"}
-        </button>
+        <div className="button-row">
+          <button className="button primary" disabled={status === "submitting"}>
+            {status === "submitting" ? "正在送出…" : status === "error" ? "再試一次送出" : "送出媒合需求"}
+          </button>
+          <Link className="button secondary" to={current.from.startsWith("/recommendations/") ? current.from : "/result"}>返回推薦結果</Link>
+        </div>
       </form>
       <FormalAssessmentReminder compact />
     </main>
