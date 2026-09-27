@@ -110,6 +110,19 @@ async function flow(vp, full) {
   await run(`go('/assessment'); await w(300); setSel(document.querySelector('select[aria-describedby="income-category-hint"]'), 'GENERAL'); btn('查看初步結果').click(); await w(1300);`);
   await shot(vp, "06b-result-estimate-general", await run(`return { hasEstimateSection: document.body.innerText.includes('一般戶') && document.body.innerText.includes('自付') };`));
 
+  // Restart clears the in-memory assessment form. Re-consent and verify both new choices return to UNKNOWN.
+  await run(`btn('重新開始').click(); await w(300); go('/consent'); await w(200); document.querySelector('input[type=checkbox]').click(); btn('同意並開始評估').click(); await w(1200);`);
+  const resetValues = await run(`const disability = document.querySelector('select[aria-describedby="disability-certificate-hint"]'); const income = document.querySelector('select[aria-describedby="income-category-hint"]'); return { disabilityCertificate: disability.value, incomeCategory: income.value };`);
+  report.viewports[vp.name].restartValues = resetValues;
+  if (full) {
+    await run(`document.querySelector('select[aria-describedby="disability-certificate-hint"]').focus();`);
+    await send("Input.dispatchKeyEvent", { type: "keyDown", key: "Tab", code: "Tab", windowsVirtualKeyCode: 9 });
+    await send("Input.dispatchKeyEvent", { type: "keyUp", key: "Tab", code: "Tab", windowsVirtualKeyCode: 9 });
+    report.viewports[vp.name].assessmentSelectTabOrder = await run(`return { first: 'disabilityCertificate', second: document.activeElement?.getAttribute('aria-describedby') === 'income-category-hint' ? 'incomeCategory' : document.activeElement?.tagName };`);
+  }
+  await shot(vp, "06c-assessment-restart-unknown", { ...resetValues });
+  await run(`const [c, d] = document.querySelectorAll('#location select'); setSel(c, '新北市'); await w(50); setSel(document.querySelectorAll('#location select')[1], '三重區'); btn('查看初步結果').click(); await w(1300);`);
+
   const recs = full
     ? [["07-rec-district-3", "mockProviders=3"], ["08-rec-district-1", "mockProviders=1"], ["09-rec-district-2", "mockProviders=2"], ["10-rec-empty-0", "mockProviders=0"],
        ["11-rec-distance-3", "mockProviders=3&mockRanking=distance"], ["12-rec-missing-coordinates", "mockProviders=3&mockRanking=missing-coordinates"],
@@ -126,7 +139,7 @@ async function flow(vp, full) {
   }
 
   // Lead
-  await run(`go('/recommendations/HOME_CARE?mockProviders=3'); await w(1300); btn('我要媒合').click(); await w(300); goWithState('/match?mockState=error-once'); await w(200); document.querySelector('.lead-form button').click(); await w(200);`);
+  await run(`go('/recommendations/HOME_CARE?mockProviders=3'); await w(2000); const leadButton = btn('我要媒合'); if (!leadButton) throw new Error('lead CTA missing at ' + location.pathname + location.search); leadButton.click(); await w(300); goWithState('/match?mockState=error-once'); await w(200); document.querySelector('.lead-form button').click(); await w(200);`);
   await shot(vp, "17-lead-validation", await run(`return { focused: document.activeElement.name };`));
   if (full) {
     // Keyboard order through the form
@@ -161,9 +174,9 @@ async function flow(vp, full) {
     await shot(vp, "20-gps-success");
     await run(`btn('查看初步結果').click(); await w(1300); go('/recommendations/HOME_CARE?mockProviders=3'); await w(1300);`);
     await shot(vp, "21-rec-after-gps-distance", await run(`return { explanation: document.querySelector('.recommendation-notice p').innerText };`));
-    await run(`go('/result?mockState=error-once'); await w(300); btn('刪除我的評估資料').click(); await w(50); btn('確定刪除').click(); await w(900); document.querySelector('[role=alert]').scrollIntoView();`);
+    await run(`go('/result?mockState=error'); await w(300); btn('刪除我的評估資料').click(); await w(50); btn('確定刪除').click(); await w(1400); const alert = document.querySelector('[role=alert]'); if (!alert) throw new Error('delete failure alert missing at ' + location.pathname + location.search); alert.scrollIntoView();`);
     await shot(vp, "22-delete-failed-not-deleted");
-    await run(`btn('刪除我的評估資料').click(); await w(50); btn('確定刪除').click(); await w(900);`);
+    await run(`go('/result'); await w(300); btn('刪除我的評估資料').click(); await w(50); btn('確定刪除').click(); await w(900);`);
     await shot(vp, "23-session-deleted");
   }
 }
@@ -172,6 +185,14 @@ try {
   await flow({ name: "desktop", width: 1280, height: 900 }, true);
   await flow({ name: "tablet", width: 768, height: 1024 }, false);
   await flow({ name: "mobile", width: 375, height: 812 }, false);
+  for (const [name, viewport] of Object.entries(report.viewports)) {
+    if (viewport.restartValues.disabilityCertificate !== "UNKNOWN" || viewport.restartValues.incomeCategory !== "UNKNOWN") {
+      throw new Error(`${name}: restart did not clear the new assessment choices`);
+    }
+  }
+  if (report.viewports.desktop.assessmentSelectTabOrder.second !== "incomeCategory") {
+    throw new Error("desktop: assessment selects did not pass keyboard focus order checks");
+  }
   writeFileSync(join(OUT, "report.json"), JSON.stringify(report, null, 2) + "\n");
   console.log("ok", Object.values(report.viewports).reduce((n, v) => n + v.shots.length, 0), "shots");
 } catch (error) {

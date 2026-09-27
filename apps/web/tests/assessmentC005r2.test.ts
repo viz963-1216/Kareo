@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { test } from "node:test";
+import { fileURLToPath } from "node:url";
 import { buildAssessmentRequest, defaultAssessmentForm } from "../src/assessment/assessmentRequest.ts";
 import { assessmentMockScenario, MOCK_STATES } from "../src/api/mockScenarios.ts";
 
 const district = { precision: "DISTRICT", city: "新北市", district: "三重區", lat: null, lng: null } as const;
 
-test("new assessment fields default and reset to explicit UNKNOWN values", () => {
+test("new assessment fields have explicit UNKNOWN defaults", () => {
   assert.equal(defaultAssessmentForm.disabilityCertificate, "UNKNOWN");
   assert.equal(defaultAssessmentForm.incomeCategory, "UNKNOWN");
   const changed = { ...defaultAssessmentForm, disabilityCertificate: "YES" as const, incomeCategory: "GENERAL" as const };
@@ -14,6 +16,12 @@ test("new assessment fields default and reset to explicit UNKNOWN values", () =>
     { disabilityCertificate: defaultAssessmentForm.disabilityCertificate, incomeCategory: defaultAssessmentForm.incomeCategory },
     { disabilityCertificate: "UNKNOWN", incomeCategory: "UNKNOWN" },
   );
+});
+
+test("the restart path restores defaultAssessmentForm instead of retaining prior answers", () => {
+  const appSource = readFileSync(fileURLToPath(new URL("../src/App.tsx", import.meta.url)), "utf8");
+  assert.match(appSource, /const clearState\s*=\s*useCallback\(\(\)\s*=>\s*\{[\s\S]*?setForm\(defaultAssessmentForm\)/);
+  assert.match(appSource, /restart\(\)[\s\S]*?clearState\(\)/);
 });
 
 test("payload always includes sessionId and both new fields, including unanswered values", () => {

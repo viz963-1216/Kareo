@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T01:32:32.426Z",
+  "generatedAt": "2026-09-27T06:12:15.112Z",
   "base": "http://localhost:5173",
   "mode": "mock (vite dev)",
   "viewports": {
@@ -73,6 +73,16 @@
           "nearWords": false,
           "iframes": 0,
           "hasEstimateSection": true
+        },
+        {
+          "file": "desktop-06c-assessment-restart-unknown.jpg",
+          "path": "/assessment",
+          "h1": "告訴我們目前的照護情況",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "disabilityCertificate": "UNKNOWN",
+          "incomeCategory": "UNKNOWN"
         },
         {
           "file": "desktop-07-rec-district-3.jpg",
@@ -235,7 +245,7 @@
         },
         {
           "file": "desktop-22-delete-failed-not-deleted.jpg",
-          "path": "/result?mockState=error-once",
+          "path": "/result?mockState=error",
           "h1": "依目前資料的初步預估",
           "noHorizontalScroll": true,
           "nearWords": false,
@@ -254,6 +264,14 @@
         "ariaBusy": "true",
         "checkboxDisabled": true,
         "statusText": "正在建立使用階段並記錄您的同意，請稍候。"
+      },
+      "restartValues": {
+        "disabilityCertificate": "UNKNOWN",
+        "incomeCategory": "UNKNOWN"
+      },
+      "assessmentSelectTabOrder": {
+        "first": "disabilityCertificate",
+        "second": "incomeCategory"
       },
       "leadTabOrder": [
         "name",
@@ -318,6 +336,16 @@
           "hasEstimateSection": true
         },
         {
+          "file": "tablet-06c-assessment-restart-unknown.jpg",
+          "path": "/assessment",
+          "h1": "告訴我們目前的照護情況",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "disabilityCertificate": "UNKNOWN",
+          "incomeCategory": "UNKNOWN"
+        },
+        {
           "file": "tablet-11-rec-distance-3.jpg",
           "path": "/recommendations/HOME_CARE?mockProviders=3&mockRanking=distance",
           "h1": "居家照顧服務單位",
@@ -373,6 +401,10 @@
         "ariaBusy": "true",
         "checkboxDisabled": true,
         "statusText": "正在建立使用階段並記錄您的同意，請稍候。"
+      },
+      "restartValues": {
+        "disabilityCertificate": "UNKNOWN",
+        "incomeCategory": "UNKNOWN"
       }
     },
     "mobile": {
@@ -431,6 +463,16 @@
           "hasEstimateSection": true
         },
         {
+          "file": "mobile-06c-assessment-restart-unknown.jpg",
+          "path": "/assessment",
+          "h1": "告訴我們目前的照護情況",
+          "noHorizontalScroll": true,
+          "nearWords": false,
+          "iframes": 0,
+          "disabilityCertificate": "UNKNOWN",
+          "incomeCategory": "UNKNOWN"
+        },
+        {
           "file": "mobile-11-rec-distance-3.jpg",
           "path": "/recommendations/HOME_CARE?mockProviders=3&mockRanking=distance",
           "h1": "居家照顧服務單位",
@@ -486,6 +528,10 @@
         "ariaBusy": "true",
         "checkboxDisabled": true,
         "statusText": "正在建立使用階段並記錄您的同意，請稍候。"
+      },
+      "restartValues": {
+        "disabilityCertificate": "UNKNOWN",
+        "incomeCategory": "UNKNOWN"
       }
     }
   }
