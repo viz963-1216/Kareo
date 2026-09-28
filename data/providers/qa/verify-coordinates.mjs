@@ -6,6 +6,18 @@ const readJson = (file) =>
 
 const evidence = [
   {
+    providerId: "NTPC-HC-004",
+    sourceDataset: "新北市門牌位置數值資料 11509",
+    sourceUrl:
+      "https://data.ntpc.gov.tw/api/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101/csv/file",
+    record:
+      "65000,65000020,溪美里,010,福隆路,,,,４８號,299673.374200,2774565.5731000",
+    sourceCrs: "EPSG:3826",
+    x: 299673.3742,
+    y: 2774565.5731,
+    expected: { lat: 25.07852424, lng: 121.49241746 },
+  },
+  {
     providerId: "NTPC-HC-005",
     sourceDataset: "新北市門牌位置數值資料 11509",
     sourceUrl:
@@ -120,15 +132,18 @@ for (const area of areas.filter((item) => item.active)) {
 }
 
 const readyKeys = [
+  "HOME_CARE|新北市|三重區",
   "HOME_CARE|新北市|土城區",
   "HOME_CARE|新北市|五股區",
   "HOME_CARE|新北市|新店區",
+  "HOME_CARE|新北市|新莊區",
   "HOME_CARE|新北市|泰山區",
+  "HOME_CARE|新北市|蘆洲區",
 ];
 for (const key of readyKeys) {
   const candidates = [...(groups.get(key)?.values() ?? [])];
   const verified = candidates.filter((provider) => provider.lat !== null && provider.lng !== null);
-  if (candidates.length !== 1 || verified.length !== candidates.length) {
+  if (candidates.length === 0 || verified.length !== candidates.length) {
     throw new Error(`${key}: not a complete verified DISTANCE candidate group.`);
   }
 }
