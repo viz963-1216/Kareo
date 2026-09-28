@@ -1,24 +1,25 @@
-# A-003-r4 Provider Coordinate Verification Report
+# A-003-r5 Provider Coordinate Verification Report
 
-Submission Version: A-003-r4
+Submission Version: A-003-r5
 
-Report date: 2026-09-27
+Report date: 2026-09-28
 Dataset: `data/providers/staging/providers.json`, `provider-services.json`, `provider-service-areas.json`
 
 ## 結論
 
-本次延續 r3 的可追溯原則，不重做亂碼修復，也不把 Google Maps 地址搜尋 URL、地圖視窗中心或行政區中心當作座標。本次新增 1 筆已驗證 WGS84 座標：`NTPC-HC-005`。其「機構名稱＋正式地址＋電話」先以新北市高齡長期照顧處的現行特約單位名單（`SRC-002`）核對；再以新北市政府民政局「新北市門牌位置數值資料 11509」的同一建物門牌點取得 EPSG:3826 座標並轉為 WGS84。
+本次延續 r4 的可追溯原則，不重做亂碼修復，也不把 Google Maps 地址搜尋 URL、地圖視窗中心或行政區中心當作座標。本次新增 1 筆已驗證 WGS84 座標：`NTPC-HC-004`。其機構名稱與正式地址先以新北市高齡長期照顧處「新北市居家長照機構名冊」核對；再以新北市政府民政局「新北市門牌位置數值資料 11509」同一建物門牌點取得 EPSG:3826 座標並轉為 WGS84。加上 r4 已驗證的 `NTPC-HC-005`，目前共 2 筆已驗證座標。
 
-其餘 29 筆仍維持 `null`／`PENDING`。地址搜尋 URL 僅是人工核對入口，**不是**座標證據。
+其餘 28 筆仍維持 `null`／`PENDING`。地址搜尋 URL 僅是人工核對入口，**不是**座標證據。
 
 ## 已驗證來源與轉換
 
 | Source ID | 來源與可重現 URL | 本次使用的紀錄／核對結果 |
 | --- | --- | --- |
 | SRC-002 | 新北市高齡長期照顧處「新北市長照特約單位」：https://www.careyou.ntpc.gov.tw/w/agecare/unit | `NTPC-HC-005` 列為居家服務啟用單位；名稱、地址（里／鄰及 `1、2樓`／`1~2樓` 的標點差異）及電話 `02-2972-2060` 與 JSON 相符。完整查核證據見 `qa/provider-service-active-evidence.md`。 |
-| SRC-COORD-NTPC-001 | 新北市政府民政局「新北市門牌位置數值資料 11509」：https://data.gov.tw/dataset/168887；CSV：https://data.ntpc.gov.tw/api/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101/csv/file | CSV 紀錄：`65000,65000020,長江里,016,長元街,,,,１００之２號,300752.019217,2773265.3017167`。欄位 `x_3826`／`y_3826` 為 EPSG:3826，代表與 Provider `新北市三重區長元街100之2號1~2樓` 相同建物門牌；一、二樓不改變建物門牌點。資料集詮釋資料於 2026-09-14 更新，本次取得／查核日期為 2026-09-27。 |
+| SRC-003 | 新北市高齡長期照顧處「新北市居家長照機構名冊 11506」：https://www.careyou.ntpc.gov.tw/WebUPD/agecare/InstitutionalRoster/%E6%96%B0%E5%8C%97%E5%B8%82%E5%B1%85%E5%AE%B6%E9%95%B7%E7%85%A7%E6%A9%9F%E6%A7%8B%E5%90%8D%E5%86%8A11506.pdf | `NTPC-HC-004`（新北市私立旺福居家長照機構）列於名冊；名稱與立案地址 `新北市三重區福隆路48號1樓` 與 JSON 相符。 |
+| SRC-COORD-NTPC-001 | 新北市政府民政局「新北市門牌位置數值資料 11509」：https://data.gov.tw/dataset/168887；CSV：https://data.ntpc.gov.tw/api/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101/csv/file | CSV 紀錄 A：`65000,65000020,長江里,016,長元街,,,,１００之２號,300752.019217,2773265.3017167`（`NTPC-HC-005`）。紀錄 B：`65000,65000020,溪美里,010,福隆路,,,,４８號,299673.374200,2774565.5731000`（`NTPC-HC-004`）。欄位 `x_3826`／`y_3826` 為 EPSG:3826，均為與 Provider 正式地址相同的建物門牌點；樓層不改變建物門牌點。資料集詮釋資料於 2026-09-14 更新，本次取得／查核日期為 2026-09-28。 |
 
-轉換：以 EPSG:3826（TWD97 / TM2 zone 121）`x=300752.019217`、`y=2773265.3017167`，使用 GRS80 橢球、中央經線 121°、比例尺 0.9999、false easting 250000 的逆橫麥卡托轉換為 EPSG:4326（WGS84）`lat=25.06674961`、`lng=121.50306191`。轉換程式與 JSON／候選覆蓋率一致性檢查見 `qa/verify-coordinates.mjs`。
+轉換：以 EPSG:3826（TWD97 / TM2 zone 121）座標，使用 GRS80 橢球、中央經線 121°、比例尺 0.9999、false easting 250000 的逆橫麥卡托轉換為 EPSG:4326（WGS84）。`NTPC-HC-004`：`x=299673.374200`、`y=2774565.5731000` → `lat=25.07852424`、`lng=121.49241746`；`NTPC-HC-005`：`x=300752.019217`、`y=2773265.3017167` → `lat=25.06674961`、`lng=121.50306191`。轉換程式與 JSON／候選覆蓋率一致性檢查見 `qa/verify-coordinates.mjs`。
 
 ## 逐筆對照
 
@@ -37,7 +38,7 @@ Dataset: `data/providers/staging/providers.json`, `provider-services.json`, `pro
 | NTPC-HC-001 | 萓品管理顧問有限公司附設新北市私立禾善居家長照機構 | 新北市樹林區仁愛街3號1樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%A8%B9%E6%9E%97%E5%8D%80%E4%BB%81%E6%84%9B%E8%A1%973%E8%99%9F1%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
 | NTPC-HC-002 | 社團法人中華長照協會附設新北市私立永樂居家式服務類長期照顧服務機構 | 新北市永和區文化路155號 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%B0%B8%E5%92%8C%E5%8D%80%E6%96%87%E5%8C%96%E8%B7%AF155%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
 | NTPC-HC-003 | 台灣全齡長照股份有限公司附設新北市私立禾薪居家長照機構 | 新北市新莊區新莊路16之2號1樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%96%B0%E8%8E%8A%E5%8D%80%E6%96%B0%E8%8E%8A%E8%B7%AF16%E4%B9%8B2%E8%99%9F1%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
-| NTPC-HC-004 | 新北市私立旺福居家長照機構 | 新北市三重區福隆路48號1樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%89%E9%87%8D%E5%8D%80%E7%A6%8F%E9%9A%86%E8%B7%AF48%E8%99%9F1%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
+| NTPC-HC-004 | 新北市私立旺福居家長照機構 | 新北市三重區福隆路48號1樓 | 25.07852424 | 121.49241746 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%89%E9%87%8D%E5%8D%80%E7%A6%8F%E9%9A%86%E8%B7%AF48%E8%99%9F1%E6%A8%93 | `SRC-003` 機構名稱／正式地址人工核對＋`SRC-COORD-NTPC-001` 同建物門牌點（EPSG:3826 → EPSG:4326）；非 Google 搜尋中心 | 2026-09-28 | VERIFIED | — |
 | NTPC-HC-005 | 新北市私立全曜居家式服務類長期照顧服務機構 | 新北市三重區長元街100之2號1~2樓 | 25.06674961 | 121.50306191 | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%89%E9%87%8D%E5%8D%80%E9%95%B7%E5%85%83%E8%A1%97100%E4%B9%8B2%E8%99%9F1~2%E6%A8%93 | `SRC-002` 機構／地址／電話人工核對＋`SRC-COORD-NTPC-001` 同建物門牌點（EPSG:3826 → EPSG:4326）；非 Google 搜尋中心 | 2026-09-27 | VERIFIED | — |
 | TP-HMN-001 | 台灣基督長老教會馬偕醫療財團法人附設馬偕居家護理所 | 臺北市中山區中山北路二段96巷9號1-3樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E4%B8%AD%E5%B1%B1%E5%8C%97%E8%B7%AF%E4%BA%8C%E6%AE%B596%E5%B7%B79%E8%99%9F1-3%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
 | TP-HMN-002 | 臺北市立聯合醫院附設陽明居家護理所 | 臺北市士林區雨聲街105號6樓 | null | null | https://www.google.com/maps/search/?api=1&query=%E8%87%BA%E5%8C%97%E5%B8%82%E5%A3%AB%E6%9E%97%E5%8D%80%E9%9B%A8%E8%81%B2%E8%A1%97105%E8%99%9F6%E6%A8%93 | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
@@ -55,7 +56,7 @@ Dataset: `data/providers/staging/providers.json`, `provider-services.json`, `pro
 | NTPC-AD-008 | 鴻銘醫療儀器行 | 新北市淡水區民生路47-2號 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%B7%A1%E6%B0%B4%E5%8D%80%E6%B0%91%E7%94%9F%E8%B7%AF47-2%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
 | NTPC-AD-009 | 美德耐股份有限公司雙和門市部 | 新北市中和區中正路291號 | null | null | https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%92%8C%E5%8D%80%E4%B8%AD%E6%AD%A3%E8%B7%AF291%E8%99%9F | 未完成座標驗證；URL 僅地址參考 | — | PENDING | 未取得可重現 WGS84 證據 |
 
-摘要：已驗證 1／30；待查 29／30；`providers.json` 的非 null 座標 1。非 null 值與來源證據均由 `qa/verify-coordinates.mjs` 檢查。
+摘要：已驗證 2／30；待查 28／30；`providers.json` 的非 null 座標 2。非 null 值與來源證據均由 `qa/verify-coordinates.mjs` 檢查。
 
 ## 可實際推薦候選的覆蓋率
 
@@ -63,17 +64,17 @@ Dataset: `data/providers/staging/providers.json`, `provider-services.json`, `pro
 
 | Service Type | City | District | 已驗證／候選總數 | DISTANCE 狀態 | 原因 |
 | --- | --- | --- | --- | --- | --- |
-| HOME_CARE | 新北市 | 三重區 | 1／2 | BLOCKED | `NTPC-HC-004` 仍為 null；D-13c 要求整組都有座標。 |
+| HOME_CARE | 新北市 | 三重區 | 2／2 | READY | `NTPC-HC-004`、`NTPC-HC-005` 均有已驗證座標；可做多家 DISTANCE 排序驗收。 |
 | HOME_CARE | 新北市 | 土城區 | 1／1 | READY | 唯一正式候選 `NTPC-HC-005` 已驗證；可供 B-005／J-003 做 DISTANCE 驗收。 |
-| HOME_CARE | 新北市 | 中和區 | 1／3 | BLOCKED | 另 2 個正式候選仍為 null；不得混排。 |
+| HOME_CARE | 新北市 | 中和區 | 2／3 | BLOCKED | 仍有 1 個正式候選為 null；不得混排。 |
 | HOME_CARE | 新北市 | 五股區 | 1／1 | READY | 唯一正式候選 `NTPC-HC-005` 已驗證；可做 DISTANCE 驗收。 |
 | HOME_CARE | 新北市 | 永和區 | 1／2 | BLOCKED | 另 1 個正式候選仍為 null；不得混排。 |
-| HOME_CARE | 新北市 | 板橋區 | 1／3 | BLOCKED | 另 2 個正式候選仍為 null；不得混排。 |
+| HOME_CARE | 新北市 | 板橋區 | 2／3 | BLOCKED | 仍有 1 個正式候選為 null；不得混排。 |
 | HOME_CARE | 新北市 | 泰山區 | 1／1 | READY | 唯一正式候選 `NTPC-HC-005` 已驗證；可做 DISTANCE 驗收。 |
 | HOME_CARE | 新北市 | 新店區 | 1／1 | READY | 唯一正式候選 `NTPC-HC-005` 已驗證；可做 DISTANCE 驗收。 |
-| HOME_CARE | 新北市 | 新莊區 | 1／2 | BLOCKED | 另 1 個正式候選仍為 null；不得混排。 |
+| HOME_CARE | 新北市 | 新莊區 | 2／2 | READY | `NTPC-HC-004`、`NTPC-HC-005` 均有已驗證座標。 |
 | HOME_CARE | 新北市 | 樹林區 | 1／2 | BLOCKED | 另 1 個正式候選仍為 null；不得混排。 |
-| HOME_CARE | 新北市 | 蘆洲區 | 1／2 | BLOCKED | 另 1 個正式候選仍為 null；不得混排。 |
+| HOME_CARE | 新北市 | 蘆洲區 | 2／2 | READY | `NTPC-HC-004`、`NTPC-HC-005` 均有已驗證座標。 |
 | HOME_CARE | 臺北市 | 士林區 | 0／3 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
 | HOME_CARE | 臺北市 | 大同區 | 0／10 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
 | HOME_CARE | 臺北市 | 大安區 | 0／4 | BLOCKED | 所有候選座標均為 null；不得使用 DISTANCE。 |
@@ -100,7 +101,7 @@ git diff --check
 
 ### 可交付的 DISTANCE 驗收範圍
 
-`HOME_CARE × 新北市 × 土城區` 是本次首個完整覆蓋組合：候選由 `status=ACTIVE`、`ProviderService.active=true`、`ProviderServiceArea.active=true` 計得，只有 `NTPC-HC-005`，且該筆座標已驗證。因此 B-005／J-003 可在 GPS／EXACT 情境驗收 `rankingType=DISTANCE` 與數值 `distanceKm`；因候選只有一筆，這是「距離分支可執行」而非多家排序品質驗收。`五股區`、`新店區`、`泰山區`同樣具備完整覆蓋，皆為同一個單一候選。
+`HOME_CARE × 新北市 × 三重區` 是本次首個多家完整覆蓋組合：候選由 `status=ACTIVE`、`ProviderService.active=true`、`ProviderServiceArea.active=true` 計得，共有 `NTPC-HC-004` 與 `NTPC-HC-005`，且兩筆座標均已驗證。因此 B-005／J-003 可在 GPS／EXACT 情境驗收 `rankingType=DISTANCE`、兩家距離排序與數值 `distanceKm`。`土城區`、`五股區`、`新店區`、`泰山區`也維持完整覆蓋，但各只有同一個單一候選 `NTPC-HC-005`；`新莊區`與`蘆洲區`則新增為 2／2 READY。
 
 ### 仍未解決的缺口
 
