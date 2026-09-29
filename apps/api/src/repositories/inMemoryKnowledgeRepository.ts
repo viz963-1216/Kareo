@@ -2,8 +2,11 @@
 // 全部成功才寫回正式資料，任一步失敗則完全不變），不得用於 Production。
 import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
 import type {
+  CrawlerRun,
+  CrawlerSnapshot,
   KnowledgeAuthority,
   KnowledgeCategory,
+  KnowledgeChange,
   KnowledgeRecord,
   KnowledgeStatusResponse,
   KnowledgeVersion,
@@ -17,6 +20,9 @@ const NOTICE = "長照制度及補助可能隨時調整，實際資格仍請洽 
 export class InMemoryKnowledgeRepository implements KnowledgeRepository {
   readonly records: KnowledgeRecord[] = [];
   readonly versions: KnowledgeVersion[] = [];
+  readonly changes: KnowledgeChange[] = [];
+  readonly crawlerRuns: CrawlerRun[] = [];
+  readonly snapshots: CrawlerSnapshot[] = [];
   // migration 0013 knowledge_version_records 的記憶體版本：每個版本「當時」實際包含的完整紀錄集合
   // （新發布 + carry-forward），不可變、不覆寫——追溯與回復都依這份資料，不依賴 knowledge_records.version
   // （該欄位現在是「第一次發布時的版本」，不可變，對被 carry-forward 超過一次的紀錄無法正確反映
@@ -212,6 +218,56 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
     }
 
     return { republishedVersionId: republishVersionId };
+  }
+
+  // 測試用：模擬 Repository 本身不可用（例如資料庫暫時無法連線），下一次呼叫任一 Crawler 相關
+  // 方法會丟出例外，呼叫後自動重置（只影響下一次呼叫）。
+  failNextCrawlerRepoCall = false;
+
+  private throwIfSimulatedFailure(): void {
+    if (this.failNextCrawlerRepoCall) {
+      this.failNextCrawlerRepoCall = false;
+      throw new AppError("INTERNAL_ERROR", "模擬 Repository 無法使用（測試用）");
+    }
+  }
+
+  async findLatestRecordBySourceId(sourceId: string): Promise<KnowledgeRecord | null> {
+    this.throwIfSimulatedFailure();
+    const matches = this.records.filter((r) => r.sourceId === sourceId).sort((a, b) => b.fetchedAt.localeCompare(a.fetchedAt));
+    return matches[0] ? { ...matches[0] } : null;
+  }
+
+  async insertKnowledgeChange(change: KnowledgeChange): Promise<{ inserted: boolean }> {
+    this.throwIfSimulatedFailure();
+    // 同一 (knowledgeRecordId, newContentHash) 若已有一筆未審核（NEEDS_REVIEW）的變更，視為
+    // 同一個尚待處理的變更，不重複建立（比照 migration 0013 的 partial unique index 語意）。
+    const alreadyPending = this.changes.some(
+      (c) => c.knowledgeRecordId === change.knowledgeRecordId && c.newContentHash === change.newContentHash && c.status === "NEEDS_REVIEW"
+    );
+    if (alreadyPending) return { inserted: false };
+    this.changes.push({ ...change });
+    return { inserted: true };
+  }
+
+  async insertCrawlerRun(run: CrawlerRun): Promise<void> {
+    this.throwIfSimulatedFailure();
+    this.crawlerRuns.push({ ...run });
+  }
+
+  async insertSnapshot(snapshot: CrawlerSnapshot): Promise<void> {
+    this.throwIfSimulatedFailure();
+    this.snapshots.push({ ...snapshot, rawBytes: new Uint8Array(snapshot.rawBytes) });
+  }
+
+  async findLatestSnapshotBySourceId(sourceId: string): Promise<CrawlerSnapshot | null> {
+    // 依插入順序（而非 fetchedAt 字串排序）由後往前找：測試環境同一秒內連續呼叫時 fetchedAt
+    // 可能完全相同，用字串排序會有不穩定的平手問題；插入順序永遠正確反映「最後一次」。
+    for (let i = this.snapshots.length - 1; i >= 0; i--) {
+      if (this.snapshots[i].sourceId === sourceId) {
+        return { ...this.snapshots[i], rawBytes: new Uint8Array(this.snapshots[i].rawBytes) };
+      }
+    }
+    return null;
   }
 
   async getCurrentPublishedStatus(): Promise<KnowledgeStatusResponse | null> {

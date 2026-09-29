@@ -433,6 +433,44 @@ export interface KnowledgeChange {
   reviewedBy: string | null;
 }
 
+// 依 docs/DATA_MODEL.md 第 28 節（TASK-B-009）。
+export type CrawlerRunStatus = "RUNNING" | "SUCCESS" | "PARTIAL" | "FAILED";
+
+export interface CrawlerRun {
+  id: string;
+  sourceId: string;
+  startedAt: string;
+  finishedAt: string | null;
+  status: CrawlerRunStatus;
+  itemsChecked: number;
+  changesDetected: number;
+  // B-009-r2：本次抓取用來比對的雜湊（PDF 為原始位元組雜湊，文字來源為正規化文字雜湊），
+  // 即使沒有偵測到變更也保留，供稽核追溯「當天到底看到了什麼」；FAILED 時為 null（沒有算出雜湊）。
+  contentHash: string | null;
+  // Jerry 委託修正第二輪（2026-09-27）：關聯到這次抓取實際存下的原始快照（見 CrawlerSnapshot），
+  // 供稽核從一筆 CrawlerRun 直接找到當時的完整原始內容，不是只有雜湊。抓取失敗時沒有位元組可存，
+  // 為 null。
+  snapshotId: string | null;
+  errorMessage: string | null;
+}
+
+// Jerry 委託修正第二輪（2026-09-27）：每次成功抓取的原始快照，掛在 knowledge_sources（一律存在），
+// 不掛在 knowledge_records（可能還沒有）——來源尚無 KnowledgeRecord 時仍能保存快照、追蹤變更。
+// rawHash／normalizedHash 分開記錄，比對時只能用相同表示法互相比較，不得混用
+// （docs/knowledge/source-registry.md 對不同來源記錄的基準雜湊表示法不一致，見 crawlerService.ts）。
+export interface CrawlerSnapshot {
+  id: string;
+  sourceId: string;
+  crawlerRunId: string;
+  fetchedAt: string;
+  contentType: string | null;
+  rawBytes: Uint8Array;
+  rawHash: string;
+  normalizedHash: string | null; // PDF／無法正文抽取時為 null，不假裝有做抽取。
+  extractionMethodVersion: string;
+  createdAt: string;
+}
+
 // 依 docs/API_CONTRACT.md 第 13 節。
 export interface KnowledgeStatusResponse {
   version: string;

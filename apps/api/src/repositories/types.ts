@@ -2,9 +2,12 @@ import type {
   Assessment,
   CareNeedProfile,
   Consent,
+  CrawlerRun,
+  CrawlerSnapshot,
   CreatedSession,
   CreateConsentInput,
   KnowledgeCategory,
+  KnowledgeChange,
   KnowledgeRecord,
   KnowledgeStatusResponse,
   Jurisdiction,
@@ -101,6 +104,22 @@ export interface KnowledgeRepository {
   }): Promise<{ republishedVersionId: string | null }>;
 
   getCurrentPublishedStatus(): Promise<KnowledgeStatusResponse | null>;
+
+  // Crawler（TASK-B-009）：依 source_id 找該來源目前最新一筆紀錄（不限狀態，任何 fetchedAt 最新者）
+  // 作為 content hash 比對基準；沒有紀錄時回 null（來源尚未經人工匯入過任何內容）。
+  findLatestRecordBySourceId(sourceId: string): Promise<KnowledgeRecord | null>;
+  // 冪等：同一 (knowledgeRecordId, newContentHash) 若已存在一筆 status='NEEDS_REVIEW' 的
+  // KnowledgeChange，不會重複建立（DB 層以 partial unique index 保障，見 migration 0013），
+  // 回傳 inserted=false；呼叫端據此判斷這次是否為「真正的新變更」（B-009-r2，Jerry PR #37 第 3 項）。
+  insertKnowledgeChange(change: KnowledgeChange): Promise<{ inserted: boolean }>;
+  insertCrawlerRun(run: CrawlerRun): Promise<void>;
+
+  // Jerry 委託修正第二輪（2026-09-27）：保存原始快照本身（不是只有雜湊），掛在 source_id
+  // （一律存在），不掛在 knowledge_record_id（可能還沒有）。
+  insertSnapshot(snapshot: CrawlerSnapshot): Promise<void>;
+  // 該來源最新一筆快照（依 fetchedAt），用來判斷「自上次抓取是否改變」（跟「是否需要人工審核」
+  // 分開——後者仍是跟 findLatestRecordBySourceId() 的結果比對）。沒有快照時回 null（第一次抓取）。
+  findLatestSnapshotBySourceId(sourceId: string): Promise<CrawlerSnapshot | null>;
 
   // B-010：取出指定 PUBLISHED 版本的全部 PUBLISHED 紀錄（含來源機關），供 Assessment 建立單一版本的知識快照。
   findPublishedSnapshotRecords(versionId: string): Promise<KnowledgeSnapshotRecord[]>;

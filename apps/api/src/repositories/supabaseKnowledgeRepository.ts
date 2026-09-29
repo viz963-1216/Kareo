@@ -1,8 +1,11 @@
 import { getSupabaseClient } from "./supabaseClient.js";
 import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
 import type {
+  CrawlerRun,
+  CrawlerSnapshot,
   KnowledgeAuthority,
   KnowledgeCategory,
+  KnowledgeChange,
   KnowledgeRecord,
   KnowledgeStatusResponse,
   Jurisdiction,
@@ -267,6 +270,135 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
       throw new AppError("INTERNAL_ERROR", "無法撤回 Knowledge 版本，交易已回滾。", { cause: error });
     }
     return data as { republishedVersionId: string | null };
+  }
+
+  async findLatestRecordBySourceId(sourceId: string): Promise<KnowledgeRecord | null> {
+    const client = getSupabaseClient();
+    const { data, error } = await client
+      .from("knowledge_records")
+      .select(
+        "id, source_id, title, category, jurisdiction, source_url, published_at, effective_from, effective_to, fetched_at, last_verified_at, content_hash, content_fingerprint, status, version, raw_text, summary, rule_data, created_at, updated_at, pack_id, pack_record_id"
+      )
+      .eq("source_id", sourceId)
+      .order("fetched_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢 Knowledge 紀錄，請稍後再試。");
+    if (!data) return null;
+    return {
+      id: data.id,
+      sourceId: data.source_id,
+      title: data.title,
+      category: data.category,
+      jurisdiction: data.jurisdiction,
+      sourceUrl: data.source_url,
+      publishedAt: data.published_at,
+      effectiveFrom: data.effective_from,
+      effectiveTo: data.effective_to,
+      fetchedAt: data.fetched_at,
+      lastVerifiedAt: data.last_verified_at,
+      contentHash: data.content_hash,
+      contentFingerprint: data.content_fingerprint,
+      status: data.status,
+      version: data.version,
+      rawText: data.raw_text,
+      summary: data.summary,
+      ruleData: data.rule_data,
+      createdAt: data.created_at,
+      updatedAt: data.updated_at,
+      packId: data.pack_id,
+      packRecordId: data.pack_record_id,
+    };
+  }
+
+  async insertKnowledgeChange(change: KnowledgeChange): Promise<{ inserted: boolean }> {
+    const client = getSupabaseClient();
+    const { error } = await client.from("knowledge_changes").insert({
+      id: change.id,
+      knowledge_record_id: change.knowledgeRecordId,
+      old_content_hash: change.oldContentHash,
+      new_content_hash: change.newContentHash,
+      old_content: change.oldContent,
+      new_content: change.newContent,
+      ai_summary: change.aiSummary,
+      status: change.status,
+      detected_at: change.detectedAt,
+      reviewed_at: change.reviewedAt,
+      reviewed_by: change.reviewedBy,
+    });
+    if (error) {
+      // 23505 = unique_violation：migration 0013 的 partial unique index
+      // (knowledge_record_id, new_content_hash) where status='NEEDS_REVIEW' 擋下了重複寫入——
+      // 代表同一筆尚未審核的變更已存在（重跑／重試／併發皆可能觸發），是預期內、安全的情況，
+      // 不是真正的錯誤（B-009-r2，Jerry PR #37 第 3 項：資料庫層冪等／唯一性保障）。
+      if (error.code === "23505") return { inserted: false };
+      throw new AppError("INTERNAL_ERROR", "無法寫入 KnowledgeChange，請稍後再試。", { cause: error });
+    }
+    return { inserted: true };
+  }
+
+  async insertCrawlerRun(run: CrawlerRun): Promise<void> {
+    const client = getSupabaseClient();
+    const { error } = await client.from("crawler_runs").insert({
+      id: run.id,
+      source_id: run.sourceId,
+      started_at: run.startedAt,
+      finished_at: run.finishedAt,
+      status: run.status,
+      items_checked: run.itemsChecked,
+      changes_detected: run.changesDetected,
+      content_hash: run.contentHash,
+      snapshot_id: run.snapshotId,
+      error_message: run.errorMessage,
+    });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法寫入 CrawlerRun，請稍後再試。", { cause: error });
+  }
+
+  // Jerry 委託修正第二輪（2026-09-27）：原始快照存進 bytea 欄位（現有架構已有的能力，不新增
+  // 付費外部服務）。PostgREST 對 bytea 的 JSON 表示法是 `\x<hex>` 字串，讀寫都要走這個格式，
+  // 不能直接塞 Uint8Array（會被序列化成一般陣列，不是 bytea）。
+  async insertSnapshot(snapshot: CrawlerSnapshot): Promise<void> {
+    const client = getSupabaseClient();
+    const { error } = await client.from("crawler_snapshots").insert({
+      id: snapshot.id,
+      source_id: snapshot.sourceId,
+      crawler_run_id: snapshot.crawlerRunId,
+      fetched_at: snapshot.fetchedAt,
+      content_type: snapshot.contentType,
+      raw_bytes: `\\x${Buffer.from(snapshot.rawBytes).toString("hex")}`,
+      raw_hash: snapshot.rawHash,
+      normalized_hash: snapshot.normalizedHash,
+      extraction_method_version: snapshot.extractionMethodVersion,
+      created_at: snapshot.createdAt,
+    });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法寫入 CrawlerSnapshot，請稍後再試。", { cause: error });
+  }
+
+  async findLatestSnapshotBySourceId(sourceId: string): Promise<CrawlerSnapshot | null> {
+    const client = getSupabaseClient();
+    const { data, error } = await client
+      .from("crawler_snapshots")
+      .select("id, source_id, crawler_run_id, fetched_at, content_type, raw_bytes, raw_hash, normalized_hash, extraction_method_version, created_at")
+      .eq("source_id", sourceId)
+      .order("fetched_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢 CrawlerSnapshot，請稍後再試。", { cause: error });
+    if (!data) return null;
+
+    const hex = (data.raw_bytes as string).startsWith("\\x") ? (data.raw_bytes as string).slice(2) : (data.raw_bytes as string);
+    return {
+      id: data.id,
+      sourceId: data.source_id,
+      crawlerRunId: data.crawler_run_id,
+      fetchedAt: data.fetched_at,
+      contentType: data.content_type,
+      rawBytes: new Uint8Array(Buffer.from(hex, "hex")),
+      rawHash: data.raw_hash,
+      normalizedHash: data.normalized_hash,
+      extractionMethodVersion: data.extraction_method_version,
+      createdAt: data.created_at,
+    };
   }
 
   async getCurrentPublishedStatus(): Promise<KnowledgeStatusResponse | null> {
