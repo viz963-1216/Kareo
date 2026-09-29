@@ -175,10 +175,10 @@ export interface AdminKnowledgeChange {
   id: string;
   sourceId: string;
   detectedAt: string;
-  previousHash: string;
+  previousHash: string | null;
   currentHash: string;
   diffSummary: string;
-  status: "NEEDS_REVIEW";
+  status: "NEEDS_REVIEW" | "DISMISSED";
 }
 
 export interface AdminKnowledgeRecord {
@@ -191,5 +191,109 @@ export interface AdminKnowledgeRecord {
   sourceUrl: string;
   summary: string;
   effectiveFrom: string | null;
-  status: "NEEDS_REVIEW";
+  effectiveTo: string | null;
+  contentFingerprint: string;
+  status: "NEEDS_REVIEW" | "APPROVED" | "REJECTED";
+}
+
+export interface AdminReview {
+  decision: "APPROVED" | "REJECTED" | "DISMISSED";
+  reason: string;
+  reviewedBy: string;
+  reviewedAt: string;
+}
+
+export interface AdminRecordDecisionRequest {
+  decision: "APPROVED" | "REJECTED";
+  reason: string;
+  expectedContentFingerprint: string;
+  confirm: true;
+}
+
+export interface AdminRecordDecisionResponse {
+  record: AdminKnowledgeRecord;
+  review: AdminReview;
+}
+
+export interface AdminChangeDismissRequest {
+  reason: string;
+  confirm: true;
+}
+
+export interface AdminChangeDismissResponse {
+  change: AdminKnowledgeChange;
+  review: AdminReview;
+}
+
+export interface AdminPublishPreviewRecord {
+  id: string;
+  packId: string;
+  recordId: string;
+  title: string;
+  jurisdiction: AdminKnowledgeRecord["jurisdiction"];
+  effectiveFrom: string | null;
+  effectiveTo: string | null;
+}
+
+export interface AdminPublishPreview {
+  canPublish: boolean;
+  targetVersionId: string | null;
+  currentVersionId: string | null;
+  publishDate: string;
+  publishedRecordCount: number;
+  carriedForwardCount: number;
+  totalRecordCount: number;
+  supersededRecordCount: number;
+  excludedRecordCount: number;
+  newRecords: AdminPublishPreviewRecord[];
+  blockers: string[];
+  previewToken: string | null;
+  generatedAt: string;
+}
+
+export interface AdminPublishRequest {
+  versionId: string;
+  previewToken: string;
+  confirm: true;
+}
+
+export interface AdminPublishResponse {
+  versionId: string;
+  publishedAt: string;
+  publishedRecordCount: number;
+  carriedForwardCount: number;
+  totalRecordCount: number;
+  supersededRecordCount: number;
+  excludedRecordCount: number;
+}
+
+export interface AdminKnowledgeVersionSummary {
+  versionId: string;
+  publishedAt: string;
+  recordCount: number;
+}
+
+export interface AdminRestorableVersion extends AdminKnowledgeVersionSummary {
+  approvedBy: string;
+  notes: string | null;
+}
+
+export interface AdminRestorableVersionsResponse {
+  currentVersion: AdminKnowledgeVersionSummary | null;
+  versions: AdminRestorableVersion[];
+}
+
+export interface AdminWithdrawRequest {
+  withdrawVersionId: string;
+  republishVersionId: string | null;
+  reason: string;
+  confirm: true;
+}
+
+export interface AdminWithdrawResponse {
+  withdrawnVersionId: string;
+  republishedVersionId: string | null;
+  withdrawnAt: string;
+  withdrawnBy: string;
+  reason: string;
 }

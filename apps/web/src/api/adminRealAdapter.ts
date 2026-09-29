@@ -1,8 +1,18 @@
 import type {
+  AdminChangeDismissRequest,
+  AdminChangeDismissResponse,
   AdminKnowledgeChange,
   AdminKnowledgeRecord,
   AdminKnowledgeStatus,
+  AdminPublishPreview,
+  AdminPublishRequest,
+  AdminPublishResponse,
+  AdminRecordDecisionRequest,
+  AdminRecordDecisionResponse,
+  AdminRestorableVersionsResponse,
   AdminSessionResponse,
+  AdminWithdrawRequest,
+  AdminWithdrawResponse,
 } from "../types/api";
 
 class AdminApiError extends Error {
@@ -127,5 +137,19 @@ export const adminRealApi = {
     const data = await request("/knowledge/records?status=NEEDS_REVIEW");
     if (!isRecord(data) || !Array.isArray(data.records)) throw new AdminApiError("INVALID_RESPONSE", "管理服務回應格式異常，請稍後再試。", 200);
     return data.records as AdminKnowledgeRecord[];
+  },
+  decideRecord(recordId: string, body: AdminRecordDecisionRequest) {
+    return request(`/knowledge/records/${encodeURIComponent(recordId)}/decision`, { method: "POST", body }) as Promise<AdminRecordDecisionResponse>;
+  },
+  dismissChange(changeId: string, body: AdminChangeDismissRequest) {
+    return request(`/knowledge/changes/${encodeURIComponent(changeId)}/dismiss`, { method: "POST", body }) as Promise<AdminChangeDismissResponse>;
+  },
+  getPublishPreview: () => request("/knowledge/publish-preview") as Promise<AdminPublishPreview>,
+  publish(body: AdminPublishRequest) {
+    return request("/knowledge/publish", { method: "POST", body }) as Promise<AdminPublishResponse>;
+  },
+  getRestorableVersions: () => request("/knowledge/restorable-versions") as Promise<AdminRestorableVersionsResponse>,
+  withdraw(body: AdminWithdrawRequest) {
+    return request("/knowledge/withdraw", { method: "POST", body }) as Promise<AdminWithdrawResponse>;
   },
 };
