@@ -1205,6 +1205,7 @@ Request：
   2. `republishVersionId` 等於 `withdrawVersionId` → `VALIDATION_ERROR`。
   3. 目前沒有 PUBLISHED 版本，或目前 PUBLISHED 版本不是 `withdrawVersionId` → `KNOWLEDGE_STATE_CHANGED`。
   4. `republishVersionId` 不是 `null`，且提交當下不符合 §26.10 恢復條件（包含不存在、已被撤回過、已含失效紀錄）→ `KNOWLEDGE_STATE_CHANGED`。
+- 上述目前版本與恢復資格檢查，必須與撤回／恢復寫入及稽核紀錄在同一交易內保證一致；只在 Node 層事先讀取驗證不足以避免競爭條件（TASK-B-012）。
 - 通過後沿用 B-008 `withdrawVersion`／`withdraw_knowledge_version`：不刪資料，撤回版本 → `ARCHIVED` 並記錄撤回者、時間、原因；有恢復目標時依 `knowledge_version_records` 快照恢復完整內容。
 
 Success：

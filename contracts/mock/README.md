@@ -147,3 +147,7 @@ HTTP status：`SESSION_INVALID` 401、`FORBIDDEN` 403、`VALIDATION_ERROR` 400�
 ### 個人自付估算 fixture（2026-09-24，D-17a）
 
 `assessments/WITH-ESTIMATE-GENERAL-NEW_TAIPEI.json`：使用者選「一般戶」、勾選領有身心障礙證明時的 summary 範例（ASSESSMENT_RULES §6.6）。括號「……略……」行為省略標記。金額依已核准知識計算，只示範格式。
+
+### Admin fixtures 可重現檢查
+
+執行 `node contracts/mock/admin/validate-fixtures.mjs`，檢查 JSON envelope、發布預覽與成功回應的數量／版號，以及核准與撤回 request／response 對應。這不是後端交易或真實 API 驗收。
