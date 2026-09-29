@@ -1,6 +1,6 @@
-# A-003-r9 Provider Coordinate Verification Report
+# A-003-r10 Provider Coordinate Verification Report
 
-Submission Version: A-003-r9（取代 r8 報告）
+Submission Version: A-003-r10（取代 r9 報告）
 
 Report date: 2026-09-29
 Dataset: `data/providers/staging/providers.json`、`provider-services.json`、`provider-service-areas.json`
@@ -14,7 +14,7 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 - **資料面已補齊到可交付狀態：** 座標 29／30，30 家 Provider 都有服務範圍。
 - **唯一缺口：** NTPC-AD-004 的座標，依 DEC-A003-04 決定忽略，維持 null。
 - **影響：** NTPC-AD-004 同時與臺北、新北簽約，是全部 41 個輔具組合的候選，所以依 D-13c，**所有輔具組合都不能用 DISTANCE**，會改用 `DISTRICT_ROTATION`。
-- **指示紀錄：** 5 項資料依本工作階段使用者的指示處理，記錄在 `a-003-evidence.json` 的 `decisions`（DEC-A003-01～05），並附原文摘錄、日期、工作階段識別與範圍核對。對話無法證實該使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。
+- **指示紀錄：** 6 項資料依本工作階段使用者的指示處理，記錄在 `a-003-evidence.json` 的 `decisions`（DEC-A003-01～06），並附原文摘錄、日期、工作階段識別與範圍核對。對話無法證實該使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。
 - **官方證實 vs 平台設定：** DEC-A003-01（輔具）與 DEC-A003-02（TP-HMN-001、003）建立的服務範圍是**平台設定**，官方來源並未直接證實這些 Provider 在這些行政區提供服務。兩者分開統計，見「服務範圍依據」。
 - **驗收範圍：** 本報告只代表資料交付檢查通過，不是正式 E2E 或部署驗收。
 - 「lat/lng 非 null」不等於「已驗證」：只有 `a-003-evidence.json` 內通過全部檢查的證據，才計入已驗證；檢查程式也會拒絕任何缺證據的非 null 座標。
@@ -39,6 +39,7 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 | r8 | NTPC-HC-003 電話 | 依 Google Maps 更新為 02-2990-2007（與 SRC-002 1150924 名單相同） | DEC-A003-05 |
 | r8 | 檢查程式 | 證據引用的 decisionId 必須存在於 `decisions` | `qa/lib/a-003-coverage.mjs` |
 | r9 | 決定紀錄 | r8 把決定者寫成「專案負責人（repo owner）」屬未經證實的推定，改為「本工作階段使用者」，並補上原文摘錄、工作階段識別與範圍核對 | `a-003-evidence.json` `decisions[].approval` |
+| r10 | NTPC-AD-004 地址 | 依 DEC-A003-06 改為「231新北市新店區下城里安康路一段359之25號」。官方門牌資料（11509）下城里安康路一段只有 355、361 號，沒有 359 號，所以座標仍為 null | DEC-A003-06；SRC-COORD-NTPC-001 |
 | r9 | 服務範圍依據 | 每筆服務範圍證據標示 `basis`（`OFFICIAL`／`PLATFORM_SETTING`）；報告分開統計，覆蓋率表列出依平台設定納入的候選 | `qa/lib/a-003-coverage.mjs` |
 
 ## 摘要
@@ -246,7 +247,7 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 ### 仍待處理
 
 - NTPC-AD-004 座標：依 DEC-A003-04 暫不處理，維持 null。
-- DEC-A003-01～05 的指示者身分需由 Jerry 在 PR review 確認。
+- DEC-A003-01～06 的指示者身分需由 Jerry 在 PR review 確認。
 
 ### 可進行的驗收（資料層級，非正式 E2E／部署驗收）
 

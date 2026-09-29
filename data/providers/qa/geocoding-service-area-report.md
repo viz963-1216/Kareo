@@ -1,6 +1,6 @@
 # A-003 Provider Geocoding + Service Area QA Report
 
-> **Status (A-003-r9, 2026-09-29):** Sections 1, 3 (Taipei) and 4 are the r1 QA and still apply.
+> **Status (A-003-r10, 2026-09-29):** Sections 1, 3 (Taipei) and 4 are the r1 QA and still apply.
 > The r1 geocoding result ("0 verified coordinates, all lat/lng null") and the r1 New Taipei
 > Service Area result ("PENDING", "NTPC-HC-003 has no district-level source") are **superseded**
 > and kept below only as history, marked *(r1, superseded)*. Current figures are generated from
