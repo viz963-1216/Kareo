@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-09-29T05:37:25.523Z",
+  "base": "http://localhost:5173",
+  "mode": "mock (vite dev)",
+  "scope": "C-006 partial read-only",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 900,
+      "shots": [
+        {
+          "file": "desktop-01-login.jpg",
+          "noindex": "noindex, nofollow",
+          "noHorizontalScroll": true,
+          "managementDataHidden": true,
+          "adminNavLinkCount": 0,
+          "localStorage": "{}",
+          "sessionStorageBeforeLogin": "{}"
+        },
+        {
+          "file": "desktop-02-dashboard.jpg",
+          "noindex": "noindex, nofollow",
+          "noHorizontalScroll": true,
+          "hasStatus": true,
+          "hasChanges": true,
+          "hasRecords": true,
+          "writeButtonCount": 0,
+          "officialLinkSafe": true,
+          "localStorage": "{}",
+          "sessionStorageKeys": [
+            "kareo.adminToken"
+          ],
+          "urlHasCredential": false,
+          "keyboardOrder": {
+            "first": "username",
+            "second": "current-password"
+          }
+        }
+      ]
+    },
+    "tablet": {
+      "width": 768,
+      "height": 1024,
+      "shots": [
+        {
+          "file": "tablet-01-login.jpg",
+          "noindex": "noindex, nofollow",
+          "noHorizontalScroll": true,
+          "managementDataHidden": true,
+          "adminNavLinkCount": 0,
+          "localStorage": "{}",
+          "sessionStorageBeforeLogin": "{}"
+        },
+        {
+          "file": "tablet-02-dashboard.jpg",
+          "noindex": "noindex, nofollow",
+          "noHorizontalScroll": true,
+          "hasStatus": true,
+          "hasChanges": true,
+          "hasRecords": true,
+          "writeButtonCount": 0,
+          "officialLinkSafe": true,
+          "localStorage": "{}",
+          "sessionStorageKeys": [
+            "kareo.adminToken"
+          ],
+          "urlHasCredential": false,
+          "keyboardOrder": {
+            "first": "username",
+            "second": "current-password"
+          }
+        }
+      ]
+    },
+    "mobile": {
+      "width": 375,
+      "height": 812,
+      "shots": [
+        {
+          "file": "mobile-01-login.jpg",
+          "noindex": "noindex, nofollow",
+          "noHorizontalScroll": true,
+          "managementDataHidden": true,
+          "adminNavLinkCount": 0,
+          "localStorage": "{}",
+          "sessionStorageBeforeLogin": "{}"
+        },
+        {
+          "file": "mobile-02-dashboard.jpg",
+          "noindex": "noindex, nofollow",
+          "noHorizontalScroll": true,
+          "hasStatus": true,
+          "hasChanges": true,
+          "hasRecords": true,
+          "writeButtonCount": 0,
+          "officialLinkSafe": true,
+          "localStorage": "{}",
+          "sessionStorageKeys": [
+            "kareo.adminToken"
+          ],
+          "urlHasCredential": false,
+          "keyboardOrder": {
+            "first": "username",
+            "second": "current-password"
+          }
+        }
+      ]
+    }
+  }
+}

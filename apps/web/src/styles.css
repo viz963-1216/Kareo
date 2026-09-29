@@ -8,3 +8,22 @@
 .full-row { grid-column: 1 / -1; margin: 0; } .gps-box { display: grid; gap: .75rem; padding-top: .25rem; } .gps-box p { margin: 0; } .location-notice { padding: 1rem; background: #f6f8f4; border: 1px solid #d8e1d8; border-radius: .6rem; } .location-notice h3 { margin: 0 0 .5rem; font-size: 1.05rem; } .location-notice ul { margin: 0 0 1rem; padding-left: 1.2rem; } .button-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; } .card-actions { display: flex; flex-wrap: wrap; gap: .6rem; } .confirm-box { margin-top: 1rem; padding: 1rem; background: #fff1f1; border-radius: .6rem; } .confirm-box p { margin-top: 0; }
 .summary-lines p { margin: 0 0 .75rem; } .knowledge-version { font-weight: 700; color: #17603d; } .warnings { padding-left: 1.2rem; } .no-location { border-left: .35rem solid #e6a700; } .lead-form { max-width: 32rem; } .lead-form .checkbox { font-weight: 500; } footer p { margin: .35rem 0; }
 @media (max-width: 42rem) { .hero, .content { width: min(100% - 2rem, 48rem); padding: 2rem 0; } fieldset { grid-template-columns: 1fr; } .button { width: 100%; text-align: center; } .button-row, .card-actions { flex-direction: column; } .provider-details div { grid-template-columns: 4.5rem minmax(0, 1fr); } }
+
+.admin-login { max-width: 32rem; margin-top: 1.5rem; }
+.admin-heading-actions { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
+.admin-heading-actions p { margin: 0; }
+.admin-section { margin-top: 2rem; }
+.admin-list { display: grid; gap: 1rem; }
+.admin-list .panel { margin-top: 0; }
+.admin-list h3 { margin-top: 0; overflow-wrap: anywhere; }
+.admin-list a { color: #17603d; font-weight: 700; overflow-wrap: anywhere; }
+.admin-facts { display: grid; gap: .65rem; margin: 0; }
+.admin-facts div { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: .75rem; }
+.admin-facts dt { color: #4d5b52; font-weight: 700; }
+.admin-facts dd { margin: 0; overflow-wrap: anywhere; }
+.admin-facts.compact { margin: .75rem 0; }
+
+@media (max-width: 42rem) {
+  .admin-heading-actions { align-items: stretch; flex-direction: column; }
+  .admin-facts div { grid-template-columns: 1fr; gap: .15rem; }
+}

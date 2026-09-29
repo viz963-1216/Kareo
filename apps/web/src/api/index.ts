@@ -34,6 +34,8 @@ export const apiMode: ApiMode = MOCK_BUILD && resolvedMode.mode === "mock" ? "mo
 configureRealApi({ requireSessionToken: import.meta.env.VITE_KAREO_REQUIRE_SESSION_TOKEN === "true" });
 
 const loadMock = () => import("./mockAdapter").then((module) => module.mockApi);
+const loadAdminMock = () => import("./adminMockAdapter").then((module) => module.adminMockApi);
+const loadAdminReal = () => import("./adminRealAdapter").then((module) => module.adminRealApi);
 
 type ConsentVersions = Pick<ConsentRequest, "disclaimerVersion" | "privacyVersion" | "termsVersion">;
 
@@ -121,5 +123,40 @@ export const api = {
 
   getProvider(providerId: string, simulateMockError = false): Promise<ProviderDetail | null> {
     return apiMode === "mock" ? loadMock().then((mock) => mock.getProvider(providerId, simulateMockError)) : realApi.getProvider(providerId);
+  },
+};
+
+// Admin credentials use a separate adapter and storage key from the anonymous consumer session.
+// Write operations will be added only after J-002 publishes their complete contracts and fixtures.
+export const adminApi = {
+  async hasSession() {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.hasSession())
+      : loadAdminReal().then((admin) => admin.hasSession());
+  },
+  async logout() {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.logout())
+      : loadAdminReal().then((admin) => admin.logout());
+  },
+  async login(operatorId: string, operatorKey: string) {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.login(operatorId, operatorKey))
+      : loadAdminReal().then((admin) => admin.login(operatorId, operatorKey));
+  },
+  async getStatus() {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.getStatus())
+      : loadAdminReal().then((admin) => admin.getStatus());
+  },
+  async getChanges() {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.getChanges())
+      : loadAdminReal().then((admin) => admin.getChanges());
+  },
+  async getRecords() {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.getRecords())
+      : loadAdminReal().then((admin) => admin.getRecords());
   },
 };

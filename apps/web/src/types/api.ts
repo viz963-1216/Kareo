@@ -153,3 +153,43 @@ export interface LeadResponse {
   createdAt: string;
   duplicate: boolean;
 }
+
+export interface AdminSessionResponse {
+  adminToken: string;
+  expiresAt: string;
+}
+
+export interface AdminCrawlerRun {
+  status: "RUNNING" | "SUCCESS" | "PARTIAL" | "FAILED";
+  startedAt: string;
+  finishedAt: string | null;
+}
+
+export interface AdminKnowledgeStatus {
+  publishedVersion: string | null;
+  publishedAt: string | null;
+  lastCrawlerRun: AdminCrawlerRun | null;
+}
+
+export interface AdminKnowledgeChange {
+  id: string;
+  sourceId: string;
+  detectedAt: string;
+  previousHash: string;
+  currentHash: string;
+  diffSummary: string;
+  status: "NEEDS_REVIEW";
+}
+
+export interface AdminKnowledgeRecord {
+  id: string;
+  packId: string;
+  recordId: string;
+  title: string;
+  jurisdiction: "TAIWAN" | "TAIPEI" | "NEW_TAIPEI";
+  category: string;
+  sourceUrl: string;
+  summary: string;
+  effectiveFrom: string | null;
+  status: "NEEDS_REVIEW";
+}
