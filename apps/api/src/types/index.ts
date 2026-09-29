@@ -337,12 +337,17 @@ export interface KnowledgeRecord {
   effectiveTo: string | null;
   fetchedAt: string;
   lastVerifiedAt: string;
-  contentHash: string;
+  contentHash: string; // 來源 PDF／網頁的原始雜湊（source.contentHash），不是審核內容指紋，見 contentFingerprint。
   status: KnowledgeRecordStatus;
   version: string | null; // 所屬 KnowledgeVersion.id，PUBLISHED/SUPERSEDED 時才有值
   rawText: string;
   summary: string;
   ruleData: Record<string, unknown>;
+  // Jerry 委託修正第二輪（2026-09-27）：獨立於 contentHash 之外的「審核內容指紋」，涵蓋所有會影響
+  // 政策解讀／輸出的欄位（見 services/contentFingerprint.ts），由伺服器端從實際保存的欄位重新計算，
+  // 不信任輸入自報的雜湊。同一來源（contentHash 不變）仍可能對應不同的審核內容（不同 summary／
+  // ruleData），核准與匯入的冪等判斷都必須用這個欄位，不能只看 contentHash。
+  contentFingerprint: string;
   createdAt: string;
   updatedAt: string;
   // 依 contracts/knowledge/content-pack.schema.json，來源內容包的追溯資訊（不在 DATA_MODEL 核心欄位內，
@@ -440,4 +445,7 @@ export interface ContentPackImportReport {
   packId: string | null;
   recordsValid: number;
   recordsRejected: Array<{ recordId: string | null; reasons: string[] }>;
+  // B-008-r3（J-003 H-2）：同 (packId, recordId) 但內容實質改變時更新既有紀錄並強制回 NEEDS_REVIEW
+  // 的筆數，跟「全新匯入」的 recordsValid 分開統計，方便操作者知道這次匯入實際做了什麼。
+  recordsCorrected: number;
 }
