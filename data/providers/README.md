@@ -123,7 +123,8 @@ Provider Service Area：
 
 - `lat`／`lng` 只填**有完整證據**的 WGS84 座標；證據在 `qa/a-003-evidence.json`（官方名單核對名稱／地址＋官方門牌點原始紀錄＋座標轉換）。無法驗證者保持 `null`。
 - 「非 null」不等於「已驗證」；缺證據的非 null 座標會讓檢查失敗。
-- 不得使用 Google Maps 搜尋結果、行政區中心或推估座標，也不得由地址推測服務範圍。
+- 不得使用 Google Maps 搜尋結果、行政區中心或推估座標，也不得由地址推測服務範圍；唯一例外是 Jerry 已於 DEC-A003-07 核准的 NTPC-AD-004 商家座標，必須保留在 `unofficialCoordinates` 且不得標為官方門牌點。
+- 簽約縣市、機構地址或醫院本體服務區域都不是行政區服務能力。沒有逐區證據時，記錄在 `conditionalServiceRegions` 與 `pending`，不得建立 active ProviderServiceArea 或推薦候選。
 - 目前統計、覆蓋率與待補清單：`qa/verified-coordinates-report.md`、`qa/pending-verification.md`。這些檔案標示 `A003:BEGIN／END` 的區塊由程式產生。
 
 檢查指令：

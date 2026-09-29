@@ -1,6 +1,6 @@
 {
-  "submissionVersion": "A-003-r11",
-  "note": "座標只記錄可追溯的官方門牌點；pending 列出仍缺的資料。統計與報告由 qa/verify-coordinates.mjs 自本檔與 staging 資料重算。",
+  "submissionVersion": "A-003-r13",
+  "note": "官方門牌座標與非官方商家座標分開記錄；pending 與 conditionalServiceRegions 保留未證實行政區服務範圍，統計與報告由 qa/verify-coordinates.mjs 重算。",
   "sources": [
     {
       "sourceId": "SRC-001",
@@ -100,6 +100,33 @@
       "sha256": null,
       "retrievedAt": "2026-09-29",
       "use": "TP-AD-002 門牌、NTPC-HC-003 電話；NTPC-AD-004 非官方座標（DEC-A003-07）"
+    },
+    {
+      "sourceId": "SRC-008",
+      "name": "臺北市居家護理所一覽表（臺北市政府衛生局）",
+      "url": "https://www-ws.gov.taipei/Download.ashx?icon=..pdf&n=6Ie65YyX5biC5bGF5a626K2355CG5omA5LiA6Ka96KGoKDExNeW5tDTmnIgyMeaXpeabtOaWsCkucGRm&u=LzAwMS9VcGxvYWQvNjg0L3JlbGZpbGUvNDcyNDEvODA1Nzc3OS80OWYwYTRmNS1iNDM1LTRkZTEtOWI1Mi1kMDYxNzE0ZmFlNjEucGRm",
+      "document": "臺北市居家護理所一覽表（115年4月21日更新）第 1 頁，序號 1、3",
+      "sha256": null,
+      "retrievedAt": "2026-09-29",
+      "use": "TP-HMN-001／003 的居家護理所名稱、地址與電話核對；名單不載服務行政區。"
+    },
+    {
+      "sourceId": "SRC-009",
+      "name": "馬偕紀念醫院：馬偕醫訊 2026 年 02 月號",
+      "url": "https://www.mmh.org.tw/news_view.php?id=10262",
+      "document": "官方頁面「居家醫療到我家 馬偕居家護理所」專題目錄",
+      "sha256": null,
+      "retrievedAt": "2026-09-29",
+      "use": "TP-HMN-001 實際提供居家醫療／居家護理服務的官方佐證；不載服務行政區。"
+    },
+    {
+      "sourceId": "SRC-010",
+      "name": "國立臺灣大學醫學院附設醫院北護分院介紹",
+      "url": "https://www.ntuh.gov.tw/hsac/Fpage.action?fid=1801",
+      "document": "官方頁面「北護分院」段落：護理之家及居家護理",
+      "sha256": null,
+      "retrievedAt": "2026-09-29",
+      "use": "TP-HMN-003 所屬北護分院提供居家護理的官方佐證；與 SRC-008 一併核對附設居家護理所名稱／地址，不載服務行政區。"
     }
   ],
   "coordinates": [
@@ -1038,720 +1065,318 @@
       "sourceText": "士林區、北投區",
       "checkedAt": "2026-09-29",
       "basis": "OFFICIAL"
-    },
-    {
-      "providerId": "TP-AD-001",
-      "city": "臺北市",
-      "districts": [
-        "松山區",
-        "信義區",
-        "大安區",
-        "中山區",
-        "中正區",
-        "大同區",
-        "萬華區",
-        "文山區",
-        "南港區",
-        "內湖區",
-        "士林區",
-        "北投區"
-      ],
-      "sourceId": "SRC-004",
-      "document": "115年臺北市特約服務門市名單.ods 序號 148（已與臺北市簽約）",
-      "sourceText": "臺北市特約門市",
-      "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
-    },
-    {
-      "providerId": "TP-AD-001",
-      "city": "新北市",
-      "districts": [
-        "板橋區",
-        "三重區",
-        "中和區",
-        "永和區",
-        "新莊區",
-        "新店區",
-        "樹林區",
-        "鶯歌區",
-        "三峽區",
-        "淡水區",
-        "汐止區",
-        "瑞芳區",
-        "土城區",
-        "蘆洲區",
-        "五股區",
-        "泰山區",
-        "林口區",
-        "深坑區",
-        "石碇區",
-        "坪林區",
-        "三芝區",
-        "石門區",
-        "八里區",
-        "平溪區",
-        "雙溪區",
-        "貢寮區",
-        "金山區",
-        "萬里區",
-        "烏來區"
-      ],
-      "sourceId": "SRC-005",
-      "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 1310（已與新北市簽約）",
-      "sourceText": "新北市特約廠商",
-      "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
-    },
-    {
-      "providerId": "TP-AD-002",
-      "city": "臺北市",
-      "districts": [
-        "松山區",
-        "信義區",
-        "大安區",
-        "中山區",
-        "中正區",
-        "大同區",
-        "萬華區",
-        "文山區",
-        "南港區",
-        "內湖區",
-        "士林區",
-        "北投區"
-      ],
-      "sourceId": "SRC-004",
-      "document": "115年臺北市特約服務門市名單.ods 序號 275（已與臺北市簽約）",
-      "sourceText": "臺北市特約門市",
-      "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
-    },
-    {
-      "providerId": "TP-AD-003",
-      "city": "臺北市",
-      "districts": [
-        "松山區",
-        "信義區",
-        "大安區",
-        "中山區",
-        "中正區",
-        "大同區",
-        "萬華區",
-        "文山區",
-        "南港區",
-        "內湖區",
-        "士林區",
-        "北投區"
-      ],
-      "sourceId": "SRC-004",
-      "document": "115年臺北市特約服務門市名單.ods 序號 374（已與臺北市簽約）",
-      "sourceText": "臺北市特約門市",
-      "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
-    },
-    {
-      "providerId": "TP-AD-003",
-      "city": "新北市",
-      "districts": [
-        "板橋區",
-        "三重區",
-        "中和區",
-        "永和區",
-        "新莊區",
-        "新店區",
-        "樹林區",
-        "鶯歌區",
-        "三峽區",
-        "淡水區",
-        "汐止區",
-        "瑞芳區",
-        "土城區",
-        "蘆洲區",
-        "五股區",
-        "泰山區",
-        "林口區",
-        "深坑區",
-        "石碇區",
-        "坪林區",
-        "三芝區",
-        "石門區",
-        "八里區",
-        "平溪區",
-        "雙溪區",
-        "貢寮區",
-        "金山區",
-        "萬里區",
-        "烏來區"
-      ],
-      "sourceId": "SRC-005",
-      "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 1598（已與新北市簽約）",
-      "sourceText": "新北市特約廠商",
-      "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
-    },
+    }
+  ],
+  "pending": [
     {
       "providerId": "NTPC-AD-001",
-      "city": "臺北市",
-      "districts": [
-        "松山區",
-        "信義區",
-        "大安區",
-        "中山區",
-        "中正區",
-        "大同區",
-        "萬華區",
-        "文山區",
-        "南港區",
-        "內湖區",
-        "士林區",
-        "北投區"
+      "missing": [
+        "serviceArea"
       ],
-      "sourceId": "SRC-004",
-      "document": "115年臺北市特約服務門市名單.ods 序號 605（已與臺北市簽約）",
-      "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
-    },
-    {
-      "providerId": "NTPC-AD-001",
-      "city": "新北市",
-      "districts": [
-        "板橋區",
-        "三重區",
-        "中和區",
-        "永和區",
-        "新莊區",
-        "新店區",
-        "樹林區",
-        "鶯歌區",
-        "三峽區",
-        "淡水區",
-        "汐止區",
-        "瑞芳區",
-        "土城區",
-        "蘆洲區",
-        "五股區",
-        "泰山區",
-        "林口區",
-        "深坑區",
-        "石碇區",
-        "坪林區",
-        "三芝區",
-        "石門區",
-        "八里區",
-        "平溪區",
-        "雙溪區",
-        "貢寮區",
-        "金山區",
-        "萬里區",
-        "烏來區"
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
       ],
-      "sourceId": "SRC-005",
-      "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 1（已與新北市簽約）",
-      "sourceText": "新北市特約廠商",
-      "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
     },
     {
       "providerId": "NTPC-AD-002",
-      "city": "新北市",
-      "districts": [
-        "板橋區",
-        "三重區",
-        "中和區",
-        "永和區",
-        "新莊區",
-        "新店區",
-        "樹林區",
-        "鶯歌區",
-        "三峽區",
-        "淡水區",
-        "汐止區",
-        "瑞芳區",
-        "土城區",
-        "蘆洲區",
-        "五股區",
-        "泰山區",
-        "林口區",
-        "深坑區",
-        "石碇區",
-        "坪林區",
-        "三芝區",
-        "石門區",
-        "八里區",
-        "平溪區",
-        "雙溪區",
-        "貢寮區",
-        "金山區",
-        "萬里區",
-        "烏來區"
+      "missing": [
+        "serviceArea"
       ],
-      "sourceId": "SRC-005",
-      "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 3（已與新北市簽約）",
-      "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
     },
     {
       "providerId": "NTPC-AD-003",
-      "city": "新北市",
-      "districts": [
-        "板橋區",
-        "三重區",
-        "中和區",
-        "永和區",
-        "新莊區",
-        "新店區",
-        "樹林區",
-        "鶯歌區",
-        "三峽區",
-        "淡水區",
-        "汐止區",
-        "瑞芳區",
-        "土城區",
-        "蘆洲區",
-        "五股區",
-        "泰山區",
-        "林口區",
-        "深坑區",
-        "石碇區",
-        "坪林區",
-        "三芝區",
-        "石門區",
-        "八里區",
-        "平溪區",
-        "雙溪區",
-        "貢寮區",
-        "金山區",
-        "萬里區",
-        "烏來區"
+      "missing": [
+        "serviceArea"
       ],
-      "sourceId": "SRC-005",
-      "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 7（已與新北市簽約）",
-      "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
     },
     {
       "providerId": "NTPC-AD-004",
-      "city": "臺北市",
-      "districts": [
-        "松山區",
-        "信義區",
-        "大安區",
-        "中山區",
-        "中正區",
-        "大同區",
-        "萬華區",
-        "文山區",
-        "南港區",
-        "內湖區",
-        "士林區",
-        "北投區"
+      "missing": [
+        "serviceArea"
       ],
-      "sourceId": "SRC-004",
-      "document": "115年臺北市特約服務門市名單.ods 序號 318（已與臺北市簽約）",
-      "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
-    },
-    {
-      "providerId": "NTPC-AD-004",
-      "city": "新北市",
-      "districts": [
-        "板橋區",
-        "三重區",
-        "中和區",
-        "永和區",
-        "新莊區",
-        "新店區",
-        "樹林區",
-        "鶯歌區",
-        "三峽區",
-        "淡水區",
-        "汐止區",
-        "瑞芳區",
-        "土城區",
-        "蘆洲區",
-        "五股區",
-        "泰山區",
-        "林口區",
-        "深坑區",
-        "石碇區",
-        "坪林區",
-        "三芝區",
-        "石門區",
-        "八里區",
-        "平溪區",
-        "雙溪區",
-        "貢寮區",
-        "金山區",
-        "萬里區",
-        "烏來區"
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
       ],
-      "sourceId": "SRC-005",
-      "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 8（已與新北市簽約）",
-      "sourceText": "新北市特約廠商",
-      "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
     },
     {
       "providerId": "NTPC-AD-005",
-      "city": "臺北市",
-      "districts": [
-        "松山區",
-        "信義區",
-        "大安區",
-        "中山區",
-        "中正區",
-        "大同區",
-        "萬華區",
-        "文山區",
-        "南港區",
-        "內湖區",
-        "士林區",
-        "北投區"
+      "missing": [
+        "serviceArea"
       ],
-      "sourceId": "SRC-004",
-      "document": "115年臺北市特約服務門市名單.ods 序號 446（已與臺北市簽約）",
-      "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
-    },
-    {
-      "providerId": "NTPC-AD-005",
-      "city": "新北市",
-      "districts": [
-        "板橋區",
-        "三重區",
-        "中和區",
-        "永和區",
-        "新莊區",
-        "新店區",
-        "樹林區",
-        "鶯歌區",
-        "三峽區",
-        "淡水區",
-        "汐止區",
-        "瑞芳區",
-        "土城區",
-        "蘆洲區",
-        "五股區",
-        "泰山區",
-        "林口區",
-        "深坑區",
-        "石碇區",
-        "坪林區",
-        "三芝區",
-        "石門區",
-        "八里區",
-        "平溪區",
-        "雙溪區",
-        "貢寮區",
-        "金山區",
-        "萬里區",
-        "烏來區"
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
       ],
-      "sourceId": "SRC-005",
-      "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 14（已與新北市簽約）",
-      "sourceText": "新北市特約廠商",
-      "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
     },
     {
       "providerId": "NTPC-AD-006",
-      "city": "新北市",
-      "districts": [
-        "板橋區",
-        "三重區",
-        "中和區",
-        "永和區",
-        "新莊區",
-        "新店區",
-        "樹林區",
-        "鶯歌區",
-        "三峽區",
-        "淡水區",
-        "汐止區",
-        "瑞芳區",
-        "土城區",
-        "蘆洲區",
-        "五股區",
-        "泰山區",
-        "林口區",
-        "深坑區",
-        "石碇區",
-        "坪林區",
-        "三芝區",
-        "石門區",
-        "八里區",
-        "平溪區",
-        "雙溪區",
-        "貢寮區",
-        "金山區",
-        "萬里區",
-        "烏來區"
+      "missing": [
+        "serviceArea"
       ],
-      "sourceId": "SRC-005",
-      "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 18（已與新北市簽約）",
-      "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
     },
     {
       "providerId": "NTPC-AD-007",
-      "city": "新北市",
-      "districts": [
-        "板橋區",
-        "三重區",
-        "中和區",
-        "永和區",
-        "新莊區",
-        "新店區",
-        "樹林區",
-        "鶯歌區",
-        "三峽區",
-        "淡水區",
-        "汐止區",
-        "瑞芳區",
-        "土城區",
-        "蘆洲區",
-        "五股區",
-        "泰山區",
-        "林口區",
-        "深坑區",
-        "石碇區",
-        "坪林區",
-        "三芝區",
-        "石門區",
-        "八里區",
-        "平溪區",
-        "雙溪區",
-        "貢寮區",
-        "金山區",
-        "萬里區",
-        "烏來區"
+      "missing": [
+        "serviceArea"
       ],
-      "sourceId": "SRC-005",
-      "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 19（已與新北市簽約）",
-      "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
     },
     {
       "providerId": "NTPC-AD-008",
-      "city": "臺北市",
-      "districts": [
-        "松山區",
-        "信義區",
-        "大安區",
-        "中山區",
-        "中正區",
-        "大同區",
-        "萬華區",
-        "文山區",
-        "南港區",
-        "內湖區",
-        "士林區",
-        "北投區"
+      "missing": [
+        "serviceArea"
       ],
-      "sourceId": "SRC-004",
-      "document": "115年臺北市特約服務門市名單.ods 序號 575（已與臺北市簽約）",
-      "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
-    },
-    {
-      "providerId": "NTPC-AD-008",
-      "city": "新北市",
-      "districts": [
-        "板橋區",
-        "三重區",
-        "中和區",
-        "永和區",
-        "新莊區",
-        "新店區",
-        "樹林區",
-        "鶯歌區",
-        "三峽區",
-        "淡水區",
-        "汐止區",
-        "瑞芳區",
-        "土城區",
-        "蘆洲區",
-        "五股區",
-        "泰山區",
-        "林口區",
-        "深坑區",
-        "石碇區",
-        "坪林區",
-        "三芝區",
-        "石門區",
-        "八里區",
-        "平溪區",
-        "雙溪區",
-        "貢寮區",
-        "金山區",
-        "萬里區",
-        "烏來區"
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
       ],
-      "sourceId": "SRC-005",
-      "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 21（已與新北市簽約）",
-      "sourceText": "新北市特約廠商",
-      "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
     },
     {
       "providerId": "NTPC-AD-009",
-      "city": "臺北市",
-      "districts": [
-        "松山區",
-        "信義區",
-        "大安區",
-        "中山區",
-        "中正區",
-        "大同區",
-        "萬華區",
-        "文山區",
-        "南港區",
-        "內湖區",
-        "士林區",
-        "北投區"
+      "missing": [
+        "serviceArea"
       ],
-      "sourceId": "SRC-004",
-      "document": "115年臺北市特約服務門市名單.ods 序號 396（已與臺北市簽約）",
-      "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
     },
     {
-      "providerId": "NTPC-AD-009",
-      "city": "新北市",
-      "districts": [
-        "板橋區",
-        "三重區",
-        "中和區",
-        "永和區",
-        "新莊區",
-        "新店區",
-        "樹林區",
-        "鶯歌區",
-        "三峽區",
-        "淡水區",
-        "汐止區",
-        "瑞芳區",
-        "土城區",
-        "蘆洲區",
-        "五股區",
-        "泰山區",
-        "林口區",
-        "深坑區",
-        "石碇區",
-        "坪林區",
-        "三芝區",
-        "石門區",
-        "八里區",
-        "平溪區",
-        "雙溪區",
-        "貢寮區",
-        "金山區",
-        "萬里區",
-        "烏來區"
+      "providerId": "TP-AD-001",
+      "missing": [
+        "serviceArea"
       ],
-      "sourceId": "SRC-005",
-      "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 26（已與新北市簽約）",
-      "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "TP-AD-002",
+      "missing": [
+        "serviceArea"
+      ],
+      "decisionId": "DEC-A003-01",
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "TP-AD-003",
+      "missing": [
+        "serviceArea"
+      ],
+      "decisionId": "DEC-A003-01",
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
     },
     {
       "providerId": "TP-HMN-001",
-      "city": "臺北市",
-      "districts": [
-        "松山區",
-        "信義區",
-        "大安區",
-        "中山區",
-        "中正區",
-        "大同區",
-        "萬華區",
-        "文山區",
-        "南港區",
-        "內湖區",
-        "士林區",
-        "北投區"
+      "missing": [
+        "serviceArea"
       ],
-      "sourceId": "SRC-007",
-      "document": "(市民版)長照專業服務-特約服務單位一覽表 序號 64（台灣基督長老教會馬偕醫療財團法人馬偕紀念醫院，服務區域：全區）",
-      "sourceText": "全區",
       "decisionId": "DEC-A003-02",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-008",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市政府衛生局居家護理所名單列出相同居家護理所名稱、地址與電話。"
+        },
+        {
+          "sourceId": "SRC-009",
+          "checkedAt": "2026-09-29",
+          "result": "馬偕官方刊物直接列出「居家醫療到我家 馬偕居家護理所」。"
+        },
+        {
+          "sourceId": "SRC-007",
+          "checkedAt": "2026-09-29",
+          "result": "此來源列的是醫院本體的服務行政區，不是附設居家護理所。"
+        }
+      ],
+      "reason": "已證實附設居家護理所提供 HOME_MEDICAL_NURSING；但醫院本體的行政區名單不能自動轉用到附設居家護理所。",
+      "nextStep": "取得該居家護理所本身的服務行政區或正式書面範圍後，再建立 ProviderServiceArea；目前不得作為行政區推薦候選。"
     },
     {
       "providerId": "TP-HMN-003",
-      "city": "臺北市",
-      "districts": [
-        "萬華區",
-        "大同區",
-        "中正區"
+      "missing": [
+        "serviceArea"
       ],
-      "sourceId": "SRC-007",
-      "document": "(市民版)長照專業服務-特約服務單位一覽表 序號 37（國立臺灣大學醫學院附設醫院北護分院，服務區域：萬華區、大同區、中正區）",
-      "sourceText": "萬華區、大同區、中正區",
       "decisionId": "DEC-A003-02",
-      "checkedAt": "2026-09-29",
-      "basis": "PLATFORM_SETTING"
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-008",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市政府衛生局居家護理所名單列出相同居家護理所名稱、地址與電話。"
+        },
+        {
+          "sourceId": "SRC-010",
+          "checkedAt": "2026-09-29",
+          "result": "臺大北護官方頁面明示北護分院的居家護理服務。"
+        },
+        {
+          "sourceId": "SRC-007",
+          "checkedAt": "2026-09-29",
+          "result": "此來源列的是醫院本體的服務行政區，不是附設居家護理所。"
+        }
+      ],
+      "reason": "已證實附設居家護理所提供 HOME_MEDICAL_NURSING；但醫院本體的行政區名單不能自動轉用到附設居家護理所。",
+      "nextStep": "取得該居家護理所本身的服務行政區或正式書面範圍後，再建立 ProviderServiceArea；目前不得作為行政區推薦候選。"
     }
   ],
-  "pending": [],
   "decisions": [
     {
       "decisionId": "DEC-A003-01",
       "date": "2026-09-29",
-      "decision": "ASSISTIVE_DEVICE 的 ProviderServiceArea 以特約簽約縣市的全部行政區建立：與臺北市簽約者納入臺北市 12 區，與新北市簽約者納入新北市 29 區，兩市都簽約者兩市都納入。",
-      "basis": "官方制度為民眾向任一簽約特約廠商購買或租賃，廠商沒有行政區層級服務範圍。簽約事實依 SRC-004（臺北）與 SRC-005（新北）名單。",
-      "settingType": "PLATFORM_SETTING",
+      "decision": "輔具服務地域僅限臺北市與新北市；不服務其他縣市。",
+      "basis": "Jerry 最新決策確認的是雙北服務邊界。SRC-004／SRC-005 只可佐證特約／簽約縣市，不能證實每一行政區皆有服務能力。",
+      "settingType": "BOUNDARY_CONFIRMATION",
       "approval": {
-        "source": "Claude Code 本機工作階段 local_fc839e15-6472-4a52-8f90-7dc9e08d4b73（標題「Kareo A-003 PR 修正與驗證」；本機紀錄，非公開連結）",
+        "source": "Jerry 最新決策：A-003-r12 後續執行依據（本 PR 交接指示）",
         "date": "2026-09-29",
-        "approver": "本工作階段的使用者（A-003 修正的委託人）。對話內容無法證實此使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。",
-        "question": "（助理列出的剩餘缺口第 1 點）輔具 12 家的服務範圍：官方制度是民眾可以向任一簽約的特約廠商購買或租賃……所以廠商沒有官方的行政區服務範圍。若要用「簽約縣市全區」當服務範圍，這是資料模型規則的變更，要 Jerry 核准。",
-        "answer": "1.輔具把台北市新北市有簽約的都納入在裡面，2,TP-HMN-001和003也納入在裡面，3.AD-002依照google map的門牌去寫4.這個幫我忽略5.依照google map的電話填寫",
-        "scopeCheck": "回覆沒有逐字寫出「全區」，但它是對「簽約縣市全區」提問的回答，因此實作為：對每家輔具廠商，依 SRC-004（臺北）／SRC-005（新北）是否列名，建立該縣市全部行政區（臺北 12、新北 29），兩市都列名者兩市都建立，共 415 筆。未納入其他縣市。NTPC-AD-004 在臺北名單只以相同名稱比對（名單地址為臺北市信義區），屬名稱比對。這是平台設定，不是官方證實的服務能力。"
+        "approver": "Jerry",
+        "question": "輔具廠商服務範圍是否可納入雙北？",
+        "answer": "輔具廠商只限定在台北市和新北市，我們不服務其他縣市。",
+        "scopeCheck": "僅確認服務地域邊界；未核准以簽約縣市推定該市每一行政區均具服務能力。因此原 415 筆平台設定不保留為 active ProviderServiceArea，改存 conditionalServiceRegions。"
       }
     },
     {
       "decisionId": "DEC-A003-02",
       "date": "2026-09-29",
-      "decision": "TP-HMN-001、TP-HMN-003 套用其醫院本體在 SRC-007 的服務區域：馬偕紀念醫院「全區」→ 臺北市 12 區；臺大北護分院「萬華區、大同區、中正區」。",
-      "basis": "SRC-007 序號 64、37 列的是醫院本體（名稱與地址不同於附設居家護理所）；依決定視為同一機構體系的服務區域。",
-      "settingType": "PLATFORM_SETTING",
+      "decision": "TP-HMN-001、TP-HMN-003 先確認附設居家護理所實際提供 HOME_MEDICAL_NURSING，才可納入該類別；其行政區服務範圍須另行查證。",
+      "basis": "SRC-008 名稱／地址核對；SRC-009（馬偕）與 SRC-010（臺大北護）分別佐證居家護理服務。SRC-007 的服務區域僅屬醫院本體，不可移轉至附設居家護理所。",
+      "settingType": "SERVICE_TYPE_CONFIRMED_AREA_PENDING",
       "approval": {
-        "source": "Claude Code 本機工作階段 local_fc839e15-6472-4a52-8f90-7dc9e08d4b73（標題「Kareo A-003 PR 修正與驗證」；本機紀錄，非公開連結）",
+        "source": "Jerry 最新決策：A-003-r12 後續執行依據（本 PR 交接指示）",
         "date": "2026-09-29",
-        "approver": "本工作階段的使用者（A-003 修正的委託人）。對話內容無法證實此使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。",
-        "question": "（第 2 點）TP-HMN-001 馬偕、TP-HMN-003 北護的服務範圍：臺北市的特約名單列的是醫院本體，地址和名稱都不同……所以沒有套用。需要決定是向機構確認，還是訂定對應規則。",
-        "answer": "1.輔具把台北市新北市有簽約的都納入在裡面，2,TP-HMN-001和003也納入在裡面，3.AD-002依照google map的門牌去寫4.這個幫我忽略5.依照google map的電話填寫",
-        "scopeCheck": "實作為：TP-HMN-001 套用 SRC-007 序號 64（馬偕紀念醫院）「全區」→ 臺北市 12 區；TP-HMN-003 套用序號 37（臺大北護分院）「萬華區、大同區、中正區」，共 15 筆。沒有擴大到醫院清單以外的行政區。這是平台設定：官方只證實醫院本體的服務區域，並未證實附設居家護理所的服務區域。"
+        "approver": "Jerry",
+        "question": "居家護理醫院如何納入？",
+        "answer": "居家護理醫院的部分要確定他們有居家服務才納入考量。",
+        "scopeCheck": "本次僅確認兩所附設居家護理所確實提供 HOME_MEDICAL_NURSING；沒有把醫院本體的服務行政區套用到護理所。"
       }
     },
     {
@@ -1818,16 +1443,16 @@
     {
       "decisionId": "DEC-A003-07",
       "date": "2026-09-29",
-      "decision": "NTPC-AD-004 座標採用 Google Maps 商家標記 (24.9619599, 121.5177834)，標為非官方座標。",
-      "basis": "官方門牌資料（新北市門牌位置數值資料 11509）沒有「安康路一段359之25號」。Google Maps 商家頁「吉評醫療器材股份有限公司」地址為 231新北市新店區下城里安康路一段359之25號，電話 02 2212 0033，與 SRC-005 新北特約名單相同。標記距官方門牌點 361號約 214 公尺、355號約 291 公尺。",
+      "decision": "NTPC-AD-004 座標採用 Google Maps 商家標記 (24.9619599, 121.5177834)，維持非官方商家座標。",
+      "basis": "地址、電話與 SRC-005 特約廠商資料核對一致；此地址尚無官方門牌點，故不得標示為官方門牌座標。",
       "settingType": "UNOFFICIAL_COORDINATE",
       "approval": {
-        "source": "Claude Code 本機工作階段 local_fc839e15-6472-4a52-8f90-7dc9e08d4b73（標題「Kareo A-003 PR 修正與驗證」；本機紀錄，非公開連結）",
+        "source": "Jerry 最新決策：A-003-r12 後續執行依據（本 PR 交接指示）",
         "date": "2026-09-29",
-        "approver": "本工作階段的使用者（A-003 修正的委託人）。對話內容無法證實此使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。",
-        "question": "（助理提問）吉評（NTPC-AD-004）的座標要怎麼處理？選項：「用 Google 座標，標為非官方」／「維持 null（目前狀態）」。",
-        "answer": "使用者先說「我剛剛找也是出現231新北市新店區下城里安康路一段359之25號，你就按照這個填吧」，再於選擇題選「用 Google 座標，標為非官方」。",
-        "scopeCheck": "只填入 NTPC-AD-004 的 lat／lng。記錄在 unofficialCoordinates，不計入官方已驗證座標；覆蓋率表列出依賴此座標的組合。沒有對其他 Provider 使用地圖座標。"
+        "approver": "Jerry",
+        "question": "吉評輔具的 Google Maps 商家座標是否採用？",
+        "answer": "吉評輔具：接受 Google Maps 商家座標沒問題。",
+        "scopeCheck": "只核准 NTPC-AD-004 的這筆非官方商家座標；不代表其他座標或服務範圍推定獲准。"
       }
     }
   ],
@@ -1852,6 +1477,489 @@
       "checkedAt": "2026-09-29",
       "decisionId": "DEC-A003-07",
       "note": "地圖商家標記，非官方門牌點；待官方門牌資料收錄此門牌後，應改用官方門牌點並移除本項。"
+    }
+  ],
+  "conditionalServiceRegions": [
+    {
+      "providerId": "NTPC-AD-001",
+      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
+      "decisionId": "DEC-A003-01",
+      "allowedCities": [
+        {
+          "city": "臺北市",
+          "sourceId": "SRC-004",
+          "document": "115年臺北市特約服務門市名單.ods 序號 605（已與臺北市簽約）",
+          "sourceText": "臺北市特約門市",
+          "checkedAt": "2026-09-29"
+        },
+        {
+          "city": "新北市",
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 1（已與新北市簽約）",
+          "sourceText": "新北市特約廠商",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "NTPC-AD-002",
+      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
+      "decisionId": "DEC-A003-01",
+      "allowedCities": [
+        {
+          "city": "新北市",
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 3（已與新北市簽約）",
+          "sourceText": "新北市特約廠商",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "NTPC-AD-003",
+      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
+      "decisionId": "DEC-A003-01",
+      "allowedCities": [
+        {
+          "city": "新北市",
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 7（已與新北市簽約）",
+          "sourceText": "新北市特約廠商",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "NTPC-AD-004",
+      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
+      "decisionId": "DEC-A003-01",
+      "allowedCities": [
+        {
+          "city": "臺北市",
+          "sourceId": "SRC-004",
+          "document": "115年臺北市特約服務門市名單.ods 序號 318（已與臺北市簽約）",
+          "sourceText": "臺北市特約門市",
+          "checkedAt": "2026-09-29"
+        },
+        {
+          "city": "新北市",
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 8（已與新北市簽約）",
+          "sourceText": "新北市特約廠商",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "NTPC-AD-005",
+      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
+      "decisionId": "DEC-A003-01",
+      "allowedCities": [
+        {
+          "city": "臺北市",
+          "sourceId": "SRC-004",
+          "document": "115年臺北市特約服務門市名單.ods 序號 446（已與臺北市簽約）",
+          "sourceText": "臺北市特約門市",
+          "checkedAt": "2026-09-29"
+        },
+        {
+          "city": "新北市",
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 14（已與新北市簽約）",
+          "sourceText": "新北市特約廠商",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "NTPC-AD-006",
+      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
+      "decisionId": "DEC-A003-01",
+      "allowedCities": [
+        {
+          "city": "新北市",
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 18（已與新北市簽約）",
+          "sourceText": "新北市特約廠商",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "NTPC-AD-007",
+      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
+      "decisionId": "DEC-A003-01",
+      "allowedCities": [
+        {
+          "city": "新北市",
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 19（已與新北市簽約）",
+          "sourceText": "新北市特約廠商",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "NTPC-AD-008",
+      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
+      "decisionId": "DEC-A003-01",
+      "allowedCities": [
+        {
+          "city": "臺北市",
+          "sourceId": "SRC-004",
+          "document": "115年臺北市特約服務門市名單.ods 序號 575（已與臺北市簽約）",
+          "sourceText": "臺北市特約門市",
+          "checkedAt": "2026-09-29"
+        },
+        {
+          "city": "新北市",
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 21（已與新北市簽約）",
+          "sourceText": "新北市特約廠商",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "NTPC-AD-009",
+      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
+      "decisionId": "DEC-A003-01",
+      "allowedCities": [
+        {
+          "city": "臺北市",
+          "sourceId": "SRC-004",
+          "document": "115年臺北市特約服務門市名單.ods 序號 396（已與臺北市簽約）",
+          "sourceText": "臺北市特約門市",
+          "checkedAt": "2026-09-29"
+        },
+        {
+          "city": "新北市",
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 26（已與新北市簽約）",
+          "sourceText": "新北市特約廠商",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "TP-AD-001",
+      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
+      "decisionId": "DEC-A003-01",
+      "allowedCities": [
+        {
+          "city": "臺北市",
+          "sourceId": "SRC-004",
+          "document": "115年臺北市特約服務門市名單.ods 序號 148（已與臺北市簽約）",
+          "sourceText": "臺北市特約門市",
+          "checkedAt": "2026-09-29"
+        },
+        {
+          "city": "新北市",
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 1310（已與新北市簽約）",
+          "sourceText": "新北市特約廠商",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "TP-AD-002",
+      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
+      "decisionId": "DEC-A003-01",
+      "allowedCities": [
+        {
+          "city": "臺北市",
+          "sourceId": "SRC-004",
+          "document": "115年臺北市特約服務門市名單.ods 序號 275（已與臺北市簽約）",
+          "sourceText": "臺北市特約門市",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "TP-AD-003",
+      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
+      "decisionId": "DEC-A003-01",
+      "allowedCities": [
+        {
+          "city": "臺北市",
+          "sourceId": "SRC-004",
+          "document": "115年臺北市特約服務門市名單.ods 序號 374（已與臺北市簽約）",
+          "sourceText": "臺北市特約門市",
+          "checkedAt": "2026-09-29"
+        },
+        {
+          "city": "新北市",
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 1598（已與新北市簽約）",
+          "sourceText": "新北市特約廠商",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "新北市 特約／簽約名單列名；只證明雙北服務邊界，不證明全市各行政區服務能力。"
+        }
+      ],
+      "reason": "Jerry 已確認輔具服務限於臺北市、新北市；來源只證實簽約／特約縣市，沒有逐行政區服務能力或配送範圍。",
+      "nextStep": "取得廠商或正式平台可追溯的行政區服務範圍後，再建立對應 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "TP-HMN-001",
+      "status": "HOME_NURSING_CONFIRMED_HOSPITAL_AREA_NOT_TRANSFERABLE",
+      "decisionId": "DEC-A003-02",
+      "hospitalAreaReference": {
+        "city": "臺北市",
+        "inferredDistricts": [
+          "松山區",
+          "信義區",
+          "大安區",
+          "中山區",
+          "中正區",
+          "大同區",
+          "萬華區",
+          "文山區",
+          "南港區",
+          "內湖區",
+          "士林區",
+          "北投區"
+        ],
+        "sourceId": "SRC-007",
+        "document": "(市民版)長照專業服務-特約服務單位一覽表 序號 64（台灣基督長老教會馬偕醫療財團法人馬偕紀念醫院，服務區域：全區）",
+        "sourceText": "全區",
+        "checkedAt": "2026-09-29"
+      },
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-008",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市政府衛生局居家護理所名單列出相同居家護理所名稱、地址與電話。"
+        },
+        {
+          "sourceId": "SRC-009",
+          "checkedAt": "2026-09-29",
+          "result": "馬偕官方刊物直接列出「居家醫療到我家 馬偕居家護理所」。"
+        },
+        {
+          "sourceId": "SRC-007",
+          "checkedAt": "2026-09-29",
+          "result": "此來源列的是醫院本體的服務行政區，不是附設居家護理所。"
+        }
+      ],
+      "reason": "已證實附設居家護理所提供 HOME_MEDICAL_NURSING；但醫院本體的行政區名單不能自動轉用到附設居家護理所。",
+      "nextStep": "取得該居家護理所本身的服務行政區或正式書面範圍後，再建立 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "TP-HMN-003",
+      "status": "HOME_NURSING_CONFIRMED_HOSPITAL_AREA_NOT_TRANSFERABLE",
+      "decisionId": "DEC-A003-02",
+      "hospitalAreaReference": {
+        "city": "臺北市",
+        "inferredDistricts": [
+          "萬華區",
+          "大同區",
+          "中正區"
+        ],
+        "sourceId": "SRC-007",
+        "document": "(市民版)長照專業服務-特約服務單位一覽表 序號 37（國立臺灣大學醫學院附設醫院北護分院，服務區域：萬華區、大同區、中正區）",
+        "sourceText": "萬華區、大同區、中正區",
+        "checkedAt": "2026-09-29"
+      },
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-008",
+          "checkedAt": "2026-09-29",
+          "result": "臺北市政府衛生局居家護理所名單列出相同居家護理所名稱、地址與電話。"
+        },
+        {
+          "sourceId": "SRC-010",
+          "checkedAt": "2026-09-29",
+          "result": "臺大北護官方頁面明示北護分院的居家護理服務。"
+        },
+        {
+          "sourceId": "SRC-007",
+          "checkedAt": "2026-09-29",
+          "result": "此來源列的是醫院本體的服務行政區，不是附設居家護理所。"
+        }
+      ],
+      "reason": "已證實附設居家護理所提供 HOME_MEDICAL_NURSING；但醫院本體的行政區名單不能自動轉用到附設居家護理所。",
+      "nextStep": "取得該居家護理所本身的服務行政區或正式書面範圍後，再建立 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    }
+  ],
+  "homeMedicalNursingEvidence": [
+    {
+      "providerId": "TP-HMN-001",
+      "providerName": "台灣基督長老教會馬偕醫療財團法人附設馬偕居家護理所",
+      "serviceType": "HOME_MEDICAL_NURSING",
+      "relationship": "台灣基督長老教會馬偕醫療財團法人附設之馬偕居家護理所；不可與馬偕紀念醫院本體的服務行政區混用。",
+      "evidence": [
+        {
+          "sourceId": "SRC-008",
+          "sourceText": "居家護理所名單序號 1 的名稱、地址與電話相符。",
+          "checkedAt": "2026-09-29"
+        },
+        {
+          "sourceId": "SRC-009",
+          "sourceText": "馬偕官方刊物列出「居家醫療到我家 馬偕居家護理所」。",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "status": "SERVICE_CONFIRMED_AREA_PENDING"
+    },
+    {
+      "providerId": "TP-HMN-003",
+      "providerName": "國立臺灣大學醫學院附設醫院北護分院附設居家護理所",
+      "serviceType": "HOME_MEDICAL_NURSING",
+      "relationship": "國立臺灣大學醫學院附設醫院北護分院附設之居家護理所；不可與北護分院本體的服務行政區混用。",
+      "evidence": [
+        {
+          "sourceId": "SRC-008",
+          "sourceText": "居家護理所名單序號 3 的名稱、地址與電話相符。",
+          "checkedAt": "2026-09-29"
+        },
+        {
+          "sourceId": "SRC-010",
+          "sourceText": "臺大北護官方頁面明示北護分院提供居家護理。",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "status": "SERVICE_CONFIRMED_AREA_PENDING"
     }
   ]
 }

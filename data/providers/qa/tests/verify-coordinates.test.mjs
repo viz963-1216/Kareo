@@ -262,17 +262,11 @@ test("an unofficial coordinate counts for coverage but never as verified", () =>
   const { verifiedIds, settingAreaKeys, unofficialIds } = checkEvidence(dataset);
   assert.ok(unofficialIds.has("NTPC-AD-004"));
   assert.ok(!verifiedIds.has("NTPC-AD-004"));
-  const devices = computeCoverage(dataset, verifiedIds, settingAreaKeys, unofficialIds).groups.filter(
-    (g) => g.serviceType === "ASSISTIVE_DEVICE",
-  );
-  assert.equal(devices.length, 41);
-  assert.ok(devices.every((g) => g.status === "READY"));
-  assert.ok(devices.every((g) => g.unofficialCandidates.includes("NTPC-AD-004")));
-  // Without the unofficial coordinate, that one candidate blocks every group it serves.
-  const blocked = computeCoverage(dataset, verifiedIds, settingAreaKeys).groups.filter(
-    (g) => g.serviceType === "ASSISTIVE_DEVICE",
-  );
-  assert.ok(blocked.every((g) => g.status === "BLOCKED_MISSING_COORDINATE"));
+  const coverage = computeCoverage(dataset, verifiedIds, settingAreaKeys, unofficialIds);
+  const devices = coverage.byType.find((type) => type.serviceType === "ASSISTIVE_DEVICE");
+  assert.equal(devices.groups, 0);
+  assert.equal(devices.ready, 0);
+  assert.ok(devices.unknownArea.includes("NTPC-AD-004"));
 });
 
 test("an unofficial coordinate without an UNOFFICIAL_COORDINATE decision fails", () => {
@@ -306,37 +300,43 @@ test("an unofficial coordinate cannot sit on a Provider with verified evidence",
 test("service-area evidence must reference a recorded decision", () => {
   const { status, output } = runGate(({ readJson, writeJson }) => {
     const evidence = readJson(EVIDENCE);
-    evidence.decisions = evidence.decisions.filter((item) => item.decisionId !== "DEC-A003-01");
+    evidence.serviceAreas[0].decisionId = "DEC-NOT-RECORDED";
     writeJson(EVIDENCE, evidence);
   });
   assert.equal(status, 1);
-  assert.match(output, /TP-AD-001: decision DEC-A003-01 is not recorded/);
+  assert.match(output, /decision DEC-NOT-RECORDED is not recorded/);
 });
 
-test("relabelling a platform-setting service area as official fails", () => {
+test("a conditional service-region cannot create recommendation areas", () => {
+  const { status, output } = runGate(({ readJson, writeJson }) => {
+    const areas = readJson(AREAS);
+    areas.push({
+      id: "PSA-TP-AD-001-臺北市-中山區",
+      providerId: "TP-AD-001",
+      city: "臺北市",
+      district: "中山區",
+      active: true,
+    });
+    writeJson(AREAS, areas);
+  });
+  assert.equal(status, 1);
+  assert.match(output, /TP-AD-001: conditional service-region must not also create active ProviderServiceArea rows/);
+});
+
+test("a conditional service-region must reference a recorded decision", () => {
   const { status, output } = runGate(({ readJson, writeJson }) => {
     const evidence = readJson(EVIDENCE);
-    evidence.serviceAreas.find((item) => item.providerId === "TP-HMN-001").basis = "OFFICIAL";
+    evidence.conditionalServiceRegions.find((item) => item.providerId === "TP-AD-001").decisionId = "DEC-NOT-RECORDED";
     writeJson(EVIDENCE, evidence);
   });
   assert.equal(status, 1);
-  assert.match(output, /TP-HMN-001: service-area basis must be OFFICIAL or match its decision type/);
+  assert.match(output, /TP-AD-001: decision DEC-NOT-RECORDED is not recorded/);
 });
 
-test("a platform setting without a platform-setting decision fails", () => {
-  const { status, output } = runGate(({ readJson, writeJson }) => {
-    const evidence = readJson(EVIDENCE);
-    evidence.decisions.find((item) => item.decisionId === "DEC-A003-01").settingType = "DATA_CORRECTION";
-    writeJson(EVIDENCE, evidence);
-  });
-  assert.equal(status, 1);
-  assert.match(output, /TP-AD-001: PLATFORM_SETTING service area needs a PLATFORM_SETTING decision/);
-});
-
-test("a wrong platform-setting count in the report fails", () => {
+test("a wrong service-area-basis count in the report fails", () => {
   const { status, output } = runGate(({ readText, writeText }) => {
     const text = readText(REPORT);
-    const changed = text.replace("| ASSISTIVE_DEVICE | 0 | 0 | 415 | 415 |", "| ASSISTIVE_DEVICE | 415 | 0 | 0 | 415 |");
+    const changed = text.replace("| HOME_CARE | 23 | 61 | 0 | 84 |", "| HOME_CARE | 24 | 60 | 0 | 84 |");
     assert.notEqual(changed, text);
     writeText(REPORT, changed);
   });
@@ -344,15 +344,12 @@ test("a wrong platform-setting count in the report fails", () => {
   assert.match(output, /section "service-area-basis" differs from the data/);
 });
 
-test("coverage lists candidates included only by a platform setting", () => {
+test("conditional service-regions never generate recommendation candidates", () => {
   const dataset = loadRealDataset();
   const { verifiedIds, settingAreaKeys } = checkEvidence(dataset);
-  const { groups } = computeCoverage(dataset, verifiedIds, settingAreaKeys);
-  const find = (type, district) =>
-    groups.find((g) => g.serviceType === type && g.city === "臺北市" && g.district === district);
-  assert.deepEqual(find("HOME_MEDICAL_NURSING", "士林區").settingCandidates, ["TP-HMN-001"]);
-  assert.deepEqual(find("HOME_CARE", "萬華區").settingCandidates, []);
-  assert.ok(groups.filter((g) => g.serviceType === "ASSISTIVE_DEVICE").every(
-    (g) => g.settingCandidates.length === g.candidates.length,
-  ));
+  const { groups, byType } = computeCoverage(dataset, verifiedIds, settingAreaKeys);
+  const nursing = groups.filter((g) => g.serviceType === "HOME_MEDICAL_NURSING");
+  assert.ok(nursing.every((group) => group.status === "BLOCKED_UNKNOWN_SERVICE_AREA"));
+  assert.equal(groups.filter((group) => group.serviceType === "ASSISTIVE_DEVICE").length, 0);
+  assert.equal(byType.find((type) => type.serviceType === "ASSISTIVE_DEVICE").ready, 0);
 });

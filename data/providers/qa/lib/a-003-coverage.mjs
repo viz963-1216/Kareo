@@ -125,7 +125,12 @@ export function checkEvidence({ providers, services, areas, evidence }) {
   // Recorded instructions that some evidence relies on; every reference must resolve.
   const decisionsById = new Map((evidence.decisions ?? []).map((item) => [item.decisionId, item]));
   const decisionIds = new Set(decisionsById.keys());
-  for (const item of [...evidence.coordinates, ...evidence.serviceAreas, ...evidence.pending]) {
+  for (const item of [
+    ...evidence.coordinates,
+    ...evidence.serviceAreas,
+    ...evidence.pending,
+    ...(evidence.conditionalServiceRegions ?? []),
+  ]) {
     if (item.decisionId !== undefined && !decisionIds.has(item.decisionId)) {
       errors.push(`${item.providerId}: decision ${item.decisionId} is not recorded in evidence.decisions.`);
     }
@@ -302,6 +307,31 @@ export function checkEvidence({ providers, services, areas, evidence }) {
     }
   }
 
+  // A confirmed outer boundary (for example, a contracted city) is useful evidence, but it is
+  // not an administrative-district service area.  Keep it traceable without turning it into a
+  // recommendation candidate in provider-service-areas.json.
+  const conditionalById = new Map();
+  for (const item of evidence.conditionalServiceRegions ?? []) {
+    if (!providersById.has(item.providerId)) {
+      errors.push(`${item.providerId}: conditional service-region entry references a missing Provider.`);
+    }
+    if (conditionalById.has(item.providerId)) {
+      errors.push(`${item.providerId}: duplicate conditional service-region entry.`);
+    }
+    conditionalById.set(item.providerId, item);
+    if (!item.status?.trim() || !item.reason?.trim() || !item.nextStep?.trim()) {
+      errors.push(`${item.providerId}: conditional service-region entry needs status, reason and next step.`);
+    }
+    for (const checked of item.sourcesChecked ?? []) {
+      if (!sourceIds.has(checked.sourceId) || !/^\d{4}-\d{2}-\d{2}$/.test(checked.checkedAt ?? "")) {
+        errors.push(`${item.providerId}: conditional service-region checked source needs a registered sourceId and a date.`);
+      }
+    }
+    if (activeAreas.some((area) => area.providerId === item.providerId)) {
+      errors.push(`${item.providerId}: conditional service-region must not also create active ProviderServiceArea rows.`);
+    }
+  }
+
   const activeServiceProviders = new Set(
     services.filter((service) => service.active).map((service) => service.providerId),
   );
@@ -318,9 +348,12 @@ export function checkEvidence({ providers, services, areas, evidence }) {
     if (needsServiceArea !== missing.has("serviceArea")) {
       errors.push(`${provider.id}: pending list "serviceArea" does not match the data.`);
     }
+    if (needsServiceArea && !conditionalById.has(provider.id)) {
+      errors.push(`${provider.id}: unknown service area needs a conditional service-region record.`);
+    }
   }
 
-  return { errors, verifiedIds, pendingById, settingAreaKeys, unofficialIds };
+  return { errors, verifiedIds, pendingById, settingAreaKeys, unofficialIds, conditionalById };
 }
 
 // Candidate = ACTIVE Provider + active ProviderService + active ProviderServiceArea.
@@ -444,6 +477,7 @@ export function renderSections(
   const settingEvidence = evidence.serviceAreas.filter((item) => item.basis === "PLATFORM_SETTING");
   const officialEvidence = evidence.serviceAreas.filter((item) => item.basis === "OFFICIAL");
   const settingAreas = settingEvidence.reduce((n, item) => n + item.districts.length, 0);
+  const conditionalRegions = evidence.conditionalServiceRegions ?? [];
 
   const summary = [
     `- Provider 總數：${stats.providers}`,
@@ -458,6 +492,7 @@ export function renderSections(
     `- 仍無座標：${stats.pendingCoordinates}`,
     `- 缺 ProviderServiceArea 的 ACTIVE Provider：${stats.missingServiceArea}`,
     `- 依指示建立的平台設定服務範圍（非官方證實）：${settingAreas} 筆（${[...new Set(settingEvidence.map((item) => item.decisionId))].join("、") || "—"}）`,
+    `- 條件式服務地域（未有行政區級證據，未建立 ProviderServiceArea）：${conditionalRegions.length} 家（${conditionalRegions.map((item) => item.providerId).join("、") || "—"}）`,
     `- 服務類型 × 行政區組合：${stats.groups}；DISTANCE READY：${stats.readyGroups.length}` +
       (stats.readyGroups.length
         ? `（${stats.readyGroups.map((g) => `${g.serviceType} × ${g.city}${g.district}`).join("、")}）`

@@ -1,6 +1,6 @@
 # A-003 Provider Geocoding + Service Area QA Report
 
-> **Status (A-003-r11, 2026-09-29):** Sections 1, 3 (Taipei) and 4 are the r1 QA and still apply.
+> **Status (A-003-r13, 2026-09-29):** Sections 1, 3 (Taipei) and 4 are the r1 QA and still apply.
 > The r1 geocoding result ("0 verified coordinates, all lat/lng null") and the r1 New Taipei
 > Service Area result ("PENDING", "NTPC-HC-003 has no district-level source") are **superseded**
 > and kept below only as history, marked *(r1, superseded)*. Current figures are generated from
@@ -14,15 +14,16 @@
 
 <!-- A003:BEGIN summary -->
 - Provider 總數：30
-- ProviderServiceArea 筆數：516
+- ProviderServiceArea 筆數：86
 - lat/lng 非 null：30
 - 有完整驗證證據的座標：29（名稱／地址核對＋官方門牌點＋可重現轉換，見 `qa/a-003-evidence.json`）
 - 依指示採用的非官方座標（非官方門牌點，不計入已驗證）：1（NTPC-AD-004，DEC-A003-07）
 - 非 null 但缺任何證據：0
 - 仍無座標：0
-- 缺 ProviderServiceArea 的 ACTIVE Provider：0
-- 依指示建立的平台設定服務範圍（非官方證實）：430 筆（DEC-A003-01、DEC-A003-02）
-- 服務類型 × 行政區組合：77；DISTANCE READY：77（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區、HOME_MEDICAL_NURSING × 臺北市士林區、HOME_MEDICAL_NURSING × 臺北市大同區、HOME_MEDICAL_NURSING × 臺北市大安區、HOME_MEDICAL_NURSING × 臺北市中山區、HOME_MEDICAL_NURSING × 臺北市中正區、HOME_MEDICAL_NURSING × 臺北市內湖區、HOME_MEDICAL_NURSING × 臺北市文山區、HOME_MEDICAL_NURSING × 臺北市北投區、HOME_MEDICAL_NURSING × 臺北市松山區、HOME_MEDICAL_NURSING × 臺北市信義區、HOME_MEDICAL_NURSING × 臺北市南港區、HOME_MEDICAL_NURSING × 臺北市萬華區、ASSISTIVE_DEVICE × 新北市八里區、ASSISTIVE_DEVICE × 新北市三芝區、ASSISTIVE_DEVICE × 新北市三重區、ASSISTIVE_DEVICE × 新北市三峽區、ASSISTIVE_DEVICE × 新北市土城區、ASSISTIVE_DEVICE × 新北市中和區、ASSISTIVE_DEVICE × 新北市五股區、ASSISTIVE_DEVICE × 新北市平溪區、ASSISTIVE_DEVICE × 新北市永和區、ASSISTIVE_DEVICE × 新北市石門區、ASSISTIVE_DEVICE × 新北市石碇區、ASSISTIVE_DEVICE × 新北市汐止區、ASSISTIVE_DEVICE × 新北市坪林區、ASSISTIVE_DEVICE × 新北市板橋區、ASSISTIVE_DEVICE × 新北市林口區、ASSISTIVE_DEVICE × 新北市金山區、ASSISTIVE_DEVICE × 新北市泰山區、ASSISTIVE_DEVICE × 新北市烏來區、ASSISTIVE_DEVICE × 新北市貢寮區、ASSISTIVE_DEVICE × 新北市淡水區、ASSISTIVE_DEVICE × 新北市深坑區、ASSISTIVE_DEVICE × 新北市新店區、ASSISTIVE_DEVICE × 新北市新莊區、ASSISTIVE_DEVICE × 新北市瑞芳區、ASSISTIVE_DEVICE × 新北市萬里區、ASSISTIVE_DEVICE × 新北市樹林區、ASSISTIVE_DEVICE × 新北市雙溪區、ASSISTIVE_DEVICE × 新北市蘆洲區、ASSISTIVE_DEVICE × 新北市鶯歌區、ASSISTIVE_DEVICE × 臺北市士林區、ASSISTIVE_DEVICE × 臺北市大同區、ASSISTIVE_DEVICE × 臺北市大安區、ASSISTIVE_DEVICE × 臺北市中山區、ASSISTIVE_DEVICE × 臺北市中正區、ASSISTIVE_DEVICE × 臺北市內湖區、ASSISTIVE_DEVICE × 臺北市文山區、ASSISTIVE_DEVICE × 臺北市北投區、ASSISTIVE_DEVICE × 臺北市松山區、ASSISTIVE_DEVICE × 臺北市信義區、ASSISTIVE_DEVICE × 臺北市南港區、ASSISTIVE_DEVICE × 臺北市萬華區）
+- 缺 ProviderServiceArea 的 ACTIVE Provider：14
+- 依指示建立的平台設定服務範圍（非官方證實）：0 筆（—）
+- 條件式服務地域（未有行政區級證據，未建立 ProviderServiceArea）：14 家（NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003、TP-HMN-001、TP-HMN-003）
+- 服務類型 × 行政區組合：26；DISTANCE READY：24（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區）
 <!-- A003:END summary -->
 
 ## Overview
@@ -106,11 +107,8 @@ Every instruction is recorded in `qa/a-003-evidence.json` (`decisions`), with th
 | Provider 類型 | 官方來源直接證實（本檔證據） | 官方來源（A-003-r1 人工核對 SRC-001，未列入本檔證據） | 依指示建立的平台設定（非官方證實） | 合計 |
 | --- | --- | --- | --- | --- |
 | HOME_CARE | 23 | 61 | 0 | 84 |
-| HOME_MEDICAL_NURSING | 2 | 0 | 15 | 17 |
-| ASSISTIVE_DEVICE | 0 | 0 | 415 | 415 |
+| HOME_MEDICAL_NURSING | 2 | 0 | 0 | 2 |
 
-- DEC-A003-01（415 筆；TP-AD-001、TP-AD-002、TP-AD-003、NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009）：ASSISTIVE_DEVICE 的 ProviderServiceArea 以特約簽約縣市的全部行政區建立：與臺北市簽約者納入臺北市 12 區，與新北市簽約者納入新北市 29 區，兩市都簽約者兩市都納入。
-- DEC-A003-02（15 筆；TP-HMN-001、TP-HMN-003）：TP-HMN-001、TP-HMN-003 套用其醫院本體在 SRC-007 的服務區域：馬偕紀念醫院「全區」→ 臺北市 12 區；臺大北護分院「萬華區、大同區、中正區」。
 <!-- A003:END service-area-basis -->
 
 ## 4. Google Maps URL QA
