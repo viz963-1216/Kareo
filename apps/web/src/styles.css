@@ -26,7 +26,7 @@
 .admin-confirm textarea { resize: vertical; }
 .admin-action-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
 .check-row { align-items: flex-start; display: flex; gap: .6rem; }
-.check-row input { flex: 0 0 auto; margin-top: .25rem; }
+.check-row input { flex: 0 0 auto; width: 1.15rem; height: 1.15rem; margin-top: .25rem; }
 
 @media (max-width: 42rem) {
   .admin-heading-actions { align-items: stretch; flex-direction: column; }

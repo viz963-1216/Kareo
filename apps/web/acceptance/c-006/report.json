@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-29T05:37:25.523Z",
+  "generatedAt": "2026-09-29T08:21:10.084Z",
   "base": "http://localhost:5173",
   "mode": "mock (vite dev)",
-  "scope": "C-006 partial read-only",
+  "scope": "C-006 admin knowledge review and release controls",
   "viewports": {
     "desktop": {
       "width": 1280,
@@ -12,6 +12,8 @@
           "file": "desktop-01-login.jpg",
           "noindex": "noindex, nofollow",
           "noHorizontalScroll": true,
+          "scrollWidth": 1280,
+          "innerWidth": 1280,
           "managementDataHidden": true,
           "adminNavLinkCount": 0,
           "localStorage": "{}",
@@ -21,20 +23,34 @@
           "file": "desktop-02-dashboard.jpg",
           "noindex": "noindex, nofollow",
           "noHorizontalScroll": true,
+          "documentWidth": 1280,
+          "viewportWidth": 1280,
           "hasStatus": true,
           "hasChanges": true,
           "hasRecords": true,
-          "writeButtonCount": 0,
+          "writeButtonCount": 5,
+          "hasPublishPreview": true,
+          "hasWithdrawalWarning": true,
+          "publishInitiallyDisabled": true,
           "officialLinkSafe": true,
           "localStorage": "{}",
           "sessionStorageKeys": [
             "kareo.adminToken"
           ],
           "urlHasCredential": false,
+          "overflow": [],
           "keyboardOrder": {
             "first": "username",
             "second": "current-password"
           }
+        },
+        {
+          "file": "desktop-03-review-confirmation.jpg",
+          "noHorizontalScroll": true,
+          "hasReasonLimit": true,
+          "hasExplicitConfirmation": true,
+          "submitInitiallyDisabled": true,
+          "text": true
         }
       ]
     },
@@ -46,6 +62,8 @@
           "file": "tablet-01-login.jpg",
           "noindex": "noindex, nofollow",
           "noHorizontalScroll": true,
+          "scrollWidth": 768,
+          "innerWidth": 768,
           "managementDataHidden": true,
           "adminNavLinkCount": 0,
           "localStorage": "{}",
@@ -55,20 +73,34 @@
           "file": "tablet-02-dashboard.jpg",
           "noindex": "noindex, nofollow",
           "noHorizontalScroll": true,
+          "documentWidth": 768,
+          "viewportWidth": 768,
           "hasStatus": true,
           "hasChanges": true,
           "hasRecords": true,
-          "writeButtonCount": 0,
+          "writeButtonCount": 5,
+          "hasPublishPreview": true,
+          "hasWithdrawalWarning": true,
+          "publishInitiallyDisabled": true,
           "officialLinkSafe": true,
           "localStorage": "{}",
           "sessionStorageKeys": [
             "kareo.adminToken"
           ],
           "urlHasCredential": false,
+          "overflow": [],
           "keyboardOrder": {
             "first": "username",
             "second": "current-password"
           }
+        },
+        {
+          "file": "tablet-03-review-confirmation.jpg",
+          "noHorizontalScroll": true,
+          "hasReasonLimit": true,
+          "hasExplicitConfirmation": true,
+          "submitInitiallyDisabled": true,
+          "text": true
         }
       ]
     },
@@ -80,6 +112,8 @@
           "file": "mobile-01-login.jpg",
           "noindex": "noindex, nofollow",
           "noHorizontalScroll": true,
+          "scrollWidth": 375,
+          "innerWidth": 375,
           "managementDataHidden": true,
           "adminNavLinkCount": 0,
           "localStorage": "{}",
@@ -89,20 +123,34 @@
           "file": "mobile-02-dashboard.jpg",
           "noindex": "noindex, nofollow",
           "noHorizontalScroll": true,
+          "documentWidth": 375,
+          "viewportWidth": 375,
           "hasStatus": true,
           "hasChanges": true,
           "hasRecords": true,
-          "writeButtonCount": 0,
+          "writeButtonCount": 5,
+          "hasPublishPreview": true,
+          "hasWithdrawalWarning": true,
+          "publishInitiallyDisabled": true,
           "officialLinkSafe": true,
           "localStorage": "{}",
           "sessionStorageKeys": [
             "kareo.adminToken"
           ],
           "urlHasCredential": false,
+          "overflow": [],
           "keyboardOrder": {
             "first": "username",
             "second": "current-password"
           }
+        },
+        {
+          "file": "mobile-03-review-confirmation.jpg",
+          "noHorizontalScroll": true,
+          "hasReasonLimit": true,
+          "hasExplicitConfirmation": true,
+          "submitInitiallyDisabled": true,
+          "text": true
         }
       ]
     }

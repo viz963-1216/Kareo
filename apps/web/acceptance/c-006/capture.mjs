@@ -1,4 +1,4 @@
-// C-006 partial Mock acceptance: login, token isolation, noindex and read-only dashboard.
+// C-006 Mock acceptance: login, token isolation, review confirmation, publish preview and withdrawal warning.
 // Usage: (cd apps/web && npx vite --port 5173) then node apps/web/acceptance/c-006/capture.mjs apps/web/acceptance/c-006
 import { spawn } from "node:child_process";
 import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
@@ -51,7 +51,7 @@ const run = async (expression) => {
   return result.result.value;
 };
 
-const report = { generatedAt: new Date().toISOString(), base: BASE, mode: "mock (vite dev)", scope: "C-006 partial read-only", viewports: {} };
+const report = { generatedAt: new Date().toISOString(), base: BASE, mode: "mock (vite dev)", scope: "C-006 admin knowledge review and release controls", viewports: {} };
 
 async function shot(viewport, name, checks) {
   const { contentSize } = await send("Page.getLayoutMetrics");
@@ -82,6 +82,8 @@ async function flow(viewport) {
     return {
       noindex: document.querySelector('meta[name=robots]')?.content,
       noHorizontalScroll: document.documentElement.scrollWidth <= innerWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+      innerWidth,
       managementDataHidden: !text.includes('KB-MOCK-001') && !text.includes('測試用地方補助紀錄'),
       adminNavLinkCount: document.querySelectorAll('header a[href="/admin/knowledge"]').length,
       localStorage: JSON.stringify(localStorage),
@@ -108,24 +110,49 @@ async function flow(viewport) {
     return {
       noindex: document.querySelector('meta[name=robots]')?.content,
       noHorizontalScroll: document.documentElement.scrollWidth <= innerWidth,
+      documentWidth: document.documentElement.scrollWidth,
+      viewportWidth: innerWidth,
       hasStatus: text.includes('KB-MOCK-001') && text.includes('每日檢查'),
       hasChanges: text.includes('收費方式'),
       hasRecords: text.includes('測試用地方補助紀錄'),
-      writeButtonCount: [...document.querySelectorAll('button')].filter(button => /核准|退回|發布|撤回|不影響內容/.test(button.innerText)).length,
+      writeButtonCount: [...document.querySelectorAll('button')].filter(button => /核准|拒絕|發布|撤回|忽略/.test(button.innerText)).length,
+      hasPublishPreview: text.includes('發布預覽') && text.includes('KB-MOCK-002'),
+      hasWithdrawalWarning: text.includes('使用者評估將暫停'),
+      publishInitiallyDisabled: [...document.querySelectorAll('button')].find(button => button.innerText.includes('確認發布'))?.disabled,
       officialLinkSafe: [...document.querySelectorAll('main a[target=_blank]')].every(link => link.rel.includes('noreferrer')),
       localStorage: JSON.stringify(localStorage),
       sessionStorageKeys: Object.keys(sessionStorage),
       urlHasCredential: /jerry|mock-key|ADMIN-TOKEN/.test(location.href),
+      overflow: [...document.querySelectorAll('body *')].filter(element => element.scrollWidth > element.clientWidth + 1 || element.getBoundingClientRect().right > innerWidth + 1).slice(0, 8).map(element => ({ tag: element.tagName, className: element.className, right: element.getBoundingClientRect().right, width: element.getBoundingClientRect().width, scrollWidth: element.scrollWidth, clientWidth: element.clientWidth })),
     };
   `);
   await shot(viewport, "02-dashboard", { ...dashboardChecks, keyboardOrder });
+  await run(`
+    [...document.querySelectorAll('button')].find(button => button.innerText === '核准').click();
+  `);
+  await sleep(100);
+  const reviewChecks = await run(`
+    const panel = document.querySelector('.admin-confirm');
+    const submit = panel?.querySelector('button[type=submit]');
+    return {
+      noHorizontalScroll: document.documentElement.scrollWidth <= innerWidth,
+      hasReasonLimit: panel?.querySelector('textarea')?.maxLength === 500,
+      hasExplicitConfirmation: Boolean(panel?.querySelector('input[type=checkbox]')),
+      submitInitiallyDisabled: submit?.disabled,
+      text: panel?.innerText.includes('確認管理操作'),
+    };
+  `);
+  await shot(viewport, "03-review-confirmation", reviewChecks);
   const required = loginChecks.noindex === "noindex, nofollow"
     && loginChecks.noHorizontalScroll && loginChecks.managementDataHidden && loginChecks.adminNavLinkCount === 0
     && dashboardChecks.noHorizontalScroll && dashboardChecks.hasStatus && dashboardChecks.hasChanges && dashboardChecks.hasRecords
-    && dashboardChecks.writeButtonCount === 0 && dashboardChecks.officialLinkSafe && !dashboardChecks.urlHasCredential
+    && dashboardChecks.writeButtonCount >= 5 && dashboardChecks.hasPublishPreview && dashboardChecks.hasWithdrawalWarning
+    && dashboardChecks.publishInitiallyDisabled && dashboardChecks.officialLinkSafe && !dashboardChecks.urlHasCredential
     && JSON.stringify(dashboardChecks.sessionStorageKeys) === JSON.stringify(["kareo.adminToken"])
-    && keyboardOrder.first === "username" && keyboardOrder.second === "current-password";
-  if (!required) throw new Error(`${viewport.name}: C-006 partial acceptance failed`);
+    && keyboardOrder.first === "username" && keyboardOrder.second === "current-password"
+    && reviewChecks.noHorizontalScroll && reviewChecks.hasReasonLimit && reviewChecks.hasExplicitConfirmation
+    && reviewChecks.submitInitiallyDisabled && reviewChecks.text;
+  if (!required) throw new Error(`${viewport.name}: C-006 acceptance failed ${JSON.stringify({ loginChecks, dashboardChecks, keyboardOrder, reviewChecks })}`);
 }
 
 try {
@@ -133,7 +160,7 @@ try {
   await flow({ name: "tablet", width: 768, height: 1024 });
   await flow({ name: "mobile", width: 375, height: 812 });
   writeFileSync(join(OUT, "report.json"), `${JSON.stringify(report, null, 2)}\n`);
-  console.log("ok 6 shots");
+  console.log("ok 9 shots");
 } catch (error) {
   writeFileSync(join(OUT, "capture-error.log"), `${error?.stack ?? error}\n`);
   throw error;
