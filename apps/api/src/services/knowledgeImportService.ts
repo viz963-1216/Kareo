@@ -10,6 +10,7 @@ import type {
   RawContentPackRecord,
 } from "../types/index.js";
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
+import { computeContentFingerprint } from "./contentFingerprint.js";
 
 // ===== 依 docs/knowledge/source-registry.md 解析白名單來源（Jerry 維護，B-008 只讀取，不修改）=====
 
@@ -137,6 +138,19 @@ function validateRecord(raw: RawContentPackRecord, packId: string, registry: Map
 
   const s = source as Record<string, unknown>;
   const now = nowTaipeiISOString();
+  const fingerprintable = {
+    sourceId: s.sourceId as string,
+    sourceUrl: s.url as string,
+    title: raw.title as string,
+    category: raw.category as string,
+    jurisdiction: raw.jurisdiction as string,
+    publishedAt: publishedAt as string | null,
+    effectiveFrom: raw.effectiveFrom as string,
+    effectiveTo: effectiveTo as string | null,
+    rawText: raw.excerpt as string,
+    summary: raw.summary as string,
+    ruleData: raw.ruleData as Record<string, unknown>,
+  };
   return {
     ok: true,
     reasons: [],
@@ -153,6 +167,7 @@ function validateRecord(raw: RawContentPackRecord, packId: string, registry: Map
       fetchedAt: s.fetchedAt as string,
       lastVerifiedAt: raw.lastVerifiedAt as string,
       contentHash: s.contentHash as string,
+      contentFingerprint: computeContentFingerprint(fingerprintable),
       rawText: raw.excerpt as string,
       summary: raw.summary as string,
       ruleData: raw.ruleData as Record<string, unknown>,
@@ -245,8 +260,9 @@ export async function importContentPack(
       toInsert.push(item);
       continue;
     }
-    if (existing.contentHash === item.value.contentHash) {
-      continue; // 內容相同，冪等略過。
+    if (existing.contentFingerprint === item.value.contentFingerprint) {
+      continue; // 審核內容指紋相同，冪等略過（同一來源仍可能對應不同 contentHash 的重新擷取，
+      // 但只要實質內容一樣就不算變更；反過來 contentHash 不變但指紋不同也視為變更，見下方 toCorrect）。
     }
     if (existing.status === "PUBLISHED") {
       publishedConflicts.push({
@@ -267,7 +283,7 @@ export async function importContentPack(
   for (const item of toInsert) {
     const existingPublished = await repo.findPublishedByKey(item.value.jurisdiction, item.value.category, item.value.title);
     const status: KnowledgeRecordStatus =
-      existingPublished && existingPublished.contentHash !== item.value.contentHash ? "CONFLICT" : "NEEDS_REVIEW";
+      existingPublished && existingPublished.contentFingerprint !== item.value.contentFingerprint ? "CONFLICT" : "NEEDS_REVIEW";
     const now = nowTaipeiISOString();
     records.push({ ...item.value, id: generateId("KREC"), status, version: null, createdAt: now, updatedAt: now });
   }

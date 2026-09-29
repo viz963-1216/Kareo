@@ -27,6 +27,27 @@ alter table knowledge_version_records enable row level security;
 revoke all on table knowledge_version_records from anon, authenticated;
 grant select, insert, update, delete on table knowledge_version_records to service_role;
 
+-- J-003-r5 U2／U3：回填既有版本的成員，避免升級到這個 migration 之後、既有版本的
+-- knowledge_version_records 是空的（導致之後撤回／回復這些既有版本時內容遺失）。
+-- 只能用「目前資料庫看得到」的資訊回填：
+--   1. 目前 PUBLISHED 的版本 → 用 status='PUBLISHED' 的紀錄。這一定正確、完整，因為舊版
+--      carry-forward 邏輯（migration 0011）本來就保證「目前狀態是 PUBLISHED 的紀錄集合」
+--      等同「目前這個版本包含的紀錄」，不需要靠 version 欄位。
+--   2. 其他（ARCHIVED）版本 → 用 knowledge_records.version = 該版本 id 的紀錄。這只是該紀錄
+--      「最後一次還屬於這個版本時」的快照，如果同一筆紀錄後來被更晚的版本再次 carry-forward、
+--      version 欄位已經被舊邏輯覆寫成更晚的版本，這裡就抓不到——這是舊 schema 資訊不足造成的
+--      已知限制（要求的資訊在升級前就已經遺失，回填無法無中生有），不是本次回填本身的錯誤；
+--      「已套用」環境判斷為 staging 目前沒有任何實際資料（J-003 以唯讀查詢確認），因此這個
+--      限制在本次升級不會實際發生，只在往後的升級路徑測試中作為已知邊界情況記錄。
+insert into knowledge_version_records (version_id, knowledge_record_id)
+select v.id, r.id
+from knowledge_versions v
+join knowledge_records r on (
+  (v.status = 'PUBLISHED' and r.status = 'PUBLISHED')
+  or (v.status != 'PUBLISHED' and r.version = v.id)
+)
+on conflict do nothing;
+
 create or replace function public.publish_knowledge_version(payload jsonb)
 returns jsonb
 language plpgsql

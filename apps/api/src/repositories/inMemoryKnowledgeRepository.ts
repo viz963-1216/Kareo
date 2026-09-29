@@ -57,15 +57,22 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
     Object.assign(record, content, { status: "NEEDS_REVIEW" as const, version: null, updatedAt: new Date().toISOString() });
   }
 
-  async approveRecords(recordIds: string[]): Promise<string[]> {
-    const updated: string[] = [];
-    for (const r of this.records) {
-      if (recordIds.includes(r.id) && r.status === "NEEDS_REVIEW") {
-        r.status = "APPROVED";
-        updated.push(r.id);
+  async approveRecords(
+    candidates: Array<{ id: string; expectedContentFingerprint: string }>
+  ): Promise<{ approved: string[]; contentMismatched: string[] }> {
+    const approved: string[] = [];
+    const contentMismatched: string[] = [];
+    for (const c of candidates) {
+      const r = this.records.find((x) => x.id === c.id);
+      if (!r || r.status !== "NEEDS_REVIEW") continue; // 不是待審核，呼叫端自行由「原始清單 - approved - contentMismatched」推得。
+      if (r.contentFingerprint !== c.expectedContentFingerprint) {
+        contentMismatched.push(c.id);
+        continue;
       }
+      r.status = "APPROVED";
+      approved.push(c.id);
     }
-    return updated;
+    return { approved, contentMismatched };
   }
 
   async versionExists(versionId: string): Promise<boolean> {

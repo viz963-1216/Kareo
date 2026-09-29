@@ -45,9 +45,10 @@ describe("B-008 approval must bind to the reviewed content", () => {
     const corrected = pack("修正後摘要", "b", "APPROVED");
     const reimport = await importContentPack(repo, corrected, REGISTRY, { mode: "commit" });
 
-    // What approveKnowledgePack.ts does: map (packId, recordId) → db ids, approve.
-    const ids = (await repo.findRecordsByPackId("KP-2026-09-25-901")).map((r) => r.id);
-    await approveRecords(repo, ids);
+    // What approveKnowledgePack.ts does: map (packId, recordId) → db ids, approve using the current
+    // content fingerprint (adapted for the content-fingerprint-bound approval design, second round fix).
+    const dbRecords = await repo.findRecordsByPackId("KP-2026-09-25-901");
+    await approveRecords(repo, dbRecords.map((r) => ({ id: r.id, expectedContentFingerprint: r.contentFingerprint })));
     const approvedRows = repo.records.filter((r) => r.status === "APPROVED");
 
     // Required: the changed re-import is rejected or flagged for review, and nothing whose content differs

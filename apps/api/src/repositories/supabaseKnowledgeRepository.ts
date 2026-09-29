@@ -20,6 +20,7 @@ function toDbRecord(r: KnowledgeRecord) {
     fetched_at: r.fetchedAt,
     last_verified_at: r.lastVerifiedAt,
     content_hash: r.contentHash,
+    content_fingerprint: r.contentFingerprint,
     status: r.status,
     version: r.version,
     raw_text: r.rawText,
@@ -50,7 +51,7 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
     const { data, error } = await client
       .from("knowledge_records")
       .select(
-        "id, source_id, title, category, jurisdiction, source_url, published_at, effective_from, effective_to, fetched_at, last_verified_at, content_hash, status, version, raw_text, summary, rule_data, created_at, updated_at, pack_id, pack_record_id"
+        "id, source_id, title, category, jurisdiction, source_url, published_at, effective_from, effective_to, fetched_at, last_verified_at, content_hash, content_fingerprint, status, version, raw_text, summary, rule_data, created_at, updated_at, pack_id, pack_record_id"
       )
       .eq("pack_id", packId);
     if (error) throw new AppError("INTERNAL_ERROR", "無法查詢 Knowledge 紀錄，請稍後再試。");
@@ -67,6 +68,7 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
       fetchedAt: row.fetched_at,
       lastVerifiedAt: row.last_verified_at,
       contentHash: row.content_hash,
+      contentFingerprint: row.content_fingerprint,
       status: row.status,
       version: row.version,
       rawText: row.raw_text,
@@ -88,7 +90,7 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
     const { data, error } = await client
       .from("knowledge_records")
       .select(
-        "id, source_id, title, category, jurisdiction, source_url, published_at, effective_from, effective_to, fetched_at, last_verified_at, content_hash, status, version, raw_text, summary, rule_data, created_at, updated_at, pack_id, pack_record_id"
+        "id, source_id, title, category, jurisdiction, source_url, published_at, effective_from, effective_to, fetched_at, last_verified_at, content_hash, content_fingerprint, status, version, raw_text, summary, rule_data, created_at, updated_at, pack_id, pack_record_id"
       )
       .eq("jurisdiction", jurisdiction)
       .eq("category", category)
@@ -110,6 +112,7 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
       fetchedAt: data.fetched_at,
       lastVerifiedAt: data.last_verified_at,
       contentHash: data.content_hash,
+      contentFingerprint: data.content_fingerprint,
       status: data.status,
       version: data.version,
       rawText: data.raw_text,
@@ -152,6 +155,7 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
           fetched_at: content.fetchedAt,
           last_verified_at: content.lastVerifiedAt,
           content_hash: content.contentHash,
+          content_fingerprint: content.contentFingerprint,
           raw_text: content.rawText,
           summary: content.summary,
           rule_data: content.ruleData,
@@ -169,17 +173,45 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
     }
   }
 
-  async approveRecords(recordIds: string[]): Promise<string[]> {
-    if (recordIds.length === 0) return [];
+  // Jerry 委託修正第二輪（2026-09-27）：核准一律是單一 UPDATE，WHERE 同時檢查 status='NEEDS_REVIEW'
+  // 「與」content_fingerprint = 呼叫端宣稱的預期值，兩者由 Postgres 在同一次操作內原子檢查——
+  // 不是先 SELECT 讀出目前內容比對、再另外送一次 UPDATE（那樣兩次操作之間仍有競態空隙）。
+  // 逐筆呼叫是因為每筆的 expectedContentFingerprint 可能不同，Supabase 的 update().eq() 無法一次
+  // 對多筆套用「各自不同」的條件；每一筆呼叫本身仍是單一、原子的 SQL UPDATE 陳述式。
+  async approveRecords(
+    candidates: Array<{ id: string; expectedContentFingerprint: string }>
+  ): Promise<{ approved: string[]; contentMismatched: string[] }> {
+    if (candidates.length === 0) return { approved: [], contentMismatched: [] };
     const client = getSupabaseClient();
-    const { data, error } = await client
-      .from("knowledge_records")
-      .update({ status: "APPROVED" })
-      .in("id", recordIds)
-      .eq("status", "NEEDS_REVIEW")
-      .select("id");
-    if (error) throw new AppError("INTERNAL_ERROR", "無法核准 Knowledge 紀錄，請稍後再試。", { cause: error });
-    return (data ?? []).map((r) => r.id as string);
+    const approved: string[] = [];
+    const contentMismatched: string[] = [];
+
+    for (const c of candidates) {
+      const { data, error } = await client
+        .from("knowledge_records")
+        .update({ status: "APPROVED", updated_at: nowTaipeiISOString() })
+        .eq("id", c.id)
+        .eq("status", "NEEDS_REVIEW")
+        .eq("content_fingerprint", c.expectedContentFingerprint)
+        .select("id");
+      if (error) throw new AppError("INTERNAL_ERROR", "無法核准 Knowledge 紀錄，請稍後再試。", { cause: error });
+      if ((data ?? []).length > 0) {
+        approved.push(c.id);
+        continue;
+      }
+      // 沒有任何一列符合條件更新到：可能是狀態不對（已核准／已拒收／不存在），也可能是內容指紋不符
+      // （核准與匯入之間內容被改變）。只有在「這筆紀錄目前確實是 NEEDS_REVIEW 但指紋不符」時才算
+      // contentMismatched；其餘（狀態不對／不存在）不算，交給呼叫端用「原始清單 - 兩者」推得。
+      const { data: current, error: currentError } = await client
+        .from("knowledge_records")
+        .select("status")
+        .eq("id", c.id)
+        .maybeSingle();
+      if (currentError) throw new AppError("INTERNAL_ERROR", "無法核准 Knowledge 紀錄，請稍後再試。", { cause: currentError });
+      if (current?.status === "NEEDS_REVIEW") contentMismatched.push(c.id);
+    }
+
+    return { approved, contentMismatched };
   }
 
   async versionExists(versionId: string): Promise<boolean> {
@@ -240,12 +272,25 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
     if (versionError) throw new AppError("INTERNAL_ERROR", "無法查詢 Knowledge 版本，請稍後再試。");
     if (!version) return null;
 
-    const { data: verifiedRows, error: verifiedError } = await client
-      .from("knowledge_records")
-      .select("last_verified_at")
-      .eq("version", version.id)
-      .order("last_verified_at", { ascending: false })
-      .limit(1);
+    // J-003-r5 K10：carry-forward 的紀錄保留原本的 version（不可變，第一次發布時的版本），
+    // 不能再用 knowledge_records.version = 目前版本 查詢「目前這個版本包含哪些紀錄」——
+    // 第二次發布後，這樣查詢只會拿到新發布的紀錄，carry-forward 進來的舊紀錄全部消失。
+    // 改用 knowledge_version_records（migration 0012／原 0013）取得目前版本的完整紀錄成員。
+    const { data: memberRows, error: memberError } = await client
+      .from("knowledge_version_records")
+      .select("knowledge_record_id")
+      .eq("version_id", version.id);
+    if (memberError) throw new AppError("INTERNAL_ERROR", "無法查詢 Knowledge 版本成員，請稍後再試。");
+    const memberIds = (memberRows ?? []).map((r) => r.knowledge_record_id as string);
+
+    const { data: verifiedRows, error: verifiedError } = memberIds.length
+      ? await client
+          .from("knowledge_records")
+          .select("last_verified_at")
+          .in("id", memberIds)
+          .order("last_verified_at", { ascending: false })
+          .limit(1)
+      : { data: [], error: null };
     if (verifiedError) throw new AppError("INTERNAL_ERROR", "無法查詢 Knowledge 紀錄，請稍後再試。");
 
     return {

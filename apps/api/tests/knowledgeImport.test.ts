@@ -212,6 +212,7 @@ describe("importContentPack", () => {
       fetchedAt: "2026-01-01T00:00:00+08:00",
       lastVerifiedAt: "2026-01-01T00:00:00+08:00",
       contentHash: "sha256:" + "0".repeat(64),
+      contentFingerprint: "sha256:" + "0".repeat(64),
       status: "PUBLISHED",
       version: "KB-2026-01-01-001",
       rawText: "old",

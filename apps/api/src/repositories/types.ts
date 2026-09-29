@@ -66,9 +66,16 @@ export interface KnowledgeRepository {
     content: Omit<KnowledgeRecord, "id" | "createdAt" | "updatedAt" | "packId" | "packRecordId" | "status" | "version">
   ): Promise<void>;
 
-  // Approve：單一 UPDATE，內建於 WHERE status = 'NEEDS_REVIEW'，回傳實際更新的 id，供呼叫端偵測「有 id 沒被更新」。
-  // KnowledgeRecord 沒有獨立的 approvedBy 欄位（依 DATA_MODEL.md 第 24 節），審核人記錄在 KnowledgeVersion.approvedBy。
-  approveRecords(recordIds: string[]): Promise<string[]>;
+  // Jerry 委託修正第二輪（2026-09-27）：核准一律是單一 UPDATE，條件同時包含 status = 'NEEDS_REVIEW'
+  // 「與」content_fingerprint = 呼叫端宣稱的預期值，兩者在同一次資料庫操作內原子檢查（不是先讀後寫的
+  // 兩步驟，避免核准與匯入之間的競態：內容在核准當下已被改變，舊的核准請求絕不能生效）。
+  // 沒有「只收 id、不驗內容」的核准入口——這個方法本身就是唯一入口，不能被繞過。
+  // 回傳：approved＝實際被核准的 id；contentMismatched＝status 對但 content_fingerprint 對不上
+  // （核准與匯入之間內容被改變）；其餘（不在 approved 也不在 contentMismatched）代表當下狀態
+  // 本來就不是 NEEDS_REVIEW（已核准／已拒收／不存在），呼叫端可用「原始 id 清單 - 前兩者」算出。
+  approveRecords(
+    candidates: Array<{ id: string; expectedContentFingerprint: string }>
+  ): Promise<{ approved: string[]; contentMismatched: string[] }>;
 
   // 版號是否已存在（任何狀態）：B-008-r2／D-03，發布前的第一層檢查（SQL function 內還有第二層防禦）。
   versionExists(versionId: string): Promise<boolean>;

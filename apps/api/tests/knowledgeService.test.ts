@@ -28,6 +28,7 @@ function record(overrides: Partial<KnowledgeRecord> = {}): KnowledgeRecord {
     fetchedAt: "2026-09-23T10:00:00+08:00",
     lastVerifiedAt: "2026-09-23T10:00:00+08:00",
     contentHash: "sha256:" + "a".repeat(64),
+    contentFingerprint: "sha256:" + "f".repeat(64),
     status: "NEEDS_REVIEW",
     version: null,
     rawText: "text",
@@ -88,42 +89,48 @@ describe("getKnowledgeStatus", () => {
 describe("approveRecords", () => {
   it("approves NEEDS_REVIEW records and reports which ids were not approved", async () => {
     const repo = new InMemoryKnowledgeRepository();
-    repo.records.push(record({ id: "KREC-001", status: "NEEDS_REVIEW" }));
-    repo.records.push(record({ id: "KREC-002", status: "REJECTED", packRecordId: "KR-2026-002" }));
+    repo.records.push(record({ id: "KREC-001", status: "NEEDS_REVIEW", contentFingerprint: "sha256:" + "a".repeat(64) }));
+    repo.records.push(record({ id: "KREC-002", status: "REJECTED", packRecordId: "KR-2026-002", contentFingerprint: "sha256:" + "b".repeat(64) }));
 
-    const result = await approveRecords(repo, ["KREC-001", "KREC-002", "KREC-DOES-NOT-EXIST"]);
+    const result = await approveRecords(repo, [
+      { id: "KREC-001", expectedContentFingerprint: "sha256:" + "a".repeat(64) },
+      { id: "KREC-002", expectedContentFingerprint: "sha256:" + "b".repeat(64) },
+      { id: "KREC-DOES-NOT-EXIST", expectedContentFingerprint: "sha256:" + "c".repeat(64) },
+    ]);
 
     expect(result.approved).toEqual(["KREC-001"]);
     expect(result.notApproved.sort()).toEqual(["KREC-002", "KREC-DOES-NOT-EXIST"]);
+    expect(result.contentMismatched).toEqual([]);
   });
 
-  it("rejects an empty or non-array recordIds", async () => {
+  it("rejects an empty or non-array candidate list, or candidates missing a fingerprint", async () => {
     const repo = new InMemoryKnowledgeRepository();
     await expect(approveRecords(repo, [])).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
     await expect(approveRecords(repo, "not-an-array")).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
+    await expect(approveRecords(repo, [{ id: "KREC-001" }])).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
   });
 });
 
-describe("approvePackRecords (B-008-r3, J-003 H-2: approval must be bound to the reviewed content)", () => {
-  it("approves only when the database's current content hash matches what the pack declares", async () => {
+describe("approvePackRecords (B-008: approval must be bound to the reviewed content — content fingerprint, not source hash)", () => {
+  it("approves only when the database's current content fingerprint matches what the pack declares", async () => {
     const repo = new InMemoryKnowledgeRepository();
-    repo.records.push(record({ id: "KREC-001", status: "NEEDS_REVIEW", contentHash: "sha256:" + "a".repeat(64) }));
+    repo.records.push(record({ id: "KREC-001", status: "NEEDS_REVIEW", contentFingerprint: "sha256:" + "a".repeat(64) }));
 
     const result = await approvePackRecords(repo, [
-      { dbId: "KREC-001", packRecordId: "KR-2026-001", dbContentHash: "sha256:" + "a".repeat(64), expectedContentHash: "sha256:" + "a".repeat(64) },
+      { dbId: "KREC-001", packRecordId: "KR-2026-001", expectedContentFingerprint: "sha256:" + "a".repeat(64) },
     ]);
 
     expect(result.approved).toEqual(["KREC-001"]);
     expect(result.contentMismatched).toEqual([]);
   });
 
-  it("refuses to approve when the database content differs from what this pack approval declares (approval/import race)", async () => {
+  it("refuses to approve when the database content fingerprint differs from what this pack approval declares (approval/import race)", async () => {
     const repo = new InMemoryKnowledgeRepository();
-    // 資料庫目前內容的雜湊是 'b'（例如核准前又被另一次匯入更正過），但這次核准請求宣稱的是 'a'。
-    repo.records.push(record({ id: "KREC-001", status: "NEEDS_REVIEW", contentHash: "sha256:" + "b".repeat(64) }));
+    // 資料庫目前內容指紋是 'b'（例如核准前又被另一次匯入更正過），但這次核准請求宣稱的是 'a'。
+    repo.records.push(record({ id: "KREC-001", status: "NEEDS_REVIEW", contentFingerprint: "sha256:" + "b".repeat(64) }));
 
     const result = await approvePackRecords(repo, [
-      { dbId: "KREC-001", packRecordId: "KR-2026-001", dbContentHash: "sha256:" + "b".repeat(64), expectedContentHash: "sha256:" + "a".repeat(64) },
+      { dbId: "KREC-001", packRecordId: "KR-2026-001", expectedContentFingerprint: "sha256:" + "a".repeat(64) },
     ]);
 
     expect(result.approved).toEqual([]);
@@ -133,12 +140,12 @@ describe("approvePackRecords (B-008-r3, J-003 H-2: approval must be bound to the
 
   it("a batch with both matching and mismatched records approves only the matching ones", async () => {
     const repo = new InMemoryKnowledgeRepository();
-    repo.records.push(record({ id: "KREC-001", status: "NEEDS_REVIEW", contentHash: "sha256:" + "a".repeat(64) }));
-    repo.records.push(record({ id: "KREC-002", status: "NEEDS_REVIEW", contentHash: "sha256:" + "c".repeat(64), packRecordId: "KR-2026-002" }));
+    repo.records.push(record({ id: "KREC-001", status: "NEEDS_REVIEW", contentFingerprint: "sha256:" + "a".repeat(64) }));
+    repo.records.push(record({ id: "KREC-002", status: "NEEDS_REVIEW", contentFingerprint: "sha256:" + "c".repeat(64), packRecordId: "KR-2026-002" }));
 
     const result = await approvePackRecords(repo, [
-      { dbId: "KREC-001", packRecordId: "KR-2026-001", dbContentHash: "sha256:" + "a".repeat(64), expectedContentHash: "sha256:" + "a".repeat(64) },
-      { dbId: "KREC-002", packRecordId: "KR-2026-002", dbContentHash: "sha256:" + "c".repeat(64), expectedContentHash: "sha256:" + "z".repeat(64) },
+      { dbId: "KREC-001", packRecordId: "KR-2026-001", expectedContentFingerprint: "sha256:" + "a".repeat(64) },
+      { dbId: "KREC-002", packRecordId: "KR-2026-002", expectedContentFingerprint: "sha256:" + "z".repeat(64) },
     ]);
 
     expect(result.approved).toEqual(["KREC-001"]);
@@ -402,9 +409,9 @@ describe("publishVersion — real content packs (KP-2026-09-23-001 + KP-2026-09-
   async function importAndApprove(repo: InMemoryKnowledgeRepository, pack: RawContentPack) {
     const registry = parseSourceRegistry(REGISTRY_MD);
     await importContentPack(repo, pack, registry, { mode: "commit" });
-    const ids = repo.records.filter((r) => r.packId === pack.packId).map((r) => r.id);
-    await approveRecords(repo, ids);
-    return ids;
+    const records = repo.records.filter((r) => r.packId === pack.packId);
+    await approveRecords(repo, records.map((r) => ({ id: r.id, expectedContentFingerprint: r.contentFingerprint })));
+    return records.map((r) => r.id);
   }
 
   it("publishing KP-2026-09-23-001 alone uses its intendedKnowledgeVersion as the published version id", async () => {
