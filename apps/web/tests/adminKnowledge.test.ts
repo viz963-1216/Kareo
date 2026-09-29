@@ -21,6 +21,24 @@ function jsonResponse(data: unknown, status = 200) {
   });
 }
 
+function adminFixture(path: string) {
+  return JSON.parse(readFileSync(fileURLToPath(new URL(`../../../contracts/mock/admin/${path}`, import.meta.url)), "utf8"));
+}
+
+async function withAdminResponse<T>(data: unknown, operation: () => Promise<T>): Promise<T> {
+  const storage = new MemoryStorage();
+  storage.setItem("kareo.adminToken", "admin-token");
+  Object.defineProperty(globalThis, "sessionStorage", { configurable: true, value: storage });
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => jsonResponse({ success: true, data });
+  try {
+    return await operation();
+  } finally {
+    globalThis.fetch = originalFetch;
+    adminRealApi.logout();
+  }
+}
+
 test("admin login stores only the dedicated admin token in sessionStorage", async () => {
   const storage = new MemoryStorage();
   Object.defineProperty(globalThis, "sessionStorage", { configurable: true, value: storage });
@@ -176,4 +194,94 @@ test("admin writes share a synchronous lock and clear stale 409 state", () => {
   assert.match(page, /setRepublishVersionId\(""\)/);
   assert.match(page, /setRestorable\(null\)/);
   assert.match(page, /disabled=\{writeBusy\}/);
+});
+
+test("admin publish rejects empty, incomplete, mismatched, and invalid-count success data", async () => {
+  const request = { versionId: "KB-MOCK-002", previewToken: "PPV-MOCK-002-7f3a", confirm: true as const };
+  const valid = adminFixture("knowledge-publish-response.json").data;
+  assert.equal((await withAdminResponse(valid, () => adminRealApi.publish(request))).versionId, request.versionId);
+
+  const invalidCases = [
+    {},
+    { ...valid, versionId: undefined },
+    { ...valid, versionId: "KB-WRONG" },
+    { ...valid, totalRecordCount: -1 },
+    { ...valid, publishedRecordCount: 1.5 },
+    { ...valid, carriedForwardCount: "15" },
+    { ...valid, totalRecordCount: 99 },
+  ];
+  for (const data of invalidCases) {
+    await assert.rejects(() => withAdminResponse(data, () => adminRealApi.publish(request)), { name: "ApiError", code: "INVALID_RESPONSE" });
+  }
+});
+
+test("admin decision and dismiss validate response IDs, states, and review decisions", async () => {
+  const decisionRequest = { decision: "APPROVED" as const, reason: "已核對", expectedContentFingerprint: "sha256:test", confirm: true as const };
+  const decision = adminFixture("knowledge-record-approved-response.json").data;
+  assert.equal((await withAdminResponse(decision, () => adminRealApi.decideRecord("KREC-MOCK-001", decisionRequest))).record.status, "APPROVED");
+  for (const data of [
+    {},
+    { ...decision, record: { ...decision.record, id: "KREC-WRONG" } },
+    { ...decision, record: { ...decision.record, status: "REJECTED" } },
+    { ...decision, review: { ...decision.review, decision: "REJECTED" } },
+  ]) await assert.rejects(() => withAdminResponse(data, () => adminRealApi.decideRecord("KREC-MOCK-001", decisionRequest)), { code: "INVALID_RESPONSE" });
+
+  const dismissRequest = { reason: "不影響內容", confirm: true as const };
+  const dismiss = adminFixture("knowledge-change-dismissed-response.json").data;
+  assert.equal((await withAdminResponse(dismiss, () => adminRealApi.dismissChange("KC-MOCK-001", dismissRequest))).change.status, "DISMISSED");
+  for (const data of [
+    { ...dismiss, change: { ...dismiss.change, id: "KC-WRONG" } },
+    { ...dismiss, change: { ...dismiss.change, status: "NEEDS_REVIEW" } },
+    { ...dismiss, review: { ...dismiss.review, decision: "APPROVED" } },
+  ]) await assert.rejects(() => withAdminResponse(data, () => adminRealApi.dismissChange("KC-MOCK-001", dismissRequest)), { code: "INVALID_RESPONSE" });
+});
+
+test("admin withdrawal requires response versions to exactly match the request", async () => {
+  const request = { withdrawVersionId: "KB-MOCK-002", republishVersionId: "KB-MOCK-001", reason: "版本有誤", confirm: true as const };
+  const valid = adminFixture("knowledge-withdraw-response.json").data;
+  assert.equal((await withAdminResponse(valid, () => adminRealApi.withdraw(request))).republishedVersionId, request.republishVersionId);
+  for (const data of [
+    {},
+    { ...valid, withdrawnVersionId: "KB-WRONG" },
+    { ...valid, republishedVersionId: null },
+    { ...valid, withdrawnAt: undefined },
+  ]) await assert.rejects(() => withAdminResponse(data, () => adminRealApi.withdraw(request)), { code: "INVALID_RESPONSE" });
+
+  const noRepublishRequest = { withdrawVersionId: "KB-MOCK-001", republishVersionId: null, reason: "暫停使用", confirm: true as const };
+  const noRepublish = adminFixture("knowledge-withdraw-no-republish-response.json").data;
+  assert.equal((await withAdminResponse(noRepublish, () => adminRealApi.withdraw(noRepublishRequest))).republishedVersionId, null);
+});
+
+test("admin read endpoints reject malformed success data and accept complete fixtures", async () => {
+  const status = adminFixture("knowledge-status-response.json").data;
+  assert.equal((await withAdminResponse(status, () => adminRealApi.getStatus())).publishedVersion, "KB-MOCK-001");
+  await assert.rejects(() => withAdminResponse({ ...status, lastCrawlerRun: { status: "UNKNOWN" } }, () => adminRealApi.getStatus()), { code: "INVALID_RESPONSE" });
+
+  const changes = adminFixture("knowledge-changes-response.json").data;
+  assert.equal((await withAdminResponse(changes, () => adminRealApi.getChanges())).length, 1);
+  await assert.rejects(() => withAdminResponse({ changes: [{}] }, () => adminRealApi.getChanges()), { code: "INVALID_RESPONSE" });
+
+  const records = adminFixture("knowledge-records-response.json").data;
+  assert.equal((await withAdminResponse(records, () => adminRealApi.getRecords())).length, 1);
+  await assert.rejects(() => withAdminResponse({ records: [{ ...records.records[0], contentFingerprint: null }] }, () => adminRealApi.getRecords()), { code: "INVALID_RESPONSE" });
+
+  const preview = adminFixture("knowledge-publish-preview-response.json").data;
+  assert.equal((await withAdminResponse(preview, () => adminRealApi.getPublishPreview())).canPublish, true);
+  for (const data of [{}, { ...preview, previewToken: null }, { ...preview, blockers: [{}] }, { ...preview, totalRecordCount: "16" }]) {
+    await assert.rejects(() => withAdminResponse(data, () => adminRealApi.getPublishPreview()), { code: "INVALID_RESPONSE" });
+  }
+
+  const restorable = adminFixture("knowledge-restorable-versions-response.json").data;
+  assert.equal((await withAdminResponse(restorable, () => adminRealApi.getRestorableVersions())).versions.length, 1);
+  for (const data of [{}, { ...restorable, versions: [{}] }, { ...restorable, currentVersion: { ...restorable.currentVersion, recordCount: -1 } }]) {
+    await assert.rejects(() => withAdminResponse(data, () => adminRealApi.getRestorableVersions()), { code: "INVALID_RESPONSE" });
+  }
+});
+
+test("admin page only shows success after validated adapter calls resolve", () => {
+  const page = readFileSync(fileURLToPath(new URL("../src/pages/AdminKnowledgePage.tsx", import.meta.url)), "utf8");
+  assert.match(page, /const result = await adminApi\.publish[\s\S]*setNotice\(`版本 \$\{result\.versionId\}/);
+  assert.match(page, /const result = await adminApi\.withdraw[\s\S]*setNotice\(result\.republishedVersionId/);
+  assert.match(page, /const result = await adminApi\.decideRecord[\s\S]*setNotice\(result\.record\.status/);
+  assert.match(page, /const result = await adminApi\.dismissChange[\s\S]*setNotice\(`來源 \$\{result\.change\.sourceId\}/);
 });
