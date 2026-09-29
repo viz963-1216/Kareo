@@ -8,3 +8,9 @@ export function getSessionTokenHeader(event: NetlifyEventHeaders): string | unde
   const headers = event.headers ?? {};
   return headers["x-kareo-session-token"] ?? headers["X-Kareo-Session-Token"];
 }
+
+// TASK-B-006：POST /api/v1/leads 必須帶 Idempotency-Key（API_CONTRACT §3.3）。
+export function getIdempotencyKeyHeader(event: NetlifyEventHeaders): string | undefined {
+  const headers = event.headers ?? {};
+  return headers["idempotency-key"] ?? headers["Idempotency-Key"];
+}

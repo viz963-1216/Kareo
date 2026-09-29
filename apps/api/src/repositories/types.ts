@@ -6,11 +6,16 @@ import type {
   CrawlerSnapshot,
   CreatedSession,
   CreateConsentInput,
+  InternalOperator,
   KnowledgeCategory,
   KnowledgeChange,
   KnowledgeRecord,
   KnowledgeStatusResponse,
   Jurisdiction,
+  Lead,
+  LeadAccessEvent,
+  LeadStatus,
+  LeadStatusEvent,
   Provider,
   ProviderDetailResponse,
   ProviderService,
@@ -167,4 +172,44 @@ export interface ProviderRepository {
 export interface RecommendationRepository {
   insertRun(run: RecommendationRun): Promise<void>;
   insertItems(items: RecommendationItem[]): Promise<void>;
+  // TASK-B-006：Lead 建立時需驗證 recommendationId 屬於同一 session（透過 assessmentId 反查，
+  // 見 leadService）且 providerId／serviceType 出現在該次推薦結果中（API_CONTRACT §12、
+  // ARCHITECTURE §20.3 第 5 步）。找不到時回 null（呼叫端據此回 NOT_FOUND，不透露資源是否存在）。
+  findRunWithItems(id: string): Promise<{ run: RecommendationRun; items: RecommendationItem[] } | null>;
+}
+
+// TASK-B-006，依 docs/DATA_MODEL.md 第 22、37-38 節、docs/LEAD_OPERATIONS.md。
+export interface LeadRepository {
+  // API_CONTRACT §3.3：同一 (sessionId, idempotencyKey) 已存在的 Lead（不論內容是否相同，
+  // 由呼叫端比對內容決定回原結果或 IDEMPOTENCY_CONFLICT）。
+  findBySessionAndIdempotencyKey(sessionId: string, idempotencyKey: string): Promise<Lead | null>;
+  // API_CONTRACT §12 / ARCHITECTURE §20.5：同一 session+provider+serviceType 尚未終態的既有 Lead。
+  findOpenBySessionProviderService(
+    sessionId: string,
+    providerId: string,
+    serviceType: ProviderServiceType
+  ): Promise<Lead | null>;
+  // 依 ARCHITECTURE §20.5：以資料庫唯一約束保證不重複寫入，不以應用層先查後寫代替。
+  // 違反唯一約束（idempotency 或 open-duplicate，同一次呼叫只可能觸發其中一種）時回 inserted=false，
+  // 呼叫端須重新查詢兩種情境判斷屬於哪一種，藉此把併發下的競態轉為正確的既有結果回應
+  // （同 B-009 insertKnowledgeChange 的既有模式）。
+  insertLead(lead: Lead): Promise<{ inserted: boolean }>;
+
+  findById(id: string): Promise<Lead | null>;
+  listLeads(filter: { status: LeadStatus | null; since: string | null }): Promise<Lead[]>;
+  // LEAD_OPERATIONS §3：以「目前狀態」作為條件更新（compare-and-set），expectedStatus 對不上時
+  // 回傳 false（未更新，呼叫端據此回 INVALID_STATUS_TRANSITION），避免兩位操作者同時改動。
+  updateLeadStatus(input: {
+    id: string;
+    expectedStatus: LeadStatus;
+    toStatus: LeadStatus;
+    statusReason: string | null;
+    firstContactedAt: string | null;
+    closedAt: string | null;
+    updatedAt: string;
+  }): Promise<boolean>;
+  insertStatusEvent(event: LeadStatusEvent): Promise<void>;
+  insertAccessEvent(event: LeadAccessEvent): Promise<void>;
+
+  findOperatorById(id: string): Promise<InternalOperator | null>;
 }
