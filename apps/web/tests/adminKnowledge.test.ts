@@ -107,6 +107,17 @@ test("publishing and withdrawal require previews and explicit confirmation", () 
   assert.match(page, /preview\.canPublish/);
   assert.match(page, /preview\.previewToken/);
   assert.match(page, /publishConfirmed/);
-  assert.match(page, /republishVersionId: republishVersionId \|\| null/);
+  assert.match(page, /republishVersionId: selectedRepublishVersion/);
   assert.match(page, /使用者評估將暫停/);
+});
+
+test("withdrawal only accepts the latest restorable list and stays visible without a current version", () => {
+  const page = readFileSync(fileURLToPath(new URL("../src/pages/AdminKnowledgePage.tsx", import.meta.url)), "utf8");
+  assert.match(page, /restorable\?\.versions\.some\(\(version\) => version\.versionId === republishVersionId\)/);
+  assert.match(page, /selectionIsCurrent/);
+  assert.match(page, /可恢復版本清單已更新/);
+  assert.match(page, /\{restorable && \(/);
+  assert.match(page, /目前沒有可撤回的已發布版本/);
+  assert.match(page, /disabled=\{!restorable\.currentVersion\}/);
+  assert.doesNotMatch(page, /input[^>]+republishVersionId/);
 });

@@ -110,6 +110,15 @@ export function AdminKnowledgePage() {
     if (view === "error") errorRef.current?.focus();
   }, [view]);
 
+  useEffect(() => {
+    if (!republishVersionId) return;
+    const remainsRestorable = restorable?.versions.some((version) => version.versionId === republishVersionId) ?? false;
+    if (!remainsRestorable) {
+      setRepublishVersionId("");
+      setWithdrawConfirmed(false);
+    }
+  }, [republishVersionId, restorable]);
+
   async function login(event: FormEvent) {
     event.preventDefault();
     if (loadingRef.current) return;
@@ -234,13 +243,22 @@ export function AdminKnowledgePage() {
     event.preventDefault();
     const currentVersion = restorable?.currentVersion?.versionId;
     const reason = withdrawReason.trim();
+    const selectedRepublishVersion = republishVersionId || null;
+    const selectionIsCurrent = selectedRepublishVersion === null
+      || Boolean(restorable?.versions.some((version) => version.versionId === selectedRepublishVersion));
+    if (!selectionIsCurrent) {
+      setRepublishVersionId("");
+      setWithdrawConfirmed(false);
+      setNotice("可恢復版本清單已更新，請重新選擇並確認。");
+      return;
+    }
     if (!currentVersion || reason.length < 1 || reason.length > 500 || !withdrawConfirmed || releaseBusy) return;
     setReleaseBusy(true);
     setNotice("");
     try {
       await adminApi.withdraw({
         withdrawVersionId: currentVersion,
-        republishVersionId: republishVersionId || null,
+        republishVersionId: selectedRepublishVersion,
         reason,
         confirm: true,
       });
@@ -383,28 +401,29 @@ export function AdminKnowledgePage() {
             </section>
           )}
 
-          {restorable?.currentVersion && (
+          {restorable && (
             <section className="admin-section panel" aria-labelledby="knowledge-withdraw-title">
               <h2 id="knowledge-withdraw-title">撤回已發布版本</h2>
-              <p>目前版本：{restorable.currentVersion.versionId}</p>
+              <p>目前版本：{restorable.currentVersion?.versionId ?? "目前沒有已發布版本"}</p>
+              {!restorable.currentVersion && <p className="supporting-text" role="status">目前沒有可撤回的已發布版本，撤回操作已停用。</p>}
               <form className="stack" onSubmit={submitWithdraw}>
                 <label>
                   撤回後狀態
-                  <select value={republishVersionId} onChange={(event) => setRepublishVersionId(event.target.value)}>
+                  <select disabled={!restorable.currentVersion} value={republishVersionId} onChange={(event) => setRepublishVersionId(event.target.value)}>
                     <option value="">不重新發布任何版本</option>
                     {restorable.versions.map((version) => <option key={version.versionId} value={version.versionId}>重新發布 {version.versionId}</option>)}
                   </select>
                 </label>
-                {!republishVersionId && <p className="error" role="alert">警告：撤回後可能沒有任何已發布知識，使用者評估將暫停。</p>}
+                {restorable.currentVersion && !republishVersionId && <p className="error" role="alert">警告：撤回後可能沒有任何已發布知識，使用者評估將暫停。</p>}
                 <label>
                   撤回原因（1–500 字）
-                  <textarea rows={4} maxLength={500} required value={withdrawReason} onChange={(event) => setWithdrawReason(event.target.value)} />
+                  <textarea disabled={!restorable.currentVersion} rows={4} maxLength={500} required value={withdrawReason} onChange={(event) => setWithdrawReason(event.target.value)} />
                 </label>
                 <label className="check-row">
-                  <input type="checkbox" checked={withdrawConfirmed} onChange={(event) => setWithdrawConfirmed(event.target.checked)} />
+                  <input type="checkbox" disabled={!restorable.currentVersion} checked={withdrawConfirmed} onChange={(event) => setWithdrawConfirmed(event.target.checked)} />
                   我了解撤回影響，確認執行此操作
                 </label>
-                <button className="button secondary" type="submit" disabled={!withdrawConfirmed || withdrawReason.trim().length < 1 || releaseBusy}>
+                <button className="button secondary" type="submit" disabled={!restorable.currentVersion || !withdrawConfirmed || withdrawReason.trim().length < 1 || releaseBusy}>
                   {releaseBusy ? "處理中…" : "確認撤回"}
                 </button>
               </form>
