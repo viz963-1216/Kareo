@@ -1,5 +1,7 @@
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { adminApi } from "../api";
+import { ADMIN_MOCK_SCENARIOS, type AdminMockScenario } from "../api/mockScenarios";
 import { NoIndex } from "../components/NoIndex";
 import type {
   AdminKnowledgeChange,
@@ -9,7 +11,7 @@ import type {
   AdminRestorableVersionsResponse,
 } from "../types/api";
 
-type ViewStatus = "checking" | "logged-out" | "loading" | "ready" | "error";
+type ViewStatus = "checking" | "logged-out" | "loading" | "ready" | "forbidden" | "error";
 type ReviewAction =
   | { kind: "record"; record: AdminKnowledgeRecord; decision: "APPROVED" | "REJECTED" }
   | { kind: "change"; change: AdminKnowledgeChange }
@@ -41,6 +43,9 @@ function errorCode(reason: unknown) {
 }
 
 export function AdminKnowledgePage() {
+  const [searchParams] = useSearchParams();
+  const requestedScenario = searchParams.get("adminMock");
+  const mockScenario: AdminMockScenario | undefined = ADMIN_MOCK_SCENARIOS.find((scenario) => scenario === requestedScenario);
   const [view, setView] = useState<ViewStatus>("checking");
   const [operatorId, setOperatorId] = useState("");
   const [operatorKey, setOperatorKey] = useState("");
@@ -70,11 +75,11 @@ export function AdminKnowledgePage() {
     setMessage("");
     try {
       const [nextStatus, nextChanges, nextRecords, nextPreview, nextRestorable] = await Promise.all([
-        adminApi.getStatus(),
-        adminApi.getChanges(),
-        adminApi.getRecords(),
-        adminApi.getPublishPreview(),
-        adminApi.getRestorableVersions(),
+        adminApi.getStatus(mockScenario),
+        adminApi.getChanges(mockScenario),
+        adminApi.getRecords(mockScenario),
+        adminApi.getPublishPreview(mockScenario),
+        adminApi.getRestorableVersions(mockScenario),
       ]);
       setStatus(nextStatus);
       setChanges(nextChanges);
@@ -83,10 +88,14 @@ export function AdminKnowledgePage() {
       setRestorable(nextRestorable);
       setView("ready");
     } catch (reason) {
-      if (errorCode(reason) === "SESSION_INVALID" || errorCode(reason) === "FORBIDDEN") {
+      if (errorCode(reason) === "SESSION_INVALID") {
         await adminApi.logout();
         setMessage(reason instanceof Error ? reason.message : "管理工作階段已失效，請重新登入。");
         setView("logged-out");
+      } else if (errorCode(reason) === "FORBIDDEN") {
+        await adminApi.logout();
+        setMessage(reason instanceof Error ? reason.message : "此操作者沒有知識發布權限。");
+        setView("forbidden");
       } else {
         setMessage(reason instanceof Error ? reason.message : "目前無法取得知識管理資料，請稍後再試。");
         setView("error");
@@ -94,7 +103,7 @@ export function AdminKnowledgePage() {
     } finally {
       loadingRef.current = false;
     }
-  }, []);
+  }, [mockScenario]);
 
   useEffect(() => {
     let active = true;
@@ -107,7 +116,7 @@ export function AdminKnowledgePage() {
   }, [loadDashboard]);
 
   useEffect(() => {
-    if (view === "error") errorRef.current?.focus();
+    if (view === "error" || view === "forbidden") errorRef.current?.focus();
   }, [view]);
 
   useEffect(() => {
@@ -181,12 +190,12 @@ export function AdminKnowledgePage() {
           reason,
           expectedContentFingerprint: reviewAction.record.contentFingerprint,
           confirm: true,
-        });
+        }, mockScenario);
         setNotice(result.record.status === "APPROVED"
           ? `「${result.record.title}」已核准。`
           : `「${result.record.title}」已退回。`);
       } else {
-        const result = await adminApi.dismissChange(reviewAction.change.id, { reason, confirm: true });
+        const result = await adminApi.dismissChange(reviewAction.change.id, { reason, confirm: true }, mockScenario);
         setNotice(`來源 ${result.change.sourceId} 的本次變更已標記為不影響內容。`);
       }
       setReviewAction(null);
@@ -195,10 +204,15 @@ export function AdminKnowledgePage() {
       await loadDashboard();
     } catch (reasonValue) {
       const code = errorCode(reasonValue);
-      if (code === "SESSION_INVALID" || code === "FORBIDDEN") {
+      if (code === "SESSION_INVALID") {
         await adminApi.logout();
         setMessage(reasonValue instanceof Error ? reasonValue.message : "管理工作階段已失效，請重新登入。");
         setView("logged-out");
+        setReviewAction(null);
+      } else if (code === "FORBIDDEN") {
+        await adminApi.logout();
+        setMessage(reasonValue instanceof Error ? reasonValue.message : "此操作者沒有知識發布權限。");
+        setView("forbidden");
         setReviewAction(null);
       } else if (code === "KNOWLEDGE_STATE_CHANGED" || code === "INVALID_STATUS_TRANSITION") {
         setNotice("資料狀態已更新，已重新載入最新內容。請重新檢查後再次操作。");
@@ -218,16 +232,20 @@ export function AdminKnowledgePage() {
     setReleaseBusy(true);
     setNotice("");
     try {
-      const result = await adminApi.publish({ versionId: preview.targetVersionId, previewToken: preview.previewToken, confirm: true });
+      const result = await adminApi.publish({ versionId: preview.targetVersionId, previewToken: preview.previewToken, confirm: true }, mockScenario);
       setPublishConfirmed(false);
       setNotice(`版本 ${result.versionId} 已於 ${dateTime(result.publishedAt)}發布，共 ${result.totalRecordCount} 筆紀錄。`);
       await loadDashboard();
     } catch (reasonValue) {
       const code = errorCode(reasonValue);
-      if (code === "SESSION_INVALID" || code === "FORBIDDEN") {
+      if (code === "SESSION_INVALID") {
         await adminApi.logout();
         setMessage(reasonValue instanceof Error ? reasonValue.message : "管理工作階段已失效，請重新登入。");
         setView("logged-out");
+      } else if (code === "FORBIDDEN") {
+        await adminApi.logout();
+        setMessage(reasonValue instanceof Error ? reasonValue.message : "此操作者沒有知識發布權限。");
+        setView("forbidden");
       } else if (code === "KNOWLEDGE_STATE_CHANGED" || code === "INVALID_STATUS_TRANSITION") {
         setPublishConfirmed(false);
         setNotice("發布狀態已改變，已更新預覽；請重新核對後再次確認。");
@@ -262,7 +280,7 @@ export function AdminKnowledgePage() {
         republishVersionId: selectedRepublishVersion,
         reason,
         confirm: true,
-      });
+      }, mockScenario);
       setWithdrawReason("");
       setWithdrawConfirmed(false);
       setNotice(result.republishedVersionId
@@ -271,10 +289,14 @@ export function AdminKnowledgePage() {
       await loadDashboard();
     } catch (reasonValue) {
       const code = errorCode(reasonValue);
-      if (code === "SESSION_INVALID" || code === "FORBIDDEN") {
+      if (code === "SESSION_INVALID") {
         await adminApi.logout();
         setMessage(reasonValue instanceof Error ? reasonValue.message : "管理工作階段已失效，請重新登入。");
         setView("logged-out");
+      } else if (code === "FORBIDDEN") {
+        await adminApi.logout();
+        setMessage(reasonValue instanceof Error ? reasonValue.message : "此操作者沒有知識發布權限。");
+        setView("forbidden");
       } else if (code === "KNOWLEDGE_STATE_CHANGED" || code === "INVALID_STATUS_TRANSITION") {
         setWithdrawConfirmed(false);
         setNotice("版本狀態已改變，已重新載入；請再次選擇並確認。");
@@ -321,6 +343,14 @@ export function AdminKnowledgePage() {
           <h2>暫時無法載入管理資料</h2>
           <p>{message}</p>
           <button className="button primary" type="button" onClick={() => void loadDashboard()}>再試一次</button>
+        </section>
+      )}
+
+      {view === "forbidden" && (
+        <section className="error" role="alert" tabIndex={-1} ref={errorRef}>
+          <h2>沒有管理權限</h2>
+          <p>{message}</p>
+          <button className="button secondary" type="button" onClick={() => setView("logged-out")}>返回管理員登入</button>
         </section>
       )}
 

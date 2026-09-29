@@ -145,3 +145,21 @@ test("publish and review UI use API results and show all non-zero preview counts
   assert.match(adapter, /knowledge-publish-preview-version-exists-response\.json/);
   assert.match(adapter, /publishPreview = structuredClone\(previewVersionExistsFixture\.data\)/);
 });
+
+test("admin mock scenarios cover every contracted empty and error screen", () => {
+  const scenarios = readFileSync(fileURLToPath(new URL("../src/api/mockScenarios.ts", import.meta.url)), "utf8");
+  const adapter = readFileSync(fileURLToPath(new URL("../src/api/adminMockAdapter.ts", import.meta.url)), "utf8");
+  const page = readFileSync(fileURLToPath(new URL("../src/pages/AdminKnowledgePage.tsx", import.meta.url)), "utf8");
+  for (const scenario of ["empty", "session-invalid", "forbidden", "validation-error", "state-changed", "publish-blocked", "restore-unavailable", "no-current"]) {
+    assert.match(scenarios, new RegExp(`"${scenario}"`));
+  }
+  for (const fixture of [
+    "knowledge-changes-empty-response", "knowledge-records-empty-response", "knowledge-publish-preview-no-approved-response",
+    "knowledge-restorable-versions-empty-response", "knowledge-restorable-versions-no-current-response",
+    "session-invalid-response", "forbidden-response", "validation-reason-required-response",
+    "publish-preview-stale-response", "republish-version-unavailable-response",
+  ]) assert.match(adapter, new RegExp(`${fixture}\\.json`));
+  assert.match(page, /view === "forbidden"/);
+  assert.match(page, /沒有管理權限/);
+  assert.match(page, /目前沒有可撤回的已發布版本/);
+});

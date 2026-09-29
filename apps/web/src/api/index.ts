@@ -13,6 +13,7 @@ import type {
 import { createLeadIdempotency } from "./leadIdempotency";
 import type { RecommendationMockOptions } from "./mockAdapter";
 import type { MockState } from "./mockScenarios";
+import type { AdminMockScenario } from "./mockScenarios";
 import { resolveApiMode, type ApiMode } from "./mode";
 import { ApiError, configureRealApi, realApi } from "./realAdapter";
 
@@ -144,49 +145,53 @@ export const adminApi = {
       ? loadAdminMock().then((admin) => admin.login(operatorId, operatorKey))
       : loadAdminReal().then((admin) => admin.login(operatorId, operatorKey));
   },
-  async getStatus() {
+  async getStatus(mockScenario?: AdminMockScenario) {
     return apiMode === "mock"
-      ? loadAdminMock().then((admin) => admin.getStatus())
+      ? loadAdminMock().then((admin) => admin.getStatus(mockScenario))
       : loadAdminReal().then((admin) => admin.getStatus());
   },
-  async getChanges() {
+  async getChanges(mockScenario?: AdminMockScenario) {
     return apiMode === "mock"
-      ? loadAdminMock().then((admin) => admin.getChanges())
+      ? loadAdminMock().then((admin) => admin.getChanges(mockScenario))
       : loadAdminReal().then((admin) => admin.getChanges());
   },
-  async getRecords() {
+  async getRecords(mockScenario?: AdminMockScenario) {
     return apiMode === "mock"
-      ? loadAdminMock().then((admin) => admin.getRecords())
+      ? loadAdminMock().then((admin) => admin.getRecords(mockScenario))
       : loadAdminReal().then((admin) => admin.getRecords());
   },
-  async decideRecord(...args: Parameters<Awaited<ReturnType<typeof loadAdminReal>>["decideRecord"]>) {
+  async decideRecord(...args: [...Parameters<Awaited<ReturnType<typeof loadAdminReal>>["decideRecord"]>, AdminMockScenario?]) {
+    const [recordId, body, mockScenario] = args;
     return apiMode === "mock"
-      ? loadAdminMock().then((admin) => admin.decideRecord(...args))
-      : loadAdminReal().then((admin) => admin.decideRecord(...args));
+      ? loadAdminMock().then((admin) => admin.decideRecord(recordId, body, mockScenario))
+      : loadAdminReal().then((admin) => admin.decideRecord(recordId, body));
   },
-  async dismissChange(...args: Parameters<Awaited<ReturnType<typeof loadAdminReal>>["dismissChange"]>) {
+  async dismissChange(...args: [...Parameters<Awaited<ReturnType<typeof loadAdminReal>>["dismissChange"]>, AdminMockScenario?]) {
+    const [changeId, body, mockScenario] = args;
     return apiMode === "mock"
-      ? loadAdminMock().then((admin) => admin.dismissChange(...args))
-      : loadAdminReal().then((admin) => admin.dismissChange(...args));
+      ? loadAdminMock().then((admin) => admin.dismissChange(changeId, body, mockScenario))
+      : loadAdminReal().then((admin) => admin.dismissChange(changeId, body));
   },
-  async getPublishPreview() {
+  async getPublishPreview(mockScenario?: AdminMockScenario) {
     return apiMode === "mock"
-      ? loadAdminMock().then((admin) => admin.getPublishPreview())
+      ? loadAdminMock().then((admin) => admin.getPublishPreview(mockScenario))
       : loadAdminReal().then((admin) => admin.getPublishPreview());
   },
-  async publish(...args: Parameters<Awaited<ReturnType<typeof loadAdminReal>>["publish"]>) {
+  async publish(...args: [...Parameters<Awaited<ReturnType<typeof loadAdminReal>>["publish"]>, AdminMockScenario?]) {
+    const [body, mockScenario] = args;
     return apiMode === "mock"
-      ? loadAdminMock().then((admin) => admin.publish(...args))
-      : loadAdminReal().then((admin) => admin.publish(...args));
+      ? loadAdminMock().then((admin) => admin.publish(body, mockScenario))
+      : loadAdminReal().then((admin) => admin.publish(body));
   },
-  async getRestorableVersions() {
+  async getRestorableVersions(mockScenario?: AdminMockScenario) {
     return apiMode === "mock"
-      ? loadAdminMock().then((admin) => admin.getRestorableVersions())
+      ? loadAdminMock().then((admin) => admin.getRestorableVersions(mockScenario))
       : loadAdminReal().then((admin) => admin.getRestorableVersions());
   },
-  async withdraw(...args: Parameters<Awaited<ReturnType<typeof loadAdminReal>>["withdraw"]>) {
+  async withdraw(...args: [...Parameters<Awaited<ReturnType<typeof loadAdminReal>>["withdraw"]>, AdminMockScenario?]) {
+    const [body, mockScenario] = args;
     return apiMode === "mock"
-      ? loadAdminMock().then((admin) => admin.withdraw(...args))
-      : loadAdminReal().then((admin) => admin.withdraw(...args));
+      ? loadAdminMock().then((admin) => admin.withdraw(body, mockScenario))
+      : loadAdminReal().then((admin) => admin.withdraw(body));
   },
 };

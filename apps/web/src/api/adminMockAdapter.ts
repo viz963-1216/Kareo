@@ -15,6 +15,15 @@ import statusFixture from "../../../../contracts/mock/admin/knowledge-status-res
 import sessionFixture from "../../../../contracts/mock/admin/session-response.json";
 import withdrawNoRepublishFixture from "../../../../contracts/mock/admin/knowledge-withdraw-no-republish-response.json";
 import withdrawFixture from "../../../../contracts/mock/admin/knowledge-withdraw-response.json";
+import changesEmptyFixture from "../../../../contracts/mock/admin/knowledge-changes-empty-response.json";
+import recordsEmptyFixture from "../../../../contracts/mock/admin/knowledge-records-empty-response.json";
+import previewBlockedFixture from "../../../../contracts/mock/admin/knowledge-publish-preview-no-approved-response.json";
+import forbiddenFixture from "../../../../contracts/mock/admin/errors/forbidden-response.json";
+import sessionInvalidFixture from "../../../../contracts/mock/admin/errors/session-invalid-response.json";
+import validationFixture from "../../../../contracts/mock/admin/errors/validation-reason-required-response.json";
+import stateChangedFixture from "../../../../contracts/mock/admin/errors/publish-preview-stale-response.json";
+import restoreUnavailableFixture from "../../../../contracts/mock/admin/errors/republish-version-unavailable-response.json";
+import type { AdminMockScenario } from "./mockScenarios";
 import type {
   AdminChangeDismissRequest,
   AdminChangeDismissResponse,
@@ -80,6 +89,15 @@ function requireConfirmedReason(body: { confirm: true; reason: string }) {
   if (reasonLength < 1 || reasonLength > 500) throw new AdminMockError("VALIDATION_ERROR", "原因必須為 1 至 500 字。", 400);
 }
 
+function fixtureError(fixture: { error: { code: string; message: string } }, status: number) {
+  return new AdminMockError(fixture.error.code, fixture.error.message, status);
+}
+
+function readScenarioError(scenario?: AdminMockScenario) {
+  if (scenario === "session-invalid") throw fixtureError(sessionInvalidFixture, 401);
+  if (scenario === "forbidden") throw fixtureError(forbiddenFixture, 403);
+}
+
 export const adminMockApi = {
   hasSession: () => Boolean(storage()?.getItem(ADMIN_TOKEN_KEY)),
   logout: () => storage()?.removeItem(ADMIN_TOKEN_KEY),
@@ -93,59 +111,78 @@ export const adminMockApi = {
     return session;
   },
 
-  async getStatus(): Promise<AdminKnowledgeStatus> {
+  async getStatus(scenario?: AdminMockScenario): Promise<AdminKnowledgeStatus> {
     requireSession();
     await wait();
+    readScenarioError(scenario);
     return structuredClone(knowledgeStatus);
   },
-  async getChanges(): Promise<AdminKnowledgeChange[]> {
+  async getChanges(scenario?: AdminMockScenario): Promise<AdminKnowledgeChange[]> {
     requireSession();
     await wait();
+    readScenarioError(scenario);
+    if (scenario === "empty") return structuredClone(changesEmptyFixture.data.changes) as AdminKnowledgeChange[];
     return structuredClone(pendingChanges);
   },
-  async getRecords(): Promise<AdminKnowledgeRecord[]> {
+  async getRecords(scenario?: AdminMockScenario): Promise<AdminKnowledgeRecord[]> {
     requireSession();
     await wait();
+    readScenarioError(scenario);
+    if (scenario === "empty") return structuredClone(recordsEmptyFixture.data.records) as AdminKnowledgeRecord[];
     return structuredClone(pendingRecords);
   },
-  async decideRecord(_recordId: string, body: AdminRecordDecisionRequest): Promise<AdminRecordDecisionResponse> {
+  async decideRecord(_recordId: string, body: AdminRecordDecisionRequest, scenario?: AdminMockScenario): Promise<AdminRecordDecisionResponse> {
     requireSession();
     requireConfirmedReason(body);
     await wait();
+    if (scenario === "validation-error") throw fixtureError(validationFixture, 400);
+    if (scenario === "state-changed") throw fixtureError(stateChangedFixture, 409);
     const fixture = body.decision === "APPROVED" ? approvedFixture : rejectedFixture;
     pendingRecords = pendingRecords.filter((record) => record.id !== _recordId);
     return structuredClone(fixture.data) as AdminRecordDecisionResponse;
   },
-  async dismissChange(_changeId: string, body: AdminChangeDismissRequest): Promise<AdminChangeDismissResponse> {
+  async dismissChange(_changeId: string, body: AdminChangeDismissRequest, scenario?: AdminMockScenario): Promise<AdminChangeDismissResponse> {
     requireSession();
     requireConfirmedReason(body);
     await wait();
+    if (scenario === "validation-error") throw fixtureError(validationFixture, 400);
+    if (scenario === "state-changed") throw fixtureError(stateChangedFixture, 409);
     pendingChanges = pendingChanges.filter((change) => change.id !== _changeId);
     return structuredClone(dismissedFixture.data) as AdminChangeDismissResponse;
   },
-  async getPublishPreview(): Promise<AdminPublishPreview> {
+  async getPublishPreview(scenario?: AdminMockScenario): Promise<AdminPublishPreview> {
     requireSession();
     await wait();
+    readScenarioError(scenario);
+    if (scenario === "publish-blocked" || scenario === "empty") return structuredClone(previewBlockedFixture.data) as AdminPublishPreview;
     return structuredClone(publishPreview);
   },
-  async publish(body: AdminPublishRequest): Promise<AdminPublishResponse> {
+  async publish(body: AdminPublishRequest, scenario?: AdminMockScenario): Promise<AdminPublishResponse> {
     requireSession();
     if (body.confirm !== true) throw new AdminMockError("VALIDATION_ERROR", "請先確認發布操作。", 400);
     await wait();
+    if (scenario === "validation-error") throw fixtureError(validationFixture, 400);
+    if (scenario === "state-changed") throw fixtureError(stateChangedFixture, 409);
     knowledgeStatus = structuredClone(statusAfterPublishFixture.data) as AdminKnowledgeStatus;
     restorableVersions = structuredClone(restorableVersionsFixture.data) as AdminRestorableVersionsResponse;
     publishPreview = structuredClone(previewVersionExistsFixture.data) as AdminPublishPreview;
     return structuredClone(publishFixture.data) as AdminPublishResponse;
   },
-  async getRestorableVersions(): Promise<AdminRestorableVersionsResponse> {
+  async getRestorableVersions(scenario?: AdminMockScenario): Promise<AdminRestorableVersionsResponse> {
     requireSession();
     await wait();
+    readScenarioError(scenario);
+    if (scenario === "empty") return structuredClone(restorableVersionsEmptyFixture.data) as AdminRestorableVersionsResponse;
+    if (scenario === "no-current") return structuredClone(restorableVersionsNoCurrentFixture.data) as AdminRestorableVersionsResponse;
     return structuredClone(restorableVersions);
   },
-  async withdraw(body: AdminWithdrawRequest): Promise<AdminWithdrawResponse> {
+  async withdraw(body: AdminWithdrawRequest, scenario?: AdminMockScenario): Promise<AdminWithdrawResponse> {
     requireSession();
     requireConfirmedReason(body);
     await wait();
+    if (scenario === "validation-error") throw fixtureError(validationFixture, 400);
+    if (scenario === "state-changed") throw fixtureError(stateChangedFixture, 409);
+    if (scenario === "restore-unavailable") throw fixtureError(restoreUnavailableFixture, 409);
     const fixture = body.republishVersionId === null ? withdrawNoRepublishFixture : withdrawFixture;
     knowledgeStatus = body.republishVersionId === null
       ? structuredClone(statusNoPublishedFixture.data) as AdminKnowledgeStatus
