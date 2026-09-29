@@ -4,6 +4,10 @@ import { NoIndex } from "../components/NoIndex";
 import type { AdminKnowledgeChange, AdminKnowledgeRecord, AdminKnowledgeStatus } from "../types/api";
 
 type ViewStatus = "checking" | "logged-out" | "loading" | "ready" | "error";
+type ReviewAction =
+  | { kind: "record"; record: AdminKnowledgeRecord; decision: "APPROVED" | "REJECTED" }
+  | { kind: "change"; change: AdminKnowledgeChange }
+  | null;
 
 const dateTime = (value: string | null) => value ? new Intl.DateTimeFormat("zh-TW", {
   dateStyle: "medium",
@@ -38,6 +42,11 @@ export function AdminKnowledgePage() {
   const [changes, setChanges] = useState<AdminKnowledgeChange[]>([]);
   const [records, setRecords] = useState<AdminKnowledgeRecord[]>([]);
   const [message, setMessage] = useState("");
+  const [notice, setNotice] = useState("");
+  const [reviewAction, setReviewAction] = useState<ReviewAction>(null);
+  const [reviewReason, setReviewReason] = useState("");
+  const [reviewConfirmed, setReviewConfirmed] = useState(false);
+  const [reviewBusy, setReviewBusy] = useState(false);
   const loadingRef = useRef(false);
   const errorRef = useRef<HTMLDivElement>(null);
 
@@ -118,6 +127,64 @@ export function AdminKnowledgePage() {
     setView("logged-out");
   }
 
+  function beginReview(action: Exclude<ReviewAction, null>) {
+    setReviewAction(action);
+    setReviewReason("");
+    setReviewConfirmed(false);
+    setNotice("");
+  }
+
+  function cancelReview() {
+    if (reviewBusy) return;
+    setReviewAction(null);
+    setReviewReason("");
+    setReviewConfirmed(false);
+  }
+
+  async function submitReview(event: FormEvent) {
+    event.preventDefault();
+    if (!reviewAction || reviewBusy) return;
+    const reason = reviewReason.trim();
+    if (reason.length < 1 || reason.length > 500 || !reviewConfirmed) return;
+    setReviewBusy(true);
+    setNotice("");
+    try {
+      if (reviewAction.kind === "record") {
+        await adminApi.decideRecord(reviewAction.record.id, {
+          decision: reviewAction.decision,
+          reason,
+          expectedContentFingerprint: reviewAction.record.contentFingerprint,
+          confirm: true,
+        });
+        setNotice(reviewAction.decision === "APPROVED" ? "紀錄已核准。" : "紀錄已拒絕。"
+        );
+      } else {
+        await adminApi.dismissChange(reviewAction.change.id, { reason, confirm: true });
+        setNotice("每日變更已標記為忽略。此操作已留下稽核紀錄。");
+      }
+      setReviewAction(null);
+      setReviewReason("");
+      setReviewConfirmed(false);
+      await loadDashboard();
+    } catch (reasonValue) {
+      const code = errorCode(reasonValue);
+      if (code === "SESSION_INVALID" || code === "FORBIDDEN") {
+        await adminApi.logout();
+        setMessage(reasonValue instanceof Error ? reasonValue.message : "管理工作階段已失效，請重新登入。");
+        setView("logged-out");
+        setReviewAction(null);
+      } else if (code === "KNOWLEDGE_STATE_CHANGED" || code === "INVALID_STATUS_TRANSITION") {
+        setNotice("資料狀態已更新，已重新載入最新內容。請重新檢查後再次操作。");
+        setReviewAction(null);
+        await loadDashboard();
+      } else {
+        setNotice(reasonValue instanceof Error ? reasonValue.message : "操作失敗，請稍後再試。");
+      }
+    } finally {
+      setReviewBusy(false);
+    }
+  }
+
   return (
     <main id="main-content" className="content admin-page" aria-busy={view === "checking" || view === "loading"}>
       <NoIndex />
@@ -158,9 +225,44 @@ export function AdminKnowledgePage() {
       {view === "ready" && status && (
         <>
           <div className="admin-heading-actions">
-            <p>目前僅顯示資料；審核、發布與撤回操作將依 J-002 完整契約加入。</p>
+            <p>所有變更均需填寫原因並再次確認，系統會保留稽核紀錄。</p>
             <button className="button secondary" type="button" onClick={() => void logout()}>登出</button>
           </div>
+
+          {notice && <div className="notice" role="status"><p>{notice}</p></div>}
+
+          {reviewAction && (
+            <section className="panel admin-confirm" aria-labelledby="admin-confirm-title">
+              <h2 id="admin-confirm-title">確認管理操作</h2>
+              <p>
+                {reviewAction.kind === "record"
+                  ? `即將${reviewAction.decision === "APPROVED" ? "核准" : "拒絕"}「${reviewAction.record.title}」。`
+                  : `即將忽略「${reviewAction.change.sourceId}」的本次變更。`}
+              </p>
+              <form className="stack" onSubmit={submitReview}>
+                <label>
+                  原因（1–500 字）
+                  <textarea
+                    rows={4}
+                    maxLength={500}
+                    required
+                    value={reviewReason}
+                    onChange={(event) => setReviewReason(event.target.value)}
+                  />
+                </label>
+                <label className="check-row">
+                  <input type="checkbox" checked={reviewConfirmed} onChange={(event) => setReviewConfirmed(event.target.checked)} />
+                  我已核對來源與內容，確認執行此操作
+                </label>
+                <div className="admin-action-row">
+                  <button className="button primary" type="submit" disabled={reviewBusy || !reviewConfirmed || reviewReason.trim().length < 1}>
+                    {reviewBusy ? "處理中…" : "確認執行"}
+                  </button>
+                  <button className="button secondary" type="button" disabled={reviewBusy} onClick={cancelReview}>取消</button>
+                </div>
+              </form>
+            </section>
+          )}
 
           <section className="panel" aria-labelledby="knowledge-status-title">
             <h2 id="knowledge-status-title">目前狀態</h2>
@@ -182,6 +284,7 @@ export function AdminKnowledgePage() {
                     <h3>{change.sourceId}</h3>
                     <p>{change.diffSummary}</p>
                     <p className="supporting-text">偵測時間：{dateTime(change.detectedAt)}</p>
+                    <button className="button secondary" type="button" disabled={reviewBusy} onClick={() => beginReview({ kind: "change", change })}>忽略此次變更</button>
                   </article>
                 ))}
               </div>
@@ -202,6 +305,10 @@ export function AdminKnowledgePage() {
                     </dl>
                     <p>{record.summary}</p>
                     <a href={record.sourceUrl} target="_blank" rel="noreferrer">查看官方來源（另開新分頁）</a>
+                    <div className="admin-action-row">
+                      <button className="button primary" type="button" disabled={reviewBusy} onClick={() => beginReview({ kind: "record", record, decision: "APPROVED" })}>核准</button>
+                      <button className="button secondary" type="button" disabled={reviewBusy} onClick={() => beginReview({ kind: "record", record, decision: "REJECTED" })}>拒絕</button>
+                    </div>
                   </article>
                 ))}
               </div>

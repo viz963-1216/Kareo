@@ -41,6 +41,8 @@ class AdminMockError extends Error {
 
 const ADMIN_TOKEN_KEY = "kareo.adminToken";
 const wait = () => new Promise((resolve) => globalThis.setTimeout(resolve, 350));
+let pendingChanges = structuredClone(changesFixture.data.changes) as AdminKnowledgeChange[];
+let pendingRecords = structuredClone(recordsFixture.data.records) as AdminKnowledgeRecord[];
 
 function storage(): Storage | null {
   try {
@@ -82,24 +84,26 @@ export const adminMockApi = {
   async getChanges(): Promise<AdminKnowledgeChange[]> {
     requireSession();
     await wait();
-    return structuredClone(changesFixture.data.changes) as AdminKnowledgeChange[];
+    return structuredClone(pendingChanges);
   },
   async getRecords(): Promise<AdminKnowledgeRecord[]> {
     requireSession();
     await wait();
-    return structuredClone(recordsFixture.data.records) as AdminKnowledgeRecord[];
+    return structuredClone(pendingRecords);
   },
   async decideRecord(_recordId: string, body: AdminRecordDecisionRequest): Promise<AdminRecordDecisionResponse> {
     requireSession();
     requireConfirmedReason(body);
     await wait();
     const fixture = body.decision === "APPROVED" ? approvedFixture : rejectedFixture;
+    pendingRecords = pendingRecords.filter((record) => record.id !== _recordId);
     return structuredClone(fixture.data) as AdminRecordDecisionResponse;
   },
   async dismissChange(_changeId: string, body: AdminChangeDismissRequest): Promise<AdminChangeDismissResponse> {
     requireSession();
     requireConfirmedReason(body);
     await wait();
+    pendingChanges = pendingChanges.filter((change) => change.id !== _changeId);
     return structuredClone(dismissedFixture.data) as AdminChangeDismissResponse;
   },
   async getPublishPreview(): Promise<AdminPublishPreview> {

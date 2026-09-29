@@ -92,3 +92,12 @@ test("admin route is hidden from navigation, applies noindex, and exposes contra
     assert.match(api, new RegExp(write));
   }
 });
+
+test("admin review UI requires a reason, explicit confirmation, and the current fingerprint", () => {
+  const page = readFileSync(fileURLToPath(new URL("../src/pages/AdminKnowledgePage.tsx", import.meta.url)), "utf8");
+  assert.match(page, /maxLength=\{500\}/);
+  assert.match(page, /reviewConfirmed/);
+  assert.match(page, /expectedContentFingerprint: reviewAction\.record\.contentFingerprint/);
+  assert.match(page, /confirm: true/);
+  assert.match(page, /KNOWLEDGE_STATE_CHANGED/);
+});

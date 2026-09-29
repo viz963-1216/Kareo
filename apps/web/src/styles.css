@@ -22,6 +22,11 @@
 .admin-facts dt { color: #4d5b52; font-weight: 700; }
 .admin-facts dd { margin: 0; overflow-wrap: anywhere; }
 .admin-facts.compact { margin: .75rem 0; }
+.admin-confirm { border-color: #b7791f; }
+.admin-confirm textarea { resize: vertical; }
+.admin-action-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+.check-row { align-items: flex-start; display: flex; gap: .6rem; }
+.check-row input { flex: 0 0 auto; margin-top: .25rem; }
 
 @media (max-width: 42rem) {
   .admin-heading-actions { align-items: stretch; flex-direction: column; }
