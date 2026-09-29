@@ -4,6 +4,7 @@ import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
 import type {
   CrawlerRun,
   CrawlerSnapshot,
+  KnowledgeAuthority,
   KnowledgeCategory,
   KnowledgeChange,
   KnowledgeRecord,
@@ -11,6 +12,7 @@ import type {
   KnowledgeVersion,
   Jurisdiction,
 } from "../types/index.js";
+import type { KnowledgeSnapshotRecord } from "../assessment/knowledgeSnapshot.js";
 import { AppError } from "../errors/AppError.js";
 
 const NOTICE = "長照制度及補助可能隨時調整，實際資格仍請洽 1966 或所在地長期照顧管理中心。";
@@ -21,6 +23,8 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
   readonly changes: KnowledgeChange[] = [];
   readonly crawlerRuns: CrawlerRun[] = [];
   readonly snapshots: CrawlerSnapshot[] = [];
+  // 模擬 knowledge_sources.authority（sourceId → authority）。
+  readonly sourceAuthorities = new Map<string, KnowledgeAuthority>();
 
   // 測試用：讓 publish / withdraw 模擬寫入失敗（驗證失敗時不留半套資料）。
   failNextPublish = false;
@@ -214,5 +218,23 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
       lastVerifiedAt: verified ?? (version.publishedAt as string),
       notice: NOTICE,
     };
+  }
+
+  async findPublishedSnapshotRecords(versionId: string): Promise<KnowledgeSnapshotRecord[]> {
+    return this.records
+      .filter((r) => r.version === versionId && r.status === "PUBLISHED")
+      .sort((a, b) => a.packRecordId.localeCompare(b.packRecordId))
+      .map((r) => ({
+        id: r.id,
+        packRecordId: r.packRecordId,
+        title: r.title,
+        category: r.category,
+        jurisdiction: r.jurisdiction,
+        effectiveFrom: r.effectiveFrom,
+        effectiveTo: r.effectiveTo,
+        summary: r.summary,
+        ruleData: structuredClone(r.ruleData),
+        authority: this.sourceAuthorities.get(r.sourceId) ?? null,
+      }));
   }
 }

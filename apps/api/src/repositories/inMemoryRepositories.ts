@@ -92,10 +92,16 @@ export class InMemoryConsentRepository implements ConsentRepository {
 export class InMemoryAssessmentRepository implements AssessmentRepository {
   readonly assessments: Assessment[] = [];
   readonly careNeedProfiles: CareNeedProfile[] = [];
+  // 測試用：模擬交易失敗（兩張表都不寫入，同 create_assessment_with_profile 的回滾行為）。
+  failNextCreate = false;
 
   async createAssessment(
     input: CreateAssessmentRecord
   ): Promise<{ assessment: Assessment; careNeedProfile: CareNeedProfile }> {
+    if (this.failNextCreate) {
+      this.failNextCreate = false;
+      throw new AppError("INTERNAL_ERROR", "無法建立 Assessment，請稍後再試。");
+    }
     const now = nowTaipeiISOString();
     const assessment: Assessment = { ...input.assessment, id: generateId("ASM"), createdAt: now, updatedAt: now };
     const careNeedProfile: CareNeedProfile = {
