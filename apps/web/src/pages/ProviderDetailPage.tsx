@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
 import { api } from "../api";
+import type { LeadSelection } from "../components/ProviderCard";
 import type { ProviderDetail } from "../types/api";
 
 const labels: Record<ProviderDetail["type"], string> = {
@@ -26,6 +27,18 @@ type DetailState =
   | { status: "not-found" }
   | { status: "error"; message: string };
 
+function isLeadSelection(value: unknown): value is LeadSelection {
+  if (typeof value !== "object" || value === null) return false;
+  const selection = value as Record<string, unknown>;
+  return typeof selection.providerId === "string"
+    && typeof selection.providerName === "string"
+    && typeof selection.district === "string"
+    && typeof selection.serviceType === "string"
+    && ["HOME_CARE", "HOME_MEDICAL_NURSING", "ASSISTIVE_DEVICE"].includes(selection.serviceType)
+    && typeof selection.recommendationId === "string"
+    && typeof selection.from === "string";
+}
+
 export function ProviderDetailPage() {
   const { providerId = "" } = useParams();
   const [searchParams] = useSearchParams();
@@ -33,6 +46,7 @@ export function ProviderDetailPage() {
   const [state, setState] = useState<DetailState>({ status: "loading" });
   const simulateError = searchParams.get("mockState") === "error";
   const from: unknown = location.state?.from;
+  const leadSelection = isLeadSelection(location.state?.lead) ? location.state.lead : null;
   const returnTo = typeof from === "string" && /^\/recommendations\/(HOME_CARE|HOME_MEDICAL_NURSING|ASSISTIVE_DEVICE)(\?|$)/.test(from)
     ? from : "/";
 
@@ -73,6 +87,13 @@ export function ProviderDetailPage() {
         <section className="panel"><h2>服務項目</h2>{provider.services.length ? <ul>{provider.services.map((service, index) => <li key={`${service}-${index}`}>{labels[service]}</li>)}</ul> : <p>尚未提供服務項目資料。</p>}</section>
         <section className="panel"><h2>服務範圍</h2>{provider.serviceAreas.length ? <ul>{provider.serviceAreas.map((area, index) => <li key={`${area.city}-${area.district}-${index}`}>{area.city} {area.district}</li>)}</ul> : <p>尚未提供服務範圍資料，請洽服務單位確認。</p>}</section>
         <section className="panel"><h2>Google Maps</h2>{mapsUrl ? <a className="button secondary" href={mapsUrl} target="_blank" rel="noopener noreferrer">在 Google Maps 查看（開啟新分頁）</a> : <p>地圖連結暫時無法使用，請洽服務單位確認。</p>}</section>
+        {leadSelection && leadSelection.providerId === provider.id && (
+          <section className="panel lead-cta">
+            <h2>需要協助聯繫？</h2>
+            <p>您可以留下稱呼與電話，提出這個服務單位的媒合需求。</p>
+            <Link className="button primary" to="/match" state={leadSelection}>我要媒合</Link>
+          </section>
+        )}
       </>}
       <div className="detail-navigation"><Link className="button secondary" to={returnTo}>{returnTo === "/" ? "返回首頁" : "返回推薦結果"}</Link></div>
       <p className="footer-reminder">實際資格、服務內容與補助，仍應由 1966 或所在地長期照顧管理中心正式評估確認。</p>
