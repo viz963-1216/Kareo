@@ -6,6 +6,10 @@ import approvedFixture from "../../../../contracts/mock/admin/knowledge-record-a
 import rejectedFixture from "../../../../contracts/mock/admin/knowledge-record-rejected-response.json";
 import recordsFixture from "../../../../contracts/mock/admin/knowledge-records-response.json";
 import restorableVersionsFixture from "../../../../contracts/mock/admin/knowledge-restorable-versions-response.json";
+import restorableVersionsEmptyFixture from "../../../../contracts/mock/admin/knowledge-restorable-versions-empty-response.json";
+import restorableVersionsNoCurrentFixture from "../../../../contracts/mock/admin/knowledge-restorable-versions-no-current-response.json";
+import statusAfterPublishFixture from "../../../../contracts/mock/admin/knowledge-status-after-publish-response.json";
+import statusNoPublishedFixture from "../../../../contracts/mock/admin/knowledge-status-no-published-response.json";
 import statusFixture from "../../../../contracts/mock/admin/knowledge-status-response.json";
 import sessionFixture from "../../../../contracts/mock/admin/session-response.json";
 import withdrawNoRepublishFixture from "../../../../contracts/mock/admin/knowledge-withdraw-no-republish-response.json";
@@ -43,6 +47,15 @@ const ADMIN_TOKEN_KEY = "kareo.adminToken";
 const wait = () => new Promise((resolve) => globalThis.setTimeout(resolve, 350));
 let pendingChanges = structuredClone(changesFixture.data.changes) as AdminKnowledgeChange[];
 let pendingRecords = structuredClone(recordsFixture.data.records) as AdminKnowledgeRecord[];
+let knowledgeStatus = structuredClone(statusFixture.data) as AdminKnowledgeStatus;
+let restorableVersions = structuredClone(restorableVersionsEmptyFixture.data) as AdminRestorableVersionsResponse;
+
+function resetMockState() {
+  pendingChanges = structuredClone(changesFixture.data.changes) as AdminKnowledgeChange[];
+  pendingRecords = structuredClone(recordsFixture.data.records) as AdminKnowledgeRecord[];
+  knowledgeStatus = structuredClone(statusFixture.data) as AdminKnowledgeStatus;
+  restorableVersions = structuredClone(restorableVersionsEmptyFixture.data) as AdminRestorableVersionsResponse;
+}
 
 function storage(): Storage | null {
   try {
@@ -72,6 +85,7 @@ export const adminMockApi = {
     await wait();
     if (!operatorId.trim() || !operatorKey) throw new AdminMockError("VALIDATION_ERROR", "請輸入操作者 ID 與密鑰。", 400);
     const session = structuredClone(sessionFixture.data) as AdminSessionResponse;
+    resetMockState();
     storage()?.setItem(ADMIN_TOKEN_KEY, session.adminToken);
     return session;
   },
@@ -79,7 +93,7 @@ export const adminMockApi = {
   async getStatus(): Promise<AdminKnowledgeStatus> {
     requireSession();
     await wait();
-    return structuredClone(statusFixture.data) as AdminKnowledgeStatus;
+    return structuredClone(knowledgeStatus);
   },
   async getChanges(): Promise<AdminKnowledgeChange[]> {
     requireSession();
@@ -115,18 +129,26 @@ export const adminMockApi = {
     requireSession();
     if (body.confirm !== true) throw new AdminMockError("VALIDATION_ERROR", "請先確認發布操作。", 400);
     await wait();
+    knowledgeStatus = structuredClone(statusAfterPublishFixture.data) as AdminKnowledgeStatus;
+    restorableVersions = structuredClone(restorableVersionsFixture.data) as AdminRestorableVersionsResponse;
     return structuredClone(publishFixture.data) as AdminPublishResponse;
   },
   async getRestorableVersions(): Promise<AdminRestorableVersionsResponse> {
     requireSession();
     await wait();
-    return structuredClone(restorableVersionsFixture.data) as AdminRestorableVersionsResponse;
+    return structuredClone(restorableVersions);
   },
   async withdraw(body: AdminWithdrawRequest): Promise<AdminWithdrawResponse> {
     requireSession();
     requireConfirmedReason(body);
     await wait();
     const fixture = body.republishVersionId === null ? withdrawNoRepublishFixture : withdrawFixture;
+    knowledgeStatus = body.republishVersionId === null
+      ? structuredClone(statusNoPublishedFixture.data) as AdminKnowledgeStatus
+      : structuredClone(statusFixture.data) as AdminKnowledgeStatus;
+    restorableVersions = body.republishVersionId === null
+      ? structuredClone(restorableVersionsNoCurrentFixture.data) as AdminRestorableVersionsResponse
+      : structuredClone(restorableVersionsEmptyFixture.data) as AdminRestorableVersionsResponse;
     return structuredClone(fixture.data) as AdminWithdrawResponse;
   },
 };

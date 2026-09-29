@@ -121,3 +121,14 @@ test("withdrawal only accepts the latest restorable list and stays visible witho
   assert.match(page, /disabled=\{!restorable\.currentVersion\}/);
   assert.doesNotMatch(page, /input[^>]+republishVersionId/);
 });
+
+test("mock withdrawal uses official fixtures and transitions published state", () => {
+  const adapter = readFileSync(fileURLToPath(new URL("../src/api/adminMockAdapter.ts", import.meta.url)), "utf8");
+  assert.match(adapter, /knowledge-restorable-versions-empty-response\.json/);
+  assert.match(adapter, /knowledge-restorable-versions-no-current-response\.json/);
+  assert.match(adapter, /knowledge-status-after-publish-response\.json/);
+  assert.match(adapter, /knowledge-status-no-published-response\.json/);
+  assert.match(adapter, /body\.republishVersionId === null/);
+  assert.match(adapter, /restorableVersions = body\.republishVersionId === null/);
+  assert.match(adapter, /resetMockState\(\)/);
+});

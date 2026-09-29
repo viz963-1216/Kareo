@@ -256,7 +256,7 @@ export function AdminKnowledgePage() {
     setReleaseBusy(true);
     setNotice("");
     try {
-      await adminApi.withdraw({
+      const result = await adminApi.withdraw({
         withdrawVersionId: currentVersion,
         republishVersionId: selectedRepublishVersion,
         reason,
@@ -264,7 +264,9 @@ export function AdminKnowledgePage() {
       });
       setWithdrawReason("");
       setWithdrawConfirmed(false);
-      setNotice(`版本 ${currentVersion} 已撤回。`);
+      setNotice(result.republishedVersionId
+        ? `版本 ${result.withdrawnVersionId} 已撤回，現在使用 ${result.republishedVersionId}。`
+        : `版本 ${result.withdrawnVersionId} 已撤回，目前沒有已發布知識版本。`);
       await loadDashboard();
     } catch (reasonValue) {
       const code = errorCode(reasonValue);
