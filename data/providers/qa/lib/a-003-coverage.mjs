@@ -570,7 +570,7 @@ export function renderSections(
 }
 
 const sectionPattern = (name) =>
-  new RegExp(`(<!-- A003:BEGIN ${name} -->\\n)([\\s\\S]*?)(<!-- A003:END ${name} -->)`);
+  new RegExp(`(<!-- A003:BEGIN ${name} -->\\r?\\n)([\\s\\S]*?)(<!-- A003:END ${name} -->)`);
 
 // Returns errors for sections that differ from the data; with write=true, rewrites them.
 export function syncReports(root, sections, { write = false } = {}) {
@@ -585,7 +585,8 @@ export function syncReports(root, sections, { write = false } = {}) {
         errors.push(`${file}: generated section "${name}" markers are missing.`);
         continue;
       }
-      const expected = `${sections[name]}\n`;
+      const lineEnding = match[1].endsWith("\r\n") ? "\r\n" : "\n";
+      const expected = `${sections[name]}${lineEnding}`;
       if (match[2] !== expected) {
         if (write) text = text.replace(pattern, (_, begin, __, end) => begin + expected + end);
         else errors.push(`${file}: section "${name}" differs from the data (run with --write).`);
