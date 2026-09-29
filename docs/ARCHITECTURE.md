@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — System Architecture
 
-Version: v0.5.1（J-002-r4，2026-09-23；推薦分支與 Assessment 架構整併）  
+Version: v0.5.2（J-002，2026-09-29；§20.8 允許受保護的知識管理 API，D-16a）  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -675,7 +675,15 @@ Payload 限制：
 
 ## 20.8 內部操作
 
-Lead 查件、知識發布、清理作業都使用受保護 CLI（InternalOperator 驗證，DATA_MODEL §36），不新增公開管理 endpoint。
+Lead 查件、清理作業使用受保護 CLI（InternalOperator 驗證，DATA_MODEL §36），不新增管理 endpoint。
+
+知識審核與發布（D-16、D-16a，2026-09-29 更正）：除既有 B-008 CLI 外，**允許**受保護的管理 API `/api/v1/admin/**`（API_CONTRACT §26，B-012）供管理頁面（C-006）使用：
+
+- 必須以 InternalOperator 個人密鑰換得的 15 分鐘管理 token 呼叫，且操作者需有 `KNOWLEDGE_PUBLISHER` 角色；**不提供匿名或一般使用者可呼叫的管理 API**。
+- 權限、稽核（DATA_MODEL §41）、發布前重新驗證與發布／撤回一致性由後端保證；發布／撤回沿用 B-008 service 與原子寫入函式（§22），不另寫一套。
+- 不自動核准或發布：每個寫入都由操作者按下並二次確認。
+- 管理頁面不編輯政策內容或 `ruleData`；內容仍只經由內容包進入（§21）。
+- 回應 `Cache-Control: no-store`；前端不直接連資料庫。
 
 ---
 
@@ -692,7 +700,7 @@ contracts/knowledge/packs/KP-*.json（NEEDS_REVIEW）
 ↓
 Jerry 逐筆審核（PR 中的審核紀錄＝審核證據；PR 合併本身不是審核）
 ↓
-B-008 import → approve → publish（J-003 在整合環境執行並留證）
+B-008 import → approve → publish（CLI 由 J-003 在整合環境執行並留證；或 Jerry 在管理頁以 §26 管理 API 核准與發布，D-16）
 ↓
 PUBLISHED KnowledgeVersion
 ↓

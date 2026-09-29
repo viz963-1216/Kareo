@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — Data Model
 
-Version: v0.2.2（J-002-r4，2026-09-23；Assessment 加 rulesVersion／ruleTrace、locationPrecision 定義）  
+Version: v0.2.3（J-002，2026-09-29；知識管理：KnowledgeVersion 撤回欄位、KnowledgeVersionRecord、KnowledgeChange `DISMISSED`、AdminAuditEvent，D-16a）  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -574,9 +574,16 @@ version
 rawText
 summary
 ruleData
+packId
+packRecordId
+contentFingerprint
 createdAt
 updatedAt
 ```
+
+- `packId`＋`packRecordId`：來源內容包與包內紀錄 id（匯入冪等鍵）。
+- `version`：**第一次被發布時**的版本，之後不因 carry-forward 覆寫；某版本實際包含哪些紀錄以 §26a 為準（B-008-r3）。
+- `contentFingerprint`：審核內容指紋（`sha256:<hex>`），由後端依實際保存欄位計算；核准必須比對此值（B-008-r4、API_CONTRACT §26.6）。
 
 Knowledge Category：
 
@@ -628,7 +635,14 @@ publishedAt
 createdBy
 approvedBy
 notes
+withdrawnAt
+withdrawnBy
+withdrawalReason
 ```
+
+- `id` 一律等於內容包的 `intendedKnowledgeVersion`（D-03），不由程式自行產生。
+- `withdrawnAt`／`withdrawnBy`／`withdrawalReason` 只在「撤回」時填入，與一般發布造成的 `ARCHIVED` 區分；曾被撤回的版本不得再被恢復（API_CONTRACT §26.10）。
+- `publishedAt` 為最近一次成為 `PUBLISHED` 的時間（恢復時更新）。
 
 例如：
 
@@ -645,6 +659,15 @@ ARCHIVED
 ```
 
 Assessment 只能使用 `PUBLISHED`。
+
+## 26a. KnowledgeVersionRecord / 版本內容快照（v0.2.3，B-008-r3）
+
+```text
+versionId
+knowledgeRecordId
+```
+
+每次發布時寫入該版本實際包含的全部紀錄（新增＋沿用），不可變、不覆寫、不刪除。撤回與恢復、發布預覽的 `totalRecordCount`、可恢復版本的 `recordCount` 都以此表為準（API_CONTRACT §26.8、§26.10）。
 
 ---
 
@@ -671,7 +694,10 @@ NEEDS_REVIEW
 APPROVED
 REJECTED
 CONFLICT
+DISMISSED
 ```
+
+`DISMISSED`（v0.2.3，D-16a）：操作者在管理頁確認「來源有變但不影響已審核內容」（API_CONTRACT §26.7），必填原因，記錄於 `reviewedAt`／`reviewedBy` 與 §41 稽核紀錄。會影響內容的變更不得以 `DISMISSED` 結案，需以新內容包提交審核。
 
 ---
 
@@ -950,3 +976,33 @@ operatorId
 ```
 
 status：`RUNNING`／`SUCCESS`／`FAILED`。`errorMessage` 不得包含個資。
+
+---
+
+# 41. AdminAuditEvent / 管理操作稽核紀錄（v0.2.3，D-16a）
+
+```text
+id
+operatorId
+action
+targetType
+targetId
+reason
+detail
+createdAt
+```
+
+action：
+
+```text
+KNOWLEDGE_RECORD_APPROVED
+KNOWLEDGE_RECORD_REJECTED
+KNOWLEDGE_CHANGE_DISMISSED
+KNOWLEDGE_VERSION_PUBLISHED
+KNOWLEDGE_VERSION_WITHDRAWN
+```
+
+- 每個成功的管理 API 寫入（API_CONTRACT §26）與同一筆資料變更在同一交易內寫入；寫入失敗則整個操作失敗。
+- `targetType`：`KNOWLEDGE_RECORD`／`KNOWLEDGE_CHANGE`／`KNOWLEDGE_VERSION`。`reason`：decision、dismiss、withdraw 必填；publish 為 `null`。
+- `detail`（jsonb）只放非敏感的結果：例如核准時的 `contentFingerprint`、發布的版號與五個數量、撤回的 `republishVersionId`。不得包含密鑰、token 或個資。
+- 只能新增，不得修改或刪除；只有 service_role 可寫入。

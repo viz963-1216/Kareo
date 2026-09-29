@@ -72,7 +72,7 @@ GitHub 核對結果：沒有開啟中的 PR。2026-09-23 合併：A-004（#18）
 | C-003 Top 3 UI | MERGED（#17，Mock） | 未確認：推薦 API 尚不存在 | — | 真實驗收由 J-003 |
 | C-004 Provider Detail＋Maps | MERGED（#27，Mock） | 未確認：尚無正式 Provider 匯入 | — | 真實驗收由 J-003 |
 | **C-005 補助說明顯示＋位置三情境＋Lead＋UX** | IN REVIEW（PR #34） | — | C-004 ✅ | Jerry review |
-| C-006 知識審核與發布頁（D-16） | QUEUED；未見提交 | — | Mock（J-002 提供）；真實接線依 B-012 | C-005 之後 |
+| C-006 知識審核與發布頁（D-16） | QUEUED；未見提交 | — | Mock（J-002 提供；D-16a 寫入契約與 fixtures 2026-09-29 補齊）；真實接線依 B-012 | C-005 之後 |
 
 **C 的驗收分層**：C-003／C-004／C-005 都是 **Mock 模組驗收**（`VITE_KAREO_API_MODE=mock`，fixtures 來自 `contracts/mock/`）。真實 API 串接與 E2E 屬 J-003，記錄在 `docs/INTEGRATION_ACCEPTANCE.md`。兩者不得互相代替。
 

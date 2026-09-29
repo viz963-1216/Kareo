@@ -12,6 +12,8 @@
         "sourceUrl": "https://www.ntpc.gov.tw/",
         "summary": "測試資料，不代表真實制度。",
         "effectiveFrom": "2026-10-01",
+        "effectiveTo": null,
+        "contentFingerprint": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
         "status": "NEEDS_REVIEW"
       }
     ]

@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "KNOWLEDGE_STATE_CHANGED",
+    "message": "選擇的恢復版本已不符合恢復條件，請重新選擇。資料未變更。"
+  }
+}

@@ -58,7 +58,8 @@ GET /api/v1/knowledge/status 回傳新版本
 
 規則：
 
-- 發布必須由授權操作者執行（受保護的內部指令，不提供公開 API），並記錄 `approvedBy`、`publishedAt`、`createdBy`。
+- 發布必須由授權操作者執行：受保護的內部指令，或受身分驗證及 `KNOWLEDGE_PUBLISHER` 角色保護的管理 API（API_CONTRACT §26，D-16／D-16a）；不提供匿名或一般使用者 API。並記錄 `approvedBy`、`publishedAt`、`createdBy`。
+- 管理 API 發布前由後端提供預覽（版號＝`intendedKnowledgeVersion`、新增／沿用／總數），發布時後端重新驗證；前端不自行產生版號或推算數量。
 - 同一時間只能有一個 `PUBLISHED` 的 `KnowledgeVersion`。
 - 發布前，`effectiveTo` 早於發布日的紀錄不得納入。
 - `effectiveFrom` 晚於發布日的紀錄可以納入，但 Assessment 使用時必須依 `effectiveFrom` 判斷當下是否適用。

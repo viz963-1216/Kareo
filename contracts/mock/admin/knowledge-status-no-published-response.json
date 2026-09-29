@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "data": {
+    "publishedVersion": null,
+    "publishedAt": null,
+    "lastCrawlerRun": {
+      "status": "SUCCESS",
+      "startedAt": "2026-09-25T00:10:00+08:00",
+      "finishedAt": "2026-09-25T00:12:31+08:00"
+    }
+  }
+}
