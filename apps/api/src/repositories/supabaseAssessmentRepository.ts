@@ -17,35 +17,6 @@ export class SupabaseAssessmentRepository implements AssessmentRepository {
       createdAt: now,
       updatedAt: now,
     };
-
-    const { error: assessmentError } = await client.from("assessments").insert({
-      id: assessment.id,
-      session_id: assessment.sessionId,
-      age_range: assessment.ageRange,
-      city: assessment.city,
-      district: assessment.district,
-      location_precision: assessment.locationPrecision,
-      lat: assessment.lat,
-      lng: assessment.lng,
-      living_situation: assessment.livingSituation,
-      caregiver_situation: assessment.caregiverSituation,
-      mobility_level: assessment.mobilityLevel,
-      daily_living_level: assessment.dailyLivingLevel,
-      home_care_need: assessment.homeCareNeed,
-      medical_nursing_need: assessment.medicalNursingNeed,
-      assistive_device_need: assessment.assistiveDeviceNeed,
-      transportation_need: assessment.transportationNeed,
-      free_text: assessment.freeText,
-      status: assessment.status,
-      knowledge_version: assessment.knowledgeVersion,
-      created_at: assessment.createdAt,
-      updated_at: assessment.updatedAt,
-    });
-
-    if (assessmentError) {
-      throw new AppError("INTERNAL_ERROR", "無法建立 Assessment，請稍後再試。");
-    }
-
     const careNeedProfile: CareNeedProfile = {
       ...input.careNeedProfile,
       id: generateId("CNP"),
@@ -53,18 +24,52 @@ export class SupabaseAssessmentRepository implements AssessmentRepository {
       createdAt: now,
     };
 
-    const { error: profileError } = await client.from("care_need_profiles").insert({
-      id: careNeedProfile.id,
-      assessment_id: careNeedProfile.assessmentId,
-      care_needs: careNeedProfile.careNeeds,
-      priority: careNeedProfile.priority,
-      summary: careNeedProfile.summary,
-      warnings: careNeedProfile.warnings,
-      created_at: careNeedProfile.createdAt,
+    // 依 ARCHITECTURE §22 / D-10 的原子寫入模式：兩張表在同一個 Postgres function（同一個交易）內寫入，
+    // 任一步失敗整個交易回滾，不會留下沒有 CareNeedProfile 的 COMPLETED Assessment（migration 0009）。
+    const { error } = await client.rpc("create_assessment_with_profile", {
+      payload: {
+        assessment: {
+          id: assessment.id,
+          session_id: assessment.sessionId,
+          age_range: assessment.ageRange,
+          city: assessment.city,
+          district: assessment.district,
+          location_precision: assessment.locationPrecision,
+          lat: assessment.lat,
+          lng: assessment.lng,
+          living_situation: assessment.livingSituation,
+          caregiver_situation: assessment.caregiverSituation,
+          mobility_level: assessment.mobilityLevel,
+          daily_living_level: assessment.dailyLivingLevel,
+          disability_certificate: assessment.disabilityCertificate,
+          income_category: assessment.incomeCategory,
+          home_care_need: assessment.homeCareNeed,
+          medical_nursing_need: assessment.medicalNursingNeed,
+          assistive_device_need: assessment.assistiveDeviceNeed,
+          transportation_need: assessment.transportationNeed,
+          free_text: assessment.freeText,
+          status: assessment.status,
+          knowledge_version: assessment.knowledgeVersion,
+          rules_version: assessment.rulesVersion,
+          rule_trace: assessment.ruleTrace,
+          created_at: assessment.createdAt,
+          updated_at: assessment.updatedAt,
+        },
+        care_need_profile: {
+          id: careNeedProfile.id,
+          assessment_id: careNeedProfile.assessmentId,
+          care_needs: careNeedProfile.careNeeds,
+          priority: careNeedProfile.priority,
+          summary: careNeedProfile.summary,
+          warnings: careNeedProfile.warnings,
+          created_at: careNeedProfile.createdAt,
+        },
+      },
     });
 
-    if (profileError) {
-      throw new AppError("INTERNAL_ERROR", "無法建立 CareNeedProfile，請稍後再試。");
+    // 不把資料庫錯誤原文帶出（可能含 SQL、欄位值或自由文字）。
+    if (error) {
+      throw new AppError("INTERNAL_ERROR", "無法建立 Assessment，請稍後再試。");
     }
 
     return { assessment, careNeedProfile };
@@ -75,7 +80,7 @@ export class SupabaseAssessmentRepository implements AssessmentRepository {
     const { data, error } = await client
       .from("assessments")
       .select(
-        "id, session_id, age_range, city, district, location_precision, lat, lng, living_situation, caregiver_situation, mobility_level, daily_living_level, home_care_need, medical_nursing_need, assistive_device_need, transportation_need, free_text, status, knowledge_version, created_at, updated_at"
+        "id, session_id, age_range, city, district, location_precision, lat, lng, living_situation, caregiver_situation, mobility_level, daily_living_level, disability_certificate, income_category, home_care_need, medical_nursing_need, assistive_device_need, transportation_need, free_text, status, knowledge_version, rules_version, rule_trace, created_at, updated_at"
       )
       .eq("id", id)
       .maybeSingle();
@@ -96,6 +101,8 @@ export class SupabaseAssessmentRepository implements AssessmentRepository {
       caregiverSituation: data.caregiver_situation,
       mobilityLevel: data.mobility_level,
       dailyLivingLevel: data.daily_living_level,
+      disabilityCertificate: data.disability_certificate,
+      incomeCategory: data.income_category,
       homeCareNeed: data.home_care_need,
       medicalNursingNeed: data.medical_nursing_need,
       assistiveDeviceNeed: data.assistive_device_need,
@@ -103,6 +110,8 @@ export class SupabaseAssessmentRepository implements AssessmentRepository {
       freeText: data.free_text,
       status: data.status,
       knowledgeVersion: data.knowledge_version,
+      rulesVersion: data.rules_version,
+      ruleTrace: data.rule_trace,
       createdAt: data.created_at,
       updatedAt: data.updated_at,
     };

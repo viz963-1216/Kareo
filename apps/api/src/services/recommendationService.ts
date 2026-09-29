@@ -119,38 +119,40 @@ export async function createRecommendation(
   // 是否用行政區做服務範圍比對（決定 reasons 的「服務範圍包含 X」措辭與 DISTRICT_ROTATION 的 notice 分支）。
   let matchedByDistrict = false;
 
+  // 依 API_CONTRACT.md §8：city／district 是否必填由 locationPrecision 決定，這個約束在 Assessment
+  // 建立當下（assessmentService）已經驗證過（CITY 以上一定有 city；DISTRICT 以上一定有 district）。
+  // Assessment.city／district 的型別是 string | null（B-010 為了 NONE／CITY 精度改的），這裡照
+  // precision 分支後斷言為非 null，不是重新驗證輸入——本任務讀取 Assessment 已保存的 location，
+  // 不另外驗證（tasks/TASK-B-005.md 前置條件）。
   if (precision === "NONE") {
     rankingType = "NO_LOCATION";
   } else if (precision === "CITY") {
+    const city = assessment.city as string;
     candidates = await deps.providerRepo.findEligibleForRecommendation({
       serviceType,
-      city: assessment.city,
+      city,
       district: null,
     });
     rankingType = "CITY_ROTATION";
   } else if (precision === "DISTRICT") {
-    candidates = await deps.providerRepo.findEligibleForRecommendation({
-      serviceType,
-      city: assessment.city,
-      district: assessment.district,
-    });
+    const city = assessment.city as string;
+    const district = assessment.district as string;
+    candidates = await deps.providerRepo.findEligibleForRecommendation({ serviceType, city, district });
     rankingType = "DISTRICT_ROTATION";
     matchedByDistrict = true;
   } else {
     // GPS／EXACT：所有候選都有已驗證座標才走 DISTANCE，否則整批退回 DISTRICT_ROTATION（D-13c）。
-    candidates = await deps.providerRepo.findEligibleForRecommendation({
-      serviceType,
-      city: assessment.city,
-      district: assessment.district,
-    });
+    const city = assessment.city as string;
+    const district = assessment.district as string;
+    candidates = await deps.providerRepo.findEligibleForRecommendation({ serviceType, city, district });
     matchedByDistrict = true;
     rankingType = candidates.length > 0 && candidates.every(hasVerifiedCoordinates) ? "DISTANCE" : "DISTRICT_ROTATION";
   }
 
   const top3 = selectTop3(rankingType, candidates, {
     sessionId: session.id,
-    city: assessment.city,
-    district: assessment.district,
+    city: (assessment.city as string) ?? "",
+    district: (assessment.district as string) ?? "",
     lat: assessment.lat,
     lng: assessment.lng,
   });

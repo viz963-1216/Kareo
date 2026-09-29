@@ -1,11 +1,17 @@
 import type {
   AssessmentRequest,
   AssessmentResponse,
+  CareNeed,
   ConsentRequest,
   ConsentResponse,
+  ConsentWithdrawalResponse,
+  LeadRequest,
+  LeadResponse,
   ProviderDetail,
+  RankingType,
   RecommendationRequest,
   RecommendationResponse,
+  SessionDeletionResponse,
   SessionResponse,
 } from "../types/api";
 
@@ -47,6 +53,8 @@ const FALLBACK_MESSAGES: Record<string, string> = {
   RATE_LIMITED: "操作次數過多，請稍候再試。",
   SESSION_INVALID: "您的使用階段已過期，請重新開始。",
   SESSION_TOKEN_MISSING: "系統未能建立安全的使用階段，請稍後再試或直接聯絡 1966。",
+  FORBIDDEN: "這個使用階段無法存取此資料，請重新開始。",
+  CONSENT_REQUIRED: "需要先同意服務說明後才能繼續，請重新開始。",
   NETWORK: "網路連線不穩定，請確認連線後再試一次。",
   TIMEOUT: "等待回應逾時，請稍後再試或直接聯絡 1966。",
   INVALID_RESPONSE: "系統回應異常，請稍後再試或直接聯絡 1966。",
@@ -110,8 +118,74 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-async function request<T>(method: "GET" | "POST" | "DELETE", path: string, body?: unknown): Promise<T> {
-  const headers: Record<string, string> = { Accept: "application/json" };
+// C-005: shape checks for success payloads (API_CONTRACT v0.2.2). A 200 response that does not match the
+// contract must never be rendered as a successful assessment, recommendation or lead.
+const CARE_NEEDS: readonly CareNeed[] = ["HOME_CARE", "HOME_MEDICAL_NURSING", "ASSISTIVE_DEVICE", "TRANSPORTATION"];
+const RECOMMENDATION_SERVICES = ["HOME_CARE", "HOME_MEDICAL_NURSING", "ASSISTIVE_DEVICE"];
+const RANKING_TYPES: readonly RankingType[] = ["DISTANCE", "DISTRICT_ROTATION", "CITY_ROTATION", "NO_LOCATION"];
+const PRECISIONS = ["NONE", "CITY", "DISTRICT", "EXACT", "GPS"];
+const LEAD_STATUSES = ["NEW", "CONTACTED", "ACCEPTED", "CLOSED", "CANCELLED"];
+
+const isText = (value: unknown): value is string => typeof value === "string" && value.length > 0;
+const isStringArray = (value: unknown): value is string[] => Array.isArray(value) && value.every((item) => typeof item === "string");
+const isCareNeedArray = (value: unknown) => Array.isArray(value) && value.every((item) => CARE_NEEDS.includes(item as CareNeed));
+
+export function isAssessmentResponse(value: unknown): value is AssessmentResponse {
+  if (!isRecord(value) || !isText(value.assessmentId) || !isText(value.knowledgeVersion)) return false;
+  const profile = value.careNeedProfile;
+  return isRecord(profile)
+    && isText(profile.id)
+    && isCareNeedArray(profile.careNeeds)
+    && isCareNeedArray(profile.priority)
+    && isText(profile.summary)
+    // API_CONTRACT §15: every assessment carries the preliminary-result warnings.
+    && isStringArray(profile.warnings)
+    && profile.warnings.length > 0;
+}
+
+export function isRecommendationResponse(value: unknown): value is RecommendationResponse {
+  if (!isRecord(value)) return false;
+  if (!isText(value.recommendationId) || !RECOMMENDATION_SERVICES.includes(value.serviceType as string)) return false;
+  if (!RANKING_TYPES.includes(value.rankingType as RankingType) || !PRECISIONS.includes(value.locationPrecision as string)) return false;
+  if (typeof value.notice !== "string" || !Array.isArray(value.providers)) return false;
+  return value.providers.every((provider) => isRecord(provider)
+    && isText(provider.id)
+    && isText(provider.name)
+    && typeof provider.address === "string"
+    && typeof provider.district === "string"
+    && typeof provider.phone === "string"
+    && typeof provider.googleMapsUrl === "string"
+    && typeof provider.verified === "boolean"
+    && (provider.distanceKm === null || typeof provider.distanceKm === "number")
+    && isStringArray(provider.reasons));
+}
+
+export function isLeadResponse(value: unknown): value is LeadResponse {
+  return isRecord(value)
+    && isText(value.leadId)
+    && LEAD_STATUSES.includes(value.status as string)
+    && typeof value.createdAt === "string"
+    && typeof value.duplicate === "boolean";
+}
+
+export function isSessionDeletionResponse(value: unknown): value is SessionDeletionResponse {
+  return isRecord(value)
+    && isText(value.sessionId)
+    && value.status === "DELETION_REQUESTED"
+    && typeof value.deletionScheduledBefore === "string";
+}
+
+function invalidResponse(): never {
+  throw new ApiError("INVALID_RESPONSE", FALLBACK_MESSAGES.INVALID_RESPONSE, 200);
+}
+
+async function request<T>(
+  method: "GET" | "POST" | "DELETE",
+  path: string,
+  body?: unknown,
+  extraHeaders: Record<string, string> = {},
+): Promise<T> {
+  const headers: Record<string, string> = { Accept: "application/json", ...extraHeaders };
   if (body !== undefined) headers["Content-Type"] = "application/json";
   if (!isPublic(method, path)) {
     const token = readToken();
@@ -194,12 +268,44 @@ export const realApi = {
     return request<ConsentResponse>("POST", "/consent", body);
   },
 
-  submitAssessment(body: AssessmentRequest): Promise<AssessmentResponse> {
-    return request<AssessmentResponse>("POST", "/assessments", body);
+  async submitAssessment(body: AssessmentRequest): Promise<AssessmentResponse> {
+    const data = await request<unknown>("POST", "/assessments", body);
+    return isAssessmentResponse(data) ? data : invalidResponse();
   },
 
-  getRecommendation(body: RecommendationRequest): Promise<RecommendationResponse> {
-    return request<RecommendationResponse>("POST", "/recommendations", body);
+  async getRecommendation(body: RecommendationRequest): Promise<RecommendationResponse> {
+    const data = await request<unknown>("POST", "/recommendations", body);
+    return isRecommendationResponse(data) ? data : invalidResponse();
+  },
+
+  /** API_CONTRACT §12 + §3.3. The caller supplies the Idempotency-Key (see ./leadIdempotency.ts). */
+  async createLead(body: LeadRequest, idempotencyKey: string): Promise<LeadResponse> {
+    const data = await request<unknown>("POST", "/leads", body, { "Idempotency-Key": idempotencyKey });
+    return isLeadResponse(data) ? data : invalidResponse();
+  },
+
+  /** API_CONTRACT §6 DELETE /session. The token is dropped locally only after the server confirms. */
+  async deleteSession(): Promise<SessionDeletionResponse> {
+    const data = await request<unknown>("DELETE", "/session");
+    if (!isSessionDeletionResponse(data)) invalidResponse();
+    clearToken();
+    sessionAuth = "UNKNOWN";
+    return data;
+  },
+
+  /** API_CONTRACT §7 POST /consent/withdraw: the session enters deletion and its token stops working. */
+  async withdrawConsent(): Promise<ConsentWithdrawalResponse> {
+    const data = await request<unknown>("POST", "/consent/withdraw");
+    if (!isRecord(data) || typeof data.withdrawnAt !== "string" || data.sessionStatus !== "DELETION_REQUESTED") invalidResponse();
+    clearToken();
+    sessionAuth = "UNKNOWN";
+    return data as unknown as ConsentWithdrawalResponse;
+  },
+
+  /** Forgets this tab's session credential. It does not delete anything on the server. */
+  forgetLocalSession() {
+    clearToken();
+    sessionAuth = "UNKNOWN";
   },
 
   async getProvider(providerId: string): Promise<ProviderDetail | null> {

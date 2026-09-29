@@ -1,7 +1,14 @@
 import { getSupabaseClient } from "./supabaseClient.js";
 import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
-import type { KnowledgeCategory, KnowledgeRecord, KnowledgeStatusResponse, Jurisdiction } from "../types/index.js";
+import type {
+  KnowledgeAuthority,
+  KnowledgeCategory,
+  KnowledgeRecord,
+  KnowledgeStatusResponse,
+  Jurisdiction,
+} from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
+import type { KnowledgeSnapshotRecord } from "../assessment/knowledgeSnapshot.js";
 
 const NOTICE = "長照制度及補助可能隨時調整，實際資格仍請洽 1966 或所在地長期照顧管理中心。";
 
@@ -207,5 +214,34 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
       lastVerifiedAt: verifiedRows?.[0]?.last_verified_at ?? version.published_at,
       notice: NOTICE,
     };
+  }
+
+  async findPublishedSnapshotRecords(versionId: string): Promise<KnowledgeSnapshotRecord[]> {
+    const client = getSupabaseClient();
+    const { data, error } = await client
+      .from("knowledge_records")
+      .select(
+        "id, pack_record_id, title, category, jurisdiction, effective_from, effective_to, summary, rule_data, knowledge_sources(authority)"
+      )
+      .eq("version", versionId)
+      .eq("status", "PUBLISHED")
+      .order("pack_record_id", { ascending: true });
+    // 不把資料庫錯誤原文帶出（可能含 SQL / 結構資訊）。
+    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢 Knowledge 紀錄，請稍後再試。");
+    return (data ?? []).map((row) => {
+      const source = Array.isArray(row.knowledge_sources) ? row.knowledge_sources[0] : row.knowledge_sources;
+      return {
+        id: row.id,
+        packRecordId: row.pack_record_id,
+        title: row.title,
+        category: row.category,
+        jurisdiction: row.jurisdiction,
+        effectiveFrom: row.effective_from,
+        effectiveTo: row.effective_to,
+        summary: row.summary,
+        ruleData: row.rule_data ?? {},
+        authority: (source as { authority?: KnowledgeAuthority } | null)?.authority ?? null,
+      };
+    });
   }
 }
