@@ -25,6 +25,9 @@ Unknown or unverified information must not be guessed.
 | SRC-005 | 新北市長照輔具／無障礙服務特約廠商 | 新北市輔具資源中心／新北市政府社會局 | https://atrc.aihsin.ntpc.gov.tw/NewsInfo/24 | ASSISTIVE_DEVICE | New Taipei City | 2026-09-18 | Official New Taipei City assistive-device resource source; provides contracted assistive-device vendor lookup and downloadable vendor lists. |
 | SRC-006 | 新北市居家長照機構名冊 11506 | 新北市政府高齡長期照顧處 | https://www.careyou.ntpc.gov.tw/WebUPD/agecare/InstitutionalRoster/%E6%96%B0%E5%8C%97%E5%B8%82%E5%B1%85%E5%AE%B6%E9%95%B7%E7%85%A7%E6%A9%9F%E6%A7%8B%E5%90%8D%E5%86%8A11506.pdf | HOME_CARE | New Taipei City | 2026-09-29 | A-003: name / registered-address check (sha256 `77fb323a…bf33c27`). Its 服務區域 column is city-level only. The A-003-r5 report cited this roster as `SRC-003` by mistake. |
 | SRC-COORD-NTPC-001 | 新北市門牌位置數值資料 11509 | 新北市政府民政局 | https://data.gov.tw/dataset/168887 (CSV: https://data.ntpc.gov.tw/api/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101/csv/file) | Coordinates | New Taipei City | 2026-09-29 | A-003: official building address points; fields `x_3826` / `y_3826` are EPSG:3826 (sha256 `72007bb7…f80ccf034`). Use only exact house-number matches. |
+| SRC-007 | (市民版)長照專業服務-特約服務單位一覽表 | 臺北市政府衛生局 | https://health.gov.taipei/News_Content.aspx?n=3B14F55B09E96685&sms=8F0619542D0F4F55&s=7FE0B2CCE4515A8D | HOME_MEDICAL_NURSING | Taipei City | 2026-09-29 | A-003: per-unit 服務區域 for LTC professional services (sha256 `bc69fc3a…70272e849a`). Lists parent hospitals separately from affiliated home-nursing agencies. |
+| SRC-COORD-TPE-001 | 臺北市門牌位置數值資料 | 臺北市政府民政局 | https://data.taipei/dataset/detail?id=b7c8e724-1e98-45ee-a0bd-f3840623ed97 (also https://data.gov.tw/dataset/155472) | Coordinates | Taipei City | 2026-09-29 | A-003: building address points, `臺北市門牌位置數值資料_20260902.CSV` (sha256 `cdae1c5d…29682db55`). CRS EPSG:3826, confirmed by SRC-COORD-TPE-002. |
+| SRC-COORD-TPE-002 | 門牌整合檢索系統 門牌圖層 CA/HOUSENO | 臺北市政府民政局 | https://arcgis.tpgos.gov.taipei/arcgis/rest/services/CA/HOUSENO/MapServer/4?f=json | Coordinates (CRS) | Taipei City | 2026-09-29 | A-003: layer `spatialReference` = wkid 102443 / latestWkid 3826. TM2X/TM2Y equal the SRC-COORD-TPE-001 values for all 15 checked addresses. |
 
 ---
 
@@ -56,4 +59,4 @@ Sources that have not yet been verified should be recorded here before being inc
 
 | Source Name | URL | Reason Pending | Next Action |
 |---|---|---|---|
-| 臺北市門牌位置數值資料（SRC-COORD-TPE-001，臺北市政府民政局） | https://data.taipei/dataset/detail?id=b7c8e724-1e98-45ee-a0bd-f3840623ed97 | The dataset metadata (data.taipei and data.gov.tw/dataset/155472) does not state the coordinate system of 橫座標／縱座標. Coordinates must not be converted on an assumed CRS. | Confirm the CRS with 臺北市政府民政局 or official documentation; then convert the records listed in `qa/pending-verification.md`. |
+| None | — | — | — |

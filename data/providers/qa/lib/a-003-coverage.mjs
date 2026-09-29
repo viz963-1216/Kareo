@@ -17,8 +17,13 @@ export const REPORT_SECTIONS = {
   "qa/pending-verification.md": ["pending"],
 };
 
-// MOI town codes used by SRC-COORD-NTPC-001 records (column areacode).
-const NTPC_AREA_CODES = {
+// MOI town codes used by address-point records (NTPC column areacode, Taipei 鄉鎮市區代碼).
+// Taipei codes were cross-checked against TOWN_NAME in SRC-COORD-TPE-002.
+const AREA_CODES = {
+  "63000040": "中山區",
+  "63000070": "萬華區",
+  "63000080": "文山區",
+  "63000110": "士林區",
   "65000010": "板橋區",
   "65000020": "三重區",
   "65000030": "中和區",
@@ -87,8 +92,14 @@ export function twd97Tm2Zone121ToWgs84(x, y) {
 const toHalfWidth = (text) =>
   text.replace(/[０-９]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0));
 
-// Provider addresses write "501-6號"; address-point records write "５０１之６號".
-const normalizeAddress = (text) => toHalfWidth(text).replace(/台/g, "臺").replace(/-/g, "之");
+const SECTION_NUMERALS = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+
+// Provider addresses write "501-6號" and "2段"; address-point records write "５０１之６號" and "二段".
+const normalizeAddress = (text) =>
+  toHalfWidth(text)
+    .replace(/台/g, "臺")
+    .replace(/-/g, "之")
+    .replace(/([1-9])段/g, (_, n) => `${SECTION_NUMERALS[n]}段`);
 
 export function loadDataset(root) {
   const read = (file) => JSON.parse(fs.readFileSync(path.join(root, file), "utf8"));
@@ -106,12 +117,20 @@ export function checkEvidence({ providers, services, areas, evidence }) {
   const sourceIds = new Set(evidence.sources.map((source) => source.sourceId));
   const coordinateEvidence = new Map();
 
+  // A Provider counts as verified only when its evidence passes every check below.
+  const verifiedIds = new Set();
   for (const item of evidence.coordinates) {
+    const before = errors.length;
+    checkCoordinate(item);
+    if (errors.length === before) verifiedIds.add(item.providerId);
+  }
+
+  function checkCoordinate(item) {
     const id = item.providerId;
     const provider = providersById.get(id);
     if (!provider) {
       errors.push(`${id}: coordinate evidence references a missing Provider.`);
-      continue;
+      return;
     }
     if (coordinateEvidence.has(id)) errors.push(`${id}: duplicate coordinate evidence.`);
     coordinateEvidence.set(id, item);
@@ -138,21 +157,23 @@ export function checkEvidence({ providers, services, areas, evidence }) {
     }
     if (coordinate.sourceCrs !== "EPSG:3826") {
       errors.push(`${id}: unsupported or missing source CRS ${coordinate.sourceCrs}.`);
-      continue;
+      return;
     }
     const fields = String(coordinate.record ?? "").split(",");
     if (fields.length !== 11) {
       errors.push(`${id}: address-point record must have 11 CSV fields.`);
-      continue;
+      return;
     }
     const [, areaCode, , , road, , lane, alley, number, rawX, rawY] = fields;
     if (Number(rawX) !== coordinate.x || Number(rawY) !== coordinate.y) {
       errors.push(`${id}: x/y differ from the quoted address-point record.`);
     }
-    if (NTPC_AREA_CODES[areaCode] !== provider.district) {
+    if (AREA_CODES[areaCode] !== provider.district) {
       errors.push(`${id}: record areacode ${areaCode} does not match district ${provider.district}.`);
     }
-    const recordAddress = normalizeAddress(`${road}${lane}${alley}${number}`);
+    // A building shares one address point across floors, so compare up to "號" only.
+    const houseNumber = number.slice(0, number.indexOf("號") + 1) || number;
+    const recordAddress = normalizeAddress(`${road}${lane}${alley}${houseNumber}`);
     if (!normalizeAddress(provider.address).includes(recordAddress)) {
       errors.push(`${id}: address-point record "${recordAddress}" does not match the Provider address.`);
     }
@@ -233,7 +254,7 @@ export function checkEvidence({ providers, services, areas, evidence }) {
     }
   }
 
-  return { errors, verifiedIds: new Set(coordinateEvidence.keys()), pendingById };
+  return { errors, verifiedIds, pendingById };
 }
 
 // Candidate = ACTIVE Provider + active ProviderService + active ProviderServiceArea.

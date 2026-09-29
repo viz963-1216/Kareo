@@ -77,7 +77,10 @@ test("a wrong count in a report summary fails", () => {
 test("a wrong READY status in the coverage table fails", () => {
   const { status, output } = runGate(({ readText, writeText }) => {
     const text = readText(REPORT);
-    const changed = text.replace(/(\| HOME_CARE \| 臺北市 \| 萬華區 \|[^\n]*?)BLOCKED（缺座標）/, "$1READY");
+    const changed = text.replace(
+      /(\| HOME_MEDICAL_NURSING \| 臺北市 \| 士林區 \|[^\n]*?)BLOCKED（同類型有 Provider 服務範圍未知）/,
+      "$1READY",
+    );
     assert.notEqual(changed, text);
     writeText(REPORT, changed);
   });
@@ -98,13 +101,13 @@ test("removing the evidence for a non-null coordinate fails", () => {
 test("adding a coordinate without evidence fails", () => {
   const { status, output } = runGate(({ readJson, writeJson }) => {
     const providers = readJson(PROVIDERS);
-    const provider = providers.find((item) => item.id === "TP-HC-001");
-    provider.lat = 25.03;
-    provider.lng = 121.5;
+    const provider = providers.find((item) => item.id === "TP-AD-002");
+    provider.lat = 25.07;
+    provider.lng = 121.59;
     writeJson(PROVIDERS, providers);
   });
   assert.equal(status, 1);
-  assert.match(output, /TP-HC-001: non-null coordinate has no verified evidence/);
+  assert.match(output, /TP-AD-002: non-null coordinate has no verified evidence/);
 });
 
 test("evidence attached to the wrong Provider ID fails", () => {
@@ -190,19 +193,20 @@ test("--write regenerates reports but refuses when evidence checks fail", () => 
 
   const refused = runGate(({ readJson, writeJson }) => {
     const providers = readJson(PROVIDERS);
-    providers.find((item) => item.id === "TP-HC-002").lat = 25.03;
-    providers.find((item) => item.id === "TP-HC-002").lng = 121.5;
+    providers.find((item) => item.id === "TP-AD-002").lat = 25.07;
+    providers.find((item) => item.id === "TP-AD-002").lng = 121.59;
     writeJson(PROVIDERS, providers);
   }, ["--write"]);
   assert.equal(refused.status, 1);
-  assert.match(refused.output, /TP-HC-002: non-null coordinate has no verified evidence/);
+  assert.match(refused.output, /TP-AD-002: non-null coordinate has no verified evidence/);
 });
 
 test("a non-null coordinate without evidence never makes a group READY", () => {
   const dataset = loadRealDataset();
-  const provider = dataset.providers.find((item) => item.id === "TP-HC-001");
-  provider.lat = 25.03;
-  provider.lng = 121.5;
+  // TP-HC-001 keeps its lat/lng but loses its evidence.
+  dataset.evidence.coordinates = dataset.evidence.coordinates.filter(
+    (item) => item.providerId !== "TP-HC-001",
+  );
   const { verifiedIds } = checkEvidence(dataset);
   const { groups } = computeCoverage(dataset, verifiedIds);
   const wanhua = groups.find((g) => g.serviceType === "HOME_CARE" && g.district === "萬華區");
@@ -223,12 +227,25 @@ test("a Provider with unknown service areas blocks READY for its service type", 
   assert.deepEqual(byType.find((t) => t.serviceType === "HOME_CARE").unknownArea, ["NTPC-HC-003"]);
 });
 
-test("service types without any service area have no READY group", () => {
+test("evidence that fails a check does not count as verified", () => {
+  const dataset = loadRealDataset();
+  dataset.providers.find((item) => item.id === "TP-HC-010").lat += 0.001;
+  const { errors, verifiedIds } = checkEvidence(dataset);
+  assert.ok(errors.some((e) => e.startsWith("TP-HC-010: providers.json lat differs")));
+  assert.ok(!verifiedIds.has("TP-HC-010"));
+  const { groups } = computeCoverage(dataset, verifiedIds);
+  const wanhua = groups.find((g) => g.serviceType === "HOME_CARE" && g.district === "萬華區");
+  assert.equal(wanhua.status, "BLOCKED_MISSING_COORDINATE");
+});
+
+test("partially known service areas keep the whole service type out of READY", () => {
   const dataset = loadRealDataset();
   const { verifiedIds } = checkEvidence(dataset);
   const { groups, byType } = computeCoverage(dataset, verifiedIds);
-  for (const serviceType of ["HOME_MEDICAL_NURSING", "ASSISTIVE_DEVICE"]) {
-    assert.equal(groups.filter((g) => g.serviceType === serviceType).length, 0);
-    assert.equal(byType.find((t) => t.serviceType === serviceType).ready, 0);
-  }
+  // TP-HMN-002 is verified and has official areas, but TP-HMN-001/003 areas are unknown.
+  const nursing = groups.filter((g) => g.serviceType === "HOME_MEDICAL_NURSING");
+  assert.ok(nursing.length > 0);
+  assert.ok(nursing.every((g) => g.status === "BLOCKED_UNKNOWN_SERVICE_AREA"));
+  assert.equal(groups.filter((g) => g.serviceType === "ASSISTIVE_DEVICE").length, 0);
+  assert.equal(byType.find((t) => t.serviceType === "ASSISTIVE_DEVICE").ready, 0);
 });

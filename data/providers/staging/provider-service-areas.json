@@ -427,6 +427,20 @@
         "active": true
       },
       {
+        "id": "TP-HMN-002-SA-001",
+        "providerId": "TP-HMN-002",
+        "city": "臺北市",
+        "district": "士林區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-002-SA-002",
+        "providerId": "TP-HMN-002",
+        "city": "臺北市",
+        "district": "北投區",
+        "active": true
+      },
+      {
         "id": "NTPC-HC-001-SA-001",
         "providerId": "NTPC-HC-001",
         "city": "新北市",
