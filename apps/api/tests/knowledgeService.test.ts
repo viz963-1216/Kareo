@@ -507,6 +507,37 @@ describe("publishVersion / withdrawVersion — version traceability and full res
     expect(v1Now).toEqual(v1PublishedIds);
   });
 
+  // J-003-r7 K10：findPublishedSnapshotRecords()（B-010 用來組 Assessment 知識快照）不能用
+  // knowledge_records.version = versionId 查詢「這個版本包含哪些紀錄」——carry-forward 的紀錄
+  // （B、C）保留原本的 version（第一次發布時的版本，不可變），第二次發布後這樣查詢只會拿到
+  // 新發布的 A2，B、C 全部消失。必須改用 knowledge_version_records 取得完整成員。
+  it("findPublishedSnapshotRecords returns the full membership of a version, including records carried forward from an earlier version", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    repo.records.push(record({ id: "A", status: "APPROVED", title: "A", ruleData: { type: "T_A" } }));
+    repo.records.push(record({ id: "B", status: "APPROVED", packRecordId: "KR-2026-B", title: "B", ruleData: { type: "T_B" } }));
+    repo.records.push(record({ id: "C", status: "APPROVED", packRecordId: "KR-2026-C", title: "C", ruleData: { type: "T_C" } }));
+    await publishVersion(repo, {
+      packs: [pack({ intendedKnowledgeVersion: "KB-2026-09-27-001" })],
+      candidateRecords: [candidate("A"), candidate("B"), candidate("C")],
+      createdBy: "x",
+      approvedBy: "y",
+    });
+
+    // v2 replaces A only; B and C carry forward untouched (their `version` field stays KB-...-001).
+    repo.records.push(record({ id: "A2", status: "APPROVED", packRecordId: "KR-2026-A2", title: "A", ruleData: { type: "T_A" } }));
+    const v2 = await publishVersion(repo, {
+      packs: [pack({ intendedKnowledgeVersion: "KB-2026-09-27-002" })],
+      candidateRecords: [candidate("A2")],
+      createdBy: "x",
+      approvedBy: "y",
+    });
+
+    const snapshot = await repo.findPublishedSnapshotRecords(v2.versionId);
+    // 必須是這個版本「實際包含」的 3 筆（A2 新發布 + B、C carry-forward），不是只用
+    // version 欄位查到的 1 筆（A2）。
+    expect(snapshot.map((r) => r.id).sort()).toEqual(["A2", "B", "C"]);
+  });
+
   it("withdrawing the newer version and restoring the older one brings back its exact original content, including carried-forward records", async () => {
     const repo = new InMemoryKnowledgeRepository();
     repo.records.push(record({ id: "A", status: "APPROVED", title: "A", ruleData: { type: "T_A" } }));

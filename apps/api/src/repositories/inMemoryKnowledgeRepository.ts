@@ -233,9 +233,13 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
     };
   }
 
+  // J-003-r7 K10（第二處）：跟 Supabase 實作同一類問題——不能用 r.version === versionId 判斷
+  // 「這個版本包含哪些紀錄」（該欄位是不可變的「第一次發布版本」，carry-forward 不會更新它）。
+  // 改用 versionRecords（migration 0012 knowledge_version_records 的記憶體版本）取得完整成員。
   async findPublishedSnapshotRecords(versionId: string): Promise<KnowledgeSnapshotRecord[]> {
+    const memberIds = this.versionRecords.get(versionId) ?? new Set<string>();
     return this.records
-      .filter((r) => r.version === versionId && r.status === "PUBLISHED")
+      .filter((r) => memberIds.has(r.id) && r.status === "PUBLISHED")
       .sort((a, b) => a.packRecordId.localeCompare(b.packRecordId))
       .map((r) => ({
         id: r.id,

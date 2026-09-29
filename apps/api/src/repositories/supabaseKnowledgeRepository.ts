@@ -308,14 +308,28 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
     };
   }
 
+  // J-003-r7 K10（第二處）：跟 getCurrentPublishedStatus() 同一類問題——carry-forward 的紀錄保留
+  // 原本的 version（不可變，第一次發布時的版本），不能用 knowledge_records.version = versionId
+  // 查詢「這個版本實際包含哪些紀錄」，否則第二次發布後只會拿到新發布的紀錄，carry-forward 進來的
+  // 舊紀錄全部消失（B-010 的 Assessment 知識快照因此會漏掉沿用的紀錄）。改用
+  // knowledge_version_records 取得該版本的完整紀錄成員，跟 getCurrentPublishedStatus() 用同一個
+  // 查詢路徑，避免兩處各自維護、日後又不同步。
   async findPublishedSnapshotRecords(versionId: string): Promise<KnowledgeSnapshotRecord[]> {
     const client = getSupabaseClient();
+    const { data: memberRows, error: memberError } = await client
+      .from("knowledge_version_records")
+      .select("knowledge_record_id")
+      .eq("version_id", versionId);
+    if (memberError) throw new AppError("INTERNAL_ERROR", "無法查詢 Knowledge 版本成員，請稍後再試。");
+    const memberIds = (memberRows ?? []).map((r) => r.knowledge_record_id as string);
+    if (memberIds.length === 0) return [];
+
     const { data, error } = await client
       .from("knowledge_records")
       .select(
         "id, pack_record_id, title, category, jurisdiction, effective_from, effective_to, summary, rule_data, knowledge_sources(authority)"
       )
-      .eq("version", versionId)
+      .in("id", memberIds)
       .eq("status", "PUBLISHED")
       .order("pack_record_id", { ascending: true });
     // 不把資料庫錯誤原文帶出（可能含 SQL / 結構資訊）。
