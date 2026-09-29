@@ -89,6 +89,8 @@ jobs:
         with:
           node-version: 22
       - run: node --experimental-strip-types --test "tests/**/*.test.*"
+      - name: Release smoke safety tests (J-004)
+        run: node --test scripts/tests/smoke-release.test.mjs
 
   acceptance-dev:
     name: Acceptance (dev check — PENDING allowed, not MVP acceptance)
