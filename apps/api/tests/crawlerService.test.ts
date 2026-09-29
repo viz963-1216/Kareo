@@ -11,11 +11,12 @@ import {
   type Fetcher,
 } from "../src/services/crawlerService.js";
 import { InMemoryKnowledgeRepository } from "../src/repositories/inMemoryKnowledgeRepository.js";
+import { computeContentFingerprint } from "../src/services/contentFingerprint.js";
 import type { KnowledgeRecord } from "../src/types/index.js";
 import type { RegistrySource } from "../src/services/knowledgeImportService.js";
 
 function record(overrides: Partial<KnowledgeRecord> = {}): KnowledgeRecord {
-  return {
+  const base: Omit<KnowledgeRecord, "contentFingerprint"> = {
     id: "KREC-001",
     sourceId: "SRC-LAW-001",
     title: "長照服務對象",
@@ -38,6 +39,10 @@ function record(overrides: Partial<KnowledgeRecord> = {}): KnowledgeRecord {
     packId: "KP-2026-09-23-001",
     packRecordId: "KR-2026-001",
     ...overrides,
+  };
+  return {
+    ...base,
+    contentFingerprint: overrides.contentFingerprint ?? computeContentFingerprint(base),
   };
 }
 

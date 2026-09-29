@@ -7,9 +7,9 @@
 --    重複建立（tests/integration/repro/b009-hash-dedupe.repro.ts 情境 2）。單一 INSERT 本身即為
 --    原子操作，唯一索引由 Postgres 保證併發安全，不需要額外的交易包裝。
 --
--- 編號 0015：依 J-003-r5（2026-09-27）跨分支 migration 全域順序表重新命名（原檔名
--- 0013_crawler_hash_traceability.sql，尚未套用於任何環境，只改檔名，內容不變）；合併順序需為
--- #33 → #36 → #40 → #37。
+-- 編號 0016：依 J-003-r7（2026-09-29）跨分支 migration 全域順序表再次重新命名（原檔名
+-- 0013_crawler_hash_traceability.sql → 0015_crawler_hash_traceability.sql → 本檔，尚未套用於
+-- 任何環境，只改檔名，內容不變）；全域順序見 0015_crawler_runs.sql 開頭說明。
 
 alter table crawler_runs add column if not exists content_hash text;
 

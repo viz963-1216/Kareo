@@ -7,6 +7,7 @@ import { createHash } from "node:crypto";
 import { describe, it, expect } from "vitest";
 import { crawlSource, crawlAllActiveSources, computeBytesHash, type Fetcher } from "../src/services/crawlerService.js";
 import { InMemoryKnowledgeRepository } from "../src/repositories/inMemoryKnowledgeRepository.js";
+import { computeContentFingerprint } from "../src/services/contentFingerprint.js";
 import type { KnowledgeRecord } from "../src/types/index.js";
 import type { RegistrySource } from "../src/services/knowledgeImportService.js";
 
@@ -105,13 +106,17 @@ describe("B-009 snapshot write failure is a real FAILED run, not a fabricated su
 describe("B-009: crawler never touches Published knowledge (case G, existing invariant re-confirmed)", () => {
   it("detecting a change does not alter the PUBLISHED record or auto-approve/publish anything", async () => {
     const repo = new InMemoryKnowledgeRepository();
-    const published: KnowledgeRecord = {
+    const publishedBase: Omit<KnowledgeRecord, "contentFingerprint"> = {
       id: "KREC-PUB", sourceId: "SRC-LAW-001", title: "t", category: "ELIGIBILITY", jurisdiction: "TAIWAN",
       sourceUrl: "https://law.moj.gov.tw/x", publishedAt: null, effectiveFrom: "2026-01-01", effectiveTo: null,
       fetchedAt: "2026-09-23T10:00:00+08:00", lastVerifiedAt: "2026-09-23T10:00:00+08:00",
       contentHash: computeBytesHash(Buffer.from("舊內容")), status: "PUBLISHED", version: "KB-1", rawText: "舊內容", summary: "s", ruleData: {},
       createdAt: "2026-09-23T10:00:00+08:00", updatedAt: "2026-09-23T10:00:00+08:00", packId: "KP-1", packRecordId: "KR-1",
-    } as KnowledgeRecord;
+    };
+    const published: KnowledgeRecord = {
+      ...publishedBase,
+      contentFingerprint: computeContentFingerprint(publishedBase),
+    };
     repo.records.push(published);
     const before = JSON.stringify(published);
 

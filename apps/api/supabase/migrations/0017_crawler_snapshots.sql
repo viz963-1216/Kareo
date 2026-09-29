@@ -17,7 +17,9 @@
 -- 屬後續任務範圍，這裡先滿足「原站日後改變或離線，仍能讀回當次原始快照並重新計算同一 raw hash」
 -- 的最小可行需求。
 --
--- 編號 0016：延續本分支 0014／0015；與其他分支的 migration 編號如有衝突，由 J-003 於整合時協調。
+-- 編號 0017：依 J-003-r7（2026-09-29）跨分支 migration 全域順序表再次重新命名（原檔名
+-- 0014_crawler_snapshots.sql → 0016_crawler_snapshots.sql → 本檔，尚未套用於任何環境，只改
+-- 檔名，內容不變）；全域順序見 0015_crawler_runs.sql 開頭說明。
 create table if not exists crawler_snapshots (
   id text primary key,
   source_id text not null references knowledge_sources (id),
