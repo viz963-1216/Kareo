@@ -586,7 +586,7 @@ export function syncReports(root, sections, { write = false } = {}) {
         continue;
       }
       const lineEnding = match[1].endsWith("\r\n") ? "\r\n" : "\n";
-      const expected = `${sections[name]}${lineEnding}`;
+      const expected = `${sections[name]}\n`.replace(/\n/g, lineEnding);
       if (match[2] !== expected) {
         if (write) text = text.replace(pattern, (_, begin, __, end) => begin + expected + end);
         else errors.push(`${file}: section "${name}" differs from the data (run with --write).`);
