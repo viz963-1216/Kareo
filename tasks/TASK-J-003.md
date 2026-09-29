@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r1（PR #20）、r2／r3（PR #29）已合併：CI、路由、Real API adapter、release gate。r4（2026-09-25）：整合狀態表、43 個驗收案例、打包後 Functions 檢查、隔離 DB 驗證、排程入口、交回清單。**Integrated：否**；完整驗收 FAIL（43 個 E2E 全部 PENDING，部署暫停）  
+Status: 進行中。r1（PR #20）、r2／r3（PR #29）已合併：CI、路由、Real API adapter、release gate。r4（#38，2026-09-25 合併）：整合狀態表、43 個驗收案例、打包後 Functions 檢查、隔離 DB 驗證、排程入口、交回清單。r5（2026-09-27）：交回清單逐項重新驗證、migration 全域順序、升級路徑檢查、#40 推薦路由、#34 staging 同步。**Integrated：否**；完整驗收 FAIL（43 個 E2E 全部 PENDING，部署 503）  
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -32,7 +32,7 @@ CI 與整合接線（已交付，持續維護）：
 - [x] PR CI：frontend build、backend tests／typecheck、A-004 data validation、contract／mock 檢查；缺模組列 PENDING
 - [x] PR 不需 production secret；部署與 E2E 獨立手動觸發，不因 docs commit 消耗部署額度
 - [x] Real API adapter；正式模式不回 Mock 成功資料
-- [ ] 新 function 的路由（`/api/v1/recommendations`、`/api/v1/leads`、`/api/v1/consent/withdraw`、§26 管理 API）在 B-005／B-006／B-011b／B-012 合併時補上（r4：endpoint 覆蓋檢查已納入 §26，11 個 PENDING）
+- [ ] 新 function 的路由（`/api/v1/recommendations` 已在 #40 `e867dbb` 補上，隨 #40 合併；`/api/v1/leads`、`/api/v1/consent/withdraw`、§26 管理 API）在 B-005／B-006／B-011b／B-012 合併時補上（r4：endpoint 覆蓋檢查已納入 §26，11 個 PENDING）
 - [x] 打包後 Functions 的實際執行（r4：`scripts/check-functions-runtime.mjs`，CI 與 gate）；`included_files` 帶上執行期讀取的 consent 版本檔
 - [x] 每日知識更新排程入口（r4：`.github/workflows/knowledge-crawler.yml`，16:10 UTC＝00:10 Asia/Taipei、20 分鐘上限、不重疊）；需 B-009 合併與 GitHub environment `staging` secrets
 - [x] 隔離 DB 驗證（r4：`tests/db/verify-db.mjs`，migration 依序套用、RLS、Provider 匯入回滾、知識發布／撤回）
@@ -82,3 +82,4 @@ Submission Version 從 `J-003-r1` 起，退回後遞增。PR 必填 Added / Chan
 - 2026-09-23 J-002-r3：加入驗收分層。
 - 2026-09-23 J-002-r4：移除 AI／付費 AI smoke 相關要求（D-01 規則引擎），改為驗證規則引擎、Knowledge resolver 與 API 失敗行為；位置與補助驗收依 API_CONTRACT v0.2.2；B-009 不再有 D-11 替代方案。
 - 2026-09-25 J-003-r4：整合狀態表與風險重新核對、驗收案例 27→43、案例完整性檢查、打包後 Functions 檢查、`included_files`、Supabase 未設定時不外洩環境變數名稱、隔離 DB 驗證、crawler 排程入口、交回清單 H-1〜H-9。
+- 2026-09-27 J-003-r5：交回清單狀態（H-1、H-4、H-8、H-9 已解決；H-2 升級路徑、H-3 內容指紋、H-5 快照、H-7 兩題選填仍存在）；新發現 N-1〜N-8；migration 全域順序（#33 → #36 → #40 → #37，0012〜0015 改名）；`verify-db.mjs --upgrade-from`、K10、C1／C2、R1；唯讀 migration 探測 SQL；#40 推薦路由；#34 同步 staging；任務看板更新。

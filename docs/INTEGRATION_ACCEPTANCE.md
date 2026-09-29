@@ -1,7 +1,7 @@
 # Kareo Integration Acceptance / 整合驗收紀錄
 
 Owner: Jerry（TASK-J-003）
-Submission Version: J-003-r4
+Submission Version: J-003-r5
 
 > 只有「部署環境中，以真實 API 與真實資料實際操作成功」才算通過。
 > Mock、單元測試、PR 合併都**不算**整合完成。平台額度或模組缺漏造成的阻擋一律記為 `PENDING`，必要項目 PENDING 時完整驗收判定為**失敗**。
@@ -73,7 +73,80 @@ C 的 Mock 模組驗收（C-003／C-004／C-005）只證明畫面與 contract �
 
 ---
 
-## 目前結論（2026-09-25，J-003-r4）
+## 目前結論（2026-09-27，J-003-r5）
+
+**Integrated：否。** 完整驗收（release）：**FAIL**（目標 J-003-r5 `7c0798bb6bf98e64d596d18da92274fb246687a2` @ `https://kareo-tw.netlify.app`；43 個 E2E 全部 PENDING）。部署環境 2026-09-27 重新查證仍為 HTTP 503 `{"error":"usage_exceeded"}`（`kareo-tw`、`kareocar` 皆同），**沒有任何可採計的 E2E 紀錄**。
+
+- staging `d7d5107` 已合併：#38 J-003-r4、#32 B-011a、#30 A-005、#35 J-002-r5。
+- 仍在審查：#33 B-010（前輪修正已通過）、#36 B-008、#40 B-005、#37 B-009、#34 C-005、#39 A-003。未提交：B-006、B-011b、B-012、C-006。
+- 本版的「試驗組合」＝隔離 worktree 的 staging＋#33＋#36＋#40＋#37（合併結果 `45e2330`，衝突解法見下），**不代表 staging 已具備**。
+- #39 A-003-r3 `3e44e27`：J-003 確認 30 筆 Provider、非 null 座標 **0**，座標任務未完成；E2E-08 DISTANCE 維持 BLOCKED。
+- 首次知識發布**未執行、也不在本次授權範圍**；條件見〈首次知識發布〉。D-05 同意版本仍為 DRAFT，未變更。
+- 隔離 DB 驗證仍有真實 FAIL（B-008 相關），CI 的 `db-verify` job 維持 informational；B-008 修正與整合案例通過後改為必要檢查。CI 綠燈不代表資料庫驗證通過。
+
+## 交回清單狀態（2026-09-27 重新驗證；r4 原文保留於下方歷史段落）
+
+| ID | 交回 | 狀態 | 驗證的 commit | 證據 |
+|---|---|---|---|---|
+| H-1 | B-010：B-011a 共用 token／歸屬、測試衝突、規則 r6／r7 | **已解決** | #33 `98e933f` | J-003 單獨重跑：typecheck PASS、vitest 222/222、`RULES-2026-09-25-r7`、打包後 Functions 12 PASS／1 PENDING／0 FAIL |
+| H-2 | B-008：版本追溯、撤回後完整回復 | **全新資料庫已解決；升級路徑仍存在**（見 N-2） | #36 `7b77e9c` | `verify-db.mjs` K4–K6、K9 PASS；`--upgrade-from=0008` U2／U3 FAIL |
+| H-3 | B-008：核准綁定被審核內容 | **仍存在**（第一輪情境已解決） | #36 `7b77e9c` | `b008-approval-binding.repro.ts` PASS；`b008-content-fingerprint.repro.ts` A、B、D FAIL（只比對 `source.contentHash`；缺筆不報錯） |
+| H-4 | B-008：撤回版本不可立即重發 | **已解決** | #36 `7b77e9c` | K7 PASS |
+| H-5 | B-009：PDF 雜湊、去重、原始快照 | **PDF 雜湊與去重已解決；原始快照仍存在** | #37 `467cb14` | `b009-hash-dedupe.repro.ts` 2/2 PASS；C1 PASS；C2 FAIL（只存雜湊） |
+| H-6 | B-009：排程入口改用 J-003 workflow | **已解決（文件）；排程實跑尚未驗證** | #37 `467cb14` | `runCrawler.ts` 註解指向 `knowledge-crawler.yml`；workflow 只在 `main` 才會觸發，且缺 `staging` environment／secrets |
+| H-7 | C-005：同步 staging、兩題選填、e3a065a | **同步已解決（J-003）；兩題選填與 e3a065a 6 項仍存在** | #34 `599e0a2` | diff 只剩 77 個 apps/web 檔；web build／25 tests PASS；`disabilityCertificate`／`incomeCategory` 仍無；e3a065a 未推送，6 項逐一確認缺少（#34 留言） |
+| H-8 | A-005：依 D-13 更新 | **已解決** | #30 `ffc0796`（已合併） | `data/providers/qa/acceptance-cases.md` D13-A／B／C；r1 AC-009 保留為歷史 |
+| H-9 | Supabase 未設定時錯誤不外洩 | **已解決** | #38（已合併） | `check-functions-runtime.mjs` 0 FAIL |
+
+## 新發現（J-003-r5）
+
+| ID | 問題 | 狀態 | 負責 | 證據 |
+|---|---|---|---|---|
+| N-1 | **B-010 × B-008-r3：第二次發布起知識快照不完整。** B-008-r3 讓 carry-forward 的紀錄保留原本 `version`，成員改存 `knowledge_version_records`；B-010 `findPublishedSnapshotRecords()` 與 B-008 `getCurrentPublishedStatus()` 仍以 `knowledge_records.version = 目前版本` 查詢 | 仍存在 | B-010（#33）、B-008（#36） | `verify-db.mjs` K10：應 3 筆、實得 1 筆（試驗組合）；首次發布不受影響（預演 21/21） |
+| N-2 | **B-008-r3 無回填**：migration 前已發布的版本升級後成員為空，之後無法回復 | 仍存在 | B-008（#36） | `--upgrade-from=0008` U2、U3 FAIL |
+| N-3 | B-005 × B-010 型別衝突：`findById` 未對應新欄位；`city`／`district` 可為 null | 仍存在 | B-005（#40） | 試驗組合 `tsc --noEmit` 6 個錯誤；`tests/assessment.test.ts` 同一測試兩邊皆改 |
+| N-4 | B-010 的 4 個 knowledge-version 測試使用 B-008 r1 的 `publishVersion` 參數 | 仍存在（#36 合併後出現） | B-010（#33） | 試驗組合 vitest 296/300（4 FAIL：`缺少內容包。`） |
+| N-5 | B-009 HTML 比較基準：正規化文字雜湊 vs Source Registry 的 HTML 原始雜湊 | 仍存在 | B-009（#37） | `b009-baseline.repro.ts` FAIL |
+| N-6 | B-005 距離先取整再排序；Run／Items 非原子寫入（Codex 第二輪） | 仍存在 | B-005（#40） | `b005-distance-and-write.repro.ts` 2 FAIL；`verify-db.mjs` R1 FAIL |
+| N-7 | Migration 撞號（0009：#33／#40；0013：#36／#37） | 方案已提出，待 B 改名 | B | 〈Migration 全域順序〉；#36／#37／#40 J-003 留言 |
+| N-8 | #40 缺推薦路由 | **已解決（J-003）** | J-003 | #40 `e867dbb`：check-integration 0 FAIL、recommendations 打包後可執行（無 token → 401）、dev gate 0 FAIL |
+
+## Migration 全域順序（J-003-r5 提案，2026-09-27）
+
+套用紀錄：repo 沒有任何 staging 套用紀錄（DEPLOYMENT.md 要求記在本文件，但從未填寫）；0001–0002 依 J-001 smoke 推定已套用，0003–0008 **未確認**。0009 以後只存在未合併分支，視為**未套用**。以唯讀查詢 `tests/db/detect-applied-migrations.sql` 確認後才定案；已套用的檔案不改名。
+
+| 順序 | 目前檔名（PR） | 調整 | 依賴 |
+|---|---|---|---|
+| 0001–0008 | staging | 不變 | — |
+| 0009 | `0009_assessment_rules_engine.sql`（#33） | 不變 | 0003 |
+| 0010 | `0010_assessment_disability_income.sql`（#33） | 不變 | 0009 |
+| 0011 | `0011_knowledge_publish_carry_forward.sql`（#36） | 不變 | 0006、0007 |
+| 0012 | `0013_knowledge_version_traceability.sql`（#36） | → `0012_` | 0011（同一函式重定義，必須在後） |
+| 0013 | `0009_recommendation.sql`（#40） | → `0013_` | 0003、0004 |
+| 0014 | `0012_crawler_runs.sql`（#37） | → `0014_` | 0006 |
+| 0015 | `0013_crawler_hash_traceability.sql`（#37） | → `0015_` | 0014；建立前需確認沒有重複的待審變更 |
+
+合併順序＝編號順序：**#33 → #36 → #40 → #37**。順序改變時，較晚合併者在合併前改到下一個可用號碼。
+
+隔離驗證（改名後的試驗組合）：全新套用 M1／M2 PASS（0001–0015 無缺號重複）；`--upgrade-from=0008`（先有已發布知識再升級）M1／M2／U1 PASS，U2／U3 FAIL（N-2）。未改名時 M1 FAIL（重複 0009、0013）。
+
+## 環境查證（2026-09-27，唯讀）
+
+| 項目 | 結果 | 缺什麼 |
+|---|---|---|
+| Netlify `kareo-tw`、`kareocar` | HTTP 503 `usage_exceeded` | D-09 額度（Jerry 決定） |
+| GitHub repository | public；default branch `main`；只有 `CI` workflow 已註冊（其他 workflow 尚未在 `main`） | — |
+| GitHub environments | **無** | 建立 `staging` environment（crawler 排程與未來部署驗收用） |
+| GitHub secrets | repository 與 environment 皆**無** | `staging` environment 的 `SUPABASE_URL`、`SUPABASE_SERVICE_ROLE_KEY`（只在 GitHub 設定頁輸入） |
+| GitHub variables | **無** | `KAREO_RELEASE_BASE_URL`（PR → main 的 release gate 需要） |
+| Supabase staging | 本機無憑證，無法唯讀確認專案隔離與已套用 migration | Jerry 在 staging 專案 SQL editor 執行 `tests/db/detect-applied-migrations.sql`，回報結果表（不含資料、不含憑證）；並確認該專案不是 production、不是 Kareocar |
+
+
+---
+
+# 歷史紀錄：J-003-r4（2026-09-25，保留原文；最新狀態以上方 r5 為準）
+
+## 結論（2026-09-25，J-003-r4）
 
 **Integrated：否。** 完整驗收（release 模式）：**FAIL**（目標 staging `fd4154ae16107ac599bd39bba58795c564370d76` @ `https://kareo-tw.netlify.app`；部署暫停，版本標記 HTTP 503，**沒有任何可採計的 E2E 紀錄**；43 個 E2E 案例全部 PENDING）。
 
@@ -107,7 +180,7 @@ Lead 送出 ⛔ 無 API（B-006 未提交）
 （另）知識管理頁 ⛔ B-012／C-006 未提交
 ```
 
-## 整合狀態表（2026-09-25）
+## 整合狀態表（2026-09-25，J-003-r4）
 
 資料來源：`git fetch`＋GitHub PR API（2026-09-25 02:20 +08:00）。「已驗證」只列本版實際執行過的檢查；「試驗」＝隔離 worktree 中 staging＋#32＋#33＋#36＋#37＋#35＋#30＋#34 的組合。
 
@@ -129,7 +202,7 @@ Lead 送出 ⛔ 無 API（B-006 未提交）
 | A-005 | #30 `a67156e` | ❌（落後 staging 12 commits，可乾淨合併） | — | AC-009 仍寫「待 D-13 決議」（D-13b 已核准：`NO_LOCATION`、空陣列）；AC-007／AC-011 未依 D-13c（任一缺座標 → 整批 `DISTRICT_ROTATION`、precision 仍 `GPS`）；缺 `CITY_ROTATION`（D-13a）案例 | A（luke81168） |
 | J-002-r5 | #35 `d10c327` | ❌ | 試驗：`KP-2026-09-24-005` 4 筆可匯入、可與其他 4 包一起發布 | 合併前首次發布會缺臺北市 4 筆 | Jerry |
 
-## 已知整合風險核對（2026-09-25 重新確認）
+## 已知整合風險核對（2026-09-25，J-003-r4）
 
 | # | 風險 | 結果 | 證據 |
 |---|---|---|---|
@@ -140,7 +213,7 @@ Lead 送出 ⛔ 無 API（B-006 未提交）
 | 5 | B-009 快照、相同變更去重、PDF 雜湊 | **三者皆未正確處理** | `tests/integration/repro/b009-hash-dedupe.repro.ts`（2 FAIL）；`crawlerService.ts` 無 snapshot 寫入 |
 | 6 | A-005 是否依最新位置契約更新預期結果 | **否** | `data/providers/qa/acceptance-cases.md`（#30）AC-007、AC-009、AC-011 |
 
-## 交回各任務的修正要求（J-003 不改模組業務邏輯）
+## 交回各任務的修正要求（J-003-r4 原文；狀態見上方 r5〈交回清單狀態〉）
 
 | ID | 交回 | 可重現方式 | 精確修正要求 |
 |---|---|---|---|
@@ -177,6 +250,55 @@ Lead 送出 ⛔ 無 API（B-006 未提交）
 ---
 
 ## 執行紀錄
+
+### Run 2026-09-27-01 — 本機，J-003-r5 分支＋整合試驗組合
+
+| 項目 | 內容 |
+|---|---|
+| 驗證的 commit | J-003-r5 `7c0798bb6bf98e64d596d18da92274fb246687a2`（staging `d7d5107`＋本版），工作目錄無未提交修改 |
+| 試驗組合（**非 staging**） | staging `d7d5107`＋#33 `98e933f`＋#36 `7b77e9c`＋#40 `1a12c62`→`e867dbb`＋#37 `467cb14` → `45e2330`。衝突：#33×#36 兩個 knowledge repository（加總型）；#40×#33 `tests/assessment.test.ts` 一個測試（取 B-010 側）；#37×（#33＋#36）三個檔案（加總型） |
+| 其他單獨驗證 | #33 `98e933f`、#37 `467cb14`、#40 `1a12c62`／`e867dbb`、#34 `599e0a2`、#39 `3e44e27` 各自的 checkout |
+| 環境 | 本機 macOS，Node v24；PGlite 0.3.16（PostgreSQL 17.5，in-process） |
+| 執行時間 | J-003-r5 分支 2026-09-26T16:47:23Z–16:47:37Z；試驗組合與各 PR 驗證：同一工作階段、J-003-r5 分支執行之前（2026-09-27 +08:00） |
+| Provider／Knowledge／rulesVersion | Provider：`data/providers/staging`（A-004 PASS；0／30 座標）；Knowledge：雲端無 PUBLISHED，預演用 5 包 21 筆（in-memory）；rules：#33 `RULES-2026-09-25-r7` |
+| 外部服務 | Netlify 兩站 503 `usage_exceeded`；未使用 Supabase；GitHub API 只做唯讀查詢與 PR 留言 |
+| 資料 | 全部合成 |
+
+J-003-r5 分支（`7c0798b`）：
+
+| # | 檢查 | 指令 | 實際 | 結果 |
+|---|---|---|---|---|
+| 1 | Backend typecheck／tests（staging 程式） | `npm run typecheck --prefix apps/api`、`npm test --prefix apps/api` | PASS；131/131 | PASS |
+| 2 | Frontend real build | `npm run build --prefix apps/web` | 通過、無 `*-MOCK` | PASS |
+| 3 | 版本標記 | `node scripts/build-site.mjs` | `7c0798b…` | PASS |
+| 4 | 路由／contract | `node scripts/check-integration.mjs` | 10 PASS、11 PENDING、0 FAIL | PASS（dev） |
+| 5 | 打包後 Functions | `node scripts/check-functions-runtime.mjs` | 12 PASS、1 PENDING、0 FAIL | PASS（dev） |
+| 6 | Script／gate／runner 測試 | `node --experimental-strip-types --test "tests/**/*.test.*"` | 54/54 | PASS |
+| 7 | 開發檢查 | `node scripts/acceptance-gate.mjs --mode=dev` | 26 PASS、0 FAIL、55 PENDING | PASS（**不是 MVP 通過**） |
+| 8 | 完整驗收 | `… --mode=release --commit=7c0798b… --base-url=https://kareo-tw.netlify.app` | exit 1 | **FAIL** |
+| 9 | Runner 對 staging | `node tests/e2e/run-api-e2e.mjs --base-url=https://kareo-tw.netlify.app --commit=7c0798b…` | 版本標記 503 → 未跑案例 | PENDING（D-09） |
+| 10 | 隔離 DB（staging 0001–0008） | `node tests/db/verify-db.mjs` | 13 PASS、3 FAIL（K4、K7、K9：B-008 r1 已知）、2 PENDING | FAIL → B-008 |
+| 11 | 隔離 DB 升級路徑 | `node tests/db/verify-db.mjs --upgrade-from=0008` | 16 PASS、3 FAIL、2 PENDING | FAIL → B-008 |
+
+試驗組合與各 PR：
+
+| # | 檢查 | 結果 |
+|---|---|---|
+| T1 | 試驗組合 `apps/api` typecheck | **6 個錯誤**（N-3，B-005×B-010） |
+| T2 | 試驗組合 vitest | 296/300；4 FAIL（N-4） |
+| T3 | 試驗組合打包後 Functions（含推薦路由） | 14 PASS、1 PENDING、0 FAIL；dev gate 0 FAIL |
+| T4 | 隔離 DB：試驗組合原檔名 | M1 FAIL（重複 0009、0013）；K10、C2、R1 FAIL；其餘 PASS（K4–K9 全 PASS） |
+| T5 | 隔離 DB：依提案改名、全新套用 | 16 PASS、3 FAIL（K10、C2、R1） |
+| T6 | 隔離 DB：依提案改名、`--upgrade-from=0008` | 17 PASS、5 FAIL（U2、U3、K10、C2、R1） |
+| T7 | Migration 探測 SQL | staging 結構 0001–0008 present、0009+ absent；完整結構 0001–0015 present |
+| T8 | #33 `98e933f` 單獨 | typecheck PASS、222/222、r7、Functions 12/1/0 |
+| T9 | #36 `7b77e9c` repro | `b008-approval-binding` PASS；`b008-content-fingerprint` A、B、D FAIL |
+| T10 | #37 `467cb14` | vitest 158/158、typecheck PASS；`b009-hash-dedupe` 2/2 PASS；`b009-baseline` FAIL |
+| T11 | #40 `1a12c62` | `b005-distance-and-write` 2 FAIL（PROV-A 最遠卻入選；留下孤立 Run） |
+| T12 | #40 `e867dbb`（加路由後） | check-integration 0 FAIL；recommendations：PATCH→400、POST 無 token→401；dev gate 0 FAIL；script tests 54/54 |
+| T13 | #34 `599e0a2`（同步 staging 後） | apps/web 以外與 staging 完全相同；apps/web 與 `6e5cca6` 完全相同；web build 無 mock、25/25、54/54、dev gate 0 FAIL；GitHub mergeable |
+| T14 | #39 `3e44e27` | 30 筆 Provider、非 null 座標 0 |
+| T15 | 首次發布預演（試驗組合） | 5 包 21/21 發布為 `KB-2026-09-24-001`；兩市地方行不交叉 |
 
 ### Run 2026-09-25-01 — 本機，J-003-r4 分支＋整合試驗組合
 
@@ -349,7 +471,23 @@ J-003-r1 的已知問題在本版修正：
 
 ---
 
-## 首次知識發布（待執行；2026-09-25 條件核對）
+## 首次知識發布（2026-09-27 條件核對，J-003-r5）
+
+**本次不授權、也未執行發布。** 目標版本 `KB-2026-09-24-001`。
+
+| 條件 | 狀態 |
+|---|---|
+| 5 包 21 筆內容已由 Jerry 核准，且都在 staging | ✅（#35 已合併 `d7d5107`） |
+| `intendedKnowledgeVersion` 一致 | ✅ |
+| B-008 修正已合併並驗證 | ❌ #36 未合併；H-3 內容指紋、N-2 回填、N-1 `/knowledge/status` 仍 FAIL |
+| B-010 讀版本成員（第二次發布起必要） | ❌ N-1（首次發布本身不受影響，但發布後第一次更新就會少知識） |
+| 預演 | ✅ 試驗組合 21/21 |
+| staging Supabase 已確認隔離、已套用 migration 已知 | ❌ 無憑證；需 Jerry 唯讀執行 `tests/db/detect-applied-migrations.sql` |
+| 目標為 staging（非 production） | 待確認 |
+
+條件全部成立後，J-003 會依當時的 B-008 指令介面重新提出逐步命令（下方 r4 指令僅供參考，`approveKnowledgePack` 的輸入在 B-008-r3 之後已改變）。
+
+## 首次知識發布（J-003-r4，2026-09-25 條件核對；歷史）
 
 目標版本 `KB-2026-09-24-001`。**本版未執行任何雲端寫入**：下列條件未全部成立。
 
