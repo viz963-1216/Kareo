@@ -1,7 +1,7 @@
 # Kareo Integration Acceptance / 整合驗收紀錄
 
 Owner: Jerry（TASK-J-003）
-Submission Version: J-003-r5
+Submission Version: J-003-r8
 
 > 只有「部署環境中，以真實 API 與真實資料實際操作成功」才算通過。
 > Mock、單元測試、PR 合併都**不算**整合完成。平台額度或模組缺漏造成的阻擋一律記為 `PENDING`，必要項目 PENDING 時完整驗收判定為**失敗**。
@@ -18,7 +18,7 @@ Submission Version: J-003-r5
 
 Gate 內容：路由／contract／禁止欄位（`check-integration.mjs`，含 §26 管理 API）、**打包後的 Functions 能否載入與執行**（`check-functions-runtime.mjs`，J-003-r4）、**驗收案例完整性**（MVP_TRACEABILITY 引用的案例不得缺、每個案例都要被引用，J-003-r4）、知識包格式、**知識內容是否已核准**（格式正確 ≠ 核准）、Provider 資料 gate（A-004），以及 `tests/e2e/acceptance-cases.json` 的 43 個 E2E 案例。
 
-另有兩種**不算 E2E** 的本機檢查，結果只記在本文件：`tests/db/verify-db.mjs`（隔離 PostgreSQL／PGlite：migration、RLS、Provider 匯入回滾、知識發布／撤回）與 `tests/integration/`（交回模組的重現案例、首次發布預演）。
+另有兩種**不算 E2E** 的本機檢查，結果只記在本文件：`tests/db/verify-db.mjs`（隔離 PostgreSQL／PGlite：migration、RLS、Provider 匯入回滾、知識發布／撤回；r8 起 K10–K12／U5／C3 以 esbuild 打包實際 `SupabaseKnowledgeRepository`＋`DatabaseKnowledgeResolver`，經 supabase-js 與唯讀 PostgREST shim 讀同一個 PGlite；每項標 `[behaviour]` 或 `[schema]`）與 `tests/integration/`（交回模組的重現案例、首次發布預演）。
 
 ### Release 目標與部署版本證據（J-003-r3）
 
@@ -73,7 +73,58 @@ C 的 Mock 模組驗收（C-003／C-004／C-005）只證明畫面與 contract �
 
 ---
 
-## 目前結論（2026-09-27，J-003-r5）
+## 目前結論（2026-09-29，J-003-r8）
+
+**Integrated：否。** 本機／隔離 DB 檢查在 staging `6abe494` 上全部沒有 FAIL，但真實部署 E2E 0 項可執行：兩個網站仍 HTTP 503 `usage_exceeded`（2026-09-29T12:22Z），43 個 E2E 全部 PENDING。詳細輸出見〈Run 2026-09-29-02〉與 [J003-R7-2026-09-29.md](J003-R7-2026-09-29.md)〈r8 後續紀錄〉。
+
+### A. 已合併 staging 的能力（`6abe494`）
+
+#33 B-010、#34 C-005、#36 B-008（至 `c5d4cb4`）、#40 B-005、#37 B-009、#42 前端 CI、#43 J-002 管理 API v0.4 契約、#45 J-004 發布準備。r7 的三項阻擋在 staging 上已解決：
+
+| r7 阻擋 | r8 結果 | 證據 |
+|---|---|---|
+| typecheck：`findLatestRecordBySourceId` 缺 `contentFingerprint` | **已解決** | `tsc --noEmit` PASS |
+| migration 重號（兩個 0013） | **已解決** | M1：0001–0017 無缺號重號；fresh／upgrade 全部套用 |
+| K10：resolver 漏讀沿用紀錄 | **已解決，且以實際讀取路徑驗證** | K10 PASS（實際 repository＋resolver＋`getKnowledgeStatus`）；以 `c5d4cb4^` 的舊 repository 執行同一測試 → K10 FAIL（只讀到 1／3 筆） |
+
+r5 交回清單在 staging 上的狀態：H-2、N-2（升級回填）U2／U3／U5 PASS；H-3（內容指紋）由 `apps/api/tests/b008-content-fingerprint.test.ts` A／B／C／D／F 經正式入口 `runApproveKnowledgePack` 通過，J 的首次發布預演也改走同一入口 21／21；H-5 快照 C3 以實際 repository 讀回位元組並重算雜湊 PASS；N-1、N-3、N-4、N-7 已解決；N-5 `b009-baseline` 與 N-6 `b005-distance-and-write`（2／2）重現案例 PASS，R2 以行為驗證 Run／Items 同交易回滾。H-6 排程實跑仍未驗證（需 `staging` environment 與 secrets）。
+
+### B. 未合併 PR 的隔離試驗結果（不代表 staging）
+
+| PR | 試驗組合 | 結果 |
+|---|---|---|
+| #46 C-006 `557edf8`（審查留言後**沒有新 commit**） | 本機 staging `6abe494`＋#46 → `2d34300`（未推送） | 前端 37 tests PASS、real build PASS、Mock 掃描 0；**審查指出的缺陷仍可重現**：`fetch` 回 HTTP 200 `{"success":true,"data":{}}` 時，`adminRealApi.publish(...)` 與 `withdraw(...)` 都 resolve `{}`，預期 reject `INVALID_RESPONSE`（負責：C-006，`apps/web/src/api/adminRealAdapter.ts`） |
+| #39 A-003 `6f8db5c` | 未納入試驗 | 分支上 `data/providers/staging/providers.json` 30 筆皆有非 null 座標；本輪**未審核**來源可追溯性，DISTANCE 仍不採計 |
+| #41 J-003-r5 `ca8d405` | — | 兩個 commit（`7c0798b`、`ca8d405`）都是 #44 的祖先，內容已完整包含；建議由 PR 作者以「由 #44 取代」關閉，本次未操作 |
+
+### C. 本機／Mock／PGlite 驗證（本 PR head，staging `6abe494` 合併後）
+
+後端 typecheck PASS、vitest 321／321；前端 31／31、real build、正式 bundle Mock 掃描 0；根目錄 scripts／adapter 54／54；J-004 smoke 3／3；check-integration 11 PASS／12 PENDING／0 FAIL；Admin fixtures 39 PASS；知識包格式 PASS；Provider gate PASS；打包後 Functions 14 PASS／1 PENDING（DELETE session 未實作）／0 FAIL；dev gate 29 PASS／0 FAIL／56 PENDING；隔離 DB fresh 24 PASS（19 behaviour、5 schema）／0 FAIL、`--upgrade-from=0008` 28 PASS（23 behaviour、5 schema）／0 FAIL。
+
+- CI `db-verify` 由 informational 改為**必要**：移除 `continue-on-error`；`shell: bash`（`-eo pipefail`），避免 `| tee` 吃掉失敗碼；加入負向對照步驟（舊 repository 必須讓 K10 FAIL）。
+- `[schema]` 項（M1、M3、M4、C2、R1）只證明物件存在；原子性、回復、讀取行為只看 `[behaviour]` 項。PGlite 以超級使用者執行，shim 不模擬 JWT／RLS；權限只由 M3／M4 的 catalog 檢查證明。
+
+### D. 真實部署 E2E
+
+**0／43 執行。** `https://kareo-tw.netlify.app/`、`/api/v1/knowledge/status`、`https://kareocar.netlify.app/` 皆 HTTP 503 `{"error":"usage_exceeded"}`。沒有可採計的結果檔；release gate 必然 FAIL（43 PENDING）。
+
+### E. 外部阻擋與尚缺功能
+
+| 項目 | 缺什麼 | 受阻 E2E | 負責 | 下一步 |
+|---|---|---|---|---|
+| 部署 | Netlify 額度（D-09），兩站 503 | 全部 43 項 | Jerry | 恢復額度或方案後，部署目標 commit，確認 `/kareo-version.json` |
+| staging Supabase | 本 session 沒有 Supabase 連線或憑證，**本輪未重新查 catalog**（r7 紀錄：專案 Kareo 只有 sessions／consents）；不能由名稱推定為隔離 staging | 全部需 DB 的案例 | Jerry | 確認哪個專案是 staging 且與 production 隔離；在該專案唯讀執行 `tests/db/detect-applied-migrations.sql` 回報結果；於 GitHub `staging` environment 設定 secrets |
+| 首次知識發布 | `KB-2026-09-24-001` 未發布（需前一列） | `requires` 明列：E2E-04、06、25、31、32；沒有 PUBLISHED 版本時所有評估只會回 `KNOWLEDGE_UNAVAILABLE` | Jerry 授權、J-003 執行 | 預演 21／21 已通過；確認隔離 staging 後依 CLI 匯入 → 核准 → 發布 |
+| B-006 Lead API | `POST /api/v1/leads`、內部查件／狀態更新；遠端無分支／PR | E2E-13、14、15、18、22、36、41 | B | 依 API_CONTRACT 交付；J-003 再補路由 |
+| B-011b 安全 | `POST /api/v1/consent/withdraw`；`DELETE /api/v1/session` 回未實作 | E2E-19、20、37 | B | 同上 |
+| B-012 Admin API | `/api/v1/admin/**` 10 個端點 | E2E-40 | B | 同上；C-006 真實接線依賴此項 |
+| C-006 | #46 回應驗證缺陷未修 | E2E-40 | C | 依 #46 審查留言修正同一 PR |
+| 同意版本 | `contracts/legal/consent-versions.json` 唯一一組為 DRAFT、legalReview PENDING | E2E-02、37、41 | Jerry（D-05） | 法務核准後由 Jerry 改為 ACTIVE（J-003 不代改） |
+| 接件人員 | D-06 備援接件人 | E2E-15 | Jerry | — |
+| 距離排序 | A-003 #39 未合併、未審核 | E2E-08 | A | 審核 #39 座標來源 |
+| 知識排程 | B-009 排程實跑需 `staging` environment／secrets | E2E-26、38、39 | Jerry | 同 Supabase 列 |
+
+## 前次結論（2026-09-27，J-003-r5；歷史，最新狀態以上方 r8 為準）
 
 **Integrated：否。** 完整驗收（release）：**FAIL**（目標 J-003-r5 `7c0798bb6bf98e64d596d18da92274fb246687a2` @ `https://kareo-tw.netlify.app`；43 個 E2E 全部 PENDING）。部署環境 2026-09-27 重新查證仍為 HTTP 503 `{"error":"usage_exceeded"}`（`kareo-tw`、`kareocar` 皆同），**沒有任何可採計的 E2E 紀錄**。
 
@@ -526,3 +577,55 @@ curl -s https://<staging 網址>/api/v1/knowledge/status
 ## Run 2026-09-29 — J-003-r7
 
 最新分層驗證與交回項目見 [J003-R7-2026-09-29.md](J003-R7-2026-09-29.md)。B 試驗組合 320 項測試通過，但 typecheck 缺 contentFingerprint；DB M1 重號、K10 沿用紀錄讀取失敗。兩個網站仍 503；雲端 Kareo catalog 只有 sessions／consents。**Integrated：否**。
+
+## Run 2026-09-29-02 — J-003-r8（本機；PR #44 分支合併 staging `6abe494` 後）
+
+環境：macOS、Node v24.19.0（CI 為 Node 22）；獨立 worktree；無雲端憑證、無資料寫入、無部署。
+
+```sh
+npm ci --prefix apps/api && npm ci --prefix apps/web && npm ci --prefix tests/db
+npm run typecheck --prefix apps/api && npm test --prefix apps/api
+npm test --prefix apps/web && npm run build --prefix apps/web
+grep -R -l -E 'SES-MOCK|CON-MOCK|ASM-MOCK|KB-MOCK|PROV-MOCK|REC-MOCK|LEAD-MOCK' apps/web/dist   # 無輸出
+node --experimental-strip-types --test "tests/**/*.test.*"
+node --test scripts/tests/smoke-release.test.mjs
+node scripts/check-integration.mjs
+node contracts/mock/admin/validate-fixtures.mjs
+node scripts/validate-knowledge-pack.mjs .
+node scripts/check-provider-data.mjs
+node scripts/check-functions-runtime.mjs
+node scripts/build-site.mjs
+node scripts/acceptance-gate.mjs --mode=dev
+node tests/db/verify-db.mjs
+node tests/db/verify-db.mjs --upgrade-from=0008
+git show c5d4cb4^:apps/api/src/repositories/supabaseKnowledgeRepository.ts > /tmp/legacy-repo.ts
+node tests/db/verify-db.mjs --knowledge-repository-from=/tmp/legacy-repo.ts   # 預期 exit 1、K10 FAIL
+```
+
+| # | 檢查 | 結果 |
+|---|---|---|
+| 1 | 後端 typecheck | PASS |
+| 2 | 後端 vitest | 24 files、321／321 PASS |
+| 3 | 前端 tests | 31／31 PASS |
+| 4 | 前端 real build＋bundle Mock 掃描 | PASS；0 個檔案含 Mock ID |
+| 5 | 根目錄 scripts／adapter tests | 54／54 PASS |
+| 6 | J-004 smoke 工具 tests | 3／3 PASS |
+| 7 | 路由／契約／端點覆蓋 | 11 PASS、12 PENDING（B-006 1、B-011b 1、B-012 10）、0 FAIL |
+| 8 | Admin fixtures | 39 個 JSON 與跨檔一致性 PASS |
+| 9 | 知識包格式 | PASS（格式，不代表核准或發布） |
+| 10 | Provider gate（A-004） | PASS（Errors 0） |
+| 11 | 打包後 Functions | 14 PASS、1 PENDING（DELETE session）、0 FAIL |
+| 12 | Netlify site bundle | PASS |
+| 13 | dev gate | 29 PASS、0 FAIL、56 PENDING（非 MVP 驗收） |
+| 14 | 隔離 DB fresh（修改前，舊 K10） | 18 PASS、1 FAIL（K10 仍執行已淘汰的 `knowledge_records.version` 查詢；實作已修正） |
+| 15 | 隔離 DB fresh（r8） | 24 PASS（19 behaviour／5 schema）、0 FAIL、0 PENDING |
+| 16 | 隔離 DB `--upgrade-from=0008`（r8） | 28 PASS（23 behaviour／5 schema）、0 FAIL、0 PENDING |
+| 17 | 負向對照：舊 repository（`c5d4cb4^`） | exit 1；K10 FAIL（快照只有 `J003-KREC-6`，預期 3 筆）；C3 FAIL（該舊檔尚無 crawler snapshot 方法，預期中） |
+| 18 | 首次發布預演 `tests/integration/first-publish-dryrun.ts`（改用 `runApproveKnowledgePack`） | 5 包、21／21 發布、0 排除；臺北／新北地方資訊不互相套用 PASS |
+| 19 | 重現案例 `b005-distance-and-write`、`b009-baseline`、`b009-hash-dedupe` | 2／2、1／1、2／2 PASS |
+| 20 | 重現案例 `b008-approval-binding`、`b008-content-fingerprint` | 無法執行：呼叫已淘汰的 `approveRecords(ids)`（現需 `expectedContentFingerprint`）→ VALIDATION_ERROR。這是 J 的重現工具過時，不是 B 缺陷；同情境已由 `apps/api/tests/b008-*.test.ts` 經正式入口涵蓋並通過 |
+| 21 | C-006 試驗組合（staging＋#46 `557edf8` → `2d34300`，未推送） | 前端 37／37、build PASS、Mock 掃描 0；空 data 成功回應缺陷重現（見〈目前結論〉B） |
+| 22 | 部署探測（2026-09-29T12:22:34Z） | `kareo-tw`（`/`、`/api/v1/knowledge/status`）、`kareocar` 皆 503 `usage_exceeded` |
+| 23 | release gate（`--commit=688f3d6…`（staging 合併後）、`--base-url=https://kareo-tw.netlify.app`） | **FAILED**，exit 1：29 PASS、0 FAIL、56 PENDING（43 E2E 沒有任何此目標的結果檔） |
+
+C-006 缺陷重現步驟（試驗組合，`apps/web`）：`sessionStorage` 放入 `kareo.adminToken`，`globalThis.fetch` 回 `new Response('{"success":true,"data":{}}', {status: 200})`，呼叫 `adminRealApi.publish({ targetVersionId: "KB-2026-09-29-001", previewToken: "p", confirm: true })`。預期 reject `code = INVALID_RESPONSE`；實際 resolve `{}`。`withdraw(...)` 相同。位置：`apps/web/src/api/adminRealAdapter.ts`（`request()` 只擋 `data` 為 undefined／null）。負責：C-006。

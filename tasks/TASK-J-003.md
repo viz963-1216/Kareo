@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r1（PR #20）、r2／r3（PR #29）已合併：CI、路由、Real API adapter、release gate。r4（#38，2026-09-25 合併）：整合狀態表、43 個驗收案例、打包後 Functions 檢查、隔離 DB 驗證、排程入口、交回清單。r5（2026-09-27）：交回清單逐項重新驗證、migration 全域順序、升級路徑檢查、#40 推薦路由、#34 staging 同步。**Integrated：否**；完整驗收 FAIL（43 個 E2E 全部 PENDING，部署 503）  
+Status: 進行中。r1（PR #20）、r2／r3（PR #29）已合併：CI、路由、Real API adapter、release gate。r4（#38，2026-09-25 合併）：整合狀態表、43 個驗收案例、打包後 Functions 檢查、隔離 DB 驗證、排程入口、交回清單。r5（2026-09-27）：交回清單逐項重新驗證、migration 全域順序、升級路徑檢查、#40 推薦路由、#34 staging 同步。r7（2026-09-29）：C-005／B-010 合併後複驗。r8（2026-09-29，PR #44）：staging `6abe494` 上 r7 三項阻擋已解決；K10 改驗實際讀取路徑；CI `db-verify` 改為必要。**Integrated：否**；完整驗收 FAIL（43 個 E2E 全部 PENDING，部署 503）  
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -32,10 +32,10 @@ CI 與整合接線（已交付，持續維護）：
 - [x] PR CI：frontend build、backend tests／typecheck、A-004 data validation、contract／mock 檢查；缺模組列 PENDING
 - [x] PR 不需 production secret；部署與 E2E 獨立手動觸發，不因 docs commit 消耗部署額度
 - [x] Real API adapter；正式模式不回 Mock 成功資料
-- [ ] 新 function 的路由（`/api/v1/recommendations` 已在 #40 `e867dbb` 補上，隨 #40 合併；`/api/v1/leads`、`/api/v1/consent/withdraw`、§26 管理 API）在 B-005／B-006／B-011b／B-012 合併時補上（r4：endpoint 覆蓋檢查已納入 §26，11 個 PENDING）
+- [ ] 新 function 的路由（`/api/v1/recommendations` 已隨 #40 合併；r8 重新核對：7 個既有 function 全有路由，缺 function 的 12 個端點維持 PENDING、不建立假成功佔位；`/api/v1/leads`、`/api/v1/consent/withdraw`、§26 管理 API）在 B-005／B-006／B-011b／B-012 合併時補上（r4：endpoint 覆蓋檢查已納入 §26，11 個 PENDING）
 - [x] 打包後 Functions 的實際執行（r4：`scripts/check-functions-runtime.mjs`，CI 與 gate）；`included_files` 帶上執行期讀取的 consent 版本檔
 - [x] 每日知識更新排程入口（r4：`.github/workflows/knowledge-crawler.yml`，16:10 UTC＝00:10 Asia/Taipei、20 分鐘上限、不重疊）；需 B-009 合併與 GitHub environment `staging` secrets
-- [x] 隔離 DB 驗證（r4：`tests/db/verify-db.mjs`，migration 依序套用、RLS、Provider 匯入回滾、知識發布／撤回）
+- [x] 隔離 DB 驗證（r4：`tests/db/verify-db.mjs`，migration 依序套用、RLS、Provider 匯入回滾、知識發布／撤回；r8：K10–K12／U5／C3 走實際 repository＋resolver 讀取路徑，R2 行為驗證，負向對照，CI 必要檢查）
 
 知識與資料：
 
@@ -87,3 +87,7 @@ Submission Version 從 `J-003-r1` 起，退回後遞增。PR 必填 Added / Chan
 ## 2026-09-29 r7 複驗
 
 詳見 docs/J003-R7-2026-09-29.md。C-005／B-010 已合併；J 測試接線完成更新，B 最新組合仍有 3 項阻擋，部署仍 503。不得以此版交付宣稱 TASK-J-003 完成。
+
+## 2026-09-29 r8 複驗（同一 PR #44）
+
+詳見 docs/J003-R7-2026-09-29.md〈r8 後續紀錄〉與 docs/INTEGRATION_ACCEPTANCE.md〈目前結論（J-003-r8）〉。本機／隔離 DB 0 FAIL；真實 E2E 0／43 執行（部署 503）；B-006、B-011b、B-012 未交付，C-006 缺陷未修。**Integrated：否**。

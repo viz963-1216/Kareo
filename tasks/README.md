@@ -32,9 +32,9 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
-# Task Board（2026-09-27，J-003-r5 依 staging `d7d5107`、GitHub PR 與遠端分支核對）
+# Task Board（2026-09-29，J-003-r8 依 staging `6abe494`、GitHub PR 與遠端分支核對）
 
-「模組」欄只代表 PR 狀態；「整合」欄只在 J-003 有對應證據時才寫。逐項證據與交回清單見 `docs/INTEGRATION_ACCEPTANCE.md`〈整合狀態表（2026-09-27）〉。
+「模組」欄只代表 PR 狀態；「整合」欄只在 J-003 有對應證據時才寫。逐項證據與交回清單見 `docs/INTEGRATION_ACCEPTANCE.md`〈目前結論（2026-09-29，J-003-r8）〉。
 
 ## Engineer A
 
@@ -42,11 +42,11 @@ A / B / C 不直接 Push `staging` 或 `main`。
 |---|---|---|---|---|
 | A-001、A-002 | MERGED（#2；A-002 隨 #13） | 未確認 | — | — |
 | A-003 r1 | MERGED（#13） | — | — | — |
-| **A-003-r3 已驗證座標** | IN REVIEW（#39 `3e44e27`）：報告可讀；**30／30 座標仍為 null／PENDING** | 否：DISTANCE 無法真實驗收 | A-004 ✅ | 依 #39 Jerry 2026-09-27 留言補可追溯座標；座標任務**未完成** |
+| **A-003-r3 已驗證座標** | IN REVIEW（#39 `6f8db5c`）：分支上 30／30 筆已有非 null 座標，J-003 **尚未審核**來源可追溯性 | 否：未合併，DISTANCE 無法真實驗收 | A-004 ✅ | Jerry 審核 #39 座標證據 |
 | A-004 Validation Gate | MERGED（#18） | 未確認：正式匯入未執行 | — | 供 B-004 正式匯入（J-003） |
 | A-005 QA Cases | MERGED（#30 `ffc0796`，位置案例已依 D-13 更新） | — | — | 供 B-005／J-003 推薦驗收 |
 
-## Engineer B（修正順序：#36 B-008 → #40 B-005 → #37 B-009；#33 由 Jerry 合併）
+## Engineer B（#33、#36、#40、#37 已合併；待交付 B-006 → B-011b、B-012）
 
 | Task | 模組 | 整合 | 前置 | 下一步 |
 |---|---|---|---|---|
@@ -55,22 +55,22 @@ A / B / C 不直接 Push `staging` 或 `main`。
 | B-004 Provider Domain + Import | MERGED（#16） | 未確認：正式匯入與 staging 回滾未執行 | — | — |
 | B-007 Kareocar API | MERGED（#14） | 否：Kareocar 站 503（D-09） | — | — |
 | B-008 r1 | MERGED（#26） | 否：無 PUBLISHED 版本 | — | — |
-| **B-008-r2／r3** | IN REVIEW（#36 `7b77e9c`） | 否 | — | 內容指紋綁定（repro A／B／D FAIL）；`knowledge_version_records` 回填（U2／U3）；`/knowledge/status` 讀版本成員（K10）；migration 0013→0012 |
+| B-008-r2〜r5 | MERGED（#36，至 `c5d4cb4`） | 否：尚未首次發布 | — | 本機：內容指紋、回填（U2／U3／U5）、讀版本成員（K10 實際讀取路徑）皆 PASS |
 | B-011a Session／歸屬保護 | MERGED（#32） | 否（部署暫停） | — | — |
-| **B-010 規則引擎** | IN REVIEW（#33 `98e933f`）：前輪修正已通過（222/222、r7） | 否 | B-011a ✅ | 合併候選；#36 合併後快照改讀版本成員（K10）並更新 4 個 publishVersion 測試 |
-| **B-005 Recommendation** | IN REVIEW（#40 `e867dbb`，路由由 J-003 補上） | 否 | B-011a ✅ | 距離先取整、寫入非原子（repro FAIL）；與 #33 的 6 個型別錯誤；migration 0009→0013 |
-| B-006 Lead API＋內部查件 | 未見提交 | — | B-005 | — |
-| **B-009 每日知識更新** | IN REVIEW（#37 `467cb14`） | 否 | — | PDF 雜湊與去重已解決；原始快照、HTML 比較基準仍 FAIL；migration 0012／0013→0014／0015 |
-| B-011b 完整安全驗收 | 未見提交 | — | B-005、B-006、B-010 | — |
-| B-012 Admin Knowledge API（D-16） | 未見提交 | — | B-008、B-009 | — |
+| B-010 規則引擎 | MERGED（#33） | 否：部署 503、無 PUBLISHED 版本 | B-011a ✅ | 首次知識發布後真實驗收 |
+| B-005 Recommendation | MERGED（#40） | 否：部署 503；Provider 未正式匯入 | B-011a ✅ | 本機：repro 2／2 PASS、R2 原子寫入 PASS |
+| **B-006 Lead API＋內部查件** | 未見提交（2026-09-29 重新查證） | — | B-005 ✅ | 缺 `POST /api/v1/leads`、內部查件／狀態更新；阻擋 E2E-13、14、15、18、22、36、41 |
+| B-009 每日知識更新 | MERGED（#37，至 `d3f630f`） | 否：排程未實跑（缺 `staging` environment／secrets） | — | 本機：C1、C3、baseline／hash-dedupe repro PASS |
+| **B-011b 完整安全驗收** | 未見提交（2026-09-29 重新查證） | — | B-005 ✅、B-006、B-010 ✅ | 缺 `POST /api/v1/consent/withdraw`、`DELETE /api/v1/session` 實作；阻擋 E2E-19、20、37 |
+| **B-012 Admin Knowledge API（D-16）** | 未見提交（2026-09-29 重新查證） | — | B-008 ✅、B-009 ✅ | 缺 `/api/v1/admin/**` 10 個端點；阻擋 E2E-40 與 C-006 真實接線 |
 
 ## Engineer C
 
 | Task | 模組 | 整合 | 前置 | 下一步 |
 |---|---|---|---|---|
 | C-001〜C-004 | MERGED（Mock） | 未確認 | — | 真實驗收由 J-003 |
-| C-005 | MERGED（#34，9f1540f） | 真實 API 待驗 | — | 31 項前端測試與 build 通過；不等於真實 E2E |
-| C-006 知識審核與發布頁（D-16） | 未見提交 | — | Mock 契約 #43；真實接線 B-012 | 依 v0.4 契約開發 |
+| C-005 | MERGED（#34） | 真實 API 待驗 | — | staging 31 項前端測試與 real build 通過；不等於真實 E2E |
+| **C-006 知識審核與發布頁（D-16）** | IN REVIEW（#46 `557edf8`）：退回待修，審查後無新 commit | — | Mock 契約 #43 ✅；真實接線 B-012 | 試驗組合 37 PASS，但空 data 成功回應仍被當成功（J-003-r8 重現）；依 #46 審查留言修正 |
 
 **C 的驗收分層**：Mock 模組驗收不代替 J-003 真實 API E2E。
 
@@ -79,10 +79,10 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 | Task | 狀態 | 下一步 |
 |---|---|---|
-| J-001 Netlify + Supabase staging | MERGED（#6） | 部署仍 503 `usage_exceeded`（2026-09-27 重新查證，D-09） |
+| J-001 Netlify + Supabase staging | MERGED（#6） | 部署仍 503 `usage_exceeded`（2026-09-29 重新查證，D-09）；staging Supabase 隔離未確認 |
 | J-002 規格／知識 | r1–r5 DOC-MERGED（#19、#28、#31、#35）；5 包 21 筆核准、1 筆退回，**尚未發布** | — |
-| J-003 CI + Integration | r1–r4 MERGED（#20、#29、#38）；r5 IN REVIEW；**Integrated：否** | 見 INTEGRATION_ACCEPTANCE |
-| J-004 Release readiness | 準備文件 MERGED（#22）；gate CLOSED | — |
+| J-003 CI + Integration | r1–r4 MERGED（#20、#29、#38）、前端 CI MERGED（#42）；r5–r8 IN REVIEW（#44，#41 已被包含）；**Integrated：否** | 見 INTEGRATION_ACCEPTANCE〈目前結論（J-003-r8）〉 |
+| J-004 Release readiness | 準備文件 MERGED（#22、#45）；gate CLOSED | smoke 工具測試 3／3 PASS；真實演練待部署恢復 |
 
 
 ---
