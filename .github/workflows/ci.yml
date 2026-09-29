@@ -109,23 +109,41 @@ jobs:
       - run: node scripts/acceptance-gate.mjs --mode=dev
 
   # Local isolated PostgreSQL (PGlite): all migrations in order (fresh and as an upgrade from 0008 with existing
-  # published knowledge), RLS／privileges, Provider import rollback, knowledge publish／withdraw, crawler and
-  # recommendation schema. Informational (continue-on-error) until the B-008 hand-back passes; then this job
-  # becomes required. A green job here does NOT mean the database checks passed — read the step output.
+  # published knowledge), RLS／privileges, Provider import rollback, knowledge publish／withdraw, the deployed
+  # knowledge read path (apps/api repository + resolver via supabase-js and a GET-only PostgREST shim), crawler
+  # snapshot read-back, recommendation write atomicity. Required since J-003-r8: every check passed fresh and
+  # upgrade on staging 6abe494. `shell: bash` gives `-eo pipefail`, so a FAIL is not hidden by `tee`.
+  # Still a local database, not the staging Supabase or a deployment.
   db-verify:
-    name: Isolated DB verification (informational)
+    name: Isolated DB verification
     runs-on: ubuntu-latest
-    continue-on-error: true
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the negative control reads c5d4cb4^ from history
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: tests/db/package-lock.json
+          cache-dependency-path: |
+            tests/db/package-lock.json
+            apps/api/package-lock.json
       - run: npm ci --prefix tests/db
+      # esbuild + supabase-js: K10–K12, U5 and C3 bundle and run the real API repository.
+      - run: npm ci --prefix apps/api
       - name: Fresh database
         run: node tests/db/verify-db.mjs | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Upgrade path from 0008 with existing data
         if: always()
         run: node tests/db/verify-db.mjs --upgrade-from=0008 | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: K10 detects the retired reader (repository before B-008-r5 c5d4cb4)
+        if: always()
+        run: |
+          git show c5d4cb4^:apps/api/src/repositories/supabaseKnowledgeRepository.ts > "$RUNNER_TEMP/legacy-repo.ts"
+          if node tests/db/verify-db.mjs --knowledge-repository-from="$RUNNER_TEMP/legacy-repo.ts" > "$RUNNER_TEMP/legacy.log"; then
+            cat "$RUNNER_TEMP/legacy.log"; echo "::error::verify-db passed with the known-bad reader"; exit 1
+          fi
+          grep -E '^FAIL +K10 ' "$RUNNER_TEMP/legacy.log" || { cat "$RUNNER_TEMP/legacy.log"; echo "::error::K10 did not fail on the known-bad reader"; exit 1; }
