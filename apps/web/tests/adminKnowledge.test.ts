@@ -80,7 +80,7 @@ test("SESSION_INVALID clears only the admin token", async () => {
   }
 });
 
-test("admin route is hidden from navigation, applies noindex, and exposes no writes yet", () => {
+test("admin route is hidden from navigation, applies noindex, and exposes contracted writes", () => {
   const root = fileURLToPath(new URL("../src/", import.meta.url));
   const app = readFileSync(`${root}App.tsx`, "utf8");
   const noIndex = readFileSync(`${root}components/NoIndex.tsx`, "utf8");
@@ -88,7 +88,7 @@ test("admin route is hidden from navigation, applies noindex, and exposes no wri
   assert.match(app, /path="\/admin\/knowledge"/);
   assert.doesNotMatch(app, /to="\/admin\/knowledge"/);
   assert.match(noIndex, /noindex, nofollow/);
-  for (const write of ["decision", "dismiss", "publish", "withdraw"]) {
-    assert.doesNotMatch(api, new RegExp(`admin.*${write}`, "i"));
+  for (const write of ["decideRecord", "dismissChange", "getPublishPreview", "publish", "getRestorableVersions", "withdraw"]) {
+    assert.match(api, new RegExp(write));
   }
 });

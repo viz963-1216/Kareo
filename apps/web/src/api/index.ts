@@ -159,4 +159,34 @@ export const adminApi = {
       ? loadAdminMock().then((admin) => admin.getRecords())
       : loadAdminReal().then((admin) => admin.getRecords());
   },
+  async decideRecord(...args: Parameters<Awaited<ReturnType<typeof loadAdminReal>>["decideRecord"]>) {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.decideRecord(...args))
+      : loadAdminReal().then((admin) => admin.decideRecord(...args));
+  },
+  async dismissChange(...args: Parameters<Awaited<ReturnType<typeof loadAdminReal>>["dismissChange"]>) {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.dismissChange(...args))
+      : loadAdminReal().then((admin) => admin.dismissChange(...args));
+  },
+  async getPublishPreview() {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.getPublishPreview())
+      : loadAdminReal().then((admin) => admin.getPublishPreview());
+  },
+  async publish(...args: Parameters<Awaited<ReturnType<typeof loadAdminReal>>["publish"]>) {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.publish(...args))
+      : loadAdminReal().then((admin) => admin.publish(...args));
+  },
+  async getRestorableVersions() {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.getRestorableVersions())
+      : loadAdminReal().then((admin) => admin.getRestorableVersions());
+  },
+  async withdraw(...args: Parameters<Awaited<ReturnType<typeof loadAdminReal>>["withdraw"]>) {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.withdraw(...args))
+      : loadAdminReal().then((admin) => admin.withdraw(...args));
+  },
 };

@@ -1,12 +1,30 @@
 import changesFixture from "../../../../contracts/mock/admin/knowledge-changes-response.json";
+import dismissedFixture from "../../../../contracts/mock/admin/knowledge-change-dismissed-response.json";
+import previewFixture from "../../../../contracts/mock/admin/knowledge-publish-preview-response.json";
+import publishFixture from "../../../../contracts/mock/admin/knowledge-publish-response.json";
+import approvedFixture from "../../../../contracts/mock/admin/knowledge-record-approved-response.json";
+import rejectedFixture from "../../../../contracts/mock/admin/knowledge-record-rejected-response.json";
 import recordsFixture from "../../../../contracts/mock/admin/knowledge-records-response.json";
+import restorableVersionsFixture from "../../../../contracts/mock/admin/knowledge-restorable-versions-response.json";
 import statusFixture from "../../../../contracts/mock/admin/knowledge-status-response.json";
 import sessionFixture from "../../../../contracts/mock/admin/session-response.json";
+import withdrawNoRepublishFixture from "../../../../contracts/mock/admin/knowledge-withdraw-no-republish-response.json";
+import withdrawFixture from "../../../../contracts/mock/admin/knowledge-withdraw-response.json";
 import type {
+  AdminChangeDismissRequest,
+  AdminChangeDismissResponse,
   AdminKnowledgeChange,
   AdminKnowledgeRecord,
   AdminKnowledgeStatus,
+  AdminPublishPreview,
+  AdminPublishRequest,
+  AdminPublishResponse,
+  AdminRecordDecisionRequest,
+  AdminRecordDecisionResponse,
+  AdminRestorableVersionsResponse,
   AdminSessionResponse,
+  AdminWithdrawRequest,
+  AdminWithdrawResponse,
 } from "../types/api";
 
 class AdminMockError extends Error {
@@ -38,6 +56,12 @@ function requireSession() {
   }
 }
 
+function requireConfirmedReason(body: { confirm: true; reason: string }) {
+  if (body.confirm !== true) throw new AdminMockError("VALIDATION_ERROR", "請先確認此操作。", 400);
+  const reasonLength = body.reason.trim().length;
+  if (reasonLength < 1 || reasonLength > 500) throw new AdminMockError("VALIDATION_ERROR", "原因必須為 1 至 500 字。", 400);
+}
+
 export const adminMockApi = {
   hasSession: () => Boolean(storage()?.getItem(ADMIN_TOKEN_KEY)),
   logout: () => storage()?.removeItem(ADMIN_TOKEN_KEY),
@@ -64,5 +88,41 @@ export const adminMockApi = {
     requireSession();
     await wait();
     return structuredClone(recordsFixture.data.records) as AdminKnowledgeRecord[];
+  },
+  async decideRecord(_recordId: string, body: AdminRecordDecisionRequest): Promise<AdminRecordDecisionResponse> {
+    requireSession();
+    requireConfirmedReason(body);
+    await wait();
+    const fixture = body.decision === "APPROVED" ? approvedFixture : rejectedFixture;
+    return structuredClone(fixture.data) as AdminRecordDecisionResponse;
+  },
+  async dismissChange(_changeId: string, body: AdminChangeDismissRequest): Promise<AdminChangeDismissResponse> {
+    requireSession();
+    requireConfirmedReason(body);
+    await wait();
+    return structuredClone(dismissedFixture.data) as AdminChangeDismissResponse;
+  },
+  async getPublishPreview(): Promise<AdminPublishPreview> {
+    requireSession();
+    await wait();
+    return structuredClone(previewFixture.data) as AdminPublishPreview;
+  },
+  async publish(body: AdminPublishRequest): Promise<AdminPublishResponse> {
+    requireSession();
+    if (body.confirm !== true) throw new AdminMockError("VALIDATION_ERROR", "請先確認發布操作。", 400);
+    await wait();
+    return structuredClone(publishFixture.data) as AdminPublishResponse;
+  },
+  async getRestorableVersions(): Promise<AdminRestorableVersionsResponse> {
+    requireSession();
+    await wait();
+    return structuredClone(restorableVersionsFixture.data) as AdminRestorableVersionsResponse;
+  },
+  async withdraw(body: AdminWithdrawRequest): Promise<AdminWithdrawResponse> {
+    requireSession();
+    requireConfirmedReason(body);
+    await wait();
+    const fixture = body.republishVersionId === null ? withdrawNoRepublishFixture : withdrawFixture;
+    return structuredClone(fixture.data) as AdminWithdrawResponse;
   },
 };
