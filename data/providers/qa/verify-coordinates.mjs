@@ -32,19 +32,21 @@ const root = path.resolve(
 let errors;
 try {
   const dataset = loadDataset(root);
-  const { errors: evidenceErrors, verifiedIds, pendingById, settingAreaKeys } = checkEvidence(dataset);
-  const coverage = computeCoverage(dataset, verifiedIds, settingAreaKeys);
-  const sections = renderSections(dataset, verifiedIds, coverage, pendingById);
+  const { errors: evidenceErrors, verifiedIds, pendingById, settingAreaKeys, unofficialIds } =
+    checkEvidence(dataset);
+  const coverage = computeCoverage(dataset, verifiedIds, settingAreaKeys, unofficialIds);
+  const sections = renderSections(dataset, verifiedIds, coverage, pendingById, unofficialIds);
   // Never write reports from data that fails the evidence checks.
   const reportErrors = syncReports(root, sections, { write: write && evidenceErrors.length === 0 });
   errors = [...evidenceErrors, ...reportErrors];
 
-  const stats = computeStats(dataset, verifiedIds, coverage);
+  const stats = computeStats(dataset, verifiedIds, coverage, unofficialIds);
   console.log({
     providers: stats.providers,
     serviceAreas: stats.serviceAreas,
     nonNullCoordinates: stats.nonNullCoordinates,
     verifiedCoordinates: stats.verifiedCoordinates,
+    unofficialCoordinates: stats.unofficialCoordinates,
     pendingCoordinates: stats.pendingCoordinates,
     missingServiceArea: stats.missingServiceArea,
     groups: stats.groups,

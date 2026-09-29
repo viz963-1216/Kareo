@@ -78,8 +78,8 @@ test("a wrong READY status in the coverage table fails", () => {
   const { status, output } = runGate(({ readText, writeText }) => {
     const text = readText(REPORT);
     const changed = text.replace(
-      /(\| ASSISTIVE_DEVICE \| 臺北市 \| 士林區 \|[^\n]*?)BLOCKED（缺座標）/,
-      "$1READY",
+      /(\| HOME_CARE \| 臺北市 \| 萬華區 \|[^\n]*?)READY/,
+      "$1BLOCKED（缺座標）",
     );
     assert.notEqual(changed, text);
     writeText(REPORT, changed);
@@ -98,13 +98,12 @@ test("removing the evidence for a non-null coordinate fails", () => {
   assert.match(output, /NTPC-HC-003: non-null coordinate has no verified evidence/);
 });
 
-test("adding a coordinate without evidence fails", () => {
+test("a coordinate without any evidence fails", () => {
   const { status, output } = runGate(({ readJson, writeJson }) => {
-    const providers = readJson(PROVIDERS);
-    const provider = providers.find((item) => item.id === "NTPC-AD-004");
-    provider.lat = 24.98;
-    provider.lng = 121.54;
-    writeJson(PROVIDERS, providers);
+    // NTPC-AD-004 keeps its coordinate but loses its unofficial-coordinate record.
+    const evidence = readJson(EVIDENCE);
+    evidence.unofficialCoordinates = [];
+    writeJson(EVIDENCE, evidence);
   });
   assert.equal(status, 1);
   assert.match(output, /NTPC-AD-004: non-null coordinate has no verified evidence/);
@@ -175,10 +174,15 @@ test("removing service areas backed by an official source fails", () => {
   assert.match(output, /NTPC-HC-003: pending list "serviceArea" does not match the data/);
 });
 
-test("dropping a Provider from the pending list fails", () => {
+test("a Provider without a coordinate must be on the pending list", () => {
   const { status, output } = runGate(({ readJson, writeJson }) => {
+    const providers = readJson(PROVIDERS);
+    const provider = providers.find((item) => item.id === "NTPC-AD-004");
+    provider.lat = null;
+    provider.lng = null;
+    writeJson(PROVIDERS, providers);
     const evidence = readJson(EVIDENCE);
-    evidence.pending = evidence.pending.filter((item) => item.providerId !== "NTPC-AD-004");
+    evidence.unofficialCoordinates = [];
     writeJson(EVIDENCE, evidence);
   });
   assert.equal(status, 1);
@@ -187,18 +191,21 @@ test("dropping a Provider from the pending list fails", () => {
 
 test("--write regenerates reports but refuses when evidence checks fail", () => {
   const fixed = runGate(({ readText, writeText }) => {
-    writeText(REPORT, readText(REPORT).replace(/尚待驗證座標：\d+/, "尚待驗證座標：0"));
+    const text = readText(REPORT);
+    const changed = text.replace(/仍無座標：\d+/, "仍無座標：9");
+    assert.notEqual(changed, text);
+    writeText(REPORT, changed);
   }, ["--write"]);
   assert.equal(fixed.status, 0, fixed.output);
+  assert.match(fixed.output, /RESULT: PASS \(reports regenerated\)/);
 
   const refused = runGate(({ readJson, writeJson }) => {
     const providers = readJson(PROVIDERS);
     providers.find((item) => item.id === "NTPC-AD-004").lat = 24.98;
-    providers.find((item) => item.id === "NTPC-AD-004").lng = 121.54;
     writeJson(PROVIDERS, providers);
   }, ["--write"]);
   assert.equal(refused.status, 1);
-  assert.match(refused.output, /NTPC-AD-004: non-null coordinate has no verified evidence/);
+  assert.match(refused.output, /NTPC-AD-004: providers\.json lat differs from the unofficial coordinate/);
 });
 
 test("a non-null coordinate without evidence never makes a group READY", () => {
@@ -250,15 +257,50 @@ test("partially known service areas keep the whole service type out of READY", (
   assert.ok(nursing.every((g) => g.status === "BLOCKED_UNKNOWN_SERVICE_AREA"));
 });
 
-test("one candidate without a coordinate blocks every group it serves", () => {
+test("an unofficial coordinate counts for coverage but never as verified", () => {
   const dataset = loadRealDataset();
-  const { verifiedIds } = checkEvidence(dataset);
-  const { groups } = computeCoverage(dataset, verifiedIds);
-  // NTPC-AD-004 has no coordinate and serves every district of both cities.
-  const devices = groups.filter((g) => g.serviceType === "ASSISTIVE_DEVICE");
+  const { verifiedIds, settingAreaKeys, unofficialIds } = checkEvidence(dataset);
+  assert.ok(unofficialIds.has("NTPC-AD-004"));
+  assert.ok(!verifiedIds.has("NTPC-AD-004"));
+  const devices = computeCoverage(dataset, verifiedIds, settingAreaKeys, unofficialIds).groups.filter(
+    (g) => g.serviceType === "ASSISTIVE_DEVICE",
+  );
   assert.equal(devices.length, 41);
-  assert.ok(devices.every((g) => g.status === "BLOCKED_MISSING_COORDINATE"));
-  assert.ok(devices.every((g) => g.missing.includes("NTPC-AD-004")));
+  assert.ok(devices.every((g) => g.status === "READY"));
+  assert.ok(devices.every((g) => g.unofficialCandidates.includes("NTPC-AD-004")));
+  // Without the unofficial coordinate, that one candidate blocks every group it serves.
+  const blocked = computeCoverage(dataset, verifiedIds, settingAreaKeys).groups.filter(
+    (g) => g.serviceType === "ASSISTIVE_DEVICE",
+  );
+  assert.ok(blocked.every((g) => g.status === "BLOCKED_MISSING_COORDINATE"));
+});
+
+test("an unofficial coordinate without an UNOFFICIAL_COORDINATE decision fails", () => {
+  const { status, output } = runGate(({ readJson, writeJson }) => {
+    const evidence = readJson(EVIDENCE);
+    evidence.decisions.find((item) => item.decisionId === "DEC-A003-07").settingType = "DATA_CORRECTION";
+    writeJson(EVIDENCE, evidence);
+  });
+  assert.equal(status, 1);
+  assert.match(output, /NTPC-AD-004: unofficial coordinate needs an UNOFFICIAL_COORDINATE decision/);
+});
+
+test("an unofficial coordinate cannot sit on a Provider with verified evidence", () => {
+  const { status, output } = runGate(({ readJson, writeJson }) => {
+    const evidence = readJson(EVIDENCE);
+    const provider = readJson(PROVIDERS).find((item) => item.id === "TP-HC-001");
+    evidence.unofficialCoordinates.push({
+      ...evidence.unofficialCoordinates[0],
+      providerId: "TP-HC-001",
+      name: provider.name,
+      address: provider.address,
+      lat: provider.lat,
+      lng: provider.lng,
+    });
+    writeJson(EVIDENCE, evidence);
+  });
+  assert.equal(status, 1);
+  assert.match(output, /TP-HC-001: has both verified evidence and an unofficial coordinate/);
 });
 
 test("service-area evidence must reference a recorded decision", () => {

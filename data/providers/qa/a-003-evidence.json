@@ -1,5 +1,5 @@
 {
-  "submissionVersion": "A-003-r10",
+  "submissionVersion": "A-003-r11",
   "note": "座標只記錄可追溯的官方門牌點；pending 列出仍缺的資料。統計與報告由 qa/verify-coordinates.mjs 自本檔與 staging 資料重算。",
   "sources": [
     {
@@ -96,10 +96,10 @@
       "sourceId": "SRC-GMAPS-001",
       "name": "Google Maps 商家頁（依 DEC-A003-03／05 使用，只取地址門牌與電話，不取座標）",
       "url": "https://www.google.com/maps",
-      "document": "「丁丁藥妝 內湖店」民權東路六段180巷6號B1、02 8791 1933；「台灣全齡長照股份有限公司附設新北市私立禾薪居家長照機構」新莊路16之2號、02 2990 2007",
+      "document": "「丁丁藥妝 內湖店」民權東路六段180巷6號B1、02 8791 1933；「台灣全齡長照股份有限公司附設新北市私立禾薪居家長照機構」新莊路16之2號、02 2990 2007；「吉評醫療器材股份有限公司」231新北市新店區下城里安康路一段359之25號、02 2212 0033、標記 24.9619599,121.5177834",
       "sha256": null,
       "retrievedAt": "2026-09-29",
-      "use": "TP-AD-002 門牌、NTPC-HC-003 電話"
+      "use": "TP-AD-002 門牌、NTPC-HC-003 電話；NTPC-AD-004 非官方座標（DEC-A003-07）"
     }
   ],
   "coordinates": [
@@ -1722,29 +1722,7 @@
       "basis": "PLATFORM_SETTING"
     }
   ],
-  "pending": [
-    {
-      "providerId": "NTPC-AD-004",
-      "missing": [
-        "coordinate"
-      ],
-      "decisionId": "DEC-A003-04",
-      "sourcesChecked": [
-        {
-          "sourceId": "SRC-COORD-NTPC-001",
-          "checkedAt": "2026-09-29",
-          "result": "新北市門牌位置數值資料 11509：新店區（65000060）下城里安康路一段有 355號、355之1～11、361號、361之1，沒有任何 359 號（含 359之25號）；新店區安康路一段也沒有 359 巷。"
-        },
-        {
-          "sourceId": "SRC-004",
-          "checkedAt": "2026-09-29",
-          "result": "臺北市名單序號 318 的同名廠商地址為臺北市信義區基隆路1段155號13樓之5，與 providers.json 的新北市地址不同。"
-        }
-      ],
-      "reason": "依 DEC-A003-06 地址已更新為「231新北市新店區下城里安康路一段359之25號」，但官方門牌資料沒有這個門牌（可能是資料發布後才編釘）。不得以 355 號與 361 號內插或用地圖點推估，所以座標維持 null（DEC-A003-04）。",
-      "nextStep": "待新北市門牌位置數值資料下一版收錄此門牌後，以同一方法取官方門牌點；或向新店戶政事務所取得此門牌的官方座標紀錄。"
-    }
-  ],
+  "pending": [],
   "decisions": [
     {
       "decisionId": "DEC-A003-01",
@@ -1805,7 +1783,7 @@
         "answer": "1.輔具把台北市新北市有簽約的都納入在裡面，2,TP-HMN-001和003也納入在裡面，3.AD-002依照google map的門牌去寫4.這個幫我忽略5.依照google map的電話填寫",
         "scopeCheck": "只保留 null，未刪除資料。"
       },
-      "note": "地址已依 DEC-A003-06 更新；座標仍因官方門牌資料缺此門牌而維持 null。"
+      "note": "已由 DEC-A003-06（地址）與 DEC-A003-07（採用非官方座標）取代。"
     },
     {
       "decisionId": "DEC-A003-05",
@@ -1836,11 +1814,44 @@
         "answer": "吉評醫療器材股份有限公司幫我寫在231新北市新店區下城里安康路一段359之25號",
         "scopeCheck": "只更新 address 與對應的 googleMapsUrl。官方門牌資料沒有這個門牌，所以座標維持 null，沒有用內插或地圖點補座標。"
       }
+    },
+    {
+      "decisionId": "DEC-A003-07",
+      "date": "2026-09-29",
+      "decision": "NTPC-AD-004 座標採用 Google Maps 商家標記 (24.9619599, 121.5177834)，標為非官方座標。",
+      "basis": "官方門牌資料（新北市門牌位置數值資料 11509）沒有「安康路一段359之25號」。Google Maps 商家頁「吉評醫療器材股份有限公司」地址為 231新北市新店區下城里安康路一段359之25號，電話 02 2212 0033，與 SRC-005 新北特約名單相同。標記距官方門牌點 361號約 214 公尺、355號約 291 公尺。",
+      "settingType": "UNOFFICIAL_COORDINATE",
+      "approval": {
+        "source": "Claude Code 本機工作階段 local_fc839e15-6472-4a52-8f90-7dc9e08d4b73（標題「Kareo A-003 PR 修正與驗證」；本機紀錄，非公開連結）",
+        "date": "2026-09-29",
+        "approver": "本工作階段的使用者（A-003 修正的委託人）。對話內容無法證實此使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。",
+        "question": "（助理提問）吉評（NTPC-AD-004）的座標要怎麼處理？選項：「用 Google 座標，標為非官方」／「維持 null（目前狀態）」。",
+        "answer": "使用者先說「我剛剛找也是出現231新北市新店區下城里安康路一段359之25號，你就按照這個填吧」，再於選擇題選「用 Google 座標，標為非官方」。",
+        "scopeCheck": "只填入 NTPC-AD-004 的 lat／lng。記錄在 unofficialCoordinates，不計入官方已驗證座標；覆蓋率表列出依賴此座標的組合。沒有對其他 Provider 使用地圖座標。"
+      }
     }
   ],
   "decisionTypes": {
     "PLATFORM_SETTING": "依指示建立的平台設定；官方來源未直接證實此服務範圍",
     "DATA_CORRECTION": "依指示更正的資料欄位",
-    "DEFERRAL": "依指示暫不處理"
-  }
+    "DEFERRAL": "依指示暫不處理",
+    "UNOFFICIAL_COORDINATE": "依指示採用的非官方座標（例如地圖標記）；不計入已驗證座標"
+  },
+  "unofficialCoordinates": [
+    {
+      "providerId": "NTPC-AD-004",
+      "name": "吉評醫療器材股份有限公司",
+      "address": "231新北市新店區下城里安康路一段359之25號",
+      "sourceId": "SRC-GMAPS-001",
+      "url": "https://www.google.com/maps/place/%E5%90%89%E8%A9%95%E9%86%AB%E7%99%82%E5%99%A8%E6%9D%90%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/@24.9619599,121.5177834,17z",
+      "placeName": "吉評醫療器材股份有限公司",
+      "placeAddress": "231新北市新店區下城里安康路一段359之25號",
+      "placePhone": "02 2212 0033",
+      "lat": 24.9619599,
+      "lng": 121.5177834,
+      "checkedAt": "2026-09-29",
+      "decisionId": "DEC-A003-07",
+      "note": "地圖商家標記，非官方門牌點；待官方門牌資料收錄此門牌後，應改用官方門牌點並移除本項。"
+    }
+  ]
 }

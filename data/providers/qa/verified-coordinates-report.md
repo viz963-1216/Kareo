@@ -1,6 +1,6 @@
-# A-003-r10 Provider Coordinate Verification Report
+# A-003-r11 Provider Coordinate Verification Report
 
-Submission Version: A-003-r10（取代 r9 報告）
+Submission Version: A-003-r11（取代 r10 報告）
 
 Report date: 2026-09-29
 Dataset: `data/providers/staging/providers.json`、`provider-services.json`、`provider-service-areas.json`
@@ -12,9 +12,9 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 ## 階段結論
 
 - **資料面已補齊到可交付狀態：** 座標 29／30，30 家 Provider 都有服務範圍。
-- **唯一缺口：** NTPC-AD-004 的座標，依 DEC-A003-04 決定忽略，維持 null。
-- **影響：** NTPC-AD-004 同時與臺北、新北簽約，是全部 41 個輔具組合的候選，所以依 D-13c，**所有輔具組合都不能用 DISTANCE**，會改用 `DISTRICT_ROTATION`。
-- **指示紀錄：** 6 項資料依本工作階段使用者的指示處理，記錄在 `a-003-evidence.json` 的 `decisions`（DEC-A003-01～06），並附原文摘錄、日期、工作階段識別與範圍核對。對話無法證實該使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。
+- **座標：** 30／30 有座標，其中 29 筆是官方門牌點（已驗證）。NTPC-AD-004 依 DEC-A003-07 採用 Google Maps 商家標記，屬**非官方座標**，不計入已驗證，另列統計。
+- **影響：** NTPC-AD-004 是全部 41 個輔具組合的候選，採用非官方座標後，這 41 組在資料上成為 READY，但**都依賴一筆非官方座標**，在 Jerry 確認 DEC-A003-07 前不作為正式驗收依據。
+- **指示紀錄：** 7 項資料依本工作階段使用者的指示處理，記錄在 `a-003-evidence.json` 的 `decisions`（DEC-A003-01～07），並附原文摘錄、日期、工作階段識別與範圍核對。對話無法證實該使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。
 - **官方證實 vs 平台設定：** DEC-A003-01（輔具）與 DEC-A003-02（TP-HMN-001、003）建立的服務範圍是**平台設定**，官方來源並未直接證實這些 Provider 在這些行政區提供服務。兩者分開統計，見「服務範圍依據」。
 - **驗收範圍：** 本報告只代表資料交付檢查通過，不是正式 E2E 或部署驗收。
 - 「lat/lng 非 null」不等於「已驗證」：只有 `a-003-evidence.json` 內通過全部檢查的證據，才計入已驗證；檢查程式也會拒絕任何缺證據的非 null 座標。
@@ -39,6 +39,7 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 | r8 | NTPC-HC-003 電話 | 依 Google Maps 更新為 02-2990-2007（與 SRC-002 1150924 名單相同） | DEC-A003-05 |
 | r8 | 檢查程式 | 證據引用的 decisionId 必須存在於 `decisions` | `qa/lib/a-003-coverage.mjs` |
 | r9 | 決定紀錄 | r8 把決定者寫成「專案負責人（repo owner）」屬未經證實的推定，改為「本工作階段使用者」，並補上原文摘錄、工作階段識別與範圍核對 | `a-003-evidence.json` `decisions[].approval` |
+| r11 | NTPC-AD-004 座標 | 依 DEC-A003-07 採用 Google Maps 商家標記 (24.9619599, 121.5177834)，記錄在 `unofficialCoordinates`，不計入已驗證；檢查程式要求 UNOFFICIAL_COORDINATE 指示且數值一致 | DEC-A003-07；SRC-GMAPS-001 |
 | r10 | NTPC-AD-004 地址 | 依 DEC-A003-06 改為「231新北市新店區下城里安康路一段359之25號」。官方門牌資料（11509）下城里安康路一段只有 355、361 號，沒有 359 號，所以座標仍為 null | DEC-A003-06；SRC-COORD-NTPC-001 |
 | r9 | 服務範圍依據 | 每筆服務範圍證據標示 `basis`（`OFFICIAL`／`PLATFORM_SETTING`）；報告分開統計，覆蓋率表列出依平台設定納入的候選 | `qa/lib/a-003-coverage.mjs` |
 
@@ -47,13 +48,14 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 <!-- A003:BEGIN summary -->
 - Provider 總數：30
 - ProviderServiceArea 筆數：516
-- lat/lng 非 null：29
+- lat/lng 非 null：30
 - 有完整驗證證據的座標：29（名稱／地址核對＋官方門牌點＋可重現轉換，見 `qa/a-003-evidence.json`）
-- 非 null 但缺證據：0
-- 尚待驗證座標：1
+- 依指示採用的非官方座標（非官方門牌點，不計入已驗證）：1（NTPC-AD-004，DEC-A003-07）
+- 非 null 但缺任何證據：0
+- 仍無座標：0
 - 缺 ProviderServiceArea 的 ACTIVE Provider：0
 - 依指示建立的平台設定服務範圍（非官方證實）：430 筆（DEC-A003-01、DEC-A003-02）
-- 服務類型 × 行政區組合：77；DISTANCE READY：36（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區、HOME_MEDICAL_NURSING × 臺北市士林區、HOME_MEDICAL_NURSING × 臺北市大同區、HOME_MEDICAL_NURSING × 臺北市大安區、HOME_MEDICAL_NURSING × 臺北市中山區、HOME_MEDICAL_NURSING × 臺北市中正區、HOME_MEDICAL_NURSING × 臺北市內湖區、HOME_MEDICAL_NURSING × 臺北市文山區、HOME_MEDICAL_NURSING × 臺北市北投區、HOME_MEDICAL_NURSING × 臺北市松山區、HOME_MEDICAL_NURSING × 臺北市信義區、HOME_MEDICAL_NURSING × 臺北市南港區、HOME_MEDICAL_NURSING × 臺北市萬華區）
+- 服務類型 × 行政區組合：77；DISTANCE READY：77（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區、HOME_MEDICAL_NURSING × 臺北市士林區、HOME_MEDICAL_NURSING × 臺北市大同區、HOME_MEDICAL_NURSING × 臺北市大安區、HOME_MEDICAL_NURSING × 臺北市中山區、HOME_MEDICAL_NURSING × 臺北市中正區、HOME_MEDICAL_NURSING × 臺北市內湖區、HOME_MEDICAL_NURSING × 臺北市文山區、HOME_MEDICAL_NURSING × 臺北市北投區、HOME_MEDICAL_NURSING × 臺北市松山區、HOME_MEDICAL_NURSING × 臺北市信義區、HOME_MEDICAL_NURSING × 臺北市南港區、HOME_MEDICAL_NURSING × 臺北市萬華區、ASSISTIVE_DEVICE × 新北市八里區、ASSISTIVE_DEVICE × 新北市三芝區、ASSISTIVE_DEVICE × 新北市三重區、ASSISTIVE_DEVICE × 新北市三峽區、ASSISTIVE_DEVICE × 新北市土城區、ASSISTIVE_DEVICE × 新北市中和區、ASSISTIVE_DEVICE × 新北市五股區、ASSISTIVE_DEVICE × 新北市平溪區、ASSISTIVE_DEVICE × 新北市永和區、ASSISTIVE_DEVICE × 新北市石門區、ASSISTIVE_DEVICE × 新北市石碇區、ASSISTIVE_DEVICE × 新北市汐止區、ASSISTIVE_DEVICE × 新北市坪林區、ASSISTIVE_DEVICE × 新北市板橋區、ASSISTIVE_DEVICE × 新北市林口區、ASSISTIVE_DEVICE × 新北市金山區、ASSISTIVE_DEVICE × 新北市泰山區、ASSISTIVE_DEVICE × 新北市烏來區、ASSISTIVE_DEVICE × 新北市貢寮區、ASSISTIVE_DEVICE × 新北市淡水區、ASSISTIVE_DEVICE × 新北市深坑區、ASSISTIVE_DEVICE × 新北市新店區、ASSISTIVE_DEVICE × 新北市新莊區、ASSISTIVE_DEVICE × 新北市瑞芳區、ASSISTIVE_DEVICE × 新北市萬里區、ASSISTIVE_DEVICE × 新北市樹林區、ASSISTIVE_DEVICE × 新北市雙溪區、ASSISTIVE_DEVICE × 新北市蘆洲區、ASSISTIVE_DEVICE × 新北市鶯歌區、ASSISTIVE_DEVICE × 臺北市士林區、ASSISTIVE_DEVICE × 臺北市大同區、ASSISTIVE_DEVICE × 臺北市大安區、ASSISTIVE_DEVICE × 臺北市中山區、ASSISTIVE_DEVICE × 臺北市中正區、ASSISTIVE_DEVICE × 臺北市內湖區、ASSISTIVE_DEVICE × 臺北市文山區、ASSISTIVE_DEVICE × 臺北市北投區、ASSISTIVE_DEVICE × 臺北市松山區、ASSISTIVE_DEVICE × 臺北市信義區、ASSISTIVE_DEVICE × 臺北市南港區、ASSISTIVE_DEVICE × 臺北市萬華區）
 <!-- A003:END summary -->
 
 ## 座標驗證方法（可重現）
@@ -83,11 +85,11 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 ## 服務類型統計
 
 <!-- A003:BEGIN by-service-type -->
-| Service Type | ACTIVE Provider | 有已驗證座標 | 座標覆蓋率 | 有服務範圍 | 行政區組合 | READY 組合 | 待補 |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| HOME_CARE | 15 | 15 | 100% | 15 | 24 | 24 | — |
-| HOME_MEDICAL_NURSING | 3 | 3 | 100% | 3 | 12 | 12 | — |
-| ASSISTIVE_DEVICE | 12 | 11 | 92% | 12 | 41 | 0 | — |
+| Service Type | ACTIVE Provider | 有已驗證座標 | 依指示採用的非官方座標 | 座標覆蓋率（含非官方） | 有服務範圍 | 行政區組合 | READY 組合 | 待補 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| HOME_CARE | 15 | 15 | 0 | 100% | 15 | 24 | 24 | — |
+| HOME_MEDICAL_NURSING | 3 | 3 | 0 | 100% | 3 | 12 | 12 | — |
+| ASSISTIVE_DEVICE | 12 | 11 | 1 | 100% | 12 | 41 | 41 | — |
 <!-- A003:END by-service-type -->
 
 ## 服務範圍依據
@@ -110,85 +112,85 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 狀態判定（D-13c）：`READY` 表示全部候選都有通過檢查的已驗證座標，而且同服務類型沒有服務範圍未知的 ACTIVE Provider（這類 Provider 可能是任一行政區的隱藏候選）。其餘組合必須使用 `DISTRICT_ROTATION`。
 
 <!-- A003:BEGIN coverage -->
-| Service Type | City | District | 候選數 | 已驗證座標 | 覆蓋率 | 狀態 | 待補座標 | 依平台設定納入的候選 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| HOME_CARE | 新北市 | 三重區 | 3 | 3 | 100% | READY | — | — |
-| HOME_CARE | 新北市 | 土城區 | 1 | 1 | 100% | READY | — | — |
-| HOME_CARE | 新北市 | 中和區 | 3 | 3 | 100% | READY | — | — |
-| HOME_CARE | 新北市 | 五股區 | 1 | 1 | 100% | READY | — | — |
-| HOME_CARE | 新北市 | 永和區 | 2 | 2 | 100% | READY | — | — |
-| HOME_CARE | 新北市 | 板橋區 | 3 | 3 | 100% | READY | — | — |
-| HOME_CARE | 新北市 | 林口區 | 1 | 1 | 100% | READY | — | — |
-| HOME_CARE | 新北市 | 泰山區 | 1 | 1 | 100% | READY | — | — |
-| HOME_CARE | 新北市 | 新店區 | 1 | 1 | 100% | READY | — | — |
-| HOME_CARE | 新北市 | 新莊區 | 3 | 3 | 100% | READY | — | — |
-| HOME_CARE | 新北市 | 樹林區 | 2 | 2 | 100% | READY | — | — |
-| HOME_CARE | 新北市 | 蘆洲區 | 2 | 2 | 100% | READY | — | — |
-| HOME_CARE | 臺北市 | 士林區 | 3 | 3 | 100% | READY | — | — |
-| HOME_CARE | 臺北市 | 大同區 | 10 | 10 | 100% | READY | — | — |
-| HOME_CARE | 臺北市 | 大安區 | 4 | 4 | 100% | READY | — | — |
-| HOME_CARE | 臺北市 | 中山區 | 7 | 7 | 100% | READY | — | — |
-| HOME_CARE | 臺北市 | 中正區 | 9 | 9 | 100% | READY | — | — |
-| HOME_CARE | 臺北市 | 內湖區 | 3 | 3 | 100% | READY | — | — |
-| HOME_CARE | 臺北市 | 文山區 | 3 | 3 | 100% | READY | — | — |
-| HOME_CARE | 臺北市 | 北投區 | 3 | 3 | 100% | READY | — | — |
-| HOME_CARE | 臺北市 | 松山區 | 3 | 3 | 100% | READY | — | — |
-| HOME_CARE | 臺北市 | 信義區 | 3 | 3 | 100% | READY | — | — |
-| HOME_CARE | 臺北市 | 南港區 | 3 | 3 | 100% | READY | — | — |
-| HOME_CARE | 臺北市 | 萬華區 | 10 | 10 | 100% | READY | — | — |
-| HOME_MEDICAL_NURSING | 臺北市 | 士林區 | 2 | 2 | 100% | READY | — | TP-HMN-001 |
-| HOME_MEDICAL_NURSING | 臺北市 | 大同區 | 2 | 2 | 100% | READY | — | TP-HMN-001、TP-HMN-003 |
-| HOME_MEDICAL_NURSING | 臺北市 | 大安區 | 1 | 1 | 100% | READY | — | TP-HMN-001 |
-| HOME_MEDICAL_NURSING | 臺北市 | 中山區 | 1 | 1 | 100% | READY | — | TP-HMN-001 |
-| HOME_MEDICAL_NURSING | 臺北市 | 中正區 | 2 | 2 | 100% | READY | — | TP-HMN-001、TP-HMN-003 |
-| HOME_MEDICAL_NURSING | 臺北市 | 內湖區 | 1 | 1 | 100% | READY | — | TP-HMN-001 |
-| HOME_MEDICAL_NURSING | 臺北市 | 文山區 | 1 | 1 | 100% | READY | — | TP-HMN-001 |
-| HOME_MEDICAL_NURSING | 臺北市 | 北投區 | 2 | 2 | 100% | READY | — | TP-HMN-001 |
-| HOME_MEDICAL_NURSING | 臺北市 | 松山區 | 1 | 1 | 100% | READY | — | TP-HMN-001 |
-| HOME_MEDICAL_NURSING | 臺北市 | 信義區 | 1 | 1 | 100% | READY | — | TP-HMN-001 |
-| HOME_MEDICAL_NURSING | 臺北市 | 南港區 | 1 | 1 | 100% | READY | — | TP-HMN-001 |
-| HOME_MEDICAL_NURSING | 臺北市 | 萬華區 | 2 | 2 | 100% | READY | — | TP-HMN-001、TP-HMN-003 |
-| ASSISTIVE_DEVICE | 新北市 | 八里區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 三芝區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 三重區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 三峽區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 土城區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 中和區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 五股區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 平溪區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 永和區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 石門區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 石碇區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 汐止區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 坪林區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 板橋區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 林口區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 金山區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 泰山區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 烏來區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 貢寮區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 淡水區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 深坑區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 新店區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 新莊區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 瑞芳區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 萬里區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 樹林區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 雙溪區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 蘆洲區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 新北市 | 鶯歌區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 |
-| ASSISTIVE_DEVICE | 臺北市 | 士林區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 |
-| ASSISTIVE_DEVICE | 臺北市 | 大同區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 |
-| ASSISTIVE_DEVICE | 臺北市 | 大安區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 |
-| ASSISTIVE_DEVICE | 臺北市 | 中山區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 |
-| ASSISTIVE_DEVICE | 臺北市 | 中正區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 |
-| ASSISTIVE_DEVICE | 臺北市 | 內湖區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 |
-| ASSISTIVE_DEVICE | 臺北市 | 文山區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 |
-| ASSISTIVE_DEVICE | 臺北市 | 北投區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 |
-| ASSISTIVE_DEVICE | 臺北市 | 松山區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 |
-| ASSISTIVE_DEVICE | 臺北市 | 信義區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 |
-| ASSISTIVE_DEVICE | 臺北市 | 南港區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 |
-| ASSISTIVE_DEVICE | 臺北市 | 萬華區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 |
+| Service Type | City | District | 候選數 | 有座標 | 覆蓋率 | 狀態 | 待補座標 | 依平台設定納入的候選 | 採非官方座標的候選 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| HOME_CARE | 新北市 | 三重區 | 3 | 3 | 100% | READY | — | — | — |
+| HOME_CARE | 新北市 | 土城區 | 1 | 1 | 100% | READY | — | — | — |
+| HOME_CARE | 新北市 | 中和區 | 3 | 3 | 100% | READY | — | — | — |
+| HOME_CARE | 新北市 | 五股區 | 1 | 1 | 100% | READY | — | — | — |
+| HOME_CARE | 新北市 | 永和區 | 2 | 2 | 100% | READY | — | — | — |
+| HOME_CARE | 新北市 | 板橋區 | 3 | 3 | 100% | READY | — | — | — |
+| HOME_CARE | 新北市 | 林口區 | 1 | 1 | 100% | READY | — | — | — |
+| HOME_CARE | 新北市 | 泰山區 | 1 | 1 | 100% | READY | — | — | — |
+| HOME_CARE | 新北市 | 新店區 | 1 | 1 | 100% | READY | — | — | — |
+| HOME_CARE | 新北市 | 新莊區 | 3 | 3 | 100% | READY | — | — | — |
+| HOME_CARE | 新北市 | 樹林區 | 2 | 2 | 100% | READY | — | — | — |
+| HOME_CARE | 新北市 | 蘆洲區 | 2 | 2 | 100% | READY | — | — | — |
+| HOME_CARE | 臺北市 | 士林區 | 3 | 3 | 100% | READY | — | — | — |
+| HOME_CARE | 臺北市 | 大同區 | 10 | 10 | 100% | READY | — | — | — |
+| HOME_CARE | 臺北市 | 大安區 | 4 | 4 | 100% | READY | — | — | — |
+| HOME_CARE | 臺北市 | 中山區 | 7 | 7 | 100% | READY | — | — | — |
+| HOME_CARE | 臺北市 | 中正區 | 9 | 9 | 100% | READY | — | — | — |
+| HOME_CARE | 臺北市 | 內湖區 | 3 | 3 | 100% | READY | — | — | — |
+| HOME_CARE | 臺北市 | 文山區 | 3 | 3 | 100% | READY | — | — | — |
+| HOME_CARE | 臺北市 | 北投區 | 3 | 3 | 100% | READY | — | — | — |
+| HOME_CARE | 臺北市 | 松山區 | 3 | 3 | 100% | READY | — | — | — |
+| HOME_CARE | 臺北市 | 信義區 | 3 | 3 | 100% | READY | — | — | — |
+| HOME_CARE | 臺北市 | 南港區 | 3 | 3 | 100% | READY | — | — | — |
+| HOME_CARE | 臺北市 | 萬華區 | 10 | 10 | 100% | READY | — | — | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 士林區 | 2 | 2 | 100% | READY | — | TP-HMN-001 | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 大同區 | 2 | 2 | 100% | READY | — | TP-HMN-001、TP-HMN-003 | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 大安區 | 1 | 1 | 100% | READY | — | TP-HMN-001 | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 中山區 | 1 | 1 | 100% | READY | — | TP-HMN-001 | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 中正區 | 2 | 2 | 100% | READY | — | TP-HMN-001、TP-HMN-003 | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 內湖區 | 1 | 1 | 100% | READY | — | TP-HMN-001 | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 文山區 | 1 | 1 | 100% | READY | — | TP-HMN-001 | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 北投區 | 2 | 2 | 100% | READY | — | TP-HMN-001 | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 松山區 | 1 | 1 | 100% | READY | — | TP-HMN-001 | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 信義區 | 1 | 1 | 100% | READY | — | TP-HMN-001 | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 南港區 | 1 | 1 | 100% | READY | — | TP-HMN-001 | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 萬華區 | 2 | 2 | 100% | READY | — | TP-HMN-001、TP-HMN-003 | — |
+| ASSISTIVE_DEVICE | 新北市 | 八里區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 三芝區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 三重區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 三峽區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 土城區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 中和區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 五股區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 平溪區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 永和區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 石門區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 石碇區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 汐止區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 坪林區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 板橋區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 林口區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 金山區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 泰山區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 烏來區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 貢寮區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 淡水區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 深坑區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 新店區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 新莊區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 瑞芳區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 萬里區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 樹林區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 雙溪區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 蘆洲區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 鶯歌區 | 11 | 11 | 100% | READY | — | NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 士林區 | 8 | 8 | 100% | READY | — | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 大同區 | 8 | 8 | 100% | READY | — | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 大安區 | 8 | 8 | 100% | READY | — | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 中山區 | 8 | 8 | 100% | READY | — | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 中正區 | 8 | 8 | 100% | READY | — | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 內湖區 | 8 | 8 | 100% | READY | — | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 文山區 | 8 | 8 | 100% | READY | — | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 北投區 | 8 | 8 | 100% | READY | — | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 松山區 | 8 | 8 | 100% | READY | — | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 信義區 | 8 | 8 | 100% | READY | — | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 南港區 | 8 | 8 | 100% | READY | — | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 萬華區 | 8 | 8 | 100% | READY | — | NTPC-AD-001、NTPC-AD-004、NTPC-AD-005、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003 | NTPC-AD-004 |
 <!-- A003:END coverage -->
 
 注意事項：
@@ -197,7 +199,7 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 - 候選數 1 的組合只能驗收單一候選的 `DISTANCE` 與 `distanceKm`；多家距離排序請用候選數 2 以上的組合。
 - HOME_CARE 24 組的候選都來自官方服務範圍。
 - HOME_MEDICAL_NURSING 12 組都含 TP-HMN-001（DEC-A003-02 平台設定），其中士林區、北投區的 TP-HMN-002 是官方證實。
-- ASSISTIVE_DEVICE 41 組的服務範圍全部來自 DEC-A003-01 平台設定。NTPC-AD-004 座標為 null，且兩市都有簽約，所以是全部 41 組的候選；依 D-13c 候選完整性規則，全部 41 組都不能用 DISTANCE，改採行政區輪替（`DISTRICT_ROTATION`）。
+- ASSISTIVE_DEVICE 41 組的服務範圍全部來自 DEC-A003-01 平台設定，而且都含 NTPC-AD-004 的非官方座標（DEC-A003-07），見「採非官方座標的候選」欄。
 
 ## 逐筆對照
 
@@ -228,7 +230,7 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 | NTPC-AD-001 | 弘采介護有限公司 | ASSISTIVE_DEVICE | 24.98385487 | 121.53356671 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `中正路５０１之６號`（EPSG:3826 → WGS84） | 2026-09-29 | 41 | — |
 | NTPC-AD-002 | 大瀚醫療儀器有限公司 | ASSISTIVE_DEVICE | 25.0030857 | 121.46068223 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `校前街２８號`（EPSG:3826 → WGS84） | 2026-09-29 | 29 | — |
 | NTPC-AD-003 | 宏宇醫療器材行 | ASSISTIVE_DEVICE | 24.99666299 | 121.45189673 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `南雅南路二段１３４號`（EPSG:3826 → WGS84） | 2026-09-29 | 29 | — |
-| NTPC-AD-004 | 吉評醫療器材股份有限公司 | ASSISTIVE_DEVICE | null | null | PENDING | — | — | 41 | 座標 |
+| NTPC-AD-004 | 吉評醫療器材股份有限公司 | ASSISTIVE_DEVICE | 24.9619599 | 121.5177834 | UNOFFICIAL | SRC-GMAPS-001 地圖標記（非官方門牌點，依 DEC-A003-07） | 2026-09-29 | 41 | — |
 | NTPC-AD-005 | 學府松藥局 | ASSISTIVE_DEVICE | 24.98854427 | 121.45802719 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `學府路一段３８號`（EPSG:3826 → WGS84） | 2026-09-29 | 41 | — |
 | NTPC-AD-006 | 兆謙益企業有限公司 | ASSISTIVE_DEVICE | 25.07237267 | 121.35861123 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `源泉街１２號`（EPSG:3826 → WGS84） | 2026-09-29 | 29 | — |
 | NTPC-AD-007 | 瑞康醫療器材有限公司 | ASSISTIVE_DEVICE | 24.99206804 | 121.49471705 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `圓通路２９５之１號`（EPSG:3826 → WGS84） | 2026-09-29 | 29 | — |
@@ -238,27 +240,31 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 
 ## 驗收狀態
 
-### 本次完成（A-003-r9）
+### 本次完成（A-003-r11）
 
-- 核對 DEC-A003-01～05 的來源：在原始工作階段找到使用者明確指示的原文，改正 r8「專案負責人」的未經證實推定，補上摘錄與範圍核對。
+- NTPC-AD-004 地址依 DEC-A003-06 更新；座標依 DEC-A003-07 採用 Google Maps 標記並標為非官方。檢查程式新增非官方座標規則與統計，並新增測試。
+
+### 先前版次（r9）
+
+- 核對 DEC-A003-01～05 的來源（r9）：在原始工作階段找到使用者明確指示的原文，改正 r8「專案負責人」的未經證實推定，補上摘錄與範圍核對。
 - 服務範圍分開標示官方證實與平台設定，報告與覆蓋率表自動產生。
 - r8 的資料內容（座標 29／30、服務範圍 516 筆）未變更。
 
 ### 仍待處理
 
-- NTPC-AD-004 座標：依 DEC-A003-04 暫不處理，維持 null。
-- DEC-A003-01～06 的指示者身分需由 Jerry 在 PR review 確認。
+- NTPC-AD-004：目前使用非官方座標（DEC-A003-07）。官方門牌資料收錄「安康路一段359之25號」後，應改用官方門牌點並移除非官方座標。
+- DEC-A003-01～07 的指示者身分需由 Jerry 在 PR review 確認。
 
 ### 可進行的驗收（資料層級，非正式 E2E／部署驗收）
 
 - HOME_CARE 24 組（臺北、新北）：候選全部依官方服務範圍，且座標完整，B-005／J-003 可用來驗收 `rankingType=DISTANCE` 與數值 `distanceKm`。
-- D-13c：精確位置但候選缺座標時改 `DISTRICT_ROTATION`，可用任一輔具組合驗收。
+- D-13c：精確位置但候選缺座標時應改 `DISTRICT_ROTATION`；目前資料已沒有缺座標的候選，需用測試資料驗收。
 - 行政區輪替與服務範圍篩選（A-005 AC-005、AC-006、AC-010）。
 
 ### 尚不可作為正式驗收依據
 
 - HOME_MEDICAL_NURSING 12 組 DISTANCE：資料上 READY，但候選依賴 DEC-A003-02 平台設定。在 Jerry 確認前，只可做資料或開發測試。
-- 輔具推薦：服務範圍全部是 DEC-A003-01 平台設定，需 Jerry 確認；另外 41 組都不能用 DISTANCE。
+- 輔具推薦與 DISTANCE：服務範圍全部是 DEC-A003-01 平台設定，且 41 組都依賴 NTPC-AD-004 的非官方座標（DEC-A003-07），需 Jerry 確認。
 - 正式 E2E、部署與 release gate：仍由 J-003／Jerry 執行，本 PR 未做。
 
 ## 可重現檢查

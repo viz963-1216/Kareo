@@ -204,12 +204,48 @@ export function checkEvidence({ providers, services, areas, evidence }) {
     }
   }
 
+  // Coordinates adopted by an explicit instruction from a non-official source (for example a
+  // map listing) are allowed only with an UNOFFICIAL_COORDINATE decision. They are never
+  // counted as verified; coverage lists them separately.
+  const unofficialEntries = new Map();
+  const unofficialIds = new Set();
+  for (const item of evidence.unofficialCoordinates ?? []) {
+    const id = item.providerId;
+    const provider = providersById.get(id);
+    const before = errors.length;
+    if (!provider) {
+      errors.push(`${id}: unofficial coordinate references a missing Provider.`);
+      continue;
+    }
+    if (unofficialEntries.has(id)) errors.push(`${id}: duplicate unofficial coordinate.`);
+    unofficialEntries.set(id, item);
+    if (coordinateEvidence.has(id)) {
+      errors.push(`${id}: has both verified evidence and an unofficial coordinate.`);
+    }
+    if (decisionsById.get(item.decisionId)?.settingType !== "UNOFFICIAL_COORDINATE") {
+      errors.push(`${id}: unofficial coordinate needs an UNOFFICIAL_COORDINATE decision.`);
+    }
+    if (!sourceIds.has(item.sourceId)) {
+      errors.push(`${id}: unofficial coordinate source ${item.sourceId} is not registered.`);
+    }
+    if (item.name !== provider.name || item.address !== provider.address) {
+      errors.push(`${id}: unofficial coordinate name/address differs from providers.json.`);
+    }
+    for (const key of ["lat", "lng"]) {
+      if (provider[key] !== item[key]) {
+        errors.push(`${id}: providers.json ${key} differs from the unofficial coordinate.`);
+      }
+    }
+    if (errors.length === before) unofficialIds.add(id);
+  }
+
   for (const provider of providers) {
     const hasAny = provider.lat !== null || provider.lng !== null;
-    if (hasAny && !coordinateEvidence.has(provider.id)) {
+    const recorded = coordinateEvidence.has(provider.id) || unofficialEntries.has(provider.id);
+    if (hasAny && !recorded) {
       errors.push(`${provider.id}: non-null coordinate has no verified evidence.`);
     }
-    if (!hasAny && coordinateEvidence.has(provider.id)) {
+    if (!hasAny && recorded) {
       errors.push(`${provider.id}: evidence exists but providers.json coordinate is null.`);
     }
   }
@@ -271,7 +307,8 @@ export function checkEvidence({ providers, services, areas, evidence }) {
   );
   for (const provider of providers) {
     const missing = new Set(pendingById.get(provider.id)?.missing ?? []);
-    const needsCoordinate = !coordinateEvidence.has(provider.id);
+    const needsCoordinate =
+      !coordinateEvidence.has(provider.id) && !unofficialEntries.has(provider.id);
     const needsServiceArea =
       activeServiceProviders.has(provider.id) &&
       !activeAreas.some((area) => area.providerId === provider.id);
@@ -283,7 +320,7 @@ export function checkEvidence({ providers, services, areas, evidence }) {
     }
   }
 
-  return { errors, verifiedIds, pendingById, settingAreaKeys };
+  return { errors, verifiedIds, pendingById, settingAreaKeys, unofficialIds };
 }
 
 // Candidate = ACTIVE Provider + active ProviderService + active ProviderServiceArea.
@@ -294,6 +331,7 @@ export function computeCoverage(
   { providers, services, areas },
   verifiedIds,
   settingAreaKeys = new Set(),
+  unofficialIds = new Set(),
 ) {
   const providersById = new Map(providers.map((provider) => [provider.id, provider]));
   const activeServices = services.filter(
@@ -323,14 +361,24 @@ export function computeCoverage(
     const typeGroups = [...keys.entries()].map(([key, ids]) => {
       const [city, district] = key.split("|");
       const candidates = [...ids].sort();
-      const missing = candidates.filter((id) => !verifiedIds.has(id));
+      const missing = candidates.filter((id) => !verifiedIds.has(id) && !unofficialIds.has(id));
+      const unofficialCandidates = candidates.filter((id) => unofficialIds.has(id));
       let status = "READY";
       if (missing.length > 0) status = "BLOCKED_MISSING_COORDINATE";
       else if (unknownArea.length > 0) status = "BLOCKED_UNKNOWN_SERVICE_AREA";
       const settingCandidates = candidates.filter((id) =>
         settingAreaKeys.has(`${id}|${city}|${district}`),
       );
-      return { serviceType, city, district, candidates, missing, status, settingCandidates };
+      return {
+        serviceType,
+        city,
+        district,
+        candidates,
+        missing,
+        status,
+        settingCandidates,
+        unofficialCandidates,
+      };
     });
     typeGroups.sort((a, b) =>
       `${a.city}${a.district}`.localeCompare(`${b.city}${b.district}`, "zh-Hant"),
@@ -340,6 +388,7 @@ export function computeCoverage(
       serviceType,
       providers: providerIds.length,
       verified: providerIds.filter((id) => verifiedIds.has(id)).length,
+      unofficial: providerIds.filter((id) => unofficialIds.has(id)).length,
       withServiceArea: providerIds.length - unknownArea.length,
       unknownArea,
       groups: typeGroups.length,
@@ -349,7 +398,7 @@ export function computeCoverage(
   return { groups, byType };
 }
 
-export function computeStats(dataset, verifiedIds, coverage) {
+export function computeStats(dataset, verifiedIds, coverage, unofficialIds = new Set()) {
   const { providers, areas } = dataset;
   const nonNull = providers.filter((p) => p.lat !== null && p.lng !== null).length;
   return {
@@ -357,10 +406,12 @@ export function computeStats(dataset, verifiedIds, coverage) {
     serviceAreas: areas.length,
     nonNullCoordinates: nonNull,
     verifiedCoordinates: providers.filter((p) => verifiedIds.has(p.id)).length,
+    unofficialCoordinates: providers.filter((p) => unofficialIds.has(p.id)).length,
     nonNullWithoutEvidence: providers.filter(
-      (p) => (p.lat !== null || p.lng !== null) && !verifiedIds.has(p.id),
+      (p) => (p.lat !== null || p.lng !== null) && !verifiedIds.has(p.id) && !unofficialIds.has(p.id),
     ).length,
-    pendingCoordinates: providers.filter((p) => !verifiedIds.has(p.id)).length,
+    pendingCoordinates: providers.filter((p) => !verifiedIds.has(p.id) && !unofficialIds.has(p.id))
+      .length,
     missingServiceArea: new Set(coverage.byType.flatMap((type) => type.unknownArea)).size,
     groups: coverage.groups.length,
     readyGroups: coverage.groups.filter((group) => group.status === "READY"),
@@ -375,8 +426,17 @@ const STATUS_TEXT = {
 
 const cell = (value) => String(value).replace(/\|/g, "\\|").replace(/\n/g, " ");
 
-export function renderSections(dataset, verifiedIds, coverage, pendingById) {
-  const stats = computeStats(dataset, verifiedIds, coverage);
+export function renderSections(
+  dataset,
+  verifiedIds,
+  coverage,
+  pendingById,
+  unofficialIds = new Set(),
+) {
+  const stats = computeStats(dataset, verifiedIds, coverage, unofficialIds);
+  const unofficialById = new Map(
+    (dataset.evidence.unofficialCoordinates ?? []).map((item) => [item.providerId, item]),
+  );
   const { providers, areas, evidence } = dataset;
   const evidenceById = new Map(evidence.coordinates.map((item) => [item.providerId, item]));
   const providersById = new Map(providers.map((provider) => [provider.id, provider]));
@@ -390,8 +450,12 @@ export function renderSections(dataset, verifiedIds, coverage, pendingById) {
     `- ProviderServiceArea 筆數：${stats.serviceAreas}`,
     `- lat/lng 非 null：${stats.nonNullCoordinates}`,
     `- 有完整驗證證據的座標：${stats.verifiedCoordinates}（名稱／地址核對＋官方門牌點＋可重現轉換，見 \`qa/a-003-evidence.json\`）`,
-    `- 非 null 但缺證據：${stats.nonNullWithoutEvidence}`,
-    `- 尚待驗證座標：${stats.pendingCoordinates}`,
+    `- 依指示採用的非官方座標（非官方門牌點，不計入已驗證）：${stats.unofficialCoordinates}` +
+      (unofficialIds.size
+        ? `（${[...unofficialIds].map((id) => `${id}，${unofficialById.get(id).decisionId}`).join("；")}）`
+        : ""),
+    `- 非 null 但缺任何證據：${stats.nonNullWithoutEvidence}`,
+    `- 仍無座標：${stats.pendingCoordinates}`,
     `- 缺 ProviderServiceArea 的 ACTIVE Provider：${stats.missingServiceArea}`,
     `- 依指示建立的平台設定服務範圍（非官方證實）：${settingAreas} 筆（${[...new Set(settingEvidence.map((item) => item.decisionId))].join("、") || "—"}）`,
     `- 服務類型 × 行政區組合：${stats.groups}；DISTANCE READY：${stats.readyGroups.length}` +
@@ -401,10 +465,10 @@ export function renderSections(dataset, verifiedIds, coverage, pendingById) {
   ].join("\n");
 
   const byType = [
-    "| Service Type | ACTIVE Provider | 有已驗證座標 | 座標覆蓋率 | 有服務範圍 | 行政區組合 | READY 組合 | 待補 |",
-    "| --- | --- | --- | --- | --- | --- | --- | --- |",
+    "| Service Type | ACTIVE Provider | 有已驗證座標 | 依指示採用的非官方座標 | 座標覆蓋率（含非官方） | 有服務範圍 | 行政區組合 | READY 組合 | 待補 |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
     ...coverage.byType.map((type) =>
-      `| ${type.serviceType} | ${type.providers} | ${type.verified} | ${pct(type.verified, type.providers)} | ${type.withServiceArea} | ${type.groups} | ${type.ready} | ` +
+      `| ${type.serviceType} | ${type.providers} | ${type.verified} | ${type.unofficial} | ${pct(type.verified + type.unofficial, type.providers)} | ${type.withServiceArea} | ${type.groups} | ${type.ready} | ` +
       (type.unknownArea.length
         ? `服務範圍未知：${type.unknownArea.join("、")}；不得由地址推測，也因此沒有可推薦組合`
         : "—") +
@@ -413,11 +477,11 @@ export function renderSections(dataset, verifiedIds, coverage, pendingById) {
   ].join("\n");
 
   const coverageTable = [
-    "| Service Type | City | District | 候選數 | 已驗證座標 | 覆蓋率 | 狀態 | 待補座標 | 依平台設定納入的候選 |",
-    "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+    "| Service Type | City | District | 候選數 | 有座標 | 覆蓋率 | 狀態 | 待補座標 | 依平台設定納入的候選 | 採非官方座標的候選 |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
     ...coverage.groups.map((group) => {
-      const verified = group.candidates.length - group.missing.length;
-      return `| ${group.serviceType} | ${group.city} | ${group.district} | ${group.candidates.length} | ${verified} | ${pct(verified, group.candidates.length)} | ${STATUS_TEXT[group.status]} | ${group.missing.join("、") || "—"} | ${group.settingCandidates.join("、") || "—"} |`;
+      const located = group.candidates.length - group.missing.length;
+      return `| ${group.serviceType} | ${group.city} | ${group.district} | ${group.candidates.length} | ${located} | ${pct(located, group.candidates.length)} | ${STATUS_TEXT[group.status]} | ${group.missing.join("、") || "—"} | ${group.settingCandidates.join("、") || "—"} | ${group.unofficialCandidates.join("、") || "—"} |`;
     }),
   ].join("\n");
 
@@ -464,10 +528,20 @@ export function renderSections(dataset, verifiedIds, coverage, pendingById) {
       const item = evidenceById.get(provider.id);
       const areaCount = areas.filter((a) => a.providerId === provider.id && a.active).length;
       const missing = (pendingById.get(provider.id)?.missing ?? []).map((m) => MISSING_LABELS[m] ?? m);
-      const proof = item
-        ? `${item.identity.map((i) => i.sourceId).join("＋")} 名稱／地址；${item.coordinate.sourceId} \`${item.coordinate.record.split(",").slice(4, 9).join("")}\`（${item.coordinate.sourceCrs} → WGS84）`
-        : "—";
-      return `| ${provider.id} | ${cell(provider.name)} | ${provider.type} | ${provider.lat ?? "null"} | ${provider.lng ?? "null"} | ${item ? "VERIFIED" : "PENDING"} | ${cell(proof)} | ${item?.coordinate.checkedAt ?? "—"} | ${areaCount} | ${missing.join("、") || "—"} |`;
+      const unofficial = unofficialById.get(provider.id);
+      let proof = "—";
+      let state = "PENDING";
+      let checkedAt = "—";
+      if (item) {
+        proof = `${item.identity.map((i) => i.sourceId).join("＋")} 名稱／地址；${item.coordinate.sourceId} \`${item.coordinate.record.split(",").slice(4, 9).join("")}\`（${item.coordinate.sourceCrs} → WGS84）`;
+        state = "VERIFIED";
+        checkedAt = item.coordinate.checkedAt;
+      } else if (unofficial) {
+        proof = `${unofficial.sourceId} 地圖標記（非官方門牌點，依 ${unofficial.decisionId}）`;
+        state = "UNOFFICIAL";
+        checkedAt = unofficial.checkedAt;
+      }
+      return `| ${provider.id} | ${cell(provider.name)} | ${provider.type} | ${provider.lat ?? "null"} | ${provider.lng ?? "null"} | ${state} | ${cell(proof)} | ${checkedAt} | ${areaCount} | ${missing.join("、") || "—"} |`;
     }),
   ].join("\n");
 
