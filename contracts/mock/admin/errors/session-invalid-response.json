@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "SESSION_INVALID",
+    "message": "登入已失效，請重新輸入操作者密鑰。"
+  }
+}

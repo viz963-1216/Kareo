@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "data": {
+    "withdrawnVersionId": "KB-MOCK-001",
+    "republishedVersionId": null,
+    "withdrawnAt": "2026-09-25T10:05:00+08:00",
+    "withdrawnBy": "OP-MOCK-001",
+    "reason": "首版內容有誤，暫停使用直到重新發布（測試資料）。"
+  }
+}

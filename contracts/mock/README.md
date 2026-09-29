@@ -95,9 +95,50 @@ contracts/mock/
 
 ---
 
-## Admin Knowledge fixtures（2026-09-24，D-16）
+## Admin Knowledge fixtures（2026-09-24 D-16；2026-09-29 v0.4 D-16a 補齊）
 
-供 C-006 管理頁面 Mock 驗收，格式依 API_CONTRACT §26。`contracts/mock/admin/`：`session-response`、`knowledge-status-response`、`knowledge-changes-response`、`knowledge-records-response`、`knowledge-publish-response`。所有內容為測試資料（`*-MOCK-*`），不代表真實版本或制度。錯誤情境沿用 API_CONTRACT §5 通用錯誤格式。
+供 C-006 管理頁面 Mock 驗收，格式依 API_CONTRACT §26（v0.4）。全部位於 `contracts/mock/admin/`；`requests/` 為前端應送出的 request 範例，`errors/` 為錯誤回應（沿用 §5 envelope）。所有內容為測試資料（`*-MOCK-*`），不代表真實版本、制度或操作者。
+
+### 情境主線（前後數字一致）
+
+```text
+KB-MOCK-001 已發布（15 筆）
+→ 待審 KREC-MOCK-001（KP-MOCK-003／KR-MOCK-016）核准
+→ 預覽 KB-MOCK-002：新增 1＋沿用 15＝總數 16
+→ 發布 KB-MOCK-002（數字與預覽相同）
+→ 撤回 KB-MOCK-002、恢復 KB-MOCK-001
+另一條：只有 KB-MOCK-001、沒有可恢復版本 → 撤回且不恢復 → 沒有已發布版本
+```
+
+### 操作對照
+
+| 操作 | Request | 成功 | 空清單／其他狀態 | 錯誤 |
+|---|---|---|---|---|
+| 登入 `POST /admin/session` | `requests/session-request.json` | `session-response.json` | — | `errors/session-invalid-response.json`、`errors/forbidden-response.json` |
+| 狀態 `GET …/status` | — | `knowledge-status-response.json`（發布前）、`knowledge-status-after-publish-response.json` | `knowledge-status-no-published-response.json` | `errors/session-invalid-response.json` |
+| 變更 `GET …/changes` | — | `knowledge-changes-response.json` | `knowledge-changes-empty-response.json` | `errors/session-invalid-response.json`、`errors/forbidden-response.json` |
+| 待審紀錄 `GET …/records` | — | `knowledge-records-response.json` | `knowledge-records-empty-response.json`（核准後） | 同上 |
+| 核准 `POST …/records/{id}/decision` | `requests/record-decision-approved-request.json` | `knowledge-record-approved-response.json` | — | `errors/validation-reason-required-response.json`、`errors/validation-confirm-required-response.json`、`errors/record-content-changed-response.json`、`errors/record-already-decided-response.json`、`errors/not-found-response.json` |
+| 退回（同上路徑） | `requests/record-decision-rejected-request.json` | `knowledge-record-rejected-response.json` | — | 同核准 |
+| 忽略變更 `POST …/changes/{id}/dismiss` | `requests/change-dismiss-request.json` | `knowledge-change-dismissed-response.json` | — | `errors/validation-reason-required-response.json`、`errors/record-already-decided-response.json`、`errors/not-found-response.json` |
+| 發布預覽 `GET …/publish-preview` | — | `knowledge-publish-preview-response.json` | `knowledge-publish-preview-no-approved-response.json`、`knowledge-publish-preview-version-exists-response.json`（`canPublish: false`） | `errors/session-invalid-response.json` |
+| 發布 `POST …/publish` | `requests/publish-request.json` | `knowledge-publish-response.json` | — | `errors/publish-preview-stale-response.json`（預覽後資料改變）、`errors/publish-conditions-not-met-response.json`（發布條件不符）、`errors/validation-confirm-required-response.json` |
+| 可恢復版本 `GET …/restorable-versions` | — | `knowledge-restorable-versions-response.json` | `knowledge-restorable-versions-empty-response.json`、`knowledge-restorable-versions-no-current-response.json` | `errors/session-invalid-response.json` |
+| 撤回並恢復 `POST …/withdraw` | `requests/withdraw-republish-request.json` | `knowledge-withdraw-response.json` | — | `errors/republish-version-unavailable-response.json`（恢復版本不可用）、`errors/validation-republish-same-version-response.json`、`errors/withdraw-version-changed-response.json`、`errors/validation-reason-required-response.json` |
+| 撤回不恢復（同上路徑） | `requests/withdraw-no-republish-request.json` | `knowledge-withdraw-no-republish-response.json` | 之後狀態：`knowledge-status-no-published-response.json` | 同上 |
+
+HTTP status：`SESSION_INVALID` 401、`FORBIDDEN` 403、`VALIDATION_ERROR` 400、`NOT_FOUND` 404、`INVALID_STATUS_TRANSITION` 409、`KNOWLEDGE_STATE_CHANGED` 409（API_CONTRACT §3.2）。Mock 回應時請一併使用對應 status。
+
+### 一致性規則（已用腳本驗證）
+
+1. 預覽與發布：`versionId`＝`targetVersionId`，`previewToken` 相同；新增／沿用／總數／取代／排除五個數字相同；`totalRecordCount = publishedRecordCount + carriedForwardCount`。
+2. 預覽 `newRecords` 與核准的紀錄是同一筆（id、packId、recordId、title）；`publishedRecordCount = newRecords.length`。
+3. `canPublish: false` 時 `previewToken` 為 `null`、`blockers` 非空；`canPublish: true` 時 `blockers` 為空。
+4. 可恢復版本不含 `currentVersion`；`KB-MOCK-001.recordCount`（15）＝發布前總數，`KB-MOCK-002.recordCount`（16）＝發布總數。
+5. 撤回 request 的 `withdrawVersionId`＝可恢復清單的 `currentVersion.versionId`；`republishVersionId` 取自 `versions[]` 或明確為 `null`，且不等於 `withdrawVersionId`。
+6. decision request 的 `expectedContentFingerprint`＝待審紀錄的 `contentFingerprint`。
+7. 所有寫入 request 有 `confirm: true`；decision／dismiss／withdraw 有非空 `reason`，且與成功回應的 `review.reason`／`reason` 相同。
+8. 錯誤碼只使用 API_CONTRACT §5 定義的代碼。
 
 ### 身心障礙福利補助 fixture（2026-09-24，D-17）
 

@@ -1,0 +1,33 @@
+{
+  "success": true,
+  "data": {
+    "canPublish": false,
+    "targetVersionId": "KB-MOCK-001",
+    "currentVersionId": "KB-MOCK-001",
+    "publishDate": "2026-09-25",
+    "publishedRecordCount": 1,
+    "carriedForwardCount": 15,
+    "totalRecordCount": 16,
+    "supersededRecordCount": 0,
+    "excludedRecordCount": 0,
+    "newRecords": [
+      {
+        "id": "KREC-MOCK-001",
+        "packId": "KP-MOCK-003",
+        "recordId": "KR-MOCK-016",
+        "title": "測試用地方補助紀錄",
+        "jurisdiction": "NEW_TAIPEI",
+        "effectiveFrom": "2026-10-01",
+        "effectiveTo": null
+      }
+    ],
+    "blockers": [
+      {
+        "code": "VERSION_ALREADY_EXISTS",
+        "message": "內容包指定的版號 KB-MOCK-001 已存在，不得覆寫或改用其他號碼；請以新內容包指定新版號。"
+      }
+    ],
+    "previewToken": null,
+    "generatedAt": "2026-09-25T09:40:00+08:00"
+  }
+}

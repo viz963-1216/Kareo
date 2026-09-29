@@ -1,0 +1,6 @@
+{
+  "withdrawVersionId": "KB-MOCK-002",
+  "republishVersionId": "KB-MOCK-001",
+  "reason": "KR-MOCK-016 生效日有誤，先回到上一版（測試資料）。",
+  "confirm": true
+}
