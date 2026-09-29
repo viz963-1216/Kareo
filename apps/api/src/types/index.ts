@@ -205,6 +205,56 @@ export interface ProviderDetailResponse {
   serviceAreas: Array<{ city: string; district: string }>;
 }
 
+// ===== Recommendation（TASK-B-005，依 docs/DATA_MODEL.md 第 20-21 節）=====
+
+export type RankingType = "DISTANCE" | "DISTRICT_ROTATION" | "CITY_ROTATION" | "NO_LOCATION";
+
+export interface RecommendationRun {
+  id: string;
+  assessmentId: string;
+  serviceType: ProviderServiceType;
+  rankingType: RankingType;
+  locationPrecision: LocationPrecision;
+  knowledgeVersion: string;
+  createdAt: string;
+}
+
+export interface RecommendationItem {
+  id: string;
+  recommendationRunId: string;
+  providerId: string;
+  rank: 1 | 2 | 3;
+  score: number;
+  distanceKm: number | null;
+  reasons: string[];
+  createdAt: string;
+}
+
+// 依 docs/API_CONTRACT.md 第 9 節 Response 格式（providers[] 單筆）。
+export interface RecommendationProviderResult {
+  id: string;
+  name: string;
+  type: ProviderType;
+  address: string;
+  district: string;
+  phone: string | null;
+  website: string | null;
+  googleMapsUrl: string | null;
+  verified: boolean;
+  rank: 1 | 2 | 3;
+  distanceKm: number | null;
+  reasons: string[];
+}
+
+export interface RecommendationResult {
+  recommendationId: string;
+  serviceType: ProviderServiceType;
+  rankingType: RankingType;
+  locationPrecision: LocationPrecision;
+  providers: RecommendationProviderResult[];
+  notice: string;
+}
+
 // TASK-B-004 Import 用：A 提供的 staging dataset 原始（未驗證）格式。
 // 欄位刻意設為寬鬆 unknown/optional，因為來源資料可能缺欄位（例如 provider-services
 // 目前缺 id/active），必須先驗證才能決定是否匯入，不得自行猜值。
@@ -337,12 +387,17 @@ export interface KnowledgeRecord {
   effectiveTo: string | null;
   fetchedAt: string;
   lastVerifiedAt: string;
-  contentHash: string;
+  contentHash: string; // 來源 PDF／網頁的原始雜湊（source.contentHash），不是審核內容指紋，見 contentFingerprint。
   status: KnowledgeRecordStatus;
   version: string | null; // 所屬 KnowledgeVersion.id，PUBLISHED/SUPERSEDED 時才有值
   rawText: string;
   summary: string;
   ruleData: Record<string, unknown>;
+  // Jerry 委託修正第二輪（2026-09-27）：獨立於 contentHash 之外的「審核內容指紋」，涵蓋所有會影響
+  // 政策解讀／輸出的欄位（見 services/contentFingerprint.ts），由伺服器端從實際保存的欄位重新計算，
+  // 不信任輸入自報的雜湊。同一來源（contentHash 不變）仍可能對應不同的審核內容（不同 summary／
+  // ruleData），核准與匯入的冪等判斷都必須用這個欄位，不能只看 contentHash。
+  contentFingerprint: string;
   createdAt: string;
   updatedAt: string;
   // 依 contracts/knowledge/content-pack.schema.json，來源內容包的追溯資訊（不在 DATA_MODEL 核心欄位內，
@@ -376,6 +431,44 @@ export interface KnowledgeChange {
   detectedAt: string;
   reviewedAt: string | null;
   reviewedBy: string | null;
+}
+
+// 依 docs/DATA_MODEL.md 第 28 節（TASK-B-009）。
+export type CrawlerRunStatus = "RUNNING" | "SUCCESS" | "PARTIAL" | "FAILED";
+
+export interface CrawlerRun {
+  id: string;
+  sourceId: string;
+  startedAt: string;
+  finishedAt: string | null;
+  status: CrawlerRunStatus;
+  itemsChecked: number;
+  changesDetected: number;
+  // B-009-r2：本次抓取用來比對的雜湊（PDF 為原始位元組雜湊，文字來源為正規化文字雜湊），
+  // 即使沒有偵測到變更也保留，供稽核追溯「當天到底看到了什麼」；FAILED 時為 null（沒有算出雜湊）。
+  contentHash: string | null;
+  // Jerry 委託修正第二輪（2026-09-27）：關聯到這次抓取實際存下的原始快照（見 CrawlerSnapshot），
+  // 供稽核從一筆 CrawlerRun 直接找到當時的完整原始內容，不是只有雜湊。抓取失敗時沒有位元組可存，
+  // 為 null。
+  snapshotId: string | null;
+  errorMessage: string | null;
+}
+
+// Jerry 委託修正第二輪（2026-09-27）：每次成功抓取的原始快照，掛在 knowledge_sources（一律存在），
+// 不掛在 knowledge_records（可能還沒有）——來源尚無 KnowledgeRecord 時仍能保存快照、追蹤變更。
+// rawHash／normalizedHash 分開記錄，比對時只能用相同表示法互相比較，不得混用
+// （docs/knowledge/source-registry.md 對不同來源記錄的基準雜湊表示法不一致，見 crawlerService.ts）。
+export interface CrawlerSnapshot {
+  id: string;
+  sourceId: string;
+  crawlerRunId: string;
+  fetchedAt: string;
+  contentType: string | null;
+  rawBytes: Uint8Array;
+  rawHash: string;
+  normalizedHash: string | null; // PDF／無法正文抽取時為 null，不假裝有做抽取。
+  extractionMethodVersion: string;
+  createdAt: string;
 }
 
 // 依 docs/API_CONTRACT.md 第 13 節。
@@ -440,4 +533,7 @@ export interface ContentPackImportReport {
   packId: string | null;
   recordsValid: number;
   recordsRejected: Array<{ recordId: string | null; reasons: string[] }>;
+  // B-008-r3（J-003 H-2）：同 (packId, recordId) 但內容實質改變時更新既有紀錄並強制回 NEEDS_REVIEW
+  // 的筆數，跟「全新匯入」的 recordsValid 分開統計，方便操作者知道這次匯入實際做了什麼。
+  recordsCorrected: number;
 }

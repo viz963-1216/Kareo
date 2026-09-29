@@ -463,6 +463,7 @@ describe("Assessment service — knowledge version binding (with the B-008 repos
       fetchedAt: "2026-09-23T10:00:00+08:00",
       lastVerifiedAt: "2026-09-23T10:00:00+08:00",
       contentHash: "sha256:" + "0".repeat(64),
+      contentFingerprint: "sha256:" + "0".repeat(64),
       status,
       version: null,
       rawText: "synthetic",
@@ -475,13 +476,15 @@ describe("Assessment service — knowledge version binding (with the B-008 repos
     };
   }
 
-  async function knowledgeRepoWithPublished() {
+  async function knowledgeRepoWithPublished(intendedKnowledgeVersion = "KB-2026-09-25-001") {
     const repo = new InMemoryKnowledgeRepository();
     for (const a of ["LAW", "MOHW", "TAIPEI_GOV"] as const) repo.sourceAuthorities.set(`SRC-${a}`, a);
     const records = packRecords();
     for (const r of records) repo.records.push(toKnowledgeRecord(r, "APPROVED"));
+    // 依 B-008-r2（D-03）：版號不再由本檔生成，一律由呼叫端透過 intendedKnowledgeVersion 指定。
     const { versionId } = await publishVersion(repo, {
-      recordIds: records.map((r) => r.id),
+      packs: [{ status: "APPROVED", intendedKnowledgeVersion }],
+      candidateRecords: records.map((r) => ({ id: r.id, effectiveTo: r.effectiveTo })),
       createdBy: "test",
       approvedBy: "test",
     });
@@ -520,8 +523,12 @@ describe("Assessment service — knowledge version binding (with the B-008 repos
     const amounts = next.find((r) => r.ruleData.type === "BENEFIT_AMOUNTS")!;
     amounts.ruleData.careAndProfessionalMonthly = { "2": 12345, "8": 67890 };
     for (const r of next) repo.records.push(toKnowledgeRecord(r, "APPROVED"));
-    await new Promise((resolve) => setTimeout(resolve, 5)); // 讓版本號不同
-    const { versionId: v2 } = await publishVersion(repo, { recordIds: next.map((r) => r.id), createdBy: "t", approvedBy: "t" });
+    const { versionId: v2 } = await publishVersion(repo, {
+      packs: [{ status: "APPROVED", intendedKnowledgeVersion: "KB-2026-09-25-002" }],
+      candidateRecords: next.map((r) => ({ id: r.id, effectiveTo: r.effectiveTo })),
+      createdBy: "t",
+      approvedBy: "t",
+    });
     expect(v2).not.toBe(v1);
 
     const second = await createAssessment(deps, body, sessionToken);
