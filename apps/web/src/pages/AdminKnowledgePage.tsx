@@ -66,7 +66,9 @@ export function AdminKnowledgePage() {
   const [withdrawConfirmed, setWithdrawConfirmed] = useState(false);
   const [releaseBusy, setReleaseBusy] = useState(false);
   const loadingRef = useRef(false);
+  const writeLockRef = useRef(false);
   const errorRef = useRef<HTMLDivElement>(null);
+  const writeBusy = reviewBusy || releaseBusy;
 
   const loadDashboard = useCallback(async () => {
     if (loadingRef.current) return;
@@ -163,6 +165,7 @@ export function AdminKnowledgePage() {
   }
 
   function beginReview(action: Exclude<ReviewAction, null>) {
+    if (writeLockRef.current) return;
     setReviewAction(action);
     setReviewReason("");
     setReviewConfirmed(false);
@@ -178,9 +181,10 @@ export function AdminKnowledgePage() {
 
   async function submitReview(event: FormEvent) {
     event.preventDefault();
-    if (!reviewAction || reviewBusy) return;
+    if (!reviewAction || writeLockRef.current) return;
     const reason = reviewReason.trim();
     if (reason.length < 1 || reason.length > 500 || !reviewConfirmed) return;
+    writeLockRef.current = true;
     setReviewBusy(true);
     setNotice("");
     try {
@@ -217,18 +221,22 @@ export function AdminKnowledgePage() {
       } else if (code === "KNOWLEDGE_STATE_CHANGED" || code === "INVALID_STATUS_TRANSITION") {
         setNotice("資料狀態已更新，已重新載入最新內容。請重新檢查後再次操作。");
         setReviewAction(null);
+        setReviewReason("");
+        setReviewConfirmed(false);
         await loadDashboard();
       } else {
         setNotice(reasonValue instanceof Error ? reasonValue.message : "操作失敗，請稍後再試。");
       }
     } finally {
+      writeLockRef.current = false;
       setReviewBusy(false);
     }
   }
 
   async function submitPublish(event: FormEvent) {
     event.preventDefault();
-    if (!preview?.canPublish || !preview.targetVersionId || !preview.previewToken || !publishConfirmed || releaseBusy) return;
+    if (!preview?.canPublish || !preview.targetVersionId || !preview.previewToken || !publishConfirmed || writeLockRef.current) return;
+    writeLockRef.current = true;
     setReleaseBusy(true);
     setNotice("");
     try {
@@ -248,12 +256,14 @@ export function AdminKnowledgePage() {
         setView("forbidden");
       } else if (code === "KNOWLEDGE_STATE_CHANGED" || code === "INVALID_STATUS_TRANSITION") {
         setPublishConfirmed(false);
+        setPreview(null);
         setNotice("發布狀態已改變，已更新預覽；請重新核對後再次確認。");
         await loadDashboard();
       } else {
         setNotice(reasonValue instanceof Error ? reasonValue.message : "發布失敗，請稍後再試。");
       }
     } finally {
+      writeLockRef.current = false;
       setReleaseBusy(false);
     }
   }
@@ -271,7 +281,8 @@ export function AdminKnowledgePage() {
       setNotice("可恢復版本清單已更新，請重新選擇並確認。");
       return;
     }
-    if (!currentVersion || reason.length < 1 || reason.length > 500 || !withdrawConfirmed || releaseBusy) return;
+    if (!currentVersion || reason.length < 1 || reason.length > 500 || !withdrawConfirmed || writeLockRef.current) return;
+    writeLockRef.current = true;
     setReleaseBusy(true);
     setNotice("");
     try {
@@ -299,12 +310,16 @@ export function AdminKnowledgePage() {
         setView("forbidden");
       } else if (code === "KNOWLEDGE_STATE_CHANGED" || code === "INVALID_STATUS_TRANSITION") {
         setWithdrawConfirmed(false);
+        setRepublishVersionId("");
+        setWithdrawReason("");
+        setRestorable(null);
         setNotice("版本狀態已改變，已重新載入；請再次選擇並確認。");
         await loadDashboard();
       } else {
         setNotice(reasonValue instanceof Error ? reasonValue.message : "撤回失敗，請稍後再試。");
       }
     } finally {
+      writeLockRef.current = false;
       setReleaseBusy(false);
     }
   }
@@ -387,10 +402,10 @@ export function AdminKnowledgePage() {
                   我已核對來源與內容，確認執行此操作
                 </label>
                 <div className="admin-action-row">
-                  <button className="button primary" type="submit" disabled={reviewBusy || !reviewConfirmed || reviewReason.trim().length < 1}>
+                  <button className="button primary" type="submit" disabled={writeBusy || !reviewConfirmed || reviewReason.trim().length < 1}>
                     {reviewBusy ? "處理中…" : "確認執行"}
                   </button>
-                  <button className="button secondary" type="button" disabled={reviewBusy} onClick={cancelReview}>取消</button>
+                  <button className="button secondary" type="button" disabled={writeBusy} onClick={cancelReview}>取消</button>
                 </div>
               </form>
             </section>
@@ -426,10 +441,10 @@ export function AdminKnowledgePage() {
               )}
               <form className="stack" onSubmit={submitPublish}>
                 <label className="check-row">
-                  <input type="checkbox" checked={publishConfirmed} disabled={!preview.canPublish} onChange={(event) => setPublishConfirmed(event.target.checked)} />
+                  <input type="checkbox" checked={publishConfirmed} disabled={!preview.canPublish || writeBusy} onChange={(event) => setPublishConfirmed(event.target.checked)} />
                   我已核對發布預覽，確認發布此不可覆寫的新版本
                 </label>
-                <button className="button primary" type="submit" disabled={!preview.canPublish || !preview.previewToken || !publishConfirmed || releaseBusy}>
+                <button className="button primary" type="submit" disabled={!preview.canPublish || !preview.previewToken || !publishConfirmed || writeBusy}>
                   {releaseBusy ? "處理中…" : "確認發布"}
                 </button>
               </form>
@@ -444,7 +459,7 @@ export function AdminKnowledgePage() {
               <form className="stack" onSubmit={submitWithdraw}>
                 <label>
                   撤回後狀態
-                  <select disabled={!restorable.currentVersion} value={republishVersionId} onChange={(event) => setRepublishVersionId(event.target.value)}>
+                  <select disabled={!restorable.currentVersion || writeBusy} value={republishVersionId} onChange={(event) => setRepublishVersionId(event.target.value)}>
                     <option value="">不重新發布任何版本</option>
                     {restorable.versions.map((version) => <option key={version.versionId} value={version.versionId}>重新發布 {version.versionId}</option>)}
                   </select>
@@ -452,13 +467,13 @@ export function AdminKnowledgePage() {
                 {restorable.currentVersion && !republishVersionId && <p className="error" role="alert">警告：撤回後可能沒有任何已發布知識，使用者評估將暫停。</p>}
                 <label>
                   撤回原因（1–500 字）
-                  <textarea disabled={!restorable.currentVersion} rows={4} maxLength={500} required value={withdrawReason} onChange={(event) => setWithdrawReason(event.target.value)} />
+                  <textarea disabled={!restorable.currentVersion || writeBusy} rows={4} maxLength={500} required value={withdrawReason} onChange={(event) => setWithdrawReason(event.target.value)} />
                 </label>
                 <label className="check-row">
-                  <input type="checkbox" disabled={!restorable.currentVersion} checked={withdrawConfirmed} onChange={(event) => setWithdrawConfirmed(event.target.checked)} />
+                  <input type="checkbox" disabled={!restorable.currentVersion || writeBusy} checked={withdrawConfirmed} onChange={(event) => setWithdrawConfirmed(event.target.checked)} />
                   我了解撤回影響，確認執行此操作
                 </label>
-                <button className="button secondary" type="submit" disabled={!restorable.currentVersion || !withdrawConfirmed || withdrawReason.trim().length < 1 || releaseBusy}>
+                <button className="button secondary" type="submit" disabled={!restorable.currentVersion || !withdrawConfirmed || withdrawReason.trim().length < 1 || writeBusy}>
                   {releaseBusy ? "處理中…" : "確認撤回"}
                 </button>
               </form>
@@ -474,7 +489,7 @@ export function AdminKnowledgePage() {
                     <h3>{change.sourceId}</h3>
                     <p>{change.diffSummary}</p>
                     <p className="supporting-text">偵測時間：{dateTime(change.detectedAt)}</p>
-                    <button className="button secondary" type="button" disabled={reviewBusy} onClick={() => beginReview({ kind: "change", change })}>不影響內容</button>
+                    <button className="button secondary" type="button" disabled={writeBusy} onClick={() => beginReview({ kind: "change", change })}>不影響內容</button>
                   </article>
                 ))}
               </div>
@@ -496,8 +511,8 @@ export function AdminKnowledgePage() {
                     <p>{record.summary}</p>
                     <a href={record.sourceUrl} target="_blank" rel="noreferrer">查看官方來源（另開新分頁）</a>
                     <div className="admin-action-row">
-                      <button className="button primary" type="button" disabled={reviewBusy} onClick={() => beginReview({ kind: "record", record, decision: "APPROVED" })}>核准</button>
-                      <button className="button secondary" type="button" disabled={reviewBusy} onClick={() => beginReview({ kind: "record", record, decision: "REJECTED" })}>退回</button>
+                      <button className="button primary" type="button" disabled={writeBusy} onClick={() => beginReview({ kind: "record", record, decision: "APPROVED" })}>核准</button>
+                      <button className="button secondary" type="button" disabled={writeBusy} onClick={() => beginReview({ kind: "record", record, decision: "REJECTED" })}>退回</button>
                     </div>
                   </article>
                 ))}

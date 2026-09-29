@@ -118,7 +118,7 @@ test("withdrawal only accepts the latest restorable list and stays visible witho
   assert.match(page, /可恢復版本清單已更新/);
   assert.match(page, /\{restorable && \(/);
   assert.match(page, /目前沒有可撤回的已發布版本/);
-  assert.match(page, /disabled=\{!restorable\.currentVersion\}/);
+  assert.match(page, /disabled=\{!restorable\.currentVersion \|\| writeBusy\}/);
   assert.doesNotMatch(page, /input[^>]+republishVersionId/);
 });
 
@@ -162,4 +162,18 @@ test("admin mock scenarios cover every contracted empty and error screen", () =>
   assert.match(page, /view === "forbidden"/);
   assert.match(page, /沒有管理權限/);
   assert.match(page, /目前沒有可撤回的已發布版本/);
+});
+
+test("admin writes share a synchronous lock and clear stale 409 state", () => {
+  const page = readFileSync(fileURLToPath(new URL("../src/pages/AdminKnowledgePage.tsx", import.meta.url)), "utf8");
+  assert.match(page, /const writeLockRef = useRef\(false\)/);
+  assert.match(page, /if \(!reviewAction \|\| writeLockRef\.current\) return/);
+  assert.match(page, /publishConfirmed \|\| writeLockRef\.current\) return/);
+  assert.match(page, /withdrawConfirmed \|\| writeLockRef\.current\) return/);
+  assert.ok((page.match(/writeLockRef\.current = true/g) ?? []).length >= 3);
+  assert.ok((page.match(/writeLockRef\.current = false/g) ?? []).length >= 3);
+  assert.match(page, /setPreview\(null\)/);
+  assert.match(page, /setRepublishVersionId\(""\)/);
+  assert.match(page, /setRestorable\(null\)/);
+  assert.match(page, /disabled=\{writeBusy\}/);
 });
