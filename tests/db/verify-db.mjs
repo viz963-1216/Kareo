@@ -68,9 +68,10 @@ async function ensureSource() {
 async function addRecord({ title, type = 'T', status = 'APPROVED', effectiveTo = null, pack = 'J003-PACK-1', jurisdiction = 'TAIWAN' }) {
   const id = `J003-KREC-${++seq}`;
   const now = '2026-09-25T00:00:00+08:00';
+  const withFingerprint = (await db.query("select 1 from information_schema.columns where table_schema='public' and table_name='knowledge_records' and column_name='content_fingerprint'")).rows.length > 0;
   await db.query(`insert into knowledge_records (id, source_id, title, category, jurisdiction, source_url, effective_from, effective_to,
-    fetched_at, last_verified_at, content_hash, status, raw_text, summary, rule_data, created_at, updated_at, pack_id, pack_record_id)
-    values ($1, 'J003-SRC', $2, 'BENEFIT', $3, 'https://1966.gov.tw/', '2026-01-01', $4, $5, $5, $6, $7, 'synthetic', 'synthetic', $8::jsonb, $5, $5, $9, $1)`,
+    fetched_at, last_verified_at, content_hash, status, raw_text, summary, rule_data, created_at, updated_at, pack_id, pack_record_id${withFingerprint ? ", content_fingerprint" : ""})
+    values ($1, 'J003-SRC', $2, 'BENEFIT', $3, 'https://1966.gov.tw/', '2026-01-01', $4, $5, $5, $6, $7, 'synthetic', 'synthetic', $8::jsonb, $5, $5, $9, $1${withFingerprint ? ", $6" : ""})`,
   [id, title, jurisdiction, effectiveTo, now, `sha256:${String(seq).padStart(64, '0')}`, status, JSON.stringify({ type }), pack]);
   return id;
 }
@@ -276,7 +277,7 @@ else {
   record(!first && second ? 'PASS' : 'FAIL', 'C1', `the same open change (record, new hash) cannot be stored twice (${first ?? 'first stored'}; second ${second ? 'rejected' : 'ACCEPTED'})`, !first && second ? undefined : 'B-009');
   const snapshotStore = (await db.query(`select table_name, column_name from information_schema.columns where table_schema = 'public'
     and (table_name like '%snapshot%' or column_name in ('raw_snapshot', 'raw_content', 'raw_bytes', 'snapshot_path', 'snapshot_ref', 'storage_path'))`)).rows;
-  record(snapshotStore.length ? 'PASS' : 'FAIL', 'C2', snapshotStore.length ? `raw snapshot storage: ${snapshotStore.map((r) => `${r.table_name}.${r.column_name}`).join(', ')}`
+  record(snapshotStore.length ? 'PASS' : 'FAIL', 'C2', snapshotStore.length ? `raw snapshot storage columns exist (schema check only): ${snapshotStore.map((r) => `${r.table_name}.${r.column_name}`).join(', ')}`
     : 'no raw snapshot storage (only hashes): a past fetch cannot be read back or re-hashed (TASK-B-009 Raw Snapshot)', snapshotStore.length ? undefined : 'B-009');
 }
 
@@ -284,7 +285,7 @@ else {
 if (!(await has('table', 'recommendation_runs'))) record('PENDING', 'R*', 'recommendation_runs not present', 'B-005');
 else {
   const rpc = (await db.query("select proname from pg_proc where pronamespace = 'public'::regnamespace and proname like '%recommendation%'")).rows.map((r) => r.proname);
-  record(rpc.length ? 'PASS' : 'FAIL', 'R1', rpc.length ? `atomic recommendation write function: ${rpc.join(', ')}`
+  record(rpc.length ? 'PASS' : 'FAIL', 'R1', rpc.length ? `recommendation write function exists (schema check only): ${rpc.join(', ')}`
     : 'run and items are two separate inserts (no single-transaction function); an items failure leaves a run without items (tests/integration/repro/b005-distance-and-write.repro.ts)', rpc.length ? undefined : 'B-005');
 }
 

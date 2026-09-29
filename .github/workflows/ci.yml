@@ -75,6 +75,8 @@ jobs:
           node-version: 22
       - name: Netlify routes / mock contracts / forbidden fields / endpoint coverage
         run: node scripts/check-integration.mjs
+      - name: Admin fixture consistency (J-002 v0.4)
+        run: node contracts/mock/admin/validate-fixtures.mjs
       - name: Knowledge content packs
         run: node scripts/validate-knowledge-pack.mjs .
       - name: Provider data gate (TASK-A-004)

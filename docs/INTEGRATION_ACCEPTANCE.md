@@ -522,3 +522,7 @@ curl -s https://<staging 網址>/api/v1/knowledge/status
 | 核准／發布操作者 | （待填，真實人員） |
 | KnowledgeVersion | （待填） |
 | `GET /api/v1/knowledge/status` 回應 | （待填） |
+
+## Run 2026-09-29 — J-003-r7
+
+最新分層驗證與交回項目見 [J003-R7-2026-09-29.md](J003-R7-2026-09-29.md)。B 試驗組合 320 項測試通過，但 typecheck 缺 contentFingerprint；DB M1 重號、K10 沿用紀錄讀取失敗。兩個網站仍 503；雲端 Kareo catalog 只有 sessions／consents。**Integrated：否**。

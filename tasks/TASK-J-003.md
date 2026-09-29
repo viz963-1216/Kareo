@@ -83,3 +83,7 @@ Submission Version 從 `J-003-r1` 起，退回後遞增。PR 必填 Added / Chan
 - 2026-09-23 J-002-r4：移除 AI／付費 AI smoke 相關要求（D-01 規則引擎），改為驗證規則引擎、Knowledge resolver 與 API 失敗行為；位置與補助驗收依 API_CONTRACT v0.2.2；B-009 不再有 D-11 替代方案。
 - 2026-09-25 J-003-r4：整合狀態表與風險重新核對、驗收案例 27→43、案例完整性檢查、打包後 Functions 檢查、`included_files`、Supabase 未設定時不外洩環境變數名稱、隔離 DB 驗證、crawler 排程入口、交回清單 H-1〜H-9。
 - 2026-09-27 J-003-r5：交回清單狀態（H-1、H-4、H-8、H-9 已解決；H-2 升級路徑、H-3 內容指紋、H-5 快照、H-7 兩題選填仍存在）；新發現 N-1〜N-8；migration 全域順序（#33 → #36 → #40 → #37，0012〜0015 改名）；`verify-db.mjs --upgrade-from`、K10、C1／C2、R1；唯讀 migration 探測 SQL；#40 推薦路由；#34 同步 staging；任務看板更新。
+
+## 2026-09-29 r7 複驗
+
+詳見 docs/J003-R7-2026-09-29.md。C-005／B-010 已合併；J 測試接線完成更新，B 最新組合仍有 3 項阻擋，部署仍 503。不得以此版交付宣稱 TASK-J-003 完成。
