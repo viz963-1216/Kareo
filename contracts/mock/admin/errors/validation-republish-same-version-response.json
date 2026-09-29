@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "不能恢復正在撤回的同一個版本。"
+  }
+}

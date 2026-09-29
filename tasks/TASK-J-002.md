@@ -37,6 +37,7 @@ Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/
 - [x] 讀取雲端硬碟 8 個檔案（Jerry 下載提供），整理 `KP-2026-09-24-003`（2 筆 NEEDS_REVIEW）；Source Registry 補登並註記各檔狀態（2026-09-24）。
 - [x] Jerry 審核：KR-2026-016 核准、017 退回、018 核准；規則表 r4、r5（D-17、D-17a）確認（2026-09-24）。
 - [x] 提供 C-006 用的 `contracts/mock/admin/` fixtures（2026-09-24）。
+- [x] D-16a（[PR #34 comment 5883232266](https://github.com/viz963-1216/Kareo/pull/34#issuecomment-5883232266)）：API_CONTRACT v0.4 §26 補發布預覽、可恢復版本、decision／dismiss／withdraw 完整回應與 `KNOWLEDGE_STATE_CHANGED`；ARCHITECTURE §20.8 更正；DATA_MODEL v0.2.3；`contracts/mock/admin/**` 補成功、空清單與錯誤 fixtures（2026-09-29）。
 - [x] 臺北市輔具／喘息地方流程：開啟社會局附件整理為 `KP-2026-09-24-005`（4 筆）（2026-09-24）。
 - [x] Jerry 核准 `KP-2026-09-24-005`（4 筆）、4 個新來源與規則表 r6（2026-09-24）。
 - [x] PR #35 查核：KR-2026-019～021 summary／ruleData 與 excerpt 不一致，已修正並回到 NEEDS_REVIEW；規則表 r7 提案（2026-09-24）。

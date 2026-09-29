@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "FORBIDDEN",
+    "message": "此操作者沒有知識發布權限。"
+  }
+}

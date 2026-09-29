@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "KNOWLEDGE_STATE_CHANGED",
+    "message": "這筆紀錄的內容已更新，請重新檢視後再決定。資料未變更。"
+  }
+}

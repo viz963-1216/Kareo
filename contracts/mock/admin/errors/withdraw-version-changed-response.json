@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "KNOWLEDGE_STATE_CHANGED",
+    "message": "目前發布的版本已改變，請重新檢視後再撤回。資料未變更。"
+  }
+}

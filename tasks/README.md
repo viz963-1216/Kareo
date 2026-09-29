@@ -69,8 +69,11 @@ A / B / C 不直接 Push `staging` 或 `main`。
 | Task | 模組 | 整合 | 前置 | 下一步 |
 |---|---|---|---|---|
 | C-001〜C-004 | MERGED（Mock） | 未確認 | — | 真實驗收由 J-003 |
-| **C-005** | IN REVIEW（#34 `599e0a2`：J-003 已同步 staging，diff 只剩 apps/web） | 否 | — | C-005-r2：`disabilityCertificate`／`incomeCategory`；移植 e3a065a 的 6 項補強（見 #34 留言） |
-| C-006 知識審核與發布頁（D-16） | 未見提交 | — | B-012 | — |
+| C-005 | MERGED（#34，9f1540f） | 真實 API 待驗 | — | 31 項前端測試與 build 通過；不等於真實 E2E |
+| C-006 知識審核與發布頁（D-16） | 未見提交 | — | Mock 契約 #43；真實接線 B-012 | 依 v0.4 契約開發 |
+
+**C 的驗收分層**：Mock 模組驗收不代替 J-003 真實 API E2E。
+
 
 ## Jerry
 

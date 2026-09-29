@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "data": {
+    "change": {
+      "id": "KC-MOCK-001",
+      "sourceId": "SRC-TPE-DOSW-LTC-TRANSPORT",
+      "detectedAt": "2026-09-25T00:11:02+08:00",
+      "previousHash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "currentHash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "diffSummary": "「收費方式」段落文字變更（測試資料）",
+      "status": "DISMISSED"
+    },
+    "review": {
+      "decision": "DISMISSED",
+      "reason": "只有頁尾更新日期與排版變動，條文與金額未變（測試資料）。",
+      "reviewedBy": "OP-MOCK-001",
+      "reviewedAt": "2026-09-25T09:20:00+08:00"
+    }
+  }
+}

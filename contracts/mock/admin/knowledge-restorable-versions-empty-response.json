@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "data": {
+    "currentVersion": {
+      "versionId": "KB-MOCK-001",
+      "publishedAt": "2026-09-24T12:00:00+08:00",
+      "recordCount": 15
+    },
+    "versions": []
+  }
+}
