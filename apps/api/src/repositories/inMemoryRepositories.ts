@@ -200,12 +200,19 @@ export class InMemoryProviderRepository implements ProviderRepository {
 export class InMemoryRecommendationRepository implements RecommendationRepository {
   readonly runs: RecommendationRun[] = [];
   readonly items: RecommendationItem[] = [];
+  // 模擬單一交易：insertRun 只暫存，insertItems 才是真正的（唯一）commit 點；
+  // insertItems 若拋出例外（含測試以 monkey-patch 整個方法模擬失敗），暫存的 run 不會進 this.runs。
+  private pendingRun: RecommendationRun | null = null;
 
   async insertRun(run: RecommendationRun): Promise<void> {
-    this.runs.push({ ...run });
+    this.pendingRun = { ...run };
   }
 
   async insertItems(items: RecommendationItem[]): Promise<void> {
+    if (!this.pendingRun) throw new AppError("INTERNAL_ERROR", "insertItems 呼叫前必須先呼叫 insertRun。");
+    const run = this.pendingRun;
+    this.pendingRun = null;
+    this.runs.push(run);
     this.items.push(...items.map((i) => ({ ...i })));
   }
 }

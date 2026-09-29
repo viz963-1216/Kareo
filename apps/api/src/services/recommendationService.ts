@@ -253,12 +253,18 @@ function selectTop3(rankingType: RankingType, candidates: Provider[], seed: Rota
   if (rankingType === "NO_LOCATION") return [];
 
   if (rankingType === "DISTANCE") {
-    const withDistance = candidates.map((provider) => ({
-      provider,
-      distanceKm: roundTo1Decimal(haversineKm(seed.lat as number, seed.lng as number, provider.lat as number, provider.lng as number)),
-    }));
-    withDistance.sort((a, b) => (a.distanceKm !== b.distanceKm ? a.distanceKm - b.distanceKm : a.provider.id.localeCompare(b.provider.id)));
-    return withDistance.slice(0, 3);
+    // 排序／Top 3 一律用未四捨五入的原始距離（Jerry 委託修正第二輪缺陷 1）：先四捨五入到小數 1 位
+    // 再排序，會讓相近但不同距離的候選（例如 1.21／1.22／1.23／1.24 公里）全部變成同一個顯示值，
+    // 改用 providerId 決定名次，可能讓真正較遠的候選擠進 Top 3。四捨五入只用於 Response 顯示
+    // （API_CONTRACT §9），真正等距（原始距離完全相同）才會落到 providerId 的穩定 tie-break。
+    const withDistance = candidates.map((provider) => {
+      const rawDistanceKm = haversineKm(seed.lat as number, seed.lng as number, provider.lat as number, provider.lng as number);
+      return { provider, rawDistanceKm, distanceKm: roundTo1Decimal(rawDistanceKm) };
+    });
+    withDistance.sort((a, b) =>
+      a.rawDistanceKm !== b.rawDistanceKm ? a.rawDistanceKm - b.rawDistanceKm : a.provider.id.localeCompare(b.provider.id)
+    );
+    return withDistance.slice(0, 3).map(({ provider, distanceKm }) => ({ provider, distanceKm }));
   }
 
   const date = taipeiDateString();

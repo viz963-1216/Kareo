@@ -113,9 +113,12 @@ export interface ProviderRepository {
   findEligibleForRecommendation(query: RecommendationCandidateQuery): Promise<Provider[]>;
 }
 
-// TASK-B-005：RecommendationRun／RecommendationItem 依序寫入（比照 assessmentService 對
-// Assessment／CareNeedProfile 的模式，非 ARCHITECTURE §22 核准清單內的原子寫入用途，
-// 不引入新的 Postgres RPC；任一步失敗即拋出 INTERNAL_ERROR，不回傳成功格式）。
+// TASK-B-005（Jerry 委託修正第二輪，2026-09-26，擴大 ARCHITECTURE §22 原子寫入核准範圍，
+// 比照 Provider 匯入／知識發布撤回的既有模式）：insertRun 只是先在呼叫端暫存 Run 資料，
+// 真正寫入（Run + Items 在單一交易內）發生在 insertItems 呼叫時；insertItems 失敗時，
+// Run 完全不會寫入資料庫，不會留下沒有 Items、卻可能被後續 Lead 引用的孤立 Run
+// （不用容易失敗的補償刪除冒充原子性——這裡沒有補償刪除，是真正的單一交易）。
+// 呼叫順序仍是 insertRun 後接 insertItems，介面不變，呼叫端（recommendationService）不需要修改。
 export interface RecommendationRepository {
   insertRun(run: RecommendationRun): Promise<void>;
   insertItems(items: RecommendationItem[]): Promise<void>;
