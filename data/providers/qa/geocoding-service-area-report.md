@@ -1,6 +1,6 @@
 # A-003 Provider Geocoding + Service Area QA Report
 
-> **Status (A-003-r7, 2026-09-29):** Sections 1, 3 (Taipei) and 4 are the r1 QA and still apply.
+> **Status (A-003-r8, 2026-09-29):** Sections 1, 3 (Taipei) and 4 are the r1 QA and still apply.
 > The r1 geocoding result ("0 verified coordinates, all lat/lng null") and the r1 New Taipei
 > Service Area result ("PENDING", "NTPC-HC-003 has no district-level source") are **superseded**
 > and kept below only as history, marked *(r1, superseded)*. Current figures are generated from
@@ -14,13 +14,13 @@
 
 <!-- A003:BEGIN summary -->
 - Provider 總數：30
-- ProviderServiceArea 筆數：86
-- lat/lng 非 null：28
-- 有完整驗證證據的座標：28（名稱／地址核對＋官方門牌點＋可重現轉換，見 `qa/a-003-evidence.json`）
+- ProviderServiceArea 筆數：516
+- lat/lng 非 null：29
+- 有完整驗證證據的座標：29（名稱／地址核對＋官方門牌點＋可重現轉換，見 `qa/a-003-evidence.json`）
 - 非 null 但缺證據：0
-- 尚待驗證座標：2
-- 缺 ProviderServiceArea 的 ACTIVE Provider：14
-- 服務類型 × 行政區組合：26；DISTANCE READY：24（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區）
+- 尚待驗證座標：1
+- 缺 ProviderServiceArea 的 ACTIVE Provider：0
+- 服務類型 × 行政區組合：77；DISTANCE READY：36（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區、HOME_MEDICAL_NURSING × 臺北市士林區、HOME_MEDICAL_NURSING × 臺北市大同區、HOME_MEDICAL_NURSING × 臺北市大安區、HOME_MEDICAL_NURSING × 臺北市中山區、HOME_MEDICAL_NURSING × 臺北市中正區、HOME_MEDICAL_NURSING × 臺北市內湖區、HOME_MEDICAL_NURSING × 臺北市文山區、HOME_MEDICAL_NURSING × 臺北市北投區、HOME_MEDICAL_NURSING × 臺北市松山區、HOME_MEDICAL_NURSING × 臺北市信義區、HOME_MEDICAL_NURSING × 臺北市南港區、HOME_MEDICAL_NURSING × 臺北市萬華區）
 <!-- A003:END summary -->
 
 ## Overview
@@ -81,18 +81,22 @@ Provider physical addresses were not used to infer Service Areas.
 - r6 added `NTPC-HC-003` 新莊區、三重區、林口區 from the same list (序號 291).
 - *(r1, superseded)* r1 marked these records PENDING and said NTPC-HC-003 had only city-level coverage. The city-level value came from the 名冊 (SRC-006); the contract list gives district-level areas.
 
-### HOME_MEDICAL_NURSING (r7)
+### HOME_MEDICAL_NURSING (r8)
 
 - `TP-HMN-002` 臺北市立聯合醫院附設陽明居家護理所: 士林區、北投區, from SRC-007 (臺北市衛生局「長照專業服務-特約服務單位一覽表」序號 49; name and address match).
-- `TP-HMN-001` and `TP-HMN-003`: SRC-007 lists the parent hospitals (馬偕紀念醫院, 臺大北護分院), at different addresses and under different names. Those areas were **not** applied to the affiliated home-nursing agencies. Still pending.
+- `TP-HMN-001` and `TP-HMN-003`: SRC-007 lists the parent hospitals (馬偕紀念醫院「全區」, 臺大北護分院「萬華區、大同區、中正區」). By owner decision DEC-A003-02 (2026-09-29), those areas are applied to the affiliated home-nursing agencies.
 
-### ASSISTIVE_DEVICE
+### ASSISTIVE_DEVICE (r8)
 
-No Provider Service Area records were created. None of the official sources (SRC-004, SRC-005) has vendor-level service districts: residents may buy or rent from any contracted vendor. A city-wide rule would be a data-model decision for Jerry.
+None of the official sources (SRC-004, SRC-005) has vendor-level service districts: residents may buy or rent from any contracted vendor. By owner decision DEC-A003-01 (2026-09-29), each vendor's service areas are every district of each city it is contracted with:
 
-Provider physical addresses were not used to infer service coverage.
+- 臺北市 contracts come from SRC-004 (12 districts).
+- 新北市 contracts come from SRC-005 (29 districts).
+- Vendors contracted with both cities get both.
 
-Both gaps are listed per Provider in `qa/pending-verification.md`.
+Addresses were not used to infer service areas.
+
+Every decision is recorded in `qa/a-003-evidence.json` (`decisions`).
 
 ## 4. Google Maps URL QA
 

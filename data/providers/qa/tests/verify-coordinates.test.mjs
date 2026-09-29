@@ -78,7 +78,7 @@ test("a wrong READY status in the coverage table fails", () => {
   const { status, output } = runGate(({ readText, writeText }) => {
     const text = readText(REPORT);
     const changed = text.replace(
-      /(\| HOME_MEDICAL_NURSING \| 臺北市 \| 士林區 \|[^\n]*?)BLOCKED（同類型有 Provider 服務範圍未知）/,
+      /(\| ASSISTIVE_DEVICE \| 臺北市 \| 士林區 \|[^\n]*?)BLOCKED（缺座標）/,
       "$1READY",
     );
     assert.notEqual(changed, text);
@@ -101,13 +101,13 @@ test("removing the evidence for a non-null coordinate fails", () => {
 test("adding a coordinate without evidence fails", () => {
   const { status, output } = runGate(({ readJson, writeJson }) => {
     const providers = readJson(PROVIDERS);
-    const provider = providers.find((item) => item.id === "TP-AD-002");
-    provider.lat = 25.07;
-    provider.lng = 121.59;
+    const provider = providers.find((item) => item.id === "NTPC-AD-004");
+    provider.lat = 24.98;
+    provider.lng = 121.54;
     writeJson(PROVIDERS, providers);
   });
   assert.equal(status, 1);
-  assert.match(output, /TP-AD-002: non-null coordinate has no verified evidence/);
+  assert.match(output, /NTPC-AD-004: non-null coordinate has no verified evidence/);
 });
 
 test("evidence attached to the wrong Provider ID fails", () => {
@@ -193,12 +193,12 @@ test("--write regenerates reports but refuses when evidence checks fail", () => 
 
   const refused = runGate(({ readJson, writeJson }) => {
     const providers = readJson(PROVIDERS);
-    providers.find((item) => item.id === "TP-AD-002").lat = 25.07;
-    providers.find((item) => item.id === "TP-AD-002").lng = 121.59;
+    providers.find((item) => item.id === "NTPC-AD-004").lat = 24.98;
+    providers.find((item) => item.id === "NTPC-AD-004").lng = 121.54;
     writeJson(PROVIDERS, providers);
   }, ["--write"]);
   assert.equal(refused.status, 1);
-  assert.match(refused.output, /TP-AD-002: non-null coordinate has no verified evidence/);
+  assert.match(refused.output, /NTPC-AD-004: non-null coordinate has no verified evidence/);
 });
 
 test("a non-null coordinate without evidence never makes a group READY", () => {
@@ -223,7 +223,8 @@ test("a Provider with unknown service areas blocks READY for its service type", 
   const sanchong = groups.find((g) => g.serviceType === "HOME_CARE" && g.district === "三重區");
   assert.equal(sanchong.candidates.length, 2);
   assert.equal(sanchong.status, "BLOCKED_UNKNOWN_SERVICE_AREA");
-  assert.equal(groups.filter((g) => g.status === "READY").length, 0);
+  const homeCare = groups.filter((g) => g.serviceType === "HOME_CARE");
+  assert.equal(homeCare.filter((g) => g.status === "READY").length, 0);
   assert.deepEqual(byType.find((t) => t.serviceType === "HOME_CARE").unknownArea, ["NTPC-HC-003"]);
 });
 
@@ -240,12 +241,32 @@ test("evidence that fails a check does not count as verified", () => {
 
 test("partially known service areas keep the whole service type out of READY", () => {
   const dataset = loadRealDataset();
+  // Without TP-HMN-001's areas, it could be a hidden candidate in any district.
+  dataset.areas = dataset.areas.filter((area) => area.providerId !== "TP-HMN-001");
   const { verifiedIds } = checkEvidence(dataset);
-  const { groups, byType } = computeCoverage(dataset, verifiedIds);
-  // TP-HMN-002 is verified and has official areas, but TP-HMN-001/003 areas are unknown.
+  const { groups } = computeCoverage(dataset, verifiedIds);
   const nursing = groups.filter((g) => g.serviceType === "HOME_MEDICAL_NURSING");
   assert.ok(nursing.length > 0);
   assert.ok(nursing.every((g) => g.status === "BLOCKED_UNKNOWN_SERVICE_AREA"));
-  assert.equal(groups.filter((g) => g.serviceType === "ASSISTIVE_DEVICE").length, 0);
-  assert.equal(byType.find((t) => t.serviceType === "ASSISTIVE_DEVICE").ready, 0);
+});
+
+test("one candidate without a coordinate blocks every group it serves", () => {
+  const dataset = loadRealDataset();
+  const { verifiedIds } = checkEvidence(dataset);
+  const { groups } = computeCoverage(dataset, verifiedIds);
+  // NTPC-AD-004 has no coordinate and serves every district of both cities.
+  const devices = groups.filter((g) => g.serviceType === "ASSISTIVE_DEVICE");
+  assert.equal(devices.length, 41);
+  assert.ok(devices.every((g) => g.status === "BLOCKED_MISSING_COORDINATE"));
+  assert.ok(devices.every((g) => g.missing.includes("NTPC-AD-004")));
+});
+
+test("service-area evidence must reference a recorded decision", () => {
+  const { status, output } = runGate(({ readJson, writeJson }) => {
+    const evidence = readJson(EVIDENCE);
+    evidence.decisions = evidence.decisions.filter((item) => item.decisionId !== "DEC-A003-01");
+    writeJson(EVIDENCE, evidence);
+  });
+  assert.equal(status, 1);
+  assert.match(output, /TP-AD-001: decision DEC-A003-01 is not recorded/);
 });

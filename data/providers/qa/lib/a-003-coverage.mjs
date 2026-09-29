@@ -23,6 +23,7 @@ const AREA_CODES = {
   "63000040": "中山區",
   "63000070": "萬華區",
   "63000080": "文山區",
+  "63000100": "內湖區",
   "63000110": "士林區",
   "65000010": "板橋區",
   "65000020": "三重區",
@@ -115,6 +116,13 @@ export function checkEvidence({ providers, services, areas, evidence }) {
   const errors = [];
   const providersById = new Map(providers.map((provider) => [provider.id, provider]));
   const sourceIds = new Set(evidence.sources.map((source) => source.sourceId));
+  // Owner decisions that some evidence relies on; every reference must resolve.
+  const decisionIds = new Set((evidence.decisions ?? []).map((item) => item.decisionId));
+  for (const item of [...evidence.coordinates, ...evidence.serviceAreas, ...evidence.pending]) {
+    if (item.decisionId !== undefined && !decisionIds.has(item.decisionId)) {
+      errors.push(`${item.providerId}: decision ${item.decisionId} is not recorded in evidence.decisions.`);
+    }
+  }
   const coordinateEvidence = new Map();
 
   // A Provider counts as verified only when its evidence passes every check below.
@@ -402,7 +410,9 @@ export function renderSections(dataset, verifiedIds, coverage, pendingById) {
       const checked = (item.sourcesChecked ?? []).length
         ? item.sourcesChecked.map((c) => `${c.sourceId}（${c.checkedAt}）：${c.result}`).join("<br>")
         : "無查閱紀錄（未找到可查的來源）";
-      const missing = item.missing.map((m) => MISSING_LABELS[m] ?? m).join("、");
+      const missing =
+        item.missing.map((m) => MISSING_LABELS[m] ?? m).join("、") +
+        (item.decisionId ? `（${item.decisionId}）` : "");
       return `| ${item.providerId} | ${cell(providersById.get(item.providerId)?.name ?? "?")} | ${missing} | ${cell(checked)} | ${cell(item.reason)} | ${cell(item.nextStep)} |`;
     }),
   ].join("\n");

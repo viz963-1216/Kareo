@@ -1,6 +1,6 @@
-# A-003-r7 Provider Coordinate Verification Report
+# A-003-r8 Provider Coordinate Verification Report
 
-Submission Version: A-003-r7（取代 r6 報告）
+Submission Version: A-003-r8（取代 r7 報告）
 
 Report date: 2026-09-29
 Dataset: `data/providers/staging/providers.json`、`provider-services.json`、`provider-service-areas.json`
@@ -11,7 +11,10 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 
 ## 階段結論
 
-- **A-003 仍未全數完成。** 座標已補到 28／30；剩下 2 筆是官方正式地址在官方門牌資料中不存在，另有 14 家居家護理／輔具 Provider 缺服務範圍，需要 Jerry 決定資料來源或規則。詳見 `qa/pending-verification.md`。
+- **資料面已補齊到可交付狀態：** 座標 29／30，30 家 Provider 都有服務範圍。
+- **唯一缺口：** NTPC-AD-004 的座標，依 DEC-A003-04 決定忽略，維持 null。
+- **影響：** NTPC-AD-004 同時與臺北、新北簽約，是全部 41 個輔具組合的候選，所以依 D-13c，**所有輔具組合都不能用 DISTANCE**，會改用 `DISTRICT_ROTATION`。
+- **決定紀錄：** r8 有 5 項依專案負責人決定處理的資料，記錄在 `a-003-evidence.json` 的 `decisions`（DEC-A003-01～05），並列於下方。
 - 「lat/lng 非 null」不等於「已驗證」：只有 `a-003-evidence.json` 內通過全部檢查的證據，才計入已驗證；檢查程式也會拒絕任何缺證據的非 null 座標。
 
 ## 版次更正紀錄
@@ -27,18 +30,24 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 | r7 | TP-HMN-002 服務範圍 | 新增士林區、北投區 | SRC-007 序號 49 |
 | r7 | TP-AD-003 地址 | 補上官方名單的「號」（`1之5` → `1之5號`），並同步更新 Google Maps URL | SRC-004 序號 374 |
 | r7 | 檢查程式 | 證據未通過檢查時，不再計入已驗證 | `qa/lib/a-003-coverage.mjs` |
+| r8 | 輔具服務範圍 | 12 家依簽約縣市建立全區服務範圍（臺北 12 區／新北 29 區；兩市都簽約者兩市都納入），共 415 筆 | DEC-A003-01；SRC-004、SRC-005 簽約名單 |
+| r8 | TP-HMN-001、003 服務範圍 | 套用醫院本體在 SRC-007 的服務區域：馬偕「全區」→ 臺北 12 區；北護「萬華、大同、中正」 | DEC-A003-02；SRC-007 序號 64、37 |
+| r8 | TP-AD-002 地址與座標 | 地址依 Google Maps 更正為「民權東路6段180巷6號B1樓」（官方名單誤植為 18巷；電話相同）；座標取官方門牌點 180巷6號（含地下一層） | DEC-A003-03；SRC-COORD-TPE-001／002 |
+| r8 | NTPC-AD-004 座標 | 忽略，維持 null | DEC-A003-04 |
+| r8 | NTPC-HC-003 電話 | 依 Google Maps 更新為 02-2990-2007（與 SRC-002 1150924 名單相同） | DEC-A003-05 |
+| r8 | 檢查程式 | 證據引用的 decisionId 必須存在於 `decisions` | `qa/lib/a-003-coverage.mjs` |
 
 ## 摘要
 
 <!-- A003:BEGIN summary -->
 - Provider 總數：30
-- ProviderServiceArea 筆數：86
-- lat/lng 非 null：28
-- 有完整驗證證據的座標：28（名稱／地址核對＋官方門牌點＋可重現轉換，見 `qa/a-003-evidence.json`）
+- ProviderServiceArea 筆數：516
+- lat/lng 非 null：29
+- 有完整驗證證據的座標：29（名稱／地址核對＋官方門牌點＋可重現轉換，見 `qa/a-003-evidence.json`）
 - 非 null 但缺證據：0
-- 尚待驗證座標：2
-- 缺 ProviderServiceArea 的 ACTIVE Provider：14
-- 服務類型 × 行政區組合：26；DISTANCE READY：24（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區）
+- 尚待驗證座標：1
+- 缺 ProviderServiceArea 的 ACTIVE Provider：0
+- 服務類型 × 行政區組合：77；DISTANCE READY：36（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區、HOME_MEDICAL_NURSING × 臺北市士林區、HOME_MEDICAL_NURSING × 臺北市大同區、HOME_MEDICAL_NURSING × 臺北市大安區、HOME_MEDICAL_NURSING × 臺北市中山區、HOME_MEDICAL_NURSING × 臺北市中正區、HOME_MEDICAL_NURSING × 臺北市內湖區、HOME_MEDICAL_NURSING × 臺北市文山區、HOME_MEDICAL_NURSING × 臺北市北投區、HOME_MEDICAL_NURSING × 臺北市松山區、HOME_MEDICAL_NURSING × 臺北市信義區、HOME_MEDICAL_NURSING × 臺北市南港區、HOME_MEDICAL_NURSING × 臺北市萬華區）
 <!-- A003:END summary -->
 
 ## 座標驗證方法（可重現）
@@ -63,7 +72,7 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
    - 新北：CSV 欄位名稱 `x_3826`／`y_3826` 已載明。
    - 臺北：民政局門牌圖層 SRC-COORD-TPE-002 的 `spatialReference` 為 `{wkid: 102443, latestWkid: 3826}`。15 筆門牌在該圖層的 TM2X／TM2Y 與 CSV 數值逐位相同，系統前端也以 `TW:972121`（TWD97 TM2 121）處理這兩個欄位。
 4. **座標轉換**：以 PROJ 9.8.1（pyproj 3.8.0）將 EPSG:3826 轉為 EPSG:4326（WGS84），四捨五入到小數 8 位。`verify-coordinates.mjs` 以 GRS80 逆橫麥卡托公式獨立重算，誤差須小於 1e-7°（約 1 公分）。
-5. **不使用**：Google Maps 搜尋結果或地圖中心、行政區中心、鄰近門牌、非官方公司資料網站、推估座標。找不到完全相符門牌的 Provider 保持 `null`。
+5. **不使用**：Google Maps 座標或地圖中心、行政區中心、鄰近門牌、非官方公司資料網站、推估座標。找不到完全相符門牌的 Provider 保持 `null`。Google Maps 只在 DEC-A003-03／05 用來確認 TP-AD-002 的門牌與 NTPC-HC-003 的電話，座標仍一律取官方門牌點。
 
 ## 服務類型統計
 
@@ -71,8 +80,8 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 | Service Type | ACTIVE Provider | 有已驗證座標 | 座標覆蓋率 | 有服務範圍 | 行政區組合 | READY 組合 | 待補 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | HOME_CARE | 15 | 15 | 100% | 15 | 24 | 24 | — |
-| HOME_MEDICAL_NURSING | 3 | 3 | 100% | 1 | 2 | 0 | 服務範圍未知：TP-HMN-001、TP-HMN-003；不得由地址推測，也因此沒有可推薦組合 |
-| ASSISTIVE_DEVICE | 12 | 10 | 83% | 0 | 0 | 0 | 服務範圍未知：TP-AD-001、TP-AD-002、TP-AD-003、NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009；不得由地址推測，也因此沒有可推薦組合 |
+| HOME_MEDICAL_NURSING | 3 | 3 | 100% | 3 | 12 | 12 | — |
+| ASSISTIVE_DEVICE | 12 | 11 | 92% | 12 | 41 | 0 | — |
 <!-- A003:END by-service-type -->
 
 ## 服務類型 × 行政區覆蓋率
@@ -108,16 +117,67 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 | HOME_CARE | 臺北市 | 信義區 | 3 | 3 | 100% | READY | — |
 | HOME_CARE | 臺北市 | 南港區 | 3 | 3 | 100% | READY | — |
 | HOME_CARE | 臺北市 | 萬華區 | 10 | 10 | 100% | READY | — |
-| HOME_MEDICAL_NURSING | 臺北市 | 士林區 | 1 | 1 | 100% | BLOCKED（同類型有 Provider 服務範圍未知） | — |
-| HOME_MEDICAL_NURSING | 臺北市 | 北投區 | 1 | 1 | 100% | BLOCKED（同類型有 Provider 服務範圍未知） | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 士林區 | 2 | 2 | 100% | READY | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 大同區 | 2 | 2 | 100% | READY | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 大安區 | 1 | 1 | 100% | READY | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 中山區 | 1 | 1 | 100% | READY | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 中正區 | 2 | 2 | 100% | READY | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 內湖區 | 1 | 1 | 100% | READY | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 文山區 | 1 | 1 | 100% | READY | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 北投區 | 2 | 2 | 100% | READY | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 松山區 | 1 | 1 | 100% | READY | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 信義區 | 1 | 1 | 100% | READY | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 南港區 | 1 | 1 | 100% | READY | — |
+| HOME_MEDICAL_NURSING | 臺北市 | 萬華區 | 2 | 2 | 100% | READY | — |
+| ASSISTIVE_DEVICE | 新北市 | 八里區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 三芝區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 三重區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 三峽區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 土城區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 中和區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 五股區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 平溪區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 永和區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 石門區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 石碇區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 汐止區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 坪林區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 板橋區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 林口區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 金山區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 泰山區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 烏來區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 貢寮區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 淡水區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 深坑區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 新店區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 新莊區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 瑞芳區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 萬里區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 樹林區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 雙溪區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 蘆洲區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 新北市 | 鶯歌區 | 11 | 10 | 91% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 士林區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 大同區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 大安區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 中山區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 中正區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 內湖區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 文山區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 北投區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 松山區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 信義區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 南港區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 |
+| ASSISTIVE_DEVICE | 臺北市 | 萬華區 | 8 | 7 | 88% | BLOCKED（缺座標） | NTPC-AD-004 |
 <!-- A003:END coverage -->
 
 注意事項：
 
 - READY 只代表**目前 Kareo 資料集（30 筆）**內的候選都有已驗證座標，不代表官方名單上所有服務單位。
 - 候選數 1 的組合只能驗收單一候選的 `DISTANCE` 與 `distanceKm`；多家距離排序請用候選數 2 以上的組合。
-- `HOME_MEDICAL_NURSING` 目前只有 TP-HMN-002 有官方服務範圍，TP-HMN-001、003 仍未知，所以該類型全部 BLOCKED。
-- `ASSISTIVE_DEVICE` 沒有任何 ProviderServiceArea，因此沒有候選組合。
+- HOME_MEDICAL_NURSING 的服務範圍中，TP-HMN-001、003 依 DEC-A003-02 套用醫院本體的服務區域。
+- ASSISTIVE_DEVICE 的服務範圍依 DEC-A003-01 以簽約縣市全區建立。NTPC-AD-004 缺座標，所以全部輔具組合 BLOCKED。
 
 ## 逐筆對照
 
@@ -139,49 +199,43 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 | NTPC-HC-003 | 台灣全齡長照股份有限公司附設新北市私立禾薪居家長照機構 | HOME_CARE | 25.03758368 | 121.45887535 | VERIFIED | SRC-002 名稱／地址；SRC-COORD-NTPC-001 `新莊路１６之２號`（EPSG:3826 → WGS84） | 2026-09-29 | 3 | — |
 | NTPC-HC-004 | 新北市私立旺福居家長照機構 | HOME_CARE | 25.07852424 | 121.49241746 | VERIFIED | SRC-002＋SRC-006 名稱／地址；SRC-COORD-NTPC-001 `福隆路４８號`（EPSG:3826 → WGS84） | 2026-09-29 | 5 | — |
 | NTPC-HC-005 | 新北市私立全曜居家式服務類長期照顧服務機構 | HOME_CARE | 25.06674961 | 121.50306191 | VERIFIED | SRC-002 名稱／地址；SRC-COORD-NTPC-001 `長元街１００之２號`（EPSG:3826 → WGS84） | 2026-09-29 | 11 | — |
-| TP-HMN-001 | 台灣基督長老教會馬偕醫療財團法人附設馬偕居家護理所 | HOME_MEDICAL_NURSING | 25.05988525 | 121.5222678 | VERIFIED | SRC-003 名稱／地址；SRC-COORD-TPE-001 `中山北路二段９６巷９號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
+| TP-HMN-001 | 台灣基督長老教會馬偕醫療財團法人附設馬偕居家護理所 | HOME_MEDICAL_NURSING | 25.05988525 | 121.5222678 | VERIFIED | SRC-003 名稱／地址；SRC-COORD-TPE-001 `中山北路二段９６巷９號`（EPSG:3826 → WGS84） | 2026-09-29 | 12 | — |
 | TP-HMN-002 | 臺北市立聯合醫院附設陽明居家護理所 | HOME_MEDICAL_NURSING | 25.10519407 | 121.53156558 | VERIFIED | SRC-003 名稱／地址；SRC-COORD-TPE-001 `雨聲街１０５號`（EPSG:3826 → WGS84） | 2026-09-29 | 2 | — |
-| TP-HMN-003 | 國立臺灣大學醫學院附設醫院北護分院附設居家護理所 | HOME_MEDICAL_NURSING | 25.04222858 | 121.50255105 | VERIFIED | SRC-003 名稱／地址；SRC-COORD-TPE-001 `康定路３７號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
-| TP-AD-001 | 晨玉有限公司 | ASSISTIVE_DEVICE | 25.0518338 | 121.53419877 | VERIFIED | SRC-004 名稱／地址；SRC-COORD-TPE-001 `南京東路二段１５０號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
-| TP-AD-002 | 諾貝兒寶貝股份有限公司內湖分公司 | ASSISTIVE_DEVICE | null | null | PENDING | — | — | 0 | 座標、服務範圍 |
-| TP-AD-003 | 可能設計有限公司 | ASSISTIVE_DEVICE | 25.00427674 | 121.54125347 | VERIFIED | SRC-004 名稱／地址；SRC-COORD-TPE-001 `興隆路一段５５巷２７弄１之５號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
-| NTPC-AD-001 | 弘采介護有限公司 | ASSISTIVE_DEVICE | 24.98385487 | 121.53356671 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `中正路５０１之６號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
-| NTPC-AD-002 | 大瀚醫療儀器有限公司 | ASSISTIVE_DEVICE | 25.0030857 | 121.46068223 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `校前街２８號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
-| NTPC-AD-003 | 宏宇醫療器材行 | ASSISTIVE_DEVICE | 24.99666299 | 121.45189673 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `南雅南路二段１３４號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
-| NTPC-AD-004 | 吉評醫療器材股份有限公司 | ASSISTIVE_DEVICE | null | null | PENDING | — | — | 0 | 座標、服務範圍 |
-| NTPC-AD-005 | 學府松藥局 | ASSISTIVE_DEVICE | 24.98854427 | 121.45802719 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `學府路一段３８號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
-| NTPC-AD-006 | 兆謙益企業有限公司 | ASSISTIVE_DEVICE | 25.07237267 | 121.35861123 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `源泉街１２號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
-| NTPC-AD-007 | 瑞康醫療器材有限公司 | ASSISTIVE_DEVICE | 24.99206804 | 121.49471705 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `圓通路２９５之１號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
-| NTPC-AD-008 | 鴻銘醫療儀器行 | ASSISTIVE_DEVICE | 25.13823097 | 121.46201283 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `民生路４７之２號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
-| NTPC-AD-009 | 美德耐股份有限公司雙和門市部 | ASSISTIVE_DEVICE | 24.9937458 | 121.49408179 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `中正路２９１號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
+| TP-HMN-003 | 國立臺灣大學醫學院附設醫院北護分院附設居家護理所 | HOME_MEDICAL_NURSING | 25.04222858 | 121.50255105 | VERIFIED | SRC-003 名稱／地址；SRC-COORD-TPE-001 `康定路３７號`（EPSG:3826 → WGS84） | 2026-09-29 | 3 | — |
+| TP-AD-001 | 晨玉有限公司 | ASSISTIVE_DEVICE | 25.0518338 | 121.53419877 | VERIFIED | SRC-004 名稱／地址；SRC-COORD-TPE-001 `南京東路二段１５０號`（EPSG:3826 → WGS84） | 2026-09-29 | 41 | — |
+| TP-AD-002 | 諾貝兒寶貝股份有限公司內湖分公司 | ASSISTIVE_DEVICE | 25.0681963 | 121.59264905 | VERIFIED | SRC-004＋SRC-GMAPS-001 名稱／地址；SRC-COORD-TPE-001 `民權東路六段１８０巷６號地下一層`（EPSG:3826 → WGS84） | 2026-09-29 | 12 | — |
+| TP-AD-003 | 可能設計有限公司 | ASSISTIVE_DEVICE | 25.00427674 | 121.54125347 | VERIFIED | SRC-004 名稱／地址；SRC-COORD-TPE-001 `興隆路一段５５巷２７弄１之５號`（EPSG:3826 → WGS84） | 2026-09-29 | 41 | — |
+| NTPC-AD-001 | 弘采介護有限公司 | ASSISTIVE_DEVICE | 24.98385487 | 121.53356671 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `中正路５０１之６號`（EPSG:3826 → WGS84） | 2026-09-29 | 41 | — |
+| NTPC-AD-002 | 大瀚醫療儀器有限公司 | ASSISTIVE_DEVICE | 25.0030857 | 121.46068223 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `校前街２８號`（EPSG:3826 → WGS84） | 2026-09-29 | 29 | — |
+| NTPC-AD-003 | 宏宇醫療器材行 | ASSISTIVE_DEVICE | 24.99666299 | 121.45189673 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `南雅南路二段１３４號`（EPSG:3826 → WGS84） | 2026-09-29 | 29 | — |
+| NTPC-AD-004 | 吉評醫療器材股份有限公司 | ASSISTIVE_DEVICE | null | null | PENDING | — | — | 41 | 座標 |
+| NTPC-AD-005 | 學府松藥局 | ASSISTIVE_DEVICE | 24.98854427 | 121.45802719 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `學府路一段３８號`（EPSG:3826 → WGS84） | 2026-09-29 | 41 | — |
+| NTPC-AD-006 | 兆謙益企業有限公司 | ASSISTIVE_DEVICE | 25.07237267 | 121.35861123 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `源泉街１２號`（EPSG:3826 → WGS84） | 2026-09-29 | 29 | — |
+| NTPC-AD-007 | 瑞康醫療器材有限公司 | ASSISTIVE_DEVICE | 24.99206804 | 121.49471705 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `圓通路２９５之１號`（EPSG:3826 → WGS84） | 2026-09-29 | 29 | — |
+| NTPC-AD-008 | 鴻銘醫療儀器行 | ASSISTIVE_DEVICE | 25.13823097 | 121.46201283 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `民生路４７之２號`（EPSG:3826 → WGS84） | 2026-09-29 | 41 | — |
+| NTPC-AD-009 | 美德耐股份有限公司雙和門市部 | ASSISTIVE_DEVICE | 24.9937458 | 121.49408179 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `中正路２９１號`（EPSG:3826 → WGS84） | 2026-09-29 | 41 | — |
 <!-- A003:END providers -->
 
 ## 驗收狀態
 
-### 本次完成（A-003-r7）
+### 本次完成（A-003-r8）
 
-- 確認臺北市門牌資料的座標系統，新增 15 筆臺北座標；已驗證座標共 28／30。
-- 新增 TP-HMN-002 官方服務範圍（士林區、北投區）。
-- TP-AD-003 地址依官方名單補上「號」。
-- 檢查程式改為「證據通過全部檢查才算已驗證」，並新增測試。
+- 依 DEC-A003-01～05 補齊 14 家 Provider 的服務範圍（共 430 筆），並完成 TP-AD-002 地址／座標與 NTPC-HC-003 電話；已驗證座標 29／30。
+- 檢查程式新增 decisionId 檢查，並新增測試。
 
 ### 仍待查證
 
-- **2 筆座標：** TP-AD-002（官方名單地址「民權東路6段18巷」在官方門牌資料中不存在）、NTPC-AD-004（官方門牌資料沒有「安康路一段359號」）。
-- **14 家服務範圍：** TP-HMN-001、TP-HMN-003，以及 12 家輔具。居家護理所的官方特約資料列的是醫院本體；輔具則是「民眾向任一特約廠商購買」的制度，廠商沒有行政區服務範圍。
-- 逐筆原因與下一步見 `qa/pending-verification.md`。
+- NTPC-AD-004 座標：依 DEC-A003-04 忽略。
 
 ### 可進行的驗收
 
-- B-005／J-003 可在上方 24 個 READY 組合（臺北市與新北市的 HOME_CARE）驗收 `rankingType=DISTANCE` 與數值 `distanceKm`。
-- D-13c：精確位置但同類型有服務範圍未知的 Provider 時，應改用 `DISTRICT_ROTATION`，可用 HOME_MEDICAL_NURSING × 士林區／北投區驗收。
-- 行政區輪替、服務範圍篩選（A-005 AC-005、AC-006、AC-010）。
+- B-005／J-003：用上方 READY 組合驗收 `rankingType=DISTANCE` 與數值 `distanceKm`，涵蓋 HOME_CARE（臺北、新北）與 HOME_MEDICAL_NURSING（臺北）。
+- D-13c：精確位置但候選缺座標時應改 `DISTRICT_ROTATION`，可用任一 ASSISTIVE_DEVICE 組合驗收。
+- 行政區輪替、服務範圍篩選（A-005 AC-005、AC-006、AC-010），現在三種服務類型都有候選。
 
 ### 尚不可進行的驗收
 
-- HOME_MEDICAL_NURSING 的 DISTANCE 排序（TP-HMN-001、003 服務範圍未知）。
-- ASSISTIVE_DEVICE 的任何推薦驗收（沒有服務範圍，也就沒有候選）。
-- A-003 整體完成驗收。
+- ASSISTIVE_DEVICE 的 DISTANCE 排序（NTPC-AD-004 缺座標）。
 
 ## 可重現檢查
 

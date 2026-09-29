@@ -600,5 +600,3015 @@
         "city": "新北市",
         "district": "五股區",
         "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-001",
+        "providerId": "TP-AD-001",
+        "city": "臺北市",
+        "district": "松山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-002",
+        "providerId": "TP-AD-001",
+        "city": "臺北市",
+        "district": "信義區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-003",
+        "providerId": "TP-AD-001",
+        "city": "臺北市",
+        "district": "大安區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-004",
+        "providerId": "TP-AD-001",
+        "city": "臺北市",
+        "district": "中山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-005",
+        "providerId": "TP-AD-001",
+        "city": "臺北市",
+        "district": "中正區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-006",
+        "providerId": "TP-AD-001",
+        "city": "臺北市",
+        "district": "大同區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-007",
+        "providerId": "TP-AD-001",
+        "city": "臺北市",
+        "district": "萬華區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-008",
+        "providerId": "TP-AD-001",
+        "city": "臺北市",
+        "district": "文山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-009",
+        "providerId": "TP-AD-001",
+        "city": "臺北市",
+        "district": "南港區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-010",
+        "providerId": "TP-AD-001",
+        "city": "臺北市",
+        "district": "內湖區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-011",
+        "providerId": "TP-AD-001",
+        "city": "臺北市",
+        "district": "士林區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-012",
+        "providerId": "TP-AD-001",
+        "city": "臺北市",
+        "district": "北投區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-013",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "板橋區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-014",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "三重區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-015",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "中和區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-016",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "永和區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-017",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "新莊區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-018",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "新店區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-019",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "樹林區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-020",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "鶯歌區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-021",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "三峽區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-022",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "淡水區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-023",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "汐止區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-024",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "瑞芳區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-025",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "土城區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-026",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-027",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "五股區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-028",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "泰山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-029",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "林口區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-030",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "深坑區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-031",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "石碇區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-032",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "坪林區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-033",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "三芝區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-034",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "石門區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-035",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "八里區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-036",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "平溪區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-037",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "雙溪區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-038",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "貢寮區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-039",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "金山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-040",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "萬里區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-001-SA-041",
+        "providerId": "TP-AD-001",
+        "city": "新北市",
+        "district": "烏來區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-002-SA-001",
+        "providerId": "TP-AD-002",
+        "city": "臺北市",
+        "district": "松山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-002-SA-002",
+        "providerId": "TP-AD-002",
+        "city": "臺北市",
+        "district": "信義區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-002-SA-003",
+        "providerId": "TP-AD-002",
+        "city": "臺北市",
+        "district": "大安區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-002-SA-004",
+        "providerId": "TP-AD-002",
+        "city": "臺北市",
+        "district": "中山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-002-SA-005",
+        "providerId": "TP-AD-002",
+        "city": "臺北市",
+        "district": "中正區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-002-SA-006",
+        "providerId": "TP-AD-002",
+        "city": "臺北市",
+        "district": "大同區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-002-SA-007",
+        "providerId": "TP-AD-002",
+        "city": "臺北市",
+        "district": "萬華區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-002-SA-008",
+        "providerId": "TP-AD-002",
+        "city": "臺北市",
+        "district": "文山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-002-SA-009",
+        "providerId": "TP-AD-002",
+        "city": "臺北市",
+        "district": "南港區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-002-SA-010",
+        "providerId": "TP-AD-002",
+        "city": "臺北市",
+        "district": "內湖區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-002-SA-011",
+        "providerId": "TP-AD-002",
+        "city": "臺北市",
+        "district": "士林區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-002-SA-012",
+        "providerId": "TP-AD-002",
+        "city": "臺北市",
+        "district": "北投區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-001",
+        "providerId": "TP-AD-003",
+        "city": "臺北市",
+        "district": "松山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-002",
+        "providerId": "TP-AD-003",
+        "city": "臺北市",
+        "district": "信義區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-003",
+        "providerId": "TP-AD-003",
+        "city": "臺北市",
+        "district": "大安區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-004",
+        "providerId": "TP-AD-003",
+        "city": "臺北市",
+        "district": "中山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-005",
+        "providerId": "TP-AD-003",
+        "city": "臺北市",
+        "district": "中正區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-006",
+        "providerId": "TP-AD-003",
+        "city": "臺北市",
+        "district": "大同區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-007",
+        "providerId": "TP-AD-003",
+        "city": "臺北市",
+        "district": "萬華區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-008",
+        "providerId": "TP-AD-003",
+        "city": "臺北市",
+        "district": "文山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-009",
+        "providerId": "TP-AD-003",
+        "city": "臺北市",
+        "district": "南港區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-010",
+        "providerId": "TP-AD-003",
+        "city": "臺北市",
+        "district": "內湖區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-011",
+        "providerId": "TP-AD-003",
+        "city": "臺北市",
+        "district": "士林區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-012",
+        "providerId": "TP-AD-003",
+        "city": "臺北市",
+        "district": "北投區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-013",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "板橋區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-014",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "三重區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-015",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "中和區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-016",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "永和區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-017",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "新莊區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-018",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "新店區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-019",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "樹林區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-020",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "鶯歌區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-021",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "三峽區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-022",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "淡水區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-023",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "汐止區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-024",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "瑞芳區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-025",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "土城區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-026",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-027",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "五股區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-028",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "泰山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-029",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "林口區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-030",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "深坑區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-031",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "石碇區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-032",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "坪林區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-033",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "三芝區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-034",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "石門區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-035",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "八里區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-036",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "平溪區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-037",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "雙溪區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-038",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "貢寮區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-039",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "金山區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-040",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "萬里區",
+        "active": true
+      },
+      {
+        "id": "TP-AD-003-SA-041",
+        "providerId": "TP-AD-003",
+        "city": "新北市",
+        "district": "烏來區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-001",
+        "providerId": "NTPC-AD-001",
+        "city": "臺北市",
+        "district": "松山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-002",
+        "providerId": "NTPC-AD-001",
+        "city": "臺北市",
+        "district": "信義區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-003",
+        "providerId": "NTPC-AD-001",
+        "city": "臺北市",
+        "district": "大安區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-004",
+        "providerId": "NTPC-AD-001",
+        "city": "臺北市",
+        "district": "中山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-005",
+        "providerId": "NTPC-AD-001",
+        "city": "臺北市",
+        "district": "中正區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-006",
+        "providerId": "NTPC-AD-001",
+        "city": "臺北市",
+        "district": "大同區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-007",
+        "providerId": "NTPC-AD-001",
+        "city": "臺北市",
+        "district": "萬華區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-008",
+        "providerId": "NTPC-AD-001",
+        "city": "臺北市",
+        "district": "文山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-009",
+        "providerId": "NTPC-AD-001",
+        "city": "臺北市",
+        "district": "南港區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-010",
+        "providerId": "NTPC-AD-001",
+        "city": "臺北市",
+        "district": "內湖區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-011",
+        "providerId": "NTPC-AD-001",
+        "city": "臺北市",
+        "district": "士林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-012",
+        "providerId": "NTPC-AD-001",
+        "city": "臺北市",
+        "district": "北投區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-013",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "板橋區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-014",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "三重區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-015",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "中和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-016",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "永和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-017",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "新莊區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-018",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "新店區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-019",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "樹林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-020",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "鶯歌區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-021",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "三峽區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-022",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "淡水區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-023",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "汐止區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-024",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "瑞芳區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-025",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "土城區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-026",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-027",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "五股區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-028",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "泰山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-029",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "林口區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-030",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "深坑區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-031",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "石碇區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-032",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "坪林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-033",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "三芝區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-034",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "石門區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-035",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "八里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-036",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "平溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-037",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "雙溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-038",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "貢寮區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-039",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "金山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-040",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "萬里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-001-SA-041",
+        "providerId": "NTPC-AD-001",
+        "city": "新北市",
+        "district": "烏來區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-001",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "板橋區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-002",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "三重區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-003",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "中和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-004",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "永和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-005",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "新莊區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-006",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "新店區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-007",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "樹林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-008",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "鶯歌區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-009",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "三峽區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-010",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "淡水區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-011",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "汐止區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-012",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "瑞芳區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-013",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "土城區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-014",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-015",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "五股區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-016",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "泰山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-017",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "林口區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-018",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "深坑區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-019",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "石碇區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-020",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "坪林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-021",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "三芝區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-022",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "石門區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-023",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "八里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-024",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "平溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-025",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "雙溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-026",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "貢寮區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-027",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "金山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-028",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "萬里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-002-SA-029",
+        "providerId": "NTPC-AD-002",
+        "city": "新北市",
+        "district": "烏來區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-001",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "板橋區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-002",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "三重區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-003",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "中和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-004",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "永和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-005",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "新莊區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-006",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "新店區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-007",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "樹林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-008",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "鶯歌區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-009",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "三峽區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-010",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "淡水區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-011",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "汐止區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-012",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "瑞芳區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-013",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "土城區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-014",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-015",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "五股區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-016",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "泰山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-017",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "林口區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-018",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "深坑區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-019",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "石碇區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-020",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "坪林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-021",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "三芝區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-022",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "石門區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-023",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "八里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-024",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "平溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-025",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "雙溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-026",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "貢寮區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-027",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "金山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-028",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "萬里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-003-SA-029",
+        "providerId": "NTPC-AD-003",
+        "city": "新北市",
+        "district": "烏來區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-001",
+        "providerId": "NTPC-AD-004",
+        "city": "臺北市",
+        "district": "松山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-002",
+        "providerId": "NTPC-AD-004",
+        "city": "臺北市",
+        "district": "信義區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-003",
+        "providerId": "NTPC-AD-004",
+        "city": "臺北市",
+        "district": "大安區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-004",
+        "providerId": "NTPC-AD-004",
+        "city": "臺北市",
+        "district": "中山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-005",
+        "providerId": "NTPC-AD-004",
+        "city": "臺北市",
+        "district": "中正區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-006",
+        "providerId": "NTPC-AD-004",
+        "city": "臺北市",
+        "district": "大同區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-007",
+        "providerId": "NTPC-AD-004",
+        "city": "臺北市",
+        "district": "萬華區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-008",
+        "providerId": "NTPC-AD-004",
+        "city": "臺北市",
+        "district": "文山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-009",
+        "providerId": "NTPC-AD-004",
+        "city": "臺北市",
+        "district": "南港區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-010",
+        "providerId": "NTPC-AD-004",
+        "city": "臺北市",
+        "district": "內湖區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-011",
+        "providerId": "NTPC-AD-004",
+        "city": "臺北市",
+        "district": "士林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-012",
+        "providerId": "NTPC-AD-004",
+        "city": "臺北市",
+        "district": "北投區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-013",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "板橋區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-014",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "三重區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-015",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "中和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-016",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "永和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-017",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "新莊區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-018",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "新店區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-019",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "樹林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-020",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "鶯歌區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-021",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "三峽區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-022",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "淡水區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-023",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "汐止區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-024",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "瑞芳區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-025",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "土城區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-026",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-027",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "五股區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-028",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "泰山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-029",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "林口區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-030",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "深坑區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-031",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "石碇區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-032",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "坪林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-033",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "三芝區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-034",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "石門區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-035",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "八里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-036",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "平溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-037",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "雙溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-038",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "貢寮區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-039",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "金山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-040",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "萬里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-004-SA-041",
+        "providerId": "NTPC-AD-004",
+        "city": "新北市",
+        "district": "烏來區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-001",
+        "providerId": "NTPC-AD-005",
+        "city": "臺北市",
+        "district": "松山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-002",
+        "providerId": "NTPC-AD-005",
+        "city": "臺北市",
+        "district": "信義區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-003",
+        "providerId": "NTPC-AD-005",
+        "city": "臺北市",
+        "district": "大安區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-004",
+        "providerId": "NTPC-AD-005",
+        "city": "臺北市",
+        "district": "中山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-005",
+        "providerId": "NTPC-AD-005",
+        "city": "臺北市",
+        "district": "中正區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-006",
+        "providerId": "NTPC-AD-005",
+        "city": "臺北市",
+        "district": "大同區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-007",
+        "providerId": "NTPC-AD-005",
+        "city": "臺北市",
+        "district": "萬華區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-008",
+        "providerId": "NTPC-AD-005",
+        "city": "臺北市",
+        "district": "文山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-009",
+        "providerId": "NTPC-AD-005",
+        "city": "臺北市",
+        "district": "南港區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-010",
+        "providerId": "NTPC-AD-005",
+        "city": "臺北市",
+        "district": "內湖區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-011",
+        "providerId": "NTPC-AD-005",
+        "city": "臺北市",
+        "district": "士林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-012",
+        "providerId": "NTPC-AD-005",
+        "city": "臺北市",
+        "district": "北投區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-013",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "板橋區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-014",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "三重區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-015",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "中和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-016",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "永和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-017",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "新莊區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-018",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "新店區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-019",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "樹林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-020",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "鶯歌區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-021",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "三峽區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-022",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "淡水區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-023",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "汐止區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-024",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "瑞芳區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-025",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "土城區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-026",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-027",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "五股區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-028",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "泰山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-029",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "林口區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-030",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "深坑區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-031",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "石碇區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-032",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "坪林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-033",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "三芝區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-034",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "石門區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-035",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "八里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-036",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "平溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-037",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "雙溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-038",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "貢寮區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-039",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "金山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-040",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "萬里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-005-SA-041",
+        "providerId": "NTPC-AD-005",
+        "city": "新北市",
+        "district": "烏來區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-001",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "板橋區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-002",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "三重區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-003",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "中和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-004",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "永和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-005",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "新莊區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-006",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "新店區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-007",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "樹林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-008",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "鶯歌區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-009",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "三峽區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-010",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "淡水區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-011",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "汐止區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-012",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "瑞芳區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-013",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "土城區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-014",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-015",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "五股區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-016",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "泰山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-017",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "林口區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-018",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "深坑區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-019",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "石碇區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-020",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "坪林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-021",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "三芝區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-022",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "石門區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-023",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "八里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-024",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "平溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-025",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "雙溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-026",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "貢寮區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-027",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "金山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-028",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "萬里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-006-SA-029",
+        "providerId": "NTPC-AD-006",
+        "city": "新北市",
+        "district": "烏來區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-001",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "板橋區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-002",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "三重區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-003",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "中和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-004",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "永和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-005",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "新莊區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-006",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "新店區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-007",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "樹林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-008",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "鶯歌區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-009",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "三峽區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-010",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "淡水區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-011",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "汐止區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-012",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "瑞芳區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-013",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "土城區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-014",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-015",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "五股區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-016",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "泰山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-017",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "林口區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-018",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "深坑區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-019",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "石碇區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-020",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "坪林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-021",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "三芝區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-022",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "石門區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-023",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "八里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-024",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "平溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-025",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "雙溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-026",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "貢寮區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-027",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "金山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-028",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "萬里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-007-SA-029",
+        "providerId": "NTPC-AD-007",
+        "city": "新北市",
+        "district": "烏來區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-001",
+        "providerId": "NTPC-AD-008",
+        "city": "臺北市",
+        "district": "松山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-002",
+        "providerId": "NTPC-AD-008",
+        "city": "臺北市",
+        "district": "信義區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-003",
+        "providerId": "NTPC-AD-008",
+        "city": "臺北市",
+        "district": "大安區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-004",
+        "providerId": "NTPC-AD-008",
+        "city": "臺北市",
+        "district": "中山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-005",
+        "providerId": "NTPC-AD-008",
+        "city": "臺北市",
+        "district": "中正區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-006",
+        "providerId": "NTPC-AD-008",
+        "city": "臺北市",
+        "district": "大同區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-007",
+        "providerId": "NTPC-AD-008",
+        "city": "臺北市",
+        "district": "萬華區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-008",
+        "providerId": "NTPC-AD-008",
+        "city": "臺北市",
+        "district": "文山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-009",
+        "providerId": "NTPC-AD-008",
+        "city": "臺北市",
+        "district": "南港區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-010",
+        "providerId": "NTPC-AD-008",
+        "city": "臺北市",
+        "district": "內湖區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-011",
+        "providerId": "NTPC-AD-008",
+        "city": "臺北市",
+        "district": "士林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-012",
+        "providerId": "NTPC-AD-008",
+        "city": "臺北市",
+        "district": "北投區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-013",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "板橋區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-014",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "三重區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-015",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "中和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-016",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "永和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-017",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "新莊區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-018",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "新店區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-019",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "樹林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-020",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "鶯歌區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-021",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "三峽區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-022",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "淡水區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-023",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "汐止區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-024",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "瑞芳區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-025",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "土城區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-026",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-027",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "五股區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-028",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "泰山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-029",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "林口區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-030",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "深坑區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-031",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "石碇區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-032",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "坪林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-033",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "三芝區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-034",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "石門區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-035",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "八里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-036",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "平溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-037",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "雙溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-038",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "貢寮區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-039",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "金山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-040",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "萬里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-008-SA-041",
+        "providerId": "NTPC-AD-008",
+        "city": "新北市",
+        "district": "烏來區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-001",
+        "providerId": "NTPC-AD-009",
+        "city": "臺北市",
+        "district": "松山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-002",
+        "providerId": "NTPC-AD-009",
+        "city": "臺北市",
+        "district": "信義區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-003",
+        "providerId": "NTPC-AD-009",
+        "city": "臺北市",
+        "district": "大安區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-004",
+        "providerId": "NTPC-AD-009",
+        "city": "臺北市",
+        "district": "中山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-005",
+        "providerId": "NTPC-AD-009",
+        "city": "臺北市",
+        "district": "中正區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-006",
+        "providerId": "NTPC-AD-009",
+        "city": "臺北市",
+        "district": "大同區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-007",
+        "providerId": "NTPC-AD-009",
+        "city": "臺北市",
+        "district": "萬華區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-008",
+        "providerId": "NTPC-AD-009",
+        "city": "臺北市",
+        "district": "文山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-009",
+        "providerId": "NTPC-AD-009",
+        "city": "臺北市",
+        "district": "南港區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-010",
+        "providerId": "NTPC-AD-009",
+        "city": "臺北市",
+        "district": "內湖區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-011",
+        "providerId": "NTPC-AD-009",
+        "city": "臺北市",
+        "district": "士林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-012",
+        "providerId": "NTPC-AD-009",
+        "city": "臺北市",
+        "district": "北投區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-013",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "板橋區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-014",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "三重區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-015",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "中和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-016",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "永和區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-017",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "新莊區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-018",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "新店區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-019",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "樹林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-020",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "鶯歌區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-021",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "三峽區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-022",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "淡水區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-023",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "汐止區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-024",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "瑞芳區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-025",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "土城區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-026",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-027",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "五股區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-028",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "泰山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-029",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "林口區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-030",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "深坑區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-031",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "石碇區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-032",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "坪林區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-033",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "三芝區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-034",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "石門區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-035",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "八里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-036",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "平溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-037",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "雙溪區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-038",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "貢寮區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-039",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "金山區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-040",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "萬里區",
+        "active": true
+      },
+      {
+        "id": "NTPC-AD-009-SA-041",
+        "providerId": "NTPC-AD-009",
+        "city": "新北市",
+        "district": "烏來區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-001-SA-001",
+        "providerId": "TP-HMN-001",
+        "city": "臺北市",
+        "district": "松山區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-001-SA-002",
+        "providerId": "TP-HMN-001",
+        "city": "臺北市",
+        "district": "信義區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-001-SA-003",
+        "providerId": "TP-HMN-001",
+        "city": "臺北市",
+        "district": "大安區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-001-SA-004",
+        "providerId": "TP-HMN-001",
+        "city": "臺北市",
+        "district": "中山區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-001-SA-005",
+        "providerId": "TP-HMN-001",
+        "city": "臺北市",
+        "district": "中正區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-001-SA-006",
+        "providerId": "TP-HMN-001",
+        "city": "臺北市",
+        "district": "大同區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-001-SA-007",
+        "providerId": "TP-HMN-001",
+        "city": "臺北市",
+        "district": "萬華區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-001-SA-008",
+        "providerId": "TP-HMN-001",
+        "city": "臺北市",
+        "district": "文山區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-001-SA-009",
+        "providerId": "TP-HMN-001",
+        "city": "臺北市",
+        "district": "南港區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-001-SA-010",
+        "providerId": "TP-HMN-001",
+        "city": "臺北市",
+        "district": "內湖區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-001-SA-011",
+        "providerId": "TP-HMN-001",
+        "city": "臺北市",
+        "district": "士林區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-001-SA-012",
+        "providerId": "TP-HMN-001",
+        "city": "臺北市",
+        "district": "北投區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-003-SA-001",
+        "providerId": "TP-HMN-003",
+        "city": "臺北市",
+        "district": "萬華區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-003-SA-002",
+        "providerId": "TP-HMN-003",
+        "city": "臺北市",
+        "district": "大同區",
+        "active": true
+      },
+      {
+        "id": "TP-HMN-003-SA-003",
+        "providerId": "TP-HMN-003",
+        "city": "臺北市",
+        "district": "中正區",
+        "active": true
       }
   ]
