@@ -15,7 +15,9 @@ export type ErrorCode =
   | "INVALID_STATUS_TRANSITION"
   | "PAYLOAD_TOO_LARGE"
   | "RATE_LIMITED"
-  | "AI_UNAVAILABLE"; // 保留碼，MVP 用規則引擎不會實際拋出（docs/API_CONTRACT.md §3.2）
+  | "AI_UNAVAILABLE" // 保留碼，MVP 用規則引擎不會實際拋出（docs/API_CONTRACT.md §3.2）
+  // v0.4（API_CONTRACT §3.2、§26.1，TASK-B-012）：只用於 /api/v1/admin/** 管理 API。
+  | "KNOWLEDGE_STATE_CHANGED";
 
 const STATUS_BY_CODE: Record<ErrorCode, number> = {
   INVALID_REQUEST: 400,
@@ -32,6 +34,7 @@ const STATUS_BY_CODE: Record<ErrorCode, number> = {
   INTERNAL_ERROR: 500,
   KNOWLEDGE_UNAVAILABLE: 503,
   AI_UNAVAILABLE: 503,
+  KNOWLEDGE_STATE_CHANGED: 409,
 };
 
 export class AppError extends Error {

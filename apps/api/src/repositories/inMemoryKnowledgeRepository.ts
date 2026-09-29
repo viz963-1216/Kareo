@@ -142,6 +142,9 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
       createdBy: input.createdBy,
       approvedBy: input.approvedBy,
       notes: input.notes,
+      withdrawnAt: null,
+      withdrawnBy: null,
+      withdrawalReason: null,
     });
 
     // 未被取代、未失效的舊 PUBLISHED 紀錄：帶入新版本，但 version 欄位不變（不可變，第一次發布時的版本）。
@@ -202,6 +205,11 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
     }
 
     current.status = "ARCHIVED";
+    // TASK-B-012（migration 0007 既有欄位，先前沒有呼叫端需要）：記錄這次 ARCHIVED 是「操作者主動
+    // 撤回」造成的，跟一般發布時被取代的 ARCHIVED 區分開來——可恢復版本清單不得再選到曾被撤回的版本。
+    current.withdrawnAt = new Date().toISOString();
+    current.withdrawnBy = input.withdrawnBy;
+    current.withdrawalReason = input.reason;
     // 目前版本實際包含的紀錄（含 carry-forward 進來的），依 versionRecords 快照判斷，全部 SUPERSEDED。
     const currentSet = this.versionRecords.get(current.id) ?? new Set<string>();
     for (const r of this.records) {

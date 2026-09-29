@@ -1,15 +1,22 @@
 import type {
+  AdminKnowledgeChangeSummary,
+  AdminKnowledgeRecordSummary,
+  AdminKnowledgeStatus,
+  AdminSession,
   Assessment,
   CareNeedProfile,
   Consent,
   CrawlerRun,
   CrawlerSnapshot,
+  CreatedAdminSession,
   CreatedSession,
   CreateConsentInput,
   InternalOperator,
   KnowledgeCategory,
   KnowledgeChange,
+  KnowledgeChangeStatus,
   KnowledgeRecord,
+  KnowledgeRecordStatus,
   KnowledgeStatusResponse,
   Jurisdiction,
   Lead,
@@ -23,6 +30,7 @@ import type {
   ProviderServiceType,
   RecommendationItem,
   RecommendationRun,
+  RestorableVersionsResponse,
   Session,
 } from "../types/index.js";
 import type { KnowledgeSnapshotRecord } from "../assessment/knowledgeSnapshot.js";
@@ -212,4 +220,64 @@ export interface LeadRepository {
   insertAccessEvent(event: LeadAccessEvent): Promise<void>;
 
   findOperatorById(id: string): Promise<InternalOperator | null>;
+}
+
+// TASK-B-012，依 docs/API_CONTRACT.md §26、docs/DATA_MODEL.md 第 36、41 節。
+// publish-preview／publish（§26.8-9）不在此介面：candidate 內容包的 intendedKnowledgeVersion／
+// status 目前完全沒有持久化（只存在 CLI 讀取的內容包 JSON 檔案裡），Admin API 只能存取資料庫，
+// 無法重建這兩個端點需要的 targetVersionId 與 blockers；此為已知架構缺口，留待 Jerry 決定
+// 持久化方案後再補（見 PR Known Issues）。
+export interface AdminKnowledgeRepository {
+  findOperatorById(id: string): Promise<InternalOperator | null>;
+  createAdminSession(session: CreatedAdminSession & { tokenHash: string }): Promise<void>;
+  findAdminSessionByTokenHash(tokenHash: string): Promise<AdminSession | null>;
+
+  getAdminKnowledgeStatus(): Promise<AdminKnowledgeStatus>;
+  // MVP 只接受 NEEDS_REVIEW（API_CONTRACT §26.2），介面仍接受任意狀態以便未來擴充，不在此限制。
+  listChanges(status: KnowledgeChangeStatus): Promise<AdminKnowledgeChangeSummary[]>;
+  listRecords(status: KnowledgeRecordStatus): Promise<AdminKnowledgeRecordSummary[]>;
+
+  // decision／dismiss 更新前的唯讀查詢，用來分類找不到 vs 狀態不對（NOT_FOUND vs
+  // INVALID_STATUS_TRANSITION），不是原子操作本身。
+  findRecordById(id: string): Promise<AdminKnowledgeRecordSummary | null>;
+  findChangeById(id: string): Promise<AdminKnowledgeChangeSummary | null>;
+
+  // 沿用 B-008-r4 approveRecords 的原子檢查模式（status=NEEDS_REVIEW 且 content_fingerprint 相符），
+  // 並在同一交易內寫入 AdminAuditEvent（見 migration 0019 admin_decide_knowledge_record）。
+  // updated=false 時呼叫端須另外用 findRecordById 分類原因，這裡不分類。
+  decideRecord(input: {
+    recordId: string;
+    decision: "APPROVED" | "REJECTED";
+    reason: string;
+    expectedContentFingerprint: string;
+    operatorId: string;
+    auditId: string;
+    now: string;
+  }): Promise<{ updated: boolean; record: AdminKnowledgeRecordSummary | null }>;
+
+  dismissChange(input: {
+    changeId: string;
+    reason: string;
+    operatorId: string;
+    auditId: string;
+    now: string;
+  }): Promise<{ updated: boolean; change: AdminKnowledgeChangeSummary | null }>;
+
+  // API_CONTRACT §26.10：符合恢復條件（ARCHIVED、從未被撤回、knowledge_version_records 至少
+  // 1 筆、快照內無失效紀錄）的版本清單。
+  listRestorableVersions(): Promise<RestorableVersionsResponse>;
+
+  // API_CONTRACT §26.11：withdrawVersionId／republishVersionId 的一致性檢查、實際撤回寫入（沿用
+  // withdraw_knowledge_version）、稽核紀錄，三者在同一交易內完成（見 migration 0019
+  // admin_withdraw_knowledge_version）；「目前版本已變」「恢復目標不符合條件」以 KNOWLEDGE_STATE_CHANGED
+  // 標記回傳，不是一般例外。
+  adminWithdraw(input: {
+    withdrawVersionId: string;
+    republishVersionId: string | null;
+    reason: string;
+    operatorId: string;
+    auditId: string;
+    now: string;
+    today: string;
+  }): Promise<{ stateChanged: boolean; republishedVersionId: string | null }>;
 }
