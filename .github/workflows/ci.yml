@@ -45,10 +45,12 @@ jobs:
           cache: npm
           cache-dependency-path: apps/web/package-lock.json
       - run: npm ci --prefix apps/web
+      - name: Frontend module regression tests (including C-005)
+        run: npm test --prefix apps/web
       - run: npm run build --prefix apps/web
       - name: Real-mode bundle must not contain mock fixtures
         run: |
-          if grep -R -l -E 'SES-MOCK|CON-MOCK|ASM-MOCK|KB-MOCK|PROV-MOCK|REC-MOCK' apps/web/dist; then
+          if grep -R -l -E 'SES-MOCK|CON-MOCK|ASM-MOCK|KB-MOCK|PROV-MOCK|REC-MOCK|LEAD-MOCK' apps/web/dist; then
             echo "::error::Production bundle contains mock data"; exit 1
           fi
 
