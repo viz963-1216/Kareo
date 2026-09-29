@@ -1,11 +1,11 @@
 # Kareo MVP Release Checklist / 發布檢查表
 
 Owner: Jerry（TASK-J-004）
-Submission Version: J-004-r1
+Submission Version: J-004-r2
 Target: 2026-10-22（10/19 功能凍結、10/20–10/21 發布演練）
 Release gate status: **CLOSED**
 
-> 任何一項未勾選，都不得建立 staging → main Release PR，也不得開放正式媒合。
+> Gate 0–6 是正式合併與部署前置；可先建立草稿 Release PR 整理證據。Gate 7 在發布後執行，不能作為建立 PR 的前置，避免循環依賴。正式媒合須等發布後 smoke 與接件演練通過才開放。
 > 未通過時，正式站維持「整合中」狀態並在本文件記錄原因。
 
 ---
@@ -15,14 +15,14 @@ Release gate status: **CLOSED**
 | # | 條件 | 證據 | 狀態 |
 |---|---|---|---|
 | G0-1 | J-003 完整 E2E 全數通過（`docs/INTEGRATION_ACCEPTANCE.md`） | | ⛔ |
-| G0-2 | B-011 安全驗收矩陣通過 | | ⛔ |
+| G0-2 | B-011b 安全驗收矩陣通過 | | ⛔ |
 | G0-3 | 知識 PUBLISHED 版本存在，且來源／審核／發布紀錄齊全 | | ⛔ |
 | G0-4 | Provider 資料通過 A-004 gate，並已匯入（列數、關聯核對） | | ⛔ |
 | G0-5 | 同意文件版本為 `ACTIVE`（非 DRAFT），法務待確認事項已處理 | | ⛔ |
 | G0-6 | 主要接件人已指定並完成實演（見 Gate 3）；**不設備援接件人**（Jerry 2026-09-24 決定） | 主要接件人：蘇子傑，週一至週五 09:00–21:00（LEAD_OPERATIONS §2） | ⛔（未實演） |
 | G0-7 | 刪除請求客服信箱已公布且有人處理 | | ⛔ |
 | G0-8 | 評估規則表 `RULES-*`（D-01 方案 B，不使用 AI）已由 Jerry 逐條確認 | | ⛔ |
-| G0-9 | Netlify 額度足以完成發布與發布後 smoke；Kareocar 已恢復 | | ⛔（2026-09-23 兩站暫停） |
+| G0-9 | Netlify 額度足以完成發布與發布後 smoke；Kareocar 已恢復 | | ⛔（2026-09-29 J-003 唯讀探測兩站 HTTP 503；額度原因另查） |
 | G0-10 | 每日 00:10（Asia/Taipei）知識更新（B-009）在部署環境有觸發紀錄，變更進 NEEDS_REVIEW、失敗保留 Last Published | | ⛔ |
 | G0-11 | 精確位置：ACTIVE 同意版本含位置告知後才開啟「使用目前位置」（MVP_DECISIONS D-13g）；位置流程細節 D-13a–g 與補助呈現 D-14a–b 已有 Jerry 決定紀錄 | | ⛔ |
 | G0-12 | 臺北市、新北市地方制度知識已審核並發布（PRODUCT_SPEC §39、§46）；兩市各一例的 E2E 顯示各自的地方資訊、不互相套用 | | ⛔ |
@@ -52,8 +52,8 @@ Release gate status: **CLOSED**
 
 - [ ] 接件人以合成 Lead 完成：list → show → reveal-contact → CONTACTED → ACCEPTED → CLOSED。
 - [ ] 非法狀態轉移被拒、未授權操作者被拒、`reveal-contact` 產生存取紀錄。
-- [ ] 接件人確認可承諾的服務時段與回覆時程，並與前端顯示文字一致。
-- [ ] 接件人實際取得所需權限（操作者密鑰）。~~Jerry 以外至少一人可操作~~：Jerry 2026-09-24 決定不設備援接件人；以「逾時暫停對外媒合入口」作為替代措施，需演練一次開關。
+- [ ] 接件人確認已核准的服務時段（週一至週五 09:00–21:00）；回覆時限另待核准，前端不得先承諾「1 個工作天內」。
+- [ ] 接件人實際取得所需權限（操作者密鑰）。Jerry 2026-09-24 決定不設備援接件人；以「逾時暫停對外媒合入口」作為替代措施，需演練一次開關。
 
 ## Gate 4 — 文案
 
@@ -89,3 +89,7 @@ Release gate status: **CLOSED**
 - [ ] 發布後以合成資料執行 smoke（不含真實個資），逐項記錄。
 - [ ] smoke 全通過後才開放正式媒合入口；未通過立即回滾並記錄原因。
 - [ ] 交付紀錄寫入 `docs/RELEASE_RUNBOOK.md` §7。
+
+## r2 演練紀錄
+
+使用 docs/RELEASE_REHEARSAL.md 逐項記錄；空白、BLOCKED、PENDING 均不算通過。2026-09-29 尚未部署／演練，所有未完成 gate 保持關閉。
