@@ -3,6 +3,7 @@
 import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
 import type {
   CrawlerRun,
+  CrawlerSnapshot,
   KnowledgeCategory,
   KnowledgeChange,
   KnowledgeRecord,
@@ -19,6 +20,7 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
   readonly versions: KnowledgeVersion[] = [];
   readonly changes: KnowledgeChange[] = [];
   readonly crawlerRuns: CrawlerRun[] = [];
+  readonly snapshots: CrawlerSnapshot[] = [];
 
   // 測試用：讓 publish / withdraw 模擬寫入失敗（驗證失敗時不留半套資料）。
   failNextPublish = false;
@@ -178,6 +180,22 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
   async insertCrawlerRun(run: CrawlerRun): Promise<void> {
     this.throwIfSimulatedFailure();
     this.crawlerRuns.push({ ...run });
+  }
+
+  async insertSnapshot(snapshot: CrawlerSnapshot): Promise<void> {
+    this.throwIfSimulatedFailure();
+    this.snapshots.push({ ...snapshot, rawBytes: new Uint8Array(snapshot.rawBytes) });
+  }
+
+  async findLatestSnapshotBySourceId(sourceId: string): Promise<CrawlerSnapshot | null> {
+    // 依插入順序（而非 fetchedAt 字串排序）由後往前找：測試環境同一秒內連續呼叫時 fetchedAt
+    // 可能完全相同，用字串排序會有不穩定的平手問題；插入順序永遠正確反映「最後一次」。
+    for (let i = this.snapshots.length - 1; i >= 0; i--) {
+      if (this.snapshots[i].sourceId === sourceId) {
+        return { ...this.snapshots[i], rawBytes: new Uint8Array(this.snapshots[i].rawBytes) };
+      }
+    }
+    return null;
   }
 
   async getCurrentPublishedStatus(): Promise<KnowledgeStatusResponse | null> {

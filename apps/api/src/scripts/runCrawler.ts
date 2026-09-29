@@ -24,6 +24,10 @@
 //      不會因為 Crawler 偵測到變更就自動更新 knowledge_records 或發布新版本（PRODUCT_SPEC §43）。
 //   4. 判斷不是實質變更（例如版型調整）：目前沒有「標記已讀」的指令，KnowledgeChange 會留在
 //      NEEDS_REVIEW；後續處理方式（例如新增 dismiss 指令）留給後續任務決定，屬規格缺口。
+//   5.（Jerry 委託修正第二輪，2026-09-27）每次成功抓取的原始位元組都會存進 crawler_snapshots
+//      （見 crawler_runs.snapshot_id 關聯），即使原站後來改版或離線，仍可從這張表讀回當次抓到的
+//      完整原始內容並重新算出同一 raw_hash，不是只留下雜湊。normalized_hash／extraction_method_version
+//      分開記錄「正文抽取用哪個規則版本算的」，PDF 一律為 null（沒有做文字抽取，見 crawlerService.ts）。
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";

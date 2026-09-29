@@ -3,6 +3,7 @@ import type {
   CareNeedProfile,
   Consent,
   CrawlerRun,
+  CrawlerSnapshot,
   CreatedSession,
   CreateConsentInput,
   KnowledgeCategory,
@@ -83,6 +84,13 @@ export interface KnowledgeRepository {
   // 回傳 inserted=false；呼叫端據此判斷這次是否為「真正的新變更」（B-009-r2，Jerry PR #37 第 3 項）。
   insertKnowledgeChange(change: KnowledgeChange): Promise<{ inserted: boolean }>;
   insertCrawlerRun(run: CrawlerRun): Promise<void>;
+
+  // Jerry 委託修正第二輪（2026-09-27）：保存原始快照本身（不是只有雜湊），掛在 source_id
+  // （一律存在），不掛在 knowledge_record_id（可能還沒有）。
+  insertSnapshot(snapshot: CrawlerSnapshot): Promise<void>;
+  // 該來源最新一筆快照（依 fetchedAt），用來判斷「自上次抓取是否改變」（跟「是否需要人工審核」
+  // 分開——後者仍是跟 findLatestRecordBySourceId() 的結果比對）。沒有快照時回 null（第一次抓取）。
+  findLatestSnapshotBySourceId(sourceId: string): Promise<CrawlerSnapshot | null>;
 }
 
 export interface ProviderDatasetWrite {

@@ -2,6 +2,7 @@ import { getSupabaseClient } from "./supabaseClient.js";
 import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
 import type {
   CrawlerRun,
+  CrawlerSnapshot,
   KnowledgeCategory,
   KnowledgeChange,
   KnowledgeRecord,
@@ -265,9 +266,57 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
       items_checked: run.itemsChecked,
       changes_detected: run.changesDetected,
       content_hash: run.contentHash,
+      snapshot_id: run.snapshotId,
       error_message: run.errorMessage,
     });
     if (error) throw new AppError("INTERNAL_ERROR", "無法寫入 CrawlerRun，請稍後再試。", { cause: error });
+  }
+
+  // Jerry 委託修正第二輪（2026-09-27）：原始快照存進 bytea 欄位（現有架構已有的能力，不新增
+  // 付費外部服務）。PostgREST 對 bytea 的 JSON 表示法是 `\x<hex>` 字串，讀寫都要走這個格式，
+  // 不能直接塞 Uint8Array（會被序列化成一般陣列，不是 bytea）。
+  async insertSnapshot(snapshot: CrawlerSnapshot): Promise<void> {
+    const client = getSupabaseClient();
+    const { error } = await client.from("crawler_snapshots").insert({
+      id: snapshot.id,
+      source_id: snapshot.sourceId,
+      crawler_run_id: snapshot.crawlerRunId,
+      fetched_at: snapshot.fetchedAt,
+      content_type: snapshot.contentType,
+      raw_bytes: `\\x${Buffer.from(snapshot.rawBytes).toString("hex")}`,
+      raw_hash: snapshot.rawHash,
+      normalized_hash: snapshot.normalizedHash,
+      extraction_method_version: snapshot.extractionMethodVersion,
+      created_at: snapshot.createdAt,
+    });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法寫入 CrawlerSnapshot，請稍後再試。", { cause: error });
+  }
+
+  async findLatestSnapshotBySourceId(sourceId: string): Promise<CrawlerSnapshot | null> {
+    const client = getSupabaseClient();
+    const { data, error } = await client
+      .from("crawler_snapshots")
+      .select("id, source_id, crawler_run_id, fetched_at, content_type, raw_bytes, raw_hash, normalized_hash, extraction_method_version, created_at")
+      .eq("source_id", sourceId)
+      .order("fetched_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢 CrawlerSnapshot，請稍後再試。", { cause: error });
+    if (!data) return null;
+
+    const hex = (data.raw_bytes as string).startsWith("\\x") ? (data.raw_bytes as string).slice(2) : (data.raw_bytes as string);
+    return {
+      id: data.id,
+      sourceId: data.source_id,
+      crawlerRunId: data.crawler_run_id,
+      fetchedAt: data.fetched_at,
+      contentType: data.content_type,
+      rawBytes: new Uint8Array(Buffer.from(hex, "hex")),
+      rawHash: data.raw_hash,
+      normalizedHash: data.normalized_hash,
+      extractionMethodVersion: data.extraction_method_version,
+      createdAt: data.created_at,
+    };
   }
 
   async getCurrentPublishedStatus(): Promise<KnowledgeStatusResponse | null> {

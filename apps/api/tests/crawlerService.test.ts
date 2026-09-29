@@ -191,7 +191,10 @@ describe("createHttpFetcher (the real Fetcher implementation catches its own err
 
   it("a successful response returns the raw text and the raw bytes", async () => {
     const bytes = new TextEncoder().encode("<p>hi</p>");
-    vi.stubGlobal("fetch", vi.fn(async () => ({ ok: true, arrayBuffer: async () => bytes.buffer }) as unknown as Response));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({ ok: true, headers: { get: () => "text/html; charset=utf-8" }, arrayBuffer: async () => bytes.buffer }) as unknown as Response)
+    );
     const fetcher = createHttpFetcher();
     const result = await fetcher("https://example.gov.tw/x");
     expect(result.ok).toBe(true);
@@ -201,7 +204,10 @@ describe("createHttpFetcher (the real Fetcher implementation catches its own err
 
   it("a PDF response (magic bytes %PDF-) is not decoded as text, only hashed by raw bytes", async () => {
     const pdf = new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2d, 0x31, 0x2e, 0x37, 0xff, 0x00]);
-    vi.stubGlobal("fetch", vi.fn(async () => ({ ok: true, arrayBuffer: async () => pdf.buffer }) as unknown as Response));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({ ok: true, headers: { get: () => "application/pdf" }, arrayBuffer: async () => pdf.buffer }) as unknown as Response)
+    );
     const fetcher = createHttpFetcher();
     const result = await fetcher("https://law.moj.gov.tw/LawGetFile.ashx?FileId=x");
     expect(result.ok).toBe(true);
