@@ -2,8 +2,11 @@
   "success": true,
   "data": {
     "versionId": "KB-MOCK-002",
+    "publishedAt": "2026-09-25T09:42:10+08:00",
     "publishedRecordCount": 1,
     "carriedForwardCount": 15,
-    "supersededRecordCount": 0
+    "totalRecordCount": 16,
+    "supersededRecordCount": 0,
+    "excludedRecordCount": 0
   }
 }

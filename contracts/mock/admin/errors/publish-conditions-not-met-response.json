@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "目前無法發布：版號 KB-MOCK-002 已存在。資料未變更。"
+  }
+}

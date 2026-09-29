@@ -2,7 +2,7 @@
 
 Submission Version: J-002-r4
 Owner: Jerry
-Last reviewed: 2026-09-23
+Last reviewed: 2026-09-29
 
 本文件記錄 2026-10-22 MVP 所需決策與每項交付的核准狀態。
 
@@ -57,6 +57,7 @@ Last reviewed: 2026-09-23
 | D-14a–b | 補助說明呈現細節（來源連結、非服務縣市） | **SPEC-APPROVED**（2026-09-24，依 D-14 表建議） | D-14-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-010、C-005 |
 | D-15 | 知識來源新增「Jerry 指定 Google 雲端硬碟資料夾」（PRODUCT_SPEC §40–41 變更） | **SPEC-APPROVED**（2026-09-24，Jerry）；已修訂 PRODUCT_SPEC v0.4、schema（`KAREO_DRIVE`）、驗證腳本；B-008 匯入程式由 B-008-r2 更新 | D-15-v1 | Jerry | [PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | B-008-r2、J-002、J-003 |
 | D-16 | 知識審核與發布管理頁面（按鈕發布取代指令） | **SPEC-APPROVED**（2026-09-24，Jerry）；新增 TASK-B-012、TASK-C-006、API_CONTRACT §26 | D-16-v1 | Jerry | [PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | B-012、C-006、J-003 |
+| D-16a | C-006 開工疑點定案：管理 API 正式允許（更正 ARCHITECTURE §20.8）、發布預覽由後端提供、撤回從可恢復版本清單選擇或明確不恢復、核准／退回／忽略／撤回必填原因 | **SPEC-APPROVED**（Jerry：「那就採用上表方案」；規格同步 2026-09-29）；API_CONTRACT v0.4 §26、ARCHITECTURE v0.5.2 §20.8、DATA_MODEL v0.2.3、Mock `contracts/mock/admin/` | D-16a-v1 | Jerry | [PR #34 comment 5883232266](https://github.com/viz963-1216/Kareo/pull/34#issuecomment-5883232266) | B-012、C-006、B-009（`DISMISSED`）、J-003 |
 | D-17 | Assessment 新增「是否領有身心障礙證明」選填題，結果頁說明可能適用的身心障礙福利補助（PRODUCT_SPEC §37 變更） | **SPEC-APPROVED**（2026-09-24）；規則表 r4 文字確認 | D-17-v1 | Jerry | [PR #31 comment 2026-09-24（第三批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810344725)；r4 文字：[PR #31 comment 2026-09-24（第四批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810416966) | B-010、C-005、J-003 |
 | D-17a | Assessment 新增「家庭經濟身分」選填題，結果頁估算使用者自己的長照自付比例與金額、身障補助上限（取代原先「不計算個人金額」限制） | **SPEC-APPROVED**（2026-09-24，Jerry：「要清算」）；PRODUCT_SPEC v0.6、API_CONTRACT v0.3.2、規則表 r5 §6.6 | D-17a-v1 | Jerry | [PR #31 comment 2026-09-24（第四批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810416966) | B-010、C-005、J-003 |
 
@@ -275,6 +276,20 @@ B-008（PR #26）的 `publish_knowledge_version`／`withdraw_knowledge_version`�
 - 不變的規則：不自動核准或發布；頁面不編輯政策內容，內容仍以內容包提交。
 - 依賴：B-008-r2 → B-009 → B-012 → C-006（C-006 可先以 Mock 開發）。
 
+### D-16a C-006 開工疑點定案（SPEC-APPROVED）
+
+來源：[PR #34 comment 5883232266](https://github.com/viz963-1216/Kareo/pull/34#issuecomment-5883232266)（Jerry：「那就採用上表方案」，回覆 C-006 疑點 5860035133、5860072178、5860091271）。
+
+1. **管理 API 正式成立**：允許受身分驗證及 `KNOWLEDGE_PUBLISHER` 角色保護的 `/api/v1/admin/**`；ARCHITECTURE §20.8 的 CLI-only 限制已更正。不代表允許匿名管理 API。
+2. **發布預覽**：`GET /api/v1/admin/knowledge/publish-preview` 回傳 `targetVersionId`（＝`intendedKnowledgeVersion`）與新增／沿用／總數及無法發布原因；前端不產生版號、不推算數量。發布帶 `previewToken`，後端重新驗證，不一致回 `KNOWLEDGE_STATE_CHANGED`（API_CONTRACT §26.8–26.9）。
+3. **撤回恢復版本**：`GET /api/v1/admin/knowledge/restorable-versions` 只列符合恢復條件的版本；撤回時選其一或明確 `republishVersionId: null`，不得恢復正在撤回的同一版本；提交時後端再驗證（§26.10–26.11）。
+4. **原因必填**：APPROVED、REJECTED、dismiss、withdraw 都必填 `reason`；四種寫入與發布都需 `confirm: true`。
+5. **不變**：不自動核准或發布；不提供政策內容編輯器；B-012 權限、稽核與一致性由後端保證；C-006 不直接連資料庫、不自行新增契約格式。
+
+J-002 定義的一致性機制（依決定第 2 點「由 B／J 在契約中明訂」）：`previewToken` 綁定版號、目前版本、每筆紀錄 id＋`contentFingerprint` 與發布日；核准綁定 `expectedContentFingerprint`（沿用 B-008-r4）；撤回綁定 `withdrawVersionId`。本次為規格決定，不代表 B-012／C-006 已完成、可部署或真實驗收通過。
+
+仍待確認（見 API_CONTRACT §26 與下方待決事項）：以管理頁核准紀錄後，是否仍要求內容包 `status = APPROVED` 才能發布（目前沿用 B-008 規則，列為 `PACK_NOT_APPROVED` blocker）。
+
 ---
 
 ## D-17 身心障礙證明選填題（SPEC-APPROVED，2026-09-24）
@@ -294,6 +309,7 @@ B-008（PR #26）的 `publish_knowledge_version`／`withdraw_knowledge_version`�
 | # | 事項 | 狀態 | 還需要什麼 |
 |---|---|---|---|
 | 1 | D-09 Netlify 額度：9/29 前是否購買額度或維持集中合併 | **待決定**（Jerry：日後補充） | 決定購買與否；不決定則部署後 E2E 無法執行、Kareocar 連結無法開啟 |
+| 2 | D-16a 內容包層級核准：以管理頁逐筆核准後，發布是否仍要求內容包 `status = APPROVED`（B-008 現行規則） | **待決定**（J-002 建議：維持，內容包仍經 PR 審核；契約以 `PACK_NOT_APPROVED` blocker 表示） | 若改為不要求，需同步修改 API_CONTRACT §26.8 blocker 與 B-008／B-012 規則 |
 
 仍需實際輸入（做法已核准）：
 

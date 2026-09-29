@@ -1,0 +1,6 @@
+{
+  "decision": "REJECTED",
+  "reason": "摘要超出原文內容，退回重整（測試資料）。",
+  "expectedContentFingerprint": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "confirm": true
+}

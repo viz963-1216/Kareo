@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "INVALID_STATUS_TRANSITION",
+    "message": "這筆紀錄已被處理，請重新整理清單。"
+  }
+}

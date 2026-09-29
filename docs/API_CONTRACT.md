@@ -1,7 +1,7 @@
 # Kareo / 長照一點通 — API Contract
 
-Version: v0.2.2（J-002-r4，2026-09-23）  
-Status: v0.1 內容 LOCKED FOR MVP；v0.2 session／安全段落（D-04）**SPEC-APPROVED 2026-09-24**；v0.2.2 位置與補助整併（D-13a–g、D-14a–b）**SPEC-APPROVED 2026-09-24**；Lead 接件（D-06）與同意版本（D-05）仍為 PROPOSED  
+Version: v0.4（J-002，2026-09-29；§26 Admin Knowledge API 補齊）  
+Status: v0.1 內容 LOCKED FOR MVP；v0.2 session／安全段落（D-04）**SPEC-APPROVED 2026-09-24**；v0.2.2 位置與補助整併（D-13a–g、D-14a–b）**SPEC-APPROVED 2026-09-24**；Lead 接件（D-06）與同意版本（D-05）仍為 PROPOSED；§26 v0.4（D-16a）**SPEC-APPROVED 2026-09-29**  
 Owner: Jerry
 
 ---
@@ -73,6 +73,7 @@ GET  /api/v1/knowledge/status
 - Body 中的 `sessionId` 必須與 token 所屬 session 相同，否則 `FORBIDDEN`。
 - 引用的 `assessmentId`／`recommendationId` 不屬於同一 session 時回 `NOT_FOUND`（不透露是否存在）。
 - 規則細節見 ARCHITECTURE §20。
+- `/api/v1/admin/**`（§26）不使用 session token，改以 `X-Kareo-Admin-Token` 驗證操作者身分與角色；不接受匿名呼叫。
 
 ## 3.2 HTTP Status 對照（v0.2）
 
@@ -85,7 +86,8 @@ GET  /api/v1/knowledge/status
 | `FORBIDDEN` | 403 |
 | `NOT_FOUND` | 404 |
 | `IDEMPOTENCY_CONFLICT` | 409 |
-| `INVALID_STATUS_TRANSITION` | 409（僅內部工具） |
+| `INVALID_STATUS_TRANSITION` | 409（僅內部工具與 §26 管理 API） |
+| `KNOWLEDGE_STATE_CHANGED` | 409（僅 §26 管理 API，v0.4） |
 | `PAYLOAD_TOO_LARGE` | 413 |
 | `RATE_LIMITED` | 429（附 `Retry-After` header） |
 | `INTERNAL_ERROR` | 500 |
@@ -158,6 +160,14 @@ IDEMPOTENCY_CONFLICT
 AI_UNAVAILABLE
 INVALID_STATUS_TRANSITION
 ```
+
+v0.4 新增（只用於 §26 管理 API）：
+
+```text
+KNOWLEDGE_STATE_CHANGED
+```
+
+`KNOWLEDGE_STATE_CHANGED`：操作者在畫面上看到的知識狀態（發布預覽、紀錄內容指紋、目前發布版本、可恢復版本）在送出前已改變。資料不變；前端需重新讀取並請操作者重新確認（§26.1）。
 
 `AI_UNAVAILABLE`：保留給未來引入 AI 時使用。MVP 使用規則引擎（D-01），不會產生此錯誤碼；規則引擎、Knowledge resolver 或資料庫失敗依 §3.2 回 `KNOWLEDGE_UNAVAILABLE` 或 `INTERNAL_ERROR`，不得回成功格式的預設結果。
 
@@ -900,24 +910,328 @@ Code
 
 ---
 
-# 26. Admin Knowledge API（v0.3，2026-09-24，D-16）
+# 26. Admin Knowledge API（v0.4，2026-09-29，D-16／D-16a）
 
-供 Jerry 在管理頁面（C-006）審核與發布知識。實作：TASK-B-012。
+供 Jerry 在管理頁面（C-006）審核與發布知識。實作：TASK-B-012。Mock：`contracts/mock/admin/`（對照表見 `contracts/mock/README.md`「Admin Knowledge fixtures」）。
 
-- 驗證：`POST /api/v1/admin/session`，Body `{ "operatorId": "...", "operatorKey": "..." }` → `{ "adminToken": "...", "expiresAt": "..." }`（15 分鐘）。之後以 `X-Kareo-Admin-Token` 呼叫；只接受 `InternalOperator.roles` 含 `KNOWLEDGE_PUBLISHER` 且 `active` 的操作者。
-- 所有 admin 回應 `Cache-Control: no-store`；寫入操作必填 `reason`（發布除外），並寫入稽核紀錄。
+v0.4 依 Jerry 核准的 C-006 決定（[PR #34 comment 5883232266](https://github.com/viz963-1216/Kareo/pull/34#issuecomment-5883232266)，MVP_DECISIONS D-16a）補齊：發布預覽、可恢復版本清單、四種寫入操作的完整 request／response、`KNOWLEDGE_STATE_CHANGED` 錯誤碼。v0.3 已定義的端點路徑、欄位名稱與錯誤格式不變，只新增欄位與端點；publish 新增必填 `previewToken`、withdraw 新增必填 `withdrawVersionId` 屬 request 收緊，因 B-012／C-006 尚未有任何提交、沒有既有呼叫端，依 §22 不另開 `/v2`。
 
-| 方法與路徑 | Request 重點 | Response 重點 |
+不變的界線：不自動核准或發布（每個寫入都要操作者按下並二次確認）；管理頁面不編輯政策內容或 `ruleData`，內容仍只經由內容包（contracts/knowledge）進入。
+
+## 26.1 共通規則
+
+- **驗證**：`POST /api/v1/admin/session`，Body `{ "operatorId": "...", "operatorKey": "..." }` → `{ "adminToken": "...", "expiresAt": "..." }`（15 分鐘，後端只存雜湊）。之後所有 admin 端點以 Header `X-Kareo-Admin-Token` 呼叫，不使用 §3.1 的 `X-Kareo-Session-Token`。只接受 `InternalOperator.active = true` 且 `roles` 含 `KNOWLEDGE_PUBLISHER` 的操作者（DATA_MODEL §36）。
+- **錯誤對照**（沿用 §5 envelope，HTTP 依 §3.2）：
+
+| 情況 | error.code | HTTP |
 |---|---|---|
-| `GET /api/v1/admin/knowledge/status` | — | `publishedVersion`、`publishedAt`、`lastCrawlerRun { status, startedAt, finishedAt }` |
-| `GET /api/v1/admin/knowledge/changes?status=NEEDS_REVIEW` | — | `changes[] { id, sourceId, detectedAt, previousHash, currentHash, diffSummary, status }` |
-| `GET /api/v1/admin/knowledge/records?status=NEEDS_REVIEW` | — | `records[] { id, packId, recordId, title, jurisdiction, category, sourceUrl, summary, effectiveFrom, status }` |
-| `POST /api/v1/admin/knowledge/records/{id}/decision` | `{ "decision": "APPROVED" \| "REJECTED", "reason": "..." }` | 更新後的紀錄 |
-| `POST /api/v1/admin/knowledge/publish` | `{ "versionId": "KB-YYYY-MM-DD-NNN", "confirm": true }` | `{ versionId, publishedRecordCount, carriedForwardCount, supersededRecordCount }` |
-| `POST /api/v1/admin/knowledge/withdraw` | `{ "reason": "...", "republishVersionId": null, "confirm": true }` | `{ withdrawnVersionId, republishedVersionId }` |
-| `POST /api/v1/admin/knowledge/changes/{id}/dismiss` | `{ "reason": "..." }` | 更新後的變更 |
+| 無 token、token 錯誤或過期；`operatorId`／`operatorKey` 錯誤或操作者已停用（不透露是哪一項） | `SESSION_INVALID` | 401 |
+| 操作者有效但沒有 `KNOWLEDGE_PUBLISHER` 角色 | `FORBIDDEN` | 403 |
+| 欄位缺漏、格式錯誤、`reason` 空白、`confirm` 不是 `true`、發布條件不符、恢復目標等於撤回目標 | `VALIDATION_ERROR` | 400 |
+| 路徑中的紀錄或變更不存在 | `NOT_FOUND` | 404 |
+| 紀錄／變更已不是 `NEEDS_REVIEW`（已被處理過） | `INVALID_STATUS_TRANSITION` | 409 |
+| 操作者看到的內容在送出前已改變（預覽失效、紀錄內容指紋不符、目前發布版本已變、恢復目標已不符合條件） | `KNOWLEDGE_STATE_CHANGED`（v0.4 新增） | 409 |
+| 限流、Body 過大 | `RATE_LIMITED`／`PAYLOAD_TOO_LARGE` | 429／413 |
+| 其他後端錯誤 | `INTERNAL_ERROR` | 500 |
 
-錯誤：無 token／過期 → `SESSION_INVALID`；角色不符 → `FORBIDDEN`；發布條件不符（無 APPROVED 紀錄、版號已存在、`confirm` 不是 true）→ `VALIDATION_ERROR`，資料不變。
+- **任何錯誤回應都代表資料完全沒有改變**（沒有部分寫入、沒有稽核成功紀錄）。前端收到錯誤時不得顯示成功，也不得自行重試寫入。
+- 收到 `KNOWLEDGE_STATE_CHANGED`：前端重新讀取相關清單／預覽，讓操作者看過新內容後重新確認；不得沿用舊畫面的資料重送。
+- 所有 admin 回應 `Cache-Control: no-store`。
+- **寫入操作**（decision、dismiss、publish、withdraw）一律需要 `confirm: true`（前端二次確認後才送出）；decision、dismiss、withdraw 必填 `reason`（去除前後空白後 1–500 字）。publish 依 D-16a 不需要 `reason`。每個成功的寫入都寫入稽核紀錄（DATA_MODEL §41：操作者、時間、動作、目標、原因、結果數量），log 不含密鑰或 token。
+- 時間一律 ISO 8601 含 `+08:00`；日期 `YYYY-MM-DD`（Asia/Taipei）。
+
+## 26.2 端點一覽
+
+| 方法與路徑 | 用途 | Request | Success `data` | Mock |
+|---|---|---|---|---|
+| `POST /api/v1/admin/session` | 換取管理 token | `{ operatorId, operatorKey }` | `{ adminToken, expiresAt }` | `session-response.json` |
+| `GET /api/v1/admin/knowledge/status` | 目前版本與每日檢查 | — | §26.3 | `knowledge-status-*.json` |
+| `GET /api/v1/admin/knowledge/changes?status=NEEDS_REVIEW` | 每日變更 | — | `{ changes[] }` §26.4 | `knowledge-changes-*.json` |
+| `GET /api/v1/admin/knowledge/records?status=NEEDS_REVIEW` | 待審紀錄 | — | `{ records[] }` §26.5 | `knowledge-records-*.json` |
+| `POST /api/v1/admin/knowledge/records/{id}/decision` | 核准／退回單筆 | §26.6 | `{ record, review }` | `knowledge-record-*.json` |
+| `POST /api/v1/admin/knowledge/changes/{id}/dismiss` | 變更不影響內容 | §26.7 | `{ change, review }` | `knowledge-change-dismissed-response.json` |
+| `GET /api/v1/admin/knowledge/publish-preview` | 發布預覽（v0.4） | — | §26.8 | `knowledge-publish-preview-*.json` |
+| `POST /api/v1/admin/knowledge/publish` | 發布 | §26.9 | §26.9 | `knowledge-publish-response.json` |
+| `GET /api/v1/admin/knowledge/restorable-versions` | 可恢復版本清單（v0.4） | — | §26.10 | `knowledge-restorable-versions-*.json` |
+| `POST /api/v1/admin/knowledge/withdraw` | 撤回目前版本 | §26.11 | §26.11 | `knowledge-withdraw-*.json` |
+
+`status` query 在 MVP 只接受 `NEEDS_REVIEW`（省略時等同 `NEEDS_REVIEW`）；其他值回 `VALIDATION_ERROR`。清單不分頁，依時間由舊到新排序。**空清單一律回 `success: true` 與空陣列**，不是錯誤。
+
+## 26.3 GET /api/v1/admin/knowledge/status
+
+```json
+{
+  "success": true,
+  "data": {
+    "publishedVersion": "KB-MOCK-001",
+    "publishedAt": "2026-09-24T12:00:00+08:00",
+    "lastCrawlerRun": { "status": "SUCCESS", "startedAt": "...", "finishedAt": "..." }
+  }
+}
+```
+
+- 沒有 PUBLISHED 版本（從未發布或撤回時選擇不恢復）：`publishedVersion`、`publishedAt` 為 `null`，仍是 `success: true`（管理頁需要看到這個狀態；公開的 §13 則回 `KNOWLEDGE_UNAVAILABLE`）。
+- 從未執行 crawler：`lastCrawlerRun` 為 `null`。`lastCrawlerRun.status` 依 DATA_MODEL §28（`RUNNING`／`SUCCESS`／`PARTIAL`／`FAILED`）；`RUNNING` 時 `finishedAt` 為 `null`。
+
+## 26.4 changes[]（每日變更）
+
+| 欄位 | 型態 | 說明 |
+|---|---|---|
+| `id` | string | KnowledgeChange id |
+| `sourceId` | string | Source Registry 的來源 id |
+| `detectedAt` | datetime | |
+| `previousHash`／`currentHash` | string \| null／string | `sha256:<hex>`；第一次抓取時 `previousHash` 為 `null` |
+| `diffSummary` | string | 系統產生的差異摘要（不是政策內容） |
+| `status` | enum | 清單中固定為 `NEEDS_REVIEW`；處理後為 `DISMISSED`（DATA_MODEL §27） |
+
+## 26.5 records[]（待審紀錄）
+
+| 欄位 | 型態 | 說明 |
+|---|---|---|
+| `id` | string | 資料庫 id（decision 路徑使用） |
+| `packId`／`recordId` | string | 內容包與包內紀錄 id |
+| `title`、`jurisdiction`、`category`、`sourceUrl`、`summary` | string | 同內容包；前端只顯示，不可編輯 |
+| `effectiveFrom` | date | |
+| `effectiveTo` | date \| null | v0.4 新增 |
+| `contentFingerprint` | string | v0.4 新增。後端依實際保存內容計算的審核內容指紋（B-008-r4，`sha256:<hex>`）；前端原樣帶回 decision，不自行計算 |
+| `status` | enum | 清單中固定為 `NEEDS_REVIEW` |
+
+## 26.6 POST /api/v1/admin/knowledge/records/{id}/decision
+
+Request：
+
+```json
+{
+  "decision": "APPROVED",
+  "reason": "已逐格核對原文，數字一致。",
+  "expectedContentFingerprint": "sha256:...",
+  "confirm": true
+}
+```
+
+- `decision`：`APPROVED` 或 `REJECTED`。`reason` 兩者都必填。
+- `expectedContentFingerprint`：操作者畫面上那筆紀錄的 `contentFingerprint`。後端在同一個原子更新中比對（沿用 B-008-r4 `approveRecords`），不一致回 `KNOWLEDGE_STATE_CHANGED`，紀錄不變。
+- 紀錄不是 `NEEDS_REVIEW` → `INVALID_STATUS_TRANSITION`；id 不存在 → `NOT_FOUND`。
+
+Success（`record` 為更新後的紀錄，欄位同 §26.5，`status` 為 `APPROVED` 或 `REJECTED`）：
+
+```json
+{
+  "success": true,
+  "data": {
+    "record": { "id": "KREC-MOCK-001", "...": "...", "status": "APPROVED" },
+    "review": {
+      "decision": "APPROVED",
+      "reason": "已逐格核對原文，數字一致。",
+      "reviewedBy": "OP-MOCK-001",
+      "reviewedAt": "2026-09-25T09:30:00+08:00"
+    }
+  }
+}
+```
+
+- `APPROVED` 只代表可被下一次發布納入，**不會**自動發布。`REJECTED` 的紀錄永遠不會被發布。
+
+## 26.7 POST /api/v1/admin/knowledge/changes/{id}/dismiss
+
+用於「來源頁面有變但不影響已審核內容」（例如排版）。會影響內容的變更不在管理頁處理，需以新內容包提交後再審核。
+
+Request：`{ "reason": "只有頁尾更新日期與排版變動，條文與金額未變。", "confirm": true }`
+
+Success：
+
+```json
+{
+  "success": true,
+  "data": {
+    "change": { "id": "KC-MOCK-001", "...": "...", "status": "DISMISSED" },
+    "review": {
+      "decision": "DISMISSED",
+      "reason": "只有頁尾更新日期與排版變動，條文與金額未變。",
+      "reviewedBy": "OP-MOCK-001",
+      "reviewedAt": "2026-09-25T09:20:00+08:00"
+    }
+  }
+}
+```
+
+變更不是 `NEEDS_REVIEW` → `INVALID_STATUS_TRANSITION`；不存在 → `NOT_FOUND`。
+
+## 26.8 GET /api/v1/admin/knowledge/publish-preview（v0.4）
+
+後端依 B-008 的發布規則（D-03、D-03-v2，`publishVersion`）試算「如果現在發布」的結果，不寫入任何資料。**前端只顯示這裡的版號與數字，不得自行產生版號、不得用待審清單筆數推算任何數量。**
+
+Success（可發布）：
+
+```json
+{
+  "success": true,
+  "data": {
+    "canPublish": true,
+    "targetVersionId": "KB-MOCK-002",
+    "currentVersionId": "KB-MOCK-001",
+    "publishDate": "2026-09-25",
+    "publishedRecordCount": 1,
+    "carriedForwardCount": 15,
+    "totalRecordCount": 16,
+    "supersededRecordCount": 0,
+    "excludedRecordCount": 0,
+    "newRecords": [
+      { "id": "KREC-MOCK-001", "packId": "KP-MOCK-003", "recordId": "KR-MOCK-016", "title": "...", "jurisdiction": "NEW_TAIPEI", "effectiveFrom": "2026-10-01", "effectiveTo": null }
+    ],
+    "blockers": [],
+    "previewToken": "PPV-MOCK-002-7f3a",
+    "generatedAt": "2026-09-25T09:40:00+08:00"
+  }
+}
+```
+
+計數規則（與 B-008-r4 `publish_knowledge_version` 回傳一致）：
+
+| 欄位 | 定義 |
+|---|---|
+| 候選紀錄 | 目前狀態 `APPROVED`、尚未發布的全部紀錄 |
+| `targetVersionId` | 候選紀錄所屬內容包的 `intendedKnowledgeVersion`（格式 `KB-YYYY-MM-DD-NNN`）。所有候選內容包必須相同 |
+| `publishedRecordCount`（新增） | 候選紀錄中 `effectiveTo` 為 `null` 或不早於 `publishDate` 的筆數 |
+| `excludedRecordCount` | 候選紀錄中 `effectiveTo` 早於 `publishDate`、不會發布的筆數（仍保持 `APPROVED`） |
+| `supersededRecordCount` | 目前 PUBLISHED 紀錄中，被新紀錄取代（同 `jurisdiction`＋`ruleData.type`＋`title`）或已失效（`effectiveTo` 早於 `publishDate`）的筆數 |
+| `carriedForwardCount`（沿用） | 目前 PUBLISHED 紀錄中，未被取代且未失效、會帶入新版本的筆數 |
+| `totalRecordCount`（發布總數） | `publishedRecordCount + carriedForwardCount`＝新版本 `knowledge_version_records` 的筆數 |
+| `publishDate` | 試算使用的發布日（Asia/Taipei 當日） |
+
+`newRecords` 列出會新增的紀錄（不含 excluded），供操作者核對；`currentVersionId` 為目前 PUBLISHED 版本，沒有時為 `null`（此時 `carriedForwardCount = 0`）。
+
+無法發布時仍回 `success: true`，`canPublish: false`、`previewToken: null`、`blockers` 至少一項；無法決定版號時 `targetVersionId` 為 `null`，無法試算的數量回 `0`：
+
+| `blockers[].code` | 條件 |
+|---|---|
+| `NO_APPROVED_RECORDS` | 沒有任何 `APPROVED` 紀錄 |
+| `ALL_CANDIDATES_EXPIRED` | 候選紀錄的 `effectiveTo` 全部早於 `publishDate` |
+| `PACK_NOT_APPROVED` | 候選紀錄所屬內容包的 `status` 不是 `APPROVED`（沿用 B-008 規則） |
+| `TARGET_VERSION_INVALID` | 內容包缺 `intendedKnowledgeVersion` 或格式不合法 |
+| `TARGET_VERSION_CONFLICT` | 候選內容包的 `intendedKnowledgeVersion` 不只一個 |
+| `VERSION_ALREADY_EXISTS` | `targetVersionId` 已存在（不得覆寫或改號） |
+
+每個 blocker 為 `{ "code": "...", "message": "給操作者看的中文說明" }`；前端顯示 `message`，並停用發布按鈕。
+
+**預覽失效**：`previewToken` 是後端對「版號＋目前 PUBLISHED 版本＋每筆新增／沿用／取代／排除紀錄的 id 與 `contentFingerprint`＋`publishDate`」算出的不透明值（前端不得解析或自行產生）。上述任一項在預覽後改變（有人核准／退回紀錄、匯入更新內容、另一次發布或撤回、跨過午夜），同樣輸入重新計算的值就不同，預覽即失效。預覽本身沒有另外的有效時間，但受管理 token 15 分鐘有效期限制。
+
+## 26.9 POST /api/v1/admin/knowledge/publish
+
+Request：
+
+```json
+{ "versionId": "KB-MOCK-002", "previewToken": "PPV-MOCK-002-7f3a", "confirm": true }
+```
+
+- `versionId`、`previewToken` 必須原樣取自最近一次預覽（`previewToken` 為 v0.4 新增必填）。`confirm` 必須是 `true`。
+- **後端在發布時重新驗證**：以同一套規則重新計算，並在與寫入相同的交易（或持有發布鎖）內比對，確保比對後到寫入前不會插入其他寫入：
+  - 重新計算後有 blocker → `VALIDATION_ERROR`（例如版號已存在、沒有可發布紀錄）。
+  - `versionId` 不等於重新計算的 `targetVersionId`，或 `previewToken` 不一致 → `KNOWLEDGE_STATE_CHANGED`。
+  - 任何錯誤都不寫入。
+- 發布本身沿用 B-008 `publishVersion`／`publish_knowledge_version`，不另寫一套。
+
+Success（數量與通過驗證的預覽相同）：
+
+```json
+{
+  "success": true,
+  "data": {
+    "versionId": "KB-MOCK-002",
+    "publishedAt": "2026-09-25T09:42:10+08:00",
+    "publishedRecordCount": 1,
+    "carriedForwardCount": 15,
+    "totalRecordCount": 16,
+    "supersededRecordCount": 0,
+    "excludedRecordCount": 0
+  }
+}
+```
+
+v0.3 的 `versionId`、`publishedRecordCount`、`carriedForwardCount`、`supersededRecordCount` 不變；`publishedAt`、`totalRecordCount`、`excludedRecordCount` 為 v0.4 新增。成功後前端重新讀取 §26.3 以顯示新版本。
+
+## 26.10 GET /api/v1/admin/knowledge/restorable-versions（v0.4）
+
+撤回時可選擇恢復的版本。前端只能從這份清單選擇，或明確選擇不恢復；不得自行猜測上一版或讓操作者輸入版號。
+
+```json
+{
+  "success": true,
+  "data": {
+    "currentVersion": {
+      "versionId": "KB-MOCK-002",
+      "publishedAt": "2026-09-25T09:42:10+08:00",
+      "recordCount": 16
+    },
+    "versions": [
+      {
+        "versionId": "KB-MOCK-001",
+        "publishedAt": "2026-09-24T12:00:00+08:00",
+        "approvedBy": "OP-MOCK-001",
+        "notes": null,
+        "recordCount": 15
+      }
+    ]
+  }
+}
+```
+
+- `currentVersion`：目前 PUBLISHED 版本（即撤回對象）；沒有時為 `null`，前端停用撤回。`recordCount` 為該版本 `knowledge_version_records` 筆數。
+- `versions[]` 只列**符合恢復條件**的版本，依 `publishedAt` 由新到舊：
+  1. 狀態為 `ARCHIVED`，且不是 `currentVersion`（**不得恢復正在撤回的同一版本**）。
+  2. 從未被撤回（`withdrawnAt` 為 `null`；曾因錯誤被撤回的版本不能再恢復）。
+  3. `knowledge_version_records` 至少 1 筆。
+  4. 快照中沒有任何紀錄的 `effectiveTo` 早於今天（Asia/Taipei），與發布「失效紀錄不得納入」規則一致。
+- `publishedAt` 為該版本最近一次成為 PUBLISHED 的時間；`approvedBy`、`notes` 取自 KnowledgeVersion，供操作者辨識。
+- 沒有任何版本符合條件時 `versions: []`（`success: true`）；前端只提供「不恢復任何版本」並顯示撤回後將沒有可用知識、評估會暫停的警告。
+
+## 26.11 POST /api/v1/admin/knowledge/withdraw
+
+Request：
+
+```json
+{
+  "withdrawVersionId": "KB-MOCK-002",
+  "republishVersionId": "KB-MOCK-001",
+  "reason": "KR-MOCK-016 生效日有誤，先回到上一版。",
+  "confirm": true
+}
+```
+
+- `withdrawVersionId`（v0.4 新增必填）：操作者確認要撤回的版本，取自 §26.10 `currentVersion.versionId`。
+- `republishVersionId`：**必須出現**；值為 §26.10 `versions[]` 其中一個 `versionId`，或明確的 `null`（不恢復）。省略此欄位 → `VALIDATION_ERROR`。
+- 驗證順序與錯誤（任何錯誤都不寫入）：
+  1. `reason` 空白、`confirm` 不是 `true`、欄位缺漏或格式錯誤 → `VALIDATION_ERROR`。
+  2. `republishVersionId` 等於 `withdrawVersionId` → `VALIDATION_ERROR`。
+  3. 目前沒有 PUBLISHED 版本，或目前 PUBLISHED 版本不是 `withdrawVersionId` → `KNOWLEDGE_STATE_CHANGED`。
+  4. `republishVersionId` 不是 `null`，且提交當下不符合 §26.10 恢復條件（包含不存在、已被撤回過、已含失效紀錄）→ `KNOWLEDGE_STATE_CHANGED`。
+- 上述目前版本與恢復資格檢查，必須與撤回／恢復寫入及稽核紀錄在同一交易內保證一致；只在 Node 層事先讀取驗證不足以避免競爭條件（TASK-B-012）。
+- 通過後沿用 B-008 `withdrawVersion`／`withdraw_knowledge_version`：不刪資料，撤回版本 → `ARCHIVED` 並記錄撤回者、時間、原因；有恢復目標時依 `knowledge_version_records` 快照恢復完整內容。
+
+Success：
+
+```json
+{
+  "success": true,
+  "data": {
+    "withdrawnVersionId": "KB-MOCK-002",
+    "republishedVersionId": "KB-MOCK-001",
+    "withdrawnAt": "2026-09-25T10:05:00+08:00",
+    "withdrawnBy": "OP-MOCK-001",
+    "reason": "KR-MOCK-016 生效日有誤，先回到上一版。"
+  }
+}
+```
+
+- `republishedVersionId` 為 `null` 時，系統沒有 PUBLISHED 版本：公開 §13 與 Assessment 回 `KNOWLEDGE_UNAVAILABLE`，直到下一次發布。前端必須在二次確認時事先明示這個後果。
+- v0.3 的 `withdrawnVersionId`、`republishedVersionId` 不變；`withdrawnAt`、`withdrawnBy`、`reason` 為 v0.4 新增。
+
+## 26.12 前端規則（C-006）
+
+- 版號、數量、可恢復版本、錯誤訊息一律以 API 回應為準；不自行產生、推算或補值。
+- 二次確認畫面：核准／退回顯示紀錄標題與原因；發布顯示 `targetVersionId` 與新增／沿用／總數三個數字（有 `excludedRecordCount` 或 `supersededRecordCount` 時一併顯示）；撤回顯示撤回版本、恢復版本或「不恢復」及其後果。
+- 同一操作送出後到收到回應前停用按鈕（連點只送一次）。
+- `SESSION_INVALID` 回到登入並清除 token；`FORBIDDEN` 顯示沒有權限；`KNOWLEDGE_STATE_CHANGED` 重新載入相關資料後要求重新確認；`VALIDATION_ERROR` 顯示 `message`。
 
 ---
 
@@ -933,3 +1247,4 @@ Code
 | v0.3 | 2026-09-24 | 新增 §26 Admin Knowledge API（D-16，Jerry 核准）；知識來源 authority 新增 `KAREO_DRIVE`（D-15） | B-012、C-006、B-008-r2、J-003 |
 | v0.3.1 | 2026-09-24 | §8 Assessment Request 新增選填 `disabilityCertificate`（YES／NO／UNKNOWN，D-17）；回應格式不變 | B-010、C-005、J-003 |
 | v0.3.2 | 2026-09-24 | §8 Assessment Request 新增選填 `incomeCategory`（D-17a）；回應格式不變 | B-010、C-005、J-003 |
+| v0.4 | 2026-09-29 | §26 補齊（D-16a，Jerry 核准 [PR #34 comment 5883232266](https://github.com/viz963-1216/Kareo/pull/34#issuecomment-5883232266)）：新增 `GET …/publish-preview`、`GET …/restorable-versions`；decision／dismiss／publish／withdraw 完整 request／response（全部 `confirm: true`；decision／dismiss／withdraw 必填 `reason`）；publish 新增必填 `previewToken`、withdraw 新增必填 `withdrawVersionId` 且 `republishVersionId` 必須明確出現；records 新增 `contentFingerprint`、`effectiveTo`；新錯誤碼 `KNOWLEDGE_STATE_CHANGED`（409）；KnowledgeChange 新增 `DISMISSED`。v0.3 欄位與路徑不變 | B-012、C-006、B-009（`DISMISSED`）、J-003、contracts/mock/admin |

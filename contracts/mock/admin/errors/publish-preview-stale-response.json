@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "KNOWLEDGE_STATE_CHANGED",
+    "message": "預覽後資料已改變，請重新檢視發布預覽後再確認。資料未變更。"
+  }
+}

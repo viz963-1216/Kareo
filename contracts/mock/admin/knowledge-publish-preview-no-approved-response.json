@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "data": {
+    "canPublish": false,
+    "targetVersionId": null,
+    "currentVersionId": "KB-MOCK-001",
+    "publishDate": "2026-09-25",
+    "publishedRecordCount": 0,
+    "carriedForwardCount": 0,
+    "totalRecordCount": 0,
+    "supersededRecordCount": 0,
+    "excludedRecordCount": 0,
+    "newRecords": [],
+    "blockers": [
+      {
+        "code": "NO_APPROVED_RECORDS",
+        "message": "目前沒有已核准、可發布的紀錄。"
+      }
+    ],
+    "previewToken": null,
+    "generatedAt": "2026-09-25T09:40:00+08:00"
+  }
+}

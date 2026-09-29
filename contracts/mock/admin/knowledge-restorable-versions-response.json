@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "data": {
+    "currentVersion": {
+      "versionId": "KB-MOCK-002",
+      "publishedAt": "2026-09-25T09:42:10+08:00",
+      "recordCount": 16
+    },
+    "versions": [
+      {
+        "versionId": "KB-MOCK-001",
+        "publishedAt": "2026-09-24T12:00:00+08:00",
+        "approvedBy": "OP-MOCK-001",
+        "notes": null,
+        "recordCount": 15
+      }
+    ]
+  }
+}
