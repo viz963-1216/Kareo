@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T08:21:10.084Z",
+  "generatedAt": "2026-09-29T13:30:19.084Z",
   "base": "http://localhost:5173",
   "mode": "mock (vite dev)",
   "scope": "C-006 admin knowledge review and release controls",
@@ -153,6 +153,54 @@
           "text": true
         }
       ]
+    }
+  },
+  "scenarios": {
+    "empty": {
+      "file": "desktop-scenario-empty.jpg",
+      "noHorizontalScroll": true,
+      "noindex": "noindex, nofollow",
+      "pass": true
+    },
+    "session-invalid": {
+      "file": "desktop-scenario-session-invalid.jpg",
+      "noHorizontalScroll": true,
+      "noindex": "noindex, nofollow",
+      "pass": true
+    },
+    "forbidden": {
+      "file": "desktop-scenario-forbidden.jpg",
+      "noHorizontalScroll": true,
+      "noindex": "noindex, nofollow",
+      "pass": true
+    },
+    "publish-blocked": {
+      "file": "desktop-scenario-publish-blocked.jpg",
+      "noHorizontalScroll": true,
+      "noindex": "noindex, nofollow",
+      "pass": true
+    },
+    "no-current": {
+      "file": "desktop-scenario-no-current.jpg",
+      "noHorizontalScroll": true,
+      "noindex": "noindex, nofollow",
+      "pass": true
+    },
+    "validation-error": {
+      "file": "desktop-scenario-validation-error.jpg",
+      "noHorizontalScroll": true,
+      "pass": true
+    },
+    "state-changed": {
+      "file": "desktop-scenario-state-changed.jpg",
+      "noHorizontalScroll": true,
+      "pass": true
+    },
+    "restore-unavailable": {
+      "file": "desktop-scenario-restore-unavailable.jpg",
+      "noHorizontalScroll": true,
+      "selectionCleared": true,
+      "pass": true
     }
   }
 }
