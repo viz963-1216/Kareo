@@ -12,6 +12,9 @@ import type {
   ProviderDetailResponse,
   ProviderService,
   ProviderServiceArea,
+  ProviderServiceType,
+  RecommendationItem,
+  RecommendationRun,
   Session,
 } from "../types/index.js";
 import type { KnowledgeSnapshotRecord } from "../assessment/knowledgeSnapshot.js";
@@ -41,6 +44,9 @@ export interface AssessmentRepository {
   createAssessment(
     input: CreateAssessmentRecord
   ): Promise<{ assessment: Assessment; careNeedProfile: CareNeedProfile }>;
+  // TASK-B-005：Recommendation 讀取該 Assessment 已保存的 location，不另外驗證輸入；
+  // 找不到時回 null（呼叫端據此回 NOT_FOUND，不透露資源是否存在，見 sessionSecurityService）。
+  findById(id: string): Promise<Assessment | null>;
 }
 
 // 依 tasks/TASK-B-008.md + contracts/knowledge/README.md。
@@ -112,6 +118,14 @@ export interface ProviderDatasetWriteCounts {
   providerServiceAreas: number;
 }
 
+// TASK-B-005：篩選推薦候選用的查詢條件。district 為 null 時代表只依縣市比對（CITY_ROTATION，
+// D-13a：服務範圍含該縣市任一行政區），否則依縣市＋行政區精確比對（DISTANCE／DISTRICT_ROTATION）。
+export interface RecommendationCandidateQuery {
+  serviceType: ProviderServiceType;
+  city: string;
+  district: string | null;
+}
+
 // 依 tasks/TASK-B-004.md：不讓 Frontend 直接查核心 Business Tables，
 // Provider Detail 一律透過此 Repository -> Service -> Function 邊界存取。
 export interface ProviderRepository {
@@ -119,4 +133,19 @@ export interface ProviderRepository {
   // 依 ARCHITECTURE §22 / MVP_DECISIONS D-10：三張表只能透過這一個方法、在單一交易內寫入
   // （全有或全無，upsert by id）。刻意不提供分表寫入方法，避免再出現半套資料。
   importDatasetAtomically(dataset: ProviderDatasetWrite): Promise<ProviderDatasetWriteCounts>;
+  // TASK-B-005：status=ACTIVE、服務類型相符（provider_services.active）、服務範圍相符
+  // （provider_service_areas.active，與地址分開，PRODUCT_SPEC §19）。回傳完整 Provider（含 lat/lng），
+  // 由 Service 層判斷是否所有候選都有已驗證座標（lat/lng 皆非 null）才走 DISTANCE。
+  findEligibleForRecommendation(query: RecommendationCandidateQuery): Promise<Provider[]>;
+}
+
+// TASK-B-005（Jerry 委託修正第二輪，2026-09-26，擴大 ARCHITECTURE §22 原子寫入核准範圍，
+// 比照 Provider 匯入／知識發布撤回的既有模式）：insertRun 只是先在呼叫端暫存 Run 資料，
+// 真正寫入（Run + Items 在單一交易內）發生在 insertItems 呼叫時；insertItems 失敗時，
+// Run 完全不會寫入資料庫，不會留下沒有 Items、卻可能被後續 Lead 引用的孤立 Run
+// （不用容易失敗的補償刪除冒充原子性——這裡沒有補償刪除，是真正的單一交易）。
+// 呼叫順序仍是 insertRun 後接 insertItems，介面不變，呼叫端（recommendationService）不需要修改。
+export interface RecommendationRepository {
+  insertRun(run: RecommendationRun): Promise<void>;
+  insertItems(items: RecommendationItem[]): Promise<void>;
 }
