@@ -957,7 +957,8 @@
       "sourceId": "SRC-002",
       "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 313",
       "sourceText": "樹林",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "OFFICIAL"
     },
     {
       "providerId": "NTPC-HC-002",
@@ -970,7 +971,8 @@
       "sourceId": "SRC-002",
       "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 251",
       "sourceText": "板橋、中和、永和",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "OFFICIAL"
     },
     {
       "providerId": "NTPC-HC-003",
@@ -983,7 +985,8 @@
       "sourceId": "SRC-002",
       "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 291",
       "sourceText": "新莊、三重、林口",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "OFFICIAL"
     },
     {
       "providerId": "NTPC-HC-004",
@@ -998,7 +1001,8 @@
       "sourceId": "SRC-002",
       "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 187",
       "sourceText": "板橋、新莊、中和、三重、蘆洲",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "OFFICIAL"
     },
     {
       "providerId": "NTPC-HC-005",
@@ -1019,7 +1023,8 @@
       "sourceId": "SRC-002",
       "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 186",
       "sourceText": "板橋、樹林、新莊、中和、永和、三重、蘆洲、新店、土城、泰山、五股",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "OFFICIAL"
     },
     {
       "providerId": "TP-HMN-002",
@@ -1031,7 +1036,8 @@
       "sourceId": "SRC-007",
       "document": "(市民版)長照專業服務-特約服務單位一覽表 序號 49（臺北市立聯合醫院附設陽明居家護理所，臺北市士林區雨聲街105號6樓）",
       "sourceText": "士林區、北投區",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "OFFICIAL"
     },
     {
       "providerId": "TP-AD-001",
@@ -1054,7 +1060,8 @@
       "document": "115年臺北市特約服務門市名單.ods 序號 148（已與臺北市簽約）",
       "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "TP-AD-001",
@@ -1094,7 +1101,8 @@
       "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 1310（已與新北市簽約）",
       "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "TP-AD-002",
@@ -1117,7 +1125,8 @@
       "document": "115年臺北市特約服務門市名單.ods 序號 275（已與臺北市簽約）",
       "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "TP-AD-003",
@@ -1140,7 +1149,8 @@
       "document": "115年臺北市特約服務門市名單.ods 序號 374（已與臺北市簽約）",
       "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "TP-AD-003",
@@ -1180,7 +1190,8 @@
       "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 1598（已與新北市簽約）",
       "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-001",
@@ -1203,7 +1214,8 @@
       "document": "115年臺北市特約服務門市名單.ods 序號 605（已與臺北市簽約）",
       "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-001",
@@ -1243,7 +1255,8 @@
       "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 1（已與新北市簽約）",
       "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-002",
@@ -1283,7 +1296,8 @@
       "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 3（已與新北市簽約）",
       "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-003",
@@ -1323,7 +1337,8 @@
       "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 7（已與新北市簽約）",
       "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-004",
@@ -1346,7 +1361,8 @@
       "document": "115年臺北市特約服務門市名單.ods 序號 318（已與臺北市簽約）",
       "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-004",
@@ -1386,7 +1402,8 @@
       "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 8（已與新北市簽約）",
       "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-005",
@@ -1409,7 +1426,8 @@
       "document": "115年臺北市特約服務門市名單.ods 序號 446（已與臺北市簽約）",
       "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-005",
@@ -1449,7 +1467,8 @@
       "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 14（已與新北市簽約）",
       "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-006",
@@ -1489,7 +1508,8 @@
       "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 18（已與新北市簽約）",
       "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-007",
@@ -1529,7 +1549,8 @@
       "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 19（已與新北市簽約）",
       "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-008",
@@ -1552,7 +1573,8 @@
       "document": "115年臺北市特約服務門市名單.ods 序號 575（已與臺北市簽約）",
       "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-008",
@@ -1592,7 +1614,8 @@
       "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 21（已與新北市簽約）",
       "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-009",
@@ -1615,7 +1638,8 @@
       "document": "115年臺北市特約服務門市名單.ods 序號 396（已與臺北市簽約）",
       "sourceText": "臺北市特約門市",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "NTPC-AD-009",
@@ -1655,7 +1679,8 @@
       "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx「114~116特約廠商總表」編號 26（已與新北市簽約）",
       "sourceText": "新北市特約廠商",
       "decisionId": "DEC-A003-01",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "TP-HMN-001",
@@ -1678,7 +1703,8 @@
       "document": "(市民版)長照專業服務-特約服務單位一覽表 序號 64（台灣基督長老教會馬偕醫療財團法人馬偕紀念醫院，服務區域：全區）",
       "sourceText": "全區",
       "decisionId": "DEC-A003-02",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     },
     {
       "providerId": "TP-HMN-003",
@@ -1692,7 +1718,8 @@
       "document": "(市民版)長照專業服務-特約服務單位一覽表 序號 37（國立臺灣大學醫學院附設醫院北護分院，服務區域：萬華區、大同區、中正區）",
       "sourceText": "萬華區、大同區、中正區",
       "decisionId": "DEC-A003-02",
-      "checkedAt": "2026-09-29"
+      "checkedAt": "2026-09-29",
+      "basis": "PLATFORM_SETTING"
     }
   ],
   "pending": [
@@ -1721,38 +1748,83 @@
   "decisions": [
     {
       "decisionId": "DEC-A003-01",
-      "decidedBy": "專案負責人（repo owner viz963-1216）於 2026-09-29 在 A-003 工作對話中的指示",
       "date": "2026-09-29",
       "decision": "ASSISTIVE_DEVICE 的 ProviderServiceArea 以特約簽約縣市的全部行政區建立：與臺北市簽約者納入臺北市 12 區，與新北市簽約者納入新北市 29 區，兩市都簽約者兩市都納入。",
-      "basis": "官方制度為民眾向任一簽約特約廠商購買或租賃，廠商沒有行政區層級服務範圍。簽約事實依 SRC-004（臺北）與 SRC-005（新北）名單。"
+      "basis": "官方制度為民眾向任一簽約特約廠商購買或租賃，廠商沒有行政區層級服務範圍。簽約事實依 SRC-004（臺北）與 SRC-005（新北）名單。",
+      "settingType": "PLATFORM_SETTING",
+      "approval": {
+        "source": "Claude Code 本機工作階段 local_fc839e15-6472-4a52-8f90-7dc9e08d4b73（標題「Kareo A-003 PR 修正與驗證」；本機紀錄，非公開連結）",
+        "date": "2026-09-29",
+        "approver": "本工作階段的使用者（A-003 修正的委託人）。對話內容無法證實此使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。",
+        "question": "（助理列出的剩餘缺口第 1 點）輔具 12 家的服務範圍：官方制度是民眾可以向任一簽約的特約廠商購買或租賃……所以廠商沒有官方的行政區服務範圍。若要用「簽約縣市全區」當服務範圍，這是資料模型規則的變更，要 Jerry 核准。",
+        "answer": "1.輔具把台北市新北市有簽約的都納入在裡面，2,TP-HMN-001和003也納入在裡面，3.AD-002依照google map的門牌去寫4.這個幫我忽略5.依照google map的電話填寫",
+        "scopeCheck": "回覆沒有逐字寫出「全區」，但它是對「簽約縣市全區」提問的回答，因此實作為：對每家輔具廠商，依 SRC-004（臺北）／SRC-005（新北）是否列名，建立該縣市全部行政區（臺北 12、新北 29），兩市都列名者兩市都建立，共 415 筆。未納入其他縣市。NTPC-AD-004 在臺北名單只以相同名稱比對（名單地址為臺北市信義區），屬名稱比對。這是平台設定，不是官方證實的服務能力。"
+      }
     },
     {
       "decisionId": "DEC-A003-02",
-      "decidedBy": "專案負責人（repo owner viz963-1216）於 2026-09-29 在 A-003 工作對話中的指示",
       "date": "2026-09-29",
       "decision": "TP-HMN-001、TP-HMN-003 套用其醫院本體在 SRC-007 的服務區域：馬偕紀念醫院「全區」→ 臺北市 12 區；臺大北護分院「萬華區、大同區、中正區」。",
-      "basis": "SRC-007 序號 64、37 列的是醫院本體（名稱與地址不同於附設居家護理所）；依決定視為同一機構體系的服務區域。"
+      "basis": "SRC-007 序號 64、37 列的是醫院本體（名稱與地址不同於附設居家護理所）；依決定視為同一機構體系的服務區域。",
+      "settingType": "PLATFORM_SETTING",
+      "approval": {
+        "source": "Claude Code 本機工作階段 local_fc839e15-6472-4a52-8f90-7dc9e08d4b73（標題「Kareo A-003 PR 修正與驗證」；本機紀錄，非公開連結）",
+        "date": "2026-09-29",
+        "approver": "本工作階段的使用者（A-003 修正的委託人）。對話內容無法證實此使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。",
+        "question": "（第 2 點）TP-HMN-001 馬偕、TP-HMN-003 北護的服務範圍：臺北市的特約名單列的是醫院本體，地址和名稱都不同……所以沒有套用。需要決定是向機構確認，還是訂定對應規則。",
+        "answer": "1.輔具把台北市新北市有簽約的都納入在裡面，2,TP-HMN-001和003也納入在裡面，3.AD-002依照google map的門牌去寫4.這個幫我忽略5.依照google map的電話填寫",
+        "scopeCheck": "實作為：TP-HMN-001 套用 SRC-007 序號 64（馬偕紀念醫院）「全區」→ 臺北市 12 區；TP-HMN-003 套用序號 37（臺大北護分院）「萬華區、大同區、中正區」，共 15 筆。沒有擴大到醫院清單以外的行政區。這是平台設定：官方只證實醫院本體的服務區域，並未證實附設居家護理所的服務區域。"
+      }
     },
     {
       "decisionId": "DEC-A003-03",
-      "decidedBy": "專案負責人（repo owner viz963-1216）於 2026-09-29 在 A-003 工作對話中的指示",
       "date": "2026-09-29",
       "decision": "TP-AD-002 地址依 Google Maps 門牌更正為「民權東路6段180巷6號B1樓」。",
-      "basis": "SRC-004 寫「18巷」，但官方門牌資料沒有民權東路六段18巷；Google Maps「丁丁藥妝 內湖店」為民權東路六段180巷6號B1，電話 02-8791-1933 與 SRC-004 相同；180巷6號（含地下一層）存在於官方門牌資料。座標仍取官方門牌點，不使用 Google Maps 座標。"
+      "basis": "SRC-004 寫「18巷」，但官方門牌資料沒有民權東路六段18巷；Google Maps「丁丁藥妝 內湖店」為民權東路六段180巷6號B1，電話 02-8791-1933 與 SRC-004 相同；180巷6號（含地下一層）存在於官方門牌資料。座標仍取官方門牌點，不使用 Google Maps 座標。",
+      "settingType": "DATA_CORRECTION",
+      "approval": {
+        "source": "Claude Code 本機工作階段 local_fc839e15-6472-4a52-8f90-7dc9e08d4b73（標題「Kareo A-003 PR 修正與驗證」；本機紀錄，非公開連結）",
+        "date": "2026-09-29",
+        "approver": "本工作階段的使用者（A-003 修正的委託人）。對話內容無法證實此使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。",
+        "question": "（第 3 點）TP-AD-002 的座標：官方名單寫「民權東路6段18巷」，但官方門牌資料的民權東路六段完全沒有 18 巷，可能是名單誤植。",
+        "answer": "1.輔具把台北市新北市有簽約的都納入在裡面，2,TP-HMN-001和003也納入在裡面，3.AD-002依照google map的門牌去寫4.這個幫我忽略5.依照google map的電話填寫",
+        "scopeCheck": "只依 Google Maps 更正門牌（18巷 → 180巷）；座標取官方門牌資料，未使用 Google Maps 座標。"
+      }
     },
     {
       "decisionId": "DEC-A003-04",
-      "decidedBy": "專案負責人（repo owner viz963-1216）於 2026-09-29 在 A-003 工作對話中的指示",
       "date": "2026-09-29",
       "decision": "NTPC-AD-004 座標暫不處理（忽略），維持 null。",
-      "basis": "官方門牌資料沒有「安康路一段359號」。"
+      "basis": "官方門牌資料沒有「安康路一段359號」。",
+      "settingType": "DEFERRAL",
+      "approval": {
+        "source": "Claude Code 本機工作階段 local_fc839e15-6472-4a52-8f90-7dc9e08d4b73（標題「Kareo A-003 PR 修正與驗證」；本機紀錄，非公開連結）",
+        "date": "2026-09-29",
+        "approver": "本工作階段的使用者（A-003 修正的委託人）。對話內容無法證實此使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。",
+        "question": "（第 4 點）NTPC-AD-004 的座標：官方門牌資料沒有「安康路一段359號」。",
+        "answer": "1.輔具把台北市新北市有簽約的都納入在裡面，2,TP-HMN-001和003也納入在裡面，3.AD-002依照google map的門牌去寫4.這個幫我忽略5.依照google map的電話填寫",
+        "scopeCheck": "只保留 null，未刪除資料。"
+      }
     },
     {
       "decisionId": "DEC-A003-05",
-      "decidedBy": "專案負責人（repo owner viz963-1216）於 2026-09-29 在 A-003 工作對話中的指示",
       "date": "2026-09-29",
       "decision": "NTPC-HC-003 電話依 Google Maps 更新為 02-2990-2007。",
-      "basis": "Google Maps 機構頁電話 02 2990 2007，與 SRC-002 1150924 名單相同；名冊 11506 的 0955-992-465 不再使用。"
+      "basis": "Google Maps 機構頁電話 02 2990 2007，與 SRC-002 1150924 名單相同；名冊 11506 的 0955-992-465 不再使用。",
+      "settingType": "DATA_CORRECTION",
+      "approval": {
+        "source": "Claude Code 本機工作階段 local_fc839e15-6472-4a52-8f90-7dc9e08d4b73（標題「Kareo A-003 PR 修正與驗證」；本機紀錄，非公開連結）",
+        "date": "2026-09-29",
+        "approver": "本工作階段的使用者（A-003 修正的委託人）。對話內容無法證實此使用者是否為 Jerry／專案負責人，需由 Jerry 在 PR review 確認。",
+        "question": "（第 5 點）NTPC-HC-003 的電話：兩份官方名單不一致，這次沒有修改。",
+        "answer": "1.輔具把台北市新北市有簽約的都納入在裡面，2,TP-HMN-001和003也納入在裡面，3.AD-002依照google map的門牌去寫4.這個幫我忽略5.依照google map的電話填寫",
+        "scopeCheck": "只更新電話欄位。"
+      }
     }
-  ]
+  ],
+  "decisionTypes": {
+    "PLATFORM_SETTING": "依指示建立的平台設定；官方來源未直接證實此服務範圍",
+    "DATA_CORRECTION": "依指示更正的資料欄位",
+    "DEFERRAL": "依指示暫不處理"
+  }
 }

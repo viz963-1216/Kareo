@@ -1,6 +1,6 @@
 # A-003 Provider Geocoding + Service Area QA Report
 
-> **Status (A-003-r8, 2026-09-29):** Sections 1, 3 (Taipei) and 4 are the r1 QA and still apply.
+> **Status (A-003-r9, 2026-09-29):** Sections 1, 3 (Taipei) and 4 are the r1 QA and still apply.
 > The r1 geocoding result ("0 verified coordinates, all lat/lng null") and the r1 New Taipei
 > Service Area result ("PENDING", "NTPC-HC-003 has no district-level source") are **superseded**
 > and kept below only as history, marked *(r1, superseded)*. Current figures are generated from
@@ -20,6 +20,7 @@
 - 非 null 但缺證據：0
 - 尚待驗證座標：1
 - 缺 ProviderServiceArea 的 ACTIVE Provider：0
+- 依指示建立的平台設定服務範圍（非官方證實）：430 筆（DEC-A003-01、DEC-A003-02）
 - 服務類型 × 行政區組合：77；DISTANCE READY：36（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區、HOME_MEDICAL_NURSING × 臺北市士林區、HOME_MEDICAL_NURSING × 臺北市大同區、HOME_MEDICAL_NURSING × 臺北市大安區、HOME_MEDICAL_NURSING × 臺北市中山區、HOME_MEDICAL_NURSING × 臺北市中正區、HOME_MEDICAL_NURSING × 臺北市內湖區、HOME_MEDICAL_NURSING × 臺北市文山區、HOME_MEDICAL_NURSING × 臺北市北投區、HOME_MEDICAL_NURSING × 臺北市松山區、HOME_MEDICAL_NURSING × 臺北市信義區、HOME_MEDICAL_NURSING × 臺北市南港區、HOME_MEDICAL_NURSING × 臺北市萬華區）
 <!-- A003:END summary -->
 
@@ -84,11 +85,11 @@ Provider physical addresses were not used to infer Service Areas.
 ### HOME_MEDICAL_NURSING (r8)
 
 - `TP-HMN-002` 臺北市立聯合醫院附設陽明居家護理所: 士林區、北投區, from SRC-007 (臺北市衛生局「長照專業服務-特約服務單位一覽表」序號 49; name and address match).
-- `TP-HMN-001` and `TP-HMN-003`: SRC-007 lists the parent hospitals (馬偕紀念醫院「全區」, 臺大北護分院「萬華區、大同區、中正區」). By owner decision DEC-A003-02 (2026-09-29), those areas are applied to the affiliated home-nursing agencies.
+- `TP-HMN-001` and `TP-HMN-003`: SRC-007 lists the parent hospitals (馬偕紀念醫院「全區」, 臺大北護分院「萬華區、大同區、中正區」). Per the instruction recorded as DEC-A003-02 (2026-09-29), those areas are applied to the affiliated home-nursing agencies as a **platform setting**. The official source confirms the hospitals' areas, not the agencies'.
 
 ### ASSISTIVE_DEVICE (r8)
 
-None of the official sources (SRC-004, SRC-005) has vendor-level service districts: residents may buy or rent from any contracted vendor. By owner decision DEC-A003-01 (2026-09-29), each vendor's service areas are every district of each city it is contracted with:
+None of the official sources (SRC-004, SRC-005) has vendor-level service districts: residents may buy or rent from any contracted vendor. Per the instruction recorded as DEC-A003-01 (2026-09-29), each vendor's service areas are set to every district of each city it is contracted with. This is a **platform setting**, not an officially confirmed service capability:
 
 - 臺北市 contracts come from SRC-004 (12 districts).
 - 新北市 contracts come from SRC-005 (29 districts).
@@ -96,7 +97,20 @@ None of the official sources (SRC-004, SRC-005) has vendor-level service distric
 
 Addresses were not used to infer service areas.
 
-Every decision is recorded in `qa/a-003-evidence.json` (`decisions`).
+Every instruction is recorded in `qa/a-003-evidence.json` (`decisions`), with the verbatim excerpt, the session ID and a scope check. The conversation cannot confirm whether the instructing user is Jerry; Jerry should confirm in PR review.
+
+### Service-area basis (generated)
+
+<!-- A003:BEGIN service-area-basis -->
+| Provider 類型 | 官方來源直接證實（本檔證據） | 官方來源（A-003-r1 人工核對 SRC-001，未列入本檔證據） | 依指示建立的平台設定（非官方證實） | 合計 |
+| --- | --- | --- | --- | --- |
+| HOME_CARE | 23 | 61 | 0 | 84 |
+| HOME_MEDICAL_NURSING | 2 | 0 | 15 | 17 |
+| ASSISTIVE_DEVICE | 0 | 0 | 415 | 415 |
+
+- DEC-A003-01（415 筆；TP-AD-001、TP-AD-002、TP-AD-003、NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009）：ASSISTIVE_DEVICE 的 ProviderServiceArea 以特約簽約縣市的全部行政區建立：與臺北市簽約者納入臺北市 12 區，與新北市簽約者納入新北市 29 區，兩市都簽約者兩市都納入。
+- DEC-A003-02（15 筆；TP-HMN-001、TP-HMN-003）：TP-HMN-001、TP-HMN-003 套用其醫院本體在 SRC-007 的服務區域：馬偕紀念醫院「全區」→ 臺北市 12 區；臺大北護分院「萬華區、大同區、中正區」。
+<!-- A003:END service-area-basis -->
 
 ## 4. Google Maps URL QA
 

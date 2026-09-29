@@ -270,3 +270,47 @@ test("service-area evidence must reference a recorded decision", () => {
   assert.equal(status, 1);
   assert.match(output, /TP-AD-001: decision DEC-A003-01 is not recorded/);
 });
+
+test("relabelling a platform-setting service area as official fails", () => {
+  const { status, output } = runGate(({ readJson, writeJson }) => {
+    const evidence = readJson(EVIDENCE);
+    evidence.serviceAreas.find((item) => item.providerId === "TP-HMN-001").basis = "OFFICIAL";
+    writeJson(EVIDENCE, evidence);
+  });
+  assert.equal(status, 1);
+  assert.match(output, /TP-HMN-001: service-area basis must be OFFICIAL or match its decision type/);
+});
+
+test("a platform setting without a platform-setting decision fails", () => {
+  const { status, output } = runGate(({ readJson, writeJson }) => {
+    const evidence = readJson(EVIDENCE);
+    evidence.decisions.find((item) => item.decisionId === "DEC-A003-01").settingType = "DATA_CORRECTION";
+    writeJson(EVIDENCE, evidence);
+  });
+  assert.equal(status, 1);
+  assert.match(output, /TP-AD-001: PLATFORM_SETTING service area needs a PLATFORM_SETTING decision/);
+});
+
+test("a wrong platform-setting count in the report fails", () => {
+  const { status, output } = runGate(({ readText, writeText }) => {
+    const text = readText(REPORT);
+    const changed = text.replace("| ASSISTIVE_DEVICE | 0 | 0 | 415 | 415 |", "| ASSISTIVE_DEVICE | 415 | 0 | 0 | 415 |");
+    assert.notEqual(changed, text);
+    writeText(REPORT, changed);
+  });
+  assert.equal(status, 1);
+  assert.match(output, /section "service-area-basis" differs from the data/);
+});
+
+test("coverage lists candidates included only by a platform setting", () => {
+  const dataset = loadRealDataset();
+  const { verifiedIds, settingAreaKeys } = checkEvidence(dataset);
+  const { groups } = computeCoverage(dataset, verifiedIds, settingAreaKeys);
+  const find = (type, district) =>
+    groups.find((g) => g.serviceType === type && g.city === "臺北市" && g.district === district);
+  assert.deepEqual(find("HOME_MEDICAL_NURSING", "士林區").settingCandidates, ["TP-HMN-001"]);
+  assert.deepEqual(find("HOME_CARE", "萬華區").settingCandidates, []);
+  assert.ok(groups.filter((g) => g.serviceType === "ASSISTIVE_DEVICE").every(
+    (g) => g.settingCandidates.length === g.candidates.length,
+  ));
+});

@@ -12,8 +12,14 @@ export const EVIDENCE_FILE = "qa/a-003-evidence.json";
 // Generated report sections: file -> section names. Each section lives between
 //   <!-- A003:BEGIN name --> and <!-- A003:END name -->
 export const REPORT_SECTIONS = {
-  "qa/verified-coordinates-report.md": ["summary", "by-service-type", "coverage", "providers"],
-  "qa/geocoding-service-area-report.md": ["summary"],
+  "qa/verified-coordinates-report.md": [
+    "summary",
+    "by-service-type",
+    "service-area-basis",
+    "coverage",
+    "providers",
+  ],
+  "qa/geocoding-service-area-report.md": ["summary", "service-area-basis"],
   "qa/pending-verification.md": ["pending"],
 };
 
@@ -116,8 +122,9 @@ export function checkEvidence({ providers, services, areas, evidence }) {
   const errors = [];
   const providersById = new Map(providers.map((provider) => [provider.id, provider]));
   const sourceIds = new Set(evidence.sources.map((source) => source.sourceId));
-  // Owner decisions that some evidence relies on; every reference must resolve.
-  const decisionIds = new Set((evidence.decisions ?? []).map((item) => item.decisionId));
+  // Recorded instructions that some evidence relies on; every reference must resolve.
+  const decisionsById = new Map((evidence.decisions ?? []).map((item) => [item.decisionId, item]));
+  const decisionIds = new Set(decisionsById.keys());
   for (const item of [...evidence.coordinates, ...evidence.serviceAreas, ...evidence.pending]) {
     if (item.decisionId !== undefined && !decisionIds.has(item.decisionId)) {
       errors.push(`${item.providerId}: decision ${item.decisionId} is not recorded in evidence.decisions.`);
@@ -207,11 +214,25 @@ export function checkEvidence({ providers, services, areas, evidence }) {
     }
   }
 
+  // Service areas an official source states directly (OFFICIAL) are kept apart from areas
+  // created by an instructed platform setting (PLATFORM_SETTING).
+  const settingAreaKeys = new Set();
   const activeAreas = areas.filter((area) => area.active);
   for (const item of evidence.serviceAreas) {
     if (!providersById.has(item.providerId)) {
       errors.push(`${item.providerId}: service-area evidence references a missing Provider.`);
       continue;
+    }
+    const decisionType = decisionsById.get(item.decisionId)?.settingType;
+    if (item.basis === "PLATFORM_SETTING") {
+      if (decisionType !== "PLATFORM_SETTING") {
+        errors.push(`${item.providerId}: PLATFORM_SETTING service area needs a PLATFORM_SETTING decision.`);
+      }
+      for (const district of item.districts) {
+        settingAreaKeys.add(`${item.providerId}|${item.city}|${district}`);
+      }
+    } else if (item.basis !== "OFFICIAL" || decisionType === "PLATFORM_SETTING") {
+      errors.push(`${item.providerId}: service-area basis must be OFFICIAL or match its decision type.`);
     }
     if (!sourceIds.has(item.sourceId)) {
       errors.push(`${item.providerId}: service-area source ${item.sourceId} is not registered.`);
@@ -262,14 +283,18 @@ export function checkEvidence({ providers, services, areas, evidence }) {
     }
   }
 
-  return { errors, verifiedIds, pendingById };
+  return { errors, verifiedIds, pendingById, settingAreaKeys };
 }
 
 // Candidate = ACTIVE Provider + active ProviderService + active ProviderServiceArea.
 // READY (DISTANCE usable, D-13c) only when every candidate has evidence-backed coordinates
 // and no ACTIVE Provider offering that service type has unknown service areas (it could be
 // a hidden candidate in any district).
-export function computeCoverage({ providers, services, areas }, verifiedIds) {
+export function computeCoverage(
+  { providers, services, areas },
+  verifiedIds,
+  settingAreaKeys = new Set(),
+) {
   const providersById = new Map(providers.map((provider) => [provider.id, provider]));
   const activeServices = services.filter(
     (service) => service.active && providersById.get(service.providerId)?.status === "ACTIVE",
@@ -302,7 +327,10 @@ export function computeCoverage({ providers, services, areas }, verifiedIds) {
       let status = "READY";
       if (missing.length > 0) status = "BLOCKED_MISSING_COORDINATE";
       else if (unknownArea.length > 0) status = "BLOCKED_UNKNOWN_SERVICE_AREA";
-      return { serviceType, city, district, candidates, missing, status };
+      const settingCandidates = candidates.filter((id) =>
+        settingAreaKeys.has(`${id}|${city}|${district}`),
+      );
+      return { serviceType, city, district, candidates, missing, status, settingCandidates };
     });
     typeGroups.sort((a, b) =>
       `${a.city}${a.district}`.localeCompare(`${b.city}${b.district}`, "zh-Hant"),
@@ -353,6 +381,9 @@ export function renderSections(dataset, verifiedIds, coverage, pendingById) {
   const evidenceById = new Map(evidence.coordinates.map((item) => [item.providerId, item]));
   const providersById = new Map(providers.map((provider) => [provider.id, provider]));
   const pct = (a, b) => (b === 0 ? "—" : `${Math.round((a / b) * 100)}%`);
+  const settingEvidence = evidence.serviceAreas.filter((item) => item.basis === "PLATFORM_SETTING");
+  const officialEvidence = evidence.serviceAreas.filter((item) => item.basis === "OFFICIAL");
+  const settingAreas = settingEvidence.reduce((n, item) => n + item.districts.length, 0);
 
   const summary = [
     `- Provider 總數：${stats.providers}`,
@@ -362,6 +393,7 @@ export function renderSections(dataset, verifiedIds, coverage, pendingById) {
     `- 非 null 但缺證據：${stats.nonNullWithoutEvidence}`,
     `- 尚待驗證座標：${stats.pendingCoordinates}`,
     `- 缺 ProviderServiceArea 的 ACTIVE Provider：${stats.missingServiceArea}`,
+    `- 依指示建立的平台設定服務範圍（非官方證實）：${settingAreas} 筆（${[...new Set(settingEvidence.map((item) => item.decisionId))].join("、") || "—"}）`,
     `- 服務類型 × 行政區組合：${stats.groups}；DISTANCE READY：${stats.readyGroups.length}` +
       (stats.readyGroups.length
         ? `（${stats.readyGroups.map((g) => `${g.serviceType} × ${g.city}${g.district}`).join("、")}）`
@@ -381,12 +413,48 @@ export function renderSections(dataset, verifiedIds, coverage, pendingById) {
   ].join("\n");
 
   const coverageTable = [
-    "| Service Type | City | District | 候選數 | 已驗證座標 | 覆蓋率 | 狀態 | 待補座標 |",
-    "| --- | --- | --- | --- | --- | --- | --- | --- |",
+    "| Service Type | City | District | 候選數 | 已驗證座標 | 覆蓋率 | 狀態 | 待補座標 | 依平台設定納入的候選 |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
     ...coverage.groups.map((group) => {
       const verified = group.candidates.length - group.missing.length;
-      return `| ${group.serviceType} | ${group.city} | ${group.district} | ${group.candidates.length} | ${verified} | ${pct(verified, group.candidates.length)} | ${STATUS_TEXT[group.status]} | ${group.missing.join("、") || "—"} |`;
+      return `| ${group.serviceType} | ${group.city} | ${group.district} | ${group.candidates.length} | ${verified} | ${pct(verified, group.candidates.length)} | ${STATUS_TEXT[group.status]} | ${group.missing.join("、") || "—"} | ${group.settingCandidates.join("、") || "—"} |`;
     }),
+  ].join("\n");
+
+  // Every active area row falls in exactly one bucket; the total must equal the data.
+  const areaKey = (area) => `${area.providerId}|${area.city}|${area.district}`;
+  const officialKeys = new Set(
+    officialEvidence.flatMap((item) => item.districts.map((d) => `${item.providerId}|${item.city}|${d}`)),
+  );
+  const settingKeys = new Set(
+    settingEvidence.flatMap((item) => item.districts.map((d) => `${item.providerId}|${item.city}|${d}`)),
+  );
+  const typeOf = new Map(providers.map((provider) => [provider.id, provider.type]));
+  const basisRows = new Map();
+  for (const area of areas.filter((item) => item.active)) {
+    const type = typeOf.get(area.providerId);
+    const row = basisRows.get(type) ?? { official: 0, setting: 0, other: 0 };
+    if (settingKeys.has(areaKey(area))) row.setting += 1;
+    else if (officialKeys.has(areaKey(area))) row.official += 1;
+    else row.other += 1;
+    basisRows.set(type, row);
+  }
+  const serviceAreaBasis = [
+    "| Provider 類型 | 官方來源直接證實（本檔證據） | 官方來源（A-003-r1 人工核對 SRC-001，未列入本檔證據） | 依指示建立的平台設定（非官方證實） | 合計 |",
+    "| --- | --- | --- | --- | --- |",
+    ...[...basisRows.entries()].map(
+      ([type, row]) =>
+        `| ${type} | ${row.official} | ${row.other} | ${row.setting} | ${row.official + row.other + row.setting} |`,
+    ),
+    "",
+    ...(evidence.decisions ?? [])
+      .filter((item) => item.settingType === "PLATFORM_SETTING")
+      .map((item) => {
+        const rows = settingEvidence.filter((e) => e.decisionId === item.decisionId);
+        const ids = [...new Set(rows.map((e) => e.providerId))];
+        const count = rows.reduce((n, e) => n + e.districts.length, 0);
+        return `- ${item.decisionId}（${count} 筆；${ids.join("、")}）：${item.decision}`;
+      }),
   ].join("\n");
 
   const providerTable = [
@@ -420,6 +488,7 @@ export function renderSections(dataset, verifiedIds, coverage, pendingById) {
   return {
     summary,
     "by-service-type": byType,
+    "service-area-basis": serviceAreaBasis,
     coverage: coverageTable,
     providers: providerTable,
     pending,

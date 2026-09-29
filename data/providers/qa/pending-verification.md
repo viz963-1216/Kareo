@@ -1,6 +1,6 @@
 # A-003 待補資料清單
 
-Submission Version: A-003-r8
+Submission Version: A-003-r9
 更新日期：2026-09-29
 
 每筆資料都來自 `qa/a-003-evidence.json` 的 `pending`。`node data/providers/qa/verify-coordinates.mjs` 會確認：
@@ -9,7 +9,7 @@ Submission Version: A-003-r8
 - 每個有啟用服務、但沒有 ProviderServiceArea 的 Provider 都列出「服務範圍」。
 - 已驗證的項目不會留在清單上。
 
-r8 依專案負責人的決定（`a-003-evidence.json` 的 `decisions`，DEC-A003-01～05）處理了先前待決的項目，目前只剩 1 筆，而且已決定忽略。
+r8 依本工作階段使用者的指示（`a-003-evidence.json` 的 `decisions`，DEC-A003-01～05，含原文摘錄）處理了先前待決的項目，目前只剩 1 筆，而且已依指示暫不處理。指示者身分需由 Jerry 在 PR review 確認。
 
 <!-- A003:BEGIN pending -->
 | Provider ID | 名稱 | 缺少 | 已查閱來源與日期 | 尚無法確認的原因 | 下一步 |

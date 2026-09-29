@@ -32,8 +32,8 @@ const root = path.resolve(
 let errors;
 try {
   const dataset = loadDataset(root);
-  const { errors: evidenceErrors, verifiedIds, pendingById } = checkEvidence(dataset);
-  const coverage = computeCoverage(dataset, verifiedIds);
+  const { errors: evidenceErrors, verifiedIds, pendingById, settingAreaKeys } = checkEvidence(dataset);
+  const coverage = computeCoverage(dataset, verifiedIds, settingAreaKeys);
   const sections = renderSections(dataset, verifiedIds, coverage, pendingById);
   // Never write reports from data that fails the evidence checks.
   const reportErrors = syncReports(root, sections, { write: write && evidenceErrors.length === 0 });
