@@ -42,7 +42,7 @@ A / B / C 不直接 Push `staging` 或 `main`。
 |---|---|---|---|---|
 | A-001、A-002 | MERGED（#2；A-002 隨 #13） | 未確認 | — | — |
 | A-003 r1 | MERGED（#13） | — | — | — |
-| **A-003-r3 已驗證座標** | IN REVIEW（#39 `6f8db5c`）：分支上 30／30 筆已有非 null 座標，J-003 **尚未審核**來源可追溯性 | 否：未合併，DISTANCE 無法真實驗收 | A-004 ✅ | Jerry 審核 #39 座標證據 |
+| **A-003-r3 已驗證座標** | IN REVIEW（#39 `6f8db5c`）：分支上 30／30 筆已有非 null 座標，J-003 **尚未審核**來源可追溯性 | 否：未合併，DISTANCE 無法真實驗收 | A-004 ✅ | **已交回 A 工程師接管**（2026-09-29）；A 完成後 J-003 再做整合驗證 |
 | A-004 Validation Gate | MERGED（#18） | 未確認：正式匯入未執行 | — | 供 B-004 正式匯入（J-003） |
 | A-005 QA Cases | MERGED（#30 `ffc0796`，位置案例已依 D-13 更新） | — | — | 供 B-005／J-003 推薦驗收 |
 
@@ -70,7 +70,7 @@ A / B / C 不直接 Push `staging` 或 `main`。
 |---|---|---|---|---|
 | C-001〜C-004 | MERGED（Mock） | 未確認 | — | 真實驗收由 J-003 |
 | C-005 | MERGED（#34） | 真實 API 待驗 | — | staging 31 項前端測試與 real build 通過；不等於真實 E2E |
-| **C-006 知識審核與發布頁（D-16）** | IN REVIEW（#46 `557edf8`）：退回待修，審查後無新 commit | — | Mock 契約 #43 ✅；真實接線 B-012 | 試驗組合 37 PASS，但空 data 成功回應仍被當成功（J-003-r8 重現）；依 #46 審查留言修正 |
+| **C-006 知識審核與發布頁（D-16）** | IN REVIEW（#46 `557edf8`）：退回待修，審查後無新 commit | — | Mock 契約 #43 ✅；真實接線 B-012 | 試驗組合 37 PASS，但空 data 成功回應仍被當成功（J-003-r8 重現）；**由 C 修正**（依 #46 審查留言，同一 PR）；J-003 於修正後重跑試驗組合 |
 
 **C 的驗收分層**：Mock 模組驗收不代替 J-003 真實 API E2E。
 
@@ -81,7 +81,7 @@ A / B / C 不直接 Push `staging` 或 `main`。
 |---|---|---|
 | J-001 Netlify + Supabase staging | MERGED（#6） | 部署仍 503 `usage_exceeded`（2026-09-29 重新查證，D-09）；staging Supabase 隔離未確認 |
 | J-002 規格／知識 | r1–r5 DOC-MERGED（#19、#28、#31、#35）；5 包 21 筆核准、1 筆退回，**尚未發布** | — |
-| J-003 CI + Integration | r1–r4 MERGED（#20、#29、#38）、前端 CI MERGED（#42）；r5–r8 IN REVIEW（#44，#41 已被包含）；**Integrated：否** | 見 INTEGRATION_ACCEPTANCE〈目前結論（J-003-r8）〉 |
+| J-003 CI + Integration | r1–r4 MERGED（#20、#29、#38）、前端 CI MERGED（#42）；r5–r8 IN REVIEW（#44，#41 已被包含）；**Integrated：否** | J 持續負責整合與驗證；43 項真實 E2E 依環境與模組到位逐段補證據（見 INTEGRATION_ACCEPTANCE〈目前結論（J-003-r8）〉） |
 | J-004 Release readiness | 準備文件 MERGED（#22、#45）；gate CLOSED | smoke 工具測試 3／3 PASS；真實演練待部署恢復 |
 
 

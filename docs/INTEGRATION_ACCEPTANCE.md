@@ -101,12 +101,13 @@ r5 交回清單在 staging 上的狀態：H-2、N-2（升級回填）U2／U3／U
 
 後端 typecheck PASS、vitest 321／321；前端 31／31、real build、正式 bundle Mock 掃描 0；根目錄 scripts／adapter 54／54；J-004 smoke 3／3；check-integration 11 PASS／12 PENDING／0 FAIL；Admin fixtures 39 PASS；知識包格式 PASS；Provider gate PASS；打包後 Functions 14 PASS／1 PENDING（DELETE session 未實作）／0 FAIL；dev gate 29 PASS／0 FAIL／56 PENDING；隔離 DB fresh 24 PASS（19 behaviour、5 schema）／0 FAIL、`--upgrade-from=0008` 28 PASS（23 behaviour、5 schema）／0 FAIL。
 
-- CI `db-verify` 由 informational 改為**必要**：移除 `continue-on-error`；`shell: bash`（`-eo pipefail`），避免 `| tee` 吃掉失敗碼；加入負向對照步驟（舊 repository 必須讓 K10 FAIL）。
+- CI `db-verify` **不再忽略 DB 測試失敗**（任何 FAIL 會讓該 job 失敗、PR 顯示紅燈）：移除 `continue-on-error`；`shell: bash`（`-eo pipefail`），避免 `| tee` 吃掉失敗碼；加入負向對照步驟（舊 repository 必須讓 K10 FAIL）。
+- **分支保護另計**：2026-09-29 唯讀查證 `staging`、`main` 皆無 branch protection、無 ruleset（GitHub API 回 `Branch not protected`），因此目前**沒有任何 required check**，紅燈不會在技術上阻擋合併。是否把 `Isolated DB verification` 等 job 設為 required check 由 Jerry 在 GitHub 設定決定；J-003 未變更設定。
 - `[schema]` 項（M1、M3、M4、C2、R1）只證明物件存在；原子性、回復、讀取行為只看 `[behaviour]` 項。PGlite 以超級使用者執行，shim 不模擬 JWT／RLS；權限只由 M3／M4 的 catalog 檢查證明。
 
 ### D. 真實部署 E2E
 
-**0／43 執行。** `https://kareo-tw.netlify.app/`、`/api/v1/knowledge/status`、`https://kareocar.netlify.app/` 皆 HTTP 503 `{"error":"usage_exceeded"}`。沒有可採計的結果檔；release gate 必然 FAIL（43 PENDING）。
+**0／43 執行；43 項維持待驗收（PENDING）**，依環境與模組到位情況逐段補證據，本機／隔離 DB 結果不填入 E2E 欄位。 `https://kareo-tw.netlify.app/`、`/api/v1/knowledge/status`、`https://kareocar.netlify.app/` 皆 HTTP 503 `{"error":"usage_exceeded"}`。沒有可採計的結果檔；release gate 必然 FAIL（43 PENDING）。
 
 ### E. 外部阻擋與尚缺功能
 
@@ -118,10 +119,10 @@ r5 交回清單在 staging 上的狀態：H-2、N-2（升級回填）U2／U3／U
 | B-006 Lead API | `POST /api/v1/leads`、內部查件／狀態更新；遠端無分支／PR | E2E-13、14、15、18、22、36、41 | B | 依 API_CONTRACT 交付；J-003 再補路由 |
 | B-011b 安全 | `POST /api/v1/consent/withdraw`；`DELETE /api/v1/session` 回未實作 | E2E-19、20、37 | B | 同上 |
 | B-012 Admin API | `/api/v1/admin/**` 10 個端點 | E2E-40 | B | 同上；C-006 真實接線依賴此項 |
-| C-006 | #46 回應驗證缺陷未修 | E2E-40 | C | 依 #46 審查留言修正同一 PR |
+| C-006 | #46 回應驗證缺陷未修 | E2E-40 | C（負責修正） | 依 #46 審查留言修正同一 PR；J-003 修正後重跑試驗組合 |
 | 同意版本 | `contracts/legal/consent-versions.json` 唯一一組為 DRAFT、legalReview PENDING | E2E-02、37、41 | Jerry（D-05） | 法務核准後由 Jerry 改為 ACTIVE（J-003 不代改） |
 | 接件人員 | D-06 備援接件人 | E2E-15 | Jerry | — |
-| 距離排序 | A-003 #39 未合併、未審核 | E2E-08 | A | 審核 #39 座標來源 |
+| 距離排序 | A-003 #39 未合併、未審核 | E2E-08 | A（已交回 A 工程師接管） | A 完成座標來源後，J-003 整合驗證 |
 | 知識排程 | B-009 排程實跑需 `staging` environment／secrets | E2E-26、38、39 | Jerry | 同 Supabase 列 |
 
 ## 前次結論（2026-09-27，J-003-r5；歷史，最新狀態以上方 r8 為準）

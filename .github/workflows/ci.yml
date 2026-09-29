@@ -111,8 +111,10 @@ jobs:
   # Local isolated PostgreSQL (PGlite): all migrations in order (fresh and as an upgrade from 0008 with existing
   # published knowledge), RLS／privileges, Provider import rollback, knowledge publish／withdraw, the deployed
   # knowledge read path (apps/api repository + resolver via supabase-js and a GET-only PostgREST shim), crawler
-  # snapshot read-back, recommendation write atomicity. Required since J-003-r8: every check passed fresh and
-  # upgrade on staging 6abe494. `shell: bash` gives `-eo pipefail`, so a FAIL is not hidden by `tee`.
+  # snapshot read-back, recommendation write atomicity. Since J-003-r8 a DB FAIL fails this job (no
+  # continue-on-error; `shell: bash` gives `-eo pipefail`, so `tee` cannot hide it); every check passed fresh and
+  # upgrade on staging 6abe494. Whether a red job blocks merging depends on branch protection, which is a GitHub
+  # setting outside this file (none on staging／main as of 2026-09-29).
   # Still a local database, not the staging Supabase or a deployment.
   db-verify:
     name: Isolated DB verification
