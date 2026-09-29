@@ -1,6 +1,8 @@
 -- TASK-B-005: Recommendation Engine 執行紀錄與單筆推薦結果。依 docs/DATA_MODEL.md 第 20-21 節。
--- 編號 0013：依 J-003-r5（2026-09-26）跨分支 migration 全域順序表重新命名（原檔名 0009_recommendation.sql，
--- 尚未套用於任何環境，只改檔名，內容不變）；合併順序需為 #33 → #36 → #40 → #37。
+-- 編號 0014：依 J-003-r7（2026-09-29）跨分支 migration 全域順序表重新命名（原檔名 0013_recommendation.sql，
+-- 尚未套用於任何環境，只改檔名，內容不變）；因 B-008 新增的 0013_knowledge_content_fingerprint.sql
+-- 也用了 0013，J-003-r7 協調為：B-008 保留 0013，本檔（recommendation）→ 0014，
+-- B-009 的 crawler 三個檔案 → 0015／0016／0017。
 
 create table if not exists recommendation_runs (
   id text primary key,
