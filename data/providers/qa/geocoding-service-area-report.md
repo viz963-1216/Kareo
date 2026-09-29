@@ -1,8 +1,31 @@
 # A-003 Provider Geocoding + Service Area QA Report
 
+> **Status (A-003-r6, 2026-09-29):** Sections 1, 3 (Taipei) and 4 are the r1 QA and still apply.
+> The r1 geocoding result ("0 verified coordinates, all lat/lng null") and the r1 New Taipei
+> Service Area result ("PENDING", "NTPC-HC-003 has no district-level source") are **superseded**
+> and kept below only as history, marked *(r1, superseded)*. Current figures are generated from
+> the data and evidence by `qa/verify-coordinates.mjs`:
+>
+> - Coordinates and coverage: `qa/verified-coordinates-report.md`
+> - Missing data, sources checked, reasons, next steps: `qa/pending-verification.md`
+> - Machine-readable evidence: `qa/a-003-evidence.json`
+
+## Current Figures (generated)
+
+<!-- A003:BEGIN summary -->
+- Provider 總數：30
+- ProviderServiceArea 筆數：84
+- lat/lng 非 null：13
+- 有完整驗證證據的座標：13（名稱／地址核對＋官方門牌點＋可重現轉換，見 `qa/a-003-evidence.json`）
+- 非 null 但缺證據：0
+- 尚待驗證座標：17
+- 缺 ProviderServiceArea 的 ACTIVE Provider：15
+- 服務類型 × 行政區組合：24；DISTANCE READY：12（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區）
+<!-- A003:END summary -->
+
 ## Overview
 
-This report documents the second-round QA for the A-002 Provider Dataset.
+This report documents the QA for the A-002 Provider Dataset.
 
 Scope:
 
@@ -12,11 +35,6 @@ Scope:
 - Google Maps URL usability
 - Unverifiable data tracking
 
-Dataset:
-
-- Provider count: 30
-- Service Area count: 81
-
 ## 1. Address Consistency QA
 
 - Providers checked: 30
@@ -25,29 +43,22 @@ Dataset:
 
 All 30 Provider records have addresses consistent with their `city` and `district` fields.
 
-## 2. Geocoding QA
+## 2. Geocoding QA *(r1, superseded)*
 
-- Providers checked: 30
-- Providers with verified coordinates: 0
-- Providers with unverifiable coordinates: 30
-
-All Provider `lat` and `lng` values remain `null`.
-
-Coordinates were not inferred or guessed. Only coordinates from a traceable and verifiable source may be added to the Provider dataset.
-
-The NLSC address service was reviewed as a potential official geocoding source, but no verified address-to-coordinate workflow was established during this QA pass. Therefore, no coordinates were added.
+r1 recorded 0 verified coordinates and all `lat`／`lng` as `null`. That is no longer true; see
+"Current Figures" above. r1 did not establish a verified address-to-coordinate workflow. From r4
+onwards, coordinates come only from official address-point records (新北市門牌位置數值資料,
+EPSG:3826) matched to the Provider's official address, never from Google Maps, district centres
+or inference. The method is in `qa/verified-coordinates-report.md`.
 
 ## 3. Service Area QA
 
 ### Referential Integrity
 
-- Service Area records checked: 81
-- Missing Provider references: 0
+- Every ProviderServiceArea references an existing Provider (enforced by `qa/validate-providers.mjs`).
 - Result: PASS
 
-All Provider Service Area records reference an existing Provider.
-
-### Taipei HOME_CARE Verification
+### Taipei HOME_CARE Verification (r1, still applies)
 
 - Providers checked: 10
 - Service Area records checked: 61
@@ -62,17 +73,13 @@ The number and districts of the Service Area records matched the official `特�
 
 Provider physical addresses were not used to infer Service Areas.
 
-### New Taipei HOME_CARE
+### New Taipei HOME_CARE (r6)
 
-- Service Area records currently present: 20
-- Source registry reference: SRC-002
-- Verification status: PENDING
-
-The official source is registered in `source-registry.md`, but a complete local source artifact was not available during this QA pass for independent verification of all district-level Service Areas.
-
-Existing Service Area records were therefore not expanded or modified based on Provider addresses.
-
-`NTPC-HC-003` remains without district-level Service Area records because the available source information only identifies New Taipei City-level coverage.
+- Source: SRC-002, `114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf`, field `可提供服務區域` (retrieved 2026-09-29)
+- Providers checked: 5 (NTPC-HC-001 … 005)
+- Result: PASS. All 23 Service Area records match the official list district by district. This is checked automatically against `qa/a-003-evidence.json`.
+- r6 added `NTPC-HC-003` 新莊區、三重區、林口區 from the same list (序號 291).
+- *(r1, superseded)* r1 marked these records PENDING and said NTPC-HC-003 had only city-level coverage. The city-level value came from the 名冊 (SRC-006); the contract list gives district-level areas.
 
 ### HOME_MEDICAL_NURSING
 
@@ -83,6 +90,8 @@ No district-level Provider Service Area records were created because the availab
 No Provider Service Area records were created for assistive-device Providers when the official source did not provide Provider-specific district-level coverage.
 
 Provider physical addresses were not used to infer service coverage.
+
+Both gaps are listed per Provider in `qa/pending-verification.md`.
 
 ## 4. Google Maps URL QA
 

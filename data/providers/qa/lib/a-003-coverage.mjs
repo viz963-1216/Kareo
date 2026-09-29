@@ -1,0 +1,423 @@
+// A-003 coordinate / service-area evidence checks and report rendering.
+//
+// A coordinate counts as verified only when a record in qa/a-003-evidence.json supports it:
+// source identity (name + address), an official address-point record that matches the
+// Provider address, and a reproducible EPSG:3826 -> WGS84 conversion. A non-null lat/lng
+// alone is never counted as verified.
+import fs from "node:fs";
+import path from "node:path";
+
+export const EVIDENCE_FILE = "qa/a-003-evidence.json";
+
+// Generated report sections: file -> section names. Each section lives between
+//   <!-- A003:BEGIN name --> and <!-- A003:END name -->
+export const REPORT_SECTIONS = {
+  "qa/verified-coordinates-report.md": ["summary", "by-service-type", "coverage", "providers"],
+  "qa/geocoding-service-area-report.md": ["summary"],
+  "qa/pending-verification.md": ["pending"],
+};
+
+// MOI town codes used by SRC-COORD-NTPC-001 records (column areacode).
+const NTPC_AREA_CODES = {
+  "65000010": "板橋區",
+  "65000020": "三重區",
+  "65000030": "中和區",
+  "65000040": "永和區",
+  "65000050": "新莊區",
+  "65000060": "新店區",
+  "65000070": "樹林區",
+  "65000100": "淡水區",
+  "65000130": "土城區",
+  "65000140": "蘆洲區",
+  "65000150": "五股區",
+  "65000160": "泰山區",
+  "65000170": "林口區",
+};
+
+// Conversion must reproduce the recorded WGS84 value within ~1 cm.
+const CONVERSION_TOLERANCE_DEG = 1e-7;
+
+const MISSING_LABELS = { coordinate: "座標", serviceArea: "服務範圍" };
+
+export function twd97Tm2Zone121ToWgs84(x, y) {
+  // EPSG:3826 (TWD97 / TM2 zone 121) inverse projection on GRS80.
+  const a = 6378137;
+  const b = 6356752.314245;
+  const k0 = 0.9999;
+  const falseEasting = 250000;
+  const lon0 = (121 * Math.PI) / 180;
+  const e = Math.sqrt(1 - (b * b) / (a * a));
+  const ePrimeSquared = (e * e) / (1 - e * e);
+  const e1 = (1 - Math.sqrt(1 - e * e)) / (1 + Math.sqrt(1 - e * e));
+  const m = y / k0;
+  const mu = m / (a * (1 - e ** 2 / 4 - (3 * e ** 4) / 64 - (5 * e ** 6) / 256));
+  const fp =
+    mu +
+    ((3 * e1) / 2 - (27 * e1 ** 3) / 32) * Math.sin(2 * mu) +
+    ((21 * e1 ** 2) / 16 - (55 * e1 ** 4) / 32) * Math.sin(4 * mu) +
+    ((151 * e1 ** 3) / 96) * Math.sin(6 * mu) +
+    ((1097 * e1 ** 4) / 512) * Math.sin(8 * mu);
+  const sinFp = Math.sin(fp);
+  const cosFp = Math.cos(fp);
+  const tanFp = Math.tan(fp);
+  const c1 = ePrimeSquared * cosFp ** 2;
+  const t1 = tanFp ** 2;
+  const n1 = a / Math.sqrt(1 - e * e * sinFp ** 2);
+  const r1 = (a * (1 - e * e)) / (1 - e * e * sinFp ** 2) ** 1.5;
+  const d = (x - falseEasting) / (n1 * k0);
+  const lat =
+    fp -
+    (n1 * tanFp *
+      (d ** 2 / 2 -
+        ((5 + 3 * t1 + 10 * c1 - 4 * c1 ** 2 - 9 * ePrimeSquared) * d ** 4) / 24 +
+        ((61 + 90 * t1 + 298 * c1 + 45 * t1 ** 2 - 252 * ePrimeSquared - 3 * c1 ** 2) *
+          d ** 6) /
+          720)) /
+      r1;
+  const lng =
+    lon0 +
+    (d -
+      ((1 + 2 * t1 + c1) * d ** 3) / 6 +
+      ((5 - 2 * c1 + 28 * t1 - 3 * c1 ** 2 + 8 * ePrimeSquared + 24 * t1 ** 2) * d ** 5) /
+        120) /
+      cosFp;
+  return { lat: (lat * 180) / Math.PI, lng: (lng * 180) / Math.PI };
+}
+
+const toHalfWidth = (text) =>
+  text.replace(/[０-９]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xfee0));
+
+// Provider addresses write "501-6號"; address-point records write "５０１之６號".
+const normalizeAddress = (text) => toHalfWidth(text).replace(/台/g, "臺").replace(/-/g, "之");
+
+export function loadDataset(root) {
+  const read = (file) => JSON.parse(fs.readFileSync(path.join(root, file), "utf8"));
+  return {
+    providers: read("staging/providers.json"),
+    services: read("staging/provider-services.json"),
+    areas: read("staging/provider-service-areas.json"),
+    evidence: read(EVIDENCE_FILE),
+  };
+}
+
+export function checkEvidence({ providers, services, areas, evidence }) {
+  const errors = [];
+  const providersById = new Map(providers.map((provider) => [provider.id, provider]));
+  const sourceIds = new Set(evidence.sources.map((source) => source.sourceId));
+  const coordinateEvidence = new Map();
+
+  for (const item of evidence.coordinates) {
+    const id = item.providerId;
+    const provider = providersById.get(id);
+    if (!provider) {
+      errors.push(`${id}: coordinate evidence references a missing Provider.`);
+      continue;
+    }
+    if (coordinateEvidence.has(id)) errors.push(`${id}: duplicate coordinate evidence.`);
+    coordinateEvidence.set(id, item);
+
+    if (item.name !== provider.name) errors.push(`${id}: evidence name differs from providers.json.`);
+    if (item.address !== provider.address) {
+      errors.push(`${id}: evidence address differs from providers.json.`);
+    }
+    if (!Array.isArray(item.identity) || item.identity.length === 0) {
+      errors.push(`${id}: missing identity evidence (official name/address match).`);
+    }
+    for (const identity of item.identity ?? []) {
+      if (!sourceIds.has(identity.sourceId)) {
+        errors.push(`${id}: identity source ${identity.sourceId} is not registered.`);
+      }
+      if (!identity.document || !identity.sourceName || !identity.sourceAddress || !identity.checkedAt) {
+        errors.push(`${id}: identity evidence needs document, sourceName, sourceAddress, checkedAt.`);
+      }
+    }
+
+    const coordinate = item.coordinate ?? {};
+    if (!sourceIds.has(coordinate.sourceId)) {
+      errors.push(`${id}: coordinate source ${coordinate.sourceId} is not registered.`);
+    }
+    if (coordinate.sourceCrs !== "EPSG:3826") {
+      errors.push(`${id}: unsupported or missing source CRS ${coordinate.sourceCrs}.`);
+      continue;
+    }
+    const fields = String(coordinate.record ?? "").split(",");
+    if (fields.length !== 11) {
+      errors.push(`${id}: address-point record must have 11 CSV fields.`);
+      continue;
+    }
+    const [, areaCode, , , road, , lane, alley, number, rawX, rawY] = fields;
+    if (Number(rawX) !== coordinate.x || Number(rawY) !== coordinate.y) {
+      errors.push(`${id}: x/y differ from the quoted address-point record.`);
+    }
+    if (NTPC_AREA_CODES[areaCode] !== provider.district) {
+      errors.push(`${id}: record areacode ${areaCode} does not match district ${provider.district}.`);
+    }
+    const recordAddress = normalizeAddress(`${road}${lane}${alley}${number}`);
+    if (!normalizeAddress(provider.address).includes(recordAddress)) {
+      errors.push(`${id}: address-point record "${recordAddress}" does not match the Provider address.`);
+    }
+
+    const converted = twd97Tm2Zone121ToWgs84(coordinate.x, coordinate.y);
+    for (const key of ["lat", "lng"]) {
+      if (!(Math.abs(converted[key] - item.wgs84?.[key]) <= CONVERSION_TOLERANCE_DEG)) {
+        errors.push(`${id}: ${key} is not reproduced by EPSG:3826 conversion of the record.`);
+      }
+      if (provider[key] !== item.wgs84?.[key]) {
+        errors.push(`${id}: providers.json ${key} differs from the verified evidence value.`);
+      }
+    }
+  }
+
+  for (const provider of providers) {
+    const hasAny = provider.lat !== null || provider.lng !== null;
+    if (hasAny && !coordinateEvidence.has(provider.id)) {
+      errors.push(`${provider.id}: non-null coordinate has no verified evidence.`);
+    }
+    if (!hasAny && coordinateEvidence.has(provider.id)) {
+      errors.push(`${provider.id}: evidence exists but providers.json coordinate is null.`);
+    }
+  }
+
+  const activeAreas = areas.filter((area) => area.active);
+  for (const item of evidence.serviceAreas) {
+    if (!providersById.has(item.providerId)) {
+      errors.push(`${item.providerId}: service-area evidence references a missing Provider.`);
+      continue;
+    }
+    if (!sourceIds.has(item.sourceId)) {
+      errors.push(`${item.providerId}: service-area source ${item.sourceId} is not registered.`);
+    }
+    const actual = activeAreas
+      .filter((area) => area.providerId === item.providerId && area.city === item.city)
+      .map((area) => area.district)
+      .sort();
+    const expected = [...item.districts].sort();
+    if (actual.join("、") !== expected.join("、")) {
+      errors.push(
+        `${item.providerId}: ProviderServiceArea (${actual.join("、") || "none"}) differs from evidence (${expected.join("、")}).`,
+      );
+    }
+  }
+
+  const pendingById = new Map();
+  for (const item of evidence.pending) {
+    if (!providersById.has(item.providerId)) {
+      errors.push(`${item.providerId}: pending entry references a missing Provider.`);
+    }
+    if (pendingById.has(item.providerId)) errors.push(`${item.providerId}: duplicate pending entry.`);
+    pendingById.set(item.providerId, item);
+    if (!item.reason?.trim() || !item.nextStep?.trim()) {
+      errors.push(`${item.providerId}: pending entry needs a reason and a next step.`);
+    }
+    for (const checked of item.sourcesChecked ?? []) {
+      if (!sourceIds.has(checked.sourceId) || !/^\d{4}-\d{2}-\d{2}$/.test(checked.checkedAt ?? "")) {
+        errors.push(`${item.providerId}: checked source needs a registered sourceId and a date.`);
+      }
+    }
+  }
+
+  const activeServiceProviders = new Set(
+    services.filter((service) => service.active).map((service) => service.providerId),
+  );
+  for (const provider of providers) {
+    const missing = new Set(pendingById.get(provider.id)?.missing ?? []);
+    const needsCoordinate = !coordinateEvidence.has(provider.id);
+    const needsServiceArea =
+      activeServiceProviders.has(provider.id) &&
+      !activeAreas.some((area) => area.providerId === provider.id);
+    if (needsCoordinate !== missing.has("coordinate")) {
+      errors.push(`${provider.id}: pending list "coordinate" does not match the evidence state.`);
+    }
+    if (needsServiceArea !== missing.has("serviceArea")) {
+      errors.push(`${provider.id}: pending list "serviceArea" does not match the data.`);
+    }
+  }
+
+  return { errors, verifiedIds: new Set(coordinateEvidence.keys()), pendingById };
+}
+
+// Candidate = ACTIVE Provider + active ProviderService + active ProviderServiceArea.
+// READY (DISTANCE usable, D-13c) only when every candidate has evidence-backed coordinates
+// and no ACTIVE Provider offering that service type has unknown service areas (it could be
+// a hidden candidate in any district).
+export function computeCoverage({ providers, services, areas }, verifiedIds) {
+  const providersById = new Map(providers.map((provider) => [provider.id, provider]));
+  const activeServices = services.filter(
+    (service) => service.active && providersById.get(service.providerId)?.status === "ACTIVE",
+  );
+  const activeAreas = areas.filter((area) => area.active);
+  const serviceTypes = [...new Set(activeServices.map((service) => service.serviceType))];
+
+  const groups = [];
+  const byType = [];
+  for (const serviceType of serviceTypes) {
+    const providerIds = [
+      ...new Set(
+        activeServices
+          .filter((service) => service.serviceType === serviceType)
+          .map((service) => service.providerId),
+      ),
+    ];
+    const unknownArea = providerIds.filter(
+      (id) => !activeAreas.some((area) => area.providerId === id),
+    );
+    const keys = new Map();
+    for (const area of activeAreas.filter((item) => providerIds.includes(item.providerId))) {
+      const key = `${area.city}|${area.district}`;
+      keys.set(key, (keys.get(key) ?? new Set()).add(area.providerId));
+    }
+    const typeGroups = [...keys.entries()].map(([key, ids]) => {
+      const [city, district] = key.split("|");
+      const candidates = [...ids].sort();
+      const missing = candidates.filter((id) => !verifiedIds.has(id));
+      let status = "READY";
+      if (missing.length > 0) status = "BLOCKED_MISSING_COORDINATE";
+      else if (unknownArea.length > 0) status = "BLOCKED_UNKNOWN_SERVICE_AREA";
+      return { serviceType, city, district, candidates, missing, status };
+    });
+    typeGroups.sort((a, b) =>
+      `${a.city}${a.district}`.localeCompare(`${b.city}${b.district}`, "zh-Hant"),
+    );
+    groups.push(...typeGroups);
+    byType.push({
+      serviceType,
+      providers: providerIds.length,
+      verified: providerIds.filter((id) => verifiedIds.has(id)).length,
+      withServiceArea: providerIds.length - unknownArea.length,
+      unknownArea,
+      groups: typeGroups.length,
+      ready: typeGroups.filter((group) => group.status === "READY").length,
+    });
+  }
+  return { groups, byType };
+}
+
+export function computeStats(dataset, verifiedIds, coverage) {
+  const { providers, areas } = dataset;
+  const nonNull = providers.filter((p) => p.lat !== null && p.lng !== null).length;
+  return {
+    providers: providers.length,
+    serviceAreas: areas.length,
+    nonNullCoordinates: nonNull,
+    verifiedCoordinates: providers.filter((p) => verifiedIds.has(p.id)).length,
+    nonNullWithoutEvidence: providers.filter(
+      (p) => (p.lat !== null || p.lng !== null) && !verifiedIds.has(p.id),
+    ).length,
+    pendingCoordinates: providers.filter((p) => !verifiedIds.has(p.id)).length,
+    missingServiceArea: new Set(coverage.byType.flatMap((type) => type.unknownArea)).size,
+    groups: coverage.groups.length,
+    readyGroups: coverage.groups.filter((group) => group.status === "READY"),
+  };
+}
+
+const STATUS_TEXT = {
+  READY: "READY",
+  BLOCKED_MISSING_COORDINATE: "BLOCKED（缺座標）",
+  BLOCKED_UNKNOWN_SERVICE_AREA: "BLOCKED（同類型有 Provider 服務範圍未知）",
+};
+
+const cell = (value) => String(value).replace(/\|/g, "\\|").replace(/\n/g, " ");
+
+export function renderSections(dataset, verifiedIds, coverage, pendingById) {
+  const stats = computeStats(dataset, verifiedIds, coverage);
+  const { providers, areas, evidence } = dataset;
+  const evidenceById = new Map(evidence.coordinates.map((item) => [item.providerId, item]));
+  const providersById = new Map(providers.map((provider) => [provider.id, provider]));
+  const pct = (a, b) => (b === 0 ? "—" : `${Math.round((a / b) * 100)}%`);
+
+  const summary = [
+    `- Provider 總數：${stats.providers}`,
+    `- ProviderServiceArea 筆數：${stats.serviceAreas}`,
+    `- lat/lng 非 null：${stats.nonNullCoordinates}`,
+    `- 有完整驗證證據的座標：${stats.verifiedCoordinates}（名稱／地址核對＋官方門牌點＋可重現轉換，見 \`qa/a-003-evidence.json\`）`,
+    `- 非 null 但缺證據：${stats.nonNullWithoutEvidence}`,
+    `- 尚待驗證座標：${stats.pendingCoordinates}`,
+    `- 缺 ProviderServiceArea 的 ACTIVE Provider：${stats.missingServiceArea}`,
+    `- 服務類型 × 行政區組合：${stats.groups}；DISTANCE READY：${stats.readyGroups.length}` +
+      (stats.readyGroups.length
+        ? `（${stats.readyGroups.map((g) => `${g.serviceType} × ${g.city}${g.district}`).join("、")}）`
+        : ""),
+  ].join("\n");
+
+  const byType = [
+    "| Service Type | ACTIVE Provider | 有已驗證座標 | 座標覆蓋率 | 有服務範圍 | 行政區組合 | READY 組合 | 待補 |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- |",
+    ...coverage.byType.map((type) =>
+      `| ${type.serviceType} | ${type.providers} | ${type.verified} | ${pct(type.verified, type.providers)} | ${type.withServiceArea} | ${type.groups} | ${type.ready} | ` +
+      (type.unknownArea.length
+        ? `服務範圍未知：${type.unknownArea.join("、")}；不得由地址推測，也因此沒有可推薦組合`
+        : "—") +
+      " |",
+    ),
+  ].join("\n");
+
+  const coverageTable = [
+    "| Service Type | City | District | 候選數 | 已驗證座標 | 覆蓋率 | 狀態 | 待補座標 |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- |",
+    ...coverage.groups.map((group) => {
+      const verified = group.candidates.length - group.missing.length;
+      return `| ${group.serviceType} | ${group.city} | ${group.district} | ${group.candidates.length} | ${verified} | ${pct(verified, group.candidates.length)} | ${STATUS_TEXT[group.status]} | ${group.missing.join("、") || "—"} |`;
+    }),
+  ].join("\n");
+
+  const providerTable = [
+    "| Provider ID | 名稱 | 類型 | lat | lng | 座標狀態 | 座標證據 | 查核日 | 服務範圍筆數 | 待補 |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+    ...providers.map((provider) => {
+      const item = evidenceById.get(provider.id);
+      const areaCount = areas.filter((a) => a.providerId === provider.id && a.active).length;
+      const missing = (pendingById.get(provider.id)?.missing ?? []).map((m) => MISSING_LABELS[m] ?? m);
+      const proof = item
+        ? `${item.identity.map((i) => i.sourceId).join("＋")} 名稱／地址；${item.coordinate.sourceId} \`${item.coordinate.record.split(",").slice(4, 9).join("")}\`（${item.coordinate.sourceCrs} → WGS84）`
+        : "—";
+      return `| ${provider.id} | ${cell(provider.name)} | ${provider.type} | ${provider.lat ?? "null"} | ${provider.lng ?? "null"} | ${item ? "VERIFIED" : "PENDING"} | ${cell(proof)} | ${item?.coordinate.checkedAt ?? "—"} | ${areaCount} | ${missing.join("、") || "—"} |`;
+    }),
+  ].join("\n");
+
+  const pending = [
+    "| Provider ID | 名稱 | 缺少 | 已查閱來源與日期 | 尚無法確認的原因 | 下一步 |",
+    "| --- | --- | --- | --- | --- | --- |",
+    ...[...pendingById.values()].map((item) => {
+      const checked = (item.sourcesChecked ?? []).length
+        ? item.sourcesChecked.map((c) => `${c.sourceId}（${c.checkedAt}）：${c.result}`).join("<br>")
+        : "無查閱紀錄（未找到可查的來源）";
+      const missing = item.missing.map((m) => MISSING_LABELS[m] ?? m).join("、");
+      return `| ${item.providerId} | ${cell(providersById.get(item.providerId)?.name ?? "?")} | ${missing} | ${cell(checked)} | ${cell(item.reason)} | ${cell(item.nextStep)} |`;
+    }),
+  ].join("\n");
+
+  return {
+    summary,
+    "by-service-type": byType,
+    coverage: coverageTable,
+    providers: providerTable,
+    pending,
+  };
+}
+
+const sectionPattern = (name) =>
+  new RegExp(`(<!-- A003:BEGIN ${name} -->\\n)([\\s\\S]*?)(<!-- A003:END ${name} -->)`);
+
+// Returns errors for sections that differ from the data; with write=true, rewrites them.
+export function syncReports(root, sections, { write = false } = {}) {
+  const errors = [];
+  for (const [file, names] of Object.entries(REPORT_SECTIONS)) {
+    const filePath = path.join(root, file);
+    let text = fs.readFileSync(filePath, "utf8");
+    for (const name of names) {
+      const pattern = sectionPattern(name);
+      const match = text.match(pattern);
+      if (!match) {
+        errors.push(`${file}: generated section "${name}" markers are missing.`);
+        continue;
+      }
+      const expected = `${sections[name]}\n`;
+      if (match[2] !== expected) {
+        if (write) text = text.replace(pattern, (_, begin, __, end) => begin + expected + end);
+        else errors.push(`${file}: section "${name}" differs from the data (run with --write).`);
+      }
+    }
+    if (write) fs.writeFileSync(filePath, text);
+  }
+  return errors;
+}

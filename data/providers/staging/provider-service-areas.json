@@ -455,6 +455,27 @@
         "active": true
       },
       {
+        "id": "NTPC-HC-003-SA-001",
+        "providerId": "NTPC-HC-003",
+        "city": "新北市",
+        "district": "新莊區",
+        "active": true
+      },
+      {
+        "id": "NTPC-HC-003-SA-002",
+        "providerId": "NTPC-HC-003",
+        "city": "新北市",
+        "district": "三重區",
+        "active": true
+      },
+      {
+        "id": "NTPC-HC-003-SA-003",
+        "providerId": "NTPC-HC-003",
+        "city": "新北市",
+        "district": "林口區",
+        "active": true
+      },
+      {
         "id": "NTPC-HC-004-SA-001",
         "providerId": "NTPC-HC-004",
         "city": "新北市",

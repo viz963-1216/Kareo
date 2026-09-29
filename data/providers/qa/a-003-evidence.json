@@ -1,0 +1,936 @@
+{
+  "submissionVersion": "A-003-r6",
+  "note": "座標只記錄可追溯的官方門牌點；pending 列出仍缺的資料。統計與報告由 qa/verify-coordinates.mjs 自本檔與 staging 資料重算。",
+  "sources": [
+    {
+      "sourceId": "SRC-002",
+      "name": "新北市高齡長期照顧處 長照特約單位名單",
+      "url": "https://www.careyou.ntpc.gov.tw/w/agecare/unit",
+      "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf",
+      "sha256": "bac932dad07bc00448c7da5b3c71b9e821384eb1f50fbacf7e592e96fffbe4e5",
+      "retrievedAt": "2026-09-29",
+      "use": "機構名稱／地址核對；欄位「可提供服務區域」為行政區層級服務範圍"
+    },
+    {
+      "sourceId": "SRC-003",
+      "name": "臺北市居家護理機構名單（臺北市政府衛生局）",
+      "url": "https://health.gov.taipei/News_Content.aspx?n=A01CA16FC0C64647&s=480610F542590DA6&sms=BACDBFD1C6E1EF90",
+      "document": "臺北市居家護理所一覽表(115年9月1日更新).pdf",
+      "sha256": null,
+      "retrievedAt": "2026-09-18",
+      "use": "居家護理所名稱／地址；沒有逐機構服務行政區"
+    },
+    {
+      "sourceId": "SRC-004",
+      "name": "115年臺北市政府身障輔具暨長期輔具及居家無障礙環境改善特約服務門市名單",
+      "url": "https://dosw.gov.taipei/cp.aspx?n=457FA2416BF17247&s=74E8961109D68F2E",
+      "document": "115年臺北市政府身障輔具暨長期輔具及居家無障礙環境改善特約服務門市名單.pdf",
+      "sha256": null,
+      "retrievedAt": "2026-09-18",
+      "use": "輔具門市名稱／地址；沒有逐門市服務行政區"
+    },
+    {
+      "sourceId": "SRC-005",
+      "name": "新北市長照輔具／無障礙服務特約廠商",
+      "url": "https://atrc.aihsin.ntpc.gov.tw/NewsInfo/24",
+      "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx（已在 repo）",
+      "sha256": null,
+      "retrievedAt": "2026-09-18",
+      "use": "輔具廠商名稱／地址核對"
+    },
+    {
+      "sourceId": "SRC-006",
+      "name": "新北市居家長照機構名冊 11506",
+      "url": "https://www.careyou.ntpc.gov.tw/WebUPD/agecare/InstitutionalRoster/%E6%96%B0%E5%8C%97%E5%B8%82%E5%B1%85%E5%AE%B6%E9%95%B7%E7%85%A7%E6%A9%9F%E6%A7%8B%E5%90%8D%E5%86%8A11506.pdf",
+      "document": "新北市居家長照機構名冊11506.pdf",
+      "sha256": "77fb323a333efd8d1366684bc4af8323d9d93de4075b20ad289ae8612bf33c27",
+      "retrievedAt": "2026-09-29",
+      "use": "機構名稱／立案地址核對（服務區域欄只有縣市層級）"
+    },
+    {
+      "sourceId": "SRC-COORD-NTPC-001",
+      "name": "新北市門牌位置數值資料 11509（新北市政府民政局）",
+      "url": "https://data.ntpc.gov.tw/api/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101/csv/file",
+      "document": "資料集頁 https://data.gov.tw/dataset/168887；欄位 x_3826／y_3826",
+      "sha256": "72007bb772475b817a8685dce8e9e99d390835ba0151b4c60c62f8af80ccf034",
+      "retrievedAt": "2026-09-29",
+      "use": "建物門牌點座標，座標系統 EPSG:3826（欄位名稱載明）"
+    },
+    {
+      "sourceId": "SRC-COORD-TPE-001",
+      "name": "臺北市門牌位置數值資料（臺北市政府民政局）",
+      "url": "https://data.taipei/dataset/detail?id=b7c8e724-1e98-45ee-a0bd-f3840623ed97",
+      "document": "臺北市門牌位置數值資料_20260902.CSV；另見 https://data.gov.tw/dataset/155472",
+      "sha256": "cdae1c5db7c76a729211fa5946cd2af6d7c6ef27b4ef8b1c14420a229682db55",
+      "retrievedAt": "2026-09-29",
+      "use": "PENDING：詮釋資料未載明橫／縱座標的座標系統，不作為座標證據"
+    }
+  ],
+  "coordinates": [
+    {
+      "providerId": "NTPC-HC-001",
+      "name": "萓品管理顧問有限公司附設新北市私立禾善居家長照機構",
+      "address": "新北市樹林區仁愛街3號1樓",
+      "identity": [
+        {
+          "sourceId": "SRC-002",
+          "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 313",
+          "sourceName": "萓品管理顧問有限公司附設新北市私立禾善居家長照機構",
+          "sourceAddress": "新北市樹林區和平里仁愛街3號1樓",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000070,和平里,016,仁愛街,,,,３號,292541.926196,2763811.2893400",
+        "sourceCrs": "EPSG:3826",
+        "x": 292541.926196,
+        "y": 2763811.28934,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 24.98165119,
+        "lng": 121.42139256
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    },
+    {
+      "providerId": "NTPC-HC-002",
+      "name": "社團法人中華長照協會附設新北市私立永樂居家式服務類長期照顧服務機構",
+      "address": "新北市永和區文化路155號",
+      "identity": [
+        {
+          "sourceId": "SRC-002",
+          "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 251",
+          "sourceName": "社團法人中華長照協會附設新北市私立永樂居家式服務類長期照顧服務機構",
+          "sourceAddress": "新北市永和區文化里文化路155號",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000040,文化里,012,文化路,,,,１５５號,301514.987600,2767675.0320000",
+        "sourceCrs": "EPSG:3826",
+        "x": 301514.9876,
+        "y": 2767675.032,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 25.01625499,
+        "lng": 121.51041539
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    },
+    {
+      "providerId": "NTPC-HC-003",
+      "name": "台灣全齡長照股份有限公司附設新北市私立禾薪居家長照機構",
+      "address": "新北市新莊區新莊路16之2號1樓",
+      "identity": [
+        {
+          "sourceId": "SRC-002",
+          "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 291",
+          "sourceName": "台灣全齡長照股份有限公司附設新北市私立禾薪居家長照機構",
+          "sourceAddress": "新北市新莊區文明里新莊路16之2號1樓",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000050,文明里,004,新莊路,,,,１６之２號,296305.095400,2770018.8861",
+        "sourceCrs": "EPSG:3826",
+        "x": 296305.0954,
+        "y": 2770018.8861,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 25.03758368,
+        "lng": 121.45887535
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    },
+    {
+      "providerId": "NTPC-HC-004",
+      "name": "新北市私立旺福居家長照機構",
+      "address": "新北市三重區福隆路48號1樓",
+      "identity": [
+        {
+          "sourceId": "SRC-002",
+          "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 187",
+          "sourceName": "新北市私立旺福居家長照機構",
+          "sourceAddress": "新北市三重區溪美里福隆路48號1樓",
+          "checkedAt": "2026-09-29"
+        },
+        {
+          "sourceId": "SRC-006",
+          "document": "新北市居家長照機構名冊11506.pdf 編號 4",
+          "sourceName": "新北市私立旺福居家長照機構",
+          "sourceAddress": "新北市三重區福隆路48號1樓",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000020,溪美里,010,福隆路,,,,４８號,299673.374200,2774565.5731000",
+        "sourceCrs": "EPSG:3826",
+        "x": 299673.3742,
+        "y": 2774565.5731,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 25.07852424,
+        "lng": 121.49241746
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    },
+    {
+      "providerId": "NTPC-HC-005",
+      "name": "新北市私立全曜居家式服務類長期照顧服務機構",
+      "address": "新北市三重區長元街100之2號1~2樓",
+      "identity": [
+        {
+          "sourceId": "SRC-002",
+          "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 186",
+          "sourceName": "新北市私立全曜居家式服務類長期照顧服務機構",
+          "sourceAddress": "新北市三重區長江里長元街100之2號1~2樓",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000020,長江里,016,長元街,,,,１００之２號,300752.019217,2773265.3017167",
+        "sourceCrs": "EPSG:3826",
+        "x": 300752.019217,
+        "y": 2773265.3017167,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 25.06674961,
+        "lng": 121.50306191
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    },
+    {
+      "providerId": "NTPC-AD-001",
+      "name": "弘采介護有限公司",
+      "address": "新北市新店區中正路501-6號4樓(吉成特區)",
+      "identity": [
+        {
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表 114~116特約廠商總表 編號 1",
+          "sourceName": "弘采介護有限公司",
+          "sourceAddress": "新北市新店區中正路501-6號4樓(吉成特區)",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000060,復興里,017,中正路,,,,５０１之６號,303865.761100,2764095.2376000",
+        "sourceCrs": "EPSG:3826",
+        "x": 303865.7611,
+        "y": 2764095.2376,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 24.98385487,
+        "lng": 121.53356671
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    },
+    {
+      "providerId": "NTPC-AD-002",
+      "name": "大瀚醫療儀器有限公司",
+      "address": "新北市板橋區校前街28號",
+      "identity": [
+        {
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表 114~116特約廠商總表 編號 3",
+          "sourceName": "大瀚醫療儀器有限公司",
+          "sourceAddress": "新北市板橋區校前街28號",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000010,福星里,011,校前街,,,,２８號,296500.425000,2766198.3562",
+        "sourceCrs": "EPSG:3826",
+        "x": 296500.425,
+        "y": 2766198.3562,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 25.0030857,
+        "lng": 121.46068223
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    },
+    {
+      "providerId": "NTPC-AD-003",
+      "name": "宏宇醫療器材行",
+      "address": "新北市板橋區南雅南路二段134號1樓",
+      "identity": [
+        {
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表 114~116特約廠商總表 編號 7",
+          "sourceName": "宏宇醫療器材行",
+          "sourceAddress": "新北市板橋區南雅南路二段134號1樓",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000010,華東里,008,南雅南路二段,,,,１３４號,295615.9916111497,2765483.966286036",
+        "sourceCrs": "EPSG:3826",
+        "x": 295615.9916111497,
+        "y": 2765483.966286036,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 24.99666299,
+        "lng": 121.45189673
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    },
+    {
+      "providerId": "NTPC-AD-005",
+      "name": "學府松藥局",
+      "address": "新北市土城區學府路一段38號",
+      "identity": [
+        {
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表 114~116特約廠商總表 編號 14",
+          "sourceName": "學府松藥局",
+          "sourceAddress": "新北市土城區學府路一段38號",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000130,廣興里,012,學府路一段,,,,３８號,296237.867500,2764586.7804000",
+        "sourceCrs": "EPSG:3826",
+        "x": 296237.8675,
+        "y": 2764586.7804,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 24.98854427,
+        "lng": 121.45802719
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    },
+    {
+      "providerId": "NTPC-AD-006",
+      "name": "兆謙益企業有限公司",
+      "address": "新北市林口區源泉街12號",
+      "identity": [
+        {
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表 114~116特約廠商總表 編號 18",
+          "sourceName": "兆謙益企業有限公司",
+          "sourceAddress": "新北市林口區源泉街12號",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000170,南勢里,011,源泉街,,,,１２號,286177.135554,2773841.7077100",
+        "sourceCrs": "EPSG:3826",
+        "x": 286177.135554,
+        "y": 2773841.70771,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 25.07237267,
+        "lng": 121.35861123
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    },
+    {
+      "providerId": "NTPC-AD-007",
+      "name": "瑞康醫療器材有限公司",
+      "address": "新北市中和區圓通路295-1號",
+      "identity": [
+        {
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表 114~116特約廠商總表 編號 19",
+          "sourceName": "瑞康醫療器材有限公司",
+          "sourceAddress": "新北市中和區圓通路295-1號",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000030,德行里,033,圓通路,,,,２９５之１號,299940.344200,2764990.0982000",
+        "sourceCrs": "EPSG:3826",
+        "x": 299940.3442,
+        "y": 2764990.0982,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 24.99206804,
+        "lng": 121.49471705
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    },
+    {
+      "providerId": "NTPC-AD-008",
+      "name": "鴻銘醫療儀器行",
+      "address": "新北市淡水區民生路47-2號",
+      "identity": [
+        {
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表 114~116特約廠商總表 編號 21",
+          "sourceName": "鴻銘醫療儀器行",
+          "sourceAddress": "新北市淡水區民生路47-2號",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000100,民生里,020,民生路,,,,４７之２號,296583.586028,2781168.2050400",
+        "sourceCrs": "EPSG:3826",
+        "x": 296583.586028,
+        "y": 2781168.20504,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 25.13823097,
+        "lng": 121.46201283
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    },
+    {
+      "providerId": "NTPC-AD-009",
+      "name": "美德耐股份有限公司雙和門市部",
+      "address": "新北市中和區中正路291號",
+      "identity": [
+        {
+          "sourceId": "SRC-005",
+          "document": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表 114~116特約廠商總表 編號 26",
+          "sourceName": "美德耐股份有限公司雙和門市部",
+          "sourceAddress": "新北市中和區中正路291號",
+          "checkedAt": "2026-09-29"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-001",
+        "document": "新北市門牌位置數值資料 11509 (CSV)",
+        "record": "65000,65000030,力行里,033,中正路,,,,２９１號,299875.537945,2765175.7009760",
+        "sourceCrs": "EPSG:3826",
+        "x": 299875.537945,
+        "y": 2765175.700976,
+        "checkedAt": "2026-09-29"
+      },
+      "wgs84": {
+        "lat": 24.9937458,
+        "lng": 121.49408179
+      },
+      "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°"
+    }
+  ],
+  "serviceAreas": [
+    {
+      "providerId": "NTPC-HC-001",
+      "city": "新北市",
+      "districts": [
+        "樹林區"
+      ],
+      "sourceId": "SRC-002",
+      "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 313",
+      "sourceText": "樹林",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "providerId": "NTPC-HC-002",
+      "city": "新北市",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區"
+      ],
+      "sourceId": "SRC-002",
+      "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 251",
+      "sourceText": "板橋、中和、永和",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "providerId": "NTPC-HC-003",
+      "city": "新北市",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "林口區"
+      ],
+      "sourceId": "SRC-002",
+      "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 291",
+      "sourceText": "新莊、三重、林口",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "providerId": "NTPC-HC-004",
+      "city": "新北市",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "三重區",
+        "蘆洲區"
+      ],
+      "sourceId": "SRC-002",
+      "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 187",
+      "sourceText": "板橋、新莊、中和、三重、蘆洲",
+      "checkedAt": "2026-09-29"
+    },
+    {
+      "providerId": "NTPC-HC-005",
+      "city": "新北市",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "土城區",
+        "泰山區",
+        "五股區"
+      ],
+      "sourceId": "SRC-002",
+      "document": "114~116年新北市長照特約單位名單1150924(居家服務、居家喘息、短照服務).pdf 序號 186",
+      "sourceText": "板橋、樹林、新莊、中和、永和、三重、蘆洲、新店、土城、泰山、五股",
+      "checkedAt": "2026-09-29"
+    }
+  ],
+  "pending": [
+    {
+      "providerId": "TP-HC-001",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000070,保德里,001,東園街,,１４０巷,,７號,300164.26562988781,2768468.3264928483"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。"
+    },
+    {
+      "providerId": "TP-HC-002",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000070,頂碩里,013,艋舺大道,,１２０巷,３９弄,３號,300695.99086022947,2769421.0070176339"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。"
+    },
+    {
+      "providerId": "TP-HC-003",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000070,雙園里,011,莒光路,,,,３２８號,300204.87609067571,2769330.9159152233"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。"
+    },
+    {
+      "providerId": "TP-HC-004",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000070,雙園里,010,莒光路,,,,２２２號,300483.24563046905,2769341.549648483"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。"
+    },
+    {
+      "providerId": "TP-HC-005",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "以萬華區（63000070）康定路、無巷弄、號＝６２號查詢，找不到完全相符的門牌紀錄。"
+        }
+      ],
+      "reason": "官方門牌資料找不到與正式地址完全相符的紀錄，且該資料集未載明座標系統。",
+      "nextStep": "向臺北市萬華區戶政事務所門牌查詢確認「康定路62號」是否整編／改編或屬其他門牌格式；確認座標系統後再比對。"
+    },
+    {
+      "providerId": "TP-HC-006",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000070,富福里,002,康定路,,,,３４８號,300562.97417317989,2769739.3040510835"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。"
+    },
+    {
+      "providerId": "TP-HC-007",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000070,忠貞里,017,青年路,,１０６巷,,９號,300676.08124457271,2768381.2955219103"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。"
+    },
+    {
+      "providerId": "TP-HC-008",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000070,忠德里,005,東園街,,６６巷,２１弄,５１號,299992.57616777997,2768816.3264911291"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。"
+    },
+    {
+      "providerId": "TP-HC-009",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000070,青山里,024,西園路一段,,,,２００號,300375.79269990668,2769849.3030565646"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。"
+    },
+    {
+      "providerId": "TP-HC-010",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000070,糖廍里,004,大理街,,,,１７１之１號,299943.54672213196,2769632.2841834389"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。"
+    },
+    {
+      "providerId": "TP-HMN-001",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000040,集英里,006,中山北路二段,,９６巷,,９號,302692.59959237266,2772512.3122145613"
+        },
+        {
+          "sourceId": "SRC-003",
+          "checkedAt": "2026-09-28",
+          "result": "A-003-r5 報告紀錄：名單可核對機構名稱與地址，但沒有逐機構服務縣市／行政區。r6 未重新查閱。"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。 服務範圍：現有官方來源沒有逐機構的服務行政區，不得由營業地址推測。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。 服務範圍需 Jerry 提供或指定明示服務行政區的正式資料來源。"
+    },
+    {
+      "providerId": "TP-HMN-002",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000110,岩山里,007,雨聲街,,,,１０５號,303610.94891394343,2777534.6476280037"
+        },
+        {
+          "sourceId": "SRC-003",
+          "checkedAt": "2026-09-28",
+          "result": "A-003-r5 報告紀錄：名單可核對機構名稱與地址，但沒有逐機構服務縣市／行政區。r6 未重新查閱。"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。 服務範圍：現有官方來源沒有逐機構的服務行政區，不得由營業地址推測。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。 服務範圍需 Jerry 提供或指定明示服務行政區的正式資料來源。"
+    },
+    {
+      "providerId": "TP-HMN-003",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000070,西門里,009,康定路,,,,３７號,300710.56850982609,2770549.028992679"
+        },
+        {
+          "sourceId": "SRC-003",
+          "checkedAt": "2026-09-28",
+          "result": "A-003-r5 報告紀錄：名單可核對機構名稱與地址，但沒有逐機構服務縣市／行政區。r6 未重新查閱。"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。 服務範圍：現有官方來源沒有逐機構的服務行政區，不得由營業地址推測。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。 服務範圍需 Jerry 提供或指定明示服務行政區的正式資料來源。"
+    },
+    {
+      "providerId": "TP-AD-001",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000040,朱園里,008,南京東路二段,,,,１５０號,303899.88171449548,2771625.1881821337"
+        },
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-28",
+          "result": "A-003-r5 報告紀錄：門市名單可核對特約資訊，但沒有逐門市服務縣市／行政區。r6 未重新查閱。"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。 服務範圍：現有官方來源沒有逐門市的服務行政區，不得由營業地址推測。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。 服務範圍需 Jerry 提供或指定明示服務行政區的正式資料來源。"
+    },
+    {
+      "providerId": "TP-AD-002",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "以內湖區（63000100）民權東路六段、１８巷、６號查詢，找不到完全相符的門牌紀錄。"
+        },
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-28",
+          "result": "A-003-r5 報告紀錄：門市名單可核對特約資訊，但沒有逐門市服務縣市／行政區。r6 未重新查閱。"
+        }
+      ],
+      "reason": "官方門牌資料找不到與正式地址完全相符的紀錄（正式地址含 B1樓），且該資料集未載明座標系統。 服務範圍：現有官方來源沒有逐門市的服務行政區，不得由營業地址推測。",
+      "nextStep": "向臺北市內湖區戶政事務所門牌查詢確認「民權東路6段18巷6號」門牌；確認座標系統後再比對。 服務範圍需 Jerry 提供或指定明示服務行政區的正式資料來源。"
+    },
+    {
+      "providerId": "TP-AD-003",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-TPE-001",
+          "checkedAt": "2026-09-29",
+          "result": "找到與正式地址同街路／巷弄／號的門牌紀錄：63000,63000080,萬盛里,022,興隆路一段,,５５巷,２７弄,１之５號,304632.75765628653,2766360.3385933018"
+        },
+        {
+          "sourceId": "SRC-004",
+          "checkedAt": "2026-09-28",
+          "result": "A-003-r5 報告紀錄：門市名單可核對特約資訊，但沒有逐門市服務縣市／行政區。r6 未重新查閱。"
+        }
+      ],
+      "reason": "SRC-COORD-TPE-001 的 data.taipei 與 data.gov.tw 詮釋資料只寫「橫座標／縱座標」，未載明座標系統（TWD97 或 TWD67、EPSG 代碼）；依規則不得假設座標系統後轉換，故保留 null。 服務範圍：現有官方來源沒有逐門市的服務行政區，不得由營業地址推測。",
+      "nextStep": "向臺北市政府民政局（資料集聯絡人）或官方文件確認橫／縱座標的座標系統；確認後以已記錄的門牌紀錄轉換為 WGS84，並新增證據後再填入。 服務範圍需 Jerry 提供或指定明示服務行政區的正式資料來源。"
+    },
+    {
+      "providerId": "NTPC-AD-001",
+      "missing": [
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表「114~116特約廠商總表」欄位只有編號、單位名稱、統一編號、聯絡地址、電話、傳真、購置、租賃，沒有服務縣市／行政區。"
+        }
+      ],
+      "reason": "座標已驗證；但官方特約名單沒有逐廠商的服務縣市／行政區，不得由營業地址推測，因此不會成為任何推薦候選。",
+      "nextStep": "需 Jerry 提供或指定明示服務行政區的正式資料來源（例如新北市輔具資源中心的服務區域公告）。"
+    },
+    {
+      "providerId": "NTPC-AD-002",
+      "missing": [
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表「114~116特約廠商總表」欄位只有編號、單位名稱、統一編號、聯絡地址、電話、傳真、購置、租賃，沒有服務縣市／行政區。"
+        }
+      ],
+      "reason": "座標已驗證；但官方特約名單沒有逐廠商的服務縣市／行政區，不得由營業地址推測，因此不會成為任何推薦候選。",
+      "nextStep": "需 Jerry 提供或指定明示服務行政區的正式資料來源（例如新北市輔具資源中心的服務區域公告）。"
+    },
+    {
+      "providerId": "NTPC-AD-003",
+      "missing": [
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表「114~116特約廠商總表」欄位只有編號、單位名稱、統一編號、聯絡地址、電話、傳真、購置、租賃，沒有服務縣市／行政區。"
+        }
+      ],
+      "reason": "座標已驗證；但官方特約名單沒有逐廠商的服務縣市／行政區，不得由營業地址推測，因此不會成為任何推薦候選。",
+      "nextStep": "需 Jerry 提供或指定明示服務行政區的正式資料來源（例如新北市輔具資源中心的服務區域公告）。"
+    },
+    {
+      "providerId": "NTPC-AD-004",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-COORD-NTPC-001",
+          "checkedAt": "2026-09-29",
+          "result": "新店區（65000060）安康路一段共 822 筆門牌紀錄，沒有任何「３５９」開頭的號（含 359之25號）。"
+        },
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表「114~116特約廠商總表」欄位只有編號、單位名稱、統一編號、聯絡地址、電話、傳真、購置、租賃，沒有服務縣市／行政區。"
+        }
+      ],
+      "reason": "官方門牌資料找不到正式地址「安康路一段359-25號」的門牌點；不得以鄰近門牌或地圖點替代。服務範圍：來源沒有逐廠商服務行政區。",
+      "nextStep": "向新北市新店戶政事務所確認該門牌是否整編／改編或為新門牌（下一版門牌資料可能收錄）；服務範圍需 Jerry 提供或指定正式資料來源。"
+    },
+    {
+      "providerId": "NTPC-AD-005",
+      "missing": [
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表「114~116特約廠商總表」欄位只有編號、單位名稱、統一編號、聯絡地址、電話、傳真、購置、租賃，沒有服務縣市／行政區。"
+        }
+      ],
+      "reason": "座標已驗證；但官方特約名單沒有逐廠商的服務縣市／行政區，不得由營業地址推測，因此不會成為任何推薦候選。",
+      "nextStep": "需 Jerry 提供或指定明示服務行政區的正式資料來源（例如新北市輔具資源中心的服務區域公告）。"
+    },
+    {
+      "providerId": "NTPC-AD-006",
+      "missing": [
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表「114~116特約廠商總表」欄位只有編號、單位名稱、統一編號、聯絡地址、電話、傳真、購置、租賃，沒有服務縣市／行政區。"
+        }
+      ],
+      "reason": "座標已驗證；但官方特約名單沒有逐廠商的服務縣市／行政區，不得由營業地址推測，因此不會成為任何推薦候選。",
+      "nextStep": "需 Jerry 提供或指定明示服務行政區的正式資料來源（例如新北市輔具資源中心的服務區域公告）。"
+    },
+    {
+      "providerId": "NTPC-AD-007",
+      "missing": [
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表「114~116特約廠商總表」欄位只有編號、單位名稱、統一編號、聯絡地址、電話、傳真、購置、租賃，沒有服務縣市／行政區。"
+        }
+      ],
+      "reason": "座標已驗證；但官方特約名單沒有逐廠商的服務縣市／行政區，不得由營業地址推測，因此不會成為任何推薦候選。",
+      "nextStep": "需 Jerry 提供或指定明示服務行政區的正式資料來源（例如新北市輔具資源中心的服務區域公告）。"
+    },
+    {
+      "providerId": "NTPC-AD-008",
+      "missing": [
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表「114~116特約廠商總表」欄位只有編號、單位名稱、統一編號、聯絡地址、電話、傳真、購置、租賃，沒有服務縣市／行政區。"
+        }
+      ],
+      "reason": "座標已驗證；但官方特約名單沒有逐廠商的服務縣市／行政區，不得由營業地址推測，因此不會成為任何推薦候選。",
+      "nextStep": "需 Jerry 提供或指定明示服務行政區的正式資料來源（例如新北市輔具資源中心的服務區域公告）。"
+    },
+    {
+      "providerId": "NTPC-AD-009",
+      "missing": [
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-005",
+          "checkedAt": "2026-09-29",
+          "result": "raw/(雲端)輔具服務特約廠商一覽表.xlsx 工作表「114~116特約廠商總表」欄位只有編號、單位名稱、統一編號、聯絡地址、電話、傳真、購置、租賃，沒有服務縣市／行政區。"
+        }
+      ],
+      "reason": "座標已驗證；但官方特約名單沒有逐廠商的服務縣市／行政區，不得由營業地址推測，因此不會成為任何推薦候選。",
+      "nextStep": "需 Jerry 提供或指定明示服務行政區的正式資料來源（例如新北市輔具資源中心的服務區域公告）。"
+    }
+  ]
+}
