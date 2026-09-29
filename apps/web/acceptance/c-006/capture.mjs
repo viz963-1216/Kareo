@@ -115,7 +115,7 @@ async function flow(viewport) {
       hasStatus: text.includes('KB-MOCK-001') && text.includes('每日檢查'),
       hasChanges: text.includes('收費方式'),
       hasRecords: text.includes('測試用地方補助紀錄'),
-      writeButtonCount: [...document.querySelectorAll('button')].filter(button => /核准|拒絕|發布|撤回|忽略/.test(button.innerText)).length,
+      writeButtonCount: [...document.querySelectorAll('button')].filter(button => /核准|退回|發布|撤回|不影響內容/.test(button.innerText)).length,
       hasPublishPreview: text.includes('發布預覽') && text.includes('KB-MOCK-002'),
       hasWithdrawalWarning: text.includes('使用者評估將暫停'),
       publishInitiallyDisabled: [...document.querySelectorAll('button')].find(button => button.innerText.includes('確認發布'))?.disabled,

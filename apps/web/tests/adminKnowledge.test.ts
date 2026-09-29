@@ -132,3 +132,16 @@ test("mock withdrawal uses official fixtures and transitions published state", (
   assert.match(adapter, /restorableVersions = body\.republishVersionId === null/);
   assert.match(adapter, /resetMockState\(\)/);
 });
+
+test("publish and review UI use API results and show all non-zero preview counts", () => {
+  const page = readFileSync(fileURLToPath(new URL("../src/pages/AdminKnowledgePage.tsx", import.meta.url)), "utf8");
+  const adapter = readFileSync(fileURLToPath(new URL("../src/api/adminMockAdapter.ts", import.meta.url)), "utf8");
+  assert.match(page, /result\.versionId/);
+  assert.match(page, /result\.totalRecordCount/);
+  assert.match(page, /preview\.supersededRecordCount > 0/);
+  assert.match(page, /preview\.excludedRecordCount > 0/);
+  assert.match(page, />不影響內容</);
+  assert.match(page, />退回</);
+  assert.match(adapter, /knowledge-publish-preview-version-exists-response\.json/);
+  assert.match(adapter, /publishPreview = structuredClone\(previewVersionExistsFixture\.data\)/);
+});

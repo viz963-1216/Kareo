@@ -176,17 +176,18 @@ export function AdminKnowledgePage() {
     setNotice("");
     try {
       if (reviewAction.kind === "record") {
-        await adminApi.decideRecord(reviewAction.record.id, {
+        const result = await adminApi.decideRecord(reviewAction.record.id, {
           decision: reviewAction.decision,
           reason,
           expectedContentFingerprint: reviewAction.record.contentFingerprint,
           confirm: true,
         });
-        setNotice(reviewAction.decision === "APPROVED" ? "紀錄已核准。" : "紀錄已拒絕。"
-        );
+        setNotice(result.record.status === "APPROVED"
+          ? `「${result.record.title}」已核准。`
+          : `「${result.record.title}」已退回。`);
       } else {
-        await adminApi.dismissChange(reviewAction.change.id, { reason, confirm: true });
-        setNotice("每日變更已標記為忽略。此操作已留下稽核紀錄。");
+        const result = await adminApi.dismissChange(reviewAction.change.id, { reason, confirm: true });
+        setNotice(`來源 ${result.change.sourceId} 的本次變更已標記為不影響內容。`);
       }
       setReviewAction(null);
       setReviewReason("");
@@ -217,9 +218,9 @@ export function AdminKnowledgePage() {
     setReleaseBusy(true);
     setNotice("");
     try {
-      await adminApi.publish({ versionId: preview.targetVersionId, previewToken: preview.previewToken, confirm: true });
+      const result = await adminApi.publish({ versionId: preview.targetVersionId, previewToken: preview.previewToken, confirm: true });
       setPublishConfirmed(false);
-      setNotice(`版本 ${preview.targetVersionId} 已發布。`);
+      setNotice(`版本 ${result.versionId} 已於 ${dateTime(result.publishedAt)}發布，共 ${result.totalRecordCount} 筆紀錄。`);
       await loadDashboard();
     } catch (reasonValue) {
       const code = errorCode(reasonValue);
@@ -384,6 +385,8 @@ export function AdminKnowledgePage() {
                 <div><dt>本次新增</dt><dd>{preview.publishedRecordCount} 筆</dd></div>
                 <div><dt>沿用紀錄</dt><dd>{preview.carriedForwardCount} 筆</dd></div>
                 <div><dt>發布後總數</dt><dd>{preview.totalRecordCount} 筆</dd></div>
+                {preview.supersededRecordCount > 0 && <div><dt>取代紀錄</dt><dd>{preview.supersededRecordCount} 筆</dd></div>}
+                {preview.excludedRecordCount > 0 && <div><dt>排除紀錄</dt><dd>{preview.excludedRecordCount} 筆</dd></div>}
               </dl>
               {preview.blockers.length > 0 && (
                 <div className="error" role="alert">
@@ -441,7 +444,7 @@ export function AdminKnowledgePage() {
                     <h3>{change.sourceId}</h3>
                     <p>{change.diffSummary}</p>
                     <p className="supporting-text">偵測時間：{dateTime(change.detectedAt)}</p>
-                    <button className="button secondary" type="button" disabled={reviewBusy} onClick={() => beginReview({ kind: "change", change })}>忽略此次變更</button>
+                    <button className="button secondary" type="button" disabled={reviewBusy} onClick={() => beginReview({ kind: "change", change })}>不影響內容</button>
                   </article>
                 ))}
               </div>
@@ -464,7 +467,7 @@ export function AdminKnowledgePage() {
                     <a href={record.sourceUrl} target="_blank" rel="noreferrer">查看官方來源（另開新分頁）</a>
                     <div className="admin-action-row">
                       <button className="button primary" type="button" disabled={reviewBusy} onClick={() => beginReview({ kind: "record", record, decision: "APPROVED" })}>核准</button>
-                      <button className="button secondary" type="button" disabled={reviewBusy} onClick={() => beginReview({ kind: "record", record, decision: "REJECTED" })}>拒絕</button>
+                      <button className="button secondary" type="button" disabled={reviewBusy} onClick={() => beginReview({ kind: "record", record, decision: "REJECTED" })}>退回</button>
                     </div>
                   </article>
                 ))}

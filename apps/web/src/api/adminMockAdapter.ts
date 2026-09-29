@@ -1,6 +1,7 @@
 import changesFixture from "../../../../contracts/mock/admin/knowledge-changes-response.json";
 import dismissedFixture from "../../../../contracts/mock/admin/knowledge-change-dismissed-response.json";
 import previewFixture from "../../../../contracts/mock/admin/knowledge-publish-preview-response.json";
+import previewVersionExistsFixture from "../../../../contracts/mock/admin/knowledge-publish-preview-version-exists-response.json";
 import publishFixture from "../../../../contracts/mock/admin/knowledge-publish-response.json";
 import approvedFixture from "../../../../contracts/mock/admin/knowledge-record-approved-response.json";
 import rejectedFixture from "../../../../contracts/mock/admin/knowledge-record-rejected-response.json";
@@ -49,12 +50,14 @@ let pendingChanges = structuredClone(changesFixture.data.changes) as AdminKnowle
 let pendingRecords = structuredClone(recordsFixture.data.records) as AdminKnowledgeRecord[];
 let knowledgeStatus = structuredClone(statusFixture.data) as AdminKnowledgeStatus;
 let restorableVersions = structuredClone(restorableVersionsEmptyFixture.data) as AdminRestorableVersionsResponse;
+let publishPreview = structuredClone(previewFixture.data) as AdminPublishPreview;
 
 function resetMockState() {
   pendingChanges = structuredClone(changesFixture.data.changes) as AdminKnowledgeChange[];
   pendingRecords = structuredClone(recordsFixture.data.records) as AdminKnowledgeRecord[];
   knowledgeStatus = structuredClone(statusFixture.data) as AdminKnowledgeStatus;
   restorableVersions = structuredClone(restorableVersionsEmptyFixture.data) as AdminRestorableVersionsResponse;
+  publishPreview = structuredClone(previewFixture.data) as AdminPublishPreview;
 }
 
 function storage(): Storage | null {
@@ -123,7 +126,7 @@ export const adminMockApi = {
   async getPublishPreview(): Promise<AdminPublishPreview> {
     requireSession();
     await wait();
-    return structuredClone(previewFixture.data) as AdminPublishPreview;
+    return structuredClone(publishPreview);
   },
   async publish(body: AdminPublishRequest): Promise<AdminPublishResponse> {
     requireSession();
@@ -131,6 +134,7 @@ export const adminMockApi = {
     await wait();
     knowledgeStatus = structuredClone(statusAfterPublishFixture.data) as AdminKnowledgeStatus;
     restorableVersions = structuredClone(restorableVersionsFixture.data) as AdminRestorableVersionsResponse;
+    publishPreview = structuredClone(previewVersionExistsFixture.data) as AdminPublishPreview;
     return structuredClone(publishFixture.data) as AdminPublishResponse;
   },
   async getRestorableVersions(): Promise<AdminRestorableVersionsResponse> {
@@ -149,6 +153,7 @@ export const adminMockApi = {
     restorableVersions = body.republishVersionId === null
       ? structuredClone(restorableVersionsNoCurrentFixture.data) as AdminRestorableVersionsResponse
       : structuredClone(restorableVersionsEmptyFixture.data) as AdminRestorableVersionsResponse;
+    publishPreview = structuredClone(previewFixture.data) as AdminPublishPreview;
     return structuredClone(fixture.data) as AdminWithdrawResponse;
   },
 };
