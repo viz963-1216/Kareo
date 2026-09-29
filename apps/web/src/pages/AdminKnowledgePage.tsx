@@ -1,7 +1,13 @@
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { adminApi } from "../api";
 import { NoIndex } from "../components/NoIndex";
-import type { AdminKnowledgeChange, AdminKnowledgeRecord, AdminKnowledgeStatus } from "../types/api";
+import type {
+  AdminKnowledgeChange,
+  AdminKnowledgeRecord,
+  AdminKnowledgeStatus,
+  AdminPublishPreview,
+  AdminRestorableVersionsResponse,
+} from "../types/api";
 
 type ViewStatus = "checking" | "logged-out" | "loading" | "ready" | "error";
 type ReviewAction =
@@ -41,12 +47,19 @@ export function AdminKnowledgePage() {
   const [status, setStatus] = useState<AdminKnowledgeStatus | null>(null);
   const [changes, setChanges] = useState<AdminKnowledgeChange[]>([]);
   const [records, setRecords] = useState<AdminKnowledgeRecord[]>([]);
+  const [preview, setPreview] = useState<AdminPublishPreview | null>(null);
+  const [restorable, setRestorable] = useState<AdminRestorableVersionsResponse | null>(null);
   const [message, setMessage] = useState("");
   const [notice, setNotice] = useState("");
   const [reviewAction, setReviewAction] = useState<ReviewAction>(null);
   const [reviewReason, setReviewReason] = useState("");
   const [reviewConfirmed, setReviewConfirmed] = useState(false);
   const [reviewBusy, setReviewBusy] = useState(false);
+  const [publishConfirmed, setPublishConfirmed] = useState(false);
+  const [withdrawReason, setWithdrawReason] = useState("");
+  const [republishVersionId, setRepublishVersionId] = useState("");
+  const [withdrawConfirmed, setWithdrawConfirmed] = useState(false);
+  const [releaseBusy, setReleaseBusy] = useState(false);
   const loadingRef = useRef(false);
   const errorRef = useRef<HTMLDivElement>(null);
 
@@ -56,14 +69,18 @@ export function AdminKnowledgePage() {
     setView("loading");
     setMessage("");
     try {
-      const [nextStatus, nextChanges, nextRecords] = await Promise.all([
+      const [nextStatus, nextChanges, nextRecords, nextPreview, nextRestorable] = await Promise.all([
         adminApi.getStatus(),
         adminApi.getChanges(),
         adminApi.getRecords(),
+        adminApi.getPublishPreview(),
+        adminApi.getRestorableVersions(),
       ]);
       setStatus(nextStatus);
       setChanges(nextChanges);
       setRecords(nextRecords);
+      setPreview(nextPreview);
+      setRestorable(nextRestorable);
       setView("ready");
     } catch (reason) {
       if (errorCode(reason) === "SESSION_INVALID" || errorCode(reason) === "FORBIDDEN") {
@@ -185,6 +202,70 @@ export function AdminKnowledgePage() {
     }
   }
 
+  async function submitPublish(event: FormEvent) {
+    event.preventDefault();
+    if (!preview?.canPublish || !preview.targetVersionId || !preview.previewToken || !publishConfirmed || releaseBusy) return;
+    setReleaseBusy(true);
+    setNotice("");
+    try {
+      await adminApi.publish({ versionId: preview.targetVersionId, previewToken: preview.previewToken, confirm: true });
+      setPublishConfirmed(false);
+      setNotice(`版本 ${preview.targetVersionId} 已發布。`);
+      await loadDashboard();
+    } catch (reasonValue) {
+      const code = errorCode(reasonValue);
+      if (code === "SESSION_INVALID" || code === "FORBIDDEN") {
+        await adminApi.logout();
+        setMessage(reasonValue instanceof Error ? reasonValue.message : "管理工作階段已失效，請重新登入。");
+        setView("logged-out");
+      } else if (code === "KNOWLEDGE_STATE_CHANGED" || code === "INVALID_STATUS_TRANSITION") {
+        setPublishConfirmed(false);
+        setNotice("發布狀態已改變，已更新預覽；請重新核對後再次確認。");
+        await loadDashboard();
+      } else {
+        setNotice(reasonValue instanceof Error ? reasonValue.message : "發布失敗，請稍後再試。");
+      }
+    } finally {
+      setReleaseBusy(false);
+    }
+  }
+
+  async function submitWithdraw(event: FormEvent) {
+    event.preventDefault();
+    const currentVersion = restorable?.currentVersion?.versionId;
+    const reason = withdrawReason.trim();
+    if (!currentVersion || reason.length < 1 || reason.length > 500 || !withdrawConfirmed || releaseBusy) return;
+    setReleaseBusy(true);
+    setNotice("");
+    try {
+      await adminApi.withdraw({
+        withdrawVersionId: currentVersion,
+        republishVersionId: republishVersionId || null,
+        reason,
+        confirm: true,
+      });
+      setWithdrawReason("");
+      setWithdrawConfirmed(false);
+      setNotice(`版本 ${currentVersion} 已撤回。`);
+      await loadDashboard();
+    } catch (reasonValue) {
+      const code = errorCode(reasonValue);
+      if (code === "SESSION_INVALID" || code === "FORBIDDEN") {
+        await adminApi.logout();
+        setMessage(reasonValue instanceof Error ? reasonValue.message : "管理工作階段已失效，請重新登入。");
+        setView("logged-out");
+      } else if (code === "KNOWLEDGE_STATE_CHANGED" || code === "INVALID_STATUS_TRANSITION") {
+        setWithdrawConfirmed(false);
+        setNotice("版本狀態已改變，已重新載入；請再次選擇並確認。");
+        await loadDashboard();
+      } else {
+        setNotice(reasonValue instanceof Error ? reasonValue.message : "撤回失敗，請稍後再試。");
+      }
+    } finally {
+      setReleaseBusy(false);
+    }
+  }
+
   return (
     <main id="main-content" className="content admin-page" aria-busy={view === "checking" || view === "loading"}>
       <NoIndex />
@@ -274,6 +355,61 @@ export function AdminKnowledgePage() {
               <div><dt>完成時間</dt><dd>{dateTime(status.lastCrawlerRun?.finishedAt ?? null)}</dd></div>
             </dl>
           </section>
+
+          {preview && (
+            <section className="admin-section panel" aria-labelledby="knowledge-publish-title">
+              <h2 id="knowledge-publish-title">發布預覽</h2>
+              <dl className="admin-facts compact">
+                <div><dt>目標版本</dt><dd>{preview.targetVersionId ?? "尚未產生"}</dd></div>
+                <div><dt>本次新增</dt><dd>{preview.publishedRecordCount} 筆</dd></div>
+                <div><dt>沿用紀錄</dt><dd>{preview.carriedForwardCount} 筆</dd></div>
+                <div><dt>發布後總數</dt><dd>{preview.totalRecordCount} 筆</dd></div>
+              </dl>
+              {preview.blockers.length > 0 && (
+                <div className="error" role="alert">
+                  <h3>目前無法發布</h3>
+                  <ul>{preview.blockers.map((blocker) => <li key={blocker.code}>{blocker.message}</li>)}</ul>
+                </div>
+              )}
+              <form className="stack" onSubmit={submitPublish}>
+                <label className="check-row">
+                  <input type="checkbox" checked={publishConfirmed} disabled={!preview.canPublish} onChange={(event) => setPublishConfirmed(event.target.checked)} />
+                  我已核對發布預覽，確認發布此不可覆寫的新版本
+                </label>
+                <button className="button primary" type="submit" disabled={!preview.canPublish || !preview.previewToken || !publishConfirmed || releaseBusy}>
+                  {releaseBusy ? "處理中…" : "確認發布"}
+                </button>
+              </form>
+            </section>
+          )}
+
+          {restorable?.currentVersion && (
+            <section className="admin-section panel" aria-labelledby="knowledge-withdraw-title">
+              <h2 id="knowledge-withdraw-title">撤回已發布版本</h2>
+              <p>目前版本：{restorable.currentVersion.versionId}</p>
+              <form className="stack" onSubmit={submitWithdraw}>
+                <label>
+                  撤回後狀態
+                  <select value={republishVersionId} onChange={(event) => setRepublishVersionId(event.target.value)}>
+                    <option value="">不重新發布任何版本</option>
+                    {restorable.versions.map((version) => <option key={version.versionId} value={version.versionId}>重新發布 {version.versionId}</option>)}
+                  </select>
+                </label>
+                {!republishVersionId && <p className="error" role="alert">警告：撤回後可能沒有任何已發布知識，使用者評估將暫停。</p>}
+                <label>
+                  撤回原因（1–500 字）
+                  <textarea rows={4} maxLength={500} required value={withdrawReason} onChange={(event) => setWithdrawReason(event.target.value)} />
+                </label>
+                <label className="check-row">
+                  <input type="checkbox" checked={withdrawConfirmed} onChange={(event) => setWithdrawConfirmed(event.target.checked)} />
+                  我了解撤回影響，確認執行此操作
+                </label>
+                <button className="button secondary" type="submit" disabled={!withdrawConfirmed || withdrawReason.trim().length < 1 || releaseBusy}>
+                  {releaseBusy ? "處理中…" : "確認撤回"}
+                </button>
+              </form>
+            </section>
+          )}
 
           <section className="admin-section" aria-labelledby="knowledge-changes-title">
             <h2 id="knowledge-changes-title">每日變更</h2>

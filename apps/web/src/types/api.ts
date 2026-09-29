@@ -246,7 +246,7 @@ export interface AdminPublishPreview {
   supersededRecordCount: number;
   excludedRecordCount: number;
   newRecords: AdminPublishPreviewRecord[];
-  blockers: string[];
+  blockers: { code: string; message: string }[];
   previewToken: string | null;
   generatedAt: string;
 }

@@ -101,3 +101,12 @@ test("admin review UI requires a reason, explicit confirmation, and the current 
   assert.match(page, /confirm: true/);
   assert.match(page, /KNOWLEDGE_STATE_CHANGED/);
 });
+
+test("publishing and withdrawal require previews and explicit confirmation", () => {
+  const page = readFileSync(fileURLToPath(new URL("../src/pages/AdminKnowledgePage.tsx", import.meta.url)), "utf8");
+  assert.match(page, /preview\.canPublish/);
+  assert.match(page, /preview\.previewToken/);
+  assert.match(page, /publishConfirmed/);
+  assert.match(page, /republishVersionId: republishVersionId \|\| null/);
+  assert.match(page, /使用者評估將暫停/);
+});
