@@ -1,0 +1,206 @@
+{
+  "generatedAt": "2026-09-29T13:30:19.084Z",
+  "base": "http://localhost:5173",
+  "mode": "mock (vite dev)",
+  "scope": "C-006 admin knowledge review and release controls",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 900,
+      "shots": [
+        {
+          "file": "desktop-01-login.jpg",
+          "noindex": "noindex, nofollow",
+          "noHorizontalScroll": true,
+          "scrollWidth": 1280,
+          "innerWidth": 1280,
+          "managementDataHidden": true,
+          "adminNavLinkCount": 0,
+          "localStorage": "{}",
+          "sessionStorageBeforeLogin": "{}"
+        },
+        {
+          "file": "desktop-02-dashboard.jpg",
+          "noindex": "noindex, nofollow",
+          "noHorizontalScroll": true,
+          "documentWidth": 1280,
+          "viewportWidth": 1280,
+          "hasStatus": true,
+          "hasChanges": true,
+          "hasRecords": true,
+          "writeButtonCount": 5,
+          "hasPublishPreview": true,
+          "hasWithdrawalWarning": true,
+          "publishInitiallyDisabled": true,
+          "officialLinkSafe": true,
+          "localStorage": "{}",
+          "sessionStorageKeys": [
+            "kareo.adminToken"
+          ],
+          "urlHasCredential": false,
+          "overflow": [],
+          "keyboardOrder": {
+            "first": "username",
+            "second": "current-password"
+          }
+        },
+        {
+          "file": "desktop-03-review-confirmation.jpg",
+          "noHorizontalScroll": true,
+          "hasReasonLimit": true,
+          "hasExplicitConfirmation": true,
+          "submitInitiallyDisabled": true,
+          "text": true
+        }
+      ]
+    },
+    "tablet": {
+      "width": 768,
+      "height": 1024,
+      "shots": [
+        {
+          "file": "tablet-01-login.jpg",
+          "noindex": "noindex, nofollow",
+          "noHorizontalScroll": true,
+          "scrollWidth": 768,
+          "innerWidth": 768,
+          "managementDataHidden": true,
+          "adminNavLinkCount": 0,
+          "localStorage": "{}",
+          "sessionStorageBeforeLogin": "{}"
+        },
+        {
+          "file": "tablet-02-dashboard.jpg",
+          "noindex": "noindex, nofollow",
+          "noHorizontalScroll": true,
+          "documentWidth": 768,
+          "viewportWidth": 768,
+          "hasStatus": true,
+          "hasChanges": true,
+          "hasRecords": true,
+          "writeButtonCount": 5,
+          "hasPublishPreview": true,
+          "hasWithdrawalWarning": true,
+          "publishInitiallyDisabled": true,
+          "officialLinkSafe": true,
+          "localStorage": "{}",
+          "sessionStorageKeys": [
+            "kareo.adminToken"
+          ],
+          "urlHasCredential": false,
+          "overflow": [],
+          "keyboardOrder": {
+            "first": "username",
+            "second": "current-password"
+          }
+        },
+        {
+          "file": "tablet-03-review-confirmation.jpg",
+          "noHorizontalScroll": true,
+          "hasReasonLimit": true,
+          "hasExplicitConfirmation": true,
+          "submitInitiallyDisabled": true,
+          "text": true
+        }
+      ]
+    },
+    "mobile": {
+      "width": 375,
+      "height": 812,
+      "shots": [
+        {
+          "file": "mobile-01-login.jpg",
+          "noindex": "noindex, nofollow",
+          "noHorizontalScroll": true,
+          "scrollWidth": 375,
+          "innerWidth": 375,
+          "managementDataHidden": true,
+          "adminNavLinkCount": 0,
+          "localStorage": "{}",
+          "sessionStorageBeforeLogin": "{}"
+        },
+        {
+          "file": "mobile-02-dashboard.jpg",
+          "noindex": "noindex, nofollow",
+          "noHorizontalScroll": true,
+          "documentWidth": 375,
+          "viewportWidth": 375,
+          "hasStatus": true,
+          "hasChanges": true,
+          "hasRecords": true,
+          "writeButtonCount": 5,
+          "hasPublishPreview": true,
+          "hasWithdrawalWarning": true,
+          "publishInitiallyDisabled": true,
+          "officialLinkSafe": true,
+          "localStorage": "{}",
+          "sessionStorageKeys": [
+            "kareo.adminToken"
+          ],
+          "urlHasCredential": false,
+          "overflow": [],
+          "keyboardOrder": {
+            "first": "username",
+            "second": "current-password"
+          }
+        },
+        {
+          "file": "mobile-03-review-confirmation.jpg",
+          "noHorizontalScroll": true,
+          "hasReasonLimit": true,
+          "hasExplicitConfirmation": true,
+          "submitInitiallyDisabled": true,
+          "text": true
+        }
+      ]
+    }
+  },
+  "scenarios": {
+    "empty": {
+      "file": "desktop-scenario-empty.jpg",
+      "noHorizontalScroll": true,
+      "noindex": "noindex, nofollow",
+      "pass": true
+    },
+    "session-invalid": {
+      "file": "desktop-scenario-session-invalid.jpg",
+      "noHorizontalScroll": true,
+      "noindex": "noindex, nofollow",
+      "pass": true
+    },
+    "forbidden": {
+      "file": "desktop-scenario-forbidden.jpg",
+      "noHorizontalScroll": true,
+      "noindex": "noindex, nofollow",
+      "pass": true
+    },
+    "publish-blocked": {
+      "file": "desktop-scenario-publish-blocked.jpg",
+      "noHorizontalScroll": true,
+      "noindex": "noindex, nofollow",
+      "pass": true
+    },
+    "no-current": {
+      "file": "desktop-scenario-no-current.jpg",
+      "noHorizontalScroll": true,
+      "noindex": "noindex, nofollow",
+      "pass": true
+    },
+    "validation-error": {
+      "file": "desktop-scenario-validation-error.jpg",
+      "noHorizontalScroll": true,
+      "pass": true
+    },
+    "state-changed": {
+      "file": "desktop-scenario-state-changed.jpg",
+      "noHorizontalScroll": true,
+      "pass": true
+    },
+    "restore-unavailable": {
+      "file": "desktop-scenario-restore-unavailable.jpg",
+      "noHorizontalScroll": true,
+      "selectionCleared": true,
+      "pass": true
+    }
+  }
+}
