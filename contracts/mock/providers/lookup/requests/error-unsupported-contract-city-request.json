@@ -1,0 +1,7 @@
+{
+  "method": "GET",
+  "path": "/api/v1/providers",
+  "query": {
+    "contractCity": "桃園市"
+  }
+}

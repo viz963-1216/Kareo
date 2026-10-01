@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — Data Model
 
-Version: v0.2.4（J-002-r6，2026-10-01；§17 經核准的非官方座標、§19 服務範圍狀態與不得推定規則（D-18）、§26b 內容包登錄與 §26c 逐筆審核紀錄（D-16b））  
+Version: v0.2.5（J-002-r8，2026-10-01；§17 `resourceCategory`（輔具資源中心）、§19b ProviderContractRegion（特約縣市），D-19）  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -375,6 +375,17 @@ OTHER
 
 TRANSPORTATION MVP 不放 Provider，直接導流 Kareocar。
 
+`resourceCategory`（v0.2.5，D-19 Q2）：
+
+```text
+SERVICE_PROVIDER          既有服務單位（預設；HOME_CARE／HOME_MEDICAL_NURSING／ASSISTIVE_DEVICE）
+ASSISTIVE_DEVICE_CENTER   輔具資源中心（公共資源，只供查詢）
+```
+
+- `ASSISTIVE_DEVICE_CENTER` 一律 `type = OTHER`，**不建立 ProviderService**，所以推薦（§20、API_CONTRACT §9）永遠不會選到，也不能建立 Lead。
+- 只收官方來源可確認的雙北輔具資源中心；服務範圍同樣只依可追溯證據建立（§19）。
+- 既有資料匯入時未提供者視為 `SERVICE_PROVIDER`。住宿機構延後（D-19），屆時另定類別。
+
 Provider Status：
 
 ```text
@@ -436,6 +447,22 @@ UNCONFIRMED   沒有任何 active ProviderServiceArea（服務範圍待確認，
 ```
 
 用途：資源查詢與詳細頁的顯示（API_CONTRACT §10、§10a）。推薦（§20、API_CONTRACT §9）只比對 active ProviderServiceArea，`UNCONFIRMED` 的 Provider 永遠不是推薦候選。
+
+# 19b. ProviderContractRegion / 特約縣市（v0.2.5，D-19 Q1）
+
+```text
+id
+providerId
+city          臺北市／新北市
+serviceType   特約的服務類型（MVP 只有 ASSISTIVE_DEVICE）
+sourceId      官方特約／簽約名單（A 的資料報告）
+checkedAt
+active
+```
+
+- 記錄「已列於該縣市政府特約名單」的事實，例如 SRC-004（臺北市輔具特約服務門市）、SRC-005（新北市輔具特約廠商）。
+- **不是服務範圍**：不得轉成 ProviderServiceArea，推薦不讀取（§19、DEC-A003-01）。
+- 公開時只回 `city`、`serviceType`（API_CONTRACT §10）；來源與查核日期留在資料報告。
 
 ---
 

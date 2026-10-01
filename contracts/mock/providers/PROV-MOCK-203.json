@@ -4,6 +4,7 @@
     "id": "PROV-MOCK-203",
     "name": "測試樂齡輔具中心",
     "type": "ASSISTIVE_DEVICE",
+    "resourceCategory": "SERVICE_PROVIDER",
     "address": "新北市蘆洲區中山一路203號",
     "city": "新北市",
     "district": "蘆洲區",
@@ -24,6 +25,7 @@
         "district": "三重區"
       }
     ],
-    "serviceAreaStatus": "VERIFIED"
+    "serviceAreaStatus": "VERIFIED",
+    "contractRegions": []
   }
 }

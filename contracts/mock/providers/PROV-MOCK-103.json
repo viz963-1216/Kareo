@@ -4,6 +4,7 @@
     "id": "PROV-MOCK-103",
     "name": "測試樂齡居家醫療中心",
     "type": "HOME_MEDICAL_NURSING",
+    "resourceCategory": "SERVICE_PROVIDER",
     "address": "新北市新莊區中正路103號",
     "city": "新北市",
     "district": "新莊區",
@@ -24,6 +25,7 @@
         "district": "三重區"
       }
     ],
-    "serviceAreaStatus": "VERIFIED"
+    "serviceAreaStatus": "VERIFIED",
+    "contractRegions": []
   }
 }

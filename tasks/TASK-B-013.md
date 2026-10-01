@@ -33,6 +33,13 @@ Plan revision: 2026-10-01 / J-002-r6（[Issue #49](https://github.com/viz963-121
 - 不讀寫 Session、Assessment、RecommendationRun、Lead；log 不記錄查詢條件（PRIVACY_AND_RETENTION §2）。
 - 限流沿用 B-011 元件（`Provider lookup` 120 次／小時，ARCHITECTURE §20.4）；元件尚未完成時列為 Known Issue，由 B-011b 追蹤。
 
+## 追加（2026-10-01，D-19 Q1／Q2，API_CONTRACT v0.6，[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）
+
+- 列表與詳細回應新增 `resourceCategory`、`contractRegions`；列表新增 `resourceCategory`、`contractCity` 篩選與對應錯誤（§10、§10a v0.6）。
+- **允許新增 migration**（只新增、可為空，取代上方「不新增 migration」）：`providers.resource_category`（預設 `SERVICE_PROVIDER`）、`provider_contract_regions` 表（DATA_MODEL §19b）；Provider 匯入（`import_provider_dataset`）支援這兩項，並接受 `type = OTHER`、沒有 ProviderService 的資源中心（A-007）。migration 編號依當時 staging 最新編號遞增。
+- 推薦（B-005）不讀 `contract_regions`、不選資源中心：補測試證明。
+- 對照 fixtures：`list-contract-city`、`list-resource-center`、`errors/unsupported-contract-city`、`errors/center-with-service-type`、`providers/PROV-MOCK-301.json`。
+
 ## Acceptance Criteria
 
 - [ ] 不帶任何 token 可查詢；回應格式與 `contracts/mock/providers/lookup/*-response.json` 相同（J-003 以 fixtures 對照）
@@ -55,3 +62,4 @@ PR Title：`[B-013] Public resource lookup API`
 ## 變更紀錄
 
 - 2026-10-01 J-002-r6：依 Issue #49 建立。
+- 2026-10-01 J-002-r8：追加 `resourceCategory`、`contractRegions`（D-19）。

@@ -1,0 +1,8 @@
+{
+  "method": "GET",
+  "path": "/api/v1/knowledge/records",
+  "query": {
+    "jurisdiction": "NEW_TAIPEI",
+    "category": "ASSISTIVE_DEVICE"
+  }
+}

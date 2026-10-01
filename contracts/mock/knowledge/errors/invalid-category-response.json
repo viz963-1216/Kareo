@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "資訊類別不正確，請重新選擇。"
+  }
+}
