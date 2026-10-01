@@ -5,6 +5,20 @@
 export type MockState = "error" | "error-once" | "session-expired" | "knowledge-unavailable" | "duplicate";
 export const MOCK_STATES: readonly MockState[] = ["error", "error-once", "session-expired", "knowledge-unavailable", "duplicate"];
 
+export type AdminMockScenario =
+  | "empty"
+  | "session-invalid"
+  | "forbidden"
+  | "validation-error"
+  | "state-changed"
+  | "publish-blocked"
+  | "restore-unavailable"
+  | "no-current";
+export const ADMIN_MOCK_SCENARIOS: readonly AdminMockScenario[] = [
+  "empty", "session-invalid", "forbidden", "validation-error", "state-changed",
+  "publish-blocked", "restore-unavailable", "no-current",
+];
+
 export type RecommendationMockCount = 0 | 1 | 2 | 3;
 
 /** `?mockRanking=`: forces a recommendation scenario (contracts/mock/README.md, J-002-r4). */

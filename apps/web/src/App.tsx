@@ -6,6 +6,7 @@ import { FormalAssessmentReminder } from "./components/FormalAssessmentReminder"
 import { ScrollToTop } from "./components/ScrollToTop";
 import type { AssessmentLocation, AssessmentResponse } from "./types/api";
 import { AssessmentPage, type AssessmentForm, type AssessmentSubmission } from "./pages/AssessmentPage";
+import { AdminKnowledgePage } from "./pages/AdminKnowledgePage";
 import { ConsentPage } from "./pages/ConsentPage";
 import { HomePage } from "./pages/HomePage";
 import { LeadPage } from "./pages/LeadPage";
@@ -73,6 +74,7 @@ function AppRoutes() {
         </Link>
       </header>
       <Routes>
+        <Route path="/admin/knowledge" element={<AdminKnowledgePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/consent" element={<ConsentPage onAccept={acceptConsent} />} />
         <Route
