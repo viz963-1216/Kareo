@@ -27,21 +27,28 @@ export async function showLead(repo: LeadRepository, leadId: string): Promise<Le
   return withoutPhone(lead);
 }
 
+// J-003-r8（Jerry 委託審查 #47，問題 2）：reveal-contact 只能由「被指派案件」的操作者執行
+// （LEAD_OPERATIONS §2：`lead:reveal-contact`（被指派案件））。未指派的案件視為「第一個
+// reveal-contact 的操作者接手這個案件」，之後只有該操作者能再次查看；已指派給別人的案件一律拒絕，
+// 不得因為 MVP 目前只有一位接件人就略過這個檢查。
 export async function revealContact(
   repo: LeadRepository,
   leadId: string,
   operatorId: string
 ): Promise<{ name: string | null; phone: string | null }> {
-  const lead = await repo.findById(leadId);
-  if (!lead) throw new AppError("NOT_FOUND", "找不到指定的 Lead。");
+  const claimed = await repo.claimLeadForReveal(leadId, operatorId);
+  if (!claimed) throw new AppError("NOT_FOUND", "找不到指定的 Lead。");
+  if (claimed.assignedOperatorId !== operatorId) {
+    throw new AppError("FORBIDDEN", "這筆 Lead 已指派給其他操作者。");
+  }
   await repo.insertAccessEvent({
     id: generateId("LAE"),
-    leadId: lead.id,
+    leadId: claimed.lead.id,
     operatorId,
     action: "REVEAL_CONTACT",
     createdAt: nowTaipeiISOString(),
   });
-  return { name: lead.contactName, phone: lead.contactPhone };
+  return { name: claimed.lead.contactName, phone: claimed.lead.contactPhone };
 }
 
 // 依 docs/LEAD_OPERATIONS.md §3。key 不存在的轉移一律不允許；value 為該轉移必填的原因碼
@@ -81,23 +88,27 @@ export async function updateLeadStatus(repo: LeadRepository, input: UpdateLeadSt
   const now = nowTaipeiISOString();
   const firstContactedAt = input.toStatus === "CONTACTED" && lead.firstContactedAt === null ? now : null;
   const closedAt = input.toStatus === "CLOSED" || input.toStatus === "CANCELLED" ? now : null;
+  const eventId = generateId("LSE");
 
-  // Compare-and-set：以讀取當下的狀態為條件，避免兩位操作者同時改動同一筆 Lead（LEAD_OPERATIONS §4）。
-  const updated = await repo.updateLeadStatus({
-    id: lead.id,
+  // J-003-r8（問題 1）：CAS 狀態更新與 LeadStatusEvent 寫入必須同一交易完成（見 migration 0018
+  // update_lead_status_with_event），不是分開的兩次呼叫——否則事件寫入失敗時狀態已經轉移，
+  // 但歷程沒有對應事件，且無法用重試補回（重試會被「目前狀態已不是 expectedStatus」擋下）。
+  const updated = await repo.updateLeadStatusWithEvent({
+    leadId: lead.id,
     expectedStatus: lead.status,
     toStatus: input.toStatus,
     statusReason: input.reasonCode,
     firstContactedAt,
     closedAt,
     updatedAt: now,
+    event: { id: eventId, reasonCode: input.reasonCode, note: input.note, operatorId: input.operatorId },
   });
   if (!updated) {
     throw new AppError("INVALID_STATUS_TRANSITION", "Lead 狀態已被其他操作變更，請重新查詢後再試一次。");
   }
 
   const event: LeadStatusEvent = {
-    id: generateId("LSE"),
+    id: eventId,
     leadId: lead.id,
     fromStatus: lead.status,
     toStatus: input.toStatus,
@@ -106,6 +117,5 @@ export async function updateLeadStatus(repo: LeadRepository, input: UpdateLeadSt
     operatorId: input.operatorId,
     createdAt: now,
   };
-  await repo.insertStatusEvent(event);
   return event;
 }

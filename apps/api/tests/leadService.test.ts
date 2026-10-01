@@ -399,4 +399,33 @@ describe("createLead", () => {
       expect(err).toBeInstanceOf(AppError);
     }
   });
+
+  it("J-003-r8 #3: replays the same lead for a retried key even after the business-duplicate lead it resolved to has since closed", async () => {
+    const fixture = await buildFixture();
+    await seedAssessmentAndRun(fixture, fixture.sessionId);
+    const keyA = "11111111-1111-1111-1111-111111111111";
+    const keyB = "22222222-2222-2222-2222-222222222222";
+
+    const first = await createLead(fixture, validBody(fixture.sessionId), fixture.sessionToken, keyA);
+    // key B resolves to the same open lead as a business duplicate.
+    const second = await createLead(fixture, validBody(fixture.sessionId), fixture.sessionToken, keyB);
+    expect(second.leadId).toBe(first.leadId);
+    expect(second.duplicate).toBe(true);
+
+    // The lead closes out.
+    const closedLead = fixture.leadRepo.leads.find((l) => l.id === first.leadId) as Lead;
+    closedLead.status = "CLOSED";
+
+    // Retrying key B again must still return the SAME lead (not create a second one), because key B
+    // was already "used" even though it never directly inserted a lead of its own.
+    const third = await createLead(fixture, validBody(fixture.sessionId), fixture.sessionToken, keyB);
+    expect(third.leadId).toBe(first.leadId);
+    expect(third.duplicate).toBe(true);
+    expect(fixture.leadRepo.leads).toHaveLength(1);
+
+    // Retrying key A again is unaffected and still returns the original lead with duplicate: false.
+    const fourth = await createLead(fixture, validBody(fixture.sessionId), fixture.sessionToken, keyA);
+    expect(fourth.leadId).toBe(first.leadId);
+    expect(fourth.duplicate).toBe(false);
+  });
 });
