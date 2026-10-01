@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — System Architecture
 
-Version: v0.5.2（J-002，2026-09-29；§20.8 允許受保護的知識管理 API，D-16a）  
+Version: v0.5.3（J-002-r6，2026-10-01；§7.1 資源查詢路徑（D-18）、§20.4 查詢限流、§22 知識發布序列化與管理 RPC 例外（D-16b））  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -260,6 +260,23 @@ Top 3（0–3 家）
 完整規則與回應欄位：API_CONTRACT §9。沒有位置仍可完成 Assessment 與服務建議（PRODUCT_SPEC §24）。
 
 AI 不直接選 Provider。
+
+## 7.1 Resource Lookup Path / 資源查詢路徑（v0.5.3，D-18）
+
+```text
+使用者（不需評估、不需 session）
+↓
+GET /api/v1/providers（API_CONTRACT §10a）
+↓
+Provider Database（唯讀：status = ACTIVE → serviceType → 所在地或已驗證服務範圍 → 固定排序 → 分頁）
+↓
+GET /api/v1/providers/{id}（§10，詳細資料／電話／官網／Google Maps）
+```
+
+- 與 Recommendation 分開：不讀取或寫入 Session、Assessment、RecommendationRun、Lead；不輪替、不計算距離、不產生推薦原因。
+- 共用 Provider 資料表與 §10 詳細端點，不另建資源資料表或同義端點。
+- 要媒合時回到「評估 → 推薦 → Lead」；查詢結果沒有 `recommendationId`，Lead 驗證（API_CONTRACT §12）會拒絕。
+- 只讀查詢以 Supabase REST 完成，不新增 RPC（§22 只用於寫入）。
 
 ---
 
@@ -643,6 +660,7 @@ Service role 繞過 RLS，因此上述檢查必須在 Service 層完成，不能
 | Assessment | 3 次／小時 | session |
 | Recommendation | 30 次／小時 | session |
 | Provider detail | 60 次／小時 | IP 雜湊 |
+| Provider lookup（`GET /api/v1/providers`，v0.5.3） | 120 次／小時 | IP 雜湊 |
 | Lead | 5 次／日 | session |
 | Lead（同一電話） | 3 次／日 | 電話雜湊 |
 
@@ -736,6 +754,8 @@ Postgres function：在單一交易內只做寫入（upsert）
 5. 測試：
    - 單元測試：證明 Service 只呼叫一次 rpc，且驗證失敗時完全不呼叫。
    - 整合測試（J-003 於 staging Supabase 執行）：故意讓第二、第三張表寫入失敗，確認三張表都沒有新資料。
-6. 目前核准用途：Provider 匯入（B-004）；知識發布／撤回（B-008，2026-09-24 延伸核准，MVP_DECISIONS D-10）。其他用途需再經 Jerry 核准並登記於 MVP_DECISIONS。
+6. 目前核准用途：Provider 匯入（B-004）；知識發布／撤回（B-008，2026-09-24 延伸核准，MVP_DECISIONS D-10）；Lead 狀態與事件、案件接手（B-006，`update_lead_status_with_event`、`claim_lead_for_reveal`，2026-10-01 隨 #47 合併）；知識管理寫入與內容包登錄（B-012，D-16b）。其他用途需再經 Jerry 核准並登記於 MVP_DECISIONS。
 7. 已核准的例外：`publish_knowledge_version` 在函式內檢查紀錄必須為 APPROVED（額外安全檢查，不視為違反第 1 點）。
+8. 已核准的例外（v0.5.3，D-16b，2026-10-01）：知識管理 RPC（`admin_*`）可在函式內做「與寫入同一交易才能保證」的一致性檢查——內容指紋比對（compare-and-set）、目前發布版本與恢復條件、發布計畫與 `previewToken` 重算比對——並寫入稽核。業務驗證（欄位格式、權限、原因必填）仍留在 Node Service。
+9. 知識發布／撤回序列化（v0.5.3，D-16b）：CLI 發布、CLI 撤回、管理頁發布、管理頁撤回四個入口，交易一開始都取得**同一個** `pg_advisory_xact_lock(<固定常數>)`，取得後才檢查、寫入與稽核。只用 `select … for update` 不足（沒有 PUBLISHED 版本時沒有資料列可鎖，且各入口不一定經過同一列）。併發正確性須以真實多連線 Postgres 驗證（J-003）；PGlite 為單一 session，不能作為併發證據。
 

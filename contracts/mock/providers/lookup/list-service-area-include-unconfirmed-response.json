@@ -1,0 +1,90 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "PROV-MOCK-202",
+        "name": "測試安心輔具中心",
+        "type": "ASSISTIVE_DEVICE",
+        "services": [
+          "ASSISTIVE_DEVICE"
+        ],
+        "address": "臺北市萬華區西園路一段202號",
+        "city": "臺北市",
+        "district": "萬華區",
+        "phone": "02-42020202",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-202",
+        "verified": false,
+        "serviceAreaStatus": "VERIFIED",
+        "areaMatch": "VERIFIED"
+      },
+      {
+        "id": "PROV-MOCK-201",
+        "name": "測試輔具服務中心",
+        "type": "ASSISTIVE_DEVICE",
+        "services": [
+          "ASSISTIVE_DEVICE"
+        ],
+        "address": "新北市三重區重新路三段201號",
+        "city": "新北市",
+        "district": "三重區",
+        "phone": "02-42010101",
+        "website": "https://example.com/kareo-mock/prov-mock-201",
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-201",
+        "verified": true,
+        "serviceAreaStatus": "VERIFIED",
+        "areaMatch": "VERIFIED"
+      },
+      {
+        "id": "PROV-MOCK-203",
+        "name": "測試樂齡輔具中心",
+        "type": "ASSISTIVE_DEVICE",
+        "services": [
+          "ASSISTIVE_DEVICE"
+        ],
+        "address": "新北市蘆洲區中山一路203號",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "phone": "02-42030303",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-203",
+        "verified": true,
+        "serviceAreaStatus": "VERIFIED",
+        "areaMatch": "VERIFIED"
+      },
+      {
+        "id": "PROV-MOCK-204",
+        "name": "測試輔具商行（服務範圍待確認）",
+        "type": "ASSISTIVE_DEVICE",
+        "services": [
+          "ASSISTIVE_DEVICE"
+        ],
+        "address": "新北市三重區重新路三段204號",
+        "city": "新北市",
+        "district": "三重區",
+        "phone": "02-42040404",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-204",
+        "verified": true,
+        "serviceAreaStatus": "UNCONFIRMED",
+        "areaMatch": "UNCONFIRMED"
+      }
+    ],
+    "page": 1,
+    "pageSize": 20,
+    "totalCount": 4,
+    "unconfirmedCount": 1,
+    "appliedFilters": {
+      "serviceType": "ASSISTIVE_DEVICE",
+      "city": "新北市",
+      "district": "三重區",
+      "areaFilter": "SERVICE_AREA",
+      "includeUnconfirmed": true,
+      "q": null,
+      "page": 1,
+      "pageSize": 20
+    },
+    "notice": "以下包含服務範圍待確認的機構（列在最後）。標示「服務範圍待確認」者，目前沒有資料確認能服務您所選地區，請先洽機構確認。本結果不是依您的個案狀況所做的推薦，也不代表距離遠近。"
+  }
+}

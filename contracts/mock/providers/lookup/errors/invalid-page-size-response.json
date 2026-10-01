@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "每頁筆數需介於 1 到 50。"
+  }
+}

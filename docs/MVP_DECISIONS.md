@@ -1,8 +1,8 @@
 # Kareo MVP Decisions / MVP 決策紀錄
 
-Submission Version: J-002-r4
+Submission Version: J-002-r6
 Owner: Jerry
-Last reviewed: 2026-09-29
+Last reviewed: 2026-10-01（staging `2ef21a8`）
 
 本文件記錄 2026-10-22 MVP 所需決策與每項交付的核准狀態。
 
@@ -41,13 +41,13 @@ Last reviewed: 2026-09-29
 |---|---|---|---|---|---|---|
 | D-01 | Assessment 判斷方式 | **SPEC-APPROVED：方案 B 規則引擎，不使用 AI**（已修訂 PRODUCT_SPEC §16） | D-01-v2 | Jerry | [PR #19 comment 2026-09-23](https://github.com/viz963-1216/Kareo/pull/19#issuecomment-5788470099) | B-010、J-003、J-004 |
 | D-01a | 規則表、關鍵字、Summary 模板、補助說明模板與知識對應（ASSESSMENT_RULES §6） | **SPEC-APPROVED**：r2–r7（2026-09-24／25；r3 地方資訊模板、r4／r5 身障與估算、r6 臺北市地方紀錄對應、r7 S-EST-LOCAL-AD 文字） | r7 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)；r6：[PR #35 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/35#issuecomment-5810649551) ；r7：[PR #35 comment 2026-09-25](https://github.com/viz963-1216/Kareo/pull/35#issuecomment-5819498531) | B-010、C-005、J-003 |
-| D-02 | 知識內容包：`KP-2026-09-23-001`（中央 9 筆）、`KP-2026-09-24-002`（臺北市 2 筆、新北市 4 筆）、`KP-2026-09-24-003`（KR-2026-016 核准、017 退回）、`KP-2026-09-24-004`（KR-2026-018 核准）、`KP-2026-09-24-005`（臺北市 4 筆：KR-2026-022 核准；KR-2026-019～021 查核後修正，**回到 NEEDS_REVIEW**） | **內容 APPROVED**（9／9、6／6，2026-09-24 Jerry）；目標版本皆為 `KB-2026-09-24-001`；**尚未 PUBLISHED** | D-02-v2 | Jerry（審核人） | 內容包逐筆 `review`；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227)（001）；002：[PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | J-003 首次發布、B-010 |
+| D-02 | 知識內容包：`KP-2026-09-23-001`（中央 9 筆）、`KP-2026-09-24-002`（臺北市 2 筆、新北市 4 筆）、`KP-2026-09-24-003`（KR-2026-016 核准、017 退回）、`KP-2026-09-24-004`（KR-2026-018 核准）、`KP-2026-09-24-005`（臺北市 4 筆：KR-2026-022 核准；KR-2026-019～021 查核修正後，2026-09-25 Jerry **重新核准**） | **內容 APPROVED**（5 包 22 筆：21 核准、1 退回；2026-09-24／25 Jerry）；目標版本皆為 `KB-2026-09-24-001`；**尚未 PUBLISHED** | D-02-v2 | Jerry（審核人） | 內容包逐筆 `review`；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227)（001）；002：[PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | J-003 首次發布、B-010 |
 | D-02a | 官方來源白名單與 Source Registry `SR-2026-09-23-01` | **SPEC-APPROVED**（2026-09-24）；新北市來源擷取失敗（**DATA-GAP**，J-002 補） | D-02a-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-008（已合併）、B-009、J-002 地方知識 |
 | D-03 | 知識內容包格式、匯入驗證、發布／撤回規則 | **SPEC-APPROVED**（2026-09-24）；B-008 實作與規格有 2 處差異，由 **B-008-r2** 修正 | D-03-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806617991) | B-008-r2、J-003 首次發布 |
 | D-04 | 匿名 session 持有證明、有效期、資源歸屬、濫用限制、冪等、刪除（API_CONTRACT v0.2 §3） | **SPEC-APPROVED**（2026-09-24） | D-04-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-011a、B-010、B-005、B-006、J-003 adapter |
 | D-05 | 隱私、同意版本、保存／刪除、外部資料流 | PROPOSED；**做法已核准**（優先確認 L-6、L-1，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)）；法務意見與客服信箱 **BLOCKED**，版本維持 DRAFT | D-05-v1 | Jerry | — | B-011、C-005、J-004 |
 | D-06 | Lead 接件方式、角色、狀態轉移、回覆時程 | PROPOSED；主要接件人 **蘇子傑**，週一至週五 09:00–21:00；**不設備援接件人**（2026-09-24 Jerry 決定，以逾時暫停媒合入口替代） | D-06-v1 | Jerry | — | B-006、J-004 |
-| D-07 | 推薦排序：有精確位置依距離、只有行政區穩定輪替、無位置不宣稱附近（PRODUCT_SPEC §21–24） | **原始 MVP 要求（不變）**；Provider 座標 **DATA-GAP**（0／30） | D-07-v3 | Jerry | PRODUCT_SPEC §20–24 | A-003-r2、B-005、C-005、J-003 |
+| D-07 | 推薦排序：有精確位置依距離、只有行政區穩定輪替、無位置不宣稱附近（PRODUCT_SPEC §21–24） | **原始 MVP 要求（不變）**；Provider 座標 30／30（29 筆官方門牌點＋NTPC-AD-004 經 Jerry 核准的非官方商家座標 DEC-A003-07；#39，2026-10-01 staging） | D-07-v3 | Jerry | PRODUCT_SPEC §20–24 | A-003-r2、B-005、C-005、J-003 |
 | D-08 | MVP 不收集 GPS | **SHELVED（未核准、已擱置）**：精確位置依原始 MVP 開發 | D-08-v2 | Jerry | — | 無（不影響任何任務） |
 | D-09 | Netlify 部署額度與部署觸發策略 | PROPOSED；額度 **BLOCKED** | D-09-v1 | Jerry | — | J-003、J-004 |
 | D-10 | 多表原子寫入方式 | **SPEC-APPROVED：方案 A，Postgres function 單一交易**。用途：Provider 匯入（B-004）；**知識發布／撤回（B-008，2026-09-24 延伸核准）** | D-10-v2 | Jerry | [PR #16 comment 2026-09-23](https://github.com/viz963-1216/Kareo/pull/16#issuecomment-5788552476)；延伸：[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806617991) | B-004、B-008、J-003 |
@@ -58,6 +58,10 @@ Last reviewed: 2026-09-29
 | D-15 | 知識來源新增「Jerry 指定 Google 雲端硬碟資料夾」（PRODUCT_SPEC §40–41 變更） | **SPEC-APPROVED**（2026-09-24，Jerry）；已修訂 PRODUCT_SPEC v0.4、schema（`KAREO_DRIVE`）、驗證腳本；B-008 匯入程式由 B-008-r2 更新 | D-15-v1 | Jerry | [PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | B-008-r2、J-002、J-003 |
 | D-16 | 知識審核與發布管理頁面（按鈕發布取代指令） | **SPEC-APPROVED**（2026-09-24，Jerry）；新增 TASK-B-012、TASK-C-006、API_CONTRACT §26 | D-16-v1 | Jerry | [PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | B-012、C-006、J-003 |
 | D-16a | C-006 開工疑點定案：管理 API 正式允許（更正 ARCHITECTURE §20.8）、發布預覽由後端提供、撤回從可恢復版本清單選擇或明確不恢復、核准／退回／忽略／撤回必填原因 | **SPEC-APPROVED**（Jerry：「那就採用上表方案」；規格同步 2026-09-29）；API_CONTRACT v0.4 §26、ARCHITECTURE v0.5.2 §20.8、DATA_MODEL v0.2.3、Mock `contracts/mock/admin/` | D-16a-v1 | Jerry | [PR #34 comment 5883232266](https://github.com/viz963-1216/Kareo/pull/34#issuecomment-5883232266) | B-012、C-006、B-009（`DISMISSED`）、J-003 |
+| D-16b | B-012 發布預覽／發布所需的內容包登錄、逐筆審核紀錄、發布序列化（鎖定）、管理 RPC 例外；維持 `PACK_NOT_APPROVED`；同意 `apps/api` 新增 `@electric-sql/pglite` 開發依賴 | **SPEC-APPROVED**（2026-10-01，Jerry） | D-16b-v1 | Jerry | [PR #48 comment 5925628146](https://github.com/viz963-1216/Kareo/pull/48#issuecomment-5925628146) | B-012-r3、J-003 |
+| D-18 | 公開資源查詢與個案推薦分離（PRODUCT_SPEC §14a、§19） | **SPEC-APPROVED**（產品規則，2026-10-01，Jerry）；細節 D-18a–e 為 **PROPOSED** | D-18-v1 | Jerry | [Issue #49](https://github.com/viz963-1216/Kareo/issues/49)；DEC-A003-01／02／07（`data/providers/qa/a-003-evidence.json`） | A-006、B-013、C-007、J-003 |
+| D-18a–e | 查詢 API 細節：兩種地區篩選、範圍未知的呈現、固定排序與分頁、錯誤處理、公開欄位（API_CONTRACT §10a） | **PROPOSED**（本 PR 審核即核准） | D-18a-v1 | Jerry | — | B-013、C-007 |
+| D-19 | 一站式平台其他缺口：長照資訊集中查詢、個管師溝通摘要、輔具資源中心、住宿機構、不經評估的 Kareocar 入口 | **PROPOSED**；待 Jerry 回答 Q1–Q5 後才建立任務 | D-19-v1 | Jerry | — | 尚未建立（建議 A-007、B-014、C-008、C-009） |
 | D-17 | Assessment 新增「是否領有身心障礙證明」選填題，結果頁說明可能適用的身心障礙福利補助（PRODUCT_SPEC §37 變更） | **SPEC-APPROVED**（2026-09-24）；規則表 r4 文字確認 | D-17-v1 | Jerry | [PR #31 comment 2026-09-24（第三批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810344725)；r4 文字：[PR #31 comment 2026-09-24（第四批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810416966) | B-010、C-005、J-003 |
 | D-17a | Assessment 新增「家庭經濟身分」選填題，結果頁估算使用者自己的長照自付比例與金額、身障補助上限（取代原先「不計算個人金額」限制） | **SPEC-APPROVED**（2026-09-24，Jerry：「要清算」）；PRODUCT_SPEC v0.6、API_CONTRACT v0.3.2、規則表 r5 §6.6 | D-17a-v1 | Jerry | [PR #31 comment 2026-09-24（第四批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810416966) | B-010、C-005、J-003 |
 
@@ -80,7 +84,7 @@ Last reviewed: 2026-09-29
 | Session 安全 contract（D-04） | SPEC-APPROVED（2026-09-24） | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-011a、B-010、B-005、B-006 依 v0.2 實作 | — |
 | 隱私與同意版本（D-05），含位置告知草案 | PROPOSED；版本全部 DRAFT；法務 BLOCKED | Jerry＋法務 | — | C-005 可排版 DRAFT 文案與位置畫面；B-011a 依 ACTIVE 清單驗證版本 | 正式同意版本上線、正式啟用座標收集（D-13g）、J-004 |
 | Lead 接件（D-06） | PROPOSED；接件人與時段已定（蘇子傑，週一至週五 09:00–21:00）；不設備援 | Jerry | — | B-006 依 LEAD_OPERATIONS 實作 API 與內部指令 | J-004 真人接件演練與「暫停媒合入口」開關演練 |
-| 推薦排序（D-07） | 原始 MVP；座標 DATA-GAP | A／B／C／J | PRODUCT_SPEC §20–24 | B-005 全部分支；C-005 位置畫面；A-003-r2 座標 | 真實距離排序 E2E（需已驗證座標） |
+| 推薦排序（D-07） | 原始 MVP；座標 30／30（2026-10-01，#39） | A／B／C／J | PRODUCT_SPEC §20–24 | B-005 全部分支；C-005 位置畫面；A-003-r2 座標 | 真實距離排序 E2E（需已驗證座標） |
 | 位置細節（D-13a–g） | SPEC-APPROVED（2026-09-24） | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | 依 API_CONTRACT v0.2.2 §8–§9 實作 | 正式收集座標需 D-05 同意版本 ACTIVE（D-13g） |
 | 補助說明細節（D-14a–b） | SPEC-APPROVED（2026-09-24） | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | 依建議實作（不新增欄位） | — |
 | 原子寫入（D-10） | SPEC-APPROVED：Provider 匯入＋知識發布／撤回 | Jerry | PR #16 comment；[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806617991) | B-004、B-008 已合併 | staging Supabase 回滾測試（J-003） |
@@ -162,7 +166,7 @@ B-008（PR #26，9/23 合併）與規格比對結果（2026-09-24）：
 | 只有行政區 | 服務類型 → 服務範圍 → **穩定輪替**（seed：sessionId＋district＋date） → Top 3 | 宣稱「距離最近」；純 Random |
 | 沒有位置 | 仍可完成 Assessment、Care Need Profile 與服務建議；提醒提供縣市／行政區 | 宣稱「附近商家」 |
 
-資料事實：A-003（PR #13）與 staging `data/providers/staging/providers.json` 目前 0／30 筆 Provider 有已驗證座標。這是**資料缺口**，由 A-003-r2 補齊；不是產品決策。
+資料事實（2026-10-01 更新）：#39（A-003-r13）合併後，staging `data/providers/staging/providers.json` 30／30 筆有座標——29 筆為已驗證官方門牌點，NTPC-AD-004 為 Jerry 核准的 Google Maps 商家座標（DEC-A003-07，非官方，官方門牌收錄後改用）。（2026-09-23 時為 0／30，屬資料缺口，已由 A-003-r2／r13 補齊。）
 
 整併後的完整規格（位置精度、必填欄位、排序、回應欄位）：API_CONTRACT v0.2.2 §8–§9、DATA_MODEL §7／§9／§17／§20、PRIVACY_AND_RETENTION §2／§8。承接：
 
@@ -288,7 +292,22 @@ B-008（PR #26）的 `publish_knowledge_version`／`withdraw_knowledge_version`�
 
 J-002 定義的一致性機制（依決定第 2 點「由 B／J 在契約中明訂」）：`previewToken` 綁定版號、目前版本、每筆紀錄 id＋`contentFingerprint` 與發布日；核准綁定 `expectedContentFingerprint`（沿用 B-008-r4）；撤回綁定 `withdrawVersionId`。本次為規格決定，不代表 B-012／C-006 已完成、可部署或真實驗收通過。
 
-仍待確認（見 API_CONTRACT §26 與下方待決事項）：以管理頁核准紀錄後，是否仍要求內容包 `status = APPROVED` 才能發布（目前沿用 B-008 規則，列為 `PACK_NOT_APPROVED` blocker）。
+~~仍待確認：以管理頁核准紀錄後，是否仍要求內容包 `status = APPROVED` 才能發布。~~ **已決定（D-16b，2026-10-01）：維持要求。**
+
+### D-16b 內容包登錄與發布序列化（SPEC-APPROVED，2026-10-01）
+
+來源：Jerry 2026-10-01 決定，指示見 [PR #48 comment 5925628146](https://github.com/viz963-1216/Kareo/pull/48#issuecomment-5925628146)。
+
+1. **維持 `PACK_NOT_APPROVED`**：發布候選＝紀錄 `APPROVED` 且所屬內容包在資料庫登錄為 `APPROVED`（API_CONTRACT §26.8 v0.5）。內容包核准仍經 PR（Jerry 審核內容包檔案）；管理頁只做逐筆核准／退回與發布，不提供整包核准。
+2. **內容包登錄**（DATA_MODEL §26b）：匯入時保存 packId、版號、registry 版本、狀態、內容包層級 review 與內容包指紋；同一 packId 重新匯入只有在內容指紋都不變時才可升為 APPROVED，內容有變需新 packId；既有資料以回填指令登錄。
+3. **逐筆審核紀錄**（DATA_MODEL §26c）：CLI 與管理頁核准寫同一份只能新增的紀錄，與狀態更新同一交易。
+4. **預覽與發布一致**：共用同一套計畫計算；`previewToken` 另涵蓋內容包狀態與指紋；發布在同一交易內重算比對。
+5. **序列化**：四個發布／撤回入口共用同一個 advisory lock（ARCHITECTURE §22 第 9 點）；管理 RPC 的一致性檢查列為 §22 第 8 點核准例外。
+6. **測試依賴**：同意 `apps/api` 新增 `@electric-sql/pglite` 開發依賴（GIT_RULES §9 核准）；併發驗證由 J-003 以真實 Postgres 執行。
+
+**影響**：crawler 偵測到會影響內容的變更，仍須先以新內容包 PR 由 Jerry 核准，管理頁才能發布；這是刻意保留的審核關卡。
+
+**不代表**：B-012 已完成、已部署或通過真實驗收。
 
 ---
 
@@ -302,6 +321,59 @@ J-002 定義的一致性機制（依決定第 2 點「由 B／J 在契約中明�
 
 ---
 
+## D-18 公開資源查詢與個案推薦分離（2026-10-01）
+
+來源：[Issue #49](https://github.com/viz963-1216/Kareo/issues/49)（Jerry 2026-10-01）；資料決策 DEC-A003-01（輔具只限雙北）、DEC-A003-02（居家護理須確認服務單位本身有居家護理）、DEC-A003-07（吉評採 Google Maps 商家座標），記錄於 `data/providers/qa/a-003-evidence.json`。
+
+### 已核准的產品規則（SPEC-APPROVED）
+
+已寫入 PRODUCT_SPEC §14a、§19 與 DATA_MODEL §19：不需評估即可查詢；不收健康或聯絡資料；區分所在地與已確認服務範圍；範圍未知仍可查詢並標示「服務範圍待確認，請洽機構」；查詢結果不是推薦；不能繞過評估／同意／媒合檢查；推薦規則不變、不得為補足家數新增無證據範圍；曾撤下的推定範圍不得直接恢復。
+
+### 背景事實（2026-10-01 staging）
+
+- Provider 30 家、active 服務範圍 86 筆，涵蓋 16 家；**14 家沒有任何服務範圍**：12 家輔具（雙北特約／簽約名單列名，只證明縣市邊界）、TP-HMN-001／003（已確認提供居家護理，但醫院本體範圍不能套用）。待查清單見 `data/providers/qa/pending-verification.md`。
+- 這 14 家在 staging 上從未有服務範圍；Issue #49 所稱「516 → 86」發生在 #39 分支歷程（r8 → r13）。本任務是讓它們**查得到**並依證據補查範圍，不是恢復舊資料。14 家是待查核清單，不是必須補足數量的驗收標準。
+- Provider 匯入（`import_provider_dataset`）只更新、不刪除；J-003 須確認各環境沒有殘留 r8～r12 分支資料的 active 範圍。
+
+### D-18a–e 查詢 API 細節（PROPOSED，J-002 建議，API_CONTRACT §10a）
+
+| ID | 問題 | 建議 | 理由 |
+|---|---|---|---|
+| D-18a | 端點 | 沿用 Provider 資源：列表 `GET /api/v1/providers`、詳細沿用 `GET /api/v1/providers/{id}`；不另建 `/resources` | 避免同義端點與重複欄位；詳細頁已是公開端點 |
+| D-18b | 地區篩選 | `areaFilter = LOCATED_IN`（所在地）或 `SERVICE_AREA`（只比對已驗證範圍）；兩者語意在回應 `notice` 與文件中寫明 | 所在地 ≠ 服務範圍（§19） |
+| D-18c | 範圍未知 | `serviceAreaStatus` 由資料推導（不另存）；`SERVICE_AREA` 預設不列入、只回 `unconfirmedCount`，`includeUnconfirmed=true` 才附在最後並標 `UNCONFIRMED` | 不讓未知範圍混入「已確認」結果，又能讓使用者主動查看 |
+| D-18d | 排序與分頁 | 縣市 → 行政區（`contracts/reference/service-districts.json` 順序）→ id；分頁預設 20、最多 50；不依距離／輪替／付費 | 查詢不是推薦，排序必須與使用者無關且可重現 |
+| D-18e | 錯誤與公開欄位 | 非雙北縣市、行政區不符、未定義參數等一律 `VALIDATION_ERROR`；前端「其他縣市」不呼叫 API。列表只回 13 個欄位，不回座標、狀態、時間戳、證據或內部資料 | 參數錯誤不靜默忽略；資料最小化 |
+
+### 尚未決定（不在本版契約，Q1）
+
+輔具商家是否公開顯示「列於臺北市／新北市輔具特約廠商名單」並可依此篩選。這是縣市層級的特約事實，**不是**服務範圍；若核准，以新增欄位 `contractRegions` 方式加入（API 只新增欄位），推薦流程永遠不讀。
+
+---
+
+## D-19 一站式平台其他缺口（PROPOSED，2026-10-01）
+
+PRODUCT_SPEC §1 平台定位中尚無規格的部分。**不屬於** A-006／B-013／C-007，不得因 Issue #49 完成而宣稱已包含。
+
+| 項目 | 目前狀態 | J-002 建議的最小方案 | 待 Jerry 決定 | 建議任務 |
+|---|---|---|---|---|
+| 長照資訊集中查詢 | 只在評估結果 `summary` 中顯示 | 公開唯讀 API 列出目前 PUBLISHED 知識的標題、摘要、來源、生效日與版本；不顯示未發布內容 | Q3 | B-014、C-008 |
+| 個管師溝通前的需求整理 | 無 | 結果頁產生可列印／複製的摘要（需求、可能服務、補助估算、提醒問 1966 的問題），只在前端產生、不保存、不送後端 | Q5 | C-009 |
+| 輔具資源中心 | 只在知識包文字中出現 | 以 `resourceCategory` 新增查詢專用類別，`type = OTHER`、不建立 ProviderService，推薦永遠不會選到 | Q2 | A-007、B-014、C-008 |
+| 住宿機構 | 無 | 同上；先由 Jerry 定義包含哪些機構類型與官方來源 | Q2 | A-007、B-014、C-008 |
+| Kareocar 一鍵入口 | 只在評估結果且需求含交通時出現 | 首頁／導覽常駐外連（新分頁、`noopener`），修訂 §13 | Q4 | C-007 追加或 C-008 |
+
+待 Jerry 回答：
+
+- **Q1**：輔具特約縣市是否公開顯示並可篩選（見 D-18）。
+- **Q2**：輔具資源中心與住宿機構是否列入 10/22 MVP；住宿機構包含哪些類型。
+- **Q3**：是否新增公開唯讀的長照資訊 API。
+- **Q4**：Kareocar 是否放首頁／導覽、不需先評估。
+- **Q5**：個管師溝通摘要是否接受「只在前端產生、不保存」。
+- **Q7**：A-006／B-013／C-007 是否列入 10/22 release gate。
+
+---
+
 ## 待 Jerry 決定（集中清單）
 
 2026-09-24 Jerry 核准第 1–8 項（[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)）。第 1–5 項為規格決策，已改為 SPEC-APPROVED；第 6–8 項只核准做法，仍需實際輸入才算完成。
@@ -309,7 +381,9 @@ J-002 定義的一致性機制（依決定第 2 點「由 B／J 在契約中明�
 | # | 事項 | 狀態 | 還需要什麼 |
 |---|---|---|---|
 | 1 | D-09 Netlify 額度：9/29 前是否購買額度或維持集中合併 | **待決定**（Jerry：日後補充） | 決定購買與否；不決定則部署後 E2E 無法執行、Kareocar 連結無法開啟 |
-| 2 | D-16a 內容包層級核准：以管理頁逐筆核准後，發布是否仍要求內容包 `status = APPROVED`（B-008 現行規則） | **待決定**（J-002 建議：維持，內容包仍經 PR 審核；契約以 `PACK_NOT_APPROVED` blocker 表示） | 若改為不要求，需同步修改 API_CONTRACT §26.8 blocker 與 B-008／B-012 規則 |
+| 2 | ~~D-16a 內容包層級核准~~ | **已決定（2026-10-01）：維持要求**，見 D-16b | — |
+| 3 | D-18a–e 資源查詢 API 細節 | **待審**（本 PR） | 審核 API_CONTRACT §10a 與 fixtures |
+| 4 | D-19 Q1–Q5、Q7 | **待決定** | 見 D-19 |
 
 仍需實際輸入（做法已核准）：
 
