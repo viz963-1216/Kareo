@@ -7,6 +7,8 @@
 
 ### NTPC-HC-003 — Service Area District Missing
 
+> Superseded by A-003-r6 (2026-09-29): the SRC-002 contract list `1150924` gives district-level areas 新莊、三重、林口 (序號 291). They were added as `NTPC-HC-003-SA-001…003`. See `qa/verified-coordinates-report.md`.
+
 - Provider: 台灣全齡長照股份有限公司附設新北市私立禾薪居家長照機構
 - Official source service area: 新北市
 - District-level service area: Not provided by source
