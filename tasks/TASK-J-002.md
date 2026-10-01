@@ -1,8 +1,8 @@
 # TASK-J-002 — MVP Decisions + Knowledge + Privacy / Lead / Location Specifications
 
 Owner: Jerry  
-Status: r1–r4 已合併（PR #19、#28、#31）；r5（臺北市地方知識）送審中。合併≠核准：各項核准狀態見 `docs/MVP_DECISIONS.md`  
-Plan revision: 2026-09-23 / J-002-r4 / 10-22 MVP
+Status: r1–r5 已合併（PR #19、#28、#31、#35、#43）；r6（資源查詢契約、D-16b）送審中。合併≠核准：各項核准狀態見 `docs/MVP_DECISIONS.md`  
+Plan revision: 2026-10-01 / J-002-r6 / 10-22 MVP
 
 ## Goal / 目標
 
@@ -45,6 +45,10 @@ Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/
 - [x] Jerry 重新核准 KR-2026-019～021 修正版與規則表 r7（2026-09-25）。
 - [x] ~~洽臺北市政府社會局確認~~（Jerry 2026-09-25 決定不洽詢，依原文現況直接核准）：(a) 115 年項目表公告文號與生效日；(b) 購置金額等於或高於品項上限時是否扣部分負擔；(d)「其他政府機關相同性質之補助」是否含中央長照輔具給付。確認前結果頁不寫出這些情形的金額。
 - [x] 取得「待 Jerry 決定」清單的決定（2026-09-24 第 1–8 項核准，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)），證據連結已填入 MVP_DECISIONS。
+- [x] **r6（2026-10-01）D-16b**：B-012 內容包登錄、逐筆審核紀錄、發布序列化與 pglite 依賴（Jerry 決定，[PR #48 comment 5925628146](https://github.com/viz963-1216/Kareo/pull/48#issuecomment-5925628146)）；DATA_MODEL §26b–26c、ARCHITECTURE §22 第 8–9 點、API_CONTRACT §26.8、contracts/knowledge/README §4。
+- [x] **r6（2026-10-01）D-18 公開資源查詢**（[Issue #49](https://github.com/viz963-1216/Kareo/issues/49)）：PRODUCT_SPEC v0.7 §1／§14a／§19／§53–55、API_CONTRACT v0.5 §10a／§10、DATA_MODEL v0.2.4 §17／§19、ARCHITECTURE v0.5.3 §7.1／§20.4、`contracts/reference/service-districts.json`、`contracts/mock/providers/lookup/`（含 `validate-fixtures.mjs`）、TASK-A-006／B-013／C-007、MVP_TRACEABILITY §5。
+- [ ] Jerry 審核 D-18a–e（本 PR）。
+- [ ] Jerry 回答 D-19 Q1–Q5、Q7 後，另建 A-007／B-014／C-008／C-009。
 - [ ] D-09 Netlify 額度（Jerry：日後補充）。
 - [ ] 法務確認（D-05 L-1～L-6）後把同意版本改為 ACTIVE（含位置告知）。Jerry 2026-09-24 指示暫不填。
 - [x] 主要接件人：蘇子傑，09:00–21:00（LEAD_OPERATIONS §2、§5）。
@@ -69,4 +73,5 @@ PR Title：`[J-002] <本次修正摘要>`（r4：`[J-002] Align tasks and accept
 - r2（PR #19）：Assessment 改規則引擎（D-01）；D-10 原子寫入。
 - r3（PR #28）：恢復原始 MVP 範圍、分離提案與核准狀態、需求追蹤表。
 - r5：臺北市地方知識（KP-2026-09-24-005）、規則表 r6 提案。
+- r6（2026-10-01）：資源查詢與個案推薦分離（D-18）、一站式缺口盤點（D-19）、B-012 內容包規則（D-16b）；更正過時狀態（座標 30／30、KR-019～021 已重新核准）。
 - r4（PR #31）：D-08／D-11／D-12 標示未核准、已擱置（依原始 MVP 開發）；補助說明模板與 contract；位置流程統一與 D-13a–g／D-14a–b 建議；清理 AI 指示；任務狀態、依賴與驗收整併。

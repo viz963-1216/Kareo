@@ -151,3 +151,48 @@ HTTP status：`SESSION_INVALID` 401、`FORBIDDEN` 403、`VALIDATION_ERROR` 400�
 ### Admin fixtures 可重現檢查
 
 執行 `node contracts/mock/admin/validate-fixtures.mjs`，檢查 JSON envelope、發布預覽與成功回應的數量／版號，以及核准與撤回 request／response 對應。這不是後端交易或真實 API 驗收。
+
+---
+
+## 資源查詢 fixtures（2026-10-01，J-002-r6，D-18）
+
+供 C-007 查詢頁 Mock 驗收，格式依 API_CONTRACT v0.5 §10a（`GET /api/v1/providers`）與 §10（詳細頁新增 `serviceAreaStatus`）。D-18 產品規則已核准；§10a 細節 D-18a–e 待 Jerry 審核本版，若有修改會同步這些檔案。
+
+### 檔案
+
+```text
+contracts/reference/service-districts.json     雙北行政區清單與排序順序（前後端共用）
+contracts/mock/providers/
+├── PROV-MOCK-001～203.json      既有詳細頁，新增 serviceAreaStatus = VERIFIED
+├── PROV-MOCK-204.json           新增：位於新北市三重區、服務範圍待確認（UNCONFIRMED，serviceAreas = []）
+└── lookup/
+    ├── <情境>-response.json     列表回應
+    ├── requests/<情境>-request.json   對應的 query 參數
+    ├── errors/<錯誤>-response.json    VALIDATION_ERROR
+    └── validate-fixtures.mjs    一致性檢查
+```
+
+### 情境對照
+
+| 情境 | Request（query） | Response | 重點 |
+|---|---|---|---|
+| 不加條件第一頁 | （無） | `list-all-first-page-response.json` | 10 家，依縣市 → 行政區 → id 排序；`areaMatch`、`unconfirmedCount` 為 `null` |
+| 依所在地 | `serviceType=ASSISTIVE_DEVICE&city=新北市&district=三重區&areaFilter=LOCATED_IN` | `list-located-in-response.json` | 201、204（204 範圍待確認也會出現） |
+| 依服務範圍（只列已確認） | 同上，`areaFilter=SERVICE_AREA` | `list-service-area-verified-only-response.json` | 202、201、203；`unconfirmedCount = 1` |
+| 依服務範圍＋待確認 | 同上，加 `includeUnconfirmed=true` | `list-service-area-include-unconfirmed-response.json` | 204 列在最後，`areaMatch = UNCONFIRMED` |
+| 名稱關鍵字 | `q=輔具` | `list-keyword-response.json` | 名稱包含「輔具」的 4 家 |
+| 空結果 | `serviceType=HOME_MEDICAL_NURSING&city=新北市&district=烏來區&areaFilter=LOCATED_IN` | `list-empty-response.json` | `items = []`、建議洽 1966 |
+| 超出頁數 | `serviceType=ASSISTIVE_DEVICE&city=新北市&areaFilter=LOCATED_IN&page=2&pageSize=20` | `list-page-out-of-range-response.json` | `items = []`、`totalCount = 3` |
+
+錯誤（皆 `VALIDATION_ERROR`，HTTP 400）：`errors/unsupported-city`（桃園市）、`district-mismatch`（臺北市＋三重區）、`district-without-city`、`include-unconfirmed-without-service-area`、`invalid-page-size`（100）、`unknown-parameter`（`sort=distance`）。找不到單一服務單位沿用 `errors/provider-not-found-response.json`。
+
+### 一致性規則（`node contracts/mock/providers/lookup/validate-fixtures.mjs`）
+
+1. 列表項目只有 §10a 的 13 個欄位，與 `providers/<id>.json` 同名欄位值完全相同；沒有座標、狀態、時間戳、排名、距離或推薦原因。
+2. `serviceAreaStatus` 與 `serviceAreas` 一致（有範圍 → `VERIFIED`）。
+3. `appliedFilters` 等於 request 補上預設值後的結果；`unconfirmedCount` 只在 `SERVICE_AREA` 為數字。
+4. `LOCATED_IN` 項目的所在地符合條件；`SERVICE_AREA` 的 `VERIFIED` 項目確實有涵蓋該地區的範圍，`UNCONFIRMED` 只在 `includeUnconfirmed=true` 時出現且排在最後；同組內依縣市 → 行政區 → id 排序。
+5. `notice` 不含「最近」「附近」「適合您」「一定可」。
+6. **同機構對照**：`PROV-MOCK-204` 在依所在地查詢中可見，但不在 `recommendations/ASSISTIVE_DEVICE.json`（三重區）的推薦中。
+
+所有名稱、電話、網址皆為測試資料，不代表真實單位。這不是後端或真實 API 驗收。

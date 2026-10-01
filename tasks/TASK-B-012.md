@@ -1,8 +1,8 @@
 # TASK-B-012 — Admin Knowledge Review API（知識審核與發布 API）
 
 Owner: Engineer B — Backend  
-Status: QUEUED — 依賴 B-008-r2、B-009、B-011a；未見提交  
-Plan revision: 2026-09-29 / J-002（MVP_DECISIONS D-16、D-16a，Jerry 核准；API_CONTRACT v0.4 §26）
+Status: IN REVIEW — #48 B-012-r2（`5c81cd1`）：10 個端點完成 8 個；publish-preview／publish 依 D-16b 於 r3 完成  
+Plan revision: 2026-10-01 / J-002-r6（MVP_DECISIONS D-16、D-16a、**D-16b**；API_CONTRACT v0.5 §26；ARCHITECTURE §22 第 8–9 點；DATA_MODEL §26b–26c）
 
 ## Goal / 目標
 
@@ -42,6 +42,16 @@ Plan revision: 2026-09-29 / J-002（MVP_DECISIONS D-16、D-16a，Jerry 核准；
   - 撤回時在同一交易或鎖內確認目前版本＝`withdrawVersionId`、恢復目標符合 §26.10 條件；恢復目標不得等於撤回版本。
   - 任何錯誤都不寫入、不留成功稽核。
 - 稽核：每個成功寫入寫入 `AdminAuditEvent`（DATA_MODEL §41）。
+
+## r3 要求（D-16b，2026-10-01，[PR #48 comment 5925628146](https://github.com/viz963-1216/Kareo/pull/48#issuecomment-5925628146)）
+
+- 先同步 staging（#47 B-006-r2 已合併，`2ef21a8`），取代本分支內的 B-006 r1 程式。
+- 維持 `PACK_NOT_APPROVED`：內容包登錄（DATA_MODEL §26b）、同 packId 重新匯入只允許在內容指紋不變時升為 APPROVED、回填指令。
+- 逐筆審核紀錄（DATA_MODEL §26c）：CLI 與管理頁核准寫同一份紀錄，與狀態更新同一交易。
+- 預覽與發布共用同一套計畫計算；`previewToken` 涵蓋內容包狀態與指紋（API_CONTRACT §26.8 v0.5）；發布在同一交易內取得鎖、重算、比對、寫入、稽核。
+- 四個發布／撤回入口共用同一個 `pg_advisory_xact_lock`（ARCHITECTURE §22 第 9 點）；`admin_*` RPC 的一致性檢查為 §22 第 8 點核准例外。
+- 可在 `apps/api` 新增 `@electric-sql/pglite` 開發依賴（含 lock 檔），RPC 行為測試保留在 repo；雙連線併發驗證由 J-003 以真實 Postgres 執行。
+- 10 個 admin 路由由 J 在 r3 完成後補 `netlify.toml`。
 
 ## Allowed Paths
 
@@ -86,4 +96,5 @@ PR Title：`[B-012] Admin Knowledge Review API`
 ## 變更紀錄
 
 - 2026-09-24 J-002-r4：依 Jerry 核准（D-16）建立。
+- 2026-10-01 J-002-r6：依 D-16b 補 r3 要求（內容包登錄、逐筆審核紀錄、發布序列化、pglite 依賴）；狀態改為 IN REVIEW（#48）。
 - 2026-09-29 J-002：依 D-16a 補齊契約（API_CONTRACT v0.4 §26：發布預覽、可恢復版本、完整寫入回應、`KNOWLEDGE_STATE_CHANGED`）與 fixtures；新增驗收項目。

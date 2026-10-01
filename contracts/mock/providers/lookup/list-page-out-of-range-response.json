@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "data": {
+    "items": [],
+    "page": 2,
+    "pageSize": 20,
+    "totalCount": 3,
+    "unconfirmedCount": null,
+    "appliedFilters": {
+      "serviceType": "ASSISTIVE_DEVICE",
+      "city": "新北市",
+      "district": null,
+      "areaFilter": "LOCATED_IN",
+      "includeUnconfirmed": false,
+      "q": null,
+      "page": 2,
+      "pageSize": 20
+    },
+    "notice": "以下為資訊查詢結果，依機構所在地篩選，不是依您的個案狀況所做的推薦，也不代表距離遠近或能到府服務。各機構實際服務範圍請見詳細資料，或洽機構確認。"
+  }
+}

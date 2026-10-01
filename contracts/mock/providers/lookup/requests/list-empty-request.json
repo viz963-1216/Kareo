@@ -1,0 +1,10 @@
+{
+  "method": "GET",
+  "path": "/api/v1/providers",
+  "query": {
+    "serviceType": "HOME_MEDICAL_NURSING",
+    "city": "新北市",
+    "district": "烏來區",
+    "areaFilter": "LOCATED_IN"
+  }
+}
