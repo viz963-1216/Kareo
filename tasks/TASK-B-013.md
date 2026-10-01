@@ -1,7 +1,7 @@
 # TASK-B-013 — Public Resource Lookup API（公開資源查詢 API）
 
 Owner: Engineer B — Backend  
-Status: QUEUED — 契約 API_CONTRACT v0.5 §10a 待 Jerry 審核（D-18a–e）；B 的工作順序在 B-012-r3 之後  
+Status: QUEUED — 契約 API_CONTRACT v0.5 §10a 已核准（D-18a–e，2026-10-01）；B 的工作順序在 B-012-r3 之後  
 Plan revision: 2026-10-01 / J-002-r6（[Issue #49](https://github.com/viz963-1216/Kareo/issues/49)；MVP_DECISIONS D-18；API_CONTRACT §10、§10a）
 
 ## Goal / 目標
@@ -10,7 +10,7 @@ Plan revision: 2026-10-01 / J-002-r6（[Issue #49](https://github.com/viz963-121
 
 ## Prerequisite / 前置條件
 
-- API_CONTRACT v0.5 §10a、§10 核准（本 J-002 PR）。
+- API_CONTRACT v0.5 §10a、§10 已核准（#50；[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）。
 - 建議在 B-012-r3 之後開始（Issue #49 建議順序），避免同時修改 `types/index.ts`、repository。
 - `contracts/reference/service-districts.json`（雙北行政區與排序順序）。
 

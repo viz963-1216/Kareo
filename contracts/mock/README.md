@@ -156,7 +156,7 @@ HTTP status：`SESSION_INVALID` 401、`FORBIDDEN` 403、`VALIDATION_ERROR` 400�
 
 ## 資源查詢 fixtures（2026-10-01，J-002-r6，D-18）
 
-供 C-007 查詢頁 Mock 驗收，格式依 API_CONTRACT v0.5 §10a（`GET /api/v1/providers`）與 §10（詳細頁新增 `serviceAreaStatus`）。D-18 產品規則已核准；§10a 細節 D-18a–e 待 Jerry 審核本版，若有修改會同步這些檔案。
+供 C-007 查詢頁 Mock 驗收，格式依 API_CONTRACT v0.5 §10a（`GET /api/v1/providers`）與 §10（詳細頁新增 `serviceAreaStatus`）。D-18 產品規則與 §10a 細節 D-18a–e 皆已核准（2026-10-01，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）。
 
 ### 檔案
 
