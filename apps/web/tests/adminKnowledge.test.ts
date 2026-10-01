@@ -285,3 +285,14 @@ test("admin page only shows success after validated adapter calls resolve", () =
   assert.match(page, /const result = await adminApi\.decideRecord[\s\S]*setNotice\(result\.record\.status/);
   assert.match(page, /const result = await adminApi\.dismissChange[\s\S]*setNotice\(`來源 \$\{result\.change\.sourceId\}/);
 });
+
+
+test("admin display dates reject invalid strings before rendering", async () => {
+  const status = adminFixture("knowledge-status-response.json").data;
+  await assert.rejects(() => withAdminResponse({ ...status, publishedAt: "not-a-date" }, () => adminRealApi.getStatus()), { code: "INVALID_RESPONSE" });
+  await assert.rejects(() => withAdminResponse({ ...status, lastCrawlerRun: { status: "SUCCESS", startedAt: "invalid", finishedAt: null } }, () => adminRealApi.getStatus()), { code: "INVALID_RESPONSE" });
+  const preview = adminFixture("knowledge-publish-preview-response.json").data;
+  await assert.rejects(() => withAdminResponse({ ...preview, generatedAt: "invalid" }, () => adminRealApi.getPublishPreview()), { code: "INVALID_RESPONSE" });
+  const publish = adminFixture("knowledge-publish-response.json").data;
+  await assert.rejects(() => withAdminResponse({ ...publish, publishedAt: "invalid" }, () => adminRealApi.publish({ versionId: publish.versionId, previewToken: "synthetic", confirm: true })), { code: "INVALID_RESPONSE" });
+});

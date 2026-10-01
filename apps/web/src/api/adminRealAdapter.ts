@@ -92,6 +92,16 @@ function nullableString(value: unknown): string | null {
   return requiredString(value);
 }
 
+function requiredDate(value: unknown): string {
+  const text = requiredString(value);
+  if (!Number.isFinite(Date.parse(text))) invalidResponse();
+  return text;
+}
+
+function nullableDate(value: unknown): string | null {
+  return value === null ? null : requiredDate(value);
+}
+
 function nonNegativeInteger(value: unknown): number {
   if (typeof value !== "number" || !Number.isInteger(value) || value < 0) invalidResponse();
   return value;
@@ -107,8 +117,8 @@ function parseCrawlerRun(value: unknown): AdminCrawlerRun | null {
   if (!isRecord(value)) invalidResponse();
   return {
     status: enumValue(value.status, crawlerStatuses),
-    startedAt: requiredString(value.startedAt),
-    finishedAt: nullableString(value.finishedAt),
+    startedAt: requiredDate(value.startedAt),
+    finishedAt: nullableDate(value.finishedAt),
   };
 }
 
@@ -116,7 +126,7 @@ function parseStatus(value: unknown): AdminKnowledgeStatus {
   if (!isRecord(value)) invalidResponse();
   return {
     publishedVersion: nullableString(value.publishedVersion),
-    publishedAt: nullableString(value.publishedAt),
+    publishedAt: nullableDate(value.publishedAt),
     lastCrawlerRun: parseCrawlerRun(value.lastCrawlerRun),
   };
 }
@@ -145,8 +155,8 @@ function parseKnowledgeRecord(value: unknown): AdminKnowledgeRecord {
     category: requiredString(value.category),
     sourceUrl: requiredString(value.sourceUrl),
     summary: requiredString(value.summary),
-    effectiveFrom: nullableString(value.effectiveFrom),
-    effectiveTo: nullableString(value.effectiveTo),
+    effectiveFrom: nullableDate(value.effectiveFrom),
+    effectiveTo: nullableDate(value.effectiveTo),
     contentFingerprint: requiredString(value.contentFingerprint),
     status: enumValue(value.status, recordStatuses),
   };
@@ -158,7 +168,7 @@ function parseReview(value: unknown): AdminReview {
     decision: enumValue(value.decision, reviewDecisions),
     reason: requiredString(value.reason),
     reviewedBy: requiredString(value.reviewedBy),
-    reviewedAt: requiredString(value.reviewedAt),
+    reviewedAt: requiredDate(value.reviewedAt),
   };
 }
 
@@ -170,8 +180,8 @@ function parsePreviewRecord(value: unknown): AdminPublishPreviewRecord {
     recordId: requiredString(value.recordId),
     title: requiredString(value.title),
     jurisdiction: enumValue(value.jurisdiction, jurisdictions),
-    effectiveFrom: nullableString(value.effectiveFrom),
-    effectiveTo: nullableString(value.effectiveTo),
+    effectiveFrom: nullableDate(value.effectiveFrom),
+    effectiveTo: nullableDate(value.effectiveTo),
   };
 }
 
@@ -198,18 +208,18 @@ function parsePublishPreview(value: unknown): AdminPublishPreview {
     canPublish: value.canPublish,
     targetVersionId,
     currentVersionId: nullableString(value.currentVersionId),
-    publishDate: requiredString(value.publishDate),
+    publishDate: requiredDate(value.publishDate),
     ...parsePublishCounts(value),
     newRecords: value.newRecords.map(parsePreviewRecord),
     blockers,
     previewToken,
-    generatedAt: requiredString(value.generatedAt),
+    generatedAt: requiredDate(value.generatedAt),
   };
 }
 
 function parseVersionSummary(value: unknown): AdminKnowledgeVersionSummary {
   if (!isRecord(value)) invalidResponse();
-  return { versionId: requiredString(value.versionId), publishedAt: requiredString(value.publishedAt), recordCount: nonNegativeInteger(value.recordCount) };
+  return { versionId: requiredString(value.versionId), publishedAt: requiredDate(value.publishedAt), recordCount: nonNegativeInteger(value.recordCount) };
 }
 
 function parseRestorableVersion(value: unknown): AdminRestorableVersion {
@@ -320,7 +330,7 @@ export const adminRealApi = {
   async publish(body: AdminPublishRequest): Promise<AdminPublishResponse> {
     const data = await request("/knowledge/publish", { method: "POST", body });
     if (!isRecord(data)) invalidResponse();
-    const result = { versionId: requiredString(data.versionId), publishedAt: requiredString(data.publishedAt), ...parsePublishCounts(data) };
+    const result = { versionId: requiredString(data.versionId), publishedAt: requiredDate(data.publishedAt), ...parsePublishCounts(data) };
     if (result.versionId !== body.versionId) invalidResponse();
     return result;
   },
@@ -333,7 +343,7 @@ export const adminRealApi = {
     const result = {
       withdrawnVersionId: requiredString(data.withdrawnVersionId),
       republishedVersionId: nullableString(data.republishedVersionId),
-      withdrawnAt: requiredString(data.withdrawnAt),
+      withdrawnAt: requiredDate(data.withdrawnAt),
       withdrawnBy: requiredString(data.withdrawnBy),
       reason: requiredString(data.reason),
     };
