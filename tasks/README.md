@@ -87,7 +87,7 @@ A / B / C 不直接 Push `staging` 或 `main`。
 | Task | 狀態 | 下一步 |
 |---|---|---|
 | J-001 Netlify + Supabase staging | MERGED（#6） | 部署仍 503 `usage_exceeded`（2026-09-29 重新查證，D-09）；staging Supabase 隔離未確認 |
-| J-002 規格／知識 | r1–r5 DOC-MERGED（#19、#28、#31、#35、#43）；r6（資源查詢契約、D-16b）DOC-MERGED（#50、#51）；D-18a–e、D-19 核准（2026-10-01）；r8（D-19 規格）IN REVIEW；5 包 21 筆核准、1 筆退回，**尚未發布** | 審核 r8（PRODUCT_SPEC §14b 建議問題文字） |
+| J-002 規格／知識 | r1–r5 DOC-MERGED（#19、#28、#31、#35、#43）；r6（資源查詢契約、D-16b）DOC-MERGED（#50、#51）；D-18a–e、D-19 核准（2026-10-01）；r8（D-19 規格）DOC-MERGED（#54）、§14b 問題文字核准；5 包 21 筆核准、1 筆退回，**尚未發布** | D-09 Netlify 額度；D-05 法務 |
 | J-003 CI + Integration | r1–r4 MERGED（#20、#29、#38）、前端 CI MERGED（#42）；r5–r8 IN REVIEW（#44，#41 已被包含）；**Integrated：否** | J 持續負責整合與驗證；43 項真實 E2E 依環境與模組到位逐段補證據（見 INTEGRATION_ACCEPTANCE〈目前結論（J-003-r8）〉） |
 | J-004 Release readiness | 準備文件 MERGED（#22、#45）；gate CLOSED | smoke 工具測試 3／3 PASS；真實演練待部署恢復 |
 
