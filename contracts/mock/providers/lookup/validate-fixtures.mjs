@@ -1,4 +1,4 @@
-// Resource lookup fixtures (API_CONTRACT §10a, D-18): checks that list fixtures, detail fixtures and the
+// Resource lookup fixtures (API_CONTRACT §10a, D-18／D-19): checks that list fixtures, detail fixtures and the
 // recommendation fixture tell one consistent story. Format check only — not backend or real API acceptance.
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
@@ -15,16 +15,27 @@ const details = Object.fromEntries(
   }),
 );
 
-const FILTER_KEYS = ['serviceType', 'city', 'district', 'areaFilter', 'includeUnconfirmed', 'q', 'page', 'pageSize'];
-const ITEM_KEYS = ['id', 'name', 'type', 'services', 'address', 'city', 'district', 'phone', 'website', 'googleMapsUrl', 'verified', 'serviceAreaStatus', 'areaMatch'];
+const FILTER_KEYS = ['resourceCategory', 'serviceType', 'city', 'district', 'areaFilter', 'includeUnconfirmed', 'contractCity', 'q', 'page', 'pageSize'];
+const ITEM_KEYS = ['id', 'name', 'type', 'resourceCategory', 'services', 'address', 'city', 'district', 'phone', 'website', 'googleMapsUrl', 'verified', 'serviceAreaStatus', 'contractRegions', 'areaMatch'];
 const SHARED_WITH_DETAIL = ITEM_KEYS.filter(k => k !== 'areaMatch');
 const BANNED_WORDS = ['最近', '附近', '適合您', '一定可'];
 
 for (const [id, d] of Object.entries(details)) {
   assert.equal(d.serviceAreaStatus, d.serviceAreas.length ? 'VERIFIED' : 'UNCONFIRMED', `${id}: serviceAreaStatus must follow serviceAreas`);
+  assert.ok(['SERVICE_PROVIDER', 'ASSISTIVE_DEVICE_CENTER'].includes(d.resourceCategory), `${id}: resourceCategory`);
+  if (d.resourceCategory === 'ASSISTIVE_DEVICE_CENTER') {
+    assert.equal(d.type, 'OTHER', `${id}: centers use type OTHER`);
+    assert.deepEqual(d.services, [], `${id}: centers have no ProviderService, so recommendation never selects them`);
+  } else assert.ok(d.services.length > 0, `${id}: service providers have services`);
+  assert.ok(Array.isArray(d.contractRegions), `${id}: contractRegions`);
+  for (const r of d.contractRegions) {
+    assert.ok(cityOrder.includes(r.city), `${id}: contract city`);
+    assert.ok(d.services.includes(r.serviceType), `${id}: contract serviceType must be a service the provider offers`);
+  }
 }
 
 const normalize = q => ({
+  resourceCategory: q.resourceCategory ?? null, contractCity: q.contractCity ?? null,
   serviceType: q.serviceType ?? null, city: q.city ?? null, district: q.district ?? null,
   areaFilter: q.areaFilter ?? (q.city ? 'LOCATED_IN' : null), includeUnconfirmed: q.includeUnconfirmed ?? false,
   q: q.q ?? null, page: q.page ?? 1, pageSize: q.pageSize ?? 20,
@@ -57,6 +68,8 @@ for (const file of responses) {
     for (const k of SHARED_WITH_DETAIL) assert.deepEqual(item[k], detail[k], `${file}: ${item.id}.${k} must equal detail`);
     if (f.serviceType) assert.ok(item.services.includes(f.serviceType), `${file}: ${item.id} service`);
     if (f.q) assert.ok(item.name.includes(f.q), `${file}: ${item.id} keyword`);
+    if (f.resourceCategory) assert.equal(item.resourceCategory, f.resourceCategory, `${file}: ${item.id} resourceCategory`);
+    if (f.contractCity) assert.ok(item.contractRegions.some(r => r.city === f.contractCity && (!f.serviceType || r.serviceType === f.serviceType)), `${file}: ${item.id} contractCity`);
     if (f.areaFilter === 'LOCATED_IN') {
       assert.equal(item.areaMatch, null);
       assert.equal(item.city, f.city); if (f.district) assert.equal(item.district, f.district);
@@ -82,5 +95,16 @@ const recommended = read('../../recommendations/ASSISTIVE_DEVICE.json', root).da
 const unconfirmed = located.items.filter(i => i.serviceAreaStatus === 'UNCONFIRMED');
 assert.ok(unconfirmed.length > 0, 'contrast case needs an UNCONFIRMED provider located in the recommended district');
 for (const item of unconfirmed) assert.ok(!recommended.includes(item.id), `${item.id} must not appear in the recommendation fixture`);
+
+// Contract regions and resource centers never reach recommendation (D-19 Q1／Q2).
+const recDir = new URL('../../recommendations/', root);
+const recFiles = readdirSync(recDir, { recursive: true }).filter(f => f.endsWith('.json'));
+for (const f of recFiles) {
+  const providers = read(f, recDir).data.providers ?? [];
+  for (const p of providers) {
+    assert.ok(!('contractRegions' in p) && !('resourceCategory' in p), `${f}: recommendation cards must not carry lookup-only fields`);
+    if (details[p.id]) assert.equal(details[p.id].resourceCategory, 'SERVICE_PROVIDER', `${f}: ${p.id} centers are never recommended`);
+  }
+}
 
 console.log(`lookup fixtures OK: ${responses.length} list responses, ${readdirSync(new URL('errors/', root)).length} errors, ${Object.keys(details).length} details`);

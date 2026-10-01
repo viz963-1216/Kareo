@@ -1,6 +1,6 @@
 # Kareo MVP Decisions / MVP 決策紀錄
 
-Submission Version: J-002-r6
+Submission Version: J-002-r8
 Owner: Jerry
 Last reviewed: 2026-10-01（staging `2ef21a8`）
 
@@ -61,7 +61,7 @@ Last reviewed: 2026-10-01（staging `2ef21a8`）
 | D-16b | B-012 發布預覽／發布所需的內容包登錄、逐筆審核紀錄、發布序列化（鎖定）、管理 RPC 例外；維持 `PACK_NOT_APPROVED`；同意 `apps/api` 新增 `@electric-sql/pglite` 開發依賴 | **SPEC-APPROVED**（2026-10-01，Jerry） | D-16b-v1 | Jerry | [PR #48 comment 5925628146](https://github.com/viz963-1216/Kareo/pull/48#issuecomment-5925628146) | B-012-r3、J-003 |
 | D-18 | 公開資源查詢與個案推薦分離（PRODUCT_SPEC §14a、§19） | **SPEC-APPROVED**（產品規則，2026-10-01，Jerry）；細節 D-18a–e 亦已核准 | D-18-v1 | Jerry | [Issue #49](https://github.com/viz963-1216/Kareo/issues/49)；DEC-A003-01／02／07（`data/providers/qa/a-003-evidence.json`） | A-006、B-013、C-007、J-003 |
 | D-18a–e | 查詢 API 細節：兩種地區篩選、範圍未知的呈現、固定排序與分頁、錯誤處理、公開欄位（API_CONTRACT §10a） | **SPEC-APPROVED**（2026-10-01，Jerry，依 #50 內容定案） | D-18a-v1 | Jerry | [PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841) | B-013、C-007 |
-| D-19 | 一站式平台其他缺口：長照資訊集中查詢、個管師溝通摘要、輔具資源中心、住宿機構、不經評估的 Kareocar 入口 | **PROPOSED**；待 Jerry 回答 Q1–Q5 後才建立任務 | D-19-v1 | Jerry | — | 尚未建立（建議 A-007、B-014、C-008、C-009） |
+| D-19 | 一站式平台其他缺口：特約縣市、輔具資源中心、長照資訊集中查詢、個管師溝通摘要、Kareocar 常駐入口；住宿機構 | **SPEC-APPROVED**（2026-10-01，Jerry）；住宿機構延後到 MVP 之後 | D-19-v1 | Jerry | [Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690) | A-006、A-007、B-013、B-014、C-007、C-008、C-009、J-003 |
 | D-17 | Assessment 新增「是否領有身心障礙證明」選填題，結果頁說明可能適用的身心障礙福利補助（PRODUCT_SPEC §37 變更） | **SPEC-APPROVED**（2026-09-24）；規則表 r4 文字確認 | D-17-v1 | Jerry | [PR #31 comment 2026-09-24（第三批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810344725)；r4 文字：[PR #31 comment 2026-09-24（第四批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810416966) | B-010、C-005、J-003 |
 | D-17a | Assessment 新增「家庭經濟身分」選填題，結果頁估算使用者自己的長照自付比例與金額、身障補助上限（取代原先「不計算個人金額」限制） | **SPEC-APPROVED**（2026-09-24，Jerry：「要清算」）；PRODUCT_SPEC v0.6、API_CONTRACT v0.3.2、規則表 r5 §6.6 | D-17a-v1 | Jerry | [PR #31 comment 2026-09-24（第四批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810416966) | B-010、C-005、J-003 |
 
@@ -345,32 +345,29 @@ J-002 定義的一致性機制（依決定第 2 點「由 B／J 在契約中明�
 | D-18d | 排序與分頁 | 縣市 → 行政區（`contracts/reference/service-districts.json` 順序）→ id；分頁預設 20、最多 50；不依距離／輪替／付費 | 查詢不是推薦，排序必須與使用者無關且可重現 |
 | D-18e | 錯誤與公開欄位 | 非雙北縣市、行政區不符、未定義參數等一律 `VALIDATION_ERROR`；前端「其他縣市」不呼叫 API。列表只回 13 個欄位，不回座標、狀態、時間戳、證據或內部資料 | 參數錯誤不靜默忽略；資料最小化 |
 
-### 尚未決定（不在本版契約，Q1）
+### 特約縣市（D-19 Q1，2026-10-01 已決定）
 
-輔具商家是否公開顯示「列於臺北市／新北市輔具特約廠商名單」並可依此篩選。這是縣市層級的特約事實，**不是**服務範圍；若核准，以新增欄位 `contractRegions` 方式加入（API 只新增欄位），推薦流程永遠不讀。
+輔具商家公開顯示「列於臺北市／新北市輔具特約廠商名單」並可依此篩選（API_CONTRACT v0.6 `contractRegions`、`contractCity`；DATA_MODEL §19b）。這是縣市層級的特約事實，**不是**服務範圍；推薦流程永遠不讀。
 
 ---
 
-## D-19 一站式平台其他缺口（PROPOSED，2026-10-01）
+## D-19 一站式平台其他缺口（SPEC-APPROVED，2026-10-01）
 
-PRODUCT_SPEC §1 平台定位中尚無規格的部分。**不屬於** A-006／B-013／C-007，不得因 Issue #49 完成而宣稱已包含。
+核准證據：[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)（Jerry 2026-10-01）。Jerry 原先考慮「可分享連結」，隨後決定**不保存任何使用者資料**，以下為最終決定。
 
-| 項目 | 目前狀態 | J-002 建議的最小方案 | 待 Jerry 決定 | 建議任務 |
-|---|---|---|---|---|
-| 長照資訊集中查詢 | 只在評估結果 `summary` 中顯示 | 公開唯讀 API 列出目前 PUBLISHED 知識的標題、摘要、來源、生效日與版本；不顯示未發布內容 | Q3 | B-014、C-008 |
-| 個管師溝通前的需求整理 | 無 | 結果頁產生可列印／複製的摘要（需求、可能服務、補助估算、提醒問 1966 的問題），只在前端產生、不保存、不送後端 | Q5 | C-009 |
-| 輔具資源中心 | 只在知識包文字中出現 | 以 `resourceCategory` 新增查詢專用類別，`type = OTHER`、不建立 ProviderService，推薦永遠不會選到 | Q2 | A-007、B-014、C-008 |
-| 住宿機構 | 無 | 同上；先由 Jerry 定義包含哪些機構類型與官方來源 | Q2 | A-007、B-014、C-008 |
-| Kareocar 一鍵入口 | 只在評估結果且需求含交通時出現 | 首頁／導覽常駐外連（新分頁、`noopener`），修訂 §13 | Q4 | C-007 追加或 C-008 |
+| 題目 | 決定 | 規格 | 任務 |
+|---|---|---|---|
+| Q1 輔具特約縣市 | 公開顯示並可篩選 | PRODUCT_SPEC §14a；API_CONTRACT §10／§10a v0.6；DATA_MODEL §19b | A-006、B-013、C-007（追加） |
+| Q2 輔具資源中心 | 列入 10/22 MVP | PRODUCT_SPEC §14a；`resourceCategory`（DATA_MODEL §17） | **A-007**、B-013、C-007（追加） |
+| Q2 住宿機構 | **延後到 MVP 之後**；範圍只限「住宿式長照機構」 | 屆時另行修訂 | 未建立 |
+| Q3 長照資訊集中查詢 | 公開唯讀 API＋資訊頁，只列目前 PUBLISHED 且有效的紀錄 | PRODUCT_SPEC §14c；API_CONTRACT §13a；ARCHITECTURE §9.1 | **B-014**、**C-008** |
+| Q4 Kareocar | 首頁＋導覽列常駐入口，不需評估，外部新分頁 | PRODUCT_SPEC §13；ARCHITECTURE §10 | C-007（追加） |
+| Q5 個管師溝通前的需求整理 | 只在前端產生可列印／複製的摘要；**不保存、不送後端、不產生分享連結** | PRODUCT_SPEC §14b | **C-009** |
+| Q7 驗收 | 資源查詢（A-006／B-013／C-007）列入 10/22 release gate；本表其他 MVP 項目同樣列入 | — | J-003 新增 E2E 案例 |
 
-待 Jerry 回答：
+不變的界線：輔具資源中心與特約縣市都不進入推薦或媒合；長照資訊不做個人資格判斷或金額計算；需求摘要不含姓名、電話、自由文字、座標。
 
-- **Q1**：輔具特約縣市是否公開顯示並可篩選（見 D-18）。
-- **Q2**：輔具資源中心與住宿機構是否列入 10/22 MVP；住宿機構包含哪些類型。
-- **Q3**：是否新增公開唯讀的長照資訊 API。
-- **Q4**：Kareocar 是否放首頁／導覽、不需先評估。
-- **Q5**：個管師溝通摘要是否接受「只在前端產生、不保存」。
-- **Q7**：A-006／B-013／C-007 是否列入 10/22 release gate。
+**待 Jerry 審核本 PR**：PRODUCT_SPEC §14b「建議詢問 1966／照管專員的問題」5 題的文字（J-002 起草）。
 
 ---
 
@@ -383,7 +380,7 @@ PRODUCT_SPEC §1 平台定位中尚無規格的部分。**不屬於** A-006／B-
 | 1 | D-09 Netlify 額度：9/29 前是否購買額度或維持集中合併 | **待決定**（Jerry：日後補充） | 決定購買與否；不決定則部署後 E2E 無法執行、Kareocar 連結無法開啟 |
 | 2 | ~~D-16a 內容包層級核准~~ | **已決定（2026-10-01）：維持要求**，見 D-16b | — |
 | 3 | ~~D-18a–e 資源查詢 API 細節~~ | **已核准（2026-10-01）**，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841) | — |
-| 4 | D-19 Q1–Q5、Q7 | **待決定** | 見 D-19 |
+| 4 | ~~D-19 Q1–Q5、Q7~~ | **已決定（2026-10-01）**，[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690) | — |
 
 仍需實際輸入（做法已核准）：
 

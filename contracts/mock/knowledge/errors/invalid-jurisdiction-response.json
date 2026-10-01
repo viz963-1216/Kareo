@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "適用地區只能是 TAIWAN、TAIPEI 或 NEW_TAIPEI。"
+  }
+}

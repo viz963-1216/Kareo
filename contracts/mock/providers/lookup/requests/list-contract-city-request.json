@@ -1,0 +1,8 @@
+{
+  "method": "GET",
+  "path": "/api/v1/providers",
+  "query": {
+    "serviceType": "ASSISTIVE_DEVICE",
+    "contractCity": "臺北市"
+  }
+}

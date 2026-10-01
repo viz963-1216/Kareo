@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — System Architecture
 
-Version: v0.5.3（J-002-r6，2026-10-01；§7.1 資源查詢路徑（D-18）、§20.4 查詢限流、§22 知識發布序列化與管理 RPC 例外（D-16b））  
+Version: v0.5.4（J-002-r8，2026-10-01；§7.1 特約縣市與輔具資源中心、§9.1 公開長照資訊讀取、§10 Kareocar 常駐入口、§20.4 限流，D-19）  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -277,6 +277,8 @@ GET /api/v1/providers/{id}（§10，詳細資料／電話／官網／Google Maps
 - 共用 Provider 資料表與 §10 詳細端點，不另建資源資料表或同義端點。
 - 要媒合時回到「評估 → 推薦 → Lead」；查詢結果沒有 `recommendationId`，Lead 驗證（API_CONTRACT §12）會拒絕。
 - 只讀查詢以 Supabase REST 完成，不新增 RPC（§22 只用於寫入）。
+- 特約縣市（ProviderContractRegion）與輔具資源中心（`resourceCategory`）只出現在查詢路徑；推薦路徑不讀取（D-19）。
+- 需求摘要（PRODUCT_SPEC §14b）只在前端由評估結果組成，不經任何 API、不寫入資料庫或瀏覽器長期儲存。
 
 ---
 
@@ -338,6 +340,20 @@ PUBLISHED
 
 Crawler 抓取失敗時繼續使用 Last Published Knowledge Version。
 
+## 9.1 公開長照資訊讀取（v0.5.4，D-19 Q3）
+
+```text
+使用者（不需評估、不需 session）
+↓
+GET /api/v1/knowledge/records（API_CONTRACT §13a）
+↓
+目前 PUBLISHED 版本快照（knowledge_version_records）→ 今天有效 → 篩選 → 固定排序 → 分頁
+```
+
+- 與 Assessment 讀同一份 PUBLISHED 知識；不讀 NEEDS_REVIEW／APPROVED 未發布內容。
+- 只讀，不寫入任何資料；不回傳 `ruleData`、原文或審核資料。
+- 沒有 PUBLISHED 版本時回 `KNOWLEDGE_UNAVAILABLE`，不得以內容包檔案或 fixture 代替。
+
 ---
 
 # 10. Kareocar Architecture
@@ -355,6 +371,8 @@ Kareocar
 ```
 
 Kareocar URL：`https://kareocar.netlify.app/`
+
+常駐入口（v0.5.4，D-19 Q4）：首頁與導覽列另有不需評估的外部連結，同樣開新分頁（`noopener noreferrer`）；網址與評估結果入口相同，來源為 `GET /api/v1/external-services/transportation` 或與其一致的前端常數，不得出現第二個網址。
 
 MVP 禁止 iframe、Backend Integration、Database Integration、Authentication Integration。
 
@@ -661,6 +679,7 @@ Service role 繞過 RLS，因此上述檢查必須在 Service 層完成，不能
 | Recommendation | 30 次／小時 | session |
 | Provider detail | 60 次／小時 | IP 雜湊 |
 | Provider lookup（`GET /api/v1/providers`，v0.5.3） | 120 次／小時 | IP 雜湊 |
+| Knowledge records（`GET /api/v1/knowledge/records`，v0.5.4） | 120 次／小時 | IP 雜湊 |
 | Lead | 5 次／日 | session |
 | Lead（同一電話） | 3 次／日 | 電話雜湊 |
 

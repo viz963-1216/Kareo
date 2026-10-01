@@ -39,6 +39,11 @@ Forbidden：其他全部（含 `/docs/**`、`/contracts/**`、`/apps/**`、`netl
 5. **給 B／C 的對照表**：每家的 `serviceAreaStatus`（`VERIFIED`／`UNCONFIRMED`，DATA_MODEL §19 推導規則）與查詢時應出現的條件。
 6. 若需要致電或寄信才能確認，列出具體需求清單（對象、要問什麼、為什麼）交 Jerry；**不得自行對外聯絡**。
 
+## 追加（2026-10-01，D-19 Q1，[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）
+
+7. **特約縣市**：依 SRC-004（臺北市輔具特約服務門市）、SRC-005（新北市輔具特約廠商）整理每家輔具商家的 `ProviderContractRegion`（`providerId`、`city`、`serviceType = ASSISTIVE_DEVICE`、`sourceId`、`checkedAt`、`active`，DATA_MODEL §19b）。現有 `conditionalServiceRegions.allowedCities` 即為來源，轉成新資料檔（例如 `staging/provider-contract-regions.json`），並在 A-004 gate 檢查：城市只限雙北、`serviceType` 必須是該 Provider 有的服務、每筆有來源與查核日期。
+8. 特約縣市**不得**轉成 ProviderServiceArea，也不得用來推定行政區服務範圍。
+
 ## 規則
 
 - 不得以地址、簽約縣市或母機構範圍推定服務範圍；不得為了補足推薦家數新增範圍（DATA_MODEL §19）。
@@ -68,3 +73,4 @@ PR Title：`[A-006] Lookup listing and service area verification`
 ## 變更紀錄
 
 - 2026-10-01 J-002-r6：依 Issue #49 建立。
+- 2026-10-01 J-002-r8：追加特約縣市資料（D-19 Q1）。
