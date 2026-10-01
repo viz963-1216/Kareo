@@ -13,6 +13,7 @@ import type {
 import { createLeadIdempotency } from "./leadIdempotency";
 import type { RecommendationMockOptions } from "./mockAdapter";
 import type { MockState } from "./mockScenarios";
+import type { AdminMockScenario } from "./mockScenarios";
 import { resolveApiMode, type ApiMode } from "./mode";
 import { ApiError, configureRealApi, realApi } from "./realAdapter";
 
@@ -34,6 +35,8 @@ export const apiMode: ApiMode = MOCK_BUILD && resolvedMode.mode === "mock" ? "mo
 configureRealApi({ requireSessionToken: import.meta.env.VITE_KAREO_REQUIRE_SESSION_TOKEN === "true" });
 
 const loadMock = () => import("./mockAdapter").then((module) => module.mockApi);
+const loadAdminMock = () => import("./adminMockAdapter").then((module) => module.adminMockApi);
+const loadAdminReal = () => import("./adminRealAdapter").then((module) => module.adminRealApi);
 
 type ConsentVersions = Pick<ConsentRequest, "disclaimerVersion" | "privacyVersion" | "termsVersion">;
 
@@ -121,5 +124,74 @@ export const api = {
 
   getProvider(providerId: string, simulateMockError = false): Promise<ProviderDetail | null> {
     return apiMode === "mock" ? loadMock().then((mock) => mock.getProvider(providerId, simulateMockError)) : realApi.getProvider(providerId);
+  },
+};
+
+// Admin credentials use a separate adapter and storage key from the anonymous consumer session.
+// Write operations will be added only after J-002 publishes their complete contracts and fixtures.
+export const adminApi = {
+  async hasSession() {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.hasSession())
+      : loadAdminReal().then((admin) => admin.hasSession());
+  },
+  async logout() {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.logout())
+      : loadAdminReal().then((admin) => admin.logout());
+  },
+  async login(operatorId: string, operatorKey: string) {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.login(operatorId, operatorKey))
+      : loadAdminReal().then((admin) => admin.login(operatorId, operatorKey));
+  },
+  async getStatus(mockScenario?: AdminMockScenario) {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.getStatus(mockScenario))
+      : loadAdminReal().then((admin) => admin.getStatus());
+  },
+  async getChanges(mockScenario?: AdminMockScenario) {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.getChanges(mockScenario))
+      : loadAdminReal().then((admin) => admin.getChanges());
+  },
+  async getRecords(mockScenario?: AdminMockScenario) {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.getRecords(mockScenario))
+      : loadAdminReal().then((admin) => admin.getRecords());
+  },
+  async decideRecord(...args: [...Parameters<Awaited<ReturnType<typeof loadAdminReal>>["decideRecord"]>, AdminMockScenario?]) {
+    const [recordId, body, mockScenario] = args;
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.decideRecord(recordId, body, mockScenario))
+      : loadAdminReal().then((admin) => admin.decideRecord(recordId, body));
+  },
+  async dismissChange(...args: [...Parameters<Awaited<ReturnType<typeof loadAdminReal>>["dismissChange"]>, AdminMockScenario?]) {
+    const [changeId, body, mockScenario] = args;
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.dismissChange(changeId, body, mockScenario))
+      : loadAdminReal().then((admin) => admin.dismissChange(changeId, body));
+  },
+  async getPublishPreview(mockScenario?: AdminMockScenario) {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.getPublishPreview(mockScenario))
+      : loadAdminReal().then((admin) => admin.getPublishPreview());
+  },
+  async publish(...args: [...Parameters<Awaited<ReturnType<typeof loadAdminReal>>["publish"]>, AdminMockScenario?]) {
+    const [body, mockScenario] = args;
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.publish(body, mockScenario))
+      : loadAdminReal().then((admin) => admin.publish(body));
+  },
+  async getRestorableVersions(mockScenario?: AdminMockScenario) {
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.getRestorableVersions(mockScenario))
+      : loadAdminReal().then((admin) => admin.getRestorableVersions());
+  },
+  async withdraw(...args: [...Parameters<Awaited<ReturnType<typeof loadAdminReal>>["withdraw"]>, AdminMockScenario?]) {
+    const [body, mockScenario] = args;
+    return apiMode === "mock"
+      ? loadAdminMock().then((admin) => admin.withdraw(body, mockScenario))
+      : loadAdminReal().then((admin) => admin.withdraw(body));
   },
 };

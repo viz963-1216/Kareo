@@ -48,6 +48,8 @@ GPS 精確位置案例若無已驗證正式資料，必須使用 QA fixture，
 
 AC-007（GPS DISTANCE）r2 狀態：A-003-r2 尚未交付已驗證座標與覆蓋率報告，所以目前標示 BLOCKED；不得自行產生座標或 `distanceKm`。解阻後才可依 DISTANCE Expected 驗收。
 
+> A-003-r8 更新（2026-09-29）：已交付已驗證座標（29／30）與覆蓋率報告，三種服務類型都有服務範圍。AC-007 只可用 `qa/verified-coordinates-report.md` 標為 READY 的組合驗收（HOME_CARE 臺北／新北、HOME_MEDICAL_NURSING 臺北）；ASSISTIVE_DEVICE 因 NTPC-AD-004 缺座標，依 D-13c 改 `DISTRICT_ROTATION`。
+
 ---
 
 ## A-005-r2 Additions — D-13 Approved Cases（2026-09-24）

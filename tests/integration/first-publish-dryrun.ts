@@ -1,16 +1,17 @@
 // J-003 local pre-flight for the first knowledge publication (in memory; NOT a publication and NOT E2E).
-// Needs a checkout that contains B-008-r2, B-010 and B-011a (a trial combination until they are merged).
+// Runs on staging as merged (B-008-r5 content-fingerprint approval, B-010, B-011a).
 // Copy to apps/api/tests/ as first-publish-dryrun.test.ts and run:
 //   cd apps/api && npx vitest run tests/first-publish-dryrun.test.ts
 //
-// It uses the same service calls as the CLI steps (importKnowledgePack → approveKnowledgePack →
-// publishKnowledgeVersion) on every APPROVED content pack with intendedKnowledgeVersion KB-2026-09-24-001,
+// It uses the same calls as the CLI steps (importContentPack → runApproveKnowledgePack, which recomputes each
+// record's content fingerprint from the pack as the approve CLI does → publishVersion) on every APPROVED content pack with intendedKnowledgeVersion KB-2026-09-24-001,
 // then runs the B-010 engine on that snapshot for one Taipei and one New Taipei synthetic case.
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { describe, it, expect } from "vitest";
 import { importContentPack, parseSourceRegistry } from "../src/services/knowledgeImportService.js";
-import { approveRecords, publishVersion } from "../src/services/knowledgeService.js";
+import { publishVersion } from "../src/services/knowledgeService.js";
+import { runApproveKnowledgePack } from "../src/scripts/approveKnowledgePack.js";
 import { InMemoryKnowledgeRepository } from "../src/repositories/inMemoryKnowledgeRepository.js";
 import { InMemoryAssessmentRepository, InMemoryConsentRepository, InMemorySessionRepository } from "../src/repositories/inMemoryRepositories.js";
 import { DatabaseKnowledgeResolver } from "../src/adapters/knowledgeVersionResolver.js";
@@ -34,9 +35,9 @@ describe(`first publication pre-flight: ${TARGET}`, () => {
     for (const p of packs) {
       const report = await importContentPack(repo, p, registry, { mode: "commit" });
       expect(report.recordsRejected, `${p.packId} import rejections`).toEqual([]);
-      const approvedIds = new Set(p.records.filter((r) => r.status === "APPROVED").map((r) => (r as { recordId: string }).recordId));
-      const ids = (await repo.findRecordsByPackId(p.packId as string)).filter((r) => approvedIds.has(r.packRecordId)).map((r) => r.id);
-      await approveRecords(repo, ids);
+      const approval = await runApproveKnowledgePack(repo, p);
+      expect({ code: approval.code, invalid: approval.invalid, missing: approval.missing, mismatched: approval.contentMismatched }, `${p.packId} approval`)
+        .toEqual({ code: 0, invalid: [], missing: [], mismatched: [] });
       for (const r of await repo.findRecordsByPackId(p.packId as string)) if (r.status === "APPROVED") candidates.push({ id: r.id, effectiveTo: r.effectiveTo });
       for (const r of p.records) repo.sourceAuthorities.set(r.source.sourceId, r.source.authority as never);
     }
