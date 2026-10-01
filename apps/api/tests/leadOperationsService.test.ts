@@ -160,8 +160,8 @@ describe("updateLeadStatus", () => {
     const repo = new InMemoryLeadRepository();
     repo.leads.push(lead());
     // 模擬另一位操作者搶先把狀態改掉，讀取之後、寫入之前狀態已不同。
-    const originalUpdate = repo.updateLeadStatus.bind(repo);
-    repo.updateLeadStatus = async (input) => {
+    const originalUpdate = repo.updateLeadStatusWithEvent.bind(repo);
+    repo.updateLeadStatusWithEvent = async (input) => {
       repo.leads[0].status = "CANCELLED";
       repo.leads[0].closedAt = "2026-09-29T10:00:00+08:00";
       return originalUpdate(input);
@@ -170,5 +170,61 @@ describe("updateLeadStatus", () => {
     await expect(
       updateLeadStatus(repo, { leadId: "LEAD-001", toStatus: "CONTACTED", reasonCode: null, note: null, operatorId: "OP-001" })
     ).rejects.toMatchObject({ code: "INVALID_STATUS_TRANSITION" });
+  });
+
+  it("J-003-r8 #1: rolls back the status change (and never records a status event) when the event write fails in the same transaction", async () => {
+    const repo = new InMemoryLeadRepository();
+    repo.leads.push(lead());
+    repo.failNextStatusEventInsert = true;
+
+    await expect(
+      updateLeadStatus(repo, { leadId: "LEAD-001", toStatus: "CONTACTED", reasonCode: null, note: null, operatorId: "OP-001" })
+    ).rejects.toMatchObject({ code: "INTERNAL_ERROR" });
+
+    expect(repo.leads[0].status).toBe("NEW");
+    expect(repo.leads[0].firstContactedAt).toBeNull();
+    expect(repo.leads[0].closedAt).toBeNull();
+    expect(repo.leads[0].updatedAt).toBe("2026-09-29T10:00:00+08:00");
+    expect(repo.statusEvents).toHaveLength(0);
+
+    // Retrying the same transition afterwards must still work normally (no leftover partial state).
+    const event = await updateLeadStatus(repo, {
+      leadId: "LEAD-001",
+      toStatus: "CONTACTED",
+      reasonCode: null,
+      note: null,
+      operatorId: "OP-001",
+    });
+    expect(event.toStatus).toBe("CONTACTED");
+    expect(repo.leads[0].status).toBe("CONTACTED");
+    expect(repo.statusEvents).toHaveLength(1);
+  });
+});
+
+describe("revealContact — case assignment authorization (J-003-r8 #2)", () => {
+  it("rejects an operator who is not assigned to this case", async () => {
+    const repo = new InMemoryLeadRepository();
+    repo.leads.push(lead({ assignedOperatorId: "OP-A" }));
+
+    await expect(revealContact(repo, "LEAD-001", "OP-B")).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(repo.accessEvents).toHaveLength(0);
+    expect(repo.leads[0].assignedOperatorId).toBe("OP-A");
+  });
+
+  it("auto-assigns an unassigned case to the first operator who reveals contact, then allows only that operator afterwards", async () => {
+    const repo = new InMemoryLeadRepository();
+    repo.leads.push(lead({ assignedOperatorId: null }));
+
+    const first = await revealContact(repo, "LEAD-001", "OP-A");
+    expect(first).toEqual({ name: "王先生", phone: "0912345678" });
+    expect(repo.leads[0].assignedOperatorId).toBe("OP-A");
+    expect(repo.accessEvents).toHaveLength(1);
+
+    const second = await revealContact(repo, "LEAD-001", "OP-A");
+    expect(second).toEqual({ name: "王先生", phone: "0912345678" });
+    expect(repo.accessEvents).toHaveLength(2);
+
+    await expect(revealContact(repo, "LEAD-001", "OP-B")).rejects.toMatchObject({ code: "FORBIDDEN" });
+    expect(repo.accessEvents).toHaveLength(2);
   });
 });

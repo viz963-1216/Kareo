@@ -187,37 +187,63 @@ export interface RecommendationRepository {
 }
 
 // TASK-B-006，依 docs/DATA_MODEL.md 第 22、37-38 節、docs/LEAD_OPERATIONS.md。
+// J-003-r8（Jerry 委託審查 #47，問題 3）：同一 (sessionId, idempotencyKey) 這次請求最終解析到
+// 哪一筆 Lead 的不可變記錄；`duplicate` 是這個 key 第一次被使用時的業務重複判斷結果，重送時原樣
+// 帶出，不重新計算（該 Lead 當下可能已經不是「尚未終態」，但這不影響它當初是不是業務重複）。
+export interface LeadIdempotencyRecord {
+  leadId: string;
+  requestFingerprint: string;
+  duplicate: boolean;
+}
+
 export interface LeadRepository {
-  // API_CONTRACT §3.3：同一 (sessionId, idempotencyKey) 已存在的 Lead（不論內容是否相同，
-  // 由呼叫端比對內容決定回原結果或 IDEMPOTENCY_CONFLICT）。
-  findBySessionAndIdempotencyKey(sessionId: string, idempotencyKey: string): Promise<Lead | null>;
   // API_CONTRACT §12 / ARCHITECTURE §20.5：同一 session+provider+serviceType 尚未終態的既有 Lead。
   findOpenBySessionProviderService(
     sessionId: string,
     providerId: string,
     serviceType: ProviderServiceType
   ): Promise<Lead | null>;
-  // 依 ARCHITECTURE §20.5：以資料庫唯一約束保證不重複寫入，不以應用層先查後寫代替。
-  // 違反唯一約束（idempotency 或 open-duplicate，同一次呼叫只可能觸發其中一種）時回 inserted=false，
-  // 呼叫端須重新查詢兩種情境判斷屬於哪一種，藉此把併發下的競態轉為正確的既有結果回應
-  // （同 B-009 insertKnowledgeChange 的既有模式）。
+  // 依 ARCHITECTURE §20.5：以資料庫唯一約束保證不重複寫入 open-duplicate，不以應用層先查後寫代替。
+  // 違反唯一約束時回 inserted=false，呼叫端須重新查詢既有的未終態 Lead（併發下的競態轉為正確的
+  // 既有結果回應，同 B-009 insertKnowledgeChange 的既有模式）。
   insertLead(lead: Lead): Promise<{ inserted: boolean }>;
+
+  // J-003-r8（問題 3）：冪等判斷的唯一依據——不論這次請求是真的建立新 Lead，還是找到既有的
+  // 業務重複 Lead 而回傳它，都必須記錄在這裡，否則該 Lead 結案後同一 key 重送會錯誤地建立第二筆
+  // Lead（見 migration 0018 lead_idempotency_records 的欄位註解）。
+  findIdempotencyRecord(sessionId: string, idempotencyKey: string): Promise<LeadIdempotencyRecord | null>;
+  // 違反唯一約束時回 inserted=false，呼叫端重新查詢 findIdempotencyRecord 取得贏得競態的那筆記錄。
+  insertIdempotencyRecord(input: {
+    sessionId: string;
+    idempotencyKey: string;
+    leadId: string;
+    requestFingerprint: string;
+    duplicate: boolean;
+  }): Promise<{ inserted: boolean }>;
 
   findById(id: string): Promise<Lead | null>;
   listLeads(filter: { status: LeadStatus | null; since: string | null }): Promise<Lead[]>;
-  // LEAD_OPERATIONS §3：以「目前狀態」作為條件更新（compare-and-set），expectedStatus 對不上時
-  // 回傳 false（未更新，呼叫端據此回 INVALID_STATUS_TRANSITION），避免兩位操作者同時改動。
-  updateLeadStatus(input: {
-    id: string;
+
+  // J-003-r8（問題 2）：reveal-contact 只能由「被指派案件」的操作者執行（LEAD_OPERATIONS §2）。
+  // 單一 UPDATE 內原子完成「若尚未指派則指派給這次呼叫的操作者（第一個 reveal-contact 的操作者
+  // 視為接手這個案件），否則維持原指派對象」，回傳目前（可能剛被設定、也可能本來就有的）
+  // assignedOperatorId；呼叫端比對是否等於自己，不等於就是別人的案件，拒絕顯示聯絡資料。
+  claimLeadForReveal(leadId: string, operatorId: string): Promise<{ lead: Lead; assignedOperatorId: string } | null>;
+  insertAccessEvent(event: LeadAccessEvent): Promise<void>;
+
+  // J-003-r8（問題 1）：CAS 狀態更新與 LeadStatusEvent 寫入必須同一交易完成，不是分開的兩次呼叫
+  // （見 migration 0018 update_lead_status_with_event）。expectedStatus 對不上時回傳 false
+  // （未更新、未寫入任何事件），呼叫端據此回 INVALID_STATUS_TRANSITION。
+  updateLeadStatusWithEvent(input: {
+    leadId: string;
     expectedStatus: LeadStatus;
     toStatus: LeadStatus;
     statusReason: string | null;
     firstContactedAt: string | null;
     closedAt: string | null;
     updatedAt: string;
+    event: Omit<LeadStatusEvent, "id" | "leadId" | "fromStatus" | "toStatus" | "createdAt"> & { id: string };
   }): Promise<boolean>;
-  insertStatusEvent(event: LeadStatusEvent): Promise<void>;
-  insertAccessEvent(event: LeadAccessEvent): Promise<void>;
 
   findOperatorById(id: string): Promise<InternalOperator | null>;
 }

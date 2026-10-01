@@ -1,6 +1,6 @@
 import { getSupabaseClient } from "./supabaseClient.js";
-import type { LeadRepository } from "./types.js";
-import type { InternalOperator, Lead, LeadAccessEvent, LeadStatus, LeadStatusEvent, ProviderServiceType } from "../types/index.js";
+import type { LeadIdempotencyRecord, LeadRepository } from "./types.js";
+import type { InternalOperator, Lead, LeadAccessEvent, LeadStatus, ProviderServiceType } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
 
 // Postgres unique_violation。依 ARCHITECTURE §20.5：唯一約束是防重複的最終防線，這裡只負責辨識
@@ -33,18 +33,6 @@ const LEAD_COLUMNS =
   "id, session_id, assessment_id, recommendation_id, provider_id, service_type, contact_name, contact_phone, contact_consent_at, idempotency_key, status, status_reason, assigned_operator_id, first_contacted_at, closed_at, created_at, updated_at";
 
 export class SupabaseLeadRepository implements LeadRepository {
-  async findBySessionAndIdempotencyKey(sessionId: string, idempotencyKey: string): Promise<Lead | null> {
-    const client = getSupabaseClient();
-    const { data, error } = await client
-      .from("leads")
-      .select(LEAD_COLUMNS)
-      .eq("session_id", sessionId)
-      .eq("idempotency_key", idempotencyKey)
-      .maybeSingle();
-    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢 Lead，請稍後再試。", { cause: error });
-    return data ? mapLead(data) : null;
-  }
-
   async findOpenBySessionProviderService(
     sessionId: string,
     providerId: string,
@@ -92,6 +80,43 @@ export class SupabaseLeadRepository implements LeadRepository {
     return { inserted: true };
   }
 
+  async findIdempotencyRecord(sessionId: string, idempotencyKey: string): Promise<LeadIdempotencyRecord | null> {
+    const client = getSupabaseClient();
+    const { data, error } = await client
+      .from("lead_idempotency_records")
+      .select("lead_id, request_fingerprint, duplicate")
+      .eq("session_id", sessionId)
+      .eq("idempotency_key", idempotencyKey)
+      .maybeSingle();
+    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢 Lead，請稍後再試。", { cause: error });
+    if (!data) return null;
+    return { leadId: data.lead_id, requestFingerprint: data.request_fingerprint, duplicate: data.duplicate };
+  }
+
+  async insertIdempotencyRecord(input: {
+    sessionId: string;
+    idempotencyKey: string;
+    leadId: string;
+    requestFingerprint: string;
+    duplicate: boolean;
+  }): Promise<{ inserted: boolean }> {
+    const client = getSupabaseClient();
+    const { error } = await client.from("lead_idempotency_records").insert({
+      id: `${input.sessionId}:${input.idempotencyKey}`,
+      session_id: input.sessionId,
+      idempotency_key: input.idempotencyKey,
+      lead_id: input.leadId,
+      request_fingerprint: input.requestFingerprint,
+      duplicate: input.duplicate,
+      created_at: new Date().toISOString(),
+    });
+    if (error) {
+      if (error.code === UNIQUE_VIOLATION) return { inserted: false };
+      throw new AppError("INTERNAL_ERROR", "無法建立 Lead，請稍後再試。", { cause: error });
+    }
+    return { inserted: true };
+  }
+
   async findById(id: string): Promise<Lead | null> {
     const client = getSupabaseClient();
     const { data, error } = await client.from("leads").select(LEAD_COLUMNS).eq("id", id).maybeSingle();
@@ -109,48 +134,20 @@ export class SupabaseLeadRepository implements LeadRepository {
     return (data ?? []).map(mapLead);
   }
 
-  async updateLeadStatus(input: {
-    id: string;
-    expectedStatus: LeadStatus;
-    toStatus: LeadStatus;
-    statusReason: string | null;
-    firstContactedAt: string | null;
-    closedAt: string | null;
-    updatedAt: string;
-  }): Promise<boolean> {
+  // 單一 UPDATE（COALESCE，只在 assigned_operator_id 為 null 時才真的寫入新值）內原子完成
+  // 「若尚未指派則指派給這次呼叫的操作者，否則維持原指派對象」，由 Postgres 的 row-level lock
+  // 保證併發下只有一個請求的指派會生效（LEAD_OPERATIONS §2、J-003-r8 問題 2）。REST `.update()`
+  // 只能寫死值、無法表示 COALESCE 既有欄位值，改用 RPC。
+  async claimLeadForReveal(leadId: string, operatorId: string): Promise<{ lead: Lead; assignedOperatorId: string } | null> {
     const client = getSupabaseClient();
-    const updates: Record<string, unknown> = {
-      status: input.toStatus,
-      status_reason: input.statusReason,
-      updated_at: input.updatedAt,
-    };
-    if (input.firstContactedAt !== null) updates.first_contacted_at = input.firstContactedAt;
-    if (input.closedAt !== null) updates.closed_at = input.closedAt;
-
-    // Compare-and-set：where status = expectedStatus，避免兩位操作者同時改動（LEAD_OPERATIONS §3）。
-    const { data, error } = await client
-      .from("leads")
-      .update(updates)
-      .eq("id", input.id)
-      .eq("status", input.expectedStatus)
-      .select("id");
-    if (error) throw new AppError("INTERNAL_ERROR", "無法更新 Lead 狀態，請稍後再試。", { cause: error });
-    return (data ?? []).length > 0;
-  }
-
-  async insertStatusEvent(event: LeadStatusEvent): Promise<void> {
-    const client = getSupabaseClient();
-    const { error } = await client.from("lead_status_events").insert({
-      id: event.id,
-      lead_id: event.leadId,
-      from_status: event.fromStatus,
-      to_status: event.toStatus,
-      reason_code: event.reasonCode,
-      note: event.note,
-      operator_id: event.operatorId,
-      created_at: event.createdAt,
+    const { data, error } = await client.rpc("claim_lead_for_reveal", {
+      p_lead_id: leadId,
+      p_operator_id: operatorId,
     });
-    if (error) throw new AppError("INTERNAL_ERROR", "無法寫入 Lead 狀態歷程，請稍後再試。", { cause: error });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢 Lead，請稍後再試。", { cause: error });
+    if (!data) return null;
+    const lead = mapLead(data as Record<string, unknown>);
+    return { lead, assignedOperatorId: lead.assignedOperatorId as string };
   }
 
   async insertAccessEvent(event: LeadAccessEvent): Promise<void> {
@@ -163,6 +160,36 @@ export class SupabaseLeadRepository implements LeadRepository {
       created_at: event.createdAt,
     });
     if (error) throw new AppError("INTERNAL_ERROR", "無法寫入 Lead 存取紀錄，請稍後再試。", { cause: error });
+  }
+
+  async updateLeadStatusWithEvent(input: {
+    leadId: string;
+    expectedStatus: LeadStatus;
+    toStatus: LeadStatus;
+    statusReason: string | null;
+    firstContactedAt: string | null;
+    closedAt: string | null;
+    updatedAt: string;
+    event: { id: string; reasonCode: string | null; note: string | null; operatorId: string };
+  }): Promise<boolean> {
+    const client = getSupabaseClient();
+    const { data, error } = await client.rpc("update_lead_status_with_event", {
+      payload: {
+        leadId: input.leadId,
+        expectedStatus: input.expectedStatus,
+        toStatus: input.toStatus,
+        statusReason: input.statusReason,
+        firstContactedAt: input.firstContactedAt,
+        closedAt: input.closedAt,
+        updatedAt: input.updatedAt,
+        eventId: input.event.id,
+        operatorId: input.event.operatorId,
+        reasonCode: input.event.reasonCode,
+        note: input.event.note,
+      },
+    });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法更新 Lead 狀態，請稍後再試。", { cause: error });
+    return Boolean((data as { updated?: boolean } | null)?.updated);
   }
 
   async findOperatorById(id: string): Promise<InternalOperator | null> {
