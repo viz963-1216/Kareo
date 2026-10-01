@@ -482,4 +482,79 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
       };
     });
   }
+
+  async upsertContentPack(input: {
+    packId: string;
+    intendedKnowledgeVersion: string | null;
+    sourceRegistryVersion: string | null;
+    status: string;
+    packFingerprint: string;
+  }): Promise<void> {
+    const client = getSupabaseClient();
+    const { error } = await client.rpc("upsert_content_pack", {
+      payload: {
+        packId: input.packId,
+        intendedKnowledgeVersion: input.intendedKnowledgeVersion,
+        sourceRegistryVersion: input.sourceRegistryVersion,
+        status: input.status,
+        packFingerprint: input.packFingerprint,
+        now: nowTaipeiISOString(),
+      },
+    });
+    if (error) {
+      if (error.message?.includes("PACK_CONTENT_CHANGED")) {
+        throw new AppError(
+          "VALIDATION_ERROR",
+          `內容包 ${input.packId} 已存在且內容已變更，不可覆寫；請使用新的 packId 重新匯入。`,
+          { cause: error }
+        );
+      }
+      throw new AppError("INTERNAL_ERROR", "無法寫入內容包中繼資料，請稍後再試。", { cause: error });
+    }
+  }
+
+  async findContentPackById(packId: string): Promise<import("../types/index.js").ContentPack | null> {
+    const client = getSupabaseClient();
+    const { data, error } = await client
+      .from("content_packs")
+      .select("id, intended_knowledge_version, source_registry_version, status, pack_fingerprint, created_at, updated_at")
+      .eq("id", packId)
+      .maybeSingle();
+    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢內容包，請稍後再試。", { cause: error });
+    if (!data) return null;
+    return {
+      id: data.id,
+      intendedKnowledgeVersion: data.intended_knowledge_version,
+      sourceRegistryVersion: data.source_registry_version,
+      status: data.status,
+      packFingerprint: data.pack_fingerprint,
+      createdAt: data.created_at,
+      updatedAt: data.updated_at,
+    };
+  }
+
+  async approveOrRejectRecordWithReview(input: {
+    recordId: string;
+    decision: "APPROVED" | "REJECTED";
+    reason: string | null;
+    expectedContentFingerprint: string;
+    reviewedBy: string;
+    source: import("../types/index.js").KnowledgeRecordReviewSource;
+  }): Promise<{ updated: boolean }> {
+    const client = getSupabaseClient();
+    const { data, error } = await client.rpc("approve_or_reject_knowledge_record", {
+      payload: {
+        recordId: input.recordId,
+        decision: input.decision,
+        reason: input.reason,
+        expectedContentFingerprint: input.expectedContentFingerprint,
+        reviewedBy: input.reviewedBy,
+        source: input.source,
+        reviewEventId: `${input.recordId}-${input.source}-${Date.now()}`,
+        now: nowTaipeiISOString(),
+      },
+    });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法核准／退回紀錄，請稍後再試。", { cause: error });
+    return { updated: Boolean((data as { updated?: boolean } | null)?.updated) };
+  }
 }

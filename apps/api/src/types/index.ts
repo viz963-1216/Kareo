@@ -720,3 +720,83 @@ export interface AdminWithdrawResult {
   withdrawnBy: string;
   reason: string;
 }
+
+// ===== 內容包持久化（TASK-B-012-r3，Jerry 2026-10-01 指示 2）=====
+
+export type ContentPackStatus = "NEEDS_REVIEW" | "APPROVED" | "REJECTED";
+
+export interface ContentPack {
+  id: string;
+  intendedKnowledgeVersion: string | null;
+  sourceRegistryVersion: string | null;
+  status: ContentPackStatus;
+  packFingerprint: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type KnowledgeRecordReviewSource = "CLI_PACK" | "ADMIN_API";
+
+// 逐筆審核證據：CLI（approveKnowledgePack）與管理頁核准共用，只能新增。
+export interface KnowledgeRecordReviewEvent {
+  id: string;
+  knowledgeRecordId: string;
+  decision: "APPROVED" | "REJECTED";
+  reason: string | null;
+  reviewedBy: string;
+  reviewedAt: string;
+  contentFingerprint: string;
+  source: KnowledgeRecordReviewSource;
+  createdAt: string;
+}
+
+export type PublishPlanBlockerCode =
+  | "NO_APPROVED_RECORDS"
+  | "ALL_CANDIDATES_EXPIRED"
+  | "PACK_NOT_APPROVED"
+  | "TARGET_VERSION_INVALID"
+  | "TARGET_VERSION_CONFLICT"
+  | "VERSION_ALREADY_EXISTS";
+
+export interface PublishPlanBlocker {
+  code: PublishPlanBlockerCode;
+  message: string;
+}
+
+export interface PublishPlanNewRecord {
+  id: string;
+  packId: string;
+  recordId: string;
+  title: string;
+  jurisdiction: Jurisdiction;
+  effectiveFrom: string;
+  effectiveTo: string | null;
+}
+
+// 依 API_CONTRACT §26.8，由 public.compute_publish_plan() 算出（預覽與發布共用同一套計算）。
+export interface PublishPlan {
+  canPublish: boolean;
+  targetVersionId: string | null;
+  currentVersionId: string | null;
+  publishDate: string;
+  publishedRecordCount: number;
+  carriedForwardCount: number;
+  totalRecordCount: number;
+  supersededRecordCount: number;
+  excludedRecordCount: number;
+  newRecords: PublishPlanNewRecord[];
+  blockers: PublishPlanBlocker[];
+  previewToken: string | null;
+  generatedAt: string;
+}
+
+// 依 API_CONTRACT §26.9。
+export interface AdminPublishResult {
+  versionId: string;
+  publishedAt: string;
+  publishedRecordCount: number;
+  carriedForwardCount: number;
+  totalRecordCount: number;
+  supersededRecordCount: number;
+  excludedRecordCount: number;
+}

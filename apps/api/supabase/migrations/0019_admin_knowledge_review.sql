@@ -29,14 +29,57 @@ create table if not exists admin_audit_events (
 create index if not exists admin_audit_events_target_idx on admin_audit_events (target_type, target_id);
 create index if not exists admin_audit_events_operator_idx on admin_audit_events (operator_id);
 
+-- TASK-B-012-r3（Jerry 2026-10-01 指示 2）：內容包層級中繼資料，解除 publish-preview／publish
+-- 的 PACK_NOT_APPROVED 架構缺口（詳細設計說明見 migration 0020）。放在這裡（表定義）是因為
+-- admin_decide_knowledge_record（下方）需要寫入 knowledge_record_review_events，函式定義順序
+-- 不能晚於資料表；upsert_content_pack／compute_publish_plan／admin_publish_knowledge_version
+-- 等實際使用 content_packs 的函式放在 0020。
+create table if not exists content_packs (
+  id text primary key,
+  -- 依 contracts/knowledge/content-pack.schema.json：只有 status=APPROVED 時才會填；
+  -- NEEDS_REVIEW 階段為 null（尚未決定版號），故允許 null。
+  intended_knowledge_version text,
+  source_registry_version text,
+  status text not null,
+  pack_fingerprint text not null,
+  created_at timestamptz not null,
+  updated_at timestamptz not null
+);
+
+create index if not exists content_packs_status_idx on content_packs (status);
+
+-- 逐筆審核證據：CLI（approveKnowledgePack）與管理頁（decision 端點）核准都寫入同一份只能新增的
+-- 審核紀錄，source 區分來源。reviewed_by 可能是 CLI 操作者輸入的任意姓名，不是 internal_operators
+-- 的 FK（CLI 核准不透過管理 session）。
+create table if not exists knowledge_record_review_events (
+  id text primary key,
+  knowledge_record_id text not null references knowledge_records (id),
+  decision text not null,
+  reason text,
+  reviewed_by text not null,
+  reviewed_at timestamptz not null,
+  content_fingerprint text not null,
+  source text not null,
+  created_at timestamptz not null
+);
+
+create index if not exists knowledge_record_review_events_record_idx
+  on knowledge_record_review_events (knowledge_record_id);
+
 alter table admin_sessions enable row level security;
 alter table admin_audit_events enable row level security;
-revoke all on table admin_sessions, admin_audit_events from anon, authenticated;
+alter table content_packs enable row level security;
+alter table knowledge_record_review_events enable row level security;
+revoke all on table admin_sessions, admin_audit_events, content_packs, knowledge_record_review_events
+  from anon, authenticated;
 -- admin_sessions 需要 update（撤銷／覆蓋）與 delete（過期清理），比照一般 Business Table。
 grant select, insert, update, delete on table admin_sessions to service_role;
--- admin_audit_events 依 DATA_MODEL §41「只能新增」，刻意不 grant update／delete 給 service_role，
--- 在資料庫層擋掉事後竄改或刪除稽核紀錄（service_role 繞過 RLS，但不繞過權限授予）。
+grant select, insert, update, delete on table content_packs to service_role;
+-- admin_audit_events／knowledge_record_review_events 依 DATA_MODEL §41「只能新增」，刻意不
+-- grant update／delete 給 service_role，在資料庫層擋掉事後竄改或刪除稽核紀錄
+-- （service_role 繞過 RLS，但不繞過權限授予）。
 grant select, insert on table admin_audit_events to service_role;
+grant select, insert on table knowledge_record_review_events to service_role;
 
 -- 核准／退回單筆紀錄：沿用 B-008-r4 approveRecords 的原子檢查模式（status=NEEDS_REVIEW 且
 -- content_fingerprint=期望值，單一 UPDATE 內完成），並在同一交易內寫入稽核紀錄
@@ -83,6 +126,12 @@ begin
     jsonb_build_object('contentFingerprint', v_expected_fp),
     v_now
   );
+
+  -- TASK-B-012-r3（Jerry 指示 2）：管理頁核准也寫入跟 CLI approveKnowledgePack 共用的逐筆審核
+  -- 證據表，source='ADMIN_API'，跟上面的 admin_audit_events 寫入同一交易。
+  insert into public.knowledge_record_review_events
+    (id, knowledge_record_id, decision, reason, reviewed_by, reviewed_at, content_fingerprint, source, created_at)
+  values (v_audit_id || '-review', v_record_id, v_decision, v_reason, v_operator_id, v_now, v_expected_fp, 'ADMIN_API', v_now);
 
   return jsonb_build_object('updated', true);
 end;

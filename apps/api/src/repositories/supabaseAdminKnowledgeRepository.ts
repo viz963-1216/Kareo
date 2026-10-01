@@ -1,10 +1,12 @@
 import { getSupabaseClient } from "./supabaseClient.js";
 import type { AdminKnowledgeRepository } from "./types.js";
 import { AppError } from "../errors/AppError.js";
+import { nowTaipeiISOString } from "../lib/response.js";
 import type {
   AdminKnowledgeChangeSummary,
   AdminKnowledgeRecordSummary,
   AdminKnowledgeStatus,
+  AdminPublishResult,
   AdminSession,
   CreatedAdminSession,
   InternalOperator,
@@ -12,8 +14,35 @@ import type {
   KnowledgeChangeStatus,
   KnowledgeRecordStatus,
   Jurisdiction,
+  PublishPlan,
   RestorableVersionsResponse,
 } from "../types/index.js";
+
+function mapPlan(data: Record<string, unknown>): PublishPlan {
+  return {
+    canPublish: Boolean(data.canPublish),
+    targetVersionId: (data.targetVersionId as string | null) ?? null,
+    currentVersionId: (data.currentVersionId as string | null) ?? null,
+    publishDate: data.publishDate as string,
+    publishedRecordCount: data.publishedRecordCount as number,
+    carriedForwardCount: data.carriedForwardCount as number,
+    totalRecordCount: data.totalRecordCount as number,
+    supersededRecordCount: data.supersededRecordCount as number,
+    excludedRecordCount: data.excludedRecordCount as number,
+    newRecords: ((data.newRecords as Array<Record<string, unknown>>) ?? []).map((r) => ({
+      id: r.id as string,
+      packId: r.packId as string,
+      recordId: r.recordId as string,
+      title: r.title as string,
+      jurisdiction: r.jurisdiction as Jurisdiction,
+      effectiveFrom: r.effectiveFrom as string,
+      effectiveTo: (r.effectiveTo as string | null) ?? null,
+    })),
+    blockers: (data.blockers as PublishPlan["blockers"]) ?? [],
+    previewToken: (data.previewToken as string | null) ?? null,
+    generatedAt: data.generatedAt as string,
+  };
+}
 
 function mapRecord(r: Record<string, unknown>): AdminKnowledgeRecordSummary {
   return {
@@ -47,10 +76,21 @@ function mapChange(c: Record<string, unknown>, sourceId: string): AdminKnowledge
   };
 }
 
-// STATE_CHANGED: 開頭是 migration 0019 admin_withdraw_knowledge_version 拋出的約定字首，
-// 用來跟其他非預期的 SQL 錯誤區分（後者一律回安全的 INTERNAL_ERROR，不外露原文）。
+// STATE_CHANGED: 開頭是 migration 0019 admin_withdraw_knowledge_version／0020
+// admin_publish_knowledge_version 拋出的約定字首，用來跟其他非預期的 SQL 錯誤區分
+// （後者一律回安全的 INTERNAL_ERROR，不外露原文）。
 function isStateChangedError(message: string | undefined): boolean {
   return typeof message === "string" && message.includes("STATE_CHANGED:");
+}
+
+// VALIDATION_ERROR: 開頭是 migration 0020 admin_publish_knowledge_version 在「取得鎖後重算仍有
+// blocker」時拋出的約定字首（API_CONTRACT §26.9：重新計算後有 blocker → VALIDATION_ERROR，並
+// 把給操作者看的 blocker message 原文帶回去，不是安全起見吞掉的通用 INTERNAL_ERROR）。
+function extractValidationErrorMessage(message: string | undefined): string | null {
+  if (typeof message !== "string") return null;
+  const idx = message.indexOf("VALIDATION_ERROR:");
+  if (idx === -1) return null;
+  return message.slice(idx + "VALIDATION_ERROR:".length).trim();
 }
 
 export class SupabaseAdminKnowledgeRepository implements AdminKnowledgeRepository {
@@ -320,5 +360,50 @@ export class SupabaseAdminKnowledgeRepository implements AdminKnowledgeRepositor
       throw new AppError("INTERNAL_ERROR", "無法撤回知識版本，請稍後再試。", { cause: error });
     }
     return { stateChanged: false, republishedVersionId: (data?.republishedVersionId as string | null) ?? null };
+  }
+
+  async computePublishPlan(): Promise<PublishPlan> {
+    const client = getSupabaseClient();
+    const { data, error } = await client.rpc("compute_publish_plan");
+    if (error) throw new AppError("INTERNAL_ERROR", "無法計算發布計畫，請稍後再試。", { cause: error });
+    return mapPlan(data as Record<string, unknown>);
+  }
+
+  async adminPublish(input: {
+    versionId: string;
+    previewToken: string;
+    operatorId: string;
+    auditId: string;
+    now: string;
+  }): Promise<{ stateChanged: boolean; result: AdminPublishResult | null }> {
+    const client = getSupabaseClient();
+    const { data, error } = await client.rpc("admin_publish_knowledge_version", {
+      payload: {
+        versionId: input.versionId,
+        previewToken: input.previewToken,
+        operatorId: input.operatorId,
+        auditId: input.auditId,
+        now: input.now,
+      },
+    });
+    if (error) {
+      if (isStateChangedError(error.message)) return { stateChanged: true, result: null };
+      const validationMessage = extractValidationErrorMessage(error.message);
+      if (validationMessage !== null) throw new AppError("VALIDATION_ERROR", validationMessage);
+      throw new AppError("INTERNAL_ERROR", "無法發布知識版本，請稍後再試。", { cause: error });
+    }
+    const r = data as Record<string, unknown>;
+    return {
+      stateChanged: false,
+      result: {
+        versionId: r.versionId as string,
+        publishedAt: r.publishedAt as string,
+        publishedRecordCount: r.publishedRecordCount as number,
+        carriedForwardCount: r.carriedForwardCount as number,
+        totalRecordCount: ((r.publishedRecordCount as number) ?? 0) + ((r.carriedForwardCount as number) ?? 0),
+        supersededRecordCount: r.supersededRecordCount as number,
+        excludedRecordCount: 0,
+      },
+    };
   }
 }

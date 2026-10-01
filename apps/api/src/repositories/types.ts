@@ -2,10 +2,12 @@ import type {
   AdminKnowledgeChangeSummary,
   AdminKnowledgeRecordSummary,
   AdminKnowledgeStatus,
+  AdminPublishResult,
   AdminSession,
   Assessment,
   CareNeedProfile,
   Consent,
+  ContentPack,
   CrawlerRun,
   CrawlerSnapshot,
   CreatedAdminSession,
@@ -16,6 +18,7 @@ import type {
   KnowledgeChange,
   KnowledgeChangeStatus,
   KnowledgeRecord,
+  KnowledgeRecordReviewSource,
   KnowledgeRecordStatus,
   KnowledgeStatusResponse,
   Jurisdiction,
@@ -28,6 +31,7 @@ import type {
   ProviderService,
   ProviderServiceArea,
   ProviderServiceType,
+  PublishPlan,
   RecommendationItem,
   RecommendationRun,
   RestorableVersionsResponse,
@@ -136,6 +140,30 @@ export interface KnowledgeRepository {
 
   // B-010：取出指定 PUBLISHED 版本的全部 PUBLISHED 紀錄（含來源機關），供 Assessment 建立單一版本的知識快照。
   findPublishedSnapshotRecords(versionId: string): Promise<KnowledgeSnapshotRecord[]>;
+
+  // TASK-B-012-r3（Jerry 指示 2）：內容包層級中繼資料 upsert。同一 packId 重新匯入時，指紋不變
+  // 才允許 NEEDS_REVIEW → APPROVED；指紋變了拋出例外（呼叫端轉譯為匯入失敗，要求新 packId），
+  // 見 migration 0020 upsert_content_pack。
+  upsertContentPack(input: {
+    packId: string;
+    intendedKnowledgeVersion: string | null;
+    sourceRegistryVersion: string | null;
+    status: string;
+    packFingerprint: string;
+  }): Promise<void>;
+  findContentPackById(packId: string): Promise<ContentPack | null>;
+
+  // approveKnowledgePack（CLI）用：跟 admin 的 decision 端點共用同一份審核證據表
+  // （knowledge_record_review_events，source 區分 CLI_PACK／ADMIN_API），同一交易內完成原子
+  // UPDATE 與審核證據寫入（見 migration 0020 approve_or_reject_knowledge_record）。
+  approveOrRejectRecordWithReview(input: {
+    recordId: string;
+    decision: "APPROVED" | "REJECTED";
+    reason: string | null;
+    expectedContentFingerprint: string;
+    reviewedBy: string;
+    source: KnowledgeRecordReviewSource;
+  }): Promise<{ updated: boolean }>;
 }
 
 export interface ProviderDatasetWrite {
@@ -306,4 +334,19 @@ export interface AdminKnowledgeRepository {
     now: string;
     today: string;
   }): Promise<{ stateChanged: boolean; republishedVersionId: string | null }>;
+
+  // TASK-B-012-r3（Jerry 指示 2）：預覽與發布共用的唯一計畫計算（見 migration 0020
+  // compute_publish_plan）。純讀取，不寫入任何資料。
+  computePublishPlan(): Promise<PublishPlan>;
+
+  // 同一交易內：取得鎖 → 重算計畫與 token → 跟操作者確認時的 versionId／previewToken 比對 →
+  // 不一致或重算後有 blocker 都不寫入 → 一致才沿用 publish_knowledge_version 寫入 → 寫稽核
+  // （見 migration 0020 admin_publish_knowledge_version）。stateChanged=true 時資料完全不變。
+  adminPublish(input: {
+    versionId: string;
+    previewToken: string;
+    operatorId: string;
+    auditId: string;
+    now: string;
+  }): Promise<{ stateChanged: boolean; result: AdminPublishResult | null }>;
 }

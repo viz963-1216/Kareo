@@ -102,6 +102,22 @@ describe("B-008 approval binds to the reviewed content, not only the official-so
     expect(repo.records.some((r) => r.status === "APPROVED")).toBe(false);
   });
 
+  it("G. (B-012-r3) a successful CLI approval writes a CLI_PACK review event alongside the status update", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    await importContentPack(repo, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit" });
+    const approval = pack([rec()], "APPROVED");
+    const outcome = await runApproveKnowledgePack(repo, approval);
+
+    expect(outcome.code).toBe(0);
+    expect(repo.reviewEvents).toHaveLength(1);
+    expect(repo.reviewEvents[0]).toMatchObject({
+      knowledgeRecordId: repo.records[0].id,
+      decision: "APPROVED",
+      reviewedBy: "Jerry",
+      source: "CLI_PACK",
+    });
+  });
+
   it("F. key order alone does not change the content", async () => {
     const repo = new InMemoryKnowledgeRepository();
     await importContentPack(repo, pack([rec({ ruleData: { type: "T", amount: 100 } })], "NEEDS_REVIEW"), REGISTRY, { mode: "commit" });

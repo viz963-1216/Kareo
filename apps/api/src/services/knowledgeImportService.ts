@@ -11,6 +11,7 @@ import type {
 } from "../types/index.js";
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
 import { computeContentFingerprint } from "./contentFingerprint.js";
+import { computePackFingerprint } from "./packFingerprint.js";
 
 // ===== 依 docs/knowledge/source-registry.md 解析白名單來源（Jerry 維護，B-008 只讀取，不修改）=====
 
@@ -186,6 +187,15 @@ function validatePackShell(raw: RawContentPack): { reasons: string[] } {
   if (!isNonEmptyString(raw.sourceRegistryVersion) || !/^SR-\d{4}-\d{2}-\d{2}-\d{2}$/.test(raw.sourceRegistryVersion))
     reasons.push("sourceRegistryVersion 格式不合法");
   if (!isOneOf(raw.status, ["NEEDS_REVIEW", "APPROVED", "REJECTED"])) reasons.push("pack status 不合法");
+  // 依 contracts/knowledge/content-pack.schema.json：intendedKnowledgeVersion 只有 APPROVED 時
+  // 才會填（null 是合法值，代表尚未決定版號）；APPROVED 時必填且格式須為 KB-YYYY-MM-DD-NNN。
+  if (raw.intendedKnowledgeVersion !== null) {
+    if (!isNonEmptyString(raw.intendedKnowledgeVersion) || !/^KB-\d{4}-\d{2}-\d{2}-\d{3}$/.test(raw.intendedKnowledgeVersion)) {
+      reasons.push("intendedKnowledgeVersion 格式不合法（需為 KB-YYYY-MM-DD-NNN 或 null）");
+    }
+  } else if (raw.status === "APPROVED") {
+    reasons.push("status=APPROVED 時 intendedKnowledgeVersion 不得為 null");
+  }
   if (!Array.isArray(raw.records) || raw.records.length === 0) reasons.push("records 必須是非空陣列");
   return { reasons };
 }
@@ -242,6 +252,37 @@ export async function importContentPack(
 
   if (rejections.length > 0) {
     return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: rejections, recordsCorrected: 0 };
+  }
+
+  // TASK-B-012-r3（Jerry 指示 2）：「同一 packId 重新匯入：只有在每筆內容指紋都不變時，才可把
+  // 狀態從 NEEDS_REVIEW 升為 APPROVED；內容有變一律拒絕，必須使用新 packId」——這條規則保護的是
+  // 「已經登錄為 APPROVED（可發布）的內容」不被同一個 packId 的後續匯入悄悄置換。只有在資料庫裡
+  // 已登錄的 pack 本身就是 APPROVED、且這次匯入的指紋跟它不同時才拒絕。pack 還在 NEEDS_REVIEW
+  // 階段（不論這次匯入要不要直接核准為 APPROVED）的逐筆更正，仍依 B-008/B-008-r3（J-003 H-2）
+  // 既有行為進行，不受此檢查影響——否則「審核時發現內容有誤、更正後直接核准」這個既有、已經過
+  // J-003 驗收的正常流程會被完全擋死（更正必然改變指紋）。
+  const intendedKnowledgeVersion = (raw.intendedKnowledgeVersion as string | null) ?? null;
+  const packStatus = raw.status as string;
+  const newPackFingerprint = computePackFingerprint(
+    validated.map((v) => ({ recordId: v.value.packRecordId, contentFingerprint: v.value.contentFingerprint })),
+    intendedKnowledgeVersion ?? "",
+    packStatus
+  );
+  const existingPack = await repo.findContentPackById(packId);
+  if (existingPack && existingPack.status === "APPROVED" && existingPack.packFingerprint !== newPackFingerprint) {
+    return {
+      mode: options.mode,
+      written: false,
+      packId,
+      recordsValid: 0,
+      recordsRejected: [
+        {
+          recordId: null,
+          reasons: [`packId ${packId} 已登錄過不同內容，不可用同一個 packId 以 APPROVED 狀態覆寫；請使用新的 packId 重新匯入。`],
+        },
+      ],
+      recordsCorrected: 0,
+    };
   }
 
   // 找出這個 packId 目前資料庫裡已有的紀錄（含內容），依 packRecordId 建索引，用來判斷
@@ -303,6 +344,17 @@ export async function importContentPack(
   for (const item of toCorrect) {
     await repo.updateRecordContent(item.id, item.value);
   }
+
+  // TASK-B-012-r3：內容包層級中繼資料（intendedKnowledgeVersion／status／指紋）在這裡登錄，
+  // 讓 Admin API 的 publish-preview／publish 可以直接從資料庫算出候選紀錄與 blockers，
+  // 不再需要操作者手動指定 pack 檔案路徑（見 compute_publish_plan）。
+  await repo.upsertContentPack({
+    packId,
+    intendedKnowledgeVersion,
+    sourceRegistryVersion: isNonEmptyString(raw.sourceRegistryVersion) ? raw.sourceRegistryVersion : null,
+    status: packStatus,
+    packFingerprint: newPackFingerprint,
+  });
 
   return {
     mode: "commit",

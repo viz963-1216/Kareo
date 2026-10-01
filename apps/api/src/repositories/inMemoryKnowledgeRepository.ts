@@ -2,18 +2,22 @@
 // 全部成功才寫回正式資料，任一步失敗則完全不變），不得用於 Production。
 import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
 import type {
+  ContentPack,
   CrawlerRun,
   CrawlerSnapshot,
   KnowledgeAuthority,
   KnowledgeCategory,
   KnowledgeChange,
   KnowledgeRecord,
+  KnowledgeRecordReviewEvent,
+  KnowledgeRecordReviewSource,
   KnowledgeStatusResponse,
   KnowledgeVersion,
   Jurisdiction,
 } from "../types/index.js";
 import type { KnowledgeSnapshotRecord } from "../assessment/knowledgeSnapshot.js";
 import { AppError } from "../errors/AppError.js";
+import { nowTaipeiISOString } from "../lib/response.js";
 
 const NOTICE = "長照制度及補助可能隨時調整，實際資格仍請洽 1966 或所在地長期照顧管理中心。";
 
@@ -28,6 +32,9 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
   // （該欄位現在是「第一次發布時的版本」，不可變，對被 carry-forward 超過一次的紀錄無法正確反映
   // 「目前這個版本包含哪些紀錄」）。
   readonly versionRecords = new Map<string, Set<string>>();
+  // TASK-B-012-r3：內容包層級中繼資料與逐筆審核證據（CLI／管理頁共用）。
+  readonly contentPacks: ContentPack[] = [];
+  readonly reviewEvents: KnowledgeRecordReviewEvent[] = [];
   // 模擬 knowledge_sources.authority（sourceId → authority）。
   readonly sourceAuthorities = new Map<string, KnowledgeAuthority>();
 
@@ -317,5 +324,85 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
         ruleData: structuredClone(r.ruleData),
         authority: this.sourceAuthorities.get(r.sourceId) ?? null,
       }));
+  }
+
+  async upsertContentPack(input: {
+    packId: string;
+    intendedKnowledgeVersion: string | null;
+    sourceRegistryVersion: string | null;
+    status: string;
+    packFingerprint: string;
+  }): Promise<void> {
+    const now = nowTaipeiISOString();
+    const existing = this.contentPacks.find((p) => p.id === input.packId);
+    if (!existing) {
+      this.contentPacks.push({
+        id: input.packId,
+        intendedKnowledgeVersion: input.intendedKnowledgeVersion,
+        sourceRegistryVersion: input.sourceRegistryVersion,
+        status: input.status as ContentPack["status"],
+        packFingerprint: input.packFingerprint,
+        createdAt: now,
+        updatedAt: now,
+      });
+      return;
+    }
+    if (existing.packFingerprint === input.packFingerprint) {
+      if (existing.status === "NEEDS_REVIEW" && input.status === "APPROVED") {
+        existing.status = "APPROVED";
+      }
+      existing.intendedKnowledgeVersion = input.intendedKnowledgeVersion;
+      existing.sourceRegistryVersion = input.sourceRegistryVersion;
+      existing.updatedAt = now;
+      return;
+    }
+    // 指紋不同：只有「資料庫裡已登錄的 pack 本身就是 APPROVED」時才拒絕（保護已被信任為可發布
+    // 的內容不被同一個 packId 悄悄置換）。既有 pack 還在 NEEDS_REVIEW 的更正／核准
+    // （B-008-r3／J-003 H-2）仍允許覆寫中繼資料，不論這次匯入要不要直接核准為 APPROVED。
+    if (existing.status === "APPROVED") {
+      throw new AppError(
+        "VALIDATION_ERROR",
+        `內容包 ${input.packId} 已存在且內容已變更，不可用同一個 packId 以 APPROVED 狀態覆寫；請使用新的 packId 重新匯入。`
+      );
+    }
+    existing.intendedKnowledgeVersion = input.intendedKnowledgeVersion;
+    existing.sourceRegistryVersion = input.sourceRegistryVersion;
+    existing.status = input.status as ContentPack["status"];
+    existing.packFingerprint = input.packFingerprint;
+    existing.updatedAt = now;
+  }
+
+  async findContentPackById(packId: string): Promise<ContentPack | null> {
+    const found = this.contentPacks.find((p) => p.id === packId);
+    return found ? { ...found } : null;
+  }
+
+  async approveOrRejectRecordWithReview(input: {
+    recordId: string;
+    decision: "APPROVED" | "REJECTED";
+    reason: string | null;
+    expectedContentFingerprint: string;
+    reviewedBy: string;
+    source: KnowledgeRecordReviewSource;
+  }): Promise<{ updated: boolean }> {
+    const record = this.records.find(
+      (r) => r.id === input.recordId && r.status === "NEEDS_REVIEW" && r.contentFingerprint === input.expectedContentFingerprint
+    );
+    if (!record) return { updated: false };
+    const now = nowTaipeiISOString();
+    record.status = input.decision;
+    record.updatedAt = now;
+    this.reviewEvents.push({
+      id: `${input.recordId}-${input.source}-${this.reviewEvents.length}`,
+      knowledgeRecordId: input.recordId,
+      decision: input.decision,
+      reason: input.reason,
+      reviewedBy: input.reviewedBy,
+      reviewedAt: now,
+      contentFingerprint: input.expectedContentFingerprint,
+      source: input.source,
+      createdAt: now,
+    });
+    return { updated: true };
   }
 }

@@ -347,3 +347,83 @@ describe("B-008-r3 (J-003 H-2): re-import with the same (packId, recordId) but d
     expect(repo.records[0].status).toBe("PUBLISHED");
   });
 });
+
+// TASK-B-012-r3（Jerry 指示 2）：匯入時把內容包層級中繼資料（packId／intendedKnowledgeVersion／
+// status／指紋）登錄進 content_packs，供 Admin API 的 compute_publish_plan 使用。這組測試只關心
+// content_packs 本身的登錄行為；逐筆記錄的核准／更正行為已由上面 B-008-r3 那組測試覆蓋。
+describe("B-012-r3: importContentPack registers content_packs metadata", () => {
+  it("registers a new pack's metadata on first import", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    await importContentPack(repo, validPack(), registry, { mode: "commit" });
+
+    const pack = await repo.findContentPackById("KP-2026-09-23-001");
+    expect(pack).not.toBeNull();
+    expect(pack?.status).toBe("NEEDS_REVIEW");
+    expect(pack?.packFingerprint).toMatch(/^sha256:[0-9a-f]{64}$/);
+  });
+
+  it("re-importing a NEEDS_REVIEW pack with corrected content updates the registered fingerprint (not rejected)", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    await importContentPack(repo, validPack([validRecord({ summary: "舊版摘要" })]), registry, { mode: "commit" });
+    const before = await repo.findContentPackById("KP-2026-09-23-001");
+
+    const corrected = validRecord({
+      summary: "修正後摘要",
+      source: { ...validRecord().source, contentHash: "sha256:" + "b".repeat(64) },
+    });
+    await importContentPack(repo, validPack([corrected]), registry, { mode: "commit" });
+    const after = await repo.findContentPackById("KP-2026-09-23-001");
+
+    expect(after?.packFingerprint).not.toBe(before?.packFingerprint);
+    expect(after?.status).toBe("NEEDS_REVIEW");
+  });
+
+  it("re-importing an already-APPROVED pack under the same packId with DIFFERENT content is rejected outright", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    const approvedRecord = validRecord({
+      status: "APPROVED",
+      review: { reviewedBy: "Jerry", reviewedAt: "2026-09-23T09:00:00+08:00", decision: "APPROVED", notes: null },
+    });
+    await importContentPack(repo, validPack([approvedRecord]), registry, { mode: "commit" });
+    // The pack-level status must also be APPROVED to register as APPROVED (see helper below).
+    const approvedPack = { ...validPack([approvedRecord]), status: "APPROVED", intendedKnowledgeVersion: "KB-2026-10-01-001" };
+    await importContentPack(repo, approvedPack as never, registry, { mode: "commit" });
+    const before = await repo.findContentPackById("KP-2026-09-23-001");
+    expect(before?.status).toBe("APPROVED");
+
+    const tampered = validRecord({
+      status: "APPROVED",
+      summary: "被竄改的內容",
+      review: { reviewedBy: "Jerry", reviewedAt: "2026-09-23T09:00:00+08:00", decision: "APPROVED", notes: null },
+      source: { ...validRecord().source, contentHash: "sha256:" + "e".repeat(64) },
+    });
+    const tamperedPack = { ...validPack([tampered]), status: "APPROVED", intendedKnowledgeVersion: "KB-2026-10-01-001" };
+    const report = await importContentPack(repo, tamperedPack as never, registry, { mode: "commit" });
+
+    expect(report.written).toBe(false);
+    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/已登錄過不同內容/);
+    const after = await repo.findContentPackById("KP-2026-09-23-001");
+    expect(after?.packFingerprint).toBe(before?.packFingerprint); // untouched
+  });
+
+  it("re-importing the same packId/content twice (idempotent, APPROVED) is allowed and does not change the fingerprint", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    const approvedRecord = validRecord({
+      status: "APPROVED",
+      review: { reviewedBy: "Jerry", reviewedAt: "2026-09-23T09:00:00+08:00", decision: "APPROVED", notes: null },
+    });
+    const approvedPack = { ...validPack([approvedRecord]), status: "APPROVED", intendedKnowledgeVersion: "KB-2026-10-01-001" };
+    await importContentPack(repo, approvedPack as never, registry, { mode: "commit" });
+    const before = await repo.findContentPackById("KP-2026-09-23-001");
+
+    const report = await importContentPack(repo, approvedPack as never, registry, { mode: "commit" });
+    const after = await repo.findContentPackById("KP-2026-09-23-001");
+
+    expect(report.recordsRejected).toEqual([]);
+    expect(after?.packFingerprint).toBe(before?.packFingerprint);
+  });
+});

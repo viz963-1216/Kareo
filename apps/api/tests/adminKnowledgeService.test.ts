@@ -5,9 +5,11 @@ import {
   decideKnowledgeRecord,
   dismissKnowledgeChange,
   getAdminKnowledgeStatus,
+  getPublishPreview,
   listAdminChanges,
   listAdminRecords,
   listRestorableVersions,
+  publishKnowledgeVersion,
   withdrawKnowledgeVersion,
 } from "../src/services/adminKnowledgeService.js";
 import { InMemoryKnowledgeRepository } from "../src/repositories/inMemoryKnowledgeRepository.js";
@@ -358,6 +360,111 @@ describe("listRestorableVersions / withdrawKnowledgeVersion", () => {
     ).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
     await expect(
       withdrawKnowledgeVersion(admin, "OP-001", { withdrawVersionId: "KB-2", republishVersionId: null, reason: "r", confirm: false })
+    ).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
+  });
+});
+
+// TASK-B-012-r3（Jerry 指示 2，API_CONTRACT §26.8-26.9）：publish-preview／publish 共用同一套
+// compute_publish_plan；候選紀錄＝status APPROVED 且所屬內容包在 content_packs 中 status APPROVED。
+describe("getPublishPreview / publishKnowledgeVersion", () => {
+  it("getPublishPreview reports NO_APPROVED_RECORDS when nothing is APPROVED", async () => {
+    const { admin } = buildFixture();
+    const plan = await getPublishPreview(admin);
+    expect(plan.canPublish).toBe(false);
+    expect(plan.blockers.map((b) => b.code)).toEqual(["NO_APPROVED_RECORDS"]);
+    expect(plan.targetVersionId).toBeNull();
+    expect(plan.previewToken).toBeNull();
+  });
+
+  it("getPublishPreview reports PACK_NOT_APPROVED when the candidate's pack has not been registered", async () => {
+    const { knowledge, admin } = buildFixture();
+    knowledge.records.push(record({ status: "APPROVED" }));
+    const plan = await getPublishPreview(admin);
+    expect(plan.canPublish).toBe(false);
+    expect(plan.blockers.map((b) => b.code)).toEqual(["PACK_NOT_APPROVED"]);
+  });
+
+  it("getPublishPreview returns a publishable plan once the record's pack is registered as APPROVED", async () => {
+    const { knowledge, admin } = buildFixture();
+    knowledge.records.push(record({ status: "APPROVED" }));
+    await knowledge.upsertContentPack({
+      packId: "KP-2026-09-23-001",
+      intendedKnowledgeVersion: "KB-2026-10-01-001",
+      sourceRegistryVersion: "SR-2026-09-23-01",
+      status: "APPROVED",
+      packFingerprint: "sha256:pack-fp",
+    });
+    const plan = await getPublishPreview(admin);
+    expect(plan.canPublish).toBe(true);
+    expect(plan.blockers).toEqual([]);
+    expect(plan.targetVersionId).toBe("KB-2026-10-01-001");
+    expect(plan.previewToken).toBeTruthy();
+    expect(plan.newRecords.map((r) => r.id)).toEqual(["KREC-001"]);
+  });
+
+  async function approvedPackFixture() {
+    const { knowledge, admin } = buildFixture();
+    knowledge.records.push(record({ status: "APPROVED" }));
+    await knowledge.upsertContentPack({
+      packId: "KP-2026-09-23-001",
+      intendedKnowledgeVersion: "KB-2026-10-01-001",
+      sourceRegistryVersion: "SR-2026-09-23-01",
+      status: "APPROVED",
+      packFingerprint: "sha256:pack-fp",
+    });
+    return { knowledge, admin };
+  }
+
+  it("publishKnowledgeVersion publishes using the previewed plan and writes an audit event", async () => {
+    const { knowledge, admin } = await approvedPackFixture();
+    const plan = await getPublishPreview(admin);
+
+    const result = await publishKnowledgeVersion(admin, "OP-001", {
+      versionId: plan.targetVersionId,
+      previewToken: plan.previewToken,
+      confirm: true,
+    });
+
+    expect(result.versionId).toBe("KB-2026-10-01-001");
+    expect(result.publishedRecordCount).toBe(1);
+    expect(knowledge.records.find((r) => r.id === "KREC-001")?.status).toBe("PUBLISHED");
+    expect(admin.auditEvents.some((e) => e.action === "KNOWLEDGE_VERSION_PUBLISHED")).toBe(true);
+  });
+
+  it("publishKnowledgeVersion rejects a mismatched previewToken with KNOWLEDGE_STATE_CHANGED and writes nothing", async () => {
+    const { knowledge, admin } = await approvedPackFixture();
+    const plan = await getPublishPreview(admin);
+
+    await expect(
+      publishKnowledgeVersion(admin, "OP-001", { versionId: plan.targetVersionId, previewToken: "PPV-stale-token", confirm: true })
+    ).rejects.toMatchObject({ code: "KNOWLEDGE_STATE_CHANGED" });
+    expect(knowledge.records.find((r) => r.id === "KREC-001")?.status).toBe("APPROVED");
+    expect(admin.auditEvents).toHaveLength(0);
+  });
+
+  it("publishKnowledgeVersion rejects with VALIDATION_ERROR when recompute finds a blocker (e.g. nothing left APPROVED)", async () => {
+    const { knowledge, admin } = await approvedPackFixture();
+    const plan = await getPublishPreview(admin);
+    // Simulate the record being un-approved between preview and confirm.
+    knowledge.records[0].status = "NEEDS_REVIEW";
+
+    await expect(
+      publishKnowledgeVersion(admin, "OP-001", { versionId: plan.targetVersionId, previewToken: plan.previewToken, confirm: true })
+    ).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
+    expect(admin.auditEvents).toHaveLength(0);
+  });
+
+  it("publishKnowledgeVersion rejects missing versionId/previewToken or confirm !== true with VALIDATION_ERROR", async () => {
+    const { admin } = await approvedPackFixture();
+    const plan = await getPublishPreview(admin);
+    await expect(
+      publishKnowledgeVersion(admin, "OP-001", { previewToken: plan.previewToken, confirm: true })
+    ).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
+    await expect(
+      publishKnowledgeVersion(admin, "OP-001", { versionId: plan.targetVersionId, confirm: true })
+    ).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
+    await expect(
+      publishKnowledgeVersion(admin, "OP-001", { versionId: plan.targetVersionId, previewToken: plan.previewToken, confirm: false })
     ).rejects.toMatchObject({ code: "VALIDATION_ERROR" });
   });
 });

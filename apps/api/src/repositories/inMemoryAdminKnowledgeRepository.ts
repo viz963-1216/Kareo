@@ -4,18 +4,24 @@
 import type { AdminKnowledgeRepository } from "./types.js";
 import type { InMemoryKnowledgeRepository } from "./inMemoryKnowledgeRepository.js";
 import { taipeiToday } from "../services/knowledgeService.js";
+import { AppError } from "../errors/AppError.js";
+import { generateId, nowTaipeiISOString } from "../lib/response.js";
 import type {
   AdminAuditEvent,
   AdminKnowledgeChangeSummary,
   AdminKnowledgeRecordSummary,
   AdminKnowledgeStatus,
+  AdminPublishResult,
   AdminSession,
   CreatedAdminSession,
   InternalOperator,
   KnowledgeChange,
   KnowledgeRecord,
+  PublishPlan,
+  PublishPlanBlocker,
   RestorableVersionsResponse,
 } from "../types/index.js";
+import { createHash } from "node:crypto";
 
 function toRecordSummary(r: KnowledgeRecord): AdminKnowledgeRecordSummary {
   return {
@@ -243,5 +249,166 @@ export class InMemoryAdminKnowledgeRepository implements AdminKnowledgeRepositor
     });
 
     return { stateChanged: false, republishedVersionId: result.republishedVersionId };
+  }
+
+  // 跟 migration 0020 compute_publish_plan 同一套邏輯的 JS 版本（InMemory 測試用）：
+  // 候選紀錄＝status APPROVED 且所屬內容包在 content_packs 中 status APPROVED。
+  private computePlan(): PublishPlan {
+    const today = taipeiToday();
+    const current = this.knowledge.versions.find((v) => v.status === "PUBLISHED") ?? null;
+    const blockers: PublishPlanBlocker[] = [];
+
+    const approved = this.knowledge.records.filter((r) => r.status === "APPROVED");
+    const packApproved = (packId: string) => this.knowledge.contentPacks.find((p) => p.id === packId)?.status === "APPROVED";
+    const packBlocked = approved.filter((r) => !packApproved(r.packId));
+
+    const emptyPlan = (blockers: PublishPlanBlocker[]): PublishPlan => ({
+      canPublish: false,
+      targetVersionId: null,
+      currentVersionId: current?.id ?? null,
+      publishDate: today,
+      publishedRecordCount: 0,
+      carriedForwardCount: 0,
+      totalRecordCount: 0,
+      supersededRecordCount: 0,
+      excludedRecordCount: 0,
+      newRecords: [],
+      blockers,
+      previewToken: null,
+      generatedAt: nowTaipeiISOString(),
+    });
+
+    if (approved.length === 0) {
+      return emptyPlan([{ code: "NO_APPROVED_RECORDS", message: "目前沒有任何已核准的紀錄。" }]);
+    }
+    if (packBlocked.length > 0) {
+      return emptyPlan([{ code: "PACK_NOT_APPROVED", message: "內容包資料尚未登錄。" }]);
+    }
+
+    const candidates = approved.filter((r) => packApproved(r.packId));
+    const targetVersions = [...new Set(candidates.map((r) => this.knowledge.contentPacks.find((p) => p.id === r.packId)!.intendedKnowledgeVersion))];
+    const KB_PATTERN = /^KB-\d{4}-\d{2}-\d{2}-\d{3}$/;
+    const firstTargetVersion = targetVersions[0];
+    if (targetVersions.length === 0 || firstTargetVersion === null || !KB_PATTERN.test(firstTargetVersion)) {
+      return emptyPlan([{ code: "TARGET_VERSION_INVALID", message: "內容包缺少或格式不合法的 intendedKnowledgeVersion。" }]);
+    }
+    if (targetVersions.length > 1) {
+      return emptyPlan([{ code: "TARGET_VERSION_CONFLICT", message: "候選紀錄所屬內容包的 intendedKnowledgeVersion 不只一個。" }]);
+    }
+    const targetVersionId = firstTargetVersion;
+
+    const newRecords = candidates.filter((r) => r.effectiveTo === null || r.effectiveTo >= today);
+    const excluded = candidates.filter((r) => r.effectiveTo !== null && r.effectiveTo < today);
+
+    if (newRecords.length === 0) {
+      return emptyPlan([{ code: "ALL_CANDIDATES_EXPIRED", message: "候選紀錄的 effectiveTo 全部早於發布日。" }]);
+    }
+    if (this.knowledge.versions.some((v) => v.id === targetVersionId)) {
+      return emptyPlan([{ code: "VERSION_ALREADY_EXISTS", message: `版本 ${targetVersionId} 已存在，不得覆寫或改用其他號碼。` }]);
+    }
+
+    const isReplacedOrExpired = (old: KnowledgeRecord) =>
+      (old.effectiveTo !== null && old.effectiveTo < today) ||
+      newRecords.some(
+        (nr) => nr.jurisdiction === old.jurisdiction && (nr.ruleData as Record<string, unknown>)?.type === (old.ruleData as Record<string, unknown>)?.type && nr.title === old.title
+      );
+    const currentPublished = this.knowledge.records.filter((r) => r.status === "PUBLISHED");
+    const superseded = currentPublished.filter(isReplacedOrExpired);
+    const carried = currentPublished.filter((r) => !isReplacedOrExpired(r));
+
+    const packSummaries = [...new Set(newRecords.map((r) => r.packId))]
+      .map((id) => this.knowledge.contentPacks.find((p) => p.id === id)!)
+      .sort((a, b) => a.id.localeCompare(b.id));
+
+    const tokenInput = [
+      targetVersionId,
+      current?.id ?? "",
+      today,
+      newRecords.map((r) => `${r.id}:${r.contentFingerprint}`).sort().join(","),
+      carried.map((r) => `${r.id}:${r.contentFingerprint}`).sort().join(","),
+      excluded.map((r) => r.id).sort().join(","),
+      packSummaries.map((p) => `${p.id}:${p.status}:${p.packFingerprint}`).join(","),
+    ].join("|");
+    const token = `PPV-sha256:${createHash("sha256").update(tokenInput).digest("hex")}`;
+
+    return {
+      canPublish: true,
+      targetVersionId,
+      currentVersionId: current?.id ?? null,
+      publishDate: today,
+      publishedRecordCount: newRecords.length,
+      carriedForwardCount: carried.length,
+      totalRecordCount: newRecords.length + carried.length,
+      supersededRecordCount: superseded.length,
+      excludedRecordCount: excluded.length,
+      newRecords: newRecords.map((r) => ({
+        id: r.id,
+        packId: r.packId,
+        recordId: r.packRecordId,
+        title: r.title,
+        jurisdiction: r.jurisdiction,
+        effectiveFrom: r.effectiveFrom,
+        effectiveTo: r.effectiveTo,
+      })),
+      blockers: [],
+      previewToken: token,
+      generatedAt: nowTaipeiISOString(),
+    };
+  }
+
+  async computePublishPlan(): Promise<PublishPlan> {
+    return this.computePlan();
+  }
+
+  async adminPublish(input: {
+    versionId: string;
+    previewToken: string;
+    operatorId: string;
+    auditId: string;
+    now: string;
+  }): Promise<{ stateChanged: boolean; result: AdminPublishResult | null }> {
+    const plan = this.computePlan();
+    // 跟 SQL 版 admin_publish_knowledge_version（migration 0020）完全相同的順序：先看重算後
+    // 有沒有 blocker（VALIDATION_ERROR，不算「狀態改變」，操作者沒有機會重新確認過期的預覽），
+    // 再比對 versionId／previewToken 是否還跟操作者確認當下一致（不一致才是 KNOWLEDGE_STATE_CHANGED）。
+    if (!plan.canPublish) {
+      throw new AppError("VALIDATION_ERROR", plan.blockers[0]?.message ?? "目前無法發布。");
+    }
+    if (plan.targetVersionId !== input.versionId || plan.previewToken !== input.previewToken) {
+      return { stateChanged: true, result: null };
+    }
+
+    const recordIds = plan.newRecords.map((r) => r.id);
+    const result = await this.knowledge.publishVersion({
+      versionId: input.versionId,
+      recordIds,
+      createdBy: input.operatorId,
+      approvedBy: input.operatorId,
+      notes: null,
+    });
+
+    this.auditEvents.push({
+      id: input.auditId,
+      operatorId: input.operatorId,
+      action: "KNOWLEDGE_VERSION_PUBLISHED",
+      targetType: "KNOWLEDGE_VERSION",
+      targetId: input.versionId,
+      reason: null,
+      detail: result,
+      createdAt: input.now,
+    });
+
+    return {
+      stateChanged: false,
+      result: {
+        versionId: input.versionId,
+        publishedAt: input.now,
+        publishedRecordCount: result.publishedRecordCount,
+        carriedForwardCount: result.carriedForwardCount,
+        totalRecordCount: result.publishedRecordCount + result.carriedForwardCount,
+        supersededRecordCount: result.supersededRecordCount,
+        excludedRecordCount: plan.excludedRecordCount,
+      },
+    };
   }
 }

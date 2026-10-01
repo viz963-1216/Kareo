@@ -1,16 +1,17 @@
-// TASK-B-012：Admin Knowledge Review API 業務邏輯，依 docs/API_CONTRACT.md §26.3-26.7、26.10-26.11。
-// publish-preview／publish（§26.8-26.9）不在此檔——內容包的 intendedKnowledgeVersion／status
-// 目前完全沒有持久化，Admin API 無法重建這兩個端點需要的資料，見 repositories/types.ts 開頭註解
-// 與 PR Known Issues，留待 Jerry 決定持久化方案後再補。
+// TASK-B-012：Admin Knowledge Review API 業務邏輯，依 docs/API_CONTRACT.md §26.3-26.11。
+// publish-preview／publish（§26.8-26.9，B-012-r3）：compute_publish_plan／admin_publish_knowledge_version
+// 依 Jerry 指示 2 已補齊內容包持久化（content_packs，migration 0020），見 repo.computePublishPlan／adminPublish。
 import type { AdminKnowledgeRepository } from "../repositories/types.js";
 import type {
   AdminKnowledgeChangeSummary,
   AdminKnowledgeRecordSummary,
   AdminKnowledgeStatus,
+  AdminPublishResult,
   AdminReviewInfo,
   AdminWithdrawResult,
   KnowledgeChangeStatus,
   KnowledgeRecordStatus,
+  PublishPlan,
   RestorableVersionsResponse,
 } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
@@ -178,4 +179,42 @@ export async function withdrawKnowledgeVersion(
     withdrawnBy: operatorId,
     reason,
   };
+}
+
+// 依 API_CONTRACT §26.8：GET /api/v1/admin/knowledge/publish-preview（v0.4）。
+// 不寫入任何資料，只試算；跟 publish 共用同一套 compute_publish_plan。
+export async function getPublishPreview(repo: AdminKnowledgeRepository): Promise<PublishPlan> {
+  return repo.computePublishPlan();
+}
+
+// 依 API_CONTRACT §26.9：POST /api/v1/admin/knowledge/publish。
+export async function publishKnowledgeVersion(
+  repo: AdminKnowledgeRepository,
+  operatorId: string,
+  body: unknown
+): Promise<AdminPublishResult> {
+  if (typeof body !== "object" || body === null) throw new AppError("VALIDATION_ERROR", "請求格式錯誤。");
+  const input = body as Record<string, unknown>;
+
+  if (!isNonEmptyString(input.versionId)) throw new AppError("VALIDATION_ERROR", "缺少 versionId。");
+  if (!isNonEmptyString(input.previewToken)) throw new AppError("VALIDATION_ERROR", "缺少 previewToken。");
+  requireConfirm(input.confirm);
+
+  const now = nowTaipeiISOString();
+  const { stateChanged, result } = await repo.adminPublish({
+    versionId: input.versionId,
+    previewToken: input.previewToken,
+    operatorId,
+    auditId: generateId("AUDIT"),
+    now,
+  });
+
+  if (stateChanged) {
+    throw new AppError("KNOWLEDGE_STATE_CHANGED", "發布預覽已失效，請重新讀取後再確認。");
+  }
+
+  // stateChanged=false 必定帶有 result（重算後有 blocker 的情形由 repo.adminPublish 直接拋
+  // VALIDATION_ERROR，不會回到這裡），這裡的 null 只是型別上的防呆。
+  if (!result) throw new AppError("INTERNAL_ERROR", "發布完成但沒有回傳結果，請稍後再試。");
+  return result;
 }

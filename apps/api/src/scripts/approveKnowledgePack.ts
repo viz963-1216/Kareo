@@ -15,7 +15,6 @@
 //
 // 用法：node dist/scripts/approveKnowledgePack.js <content-pack.json>
 import { readFileSync } from "node:fs";
-import { approvePackRecords } from "../services/knowledgeService.js";
 import { computeContentFingerprint } from "../services/contentFingerprint.js";
 import { SupabaseKnowledgeRepository } from "../repositories/supabaseKnowledgeRepository.js";
 import type { KnowledgeRepository } from "../repositories/types.js";
@@ -30,6 +29,7 @@ const ISO_DATETIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\
 interface ApprovableRecord {
   recordId: string;
   expectedContentFingerprint: string;
+  reviewedBy: string;
 }
 
 // 重新驗證 review 欄位是否完整（不信任 pack 檔案的 status，見上方檔頭說明）；並從記錄的實際內容
@@ -64,7 +64,7 @@ function validateApprovableRecord(raw: RawContentPackRecord): { ok: true; value:
       summary: raw.summary as string,
       ruleData: raw.ruleData as Record<string, unknown>,
     });
-    return { ok: true, value: { recordId, expectedContentFingerprint: fingerprint } };
+    return { ok: true, value: { recordId, expectedContentFingerprint: fingerprint, reviewedBy: review.reviewedBy as string } };
   } catch {
     return { ok: false, reason: `${recordId}: 無法從內容算出指紋（欄位缺漏或格式不合法）` };
   }
@@ -113,12 +113,42 @@ export async function runApproveKnowledgePack(repo: KnowledgeRepository, pack: R
     dbId: dbByPackRecordId.get(a.recordId)!.id,
     packRecordId: a.recordId,
     expectedContentFingerprint: a.expectedContentFingerprint,
+    reviewedBy: a.reviewedBy,
   }));
 
-  const result = await approvePackRecords(repo, candidates);
+  // TASK-B-012-r3（Jerry 指示 2）：CLI 核准跟管理頁核准寫入同一份只能新增的審核紀錄
+  // （knowledge_record_review_events，source=CLI_PACK），且跟狀態更新在同一交易內完成
+  // （見 repo.approveOrRejectRecordWithReview／approve_or_reject_knowledge_record）。
+  // 核准前已知的「不是待審核」「內容指紋不符」原因在呼叫前先分類，維持既有的
+  // approved／notApproved／contentMismatched 回報語意不變。
+  const approved: string[] = [];
+  const notApproved: string[] = [];
+  const contentMismatched: Array<{ packRecordId: string; dbId: string }> = [];
+  for (const c of candidates) {
+    const current = dbByPackRecordId.get(c.packRecordId)!;
+    if (current.status !== "NEEDS_REVIEW") {
+      notApproved.push(c.dbId);
+      continue;
+    }
+    if (current.contentFingerprint !== c.expectedContentFingerprint) {
+      contentMismatched.push({ packRecordId: c.packRecordId, dbId: c.dbId });
+      continue;
+    }
+    const outcome = await repo.approveOrRejectRecordWithReview({
+      recordId: c.dbId,
+      decision: "APPROVED",
+      reason: null,
+      expectedContentFingerprint: c.expectedContentFingerprint,
+      reviewedBy: c.reviewedBy,
+      source: "CLI_PACK",
+    });
+    if (outcome.updated) approved.push(c.dbId);
+    else notApproved.push(c.dbId);
+  }
+
   // 部分對上仍不算成功：要求核准的每一筆都必須真的被核准，缺一筆就是失敗（非零結束碼）。
-  const code = result.approved.length === candidates.length ? 0 : 1;
-  return { code, approved: result.approved, notApproved: result.notApproved, contentMismatched: result.contentMismatched, invalid: [], missing: [] };
+  const code = approved.length === candidates.length ? 0 : 1;
+  return { code, approved, notApproved, contentMismatched, invalid: [], missing: [] };
 }
 
 async function main(): Promise<number> {
