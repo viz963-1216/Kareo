@@ -10,6 +10,7 @@ async function seedProvider(repo: InMemoryProviderRepository) {
       id: "PROV-001",
       name: "測試居家照顧中心",
       type: "HOME_CARE",
+      resourceCategory: "SERVICE_PROVIDER",
       address: "新北市三重區重新路三段1號",
       city: "新北市",
       district: "三重區",
@@ -26,6 +27,7 @@ async function seedProvider(repo: InMemoryProviderRepository) {
     ],
     services: [{ id: "PSV-001", providerId: "PROV-001", serviceType: "HOME_CARE", active: true }],
     serviceAreas: [{ id: "PSA-001", providerId: "PROV-001", city: "新北市", district: "三重區", active: true }],
+    contractRegions: [],
   });
 }
 
@@ -40,6 +42,7 @@ describe("Provider Detail (TASK-B-004)", () => {
       id: "PROV-001",
       name: "測試居家照顧中心",
       type: "HOME_CARE",
+      resourceCategory: "SERVICE_PROVIDER",
       address: "新北市三重區重新路三段1號",
       city: "新北市",
       district: "三重區",
@@ -49,6 +52,8 @@ describe("Provider Detail (TASK-B-004)", () => {
       verified: true,
       services: ["HOME_CARE"],
       serviceAreas: [{ city: "新北市", district: "三重區" }],
+      serviceAreaStatus: "VERIFIED",
+      contractRegions: [],
     });
   });
 
@@ -64,11 +69,13 @@ describe("Provider Detail (TASK-B-004)", () => {
     await repo.importDatasetAtomically({
       services: [],
       serviceAreas: [],
+      contractRegions: [],
       providers: [
       {
         id: "PROV-002",
         name: "已停業服務中心",
         type: "HOME_CARE",
+        resourceCategory: "SERVICE_PROVIDER",
         address: "測試地址",
         city: "新北市",
         district: "三重區",
