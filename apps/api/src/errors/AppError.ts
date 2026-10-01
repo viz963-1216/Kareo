@@ -37,12 +37,15 @@ const STATUS_BY_CODE: Record<ErrorCode, number> = {
 export class AppError extends Error {
   readonly code: ErrorCode;
   readonly statusCode: number;
+  // TASK-B-011b：RATE_LIMITED 依 API_CONTRACT §3.2 必須附 Retry-After header；其他錯誤碼不使用。
+  readonly retryAfterSeconds?: number;
 
   // cause 只給伺服器端 log / 操作人員看；errorResponse() 只輸出 code 與 message，不會帶出 cause。
-  constructor(code: ErrorCode, message: string, options?: { cause?: unknown }) {
-    super(message, options);
+  constructor(code: ErrorCode, message: string, options?: { cause?: unknown; retryAfterSeconds?: number }) {
+    super(message, { cause: options?.cause });
     this.code = code;
     this.statusCode = STATUS_BY_CODE[code];
+    this.retryAfterSeconds = options?.retryAfterSeconds;
   }
 }
 

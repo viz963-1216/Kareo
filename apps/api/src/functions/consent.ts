@@ -1,8 +1,12 @@
 import { createConsent } from "../services/consentService.js";
 import { SupabaseSessionRepository } from "../repositories/supabaseSessionRepository.js";
 import { SupabaseConsentRepository } from "../repositories/supabaseConsentRepository.js";
+import { SupabaseRateLimitRepository } from "../repositories/supabaseRateLimitRepository.js";
 import { RealConsentVersionChecker } from "../services/consentVersionService.js";
-import { successResponse, internalErrorResponse, errorResponse, type HttpResponse } from "../lib/response.js";
+import { requireValidSession } from "../services/sessionSecurityService.js";
+import { enforceRateLimit, RATE_LIMIT_RULES } from "../services/rateLimitService.js";
+import { requireBodySize } from "../services/requestLimitsService.js";
+import { successResponse, internalErrorResponse, errorResponse, nowTaipeiISOString, type HttpResponse } from "../lib/response.js";
 import { getSessionTokenHeader } from "../lib/headers.js";
 import { AppError } from "../errors/AppError.js";
 
@@ -18,6 +22,13 @@ export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
     return errorResponse(new AppError("INVALID_REQUEST", "僅支援 POST /api/v1/consent。"));
   }
 
+  try {
+    requireBodySize(event.body);
+  } catch (err) {
+    if (err instanceof AppError) return errorResponse(err);
+    return internalErrorResponse();
+  }
+
   let parsedBody: unknown;
   try {
     parsedBody = event.body ? JSON.parse(event.body) : {};
@@ -26,8 +37,12 @@ export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
   }
 
   try {
+    const sessionRepo = new SupabaseSessionRepository();
+    const session = await requireValidSession(sessionRepo, getSessionTokenHeader(event));
+    await enforceRateLimit(new SupabaseRateLimitRepository(), RATE_LIMIT_RULES.CONSENT, session.id, nowTaipeiISOString());
+
     const consent = await createConsent(
-      new SupabaseSessionRepository(),
+      sessionRepo,
       new SupabaseConsentRepository(),
       new RealConsentVersionChecker(),
       parsedBody,

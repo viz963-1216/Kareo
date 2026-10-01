@@ -6,6 +6,7 @@ import type {
   CrawlerSnapshot,
   CreatedSession,
   CreateConsentInput,
+  DeletionRun,
   InternalOperator,
   KnowledgeCategory,
   KnowledgeChange,
@@ -21,6 +22,7 @@ import type {
   ProviderService,
   ProviderServiceArea,
   ProviderServiceType,
+  RateLimitCheckResult,
   RecommendationItem,
   RecommendationRun,
   Session,
@@ -34,6 +36,16 @@ export interface SessionRepository {
   createSession(): Promise<CreatedSession>;
   findByTokenHash(tokenHash: string): Promise<Session | null>;
   touchSession(sessionId: string, updates: { lastSeenAt: string; expiresAt: string }): Promise<void>;
+
+  // TASK-B-011b：DELETE /api/v1/session（PRIVACY_AND_RETENTION §6.1）。同一交易內：session 只在
+  // 目前 ACTIVE 時才能轉為 DELETION_REQUESTED（CAS），並立即取消該 session 尚未終態的 Lead、清空
+  // 聯絡欄位（見 migration 0019 request_session_deletion）。updated=false 代表 session 不存在或
+  // 已經不是 ACTIVE（重複呼叫、或已經被 consent withdraw 標記）。
+  requestDeletion(sessionId: string, now: string): Promise<{ updated: boolean; leadsCancelled: number }>;
+
+  // TASK-B-011b：每日到期清理作業（PRIVACY_AND_RETENTION §6.3）。dryRun=true 只計算不刪除。
+  runDeletionCleanup(input: { now: string; dryRun: boolean }): Promise<{ sessionsDeleted: number }>;
+  insertDeletionRun(run: DeletionRun): Promise<void>;
 }
 
 export interface ConsentRepository {
@@ -41,6 +53,18 @@ export interface ConsentRepository {
   // 依 accepted=true 才會建立 Consent 記錄（見 consentService），且只回傳 withdrawnAt 為空的最新一筆；
   // 因此「找得到 Consent」即代表該 Session 已完成「目前仍有效」的同意（依 DATA_MODEL.md v0.2）。
   findLatestBySession(sessionId: string): Promise<Consent | null>;
+
+  // TASK-B-011b：POST /api/v1/consent/withdraw（PRIVACY_AND_RETENTION §3.3）。同一交易內：標記最新
+  // 仍生效的 Consent 為已撤回、session 轉 DELETION_REQUESTED、立即取消尚未終態的 Lead 並清空聯絡
+  // 欄位（見 migration 0019 withdraw_consent）。updated=false 代表這個 session 目前沒有仍生效的
+  // Consent（已經撤回過，或從未建立）。
+  withdraw(sessionId: string, now: string): Promise<{ updated: boolean; leadsCancelled: number }>;
+}
+
+// TASK-B-011b：ARCHITECTURE §20.4 持久化限流（DATA_MODEL §39）。key 由呼叫端組成
+// （規則名稱＋session id 或 IP 雜湊），Repository 不關心 key 的組成規則。
+export interface RateLimitRepository {
+  checkAndIncrement(input: { key: string; windowSeconds: number; limit: number; now: string }): Promise<RateLimitCheckResult>;
 }
 
 export interface CreateAssessmentRecord {

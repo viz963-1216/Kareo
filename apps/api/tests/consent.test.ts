@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { createConsent, validateCreateConsentInput } from "../src/services/consentService.js";
+import { createConsent, validateCreateConsentInput, withdrawConsent } from "../src/services/consentService.js";
+import { InMemoryLeadRepository } from "../src/repositories/inMemoryLeadRepository.js";
 import { InMemoryConsentRepository, InMemorySessionRepository } from "../src/repositories/inMemoryRepositories.js";
 import { FakeConsentVersionChecker } from "../src/services/consentVersionService.js";
 import { AppError } from "../src/errors/AppError.js";
@@ -85,5 +86,78 @@ describe("Consent", () => {
       expect(err).toBeInstanceOf(AppError);
       expect((err as AppError).code).toBe("VALIDATION_ERROR");
     }
+  });
+});
+
+// TASK-B-011b：POST /api/v1/consent/withdraw（API_CONTRACT §7 v0.2，PRIVACY_AND_RETENTION §3.3）。
+describe("withdrawConsent", () => {
+  it("marks the active consent withdrawn and puts the session into DELETION_REQUESTED", async () => {
+    const { sessionRepo, sessionId, sessionToken } = await seedSession();
+    const consentRepo = new InMemoryConsentRepository(sessionRepo);
+    await createConsent(sessionRepo, consentRepo, checker, { sessionId, ...ACTIVE_VERSIONS, accepted: true }, sessionToken);
+
+    const result = await withdrawConsent(sessionRepo, consentRepo, sessionToken);
+
+    expect(result.sessionStatus).toBe("DELETION_REQUESTED");
+    expect(result.withdrawnAt).toBeTruthy();
+    expect(consentRepo.consents[0].withdrawnAt).toBe(result.withdrawnAt);
+  });
+
+  it("the session's token is invalidated immediately: re-calling fails with SESSION_INVALID", async () => {
+    const { sessionRepo, sessionId, sessionToken } = await seedSession();
+    const consentRepo = new InMemoryConsentRepository(sessionRepo);
+    await createConsent(sessionRepo, consentRepo, checker, { sessionId, ...ACTIVE_VERSIONS, accepted: true }, sessionToken);
+    await withdrawConsent(sessionRepo, consentRepo, sessionToken);
+
+    await expect(withdrawConsent(sessionRepo, consentRepo, sessionToken)).rejects.toMatchObject({ code: "SESSION_INVALID" });
+  });
+
+  it("rejects with SESSION_INVALID when there is no currently-active consent to withdraw", async () => {
+    const { sessionRepo, sessionToken } = await seedSession();
+    const consentRepo = new InMemoryConsentRepository(sessionRepo);
+
+    await expect(withdrawConsent(sessionRepo, consentRepo, sessionToken)).rejects.toMatchObject({ code: "SESSION_INVALID" });
+  });
+
+  it("rejects a missing or invalid session token with SESSION_INVALID", async () => {
+    const consentRepo = new InMemoryConsentRepository();
+    const sessionRepo = new InMemorySessionRepository();
+    await expect(withdrawConsent(sessionRepo, consentRepo, undefined)).rejects.toMatchObject({ code: "SESSION_INVALID" });
+  });
+
+  it("immediately cancels the session's open Leads (CONSENT_WITHDRAWN) and clears contact fields", async () => {
+    const leadRepo = new InMemoryLeadRepository();
+    const sessionRepo = new InMemorySessionRepository(leadRepo);
+    const consentRepo = new InMemoryConsentRepository(sessionRepo, leadRepo);
+    const created = await sessionRepo.createSession();
+    await createConsent(sessionRepo, consentRepo, checker, { sessionId: created.id, ...ACTIVE_VERSIONS, accepted: true }, created.sessionToken);
+    leadRepo.leads.push({
+      id: "LEAD-1",
+      sessionId: created.id,
+      assessmentId: "ASM-1",
+      recommendationId: "REC-1",
+      providerId: "PRV-1",
+      serviceType: "HOME_CARE",
+      contactName: "王小明",
+      contactPhone: "0900000000",
+      contactConsentAt: created.createdAt,
+      idempotencyKey: "idem-1",
+      status: "CONTACTED",
+      statusReason: null,
+      assignedOperatorId: "OP-1",
+      firstContactedAt: created.createdAt,
+      closedAt: null,
+      createdAt: created.createdAt,
+      updatedAt: created.createdAt,
+    });
+
+    await withdrawConsent(sessionRepo, consentRepo, created.sessionToken);
+
+    const lead = leadRepo.leads.find((l) => l.id === "LEAD-1")!;
+    expect(lead.status).toBe("CANCELLED");
+    expect(lead.statusReason).toBe("CONSENT_WITHDRAWN");
+    expect(lead.contactName).toBeNull();
+    expect(lead.contactPhone).toBeNull();
+    expect(leadRepo.statusEvents[0]).toMatchObject({ leadId: "LEAD-1", toStatus: "CANCELLED", reasonCode: "CONSENT_WITHDRAWN", operatorId: null });
   });
 });

@@ -1,6 +1,9 @@
 import { getProviderDetail } from "../services/providerService.js";
 import { SupabaseProviderRepository } from "../repositories/supabaseProviderRepository.js";
-import { successResponse, internalErrorResponse, errorResponse, type HttpResponse } from "../lib/response.js";
+import { SupabaseRateLimitRepository } from "../repositories/supabaseRateLimitRepository.js";
+import { enforceRateLimit, hashForRateLimitKey, RATE_LIMIT_RULES } from "../services/rateLimitService.js";
+import { successResponse, internalErrorResponse, errorResponse, nowTaipeiISOString, type HttpResponse } from "../lib/response.js";
+import { getClientIp } from "../lib/headers.js";
 import { AppError } from "../errors/AppError.js";
 
 interface NetlifyEvent {
@@ -8,6 +11,7 @@ interface NetlifyEvent {
   path?: string;
   rawUrl?: string;
   queryStringParameters?: Record<string, string | undefined> | null;
+  headers?: Record<string, string | undefined> | null;
 }
 
 const PROVIDER_PATH = /\/api\/v1\/providers\/([^/?#]+)\/?$/;
@@ -44,8 +48,19 @@ export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
     return errorResponse(new AppError("INVALID_REQUEST", "僅支援 GET /api/v1/providers/{providerId}。"));
   }
 
+  const providerId = extractProviderId(event);
+  if (!providerId) {
+    // 跟 getProviderDetail 內部驗證同一個錯誤，提前擋掉可以不必為了明顯缺漏的請求先打一次限流檢查
+    // （避免缺 Supabase 設定時這裡先丟 INTERNAL_ERROR，蓋掉原本應該回的 VALIDATION_ERROR）。
+    return errorResponse(new AppError("VALIDATION_ERROR", "缺少有效的 providerId。"));
+  }
+
   try {
-    const provider = await getProviderDetail(new SupabaseProviderRepository(), extractProviderId(event));
+    // 依 ARCHITECTURE §20.4：Provider detail 60 次／小時，鍵為 IP 雜湊（公開 endpoint，無 session）。
+    const ip = getClientIp(event) ?? "unknown";
+    await enforceRateLimit(new SupabaseRateLimitRepository(), RATE_LIMIT_RULES.PROVIDER_DETAIL, hashForRateLimitKey(ip), nowTaipeiISOString());
+
+    const provider = await getProviderDetail(new SupabaseProviderRepository(), providerId);
     return successResponse(provider);
   } catch (err) {
     if (err instanceof AppError) return errorResponse(err);

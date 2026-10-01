@@ -63,4 +63,14 @@ export class SupabaseConsentRepository implements ConsentRepository {
       withdrawnAt: data.withdrawn_at,
     };
   }
+
+  async withdraw(sessionId: string, now: string): Promise<{ updated: boolean; leadsCancelled: number }> {
+    const client = getSupabaseClient();
+    const { data, error } = await client.rpc("withdraw_consent", { payload: { sessionId, now } });
+    if (error) {
+      throw new AppError("INTERNAL_ERROR", "無法撤回同意，請稍後再試。");
+    }
+    const r = data as { updated: boolean; leadsCancelled: number };
+    return { updated: r.updated, leadsCancelled: r.leadsCancelled ?? 0 };
+  }
 }
