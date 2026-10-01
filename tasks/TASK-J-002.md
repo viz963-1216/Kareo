@@ -50,7 +50,7 @@ Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/
 - [x] Jerry 核准 D-18a–e（2026-10-01，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）；r6 已合併（#50）。
 - [ ] Jerry 回答 D-19 Q1–Q5、Q7 後，另建 A-007／B-014／C-008／C-009。
 - [x] **r8（2026-10-01）D-19**：Jerry 決定 Q1–Q5、Q7（[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）；PRODUCT_SPEC v0.8 §13／§14a–c、API_CONTRACT v0.6（§10／§10a 追加、§13a）、DATA_MODEL v0.2.5（§17、§19b）、ARCHITECTURE v0.5.4（§7.1、§9.1、§10、§20.4）、`contracts/mock/knowledge/`、lookup fixtures 追加、TASK-A-007／B-014／C-008／C-009 與 A-006／B-013／C-007 追加。
-- [ ] Jerry 審核 PRODUCT_SPEC §14b 建議問題文字（r8 PR）。
+- [x] Jerry 核准 PRODUCT_SPEC §14b 建議問題文字（2026-10-01，[PR #54 comment 5927605020](https://github.com/viz963-1216/Kareo/pull/54#issuecomment-5927605020)）；r8 已合併（#54）。
 - [ ] D-09 Netlify 額度（Jerry：日後補充）。
 - [ ] 法務確認（D-05 L-1～L-6）後把同意版本改為 ACTIVE（含位置告知）。Jerry 2026-09-24 指示暫不填。
 - [x] 主要接件人：蘇子傑，09:00–21:00（LEAD_OPERATIONS §2、§5）。
