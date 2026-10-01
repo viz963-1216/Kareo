@@ -221,6 +221,12 @@ export class InMemoryRecommendationRepository implements RecommendationRepositor
     this.runs.push(run);
     this.items.push(...items.map((i) => ({ ...i })));
   }
+
+  async findRunWithItems(id: string): Promise<{ run: RecommendationRun; items: RecommendationItem[] } | null> {
+    const run = this.runs.find((r) => r.id === id);
+    if (!run) return null;
+    return { run: { ...run }, items: this.items.filter((i) => i.recommendationRunId === id).map((i) => ({ ...i })) };
+  }
 }
 
 function upsertById<T extends { id: string }>(target: T[], rows: T[]): void {
