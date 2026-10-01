@@ -145,7 +145,16 @@ declare
   v_current_id text;
   v_result jsonb;
 begin
-  select id into v_current_id from public.knowledge_versions where status = 'PUBLISHED';
+  -- J-003-r8（Jerry 委託審查 #48，問題 3，P1）：原本這裡只是一般 SELECT，READ COMMITTED 下同一
+  -- 交易內之後的陳述式（包括委派呼叫的 public.withdraw_knowledge_version 自己的 SELECT）仍可能
+  -- 看到「這個 SELECT 之後、交易尚未提交前」被其他交易 commit 的新狀態——同一個 transaction
+  -- 本身不保證這段 read-check-write 不被插入。改用 `for update` 鎖住目前 PUBLISHED 這一列：
+  -- 任何其他交易只要嘗試 UPDATE 同一列（不論是直接呼叫 publish_knowledge_version、
+  -- withdraw_knowledge_version，或另一個 admin_withdraw_knowledge_version），都會被這個列鎖
+  -- 擋下直到本交易 commit／rollback，讓「確認當下看到的版本」與「真正撤回的版本」保證一致，
+  -- 不需要重寫既有 publish/withdraw 函式本身的邏輯（它們的 UPDATE ... WHERE status='PUBLISHED'
+  -- 在鎖釋放後會重新依最新狀態求值，天然接上這個序列化點）。
+  select id into v_current_id from public.knowledge_versions where status = 'PUBLISHED' for update;
   if v_current_id is null or v_current_id <> v_withdraw_version_id then
     raise exception 'STATE_CHANGED: current PUBLISHED version is not %', v_withdraw_version_id;
   end if;
@@ -154,9 +163,12 @@ begin
     if v_republish_version_id = v_withdraw_version_id then
       raise exception 'STATE_CHANGED: republishVersionId cannot equal withdrawVersionId';
     end if;
+    -- 同理鎖住恢復目標這一列：避免在本交易確認它「符合恢復條件」之後、真正撤回之前，
+    -- 被另一個交易搶先把它發布或再次撤回。
     if not exists (
       select 1 from public.knowledge_versions
       where id = v_republish_version_id and status = 'ARCHIVED' and withdrawn_at is null
+      for update
     ) then
       raise exception 'STATE_CHANGED: republishVersionId % is not a restorable ARCHIVED version', v_republish_version_id;
     end if;
