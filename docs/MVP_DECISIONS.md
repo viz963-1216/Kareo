@@ -59,8 +59,8 @@ Last reviewed: 2026-10-01（staging `2ef21a8`）
 | D-16 | 知識審核與發布管理頁面（按鈕發布取代指令） | **SPEC-APPROVED**（2026-09-24，Jerry）；新增 TASK-B-012、TASK-C-006、API_CONTRACT §26 | D-16-v1 | Jerry | [PR #31 comment 2026-09-24（第二批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5807237910) | B-012、C-006、J-003 |
 | D-16a | C-006 開工疑點定案：管理 API 正式允許（更正 ARCHITECTURE §20.8）、發布預覽由後端提供、撤回從可恢復版本清單選擇或明確不恢復、核准／退回／忽略／撤回必填原因 | **SPEC-APPROVED**（Jerry：「那就採用上表方案」；規格同步 2026-09-29）；API_CONTRACT v0.4 §26、ARCHITECTURE v0.5.2 §20.8、DATA_MODEL v0.2.3、Mock `contracts/mock/admin/` | D-16a-v1 | Jerry | [PR #34 comment 5883232266](https://github.com/viz963-1216/Kareo/pull/34#issuecomment-5883232266) | B-012、C-006、B-009（`DISMISSED`）、J-003 |
 | D-16b | B-012 發布預覽／發布所需的內容包登錄、逐筆審核紀錄、發布序列化（鎖定）、管理 RPC 例外；維持 `PACK_NOT_APPROVED`；同意 `apps/api` 新增 `@electric-sql/pglite` 開發依賴 | **SPEC-APPROVED**（2026-10-01，Jerry） | D-16b-v1 | Jerry | [PR #48 comment 5925628146](https://github.com/viz963-1216/Kareo/pull/48#issuecomment-5925628146) | B-012-r3、J-003 |
-| D-18 | 公開資源查詢與個案推薦分離（PRODUCT_SPEC §14a、§19） | **SPEC-APPROVED**（產品規則，2026-10-01，Jerry）；細節 D-18a–e 為 **PROPOSED** | D-18-v1 | Jerry | [Issue #49](https://github.com/viz963-1216/Kareo/issues/49)；DEC-A003-01／02／07（`data/providers/qa/a-003-evidence.json`） | A-006、B-013、C-007、J-003 |
-| D-18a–e | 查詢 API 細節：兩種地區篩選、範圍未知的呈現、固定排序與分頁、錯誤處理、公開欄位（API_CONTRACT §10a） | **PROPOSED**（本 PR 審核即核准） | D-18a-v1 | Jerry | — | B-013、C-007 |
+| D-18 | 公開資源查詢與個案推薦分離（PRODUCT_SPEC §14a、§19） | **SPEC-APPROVED**（產品規則，2026-10-01，Jerry）；細節 D-18a–e 亦已核准 | D-18-v1 | Jerry | [Issue #49](https://github.com/viz963-1216/Kareo/issues/49)；DEC-A003-01／02／07（`data/providers/qa/a-003-evidence.json`） | A-006、B-013、C-007、J-003 |
+| D-18a–e | 查詢 API 細節：兩種地區篩選、範圍未知的呈現、固定排序與分頁、錯誤處理、公開欄位（API_CONTRACT §10a） | **SPEC-APPROVED**（2026-10-01，Jerry，依 #50 內容定案） | D-18a-v1 | Jerry | [PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841) | B-013、C-007 |
 | D-19 | 一站式平台其他缺口：長照資訊集中查詢、個管師溝通摘要、輔具資源中心、住宿機構、不經評估的 Kareocar 入口 | **PROPOSED**；待 Jerry 回答 Q1–Q5 後才建立任務 | D-19-v1 | Jerry | — | 尚未建立（建議 A-007、B-014、C-008、C-009） |
 | D-17 | Assessment 新增「是否領有身心障礙證明」選填題，結果頁說明可能適用的身心障礙福利補助（PRODUCT_SPEC §37 變更） | **SPEC-APPROVED**（2026-09-24）；規則表 r4 文字確認 | D-17-v1 | Jerry | [PR #31 comment 2026-09-24（第三批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810344725)；r4 文字：[PR #31 comment 2026-09-24（第四批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810416966) | B-010、C-005、J-003 |
 | D-17a | Assessment 新增「家庭經濟身分」選填題，結果頁估算使用者自己的長照自付比例與金額、身障補助上限（取代原先「不計算個人金額」限制） | **SPEC-APPROVED**（2026-09-24，Jerry：「要清算」）；PRODUCT_SPEC v0.6、API_CONTRACT v0.3.2、規則表 r5 §6.6 | D-17a-v1 | Jerry | [PR #31 comment 2026-09-24（第四批）](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5810416966) | B-010、C-005、J-003 |
@@ -335,7 +335,7 @@ J-002 定義的一致性機制（依決定第 2 點「由 B／J 在契約中明�
 - 這 14 家在 staging 上從未有服務範圍；Issue #49 所稱「516 → 86」發生在 #39 分支歷程（r8 → r13）。本任務是讓它們**查得到**並依證據補查範圍，不是恢復舊資料。14 家是待查核清單，不是必須補足數量的驗收標準。
 - Provider 匯入（`import_provider_dataset`）只更新、不刪除；J-003 須確認各環境沒有殘留 r8～r12 分支資料的 active 範圍。
 
-### D-18a–e 查詢 API 細節（PROPOSED，J-002 建議，API_CONTRACT §10a）
+### D-18a–e 查詢 API 細節（SPEC-APPROVED，2026-10-01，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)；API_CONTRACT §10a）
 
 | ID | 問題 | 建議 | 理由 |
 |---|---|---|---|
@@ -382,7 +382,7 @@ PRODUCT_SPEC §1 平台定位中尚無規格的部分。**不屬於** A-006／B-
 |---|---|---|---|
 | 1 | D-09 Netlify 額度：9/29 前是否購買額度或維持集中合併 | **待決定**（Jerry：日後補充） | 決定購買與否；不決定則部署後 E2E 無法執行、Kareocar 連結無法開啟 |
 | 2 | ~~D-16a 內容包層級核准~~ | **已決定（2026-10-01）：維持要求**，見 D-16b | — |
-| 3 | D-18a–e 資源查詢 API 細節 | **待審**（本 PR） | 審核 API_CONTRACT §10a 與 fixtures |
+| 3 | ~~D-18a–e 資源查詢 API 細節~~ | **已核准（2026-10-01）**，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841) | — |
 | 4 | D-19 Q1–Q5、Q7 | **待決定** | 見 D-19 |
 
 仍需實際輸入（做法已核准）：

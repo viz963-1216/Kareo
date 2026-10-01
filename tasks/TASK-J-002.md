@@ -1,7 +1,7 @@
 # TASK-J-002 — MVP Decisions + Knowledge + Privacy / Lead / Location Specifications
 
 Owner: Jerry  
-Status: r1–r5 已合併（PR #19、#28、#31、#35、#43）；r6（資源查詢契約、D-16b）送審中。合併≠核准：各項核准狀態見 `docs/MVP_DECISIONS.md`  
+Status: r1–r5 已合併（PR #19、#28、#31、#35、#43）；r6（資源查詢契約、D-16b）已合併（#50）。合併≠核准：各項核准狀態見 `docs/MVP_DECISIONS.md`  
 Plan revision: 2026-10-01 / J-002-r6 / 10-22 MVP
 
 ## Goal / 目標
@@ -47,7 +47,7 @@ Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/
 - [x] 取得「待 Jerry 決定」清單的決定（2026-09-24 第 1–8 項核准，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)），證據連結已填入 MVP_DECISIONS。
 - [x] **r6（2026-10-01）D-16b**：B-012 內容包登錄、逐筆審核紀錄、發布序列化與 pglite 依賴（Jerry 決定，[PR #48 comment 5925628146](https://github.com/viz963-1216/Kareo/pull/48#issuecomment-5925628146)）；DATA_MODEL §26b–26c、ARCHITECTURE §22 第 8–9 點、API_CONTRACT §26.8、contracts/knowledge/README §4。
 - [x] **r6（2026-10-01）D-18 公開資源查詢**（[Issue #49](https://github.com/viz963-1216/Kareo/issues/49)）：PRODUCT_SPEC v0.7 §1／§14a／§19／§53–55、API_CONTRACT v0.5 §10a／§10、DATA_MODEL v0.2.4 §17／§19、ARCHITECTURE v0.5.3 §7.1／§20.4、`contracts/reference/service-districts.json`、`contracts/mock/providers/lookup/`（含 `validate-fixtures.mjs`）、TASK-A-006／B-013／C-007、MVP_TRACEABILITY §5。
-- [ ] Jerry 審核 D-18a–e（本 PR）。
+- [x] Jerry 核准 D-18a–e（2026-10-01，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）；r6 已合併（#50）。
 - [ ] Jerry 回答 D-19 Q1–Q5、Q7 後，另建 A-007／B-014／C-008／C-009。
 - [ ] D-09 Netlify 額度（Jerry：日後補充）。
 - [ ] 法務確認（D-05 L-1～L-6）後把同意版本改為 ACTIVE（含位置告知）。Jerry 2026-09-24 指示暫不填。
