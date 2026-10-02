@@ -51,6 +51,7 @@ Runner 建立三個合成 Session。外部 wrapper 原預期 finally 記錄 ID�
 
 - check-integration：12 PASS／13 PENDING／0 FAIL。
 - dev gate（未載入本次結果時）：48 PASS／0 FAIL／64 PENDING，exit 0 不是 MVP 通過。
+- release gate 指定上述部署並載入本次 E2E：52 PASS／0 FAIL／60 PENDING，輸出 RELEASE GATE FAILED。52 包含資料／開發檢查與 4 項 E2E，不是 52 項 E2E。
 - 真實 release smoke：首頁、部署 commit、已發布知識、未知 API 四項通過。這不是完整 E2E 或 J-004 完成。
 
 ## 剩餘阻擋與順序
