@@ -91,3 +91,7 @@ Submission Version 從 `J-003-r1` 起，退回後遞增。PR 必填 Added / Chan
 ## 2026-09-29 r8 複驗（同一 PR #44）
 
 詳見 docs/J003-R7-2026-09-29.md〈r8 後續紀錄〉與 docs/INTEGRATION_ACCEPTANCE.md〈目前結論（J-003-r8）〉。本機／隔離 DB 0 FAIL；真實 E2E 0／43 執行（部署 503）；B-006、B-011b、B-012 未交付，C-006 缺陷未修。**Integrated：否**。
+
+## 2026-10-03 r9 真實環境驗證
+
+首次知識版本已發布；部署 `376f3ef` 的真實 API E2E 4 PASS／0 FAIL，完整 49 必要案例仍有 45 項未通過。D-18／D-19 新增 E2E-44～49，原 43 項保留。詳見 `docs/acceptance/J003-2026-10-03-first-knowledge-publication.md`；Integrated 維持否。後續部署須重跑，不沿用不同 commit 的證據。

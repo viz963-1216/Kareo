@@ -1,11 +1,13 @@
 # Kareo Integration Acceptance / 整合驗收紀錄
 
 Owner: Jerry（TASK-J-003）
-Submission Version: J-003-r8
+Submission Version: J-003-r9
 
 > 只有「部署環境中，以真實 API 與真實資料實際操作成功」才算通過。
 > Mock、單元測試、PR 合併都**不算**整合完成。平台額度或模組缺漏造成的阻擋一律記為 `PENDING`，必要項目 PENDING 時完整驗收判定為**失敗**。
 > 需求對應見 `docs/MVP_TRACEABILITY.md`（J-002-r4）；決策狀態見 `docs/MVP_DECISIONS.md`。
+
+> 最新快照：見 [2026-10-03 首次知識發布與真實 API 驗證](acceptance/J003-2026-10-03-first-knowledge-publication.md)。部署已恢復，知識已首次發布；49 必要 E2E 僅 4 項有上述部署的 PASS，Integrated 仍否。以下較早紀錄保留供追溯。
 
 ---
 
@@ -16,7 +18,7 @@ Submission Version: J-003-r8
 | 開發檢查（每個 PR，CI `acceptance-dev`） | `node scripts/acceptance-gate.mjs --mode=dev` | 允許 | 只有 FAIL → 1 | 「目前沒有壞掉的東西」。沒給目標時 E2E 一律 PENDING（不評估）。exit 0 **不是** MVP 通過，輸出最後一行會明寫 |
 | 完整驗收／release gate（手動 workflow `Release gate`、PR → main） | `node scripts/acceptance-gate.mjs --mode=release --commit=<40 碼 SHA> --base-url=<https URL>` | **不允許** | 任何 FAIL 或 PENDING → 1；缺目標或格式錯 → 2 | **這一個 commit** 部署在**這一個環境**時，原始 MVP 所有必要項目都有真實證據 |
 
-Gate 內容：路由／contract／禁止欄位（`check-integration.mjs`，含 §26 管理 API）、**打包後的 Functions 能否載入與執行**（`check-functions-runtime.mjs`，J-003-r4）、**驗收案例完整性**（MVP_TRACEABILITY 引用的案例不得缺、每個案例都要被引用，J-003-r4）、知識包格式、**知識內容是否已核准**（格式正確 ≠ 核准）、Provider 資料 gate（A-004），以及 `tests/e2e/acceptance-cases.json` 的 43 個 E2E 案例。
+Gate 內容：路由／contract／禁止欄位（`check-integration.mjs`，含 §26 管理 API）、**打包後的 Functions 能否載入與執行**（`check-functions-runtime.mjs`，J-003-r4）、**驗收案例完整性**（MVP_TRACEABILITY 引用的案例不得缺、每個案例都要被引用，J-003-r4）、知識包格式、**知識內容是否已核准**（格式正確 ≠ 核准）、Provider 資料 gate（A-004），以及 `tests/e2e/acceptance-cases.json` 的 49 個 E2E 案例。
 
 另有兩種**不算 E2E** 的本機檢查，結果只記在本文件：`tests/db/verify-db.mjs`（隔離 PostgreSQL／PGlite：migration、RLS、Provider 匯入回滾、知識發布／撤回；r8 起 K10–K12／U5／C3 以 esbuild 打包實際 `SupabaseKnowledgeRepository`＋`DatabaseKnowledgeResolver`，經 supabase-js 與唯讀 PostgREST shim 讀同一個 PGlite；每項標 `[behaviour]` 或 `[schema]`）與 `tests/integration/`（交回模組的重現案例、首次發布預演）。
 
