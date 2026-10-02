@@ -46,7 +46,7 @@ export function ConsentPage({ onAccept }: Props) {
           <li>評估不需要提供姓名或電話。</li>
           <li>您的評估回答（包含行動能力、日常生活協助等與健康相關的資訊）只會由 Kareo 系統依固定規則產生初步結果，不會交給 AI 服務分析；網站與資料庫由 Netlify、Supabase 受委託處理。</li>
           <li>只有在您按下「我要媒合」並勾選同意後，我們才會保存您的稱呼與電話，由 Kareo 服務人員聯繫您。未經您同意，不會把您的資料交給服務單位。</li>
-          <li>評估資料在最後使用後 90 天刪除；媒合聯絡資料在案件結束後 180 天刪除。預定提供結果頁刪除與撤回同意，正式開放前須完成驗證；也可以來信 <a href="mailto:viz963@gmail.com">viz963@gmail.com</a> 要求刪除。</li>
+          <li>預定保存期限：評估資料在最後使用後 90 天刪除；媒合聯絡資料在案件結束後 180 天刪除。到期清理、結果頁刪除與撤回同意須完成驗證後才正式開放；也可以來信 <a href="mailto:viz963@gmail.com">viz963@gmail.com</a> 要求刪除。</li>
         </ul>
         {consentVersions && (
           <p className="field-hint">
