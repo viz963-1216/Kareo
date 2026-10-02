@@ -9,7 +9,17 @@
       "approvedBy": null,
       "approvedAt": null,
       "legalReview": "PENDING",
-      "textRef": "docs/PRIVACY_AND_RETENTION.md#8"
+      "textRef": "https://github.com/viz963-1216/Kareo/blob/37129747ce2800822ef70999710162f35b04ef14/docs/PRIVACY_AND_RETENTION.md#8"
+    },
+    {
+      "disclaimerVersion": "2026-10-03-r1-draft",
+      "privacyVersion": "2026-10-03-r1-draft",
+      "termsVersion": "2026-10-03-r1-draft",
+      "status": "DRAFT",
+      "approvedBy": null,
+      "approvedAt": null,
+      "legalReview": "PENDING",
+      "textRef": "docs/PRIVACY_AND_RETENTION.md#11"
     }
   ]
 }

@@ -12,6 +12,7 @@ import { HomePage } from "./pages/HomePage";
 import { LeadPage } from "./pages/LeadPage";
 import { ResultPage, type SessionClosure } from "./pages/ResultPage";
 import { RecommendationPage } from "./pages/RecommendationPage";
+import { PrivacyPage } from "./pages/PrivacyPage";
 import { ProviderDetailPage } from "./pages/ProviderDetailPage";
 import { SessionEndedPage } from "./pages/SessionEndedPage";
 import { SessionContext } from "./session/SessionContext";
@@ -76,6 +77,7 @@ function AppRoutes() {
       <Routes>
         <Route path="/admin/knowledge" element={<AdminKnowledgePage />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/consent" element={<ConsentPage onAccept={acceptConsent} />} />
         <Route
           path="/assessment"
@@ -92,6 +94,7 @@ function AppRoutes() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <footer>
+        <p><Link to="/privacy">隱私告知</Link></p>
         <FormalAssessmentReminder compact />
         <p>本平台不提供醫療診斷。長照交通服務 Kareocar 為外部平台，只以新分頁開啟。</p>
       </footer>
