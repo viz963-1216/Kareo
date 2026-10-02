@@ -43,6 +43,7 @@ A / B / C 不直接 Push `staging` 或 `main`。
 - 每日 crawler：staging 有 workflow，但 main 沒有；GitHub staging environment 已建立，只允許 staging 分支，目前無 secrets。尚未定時實跑。
 - D-18/D-19 六項新增驗收已列 E2E-44～49；合計 49 必要案例，不以早期 43 項代替完整範圍。Integrated 維持否。
 - 詳細證據：`docs/acceptance/J003-2026-10-03-first-knowledge-publication.md`。
+- J-004-r3：發布／回滾／隔離還原及 D-05 權利處理文件已準備；Jerry 已確認信箱收信回覆。實際資料處理與演練仍待完成，D-05 DRAFT／release gate CLOSED。
 
 # Task Board（2026-10-01，J-002-r6 依 staging `2ef21a8`、GitHub PR 與遠端分支核對）
 

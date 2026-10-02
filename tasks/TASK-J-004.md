@@ -1,7 +1,7 @@
 # TASK-J-004 — Release + Lead Operations + Recovery Readiness
 
 Owner: Jerry  
-Status: r2 準備修正送審；release gate CLOSED；未完成真人接件／備份還原／部署回滾演練
+Status: r3 操作文件準備完成；release gate CLOSED；未完成真人接件／備份還原／部署回滾演練
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -52,3 +52,7 @@ Submission Version 從 `J-004-r1` 起，退回後遞增。PR 必填 Added / Chan
 ## r2 準備交付（2026-09-29）
 
 修正發布前／後 gate 順序、接件責任與未核准時限；新增唯讀 smoke 與演練紀錄範本 docs/RELEASE_REHEARSAL.md。這些文件與本機測試不代表 J-004 已完成，真人及隔離環境演練均仍待執行。
+
+## r3 操作準備（2026-10-03）
+
+新增 docs/PRIVACY_REQUEST_RUNBOOK.md，涵蓋收件、最少身分確認、停止聯繫、正式工具處理、核對、回覆與備份再刪除；Jerry 已確認信箱能收信與回覆。更新發布固定目標表、回滾及隔離還原步驟與最新演練狀態。文件準備完成，不勾選未執行的 Deliverables；D-05仍DRAFT、release gate仍CLOSED，整體J-004未完成。

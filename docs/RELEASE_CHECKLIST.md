@@ -1,12 +1,49 @@
 # Kareo MVP Release Checklist / 發布檢查表
 
 Owner: Jerry（TASK-J-004）
-Submission Version: J-004-r2
+Submission Version: J-004-r3
 Target: 2026-10-22（10/19 功能凍結、10/20–10/21 發布演練）
 Release gate status: **CLOSED**
 
 > Gate 0–6 是正式合併與部署前置；可先建立草稿 Release PR 整理證據。Gate 7 在發布後執行，不能作為建立 PR 的前置，避免循環依賴。正式媒合須等發布後 smoke 與接件演練通過才開放。
 > 未通過時，正式站維持「整合中」狀態並在本文件記錄原因。
+
+## 2026-10-03 準備快照
+
+以下是已確認的整合環境，不是正式 production 清單；舊 Gate 項目逐項核對後才勾選。
+
+| 項目 | 已確認／仍需完成 |
+|---|---|
+| GitHub | staging `d12992b`（#63 合併）；正式 main 尚未接收完整 MVP |
+| Netlify | `kareo-tw` 從 staging 部署；已恢復，不能因 Netlify context 名叫 production 就當作 J-004 完成 |
+| Supabase | Kareo `ojawadobnaxduxybqolk`，Tokyo；目前供整合使用，獨立正式目標尚未指定，禁止重用 Kareocar |
+| Provider | 30 家／30 服務／86 已確認範圍，整合匯入及原子回滾已有 J-003 證據 |
+| Knowledge | `KB-2026-09-24-001`：18 來源／21 紀錄／21 成員；lastVerifiedAt 保留來源原核對日 |
+| 同意 | 全 DRAFT，正式版啟用及回歸未完成 |
+| 信箱 | viz963@gmail.com 已公布；Jerry 確認能收信及回覆，權利端到端演練未完成 |
+| E2E | 完整 49 必要案例；376f3ef 的 4 項 PASS 不能移植成新 release SHA 的證據 |
+| Crawler | staging 有 workflow，main 尚無；GitHub staging environment 無 secrets，未定時實跑 |
+| 備份 | 10/03 查到 7 份 physical；當時最新早於 migration／資料匯入，不可作本次完整恢復證據；PITR 未啟用 |
+
+證據：[J-003 首次發布](acceptance/J003-2026-10-03-first-knowledge-publication.md)、[D-05 實況](acceptance/D05-2026-10-03-privacy-review.md)、[權利處理手冊](PRIVACY_REQUEST_RUNBOOK.md)。
+
+## 發布前填寫的固定目標表
+
+所有空白均 PENDING；環境對應及部署方案未指定前不建立或付費購買新專案。
+
+| 欄位 | 正式發布值／證據 |
+|---|---|
+| 版本標籤／待發布 staging 完整 SHA／Release PR head SHA | 待指定；head 改變需重驗 |
+| 正式 main merge SHA／實際部署 marker／deploy ID | 部署後記錄；不得假定與 Release PR head 相同 |
+| 整合與正式 Netlify site、branch、base URL | 待 Jerry 決定；正式 branch=main |
+| 整合與正式 Supabase project ref、region | 分開記錄，必須確認隔離 |
+| Migration 清單／雜湊／已套用狀態／schema 相容性 | 待本次版本核對；不能只看檔名順序 |
+| Provider 資料來源 commit／核對列數／關聯／未知範圍 | 待固定正式匯入目標；不任意補造服務範圍 |
+| Knowledge 版號／已核准內容包／來源核對時間 | 待固定正式目標；來源核對時間不等於發布時間 |
+| 三種 ACTIVE 同意版號／文案固定引用／核准紀錄 | 待 D-05；禁止把舊草案原地改字覆寫 |
+| Secret 名稱／用途／目標環境／設定者 | 僅記 metadata，絕不記值；後端 key 不可進 VITE_* |
+| 備份時間點／還原目標／實測與可接受 RPO、RTO | 待隔離演練及 Jerry 決定 |
+| 暫停入口及恢復操作／實際授權工具 | 待確認；前端隱藏不足以阻止 API 寫入 |
 
 ---
 
@@ -20,9 +57,9 @@ Release gate status: **CLOSED**
 | G0-4 | Provider 資料通過 A-004 gate，並已匯入（列數、關聯核對） | | ⛔ |
 | G0-5 | 同意文件版本為 `ACTIVE`（非 DRAFT），法務待確認事項已處理 | | ⛔ |
 | G0-6 | 主要接件人已指定並完成實演（見 Gate 3）；**不設備援接件人**（Jerry 2026-09-24 決定） | 主要接件人：蘇子傑，週一至週五 09:00–21:00（LEAD_OPERATIONS §2） | ⛔（未實演） |
-| G0-7 | 刪除請求客服信箱已公布且有人處理 | | ⛔ |
+| G0-7 | 刪除請求客服信箱已公布且有人處理 | viz963@gmail.com；Jerry 10/03 已確認收信與回覆；PRIVACY_REQUEST_RUNBOOK.md | ⛔（資料處理端到端待演練） |
 | G0-8 | 評估規則表 `RULES-*`（D-01 方案 B，不使用 AI）已由 Jerry 逐條確認 | | ⛔ |
-| G0-9 | Netlify 額度足以完成發布與發布後 smoke；Kareocar 已恢復 | | ⛔（2026-09-29 J-003 唯讀探測兩站 HTTP 503；額度原因另查） |
+| G0-9 | Netlify 額度足以完成發布與發布後 smoke；Kareocar 已恢復 | Kareo 10/03 已恢復；發布前仍核對實際額度與 Kareocar 可用性 | ⛔（未完成本次發布核對） |
 | G0-10 | 每日 00:10（Asia/Taipei）知識更新（B-009）在部署環境有觸發紀錄，變更進 NEEDS_REVIEW、失敗保留 Last Published | | ⛔ |
 | G0-11 | 精確位置：ACTIVE 同意版本含位置告知後才開啟「使用目前位置」（MVP_DECISIONS D-13g）；位置流程細節 D-13a–g 與補助呈現 D-14a–b 已有 Jerry 決定紀錄 | | ⛔ |
 | G0-12 | 臺北市、新北市地方制度知識已審核並發布（PRODUCT_SPEC §39、§46）；兩市各一例的 E2E 顯示各自的地方資訊、不互相套用 | | ⛔ |
@@ -93,3 +130,7 @@ Release gate status: **CLOSED**
 ## r2 演練紀錄
 
 使用 docs/RELEASE_REHEARSAL.md 逐項記錄；空白、BLOCKED、PENDING 均不算通過。2026-09-29 尚未部署／演練，所有未完成 gate 保持關閉。
+
+## r3 準備交付（2026-10-03）
+
+更新已確認環境、固定發布目標表與信箱本人確認；準備工作完成，不勾選尚未實測 gate。保留原 r2 作歷史；最新執行狀態見 RELEASE_REHEARSAL.md 的 r3 區段。
