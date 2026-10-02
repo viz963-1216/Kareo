@@ -52,4 +52,43 @@ export class SupabaseRecommendationRepository implements RecommendationRepositor
       throw new AppError("INTERNAL_ERROR", "無法寫入推薦結果，交易已回滾，沒有寫入任何資料。", { cause: error });
     }
   }
+
+  async findRunWithItems(id: string): Promise<{ run: RecommendationRun; items: RecommendationItem[] } | null> {
+    const client = getSupabaseClient();
+    const { data: runRow, error: runError } = await client
+      .from("recommendation_runs")
+      .select("id, assessment_id, service_type, ranking_type, location_precision, knowledge_version, created_at")
+      .eq("id", id)
+      .maybeSingle();
+    if (runError) throw new AppError("INTERNAL_ERROR", "無法查詢推薦結果，請稍後再試。", { cause: runError });
+    if (!runRow) return null;
+
+    const { data: itemRows, error: itemsError } = await client
+      .from("recommendation_items")
+      .select("id, recommendation_run_id, provider_id, rank, score, distance_km, reasons, created_at")
+      .eq("recommendation_run_id", id);
+    if (itemsError) throw new AppError("INTERNAL_ERROR", "無法查詢推薦結果，請稍後再試。", { cause: itemsError });
+
+    return {
+      run: {
+        id: runRow.id,
+        assessmentId: runRow.assessment_id,
+        serviceType: runRow.service_type,
+        rankingType: runRow.ranking_type,
+        locationPrecision: runRow.location_precision,
+        knowledgeVersion: runRow.knowledge_version,
+        createdAt: runRow.created_at,
+      },
+      items: (itemRows ?? []).map((r) => ({
+        id: r.id,
+        recommendationRunId: r.recommendation_run_id,
+        providerId: r.provider_id,
+        rank: r.rank,
+        score: r.score,
+        distanceKm: r.distance_km,
+        reasons: r.reasons,
+        createdAt: r.created_at,
+      })),
+    };
+  }
 }

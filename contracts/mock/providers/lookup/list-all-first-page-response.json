@@ -1,0 +1,251 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "PROV-MOCK-102",
+        "name": "測試安心居家護理所",
+        "type": "HOME_MEDICAL_NURSING",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "HOME_MEDICAL_NURSING",
+          "HOME_CARE"
+        ],
+        "address": "臺北市大同區民權西路102號",
+        "city": "臺北市",
+        "district": "大同區",
+        "phone": "02-41020202",
+        "website": "https://example.com/kareo-mock/prov-mock-102",
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-102",
+        "verified": false,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [],
+        "areaMatch": null
+      },
+      {
+        "id": "PROV-MOCK-202",
+        "name": "測試安心輔具中心",
+        "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "ASSISTIVE_DEVICE"
+        ],
+        "address": "臺北市萬華區西園路一段202號",
+        "city": "臺北市",
+        "district": "萬華區",
+        "phone": "02-42020202",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-202",
+        "verified": false,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [
+          {
+            "city": "臺北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          },
+          {
+            "city": "新北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          }
+        ],
+        "areaMatch": null
+      },
+      {
+        "id": "PROV-MOCK-001",
+        "name": "測試居家照顧中心",
+        "type": "HOME_CARE",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "HOME_CARE"
+        ],
+        "address": "新北市三重區重新路一段100號",
+        "city": "新北市",
+        "district": "三重區",
+        "phone": "02-12345678",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-001",
+        "verified": false,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [],
+        "areaMatch": null
+      },
+      {
+        "id": "PROV-MOCK-002",
+        "name": "測試安心居家服務中心",
+        "type": "HOME_CARE",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "HOME_CARE"
+        ],
+        "address": "新北市三重區正義北路200號",
+        "city": "新北市",
+        "district": "三重區",
+        "phone": "02-23456789",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-002",
+        "verified": false,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [],
+        "areaMatch": null
+      },
+      {
+        "id": "PROV-MOCK-003",
+        "name": "測試樂齡照護中心",
+        "type": "HOME_CARE",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "HOME_CARE"
+        ],
+        "address": "新北市三重區集美街300號",
+        "city": "新北市",
+        "district": "三重區",
+        "phone": "02-34567890",
+        "website": "https://example.com/kareo-mock/prov-mock-003",
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-003",
+        "verified": true,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [],
+        "areaMatch": null
+      },
+      {
+        "id": "PROV-MOCK-101",
+        "name": "測試居家醫療護理所",
+        "type": "HOME_MEDICAL_NURSING",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "HOME_MEDICAL_NURSING"
+        ],
+        "address": "新北市三重區三和路四段101號",
+        "city": "新北市",
+        "district": "三重區",
+        "phone": "02-41010101",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-101",
+        "verified": true,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [],
+        "areaMatch": null
+      },
+      {
+        "id": "PROV-MOCK-201",
+        "name": "測試輔具服務中心",
+        "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "ASSISTIVE_DEVICE"
+        ],
+        "address": "新北市三重區重新路三段201號",
+        "city": "新北市",
+        "district": "三重區",
+        "phone": "02-42010101",
+        "website": "https://example.com/kareo-mock/prov-mock-201",
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-201",
+        "verified": true,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [
+          {
+            "city": "新北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          }
+        ],
+        "areaMatch": null
+      },
+      {
+        "id": "PROV-MOCK-204",
+        "name": "測試輔具商行（服務範圍待確認）",
+        "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "ASSISTIVE_DEVICE"
+        ],
+        "address": "新北市三重區重新路三段204號",
+        "city": "新北市",
+        "district": "三重區",
+        "phone": "02-42040404",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-204",
+        "verified": true,
+        "serviceAreaStatus": "UNCONFIRMED",
+        "contractRegions": [
+          {
+            "city": "新北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          }
+        ],
+        "areaMatch": null
+      },
+      {
+        "id": "PROV-MOCK-103",
+        "name": "測試樂齡居家醫療中心",
+        "type": "HOME_MEDICAL_NURSING",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "HOME_MEDICAL_NURSING"
+        ],
+        "address": "新北市新莊區中正路103號",
+        "city": "新北市",
+        "district": "新莊區",
+        "phone": "02-41030303",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-103",
+        "verified": true,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [],
+        "areaMatch": null
+      },
+      {
+        "id": "PROV-MOCK-203",
+        "name": "測試樂齡輔具中心",
+        "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "ASSISTIVE_DEVICE"
+        ],
+        "address": "新北市蘆洲區中山一路203號",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "phone": "02-42030303",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-203",
+        "verified": true,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [],
+        "areaMatch": null
+      },
+      {
+        "id": "PROV-MOCK-301",
+        "name": "測試輔具資源中心",
+        "type": "OTHER",
+        "resourceCategory": "ASSISTIVE_DEVICE_CENTER",
+        "services": [],
+        "address": "新北市蘆洲區集賢路301號",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "phone": "02-43010101",
+        "website": "https://example.com/kareo-mock/prov-mock-301",
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-301",
+        "verified": true,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [],
+        "areaMatch": null
+      }
+    ],
+    "page": 1,
+    "pageSize": 20,
+    "totalCount": 11,
+    "unconfirmedCount": null,
+    "appliedFilters": {
+      "resourceCategory": null,
+      "serviceType": null,
+      "city": null,
+      "district": null,
+      "areaFilter": null,
+      "includeUnconfirmed": false,
+      "contractCity": null,
+      "q": null,
+      "page": 1,
+      "pageSize": 20
+    },
+    "notice": "以下為資訊查詢結果，不是依您的個案狀況所做的推薦，也不代表距離遠近或能到府服務。各機構實際服務範圍請見詳細資料，或洽機構確認。"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "success": true,
+  "data": {
+    "knowledgeVersion": "KB-MOCK-001",
+    "publishedAt": "2026-09-24T12:00:00+08:00",
+    "items": [
+      {
+        "id": "KREC-MOCK-015",
+        "title": "新北市長照輔具及居家無障礙補助申請流程",
+        "category": "ASSISTIVE_DEVICE",
+        "jurisdiction": "NEW_TAIPEI",
+        "summary": "新北市長照輔具及居家無障礙改善補助須先經核定才能購置或租賃，未經核定不予補助；部分輔具需附三個月內的輔具評估報告。取得核定通知後 6 個月內，向特約廠商購置或租賃並檢附請款文件，處理期限 40 天。承辦為新北市輔具資源中心（蘆洲區集賢路 245 號 9 樓，02-8286-7045）。",
+        "effectiveFrom": "2026-09-24",
+        "effectiveTo": null,
+        "publishedAt": null,
+        "lastVerifiedAt": "2026-09-24T10:00:00+08:00",
+        "source": {
+          "title": "新北市政府雲端櫃檯「長期照顧輔具服務及居家無障礙環境改善服務補助」",
+          "publisher": "新北市政府",
+          "url": "https://service.ntpc.gov.tw/eservice/CaseData.action?itemId=110105"
+        }
+      },
+      {
+        "id": "KREC-MOCK-016",
+        "title": "新北市身心障礙者輔具費用補助（新北市加碼項目）",
+        "category": "ASSISTIVE_DEVICE",
+        "jurisdiction": "NEW_TAIPEI",
+        "summary": "新北市身心障礙者另有地方加碼的輔具補助項目，例如人工電子耳耗材最高 5,000 元、義肢護套 3,000 元、特製手搖三輪車 10,000 元、汽車升降機改裝 40,000 元、非動力樓梯滑椅 20,000 元（腦性麻痺者另有特製滑板、治療球、滾筒）。多數項目需新北市輔具資源中心評估或醫師診斷證明；補助依實際購買金額、以上限為準。此為身心障礙福利，須領有身心障礙證明，與長照輔具給付分開申請。",
+        "effectiveFrom": "2026-09-24",
+        "effectiveTo": null,
+        "publishedAt": null,
+        "lastVerifiedAt": "2026-09-24T12:05:27+08:00",
+        "source": {
+          "title": "新北市政府身心障礙者輔具費用補助基準（新北市加碼）",
+          "publisher": "新北市政府社會局",
+          "url": null
+        }
+      }
+    ],
+    "page": 1,
+    "pageSize": 20,
+    "totalCount": 2,
+    "appliedFilters": {
+      "jurisdiction": "NEW_TAIPEI",
+      "category": "ASSISTIVE_DEVICE",
+      "page": 1,
+      "pageSize": 20
+    },
+    "notice": "以下為 Kareo 已審核發布的長照制度與補助資訊摘要，內容可能隨主管機關公告調整。實際資格、服務內容與補助，仍應由 1966 或所在地長期照顧管理中心正式評估確認。"
+  }
+}

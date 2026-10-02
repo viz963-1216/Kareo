@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "path": "/api/v1/providers",
+  "query": {
+    "serviceType": "ASSISTIVE_DEVICE",
+    "city": "新北市",
+    "areaFilter": "LOCATED_IN",
+    "page": 2,
+    "pageSize": 20
+  }
+}

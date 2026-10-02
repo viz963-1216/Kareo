@@ -63,6 +63,12 @@
   force = true
 
 [[redirects]]
+  from = "/api/v1/leads"
+  to = "/.netlify/functions/leads"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/*"
   to = "/api-not-found.json"
   status = 404

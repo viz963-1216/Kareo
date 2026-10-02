@@ -525,6 +525,83 @@ export interface RawContentPack {
   records?: unknown;
 }
 
+// ===== Lead（TASK-B-006，依 docs/DATA_MODEL.md 第 22、36-38 節）=====
+
+export type LeadStatus = "NEW" | "CONTACTED" | "ACCEPTED" | "CLOSED" | "CANCELLED";
+
+export interface Lead {
+  id: string;
+  sessionId: string;
+  assessmentId: string;
+  recommendationId: string;
+  providerId: string;
+  serviceType: ProviderServiceType;
+  // 刪除或保存期限到期時清空為 null（PRIVACY_AND_RETENTION §6），Lead 其餘欄位保留。
+  contactName: string | null;
+  contactPhone: string | null;
+  contactConsentAt: string;
+  idempotencyKey: string;
+  status: LeadStatus;
+  statusReason: string | null;
+  assignedOperatorId: string | null;
+  firstContactedAt: string | null;
+  closedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// 依 docs/API_CONTRACT.md 第 12 節 POST /api/v1/leads Request Body。
+export interface CreateLeadInput {
+  sessionId: string;
+  assessmentId: string;
+  recommendationId: string;
+  providerId: string;
+  serviceType: ProviderServiceType;
+  contact: { name: string; phone: string };
+  contactConsent: boolean;
+}
+
+export interface CreateLeadResult {
+  leadId: string;
+  status: LeadStatus;
+  createdAt: string;
+  duplicate: boolean;
+}
+
+export type InternalOperatorRole = "LEAD_OPERATOR" | "DATA_STEWARD" | "KNOWLEDGE_PUBLISHER";
+
+export interface InternalOperator {
+  id: string;
+  displayName: string;
+  roles: InternalOperatorRole[];
+  keyHash: string;
+  active: boolean;
+  createdAt: string;
+  revokedAt: string | null;
+}
+
+// `note` 不得包含姓名、電話或健康細節（DATA_MODEL §37）。
+export interface LeadStatusEvent {
+  id: string;
+  leadId: string;
+  fromStatus: LeadStatus | null;
+  toStatus: LeadStatus;
+  reasonCode: string | null;
+  note: string | null;
+  operatorId: string;
+  createdAt: string;
+}
+
+export type LeadAccessAction = "REVEAL_CONTACT";
+
+export interface LeadAccessEvent {
+  id: string;
+  leadId: string;
+  operatorId: string;
+  action: LeadAccessAction;
+  createdAt: string;
+}
+
 export type KnowledgeImportMode = "commit" | "dry-run";
 
 export interface ContentPackImportReport {

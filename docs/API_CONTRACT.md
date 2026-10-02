@@ -1,7 +1,7 @@
 # Kareo / 長照一點通 — API Contract
 
-Version: v0.4（J-002，2026-09-29；§26 Admin Knowledge API 補齊）  
-Status: v0.1 內容 LOCKED FOR MVP；v0.2 session／安全段落（D-04）**SPEC-APPROVED 2026-09-24**；v0.2.2 位置與補助整併（D-13a–g、D-14a–b）**SPEC-APPROVED 2026-09-24**；Lead 接件（D-06）與同意版本（D-05）仍為 PROPOSED；§26 v0.4（D-16a）**SPEC-APPROVED 2026-09-29**  
+Version: v0.6（J-002-r8，2026-10-01；§10／§10a 新增 `resourceCategory`、`contractRegions` 與篩選；新增 §13a 公開長照資訊查詢）  
+Status: v0.6 §10／§10a 追加欄位與 §13a 依 D-19 **SPEC-APPROVED 2026-10-01**（[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）；v0.5 §10a／§10 新增欄位 **SPEC-APPROVED 2026-10-01**（D-18a–e，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）；§26.8 內容包規則依 D-16b **SPEC-APPROVED 2026-10-01**；v0.1 內容 LOCKED FOR MVP；v0.2 session／安全段落（D-04）**SPEC-APPROVED 2026-09-24**；v0.2.2 位置與補助整併（D-13a–g、D-14a–b）**SPEC-APPROVED 2026-09-24**；Lead 接件（D-06）與同意版本（D-05）仍為 PROPOSED；§26 v0.4（D-16a）**SPEC-APPROVED 2026-09-29**  
 Owner: Jerry
 
 ---
@@ -65,9 +65,11 @@ X-Kareo-Session-Token: <sessionToken>
 
 ```text
 POST /api/v1/session
+GET  /api/v1/providers                 （v0.5，§10a 公開資源查詢）
 GET  /api/v1/providers/{providerId}
 GET  /api/v1/external-services/transportation
 GET  /api/v1/knowledge/status
+GET  /api/v1/knowledge/records         （v0.6，§13a 公開長照資訊查詢）
 ```
 
 - Body 中的 `sessionId` 必須與 token 所屬 session 相同，否則 `FORBIDDEN`。
@@ -607,6 +609,178 @@ Mock：`contracts/mock/recommendations/`（`DISTRICT_ROTATION`）與 `ranking-va
 
 Google Maps URL 一律由 Provider 資料提供，Frontend 不自行組 URL。
 
+v0.5 新增欄位（只新增，既有欄位不變）：
+
+| 欄位 | 型態 | 規則 |
+|---|---|---|
+| `serviceAreaStatus` | `VERIFIED`／`UNCONFIRMED` | 由後端依資料推導，不另存：該 Provider 有至少一筆 active ProviderServiceArea → `VERIFIED`；沒有 → `UNCONFIRMED`。`serviceAreas` 只列已驗證的 active 範圍；`UNCONFIRMED` 時 `serviceAreas = []` |
+
+- `UNCONFIRMED` 代表「目前沒有可追溯證據確認服務哪些行政區」，**不是**「不提供服務」。前端固定顯示「服務範圍待確認，請洽機構」，不得以地址、所在縣市或其他來源補上範圍（D-18）。
+- 範例：`contracts/mock/providers/PROV-MOCK-204.json`（`UNCONFIRMED`）；其餘 `PROV-MOCK-*` 為 `VERIFIED`。
+
+v0.6 新增欄位（只新增，D-19）：
+
+| 欄位 | 型態 | 規則 |
+|---|---|---|
+| `resourceCategory` | `SERVICE_PROVIDER`／`ASSISTIVE_DEVICE_CENTER` | `SERVICE_PROVIDER`：既有服務單位。`ASSISTIVE_DEVICE_CENTER`：輔具資源中心（D-19 Q2），`type = OTHER`、`services = []`，**永遠不是推薦候選**（推薦要求服務類型相符） |
+| `contractRegions` | `{ city, serviceType }[]` | 已列於該縣市政府特約名單的事實（D-19 Q1），例如 `{ "city": "臺北市", "serviceType": "ASSISTIVE_DEVICE" }`；沒有資料時為 `[]`。**不是服務範圍**：不代表能到府或服務某行政區，推薦（§9）永遠不讀。前端顯示「列於臺北市輔具特約廠商名單」等文字，並說明長照輔具補助須向核定縣市的特約廠商購置 |
+
+範例：`PROV-MOCK-202`（臺北市、新北市特約）、`PROV-MOCK-301`（輔具資源中心）。
+- 本端點是公開端點（§3.1），可從推薦結果或資源查詢（§10a）進入。**詳細頁本身不是媒合入口**：「我要媒合」只能帶著推薦結果（`recommendationId`）進入 §12；從資源查詢進入時，前端不得顯示媒合按鈕，改為引導「先完成免費評估」。
+
+---
+
+# 10a. Resource Lookup API / 公開資源查詢（v0.5，D-18）
+
+## GET /api/v1/providers
+
+讓使用者**不必先做評估**就能查詢 Kareo 收錄的服務單位（PRODUCT_SPEC §14a）。這是資訊查詢，**不是個案推薦**：不讀取或建立 session、Assessment、RecommendationRun，不需要健康或聯絡資料，結果不得作為 §12 媒合的依據。
+
+- 公開端點，不需要 `X-Kareo-Session-Token`（§3.1）。限流見 ARCHITECTURE §20.4。
+- 只回 `status = ACTIVE` 的 Provider；詳細資料沿用 §10 `GET /api/v1/providers/{providerId}`。
+- 不排序推薦、不輪替、不計算距離；不回傳 `rank`、`distanceKm`、`reasons`。
+
+### Query 參數
+
+| 參數 | 必填 | 規則 |
+|---|---|---|
+| `resourceCategory` | 否 | v0.6。`SERVICE_PROVIDER`／`ASSISTIVE_DEVICE_CENTER`；省略＝全部 |
+| `serviceType` | 否 | `HOME_CARE`／`HOME_MEDICAL_NURSING`／`ASSISTIVE_DEVICE`（沿用 DATA_MODEL §18）；只回該服務 active 的 Provider（輔具資源中心沒有服務類型，不會出現）。與 `resourceCategory = ASSISTIVE_DEVICE_CENTER` 同時提供 → `VALIDATION_ERROR` |
+| `city` | 否 | 只接受 `臺北市`、`新北市`（`contracts/reference/service-districts.json`） |
+| `district` | 否 | 必須同時提供 `city`，且屬於該縣市 |
+| `areaFilter` | 否 | `LOCATED_IN`（依機構所在地 `city`／`district`）或 `SERVICE_AREA`（只比對已驗證的 active ProviderServiceArea）。有 `city` 時省略＝`LOCATED_IN`；沒有 `city` 時不得提供 |
+| `includeUnconfirmed` | 否 | `true`／`false`，預設 `false`。只在 `areaFilter = SERVICE_AREA` 時可為 `true`：在已驗證結果之後附上 `serviceAreaStatus = UNCONFIRMED` 的 Provider（同 `serviceType`、`q` 條件） |
+| `contractCity` | 否 | v0.6。`臺北市`／`新北市`；只回 `contractRegions` 含該縣市的 Provider（有 `serviceType` 時，特約的服務類型也須相同）。可與地區篩選同時使用（AND） |
+| `q` | 否 | 名稱關鍵字，去除前後空白後 1–50 字，比對 `name` 是否包含 |
+| `page` | 否 | 整數 ≥ 1，預設 1 |
+| `pageSize` | 否 | 整數 1–50，預設 20 |
+
+未列出的參數一律 `VALIDATION_ERROR`（避免前端以為 `sort=distance` 之類的條件已生效）。
+
+### 兩種地區篩選的差異
+
+| | `LOCATED_IN` | `SERVICE_AREA` |
+|---|---|---|
+| 比對欄位 | Provider `city`／`district`（機構所在地） | active ProviderServiceArea（已驗證服務範圍） |
+| 範圍未知（`UNCONFIRMED`）的 Provider | 只要所在地符合就出現 | 預設不出現，只回 `unconfirmedCount`；`includeUnconfirmed=true` 時列在最後並標 `areaMatch = UNCONFIRMED` |
+| 代表的意思 | 機構在這裡，**不代表**能到府或服務此區 | 有證據確認服務範圍包含此區；仍**不是**個案推薦 |
+
+`SERVICE_AREA` 只看 `city` 時（未給 `district`），比對「服務範圍含該縣市任一行政區」。
+
+### 排序
+
+固定、可重現、與使用者無關：
+
+1. `SERVICE_AREA`：`areaMatch = VERIFIED` 在前，`UNCONFIRMED` 在後。
+2. 縣市依 `service-districts.json` 順序（臺北市、新北市），行政區依該檔陣列順序。
+3. `id` 升冪。
+
+不得依距離、輪替、付費、評分或點擊數排序。
+
+### Success Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "PROV-MOCK-201",
+        "name": "測試輔具服務中心",
+        "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": ["ASSISTIVE_DEVICE"],
+        "address": "新北市三重區重新路三段201號",
+        "city": "新北市",
+        "district": "三重區",
+        "phone": "02-42010101",
+        "website": "https://example.com/kareo-mock/prov-mock-201",
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-201",
+        "verified": true,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [
+          {
+            "city": "新北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          }
+        ],
+        "areaMatch": "VERIFIED"
+      },
+      {
+        "id": "PROV-MOCK-204",
+        "name": "測試輔具商行（服務範圍待確認）",
+        "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": ["ASSISTIVE_DEVICE"],
+        "address": "新北市三重區重新路三段204號",
+        "city": "新北市",
+        "district": "三重區",
+        "phone": "02-42040404",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-204",
+        "verified": true,
+        "serviceAreaStatus": "UNCONFIRMED",
+        "contractRegions": [
+          {
+            "city": "新北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          }
+        ],
+        "areaMatch": "UNCONFIRMED"
+      }
+    ],
+    "page": 1,
+    "pageSize": 20,
+    "totalCount": 4,
+    "unconfirmedCount": 1,
+    "appliedFilters": {
+      "resourceCategory": null,
+      "serviceType": "ASSISTIVE_DEVICE",
+      "city": "新北市",
+      "district": "三重區",
+      "areaFilter": "SERVICE_AREA",
+      "includeUnconfirmed": true,
+      "contractCity": null,
+      "q": null,
+      "page": 1,
+      "pageSize": 20
+    },
+    "notice": "以下包含服務範圍待確認的機構（列在最後）。標示「服務範圍待確認」者，目前沒有資料確認能服務您所選地區，請先洽機構確認。本結果不是依您的個案狀況所做的推薦，也不代表距離遠近。"
+  }
+}
+```
+
+（`items` 節錄 2 筆；完整內容見 `contracts/mock/providers/lookup/list-service-area-include-unconfirmed-response.json`。）
+
+| 欄位 | 規則 |
+|---|---|
+| `items[]` | 欄位**只有**上例 15 個（v0.6 加入 `resourceCategory`、`contractRegions`），與 §10 同名欄位值相同。**不得回傳** `lat`、`lng`、`status`、`createdAt`、`updatedAt`、`rank`、`distanceKm`、`reasons`，以及任何資料來源、查核證據、決策編號、非官方座標標記、內部備註、Lead 或推薦統計 |
+| `items[].areaMatch` | 只有 `SERVICE_AREA` 為 `VERIFIED`／`UNCONFIRMED`；其餘為 `null` |
+| `totalCount` | 符合條件的總筆數（含 `includeUnconfirmed` 附加的筆數） |
+| `unconfirmedCount` | `SERVICE_AREA` 時為符合 `serviceType`／`q` 但範圍未知的筆數（不論 `includeUnconfirmed`）；其他情況為 `null` |
+| `appliedFilters` | 一律回傳 10 個鍵（v0.6 加入 `resourceCategory`、`contractCity`），值為後端實際套用、補上預設值後的條件 |
+| `notice` | 一律存在，後端產生，前端照原文顯示；不得含「最近」「附近」「適合您」「一定可到府」 |
+
+### 空結果與錯誤
+
+| 情況 | 回應 |
+|---|---|
+| 沒有符合條件 | `success: true`、`items: []`、`totalCount: 0`、notice 建議調整條件或洽 1966（`list-empty-response.json`） |
+| `page` 超過最後一頁 | `success: true`、`items: []`，`totalCount` 為實際總數（`list-page-out-of-range-response.json`） |
+| `city` 不是臺北市／新北市 | `VALIDATION_ERROR`「本階段只提供臺北市、新北市的資源查詢。」 |
+| `district` 不屬於 `city`；只有 `district` 沒有 `city` | `VALIDATION_ERROR` |
+| `areaFilter` 沒有 `city`、值不合法；`includeUnconfirmed=true` 但不是 `SERVICE_AREA` | `VALIDATION_ERROR` |
+| `serviceType`／`resourceCategory` 不合法、`resourceCategory = ASSISTIVE_DEVICE_CENTER` 又給 `serviceType`、`contractCity` 不是臺北市／新北市、`q` 超過長度、`page`／`pageSize` 越界、未定義參數 | `VALIDATION_ERROR` |
+| 限流 | `RATE_LIMITED`（429） |
+
+前端的「其他縣市」選項不呼叫本 API，直接顯示「本階段只提供臺北市、新北市」與 1966 提示（比照 D-14b）。找不到單一 Provider 沿用 §10 `NOT_FOUND`。
+
+### 與推薦、媒合的界線（D-18）
+
+- 推薦（§9）規則不變：候選必須服務類型相符且**已驗證服務範圍**相符。`UNCONFIRMED` 的 Provider 不會因為出現在查詢結果就成為推薦候選；不得為了補足推薦家數放寬條件或新增沒有證據的服務範圍。
+- 查詢結果沒有 `recommendationId`，不能用來建立 Lead（§12 已要求 `providerId` 必須在同 session 的推薦結果中）。
+- Mock：`contracts/mock/providers/lookup/`（7 種成功情境、6 種錯誤、request 範例；`node contracts/mock/providers/lookup/validate-fixtures.mjs` 檢查一致性，含「`PROV-MOCK-204` 查得到、但不在三重區輔具推薦中」的同機構對照）。
+
 ---
 
 # 11. Kareocar External Service API
@@ -724,6 +898,88 @@ Frontend 原則上不直接讀整個 Knowledge DB。
   "lastVerifiedAt": "2026-09-14T00:20:00+08:00"
 }
 ```
+
+---
+
+# 13a. Knowledge Records API / 公開長照資訊查詢（v0.6，D-19 Q3）
+
+## GET /api/v1/knowledge/records
+
+讓使用者不必先做評估，就能瀏覽 Kareo **已審核並發布**的長照制度與補助資訊（PRODUCT_SPEC §14c）。內容與 Assessment 使用的知識是同一份（§13、DATA_MODEL §24、§26a）。
+
+- 公開端點，不需要 session（§3.1）。限流見 ARCHITECTURE §20.4。
+- 只回**目前 PUBLISHED 版本**快照（`knowledge_version_records`）中、今天（Asia/Taipei）有效的紀錄：`effectiveFrom ≤ 今天`，且 `effectiveTo` 為 `null` 或 `≥ 今天`。尚未生效或已失效的不回（PRODUCT_SPEC §47）。
+- 沒有任何 PUBLISHED 版本 → `KNOWLEDGE_UNAVAILABLE`（503），與 §13 一致。
+- 不做個人化：不回答「您是否符合」，不計算金額。
+
+### Query 參數
+
+| 參數 | 必填 | 規則 |
+|---|---|---|
+| `jurisdiction` | 否 | `TAIWAN`／`TAIPEI`／`NEW_TAIPEI`（DATA_MODEL §23）；省略＝全部 |
+| `category` | 否 | DATA_MODEL §24 Knowledge Category；省略＝全部 |
+| `page` | 否 | 整數 ≥ 1，預設 1 |
+| `pageSize` | 否 | 整數 1–50，預設 20 |
+
+未列出的參數 → `VALIDATION_ERROR`。
+
+排序固定：`jurisdiction`（TAIWAN → TAIPEI → NEW_TAIPEI）→ `category`（DATA_MODEL §24 列出順序）→ `id`。
+
+### Success Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "knowledgeVersion": "KB-MOCK-001",
+    "publishedAt": "2026-09-24T12:00:00+08:00",
+    "items": [
+      {
+        "id": "KREC-MOCK-015",
+        "title": "新北市長照輔具及居家無障礙補助申請流程",
+        "category": "ASSISTIVE_DEVICE",
+        "jurisdiction": "NEW_TAIPEI",
+        "summary": "新北市長照輔具及居家無障礙改善補助須先經核定才能購置或租賃，未經核定不予補助；部分輔具需附三個月內的輔具評估報告。取得核定通知後 6 個月內，向特約廠商購置或租賃並檢附請款文件，處理期限 40 天。承辦為新北市輔具資源中心（蘆洲區集賢路 245 號 9 樓，02-8286-7045）。",
+        "effectiveFrom": "2026-09-24",
+        "effectiveTo": null,
+        "publishedAt": null,
+        "lastVerifiedAt": "2026-09-24T10:00:00+08:00",
+        "source": {
+          "title": "新北市政府雲端櫃檯「長期照顧輔具服務及居家無障礙環境改善服務補助」",
+          "publisher": "新北市政府",
+          "url": "https://service.ntpc.gov.tw/eservice/CaseData.action?itemId=110105"
+        }
+      }
+    ],
+    "page": 1,
+    "pageSize": 20,
+    "totalCount": 2,
+    "appliedFilters": {
+      "jurisdiction": "NEW_TAIPEI",
+      "category": "ASSISTIVE_DEVICE",
+      "page": 1,
+      "pageSize": 20
+    },
+    "notice": "以下為 Kareo 已審核發布的長照制度與補助資訊摘要，內容可能隨主管機關公告調整。實際資格、服務內容與補助，仍應由 1966 或所在地長期照顧管理中心正式評估確認。"
+  }
+}
+```
+
+（`items` 節錄 1 筆；完整內容見 `contracts/mock/knowledge/records-new-taipei-assistive-device-response.json`。Mock 的摘要取自已核准、尚未發布的內容包，只示範格式。）
+
+| 欄位 | 規則 |
+|---|---|
+| `knowledgeVersion`／`publishedAt` | 目前 PUBLISHED 版本與發布時間 |
+| `items[]` | **只有**上例 10 個欄位。**不得回傳** `ruleData`、原文 `excerpt`／`rawText`、`contentHash`、`contentFingerprint`、`status`、`packId`、審核紀錄或任何內部欄位 |
+| `items[].publishedAt` | 官方公告日（DATA_MODEL §24），可為 `null`；不是 Kareo 發布時間 |
+| `source.title` | Source Registry 的來源名稱 |
+| `source.publisher` | 發布機關（`LAW` → 全國法規資料庫、`MOHW` → 衛生福利部、`TAIPEI_GOV` → 臺北市政府、`NEW_TAIPEI_GOV` → 新北市政府；`KAREO_DRIVE` → Source Registry 記錄的原發布機關） |
+| `source.url` | 官方網址；`KAREO_DRIVE` 來源一律 `null`（不公開雲端硬碟連結，D-15） |
+| `notice` | 一律存在且包含 1966 正式評估提醒（PRODUCT_SPEC §34）；空結果時改為建議調整條件或洽 1966 |
+
+錯誤：`jurisdiction`／`category`／`page`／`pageSize` 不合法、未定義參數 → `VALIDATION_ERROR`；沒有 PUBLISHED 版本 → `KNOWLEDGE_UNAVAILABLE`；限流 → `RATE_LIMITED`。
+
+前端規則：`summary` 照原文逐段顯示，不得改寫、計算或推論個人資格；每筆顯示來源與生效日；不得出現「您符合」「已核定」「您可獲得」。Mock：`contracts/mock/knowledge/`（`node contracts/mock/knowledge/validate-fixtures.mjs`）。
 
 ---
 
@@ -1090,7 +1346,7 @@ Success（可發布）：
 
 | 欄位 | 定義 |
 |---|---|
-| 候選紀錄 | 目前狀態 `APPROVED`、尚未發布的全部紀錄 |
+| 候選紀錄 | 目前狀態 `APPROVED`、尚未發布，**且所屬內容包在資料庫登錄的狀態為 `APPROVED`** 的全部紀錄（v0.5，D-16b：內容包狀態以匯入時保存的資料為準，不讀檔案） |
 | `targetVersionId` | 候選紀錄所屬內容包的 `intendedKnowledgeVersion`（格式 `KB-YYYY-MM-DD-NNN`）。所有候選內容包必須相同 |
 | `publishedRecordCount`（新增） | 候選紀錄中 `effectiveTo` 為 `null` 或不早於 `publishDate` 的筆數 |
 | `excludedRecordCount` | 候選紀錄中 `effectiveTo` 早於 `publishDate`、不會發布的筆數（仍保持 `APPROVED`） |
@@ -1107,14 +1363,14 @@ Success（可發布）：
 |---|---|
 | `NO_APPROVED_RECORDS` | 沒有任何 `APPROVED` 紀錄 |
 | `ALL_CANDIDATES_EXPIRED` | 候選紀錄的 `effectiveTo` 全部早於 `publishDate` |
-| `PACK_NOT_APPROVED` | 候選紀錄所屬內容包的 `status` 不是 `APPROVED`（沿用 B-008 規則） |
+| `PACK_NOT_APPROVED` | 有 `APPROVED` 紀錄所屬的內容包，在資料庫登錄的 `status` 不是 `APPROVED`，或尚未登錄（message：「內容包資料尚未登錄」）。沿用 B-008 規則，D-16b 維持 |
 | `TARGET_VERSION_INVALID` | 內容包缺 `intendedKnowledgeVersion` 或格式不合法 |
 | `TARGET_VERSION_CONFLICT` | 候選內容包的 `intendedKnowledgeVersion` 不只一個 |
 | `VERSION_ALREADY_EXISTS` | `targetVersionId` 已存在（不得覆寫或改號） |
 
 每個 blocker 為 `{ "code": "...", "message": "給操作者看的中文說明" }`；前端顯示 `message`，並停用發布按鈕。
 
-**預覽失效**：`previewToken` 是後端對「版號＋目前 PUBLISHED 版本＋每筆新增／沿用／取代／排除紀錄的 id 與 `contentFingerprint`＋`publishDate`」算出的不透明值（前端不得解析或自行產生）。上述任一項在預覽後改變（有人核准／退回紀錄、匯入更新內容、另一次發布或撤回、跨過午夜），同樣輸入重新計算的值就不同，預覽即失效。預覽本身沒有另外的有效時間，但受管理 token 15 分鐘有效期限制。
+**預覽失效**：`previewToken` 是後端對「版號＋目前 PUBLISHED 版本＋每筆新增／沿用／取代／排除紀錄的 id 與 `contentFingerprint`＋相關內容包的 `status` 與內容包指紋（v0.5，D-16b）＋`publishDate`」算出的不透明值（前端不得解析或自行產生）。上述任一項在預覽後改變（有人核准／退回紀錄、匯入更新內容、另一次發布或撤回、跨過午夜），同樣輸入重新計算的值就不同，預覽即失效。預覽本身沒有另外的有效時間，但受管理 token 15 分鐘有效期限制。
 
 ## 26.9 POST /api/v1/admin/knowledge/publish
 
@@ -1248,3 +1504,5 @@ Success：
 | v0.3.1 | 2026-09-24 | §8 Assessment Request 新增選填 `disabilityCertificate`（YES／NO／UNKNOWN，D-17）；回應格式不變 | B-010、C-005、J-003 |
 | v0.3.2 | 2026-09-24 | §8 Assessment Request 新增選填 `incomeCategory`（D-17a）；回應格式不變 | B-010、C-005、J-003 |
 | v0.4 | 2026-09-29 | §26 補齊（D-16a，Jerry 核准 [PR #34 comment 5883232266](https://github.com/viz963-1216/Kareo/pull/34#issuecomment-5883232266)）：新增 `GET …/publish-preview`、`GET …/restorable-versions`；decision／dismiss／publish／withdraw 完整 request／response（全部 `confirm: true`；decision／dismiss／withdraw 必填 `reason`）；publish 新增必填 `previewToken`、withdraw 新增必填 `withdrawVersionId` 且 `republishVersionId` 必須明確出現；records 新增 `contentFingerprint`、`effectiveTo`；新錯誤碼 `KNOWLEDGE_STATE_CHANGED`（409）；KnowledgeChange 新增 `DISMISSED`。v0.3 欄位與路徑不變 | B-012、C-006、B-009（`DISMISSED`）、J-003、contracts/mock/admin |
+| v0.5 | 2026-10-01 | 新增 §10a `GET /api/v1/providers` 公開資源查詢（D-18／D-18a–e，2026-10-01 核准：[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）；§10 新增 `serviceAreaStatus` 並明定詳細頁不是媒合入口；§3.1 公開端點清單；§26.8 候選紀錄與 `PACK_NOT_APPROVED` 改以資料庫登錄的內容包狀態為準、`previewToken` 涵蓋內容包狀態與指紋（D-16b，SPEC-APPROVED [PR #48 comment 5925628146](https://github.com/viz963-1216/Kareo/pull/48#issuecomment-5925628146)）。既有欄位與路徑不變 | B-013、C-007、B-012-r3、J-003、contracts/mock/providers |
+| v0.6 | 2026-10-01 | D-19（[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）：§10／§10a 新增 `resourceCategory`（輔具資源中心）、`contractRegions`（特約縣市）與 `resourceCategory`／`contractCity` 篩選；新增 §13a `GET /api/v1/knowledge/records`；§3.1 公開端點。既有欄位與路徑不變 | A-006、A-007、B-013、B-014、C-007、C-008、J-003、contracts/mock |

@@ -57,6 +57,7 @@ function runGate({
   providers = [baseProvider()],
   services = [baseService()],
   serviceAreas = [baseArea()],
+  contractRegions,
 } = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "kareo-a004-"));
 
@@ -67,6 +68,12 @@ function runGate({
       path.join(dir, "provider-service-areas.json"),
       JSON.stringify(serviceAreas),
     );
+    if (contractRegions !== undefined) {
+      fs.writeFileSync(
+        path.join(dir, "provider-contract-regions.json"),
+        JSON.stringify(contractRegions),
+      );
+    }
 
     const result = spawnSync(process.execPath, [validator, dir], { encoding: "utf8" });
     return { status: result.status, output: result.stdout + result.stderr };
@@ -214,4 +221,28 @@ test("formal ProviderService ids follow the reproducible rule PSV-{providerId}-{
   for (const service of services) {
     assert.equal(service.id, `PSV-${service.providerId}-${service.serviceType}`);
   }
+});
+
+test("ProviderContractRegion must use a supported city and an active matching service", () => {
+  const contract = {
+    id: "PCR-TEST-PROV-001-TPE",
+    providerId: "TEST-PROV-001",
+    city: "臺北市",
+    serviceType: "ASSISTIVE_DEVICE",
+    sourceId: "SRC-004",
+    checkedAt: "2026-10-02",
+    active: true,
+  };
+  assertFails(
+    runGate({ contractRegions: [contract] }),
+    /Provider must have the same active ProviderService/,
+  );
+  assertFails(
+    runGate({
+      providers: [baseProvider({ type: "ASSISTIVE_DEVICE" })],
+      services: [baseService({ serviceType: "ASSISTIVE_DEVICE" })],
+      contractRegions: [{ ...contract, city: "桃園市" }],
+    }),
+    /city.*must be 臺北市 or 新北市/,
+  );
 });

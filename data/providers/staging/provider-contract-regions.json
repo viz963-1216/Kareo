@@ -1,0 +1,173 @@
+[
+  {
+    "id": "PCR-NTPC-AD-001-NTPC",
+    "providerId": "NTPC-AD-001",
+    "city": "新北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-005",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-001-TPE",
+    "providerId": "NTPC-AD-001",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-004",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-002-NTPC",
+    "providerId": "NTPC-AD-002",
+    "city": "新北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-005",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-003-NTPC",
+    "providerId": "NTPC-AD-003",
+    "city": "新北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-005",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-004-NTPC",
+    "providerId": "NTPC-AD-004",
+    "city": "新北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-005",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-004-TPE",
+    "providerId": "NTPC-AD-004",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-004",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-005-NTPC",
+    "providerId": "NTPC-AD-005",
+    "city": "新北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-005",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-005-TPE",
+    "providerId": "NTPC-AD-005",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-004",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-006-NTPC",
+    "providerId": "NTPC-AD-006",
+    "city": "新北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-005",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-007-NTPC",
+    "providerId": "NTPC-AD-007",
+    "city": "新北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-005",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-008-NTPC",
+    "providerId": "NTPC-AD-008",
+    "city": "新北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-005",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-008-TPE",
+    "providerId": "NTPC-AD-008",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-004",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-009-NTPC",
+    "providerId": "NTPC-AD-009",
+    "city": "新北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-005",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-009-TPE",
+    "providerId": "NTPC-AD-009",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-004",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-TP-AD-001-NTPC",
+    "providerId": "TP-AD-001",
+    "city": "新北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-005",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-TP-AD-001-TPE",
+    "providerId": "TP-AD-001",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-004",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-TP-AD-002-TPE",
+    "providerId": "TP-AD-002",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-004",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-TP-AD-003-NTPC",
+    "providerId": "TP-AD-003",
+    "city": "新北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-005",
+    "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-TP-AD-003-TPE",
+    "providerId": "TP-AD-003",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-004",
+    "checkedAt": "2026-09-29",
+    "active": true
+  }
+]

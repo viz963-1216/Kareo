@@ -4,6 +4,7 @@
     "id": "PROV-MOCK-202",
     "name": "測試安心輔具中心",
     "type": "ASSISTIVE_DEVICE",
+    "resourceCategory": "SERVICE_PROVIDER",
     "address": "臺北市萬華區西園路一段202號",
     "city": "臺北市",
     "district": "萬華區",
@@ -30,6 +31,17 @@
       {
         "city": "新北市",
         "district": "板橋區"
+      }
+    ],
+    "serviceAreaStatus": "VERIFIED",
+    "contractRegions": [
+      {
+        "city": "臺北市",
+        "serviceType": "ASSISTIVE_DEVICE"
+      },
+      {
+        "city": "新北市",
+        "serviceType": "ASSISTIVE_DEVICE"
       }
     ]
   }

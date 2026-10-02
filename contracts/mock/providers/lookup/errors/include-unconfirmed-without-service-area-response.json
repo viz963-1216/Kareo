@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "只有依服務範圍篩選時，才能選擇顯示服務範圍待確認的機構。"
+  }
+}

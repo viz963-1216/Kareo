@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "輔具資源中心不適用服務類別篩選，請擇一使用。"
+  }
+}

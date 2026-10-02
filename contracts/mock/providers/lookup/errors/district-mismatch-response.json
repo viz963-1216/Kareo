@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "行政區不屬於所選縣市，請重新選擇。"
+  }
+}

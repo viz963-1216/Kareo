@@ -1,0 +1,8 @@
+{
+  "method": "GET",
+  "path": "/api/v1/providers",
+  "query": {
+    "city": "臺北市",
+    "district": "三重區"
+  }
+}
