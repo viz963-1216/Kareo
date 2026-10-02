@@ -9,6 +9,15 @@ export type CareNeed =
 export type RecommendationServiceType = Exclude<CareNeed, "TRANSPORTATION">;
 export type RankingType = "DISTANCE" | "DISTRICT_ROTATION" | "CITY_ROTATION" | "NO_LOCATION";
 export type LocationPrecision = "NONE" | "CITY" | "DISTRICT" | "EXACT" | "GPS";
+export type ResourceCategory = "SERVICE_PROVIDER" | "ASSISTIVE_DEVICE_CENTER";
+export type ServiceAreaStatus = "VERIFIED" | "UNCONFIRMED";
+export type ResourceAreaFilter = "LOCATED_IN" | "SERVICE_AREA";
+export type ResourceAreaMatch = ServiceAreaStatus | null;
+
+export interface ProviderContractRegion {
+  city: "臺北市" | "新北市";
+  serviceType: RecommendationServiceType;
+}
 
 export interface SessionResponse {
   sessionId: string;
@@ -132,6 +141,63 @@ export interface ProviderDetail {
   verified: boolean;
   services: RecommendationServiceType[];
   serviceAreas: { city: string; district: string }[];
+  serviceAreaStatus: ServiceAreaStatus;
+  resourceCategory: ResourceCategory;
+  contractRegions: ProviderContractRegion[];
+}
+
+export interface ResourceLookupRequest {
+  resourceCategory?: ResourceCategory;
+  serviceType?: RecommendationServiceType;
+  city?: "臺北市" | "新北市";
+  district?: string;
+  areaFilter?: ResourceAreaFilter;
+  includeUnconfirmed?: boolean;
+  contractCity?: "臺北市" | "新北市";
+  q?: string;
+  page?: number;
+  pageSize?: number;
+}
+
+export interface ResourceLookupItem {
+  id: string;
+  name: string;
+  type: RecommendationServiceType | "OTHER";
+  resourceCategory: ResourceCategory;
+  services: RecommendationServiceType[];
+  address: string;
+  city: string;
+  district: string;
+  phone: string;
+  website: string | null;
+  googleMapsUrl: string;
+  verified: boolean;
+  serviceAreaStatus: ServiceAreaStatus;
+  contractRegions: ProviderContractRegion[];
+  areaMatch: ResourceAreaMatch;
+}
+
+export interface ResourceLookupAppliedFilters {
+  resourceCategory: ResourceCategory | null;
+  serviceType: RecommendationServiceType | null;
+  city: "臺北市" | "新北市" | null;
+  district: string | null;
+  areaFilter: ResourceAreaFilter | null;
+  includeUnconfirmed: boolean;
+  contractCity: "臺北市" | "新北市" | null;
+  q: string | null;
+  page: number;
+  pageSize: number;
+}
+
+export interface ResourceLookupResponse {
+  items: ResourceLookupItem[];
+  page: number;
+  pageSize: number;
+  totalCount: number;
+  unconfirmedCount: number | null;
+  appliedFilters: ResourceLookupAppliedFilters;
+  notice: string;
 }
 
 // API_CONTRACT §12 POST /api/v1/leads. Idempotency-Key and the session token are added by the API adapter.

@@ -6,6 +6,8 @@ import type {
   LeadRequest,
   LeadResponse,
   ProviderDetail,
+  ResourceLookupRequest,
+  ResourceLookupResponse,
   RecommendationRequest,
   RecommendationResponse,
   SessionDeletionResponse,
@@ -14,6 +16,7 @@ import { createLeadIdempotency } from "./leadIdempotency";
 import type { RecommendationMockOptions } from "./mockAdapter";
 import type { MockState } from "./mockScenarios";
 import type { AdminMockScenario } from "./mockScenarios";
+import type { ResourceLookupMockScenario } from "./mockScenarios";
 import { resolveApiMode, type ApiMode } from "./mode";
 import { ApiError, configureRealApi, realApi } from "./realAdapter";
 
@@ -124,6 +127,10 @@ export const api = {
 
   getProvider(providerId: string, simulateMockError = false): Promise<ProviderDetail | null> {
     return apiMode === "mock" ? loadMock().then((mock) => mock.getProvider(providerId, simulateMockError)) : realApi.getProvider(providerId);
+  },
+
+  getProviders(request: ResourceLookupRequest, mockScenario?: ResourceLookupMockScenario): Promise<ResourceLookupResponse> {
+    return apiMode === "mock" ? loadMock().then((mock) => mock.getProviders(request, mockScenario)) : realApi.getProviders(request);
   },
 };
 
