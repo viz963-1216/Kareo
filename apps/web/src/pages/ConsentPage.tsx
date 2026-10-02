@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { consentIsDraft, consentVersions } from "../api";
 import { DraftBadge } from "../components/DraftBadge";
 import { FormalAssessmentReminder } from "../components/FormalAssessmentReminder";
@@ -41,11 +41,12 @@ export function ConsentPage({ onAccept }: Props) {
           Kareo 提供的是依您填寫資料所做的<strong>初步預估</strong>與資訊整理，不是政府正式的長照資格、長照需要等級（CMS）或補助核定，也不是醫療診斷。實際資格、等級、服務內容與補助，請以長照專線 <strong>1966</strong> 或所在地長期照顧管理中心的正式評估為準。
         </p>
         <h2 id="privacy-heading">隱私告知（重點）</h2>
+        <p><Link to="/privacy">閱讀完整隱私告知、權利申請與保存說明</Link></p>
         <ul>
           <li>評估不需要提供姓名或電話。</li>
-          <li>您的評估回答（包含行動能力、日常生活協助等與健康相關的資訊）只會由 Kareo 系統依固定規則產生初步結果，不會提供給其他公司或 AI 服務。</li>
+          <li>您的評估回答（包含行動能力、日常生活協助等與健康相關的資訊）只會由 Kareo 系統依固定規則產生初步結果，不會交給 AI 服務分析；網站與資料庫由 Netlify、Supabase 受委託處理。</li>
           <li>只有在您按下「我要媒合」並勾選同意後，我們才會保存您的稱呼與電話，由 Kareo 服務人員聯繫您。未經您同意，不會把您的資料交給服務單位。</li>
-          <li>評估資料在最後使用後 90 天刪除；媒合聯絡資料在案件結束後 180 天刪除。您可以隨時在結果頁刪除資料或撤回同意，也可以來信 <a href="mailto:viz963@gmail.com">viz963@gmail.com</a> 要求刪除。</li>
+          <li>評估資料在最後使用後 90 天刪除；媒合聯絡資料在案件結束後 180 天刪除。預定提供結果頁刪除與撤回同意，正式開放前須完成驗證；也可以來信 <a href="mailto:viz963@gmail.com">viz963@gmail.com</a> 要求刪除。</li>
         </ul>
         {consentVersions && (
           <p className="field-hint">
