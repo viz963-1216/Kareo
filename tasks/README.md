@@ -32,6 +32,18 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新整合快照（2026-10-03，J-003-r9；以下舊看板為歷史，衝突以本節為準）
+
+- staging `376f3ef`；Netlify 部署與 Supabase Kareo 已恢復。J-001 環境可用，但尚非完整驗收。
+- A-006 #53、Session runtime #59、隱私 #61/#62 已合併。Provider 已匯入 30 家／30 服務／86 已確認範圍。
+- 首次知識版本 `KB-2026-09-24-001` 已發布：18 來源、21 筆紀錄、21 版本成員。知識狀態 API HTTP 200。lastVerifiedAt 保留來源原核對時間，不改成發布日。
+- 開啟 PR：B-012 #48、B-011b #55、B-013 #57、C-007 #58，仍待修正／依賴。
+- A-007、B-014、C-008、C-009 未見 PR；A-006 已完成模組，公開查詢整合仍待 B-013/C-007。
+- D-05：Jerry 已核准 90 天／180 天／1 年／3 年的產品保存規劃（#62 留言）；同意仍 DRAFT，工程及最終審閱未完成。
+- 每日 crawler：staging 有 workflow，但 main 沒有；GitHub staging environment 已建立，只允許 staging 分支，目前無 secrets。尚未定時實跑。
+- D-18/D-19 六項新增驗收已列 E2E-44～49；合計 49 必要案例，不以早期 43 項代替完整範圍。Integrated 維持否。
+- 詳細證據：`docs/acceptance/J003-2026-10-03-first-knowledge-publication.md`。
+
 # Task Board（2026-10-01，J-002-r6 依 staging `2ef21a8`、GitHub PR 與遠端分支核對）
 
 「模組」欄只代表 PR 狀態；「整合」欄只在 J-003 有對應證據時才寫。逐項證據與交回清單見 `docs/INTEGRATION_ACCEPTANCE.md`〈目前結論（2026-09-29，J-003-r8）〉。
