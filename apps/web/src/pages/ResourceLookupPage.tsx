@@ -3,38 +3,23 @@ import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { api, ApiError, apiMode } from "../api";
 import { RESOURCE_LOOKUP_MOCK_SCENARIOS, type ResourceLookupMockScenario } from "../api/mockScenarios";
 import { DISTRICTS, isServiceCity } from "../location/location";
+import {
+  buildResourceLookupRequest,
+  changeAreaFilter,
+  changeLookupCity,
+  changeResourceCategory,
+  initialLookupForm,
+  previousLookupPage,
+  withIncludeUnconfirmed,
+  type LookupCity,
+  type LookupForm,
+} from "../resources/resourceLookup";
 import type {
   RecommendationServiceType,
-  ResourceAreaFilter,
   ResourceCategory,
   ResourceLookupItem,
-  ResourceLookupRequest,
   ResourceLookupResponse,
 } from "../types/api";
-
-type LookupCity = "" | "臺北市" | "新北市" | "OTHER";
-
-interface LookupForm {
-  resourceCategory: "" | ResourceCategory;
-  serviceType: "" | RecommendationServiceType;
-  city: LookupCity;
-  district: string;
-  areaFilter: "" | ResourceAreaFilter;
-  includeUnconfirmed: boolean;
-  contractCity: "" | "臺北市" | "新北市";
-  q: string;
-}
-
-const initialForm: LookupForm = {
-  resourceCategory: "",
-  serviceType: "",
-  city: "",
-  district: "",
-  areaFilter: "",
-  includeUnconfirmed: false,
-  contractCity: "",
-  q: "",
-};
 
 const serviceLabels: Record<RecommendationServiceType, string> = {
   HOME_CARE: "居家照顧",
@@ -99,28 +84,11 @@ function ResourceCard({ item, from }: { item: ResourceLookupItem; from: string }
   );
 }
 
-export function buildResourceLookupRequest(form: LookupForm, page = 1): ResourceLookupRequest | null {
-  if (form.city === "OTHER") return null;
-  const q = form.q.trim();
-  return {
-    ...(form.resourceCategory ? { resourceCategory: form.resourceCategory } : {}),
-    ...(form.serviceType ? { serviceType: form.serviceType } : {}),
-    ...(isServiceCity(form.city) ? { city: form.city } : {}),
-    ...(form.district ? { district: form.district } : {}),
-    ...(form.areaFilter ? { areaFilter: form.areaFilter } : {}),
-    ...(form.areaFilter === "SERVICE_AREA" && form.includeUnconfirmed ? { includeUnconfirmed: true } : {}),
-    ...(form.contractCity ? { contractCity: form.contractCity } : {}),
-    ...(q ? { q } : {}),
-    page,
-    pageSize: 20,
-  };
-}
-
 export function ResourceLookupPage() {
   const [searchParams] = useSearchParams();
   const location = useLocation();
-  const [form, setForm] = useState<LookupForm>(initialForm);
-  const [submittedForm, setSubmittedForm] = useState<LookupForm>(initialForm);
+  const [form, setForm] = useState<LookupForm>(initialLookupForm);
+  const [submittedForm, setSubmittedForm] = useState<LookupForm>(initialLookupForm);
   const [page, setPage] = useState(1);
   const [state, setState] = useState<LookupState>({ status: "idle" });
   const [attempt, setAttempt] = useState(0);
@@ -160,11 +128,7 @@ export function ResourceLookupPage() {
   }
 
   function setIncludeUnconfirmed(includeUnconfirmed: boolean) {
-    const nextForm: LookupForm = {
-      ...submittedForm,
-      areaFilter: "SERVICE_AREA",
-      includeUnconfirmed,
-    };
+    const nextForm = withIncludeUnconfirmed(submittedForm, includeUnconfirmed);
     setForm(nextForm);
     setSubmittedForm(nextForm);
     setPage(1);
@@ -184,11 +148,7 @@ export function ResourceLookupPage() {
             資源類別
             <select value={form.resourceCategory} onChange={(event) => {
               const resourceCategory = event.target.value as LookupForm["resourceCategory"];
-              setForm((current) => ({
-                ...current,
-                resourceCategory,
-                serviceType: resourceCategory === "ASSISTIVE_DEVICE_CENTER" ? "" : current.serviceType,
-              }));
+              setForm((current) => changeResourceCategory(current, resourceCategory));
             }}>
               <option value="">全部資源</option>
               <option value="SERVICE_PROVIDER">服務單位</option>
@@ -210,15 +170,9 @@ export function ResourceLookupPage() {
           </label>
           <label>
             縣市
-            <select value={form.city} onChange={(event) => {
+            <select id="resource-city" value={form.city} onChange={(event) => {
               const city = event.target.value as LookupCity;
-              setForm((current) => ({
-                ...current,
-                city,
-                district: "",
-                areaFilter: isServiceCity(city) ? current.areaFilter : "",
-                includeUnconfirmed: isServiceCity(city) && current.areaFilter === "SERVICE_AREA" ? current.includeUnconfirmed : false,
-              }));
+              setForm((current) => changeLookupCity(current, city));
             }}>
               <option value="">不限縣市</option>
               <option value="臺北市">臺北市</option>
@@ -237,11 +191,7 @@ export function ResourceLookupPage() {
             地區篩選方式
             <select value={form.areaFilter} disabled={!isServiceCity(form.city)} onChange={(event) => {
               const areaFilter = event.target.value as LookupForm["areaFilter"];
-              setForm((current) => ({
-                ...current,
-                areaFilter,
-                includeUnconfirmed: areaFilter === "SERVICE_AREA" ? current.includeUnconfirmed : false,
-              }));
+              setForm((current) => changeAreaFilter(current, areaFilter));
             }}>
               <option value="">使用預設（機構所在地）</option>
               <option value="LOCATED_IN">依機構所在地</option>
@@ -263,7 +213,7 @@ export function ResourceLookupPage() {
         </fieldset>
         <div className="button-row">
           <button className="button primary" type="submit" disabled={state.status === "loading"}>查詢</button>
-          <button className="button secondary" type="button" onClick={() => { setForm(initialForm); setSubmittedForm(initialForm); setPage(1); }}>清除條件</button>
+          <button className="button secondary" type="button" onClick={() => { setForm(initialLookupForm); setSubmittedForm(initialLookupForm); setPage(1); }}>清除條件</button>
         </div>
       </form>
 
@@ -321,7 +271,7 @@ export function ResourceLookupPage() {
           )}
           {state.status === "empty" && <div className="panel empty-state" role="status"><p>目前沒有符合條件的資源，請調整篩選條件。</p></div>}
           <nav className="pagination" aria-label="查詢結果分頁">
-            <button className="button secondary" type="button" disabled={state.response.page <= 1} onClick={() => setPage((value) => Math.max(1, value - 1))}>上一頁</button>
+            <button className="button secondary" type="button" disabled={state.response.page <= 1} onClick={() => setPage(previousLookupPage)}>上一頁</button>
             <span>
               第 {state.response.page} 頁
               {state.response.totalCount > 0 && `，共 ${Math.max(1, Math.ceil(state.response.totalCount / state.response.pageSize))} 頁`}

@@ -283,7 +283,7 @@ export function isResourceLookupResponse(value: unknown): value is ResourceLooku
     && typeof value.notice === "string";
 }
 
-function resourceLookupPath(filters: ResourceLookupRequest) {
+export function resourceLookupPath(filters: ResourceLookupRequest) {
   const query = new URLSearchParams();
   if (filters.resourceCategory) query.set("resourceCategory", filters.resourceCategory);
   if (filters.serviceType) query.set("serviceType", filters.serviceType);

@@ -2,7 +2,22 @@ import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { isProviderDetail, isResourceLookupResponse } from "../src/api/realAdapter.ts";
+import {
+  isProviderDetail,
+  isResourceLookupResponse,
+  realApi,
+  resourceLookupPath,
+} from "../src/api/realAdapter.ts";
+import {
+  buildResourceLookupRequest,
+  changeAreaFilter,
+  changeLookupCity,
+  changeResourceCategory,
+  initialLookupForm,
+  previousLookupPage,
+  withIncludeUnconfirmed,
+  type LookupForm,
+} from "../src/resources/resourceLookup.ts";
 
 const src = fileURLToPath(new URL("../src/", import.meta.url));
 const fixtures = fileURLToPath(new URL("../../../contracts/mock/providers/", import.meta.url));
@@ -26,6 +41,13 @@ test("both C-007 provider details satisfy strict validation", () => {
     assert.equal(envelope.success, true, file);
     assert.equal(isProviderDetail(envelope.data), true, file);
   }
+});
+
+test("the existing assistive-device recommendation never includes the lookup-only unconfirmed provider", () => {
+  const recommendation = json(`${fixtures}../recommendations/ASSISTIVE_DEVICE.json`).data;
+  const ids = recommendation.providers.map((provider: { id: string }) => provider.id);
+  assert.deepEqual(ids, ["PROV-MOCK-201", "PROV-MOCK-202", "PROV-MOCK-203"]);
+  assert.equal(ids.includes("PROV-MOCK-204"), false);
 });
 
 test("mock lookup exposes every success, empty, page and contracted error screen", () => {
@@ -76,4 +98,132 @@ test("resource lookup response validation rejects leaked internal fields and mal
   assert.equal(isResourceLookupResponse({ ...valid, totalCount: -1 }), false);
   assert.equal(isResourceLookupResponse({ ...valid, unconfirmedCount: -1 }), false);
   assert.equal(isResourceLookupResponse({ ...valid, items: [{ ...valid.items[0], internalScore: 1 }] }), false);
+});
+
+test("lookup request trims text and sends every supported filter without UI-only fields", () => {
+  const form: LookupForm = {
+    resourceCategory: "SERVICE_PROVIDER",
+    serviceType: "ASSISTIVE_DEVICE",
+    city: "新北市",
+    district: "三重區",
+    areaFilter: "SERVICE_AREA",
+    includeUnconfirmed: true,
+    contractCity: "臺北市",
+    q: "  輔具 商行  ",
+  };
+  assert.deepEqual(buildResourceLookupRequest(form, 3), {
+    resourceCategory: "SERVICE_PROVIDER",
+    serviceType: "ASSISTIVE_DEVICE",
+    city: "新北市",
+    district: "三重區",
+    areaFilter: "SERVICE_AREA",
+    includeUnconfirmed: true,
+    contractCity: "臺北市",
+    q: "輔具 商行",
+    page: 3,
+    pageSize: 20,
+  });
+});
+
+test("other city produces no request, so the page can render the local 1966 state without an API call", () => {
+  assert.equal(buildResourceLookupRequest({ ...initialLookupForm, city: "OTHER" }), null);
+});
+
+test("dependent filters clear when resource category, city or area mode makes them invalid", () => {
+  const selected: LookupForm = {
+    ...initialLookupForm,
+    resourceCategory: "SERVICE_PROVIDER",
+    serviceType: "ASSISTIVE_DEVICE",
+    city: "新北市",
+    district: "三重區",
+    areaFilter: "SERVICE_AREA",
+    includeUnconfirmed: true,
+  };
+  const center = changeResourceCategory(selected, "ASSISTIVE_DEVICE_CENTER");
+  assert.equal(center.serviceType, "");
+
+  const switchedCity = changeLookupCity(selected, "臺北市");
+  assert.equal(switchedCity.district, "");
+  assert.equal(switchedCity.areaFilter, "SERVICE_AREA");
+  assert.equal(switchedCity.includeUnconfirmed, true);
+
+  const unsupported = changeLookupCity(selected, "OTHER");
+  assert.equal(unsupported.district, "");
+  assert.equal(unsupported.areaFilter, "");
+  assert.equal(unsupported.includeUnconfirmed, false);
+
+  const locatedIn = changeAreaFilter(selected, "LOCATED_IN");
+  assert.equal(locatedIn.includeUnconfirmed, false);
+});
+
+test("unconfirmed toggle preserves the submitted filters and resets the request to page one", () => {
+  const submitted: LookupForm = {
+    ...initialLookupForm,
+    serviceType: "ASSISTIVE_DEVICE",
+    city: "新北市",
+    district: "三重區",
+    q: "輔具",
+  };
+  const enabled = withIncludeUnconfirmed(submitted, true);
+  assert.deepEqual(enabled, { ...submitted, areaFilter: "SERVICE_AREA", includeUnconfirmed: true });
+  assert.equal(buildResourceLookupRequest(enabled)?.page, 1);
+  const disabled = withIncludeUnconfirmed(enabled, false);
+  assert.equal(disabled.includeUnconfirmed, false);
+  assert.equal("includeUnconfirmed" in (buildResourceLookupRequest(disabled) ?? {}), false);
+});
+
+test("pagination never requests a page below one", () => {
+  assert.equal(previousLookupPage(1), 1);
+  assert.equal(previousLookupPage(2), 1);
+  assert.equal(previousLookupPage(5), 4);
+});
+
+test("real lookup path serializes and encodes only contracted query parameters", () => {
+  assert.equal(resourceLookupPath({}), "/providers");
+  assert.equal(
+    resourceLookupPath({
+      resourceCategory: "SERVICE_PROVIDER",
+      serviceType: "ASSISTIVE_DEVICE",
+      city: "新北市",
+      district: "三重區",
+      areaFilter: "SERVICE_AREA",
+      includeUnconfirmed: true,
+      contractCity: "臺北市",
+      q: "輔具 商行",
+      page: 2,
+      pageSize: 20,
+    }),
+    "/providers?resourceCategory=SERVICE_PROVIDER&serviceType=ASSISTIVE_DEVICE&city=%E6%96%B0%E5%8C%97%E5%B8%82&district=%E4%B8%89%E9%87%8D%E5%8D%80&areaFilter=SERVICE_AREA&includeUnconfirmed=true&contractCity=%E8%87%BA%E5%8C%97%E5%B8%82&q=%E8%BC%94%E5%85%B7+%E5%95%86%E8%A1%8C&page=2&pageSize=20",
+  );
+});
+
+test("real resource lookup is public and performs one GET without a session credential", async () => {
+  const valid = json(`${fixtures}lookup/list-all-first-page-response.json`).data;
+  const originalFetch = globalThis.fetch;
+  const calls: Array<{ url: string; init: RequestInit }> = [];
+  globalThis.fetch = (async (input: string | URL | Request, init: RequestInit = {}) => {
+    calls.push({ url: String(input), init });
+    return new Response(JSON.stringify({ success: true, data: valid }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  }) as typeof fetch;
+  try {
+    const response = await realApi.getProviders({ city: "新北市", page: 1, pageSize: 20 });
+    assert.equal(response.totalCount, valid.totalCount);
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0].url, "/api/v1/providers?city=%E6%96%B0%E5%8C%97%E5%B8%82&page=1&pageSize=20");
+    assert.equal(calls[0].init.method, "GET");
+    assert.equal((calls[0].init.headers as Record<string, string>)["X-Kareo-Session-Token"], undefined);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("lookup page keeps loading, retry, clear and page controls wired to state", () => {
+  const page = read(`${src}pages/ResourceLookupPage.tsx`);
+  assert.match(page, /setState\(\{ status: "loading" \}\)/);
+  assert.match(page, /setAttempt\(\(value\) => value \+ 1\)/);
+  assert.match(page, /setForm\(initialLookupForm\); setSubmittedForm\(initialLookupForm\); setPage\(1\)/);
+  assert.match(page, /onClick=\{\(\) => setPage\(\(value\) => value \+ 1\)\}/);
 });
