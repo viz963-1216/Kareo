@@ -1,12 +1,14 @@
-import { describe, it, expect } from "vitest";
+import { afterEach, beforeEach, describe, it, expect, vi } from "vitest";
 import { createRecommendation, haversineKm, stableRotationHash } from "../src/services/recommendationService.js";
+import { hashSessionToken } from "../src/services/sessionSecurityService.js";
+import type { SessionRepository } from "../src/repositories/types.js";
 import {
   InMemorySessionRepository,
   InMemoryAssessmentRepository,
   InMemoryProviderRepository,
   InMemoryRecommendationRepository,
 } from "../src/repositories/inMemoryRepositories.js";
-import type { Assessment, Provider, ProviderService, ProviderServiceArea } from "../src/types/index.js";
+import type { Assessment, Provider, ProviderService, ProviderServiceArea, Session } from "../src/types/index.js";
 
 function assessment(overrides: Partial<Assessment> = {}): Assessment {
   return {
@@ -316,29 +318,96 @@ describe("createRecommendation: GPS/EXACT precision -> DISTANCE or D-13c fallbac
   });
 });
 
+// D-13f：排序 = sha256(sessionId|city|district|date|providerId) 由小到大。日期取 Asia/Taipei 當天，
+// session id 由 createSession 隨機產生，所以這組測試固定系統時間與 session id，使用已知結果的
+// fixtures，不依賴隨機值。不同 session 只是「可以」排出不同順序：6 個候選只有 120 種有序 Top 3，
+// 不同 seed 合法地可能得到同一結果（見「may legitimately produce the same order」）。
 describe("stable rotation (D-13f): reproducible, not pure random", () => {
-  it("same session + same day -> identical top-3 order across repeated calls (not Math.random)", async () => {
-    const f = await buildFixture();
-    f.assessmentRepo.assessments.push(assessment({ sessionId: f.sessionId }));
-    for (let n = 1; n <= 5; n++) {
-      seedProvider(f, provider({ id: `PROV-R${n}` }), [{ serviceType: "HOME_CARE" }], [{ city: "新北市", district: "三重區" }]);
-    }
-    const first = await createRecommendation(f, { assessmentId: "ASM-001", serviceType: "HOME_CARE" }, f.sessionToken);
-    const second = await createRecommendation(f, { assessmentId: "ASM-001", serviceType: "HOME_CARE" }, f.sessionToken);
-    expect(second.providers.map((p) => p.id)).toEqual(first.providers.map((p) => p.id));
+  const FIXED_NOW = new Date("2026-10-03T12:00:00+08:00");
+
+  beforeEach(() => {
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(FIXED_NOW);
   });
 
-  it("different session (different seed) can produce a different order for the same candidates/day", async () => {
-    const f = await buildFixture();
-    const otherSession = await f.sessionRepo.createSession();
-    f.assessmentRepo.assessments.push(assessment({ id: "ASM-001", sessionId: f.sessionId }));
-    f.assessmentRepo.assessments.push(assessment({ id: "ASM-002", sessionId: otherSession.id }));
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  // 測試專用：以固定 session id 建立 session（共用的 InMemorySessionRepository 一律產生隨機 id）。
+  function fixedSessions(ids: string[]): { repo: SessionRepository; tokenFor: (id: string) => string } {
+    const tokenFor = (id: string) => `test-token-${id}`;
+    const byHash = new Map<string, Session>(
+      ids.map((id) => [
+        hashSessionToken(tokenFor(id)),
+        {
+          id,
+          createdAt: "2026-10-03T09:00:00+08:00",
+          updatedAt: "2026-10-03T09:00:00+08:00",
+          lastSeenAt: null,
+          expiresAt: "2026-12-31T00:00:00+08:00",
+          status: "ACTIVE",
+          deletedAt: null,
+        },
+      ])
+    );
+    return {
+      repo: {
+        createSession: async () => {
+          throw new Error("not used in this test");
+        },
+        findByTokenHash: async (hash: string) => byHash.get(hash) ?? null,
+        touchSession: async () => {},
+      },
+      tokenFor,
+    };
+  }
+
+  async function topThree(sessionId: string, opts: { district?: string } = {}): Promise<string[]> {
+    const district = opts.district ?? "三重區";
+    const sessions = fixedSessions([sessionId]);
+    const f: Fixture = {
+      sessionRepo: sessions.repo as unknown as InMemorySessionRepository,
+      assessmentRepo: new InMemoryAssessmentRepository(),
+      providerRepo: new InMemoryProviderRepository(),
+      recommendationRepo: new InMemoryRecommendationRepository(),
+    };
+    f.assessmentRepo.assessments.push(assessment({ sessionId, district }));
     for (let n = 1; n <= 6; n++) {
-      seedProvider(f, provider({ id: `PROV-R${n}` }), [{ serviceType: "HOME_CARE" }], [{ city: "新北市", district: "三重區" }]);
+      seedProvider(f, provider({ id: `PROV-R${n}` }), [{ serviceType: "HOME_CARE" }], [
+        { city: "新北市", district: "三重區" },
+        { city: "新北市", district: "板橋區" },
+      ]);
     }
-    const a = await createRecommendation(f, { assessmentId: "ASM-001", serviceType: "HOME_CARE" }, f.sessionToken);
-    const b = await createRecommendation(f, { assessmentId: "ASM-002", serviceType: "HOME_CARE" }, otherSession.sessionToken);
-    expect(a.providers.map((p) => p.id)).not.toEqual(b.providers.map((p) => p.id));
+    const result = await createRecommendation(f, { assessmentId: "ASM-001", serviceType: "HOME_CARE" }, sessions.tokenFor(sessionId));
+    expect(result.rankingType).toBe("DISTRICT_ROTATION");
+    return result.providers.map((p) => p.id);
+  }
+
+  it("same session + same day -> identical top-3 order across repeated calls (not Math.random)", async () => {
+    const first = await topThree("SES-SYNTHETIC-1");
+    const second = await topThree("SES-SYNTHETIC-1");
+    expect(first).toEqual(["PROV-R3", "PROV-R5", "PROV-R4"]);
+    expect(second).toEqual(first);
+  });
+
+  it("different sessions can produce different orders for the same candidates/day (fixed fixtures)", async () => {
+    expect(await topThree("SES-SYNTHETIC-1")).toEqual(["PROV-R3", "PROV-R5", "PROV-R4"]);
+    expect(await topThree("SES-SYNTHETIC-2")).toEqual(["PROV-R3", "PROV-R2", "PROV-R1"]);
+  });
+
+  it("different sessions may legitimately produce the same order (no claim that any two sessions differ)", async () => {
+    expect(await topThree("SES-SYNTHETIC-2")).toEqual(["PROV-R3", "PROV-R2", "PROV-R1"]);
+    expect(await topThree("SES-SYNTHETIC-9")).toEqual(["PROV-R3", "PROV-R2", "PROV-R1"]);
+  });
+
+  it("the Asia/Taipei date is part of the seed: same session on the next day (fixed fixture)", async () => {
+    vi.setSystemTime(new Date("2026-10-04T12:00:00+08:00"));
+    expect(await topThree("SES-SYNTHETIC-1")).toEqual(["PROV-R6", "PROV-R4", "PROV-R3"]);
+  });
+
+  it("the district is part of the DISTRICT_ROTATION seed: same session and day, different district (fixed fixture)", async () => {
+    expect(await topThree("SES-SYNTHETIC-1", { district: "板橋區" })).toEqual(["PROV-R6", "PROV-R2", "PROV-R3"]);
   });
 
   it("stableRotationHash: same inputs are deterministic; different date changes the hash; CITY_ROTATION seed omits district", () => {
