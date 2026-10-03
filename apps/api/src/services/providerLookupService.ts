@@ -2,10 +2,10 @@
 // 公開端點，不需要 session；只讀查詢，不建立或讀取 Assessment／RecommendationRun／Lead
 // （PRIVACY_AND_RETENTION §2：查詢條件不得寫入 log）。
 //
-// 用 createRequire 讀 JSON，不用 ESM 的 `import ... with { type: "json" }`：純 Node 執行編譯後的
-// dist 需要那個語法才能載入 JSON，esbuild bundler（Netlify）跟 Vitest 的轉譯會悄悄放行，造成
-// 「測試全過、CI 也過，正式部署才炸」的落差（同 consentVersionService.ts 的既有說明）。
-import { createRequire } from "node:module";
+// 靜態 JSON import（同 consentVersionService.ts）：esbuild 會把 JSON 打進 Netlify 的 ESM 與
+// CommonJS 兩種輸出；createRequire(import.meta.url) 在 CommonJS 打包時 import.meta 為 undefined
+// 而失敗，ESM 打包後相對路徑的 JSON 也不會被帶上。
+import serviceDistricts from "../../../../contracts/reference/service-districts.json" with { type: "json" };
 import type { ProviderRepository } from "../repositories/types.js";
 import type {
   AreaFilter,
@@ -17,11 +17,6 @@ import type {
   ServiceAreaStatus,
 } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
-
-const require = createRequire(import.meta.url);
-const serviceDistricts = require("../../../../contracts/reference/service-districts.json") as {
-  cities: Array<{ city: string; districts: string[] }>;
-};
 
 const CITY_ORDER = serviceDistricts.cities.map((c) => c.city);
 const DISTRICTS_BY_CITY = new Map(serviceDistricts.cities.map((c) => [c.city, c.districts]));
