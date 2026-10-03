@@ -44,7 +44,7 @@ function makeConsent(overrides: Partial<Consent>): Consent {
 }
 
 describe("runRetentionCleanup", () => {
-  it("dry-run reports the count without writing a DeletionRun record (not yet 7 days elapsed)", async () => {
+  it("dry-run reports the count without writing a DeletionRun record (D-05a: a pending request is already a candidate)", async () => {
     const repo = new InMemorySessionRepository();
     const created = await repo.createSession();
     await repo.requestDeletion(created.id, "2026-10-01T00:00:00+08:00");
@@ -53,8 +53,34 @@ describe("runRetentionCleanup", () => {
 
     expect(run.dryRun).toBe(true);
     expect(run.status).toBe("SUCCESS");
-    expect(run.sessionsDeleted).toBe(0);
+    expect(run.sessionsDeleted).toBe(1);
     expect(repo.deletionRuns).toHaveLength(0);
+    expect(repo.sessions.find((s) => s.id === created.id)?.status).toBe("DELETION_REQUESTED"); // untouched
+  });
+
+  it("D-05a: a failed run is recorded FAILED and leaves the request pending; the next daily run finishes before deletionScheduledBefore", async () => {
+    const repo = new InMemorySessionRepository();
+    const created = await repo.createSession();
+    const requestedAt = "2026-10-01T00:00:00+08:00";
+    await repo.requestDeletion(created.id, requestedAt);
+    const deadline = new Date(new Date(requestedAt).getTime() + 7 * 24 * 60 * 60 * 1000).getTime();
+
+    const realRun = repo.runDeletionCleanup.bind(repo);
+    repo.runDeletionCleanup = async () => {
+      throw new Error("transient failure");
+    };
+    await expect(runRetentionCleanup(repo, { dryRun: false, operatorId: "OP-1", now: "2026-10-02T00:00:00+08:00" })).rejects.toThrow();
+    expect(repo.deletionRuns.map((r) => r.status)).toEqual(["FAILED"]);
+    expect(repo.sessions.find((s) => s.id === created.id)?.status).toBe("DELETION_REQUESTED");
+
+    repo.runDeletionCleanup = realRun;
+    const retryAt = "2026-10-03T00:00:00+08:00";
+    const retry = await runRetentionCleanup(repo, { dryRun: false, operatorId: "OP-1", now: retryAt });
+
+    expect(retry.sessionsDeleted).toBe(1);
+    expect(new Date(retryAt).getTime()).toBeLessThan(deadline);
+    expect(repo.sessions.find((s) => s.id === created.id)?.status).toBe("DELETED");
+    expect(repo.deletionRuns.map((r) => r.status)).toEqual(["FAILED", "SUCCESS"]);
   });
 
   it("dry-run reports the count without actually transitioning sessions, once 7 days have elapsed", async () => {
@@ -234,7 +260,7 @@ describe("runRetentionCleanup", () => {
     const repo = new InMemorySessionRepository(leadRepo, consentRepo);
 
     const created = await repo.createSession();
-    await repo.requestDeletion(created.id, "2026-10-01T00:00:00+08:00"); // 7 天後到期
+    await repo.requestDeletion(created.id, "2026-10-01T00:00:00+08:00"); // 已請求刪除：下一次清理即處理（D-05a）
 
     leadRepo.leads.push(makeLead({ id: "LEAD-180", status: "CLOSED", closedAt: "2026-04-01T00:00:00+08:00" }));
     leadRepo.leads.push(makeLead({ id: "LEAD-1YR", status: "CANCELLED", closedAt: "2025-09-01T00:00:00+08:00" }));

@@ -4,6 +4,7 @@
 import { createHash } from "node:crypto";
 import type { RateLimitRepository } from "../repositories/types.js";
 import { AppError } from "../errors/AppError.js";
+import { getClientIp, type NetlifyEventHeaders } from "../lib/headers.js";
 
 // 共用的雜湊函式：IP（ARCHITECTURE §20.4「只存雜湊」）與電話（LEAD_PHONE 規則的鍵）都用這個，
 // 避免在 rate_limit_counters 裡留下任何可逆推回明文 IP 或電話的欄位（PRIVACY_AND_RETENTION §2）。
@@ -24,6 +25,10 @@ export const RATE_LIMIT_RULES = {
   ASSESSMENT: { name: "ASSESSMENT", limit: 3, windowSeconds: 3600 },
   RECOMMENDATION: { name: "RECOMMENDATION", limit: 30, windowSeconds: 3600 },
   PROVIDER_DETAIL: { name: "PROVIDER_DETAIL", limit: 60, windowSeconds: 3600 },
+  // v0.5.3／v0.5.4 新增的公開唯讀端點（ARCHITECTURE §20.4 表格）：B-013 `GET /api/v1/providers`、
+  // B-014 `GET /api/v1/knowledge/records`，鍵為 IP 雜湊。
+  PROVIDER_LOOKUP: { name: "PROVIDER_LOOKUP", limit: 120, windowSeconds: 3600 },
+  KNOWLEDGE_RECORDS: { name: "KNOWLEDGE_RECORDS", limit: 120, windowSeconds: 3600 },
   LEAD: { name: "LEAD", limit: 5, windowSeconds: 86400 },
   LEAD_PHONE: { name: "LEAD_PHONE", limit: 3, windowSeconds: 86400 },
 } as const satisfies Record<string, RateLimitRule>;
@@ -44,4 +49,16 @@ export async function enforceRateLimit(
   if (!result.allowed) {
     throw new AppError("RATE_LIMITED", "請求過於頻繁，請稍後再試。", { retryAfterSeconds: result.retryAfterSeconds ?? rule.windowSeconds });
   }
+}
+
+// 公開端點（無 session）的共用入口：取用戶端 IP → 雜湊 → 套用規則。B-012／B-013／B-014 的 handler 直接呼叫，
+// 不必各自重寫「取 IP、雜湊、組鍵」。取不到 IP（本機測試、非 Netlify 環境）時共用同一個 "unknown" 桶，
+// 與既有 Provider detail 的做法一致。明文 IP 不進資料庫。
+export async function enforceClientIpRateLimit(
+  repo: RateLimitRepository,
+  rule: RateLimitRule,
+  event: NetlifyEventHeaders,
+  now: string
+): Promise<void> {
+  await enforceRateLimit(repo, rule, hashForRateLimitKey(getClientIp(event) ?? "unknown"), now);
 }

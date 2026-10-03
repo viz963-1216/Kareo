@@ -107,7 +107,8 @@ alter table leads drop constraint if exists leads_recommendation_id_fkey;
 -- 同一交易內：session 只在目前 ACTIVE 時才能轉為 DELETION_REQUESTED（CAS，避免重複呼叫或跟
 -- consent/withdraw 競爭）；同一 session 尚未終態的 Lead 立即標記 CANCELLED（USER_DELETED），
 -- 且該 session 全部 Lead（含已 CLOSED／CANCELLED）的聯絡欄位立即清空（§6.1）。Assessment／CareNeedProfile／RecommendationRun
--- 等資料的實際刪除由每日清理作業（run_deletion_cleanup）在 7 天後處理，不在這裡做。
+-- 等資料的實際刪除由每日清理作業（run_deletion_cleanup）處理，不在這裡做：DELETION_REQUESTED 的 session
+-- 一入選就刪（見 run_deletion_cleanup），7 天只是最遲完成期限（deletionScheduledBefore），不是等待期。
 create or replace function public.request_session_deletion(payload jsonb)
 returns jsonb
 language plpgsql
@@ -237,9 +238,11 @@ grant execute on function public.withdraw_consent(jsonb) to service_role;
 --
 -- 四條各自獨立的到期清理，每次執行都全部處理一輪，彼此不互相影響：
 --
---   1. session／評估資料（90 天）：涵蓋兩種到期來源——(a) 使用者主動刪除／撤回同意後 7 天
---      （PRIVACY_AND_RETENTION §6.1，session 已轉 DELETION_REQUESTED）；(b) 一般 session 最後
---      使用後 90 天未使用（status 仍是 ACTIVE，§2「匿名 session...最後使用後 90 天刪除」）。
+--   1. session／評估資料：涵蓋兩種來源——(a) 使用者主動刪除／撤回同意（D-05a；PRIVACY_AND_RETENTION
+--      §6.1，session 已轉 DELETION_REQUESTED）：「請求後 7 天內完成」是最遲完成期限，不是等待期，
+--      所以只要 session 是 DELETION_REQUESTED，下一次清理就入選；每日作業 + 失敗重試要在請求 + 7 天
+--      之前完成，deletionScheduledBefore 才不會是不實承諾。(b) 一般 session 最後使用後 90 天未使用
+--      （status 仍是 ACTIVE，§2「匿名 session...最後使用後 90 天刪除」）。
 --      兩者都刪除該 session 全部 Assessment／CareNeedProfile／RecommendationRun／
 --      RecommendationItem（不論是否建立過 Lead；Lead 案件骨架依項目 2、3 自己的期限處理），
 --      並把 session 轉為 DELETED。
@@ -272,10 +275,10 @@ declare
   v_consent_ids text[];
   v_consents_deleted integer;
 begin
-  -- ---- 1. session／評估資料（90 天 idle，或 7 天 explicit-delete）----
+  -- ---- 1. session／評估資料（刪除／撤回請求：立即入選；ACTIVE 閒置 90 天）----
   select array_agg(distinct s.id) into v_session_ids
   from public.sessions s
-  where (s.status = 'DELETION_REQUESTED' and s.updated_at <= v_now - interval '7 days')
+  where s.status = 'DELETION_REQUESTED'
      or (s.status = 'ACTIVE' and coalesce(s.last_seen_at, s.created_at) <= v_now - interval '90 days');
   v_sessions_count := coalesce(array_length(v_session_ids, 1), 0);
 

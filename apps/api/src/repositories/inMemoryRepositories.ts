@@ -132,10 +132,10 @@ export class InMemorySessionRepository implements SessionRepository {
     const nowMs = new Date(input.now).getTime();
     const day = 24 * 60 * 60 * 1000;
 
-    // 1. session：7 天明確刪除請求 + 90 天閒置（ACTIVE）聯集（D-05）。
+    // 1. session：已請求刪除／撤回者立即入選（D-05a：7 天是最遲完成期限，不是等待期）+ 90 天閒置（ACTIVE）聯集。
     const eligibleSessions = this.sessions.filter(
       (s) =>
-        (s.status === "DELETION_REQUESTED" && nowMs - new Date(s.updatedAt).getTime() >= 7 * day) ||
+        s.status === "DELETION_REQUESTED" ||
         (s.status === "ACTIVE" && nowMs - new Date(s.lastSeenAt ?? s.createdAt).getTime() >= 90 * day)
     );
 
