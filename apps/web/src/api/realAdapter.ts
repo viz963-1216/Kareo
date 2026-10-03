@@ -133,7 +133,7 @@ const LEAD_STATUSES = ["NEW", "CONTACTED", "ACCEPTED", "CLOSED", "CANCELLED"];
 const KNOWLEDGE_JURISDICTIONS: readonly KnowledgeJurisdiction[] = ["TAIWAN", "TAIPEI", "NEW_TAIPEI"];
 const KNOWLEDGE_CATEGORIES: readonly KnowledgeCategory[] = [
   "ELIGIBILITY", "BENEFIT", "COPAY", "TRANSPORTATION", "HOME_MEDICAL_NURSING",
-  "APPLICATION", "ASSISTIVE_DEVICE", "RESPITE",
+  "APPLICATION", "ASSISTIVE_DEVICE", "RESPITE", "HOME_CARE", "OTHER",
 ];
 
 const isText = (value: unknown): value is string => typeof value === "string" && value.length > 0;

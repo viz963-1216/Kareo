@@ -94,7 +94,9 @@ export type KnowledgeCategory =
   | "HOME_MEDICAL_NURSING"
   | "APPLICATION"
   | "ASSISTIVE_DEVICE"
-  | "RESPITE";
+  | "RESPITE"
+  | "HOME_CARE"
+  | "OTHER";
 
 export interface KnowledgeRecordsRequest {
   jurisdiction?: KnowledgeJurisdiction;

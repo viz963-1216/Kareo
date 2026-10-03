@@ -21,6 +21,8 @@ const categoryLabels: Record<KnowledgeCategory, string> = {
   APPLICATION: "申請方式",
   ASSISTIVE_DEVICE: "輔具與無障礙",
   RESPITE: "喘息服務",
+  HOME_CARE: "居家照顧",
+  OTHER: "其他資訊",
 };
 
 const jurisdictionLabels = { TAIWAN: "全國", TAIPEI: "臺北市", NEW_TAIPEI: "新北市" } as const;

@@ -86,3 +86,12 @@ test("public information UI contains no personal eligibility claims", () => {
   const page = readFileSync(`${src}pages/KnowledgeInfoPage.tsx`, "utf8");
   for (const phrase of ["您符合", "已核定", "您可獲得"]) assert.equal(page.includes(phrase), false);
 });
+
+
+test("all DATA_MODEL §24 categories are accepted, including HOME_CARE and OTHER", () => {
+  const valid = json(`${fixtures}records-first-page-response.json`).data;
+  for (const category of ["ELIGIBILITY", "BENEFIT", "COPAY", "ASSISTIVE_DEVICE", "TRANSPORTATION", "RESPITE", "HOME_CARE", "HOME_MEDICAL_NURSING", "APPLICATION", "OTHER"]) {
+    assert.equal(isKnowledgeRecordsResponse({ ...valid, items: [{ ...valid.items[0], category }] }), true, category);
+    assert.equal(isKnowledgeRecordsResponse({ ...valid, appliedFilters: { ...valid.appliedFilters, category } }), true, `${category} filter`);
+  }
+});
