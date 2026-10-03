@@ -1,7 +1,7 @@
 # J-003-r10 — 路由接線、隔離組合與唯讀部署驗證
 
-日期：2026-10-03（Asia/Taipei）  
-Owner：Jerry；執行：Codex  
+日期：2026-10-03（Asia/Taipei）
+Owner：Jerry；執行：Codex
 規格基準：staging `05b1c4a537381e04ecc29b841bdb6f43648346e6`（J-002-r13）
 
 **Integrated：否。** 本輪完成 J 可獨立處理的接線與工具；B 的 PR 未合併，D-05 仍 DRAFT。完整 49 必要 E2E 尚未通過，不能標記 J-003 完成或 Production Complete。
