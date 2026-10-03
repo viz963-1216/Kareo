@@ -7,6 +7,13 @@ import { SessionProblem } from "../components/SessionProblem";
 import { useSession } from "../session/SessionContext";
 import { useMockState } from "../session/useMockState";
 import type { AssessmentLocation, AssessmentResponse, CareNeed } from "../types/api";
+import {
+  buildCaseManagerSummary,
+  caseManagerSummaryText,
+  CASE_MANAGER_QUESTIONS,
+  FORMAL_ASSESSMENT_REMINDER,
+  type CaseManagerSummaryModel,
+} from "../summary/caseManagerSummary";
 
 const labels: Record<CareNeed, string> = { HOME_CARE: "居家照顧", HOME_MEDICAL_NURSING: "居家醫療與護理", ASSISTIVE_DEVICE: "輔具", TRANSPORTATION: "長照交通" };
 const KAREOCAR_URL = "https://kareocar.netlify.app/";
@@ -32,6 +39,8 @@ function locationText(location: AssessmentLocation | null) {
 }
 
 export function ResultPage({ result, location, onSessionClosed }: Props) {
+  const [summary, setSummary] = useState<CaseManagerSummaryModel | null>(null);
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "error">("idle");
   if (!result) {
     return (
       <main id="main-content" className="content">
@@ -45,6 +54,22 @@ export function ResultPage({ result, location, onSessionClosed }: Props) {
   const profile = result.careNeedProfile;
   const noLocation = !location || location.precision === "NONE";
   const recommendable = profile.careNeeds.filter((need) => need !== "TRANSPORTATION");
+
+  function openSummary() {
+    if (!result) return;
+    setSummary(buildCaseManagerSummary(result, new Intl.DateTimeFormat("zh-TW", { timeZone: "Asia/Taipei", dateStyle: "long" }).format(new Date())));
+    setCopyStatus("idle");
+  }
+
+  async function copySummary() {
+    if (!summary) return;
+    try {
+      await navigator.clipboard.writeText(caseManagerSummaryText(summary));
+      setCopyStatus("copied");
+    } catch {
+      setCopyStatus("error");
+    }
+  }
 
   return (
     <main id="main-content" className="content">
@@ -100,6 +125,47 @@ export function ResultPage({ result, location, onSessionClosed }: Props) {
           <h2>Kareocar 長照交通</h2>
           <p>如需長照交通資訊，可前往外部 Kareocar 平台。Kareocar 是外部服務，不在本平台內嵌或處理預約。</p>
           <a className="button secondary" href={KAREOCAR_URL} target="_blank" rel="noopener noreferrer">前往 Kareocar（開啟新分頁）</a>
+        </section>
+      )}
+
+      <section className="panel" aria-labelledby="case-summary-entry-heading">
+        <h2 id="case-summary-entry-heading">和個管師或 1966 討論前</h2>
+        <p>可將本次初評結果整理成不含姓名、電話、自由文字、地址或座標的需求摘要。</p>
+        <button className="button secondary" type="button" onClick={openSummary}>產生給個管師／1966 的需求摘要</button>
+      </section>
+
+      {summary && (
+        <section className="panel case-manager-summary" aria-labelledby="case-manager-summary-heading">
+          <h2 id="case-manager-summary-heading">給個管師／1966 的需求摘要</h2>
+          <div className="summary-reminder">
+            {FORMAL_ASSESSMENT_REMINDER.map((line) => <p key={line}>{line}</p>)}
+            <p><strong>本摘要為初步預估，不代表正式資格或補助核定。</strong></p>
+          </div>
+          <h3>可能需要的服務</h3>
+          {summary.careNeeds.length
+            ? <ul>{summary.careNeeds.map((need) => <li key={need}>{need}</li>)}</ul>
+            : <p>本次初評沒有辨識出明確服務需求。</p>}
+          <h3>建議優先處理順序</h3>
+          {summary.priority.length
+            ? <ol>{summary.priority.map((need) => <li key={need}>{need}</li>)}</ol>
+            : <p>無</p>}
+          <h3>初步照護建議與補助說明</h3>
+          <div className="summary-lines">{summary.summaryLines.map((line, index) => <p key={index}>{line}</p>)}</div>
+          <p className="knowledge-version">知識版本：{summary.knowledgeVersion}</p>
+          <p>產生日期：{summary.generatedDate}</p>
+          <h3>建議詢問 1966／照管專員的問題</h3>
+          <ol>{CASE_MANAGER_QUESTIONS.map((question) => <li key={question}>{question}</li>)}</ol>
+          <div className="summary-reminder">
+            {FORMAL_ASSESSMENT_REMINDER.map((line) => <p key={line}>{line}</p>)}
+            <p><strong>本摘要為初步預估，不代表正式資格或補助核定。</strong></p>
+          </div>
+          <div className="button-row summary-actions">
+            <button className="button primary" type="button" onClick={() => window.print()}>列印摘要</button>
+            <button className="button secondary" type="button" onClick={copySummary}>複製文字</button>
+            <button className="button secondary" type="button" onClick={() => { setSummary(null); setCopyStatus("idle"); }}>關閉摘要</button>
+          </div>
+          {copyStatus === "copied" && <p className="success" role="status">摘要文字已複製。</p>}
+          {copyStatus === "error" && <p className="error" role="alert">無法自動複製，請手動選取摘要文字後複製。</p>}
         </section>
       )}
 
