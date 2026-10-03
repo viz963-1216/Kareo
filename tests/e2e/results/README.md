@@ -3,9 +3,10 @@
 Result files (`*.json`, schemaVersion 2) are written by tools, not by hand:
 
 - API cases: `tests/e2e/run-api-e2e.mjs`
+- Session-free GET checks: `tests/e2e/run-public-api-e2e.mjs` (J-003-r10). E2E-44/48 remain PENDING even when their list API succeeds; a partial API probe is not full UI acceptance. Knowledge status is diagnostic, not E2E-25.
 - `ui`／`ops` cases: `tests/e2e/record-manual.mjs` (run right after the manual check)
 
-Both read the deployed version marker `<base-url>/kareo-version.json` and store what they observed.
+All runners read the deployed version marker `<base-url>/kareo-version.json` and store what they observed.
 
 ```json
 {

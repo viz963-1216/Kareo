@@ -1,12 +1,12 @@
 # TASK-J-002 — MVP Decisions + Knowledge + Privacy / Lead / Location Specifications
 
 Owner: Jerry  
-Status: r1–r5 已合併（PR #19、#28、#31、#35、#43）；r6（資源查詢契約、D-16b）已合併（#50）。合併≠核准：各項核准狀態見 `docs/MVP_DECISIONS.md`  
-Plan revision: 2026-10-01 / J-002-r6 / 10-22 MVP
+Status: J-002-r13 本輪工程規格收尾已完成；D-05 最終審閱／正式同意與 J-003／J-004 實測仍待完成；合併不代表上線驗收
+Plan revision: 2026-10-03 / J-002-r13
 
 ## Goal / 目標
 
-讓產品規格、架構、資料契約、A／B／C／J 任務與驗收要求一致，維持**原始 MVP**（PRODUCT_SPEC）＋Jerry 已核准變更（目前：D-01 規則引擎、D-10 Provider 匯入原子寫入），不縮減、不擴增範圍。交付 B／C 開發需要的規格，以及首批經審核的官方知識內容。
+讓產品規格、架構、資料契約、A／B／C／J 任務與驗收要求一致，維持**原始 MVP**（PRODUCT_SPEC）＋Jerry 已核准變更（以 MVP_DECISIONS 中的 SPEC-APPROVED 項目為準，包括 D-18／D-19 一站式功能），不縮減、不擴增範圍。交付 B／C 開發需要的規格，以及首批經審核的官方知識內容。
 
 ## Prerequisite / 前置條件
 
@@ -48,13 +48,14 @@ Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/
 - [x] **r6（2026-10-01）D-16b**：B-012 內容包登錄、逐筆審核紀錄、發布序列化與 pglite 依賴（Jerry 決定，[PR #48 comment 5925628146](https://github.com/viz963-1216/Kareo/pull/48#issuecomment-5925628146)）；DATA_MODEL §26b–26c、ARCHITECTURE §22 第 8–9 點、API_CONTRACT §26.8、contracts/knowledge/README §4。
 - [x] **r6（2026-10-01）D-18 公開資源查詢**（[Issue #49](https://github.com/viz963-1216/Kareo/issues/49)）：PRODUCT_SPEC v0.7 §1／§14a／§19／§53–55、API_CONTRACT v0.5 §10a／§10、DATA_MODEL v0.2.4 §17／§19、ARCHITECTURE v0.5.3 §7.1／§20.4、`contracts/reference/service-districts.json`、`contracts/mock/providers/lookup/`（含 `validate-fixtures.mjs`）、TASK-A-006／B-013／C-007、MVP_TRACEABILITY §5。
 - [x] Jerry 核准 D-18a–e（2026-10-01，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）；r6 已合併（#50）。
-- [ ] Jerry 回答 D-19 Q1–Q5、Q7 後，另建 A-007／B-014／C-008／C-009。
+- [x] Jerry 已回答 D-19 Q1–Q5、Q7，A-007／B-014／C-008／C-009 已建立；提交與整合狀態見 tasks/README。
 - [x] **r8（2026-10-01）D-19**：Jerry 決定 Q1–Q5、Q7（[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）；PRODUCT_SPEC v0.8 §13／§14a–c、API_CONTRACT v0.6（§10／§10a 追加、§13a）、DATA_MODEL v0.2.5（§17、§19b）、ARCHITECTURE v0.5.4（§7.1、§9.1、§10、§20.4）、`contracts/mock/knowledge/`、lookup fixtures 追加、TASK-A-007／B-014／C-008／C-009 與 A-006／B-013／C-007 追加。
 - [x] Jerry 核准 PRODUCT_SPEC §14b 建議問題文字（2026-10-01，[PR #54 comment 5927605020](https://github.com/viz963-1216/Kareo/pull/54#issuecomment-5927605020)）；r8 已合併（#54）。
-- [ ] D-09 Netlify 額度（Jerry：日後補充）。
+- [x] D-09 原額度阻擋已解除（J-003 10/03 真實部署證據）；監控與正式發布仍由 J-004 驗收。
 - [ ] 法務確認（D-05 L-1～L-6）後把同意版本改為 ACTIVE（含位置告知）。Jerry 2026-09-24 指示暫不填。
 - [x] 主要接件人：蘇子傑，09:00–21:00（LEAD_OPERATIONS §2、§5）。
 - [x] 接件服務日別：週一至週五；不設備援接件人（2026-09-24）。
+- [x] **r13（2026-10-03）**：D-05a 資料保存／Lead 關聯與清理計數、D-16c 匯入操作者／未登錄舊包不可變規則、B-013 範圍矛盾及最新任務狀態已同步。交付證據與交回要求見 docs/acceptance/J002-2026-10-03-spec-closeout.md。
 
 未決定的事項不得用「之後再決定」解鎖依賴；PROPOSED 只允許可逆實作。
 
@@ -79,3 +80,5 @@ PR Title：`[J-002] <本次修正摘要>`（r4：`[J-002] Align tasks and accept
 - r7（2026-10-01，#51）：D-18a–e 標示核准。
 - r6（2026-10-01）：資源查詢與個案推薦分離（D-18）、一站式缺口盤點（D-19）、B-012 內容包規則（D-16b）；更正過時狀態（座標 30／30、KR-019～021 已重新核准）。
 - r4（PR #31）：D-08／D-11／D-12 標示未核准、已擱置（依原始 MVP 開發）；補助說明模板與 contract；位置流程統一與 D-13a–g／D-14a–b 建議；清理 AI 指示；任務狀態、依賴與驗收整併。
+
+- r13（2026-10-03）：依 Jerry「好那先幫我完成J002」授權完成工程定案；七天內清理保留原期限、首次知識發布／Netlify 狀態更新，不修改 DRAFT 或法律審閱結果。
