@@ -87,7 +87,7 @@
   force = true
 
 [[redirects]]
-  from = "/api/v1/admin/knowledge/changes/*/dismiss"
+  from = "/api/v1/admin/knowledge/changes/:changeId/dismiss"
   to = "/.netlify/functions/adminKnowledgeChangeDismiss"
   status = 200
   force = true
@@ -99,7 +99,7 @@
   force = true
 
 [[redirects]]
-  from = "/api/v1/admin/knowledge/records/*/decision"
+  from = "/api/v1/admin/knowledge/records/:recordId/decision"
   to = "/.netlify/functions/adminKnowledgeRecordDecision"
   status = 200
   force = true
