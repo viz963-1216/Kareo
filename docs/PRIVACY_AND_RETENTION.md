@@ -1,6 +1,6 @@
 # Kareo Privacy, Consent & Retention / 隱私、同意與資料保存
 
-Submission Version: J-002-r12（2026-10-03：D-05 實況對照與驗收清單）
+Submission Version: J-002-r13（2026-10-03：D-05a 保存規則與刪除期限一致性；文案維持 DRAFT）
 Owner: Jerry
 Status: **DRAFT — 未經法務確認**
 
@@ -19,7 +19,9 @@ Status: **DRAFT — 未經法務確認**
 
 ## 2. 資料清單與必要性
 
-| 資料 | 何時收 | 用途 | 必要性 | 敏感度 | 保存期限（建議） |
+本節 90 天／180 天／1 年／3 年是 Jerry 已確認的產品保存規劃（2026-10-03，「採用目前規劃」；D-05a）。規劃可供 B 實作，不代表期限已經過法律判斷、排程已運行或 D-05 正式文案已核准。
+
+| 資料 | 何時收 | 用途 | 必要性 | 敏感度 | 保存期限（產品規劃） |
 |---|---|---|---|---|---|
 | 免帳號 session（ID、token 雜湊、建立／最後使用時間，可串接評估與案件） | 進站開始評估 | 串起同一使用者的評估、推薦、媒合 | 必要 | 低 | 最後使用後 90 天刪除 |
 | 同意紀錄（三種文件版本、時間、撤回時間） | 同意頁 | 證明使用者在何種告知下同意 | 必要 | 低 | 3 年（僅保留版本與時間，不含健康資料） |
@@ -34,6 +36,8 @@ Status: **DRAFT — 未經法務確認**
 | 媒合案件（服務類型、Provider、狀態、狀態歷程） | 同上 | 接件追蹤 | 必要 | 中 | 結案後 1 年（聯絡欄位依上列先刪除） |
 | 系統 log | 全程 | 除錯、安全 | 必要 | 不得含個資 | 30 天 |
 | IP 位址 | 限流 | 防濫用 | 必要 | 中 | **只存雜湊**，限流視窗結束即失效，不寫入業務資料表 |
+
+四個期限分開執行：健康評估資料最後使用後 90 天；Lead 聯絡欄位結案／取消後 180 天；案件及其子紀錄結案／取消後 1 年；Consent 自 acceptedAt 起 3 年。不得因同一個 session 曾送出 Lead 而保留已到期的 Assessment／Profile／推薦／座標／自由文字（DATA_MODEL §22）。自助刪除／撤回的 7 天清理期限優先於健康資料的 90 天一般期限；其聯絡欄位立即清空，不等待 180 天。
 
 精確位置的收集條件：告知文案（§8「位置資訊」）與同意版本必須先成為 ACTIVE（D-05）。在此之前，C-005 可完成畫面與拒絕後備援流程並以 Mock 驗收，但**正式環境不得啟用座標收集**（D-13g）。
 
@@ -63,7 +67,7 @@ Status: **DRAFT — 未經法務確認**
 ### 3.3 撤回同意
 
 - 使用者可在結果頁或任何時候撤回（`POST /api/v1/consent/withdraw`，見 API_CONTRACT）。
-- 撤回後：該 session 不得再建立 Assessment、Recommendation 或 Lead；已提交的 Lead 標記 `CANCELLED`（原因 `CONSENT_WITHDRAWN`）並通知接件人停止聯繫；session 資料進入刪除流程（§6）。
+- 撤回後：該 session 不得再建立 Assessment、Recommendation 或 Lead；全部關聯 Lead 聯絡欄位立即清空，僅未終態 Lead 轉為 `CANCELLED`（原因 `CONSENT_WITHDRAWN`）並停止聯繫。CLOSED／CANCELLED 不變更狀態、不重複寫取消事件；健康資料進入 7 天內完成的刪除流程（§6）。
 
 ### 3.4 媒合聯絡同意
 
@@ -96,7 +100,8 @@ Status: **DRAFT — 未經法務確認**
 ### 6.1 使用者自助刪除
 
 - `DELETE /api/v1/session`（需 session token）：立即使 token 失效，並將 session 標記待刪除。
-- 7 天內由清理作業實際刪除該 session 的 Assessment、CareNeedProfile、RecommendationRun／Item；Lead 的聯絡欄位立即清空，Lead 狀態改為 `CANCELLED`（原因 `USER_DELETED`），案件骨架（無個資）保留供統計。
+- 7 天內由清理作業實際刪除該 session 的 Assessment、CareNeedProfile、RecommendationRun／Item；所有關聯 Lead 的聯絡欄位立即清空，只將未終態 Lead 改為 `CANCELLED`（原因 `USER_DELETED`），終態案件不改狀態、不重複寫取消事件。案件骨架仍按結案／取消後 1 年期限清理，不得宣稱關聯編號已完全匿名或可無限期保留。
+- **7 天是最遲完成期限，不是等待期**：每日作業可提早處理已接受的刪除／撤回請求，需保留足夠重試時間；不能以「滿 7 天才入選」讓下一次日排程在第 8 天刪除。`deletionScheduledBefore` 不得晚於請求時間加 7 天，驗收包括截止前、截止時刻、失敗重試及有 Lead 的實際資料列。
 - 同意紀錄保留版本與時間（不含健康資料），以證明曾經取得同意。
 
 ### 6.2 客服管道刪除
@@ -109,6 +114,7 @@ Status: **DRAFT — 未經法務確認**
 
 - 每日執行一次，支援 `--dry-run`，輸出將刪除筆數與類型（不輸出個資）。
 - 需授權角色執行；失敗可重試且冪等；每次執行留紀錄（時間、筆數、結果）。
+- 計數與系統自動取消操作者規則見 DATA_MODEL §37／§40。dry-run 不異動資料；實際清理後以資料列確認，不只檢查 session = DELETED。
 - 實體刪除，不只是隱藏。資料庫備份依 J-004 備份保存期限自然汰換，並在隱私告知中說明。
 
 ## 7. 安全要求摘要（完整規格見 ARCHITECTURE §20）
