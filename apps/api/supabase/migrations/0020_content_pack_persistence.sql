@@ -48,10 +48,9 @@ grant select, insert, update, delete on table content_packs to service_role;
 grant select, insert on table knowledge_record_review_events to service_role;
 
 -- ===== 3. upsert_content_pack：匯入／回填時寫入 pack 層級中繼資料 =====
--- 同一 packId 重新匯入：指紋不變才允許 NEEDS_REVIEW → APPROVED。指紋變了，只有在資料庫裡
--- 已登錄的 pack 本身就是 APPROVED 時才拒絕（拋出例外讓整個匯入交易失敗，呼叫端要求使用新
--- packId）——保護已被信任為可發布的內容不被同一個 packId 悄悄置換。既有 pack 還在
--- NEEDS_REVIEW（草稿階段更正／直接核准，B-008-r3／J-003 H-2 既有行為）則允許覆寫中繼資料。
+-- 同一 packId 重新匯入：指紋不變才允許 NEEDS_REVIEW → APPROVED。指紋變了，判斷依據是「這次
+-- 匯入」宣告的 status 是否為 APPROVED（2026-10-03 審查修正）——核准必須對應已登錄的內容，不能
+-- 在同一次匯入裡同時改內容又核准；這次匯入宣告 NEEDS_REVIEW（更正草稿）則仍允許覆寫中繼資料。
 create or replace function public.upsert_content_pack(payload jsonb)
 returns jsonb
 language plpgsql
@@ -77,7 +76,11 @@ begin
 
   if v_existing.pack_fingerprint = v_fingerprint then
     if v_existing.status = 'NEEDS_REVIEW' and v_status = 'APPROVED' then
-      update public.content_packs set status = 'APPROVED', updated_at = v_now where id = v_id;
+      -- 升級時 intendedKnowledgeVersion 依 schema 規則從 null 填入實際版號，這裡也要一併更新，
+      -- 不能只改 status（否則升級後讀回來仍是 null，跟「只有 APPROVED 時才會填」的規則矛盾）。
+      update public.content_packs
+      set status = 'APPROVED', intended_knowledge_version = v_version, source_registry_version = v_source_registry_version, updated_at = v_now
+      where id = v_id;
       return jsonb_build_object('action', 'promoted');
     end if;
     update public.content_packs
@@ -86,11 +89,8 @@ begin
     return jsonb_build_object('action', 'unchanged');
   end if;
 
-  -- 指紋不同：只有「資料庫裡已登錄的 pack 本身就是 APPROVED」時才拒絕（保護已被信任為可發布
-  -- 的內容不被同一個 packId 悄悄置換）。既有 pack 還在 NEEDS_REVIEW 的更正／核准
-  -- （B-008-r3／J-003 H-2）仍允許覆寫中繼資料，不論這次匯入要不要直接核准為 APPROVED，
-  -- 否則既有的「更正草稿內容後直接核准」流程會因為指紋必然改變而永遠被這條規則擋下。
-  if v_existing.status = 'APPROVED' then
+  -- 指紋不同、這次匯入宣告 APPROVED：拒絕，不管既有登錄狀態是什麼（核准必須對應已登錄的內容）。
+  if v_status = 'APPROVED' then
     raise exception 'PACK_CONTENT_CHANGED: packId % already exists with different content; import a new packId instead', v_id;
   end if;
 

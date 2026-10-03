@@ -254,36 +254,33 @@ export async function importContentPack(
     return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: rejections, recordsCorrected: 0 };
   }
 
-  // TASK-B-012-r3（Jerry 指示 2）：「同一 packId 重新匯入：只有在每筆內容指紋都不變時，才可把
-  // 狀態從 NEEDS_REVIEW 升為 APPROVED；內容有變一律拒絕，必須使用新 packId」——這條規則保護的是
-  // 「已經登錄為 APPROVED（可發布）的內容」不被同一個 packId 的後續匯入悄悄置換。只有在資料庫裡
-  // 已登錄的 pack 本身就是 APPROVED、且這次匯入的指紋跟它不同時才拒絕。pack 還在 NEEDS_REVIEW
-  // 階段（不論這次匯入要不要直接核准為 APPROVED）的逐筆更正，仍依 B-008/B-008-r3（J-003 H-2）
-  // 既有行為進行，不受此檢查影響——否則「審核時發現內容有誤、更正後直接核准」這個既有、已經過
-  // J-003 驗收的正常流程會被完全擋死（更正必然改變指紋）。
+  // TASK-B-012-r3（Jerry 指示 2，DATA_MODEL §26b；2026-10-03 審查修正）：「同一 packId 重新匯入：
+  // 只有在每筆內容指紋都不變時，才可把狀態從 NEEDS_REVIEW 升為 APPROVED；內容有變一律拒絕，必須
+  // 使用新 packId」——但這條規則管的是「內容包層級的核准登記」（content_packs.status 升級），
+  // 不能因此連帶擋下逐筆記錄的更正：B-008/B-008-r3（J-003 H-2）要求「更正草稿內容」必須永遠能
+  // 成功，否則資料庫會卡在舊的、未經審核的內容上，而這份舊內容後續仍可能被其他呼叫端（例如直接
+  // 呼叫 repo.approveRecords）核准掉（見 tests/b008-approval-binding.test.ts：approveRecords 用
+  // 「目前資料庫內容」當作 expectedContentFingerprint，不知道曾經有一次核准被擋下）。
+  //
+  // 因此兩件事分開處理：
+  //   1. 逐筆記錄的驗證／更正永遠照常進行（下方既有邏輯不變，不受這裡影響）。
+  //   2. content_packs 的登記：只有在「這次匯入宣告 APPROVED、且內容跟已登錄的不同」時，不會
+  //      真的把狀態登記為 APPROVED（改登記為 NEEDS_REVIEW，連同這次更正後的新指紋）——核准必須
+  //      是後續「內容不再變動」的單獨一次確認，不能跟這次的內容修正綁在同一次匯入。
+  //      repo.upsertContentPack 本身仍保留「已登錄為 APPROVED 的 pack 不能直接被置換內容」的
+  //      嚴格保護（見 inMemoryKnowledgeRepository.ts／migration 0020 的 upsert_content_pack），
+  //      這裡只是主動避免觸發那個例外，不是繞過它。
+  //
+  // 上一輪誤把判斷條件改成檢查「既有 pack 狀態是否為 APPROVED」、且會讓整次匯入連同逐筆更正一起
+  // 被拒收，是為了遷就舊測試而加的例外，不是規格授權的例外（Jerry 2026-10-03：「不能以舊測試
+  // 取代新核准規格」）；已改回依規格字面實作本節開頭說明的兩層分工。
   const intendedKnowledgeVersion = (raw.intendedKnowledgeVersion as string | null) ?? null;
   const packStatus = raw.status as string;
   const newPackFingerprint = computePackFingerprint(
-    validated.map((v) => ({ recordId: v.value.packRecordId, contentFingerprint: v.value.contentFingerprint })),
-    intendedKnowledgeVersion ?? "",
-    packStatus
+    validated.map((v) => ({ recordId: v.value.packRecordId, contentFingerprint: v.value.contentFingerprint }))
   );
   const existingPack = await repo.findContentPackById(packId);
-  if (existingPack && existingPack.status === "APPROVED" && existingPack.packFingerprint !== newPackFingerprint) {
-    return {
-      mode: options.mode,
-      written: false,
-      packId,
-      recordsValid: 0,
-      recordsRejected: [
-        {
-          recordId: null,
-          reasons: [`packId ${packId} 已登錄過不同內容，不可用同一個 packId 以 APPROVED 狀態覆寫；請使用新的 packId 重新匯入。`],
-        },
-      ],
-      recordsCorrected: 0,
-    };
-  }
+  const blockedFromPromotion = packStatus === "APPROVED" && existingPack !== null && existingPack.packFingerprint !== newPackFingerprint;
 
   // 找出這個 packId 目前資料庫裡已有的紀錄（含內容），依 packRecordId 建索引，用來判斷
   // 「全新」／「內容相同（略過）」／「內容不同（更正）」／「已發布不可覆寫（拒收）」。
@@ -348,11 +345,13 @@ export async function importContentPack(
   // TASK-B-012-r3：內容包層級中繼資料（intendedKnowledgeVersion／status／指紋）在這裡登錄，
   // 讓 Admin API 的 publish-preview／publish 可以直接從資料庫算出候選紀錄與 blockers，
   // 不再需要操作者手動指定 pack 檔案路徑（見 compute_publish_plan）。
+  // blockedFromPromotion 時改登記 NEEDS_REVIEW（見上方說明）：這次更正過的內容先登記下來，
+  // 核准（升級為 APPROVED）留給後續一次內容不再變動的獨立匯入／核准動作。
   await repo.upsertContentPack({
     packId,
     intendedKnowledgeVersion,
     sourceRegistryVersion: isNonEmptyString(raw.sourceRegistryVersion) ? raw.sourceRegistryVersion : null,
-    status: packStatus,
+    status: blockedFromPromotion ? "NEEDS_REVIEW" : packStatus,
     packFingerprint: newPackFingerprint,
   });
 

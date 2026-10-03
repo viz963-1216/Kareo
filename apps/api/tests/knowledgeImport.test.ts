@@ -380,7 +380,11 @@ describe("B-012-r3: importContentPack registers content_packs metadata", () => {
     expect(after?.status).toBe("NEEDS_REVIEW");
   });
 
-  it("re-importing an already-APPROVED pack under the same packId with DIFFERENT content is rejected outright", async () => {
+  // 2026-10-03（Jerry 審查修正）：content_packs 無法直接升級為 APPROVED 時，不能連同逐筆記錄的
+  // 更正一起拒收——否則舊的、未經審核的內容會留在資料庫裡，之後還是可能被別的呼叫端（例如直接
+  // 呼叫 repo.approveRecords）核准掉，見 tests/b008-approval-binding.test.ts。更正永遠要先成功
+  // 寫入，只有「content_packs 登記為 APPROVED」這個動作本身被擋下、改登記為 NEEDS_REVIEW。
+  it("re-importing an already-APPROVED pack with DIFFERENT content still corrects the record, but content_packs is demoted to NEEDS_REVIEW instead of silently re-approving", async () => {
     const repo = new InMemoryKnowledgeRepository();
     const registry = parseSourceRegistry(REGISTRY_MD);
     const approvedRecord = validRecord({
@@ -403,10 +407,19 @@ describe("B-012-r3: importContentPack registers content_packs metadata", () => {
     const tamperedPack = { ...validPack([tampered]), status: "APPROVED", intendedKnowledgeVersion: "KB-2026-10-01-001" };
     const report = await importContentPack(repo, tamperedPack as never, registry, { mode: "commit" });
 
-    expect(report.written).toBe(false);
-    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/已登錄過不同內容/);
+    // The record correction succeeds — the tampered content must land in the database (forced back
+    // to NEEDS_REVIEW per B-008-r3), not be silently dropped.
+    expect(report.written).toBe(true);
+    expect(report.recordsRejected).toEqual([]);
+    const record = repo.records.find((r) => r.packId === "KP-2026-09-23-001")!;
+    expect(record.summary).toBe("被竄改的內容");
+    expect(record.status).toBe("NEEDS_REVIEW");
+
+    // content_packs reflects the correction (new fingerprint) but is demoted to NEEDS_REVIEW —
+    // promotion to APPROVED requires a separate, subsequent import whose content no longer changes.
     const after = await repo.findContentPackById("KP-2026-09-23-001");
-    expect(after?.packFingerprint).toBe(before?.packFingerprint); // untouched
+    expect(after?.status).toBe("NEEDS_REVIEW");
+    expect(after?.packFingerprint).not.toBe(before?.packFingerprint);
   });
 
   it("re-importing the same packId/content twice (idempotent, APPROVED) is allowed and does not change the fingerprint", async () => {

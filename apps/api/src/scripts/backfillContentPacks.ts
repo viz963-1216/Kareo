@@ -94,7 +94,7 @@ export async function runBackfillContentPacks(
     }
 
     const intendedKnowledgeVersion = (raw.intendedKnowledgeVersion as string | null) ?? null;
-    const packFingerprint = computePackFingerprint(fingerprintable, intendedKnowledgeVersion ?? "", raw.status as string);
+    const packFingerprint = computePackFingerprint(fingerprintable);
     await repo.upsertContentPack({
       packId,
       intendedKnowledgeVersion,

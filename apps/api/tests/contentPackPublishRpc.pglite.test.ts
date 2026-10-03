@@ -79,13 +79,29 @@ describe("upsert_content_pack (B-012-r3)", () => {
     expect(row).toMatchObject({ status: "NEEDS_REVIEW", pack_fingerprint: "fp-2-corrected" });
   });
 
-  it("allows promoting NEEDS_REVIEW -> APPROVED in the same step as a content correction", async () => {
+  it("allows promoting NEEDS_REVIEW -> APPROVED when content is unchanged (fingerprint matches)", async () => {
     const packId = "RPC-PACK-upsert-2";
-    await upsertPack({ packId, intendedKnowledgeVersion: null, sourceRegistryVersion: "SR-1", status: "NEEDS_REVIEW", packFingerprint: "fp-1" });
-    const err = await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-900", sourceRegistryVersion: "SR-1", status: "APPROVED", packFingerprint: "fp-2-approved" });
+    await upsertPack({ packId, intendedKnowledgeVersion: null, sourceRegistryVersion: "SR-1", status: "NEEDS_REVIEW", packFingerprint: "fp-stable" });
+    // Promotion legitimately changes intendedKnowledgeVersion (null -> a real version, per the
+    // content-pack schema: only filled once APPROVED) and status, but NOT packFingerprint — the
+    // fingerprint is computed purely from record content (packFingerprint.ts), so it must stay
+    // identical across a pure status/version promotion with no record changes.
+    const err = await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-900", sourceRegistryVersion: "SR-1", status: "APPROVED", packFingerprint: "fp-stable" });
     expect(err).toBeNull();
-    const row = await one("select status from content_packs where id = $1", [packId]);
+    const row = await one("select status, intended_knowledge_version from content_packs where id = $1", [packId]);
     expect(row?.status).toBe("APPROVED");
+    expect(row?.intended_knowledge_version).toBe("KB-2026-10-01-900");
+  });
+
+  it("2026-10-03 審查修正：rejects promoting to APPROVED when content changed in the same step (must correct-then-approve separately)", async () => {
+    const packId = "RPC-PACK-upsert-2b";
+    await upsertPack({ packId, intendedKnowledgeVersion: null, sourceRegistryVersion: "SR-1", status: "NEEDS_REVIEW", packFingerprint: "fp-1" });
+    // Changing content AND promoting to APPROVED in the same call is no longer allowed — approval
+    // must correspond to already-registered content, not whatever was just submitted.
+    const err = await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-900", sourceRegistryVersion: "SR-1", status: "APPROVED", packFingerprint: "fp-2-changed" });
+    expect(err).toMatch(/PACK_CONTENT_CHANGED/);
+    const row = await one("select status, pack_fingerprint from content_packs where id = $1", [packId]);
+    expect(row).toMatchObject({ status: "NEEDS_REVIEW", pack_fingerprint: "fp-1" }); // untouched
   });
 
   it("rejects swapping an already-APPROVED pack's content under the same packId", async () => {

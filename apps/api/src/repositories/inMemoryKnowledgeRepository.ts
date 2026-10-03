@@ -356,10 +356,11 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
       existing.updatedAt = now;
       return;
     }
-    // 指紋不同：只有「資料庫裡已登錄的 pack 本身就是 APPROVED」時才拒絕（保護已被信任為可發布
-    // 的內容不被同一個 packId 悄悄置換）。既有 pack 還在 NEEDS_REVIEW 的更正／核准
-    // （B-008-r3／J-003 H-2）仍允許覆寫中繼資料，不論這次匯入要不要直接核准為 APPROVED。
-    if (existing.status === "APPROVED") {
+    // 指紋不同：判斷依據是「這次匯入」宣告的 status 是否為 APPROVED（2026-10-03 審查修正，見
+    // knowledgeImportService.ts 同一處的詳細說明），不是既有已登錄的 pack 狀態——核准必須對應
+    // 已登錄的內容，不能在同一次匯入裡同時改內容又核准。這次匯入宣告 NEEDS_REVIEW（更正草稿）
+    // 則仍允許覆寫中繼資料。
+    if (input.status === "APPROVED") {
       throw new AppError(
         "VALIDATION_ERROR",
         `內容包 ${input.packId} 已存在且內容已變更，不可用同一個 packId 以 APPROVED 狀態覆寫；請使用新的 packId 重新匯入。`
