@@ -9,10 +9,12 @@ import type {
   RecommendationRequest,
   RecommendationResponse,
   SessionDeletionResponse,
+  KnowledgeRecordsRequest,
+  KnowledgeRecordsResponse,
 } from "../types/api";
 import { createLeadIdempotency } from "./leadIdempotency";
 import type { RecommendationMockOptions } from "./mockAdapter";
-import type { MockState } from "./mockScenarios";
+import type { KnowledgeMockScenario, MockState } from "./mockScenarios";
 import type { AdminMockScenario } from "./mockScenarios";
 import { resolveApiMode, type ApiMode } from "./mode";
 import { ApiError, configureRealApi, realApi } from "./realAdapter";
@@ -75,6 +77,11 @@ export { ApiError };
 const leadIdempotency = createLeadIdempotency();
 
 export const api = {
+  getKnowledgeRecords(filters: KnowledgeRecordsRequest, scenario?: KnowledgeMockScenario): Promise<KnowledgeRecordsResponse> {
+    return apiMode === "mock"
+      ? loadMock().then((mock) => mock.getKnowledgeRecords(filters, scenario))
+      : realApi.getKnowledgeRecords(filters);
+  },
   createSession() {
     return apiMode === "mock" ? loadMock().then((mock) => mock.createSession()) : realApi.createSession();
   },

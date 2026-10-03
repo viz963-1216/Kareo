@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "data": {
+    "id": "PROV-MOCK-301",
+    "name": "測試輔具資源中心",
+    "type": "OTHER",
+    "resourceCategory": "ASSISTIVE_DEVICE_CENTER",
+    "address": "新北市蘆洲區集賢路301號",
+    "city": "新北市",
+    "district": "蘆洲區",
+    "phone": "02-43010101",
+    "website": "https://example.com/kareo-mock/prov-mock-301",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-301",
+    "verified": true,
+    "services": [],
+    "serviceAreas": [
+      {
+        "city": "新北市",
+        "district": "三重區"
+      },
+      {
+        "city": "新北市",
+        "district": "蘆洲區"
+      }
+    ],
+    "serviceAreaStatus": "VERIFIED",
+    "contractRegions": []
+  }
+}

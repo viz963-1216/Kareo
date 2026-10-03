@@ -64,6 +64,9 @@ GET /api/v1/knowledge/status 回傳新版本
 - 發布前，`effectiveTo` 早於發布日的紀錄不得納入。
 - `effectiveFrom` 晚於發布日的紀錄可以納入，但 Assessment 使用時必須依 `effectiveFrom` 判斷當下是否適用。
 - 內容包中 `REJECTED`／`CONFLICT` 的紀錄永遠不得發布。
+- **內容包登錄（2026-10-01，D-16b）**：匯入時把內容包層級資料（packId、`intendedKnowledgeVersion`、`sourceRegistryVersion`、`status`、內容包 `review`、內容包指紋）存入資料庫（DATA_MODEL §26b）。發布預覽與發布只讀資料庫，不讀檔案。發布候選＝紀錄 `APPROVED` 且內容包登錄為 `APPROVED`，否則為 `PACK_NOT_APPROVED`。
+- 同一 `packId` 重新匯入：只有每筆內容指紋都不變時，才可把內容包狀態由 `NEEDS_REVIEW` 升為 `APPROVED`；內容有變一律拒絕，必須以新 `packId` 提交。
+- 逐筆核准（CLI 或管理頁）都寫入同一份只能新增的審核紀錄（DATA_MODEL §26c）。既有內容包與已核准紀錄以回填指令登錄（逐筆比對內容指紋）。
 
 ## 5. 撤回（Withdraw）
 

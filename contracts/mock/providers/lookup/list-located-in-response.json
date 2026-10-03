@@ -1,0 +1,72 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "PROV-MOCK-201",
+        "name": "測試輔具服務中心",
+        "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "ASSISTIVE_DEVICE"
+        ],
+        "address": "新北市三重區重新路三段201號",
+        "city": "新北市",
+        "district": "三重區",
+        "phone": "02-42010101",
+        "website": "https://example.com/kareo-mock/prov-mock-201",
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-201",
+        "verified": true,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [
+          {
+            "city": "新北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          }
+        ],
+        "areaMatch": null
+      },
+      {
+        "id": "PROV-MOCK-204",
+        "name": "測試輔具商行（服務範圍待確認）",
+        "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "ASSISTIVE_DEVICE"
+        ],
+        "address": "新北市三重區重新路三段204號",
+        "city": "新北市",
+        "district": "三重區",
+        "phone": "02-42040404",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-204",
+        "verified": true,
+        "serviceAreaStatus": "UNCONFIRMED",
+        "contractRegions": [
+          {
+            "city": "新北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          }
+        ],
+        "areaMatch": null
+      }
+    ],
+    "page": 1,
+    "pageSize": 20,
+    "totalCount": 2,
+    "unconfirmedCount": null,
+    "appliedFilters": {
+      "resourceCategory": null,
+      "serviceType": "ASSISTIVE_DEVICE",
+      "city": "新北市",
+      "district": "三重區",
+      "areaFilter": "LOCATED_IN",
+      "includeUnconfirmed": false,
+      "contractCity": null,
+      "q": null,
+      "page": 1,
+      "pageSize": 20
+    },
+    "notice": "以下為資訊查詢結果，依機構所在地篩選，不是依您的個案狀況所做的推薦，也不代表距離遠近或能到府服務。各機構實際服務範圍請見詳細資料，或洽機構確認。"
+  }
+}

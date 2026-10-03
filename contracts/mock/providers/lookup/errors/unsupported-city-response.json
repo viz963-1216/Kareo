@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "本階段只提供臺北市、新北市的資源查詢。"
+  }
+}

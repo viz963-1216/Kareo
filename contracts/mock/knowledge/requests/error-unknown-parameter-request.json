@@ -1,0 +1,7 @@
+{
+  "method": "GET",
+  "path": "/api/v1/knowledge/records",
+  "query": {
+    "includeDrafts": "true"
+  }
+}

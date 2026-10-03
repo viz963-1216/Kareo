@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "data": {
+    "items": [],
+    "page": 1,
+    "pageSize": 20,
+    "totalCount": 0,
+    "unconfirmedCount": null,
+    "appliedFilters": {
+      "resourceCategory": null,
+      "serviceType": "HOME_MEDICAL_NURSING",
+      "city": "新北市",
+      "district": "烏來區",
+      "areaFilter": "LOCATED_IN",
+      "includeUnconfirmed": false,
+      "contractCity": null,
+      "q": null,
+      "page": 1,
+      "pageSize": 20
+    },
+    "notice": "目前沒有符合條件的資源。可調整篩選條件，或聯絡 1966 長照專線洽詢。"
+  }
+}

@@ -4,6 +4,7 @@
     "id": "PROV-MOCK-201",
     "name": "測試輔具服務中心",
     "type": "ASSISTIVE_DEVICE",
+    "resourceCategory": "SERVICE_PROVIDER",
     "address": "新北市三重區重新路三段201號",
     "city": "新北市",
     "district": "三重區",
@@ -18,6 +19,13 @@
       {
         "city": "新北市",
         "district": "三重區"
+      }
+    ],
+    "serviceAreaStatus": "VERIFIED",
+    "contractRegions": [
+      {
+        "city": "新北市",
+        "serviceType": "ASSISTIVE_DEVICE"
       }
     ]
   }

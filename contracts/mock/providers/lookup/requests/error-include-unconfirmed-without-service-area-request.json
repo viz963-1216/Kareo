@@ -1,0 +1,9 @@
+{
+  "method": "GET",
+  "path": "/api/v1/providers",
+  "query": {
+    "city": "新北市",
+    "areaFilter": "LOCATED_IN",
+    "includeUnconfirmed": true
+  }
+}

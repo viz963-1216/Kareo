@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — Data Model
 
-Version: v0.2.3（J-002，2026-09-29；知識管理：KnowledgeVersion 撤回欄位、KnowledgeVersionRecord、KnowledgeChange `DISMISSED`、AdminAuditEvent，D-16a）  
+Version: v0.2.5（J-002-r8，2026-10-01；§17 `resourceCategory`（輔具資源中心）、§19b ProviderContractRegion（特約縣市），D-19）  
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -375,6 +375,17 @@ OTHER
 
 TRANSPORTATION MVP 不放 Provider，直接導流 Kareocar。
 
+`resourceCategory`（v0.2.5，D-19 Q2）：
+
+```text
+SERVICE_PROVIDER          既有服務單位（預設；HOME_CARE／HOME_MEDICAL_NURSING／ASSISTIVE_DEVICE）
+ASSISTIVE_DEVICE_CENTER   輔具資源中心（公共資源，只供查詢）
+```
+
+- `ASSISTIVE_DEVICE_CENTER` 一律 `type = OTHER`，**不建立 ProviderService**，所以推薦（§20、API_CONTRACT §9）永遠不會選到，也不能建立 Lead。
+- 只收官方來源可確認的雙北輔具資源中心；服務範圍同樣只依可追溯證據建立（§19）。
+- 既有資料匯入時未提供者視為 `SERVICE_PROVIDER`。住宿機構延後（D-19），屆時另定類別。
+
 Provider Status：
 
 ```text
@@ -385,7 +396,7 @@ UNKNOWN
 
 只有 `ACTIVE` 可被推薦。
 
-`lat`／`lng`（v0.2.2 補充）：只填**已驗證**座標，來源、驗證方式與日期記錄於 A 的資料報告（`data/providers/qa/`，TASK-A-003）；無法驗證者保持 null，不得由地址或行政區中心點推估。推薦只有在所有候選都有已驗證座標時才使用距離排序（API_CONTRACT §9）。
+`lat`／`lng`（v0.2.2 補充；v0.2.4 修訂）：只填**已驗證**座標，或經 Jerry 逐筆核准、有紀錄的非官方座標（目前只有 NTPC-AD-004 吉評，DEC-A003-07，Google Maps 商家標記）；來源、驗證方式、日期與核准紀錄記錄於 A 的資料報告（`data/providers/qa/`，TASK-A-003）。非官方座標在報告中持續標示為非官方，官方門牌資料收錄後改用官方點。無法驗證且未經核准者保持 null，不得由地址或行政區中心點推估。推薦只有在所有候選都有已驗證座標時才使用距離排序（API_CONTRACT §9）。
 
 `verified=true` 代表平台已確認基本資料，不代表政府認證。
 
@@ -421,6 +432,37 @@ active
 ```
 
 Provider 地址與服務範圍必須分開。
+
+規則（v0.2.4，D-18；整併 Jerry 2026-09-29 DEC-A003-01／02 與 2026-10-01 Issue #49）：
+
+- 只有**可追溯證據**（官方名單的特約服務區域、服務單位本身的正式書面範圍等）證實的行政區，才能建立 active ProviderServiceArea；證據來源與查核日期記錄於 `data/providers/qa/`。
+- **不得推定**：不得以地址所在行政區、簽約／特約縣市、母機構（例如醫院本體）的範圍，推定服務單位服務某行政區；不得為了補足推薦家數新增範圍。曾被撤下的推定範圍不得直接恢復，須依最新證據重新查核。
+- 輔具服務只限臺北市、新北市（DEC-A003-01）；居家護理須確認服務單位本身提供居家護理才收錄為 `HOME_MEDICAL_NURSING`（DEC-A003-02）。
+
+`serviceAreaStatus`（v0.2.4，推導值，不另存欄位）：
+
+```text
+VERIFIED      有至少一筆 active ProviderServiceArea
+UNCONFIRMED   沒有任何 active ProviderServiceArea（服務範圍待確認，不代表不提供服務）
+```
+
+用途：資源查詢與詳細頁的顯示（API_CONTRACT §10、§10a）。推薦（§20、API_CONTRACT §9）只比對 active ProviderServiceArea，`UNCONFIRMED` 的 Provider 永遠不是推薦候選。
+
+# 19b. ProviderContractRegion / 特約縣市（v0.2.5，D-19 Q1）
+
+```text
+id
+providerId
+city          臺北市／新北市
+serviceType   特約的服務類型（MVP 只有 ASSISTIVE_DEVICE）
+sourceId      官方特約／簽約名單（A 的資料報告）
+checkedAt
+active
+```
+
+- 記錄「已列於該縣市政府特約名單」的事實，例如 SRC-004（臺北市輔具特約服務門市）、SRC-005（新北市輔具特約廠商）。
+- **不是服務範圍**：不得轉成 ProviderServiceArea，推薦不讀取（§19、DEC-A003-01）。
+- 公開時只回 `city`、`serviceType`（API_CONTRACT §10）；來源與查核日期留在資料報告。
 
 ---
 
@@ -668,6 +710,45 @@ knowledgeRecordId
 ```
 
 每次發布時寫入該版本實際包含的全部紀錄（新增＋沿用），不可變、不覆寫、不刪除。撤回與恢復、發布預覽的 `totalRecordCount`、可恢復版本的 `recordCount` 都以此表為準（API_CONTRACT §26.8、§26.10）。
+
+## 26b. KnowledgeContentPack / 內容包登錄（v0.2.4，D-16b）
+
+匯入內容包時保存內容包層級資料，讓發布預覽與發布（API_CONTRACT §26.8–26.9）不必讀檔案。表名與 DDL 由 B-012 決定，至少包含：
+
+```text
+packId                    主鍵（= 內容包 packId）
+formatVersion
+intendedKnowledgeVersion  KB-YYYY-MM-DD-NNN
+sourceRegistryVersion
+status                    NEEDS_REVIEW / APPROVED / REJECTED（內容包層級）
+reviewedBy / reviewedAt / reviewDecision   取自內容包的 review
+packFingerprint           sha256：依 recordId 排序的 (recordId, contentFingerprint)，加上 intendedKnowledgeVersion、status
+importedAt / importedBy / updatedAt
+```
+
+規則：
+
+- 發布候選＝紀錄 `APPROVED` **且**所屬內容包在本表為 `APPROVED`；找不到登錄資料視同未核准（`PACK_NOT_APPROVED`）。
+- 內容包 `APPROVED` 只能經由匯入「已由 Jerry 在 PR 核准（`status = APPROVED` 且有內容包層級 `review`）」的檔案取得；管理頁不提供整包核准。
+- 同一 `packId` 重新匯入：只有每筆 `contentFingerprint` 都不變時，才可把狀態由 `NEEDS_REVIEW` 升為 `APPROVED`；內容有變一律拒絕，必須使用新 `packId`。
+- 既有資料以回填指令登錄：讀 `contracts/knowledge/packs/*.json`，逐筆比對資料庫內容指紋，一致才登錄。
+
+## 26c. KnowledgeRecordReview / 逐筆審核紀錄（v0.2.4，D-16b）
+
+只能新增，不可修改或刪除。CLI 核准（內容包 `review`）與管理頁核准／退回（API_CONTRACT §26.6）寫入同一份紀錄，並與紀錄狀態更新在同一交易內：
+
+```text
+id
+knowledgeRecordId
+decision            APPROVED / REJECTED
+reviewedBy
+reviewedAt
+reason              管理頁必填；CLI 取內容包 review 的註記（可為 null）
+contentFingerprint  核准當下的內容指紋
+channel             CLI_PACK / ADMIN_API
+```
+
+管理頁操作仍另寫 §41 AdminAuditEvent；本表是「這筆內容由誰、依據哪個內容指紋核准」的唯一來源。既有已核准紀錄由回填指令以 `CLI_PACK` 補登。
 
 ---
 

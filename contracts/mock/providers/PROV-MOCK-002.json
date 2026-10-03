@@ -4,6 +4,7 @@
     "id": "PROV-MOCK-002",
     "name": "測試安心居家服務中心",
     "type": "HOME_CARE",
+    "resourceCategory": "SERVICE_PROVIDER",
     "address": "新北市三重區正義北路200號",
     "city": "新北市",
     "district": "三重區",
@@ -23,6 +24,8 @@
         "city": "新北市",
         "district": "蘆洲區"
       }
-    ]
+    ],
+    "serviceAreaStatus": "VERIFIED",
+    "contractRegions": []
   }
 }

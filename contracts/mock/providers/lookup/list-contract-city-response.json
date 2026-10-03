@@ -1,0 +1,52 @@
+{
+  "success": true,
+  "data": {
+    "items": [
+      {
+        "id": "PROV-MOCK-202",
+        "name": "測試安心輔具中心",
+        "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
+        "services": [
+          "ASSISTIVE_DEVICE"
+        ],
+        "address": "臺北市萬華區西園路一段202號",
+        "city": "臺北市",
+        "district": "萬華區",
+        "phone": "02-42020202",
+        "website": null,
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-202",
+        "verified": false,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [
+          {
+            "city": "臺北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          },
+          {
+            "city": "新北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          }
+        ],
+        "areaMatch": null
+      }
+    ],
+    "page": 1,
+    "pageSize": 20,
+    "totalCount": 1,
+    "unconfirmedCount": null,
+    "appliedFilters": {
+      "resourceCategory": null,
+      "serviceType": "ASSISTIVE_DEVICE",
+      "city": null,
+      "district": null,
+      "areaFilter": null,
+      "includeUnconfirmed": false,
+      "contractCity": "臺北市",
+      "q": null,
+      "page": 1,
+      "pageSize": 20
+    },
+    "notice": "以下為列於所選縣市特約名單的機構。特約名單只表示該機構與縣市政府簽約，不代表能到府服務或服務您所在的行政區；本結果不是依您的個案狀況所做的推薦。"
+  }
+}
