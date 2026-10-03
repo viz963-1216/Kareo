@@ -49,13 +49,13 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 ## 摘要
 
 <!-- A003:BEGIN summary -->
-- Provider 總數：30
-- ProviderServiceArea 筆數：86
+- Provider 總數：35
+- ProviderServiceArea 筆數：98
 - lat/lng 非 null：30
 - 有完整驗證證據的座標：29（名稱／地址核對＋官方門牌點＋可重現轉換，見 `qa/a-003-evidence.json`）
 - 依指示採用的非官方座標（非官方門牌點，不計入已驗證）：1（NTPC-AD-004，DEC-A003-07）
 - 非 null 但缺任何證據：0
-- 仍無座標：0
+- 仍無座標：5
 - 缺 ProviderServiceArea 的 ACTIVE Provider：14
 - 依指示建立的平台設定服務範圍（非官方證實）：0 筆（—）
 - 條件式服務地域（未有行政區級證據，未建立 ProviderServiceArea）：14 家（NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003、TP-HMN-001、TP-HMN-003）
@@ -103,6 +103,7 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 | --- | --- | --- | --- | --- |
 | HOME_CARE | 23 | 61 | 0 | 84 |
 | HOME_MEDICAL_NURSING | 2 | 0 | 0 | 2 |
+| OTHER | 12 | 0 | 0 | 12 |
 
 <!-- A003:END service-area-basis -->
 
@@ -186,6 +187,11 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 | NTPC-AD-007 | 瑞康醫療器材有限公司 | ASSISTIVE_DEVICE | 24.99206804 | 121.49471705 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `圓通路２９５之１號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
 | NTPC-AD-008 | 鴻銘醫療儀器行 | ASSISTIVE_DEVICE | 25.13823097 | 121.46201283 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `民生路４７之２號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
 | NTPC-AD-009 | 美德耐股份有限公司雙和門市部 | ASSISTIVE_DEVICE | 24.9937458 | 121.49408179 | VERIFIED | SRC-005 名稱／地址；SRC-COORD-NTPC-001 `中正路２９１號`（EPSG:3826 → WGS84） | 2026-09-29 | 0 | 服務範圍 |
+| TP-ARC-001 | 臺北市合宜輔具中心（財團法人第一社會福利基金會承辦） | OTHER | null | null | PENDING | — | — | 4 | 座標 |
+| TP-ARC-002 | 臺北市西區輔具中心（財團法人伊甸社會福利基金會承辦） | OTHER | null | null | PENDING | — | — | 4 | 座標 |
+| TP-ARC-003 | 臺北市南區輔具中心（財團法人第一社會福利基金會承辦） | OTHER | null | null | PENDING | — | — | 4 | 座標 |
+| NTPC-ARC-001 | 新北市輔具資源中心（蘆洲） | OTHER | null | null | PENDING | — | — | 0 | 座標 |
+| NTPC-ARC-002 | 新北市輔具資源中心（新店） | OTHER | null | null | PENDING | — | — | 0 | 座標 |
 <!-- A003:END providers -->
 
 ## 驗收狀態
