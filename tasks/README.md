@@ -32,17 +32,17 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
-# 最新規格與整合快照（2026-10-03，J-002-r13／J-003-r9）
+# 最新規格與整合快照（2026-10-03，J-002-r13／J-003-r10）
 
-- 文件基準 staging `6c74dee`；J-003-r9 真實 E2E 證據只屬部署 `376f3ef`，不能移植到較新 commit。Netlify 已恢復，staging／production DB 隔離仍待核對。
+- 文件基準 staging `05b1c4a`；r10 唯讀 E2E 1 PASS／2 PENDING，49 必要項目尚有 48 項未通過。r9 的 4 PASS 只屬 `376f3ef`，不能移植。Netlify 已恢復，staging／production DB 隔離仍待核對。
 - A-006 #53、Session runtime #59、隱私 #61/#62 已合併。Provider 已匯入 30 家／30 服務／86 已確認範圍。
 - 首次知識版本 `KB-2026-09-24-001` 已發布：18 來源、21 筆紀錄、21 版本成員。知識狀態 API HTTP 200。lastVerifiedAt 保留來源原核對時間，不改成發布日。
-- 開啟 PR：B-012 #48 r5、B-011b #55 r4、B-013 #57 r2、B-014 #67 r2、C-007 #58 r3；均未合併，收尾見下表。
+- 開啟 PR：B-012 #48 r5＋J 路由 `fa2a113`、B-011b #55 r4＋J 路由 `8455529`、B-013 #57 r2＋J 路由 `0d77774`、B-014 #67 r2＋J 路由 `a2abbc5`、C-007 #58 r3；均未合併，收尾見下表。
 - A-007 未見 PR；C-008 #65、C-009 #66 已合併。A-006 #53 已完成模組，公開查詢整合仍待 B-013/C-007。
 - D-05：90 天／180 天／1 年／3 年產品規劃已確認；D-05a 及 D-16c 已定案。自助刪除仍要求 7 天內完成，B 須修正等待滿 7 天的差異。同意仍 DRAFT，工程及最終審閱未完成。
 - 每日 crawler：staging 有 workflow，但 main 沒有；GitHub staging environment 已建立，只允許 staging 分支，目前無 secrets。尚未定時實跑。
 - D-18/D-19 六項新增驗收已列 E2E-44～49；合計 49 必要案例，不以早期 43 項代替完整範圍。Integrated 維持否。
-- 詳細證據：`docs/acceptance/J003-2026-10-03-first-knowledge-publication.md`。
+- 最新證據：`docs/acceptance/J003-2026-10-03-route-integration.md`；r9 歷史首次發布見 `docs/acceptance/J003-2026-10-03-first-knowledge-publication.md`。
 - J-004-r3：發布／回滾／隔離還原及 D-05 權利處理文件已準備；Jerry 已確認信箱收信回覆。實際資料處理與演練仍待完成，D-05 DRAFT／release gate CLOSED。
 
 # Task Board（2026-10-03，J-002-r13）
@@ -55,17 +55,17 @@ A / B / C 不直接 Push `staging` 或 `main`。
 | A | A-006 | MERGED（#53） | 真實公開查詢等 B-013／C-007 |
 | A | A-007 輔具資源中心 | READY，未見 PR | 依已核准 D-19 與資料規格提交；不進推薦／媒合 |
 | B | B-001～B-010、B-011a | MERGED（含 B-006 #47、B-009 #37） | 知識／Provider 已有雲端資料；完整業務 E2E 與每日 crawler 待驗 |
-| B | B-012 | IN REVIEW（#48 r5 `d5b2150`） | D-16c 操作者／舊包規則、限流；r5 排序測試新提交待核對。19／20 migration |
-| B | B-011b | IN REVIEW（#55 r4 `3625c83`） | D-05a 已定案；修正七天內完成、共用安全元件整合；21 migration |
-| B | B-013 | IN REVIEW（#57 r2 `cf6d56e`） | 公開查詢限流、同步與22 migration；J 補路由 |
-| B | B-014 | IN REVIEW（#67 r2 `9b6e822`） | 限流、B-012 介面同步；J 補路由與真實知識查詢 |
+| B | B-012 | IN REVIEW（#48 r5＋J `fa2a113`） | D-16c 操作者／舊包規則、限流；r5 排序測試及組合562測試已過；規格缺項仍須修。19／20 migration |
+| B | B-011b | IN REVIEW（#55 r4＋J `8455529`） | D-05a 已定案；修正七天內完成、共用安全元件整合；21 migration |
+| B | B-013 | IN REVIEW（#57 r2＋J `0d77774`） | 公開查詢限流、同步與22 migration；J 路由已補在原 PR |
+| B | B-014 | IN REVIEW（#67 r2＋J `a2abbc5`） | 限流、B-012 介面同步；J 路由已補，真實查詢等部署 |
 | C | C-001～C-006 | MERGED | 真實初評／媒合等 D-05；管理流程等 B-012 |
 | C | C-007 | IN REVIEW（#58 r3 `fc957ea`） | 本機78測試／型別PASS；B-013 之後合併與部署驗收 |
 | C | C-008 | MERGED（#65） | 真實知識查詢等 B-014；10 個 category 已一致 |
 | C | C-009 | MERGED（#66） | 瀏覽器摘要模組完成，真實評估／列印流程待 J-003 |
 | J | J-001 | 環境可用，非完整驗收 | staging／production 隔離、設定與權限仍需確認 |
 | J | J-002-r13 | 本輪規格交付完成 | D-05a／D-16c／B-013 範圍已同步；D-05 最終審閱另行收尾 |
-| J | J-003 | 工具與部分真實證據已合併（#44、#63），Integrated 否 | #48 → #55 → #57 → #67；#58 在 #57 後。補三路由、DB／回填、共用安全整合與49項E2E |
+| J | J-003 | 工具與部分真實證據已合併（#44、#63）；r10 接線／工具交付，Integrated 否 | #48 → #55 → #57 → #67；#58 在 #57 後。三路由已補在原 PR；仍需 DB／回填、共用安全整合與49項E2E |
 | J | J-004 | 準備文件已合併（#22、#45、#64），gate CLOSED | 隔離還原、權利／接件演練、同意正式啟用與發布驗收 |
 
 J-002 本輪證據：[工程規格收尾](../docs/acceptance/J002-2026-10-03-spec-closeout.md)。D-05 工程／最終審閱與 J-004 尚未完成，不因規格文件合併變成 ACTIVE 或 PROD-ACCEPTED。

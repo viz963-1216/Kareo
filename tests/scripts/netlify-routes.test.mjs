@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { spawnSync } from 'node:child_process';
-import { cpSync, mkdirSync, mkdtempSync, readFileSync } from 'node:fs';
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { contractEndpoints, examplePath, firstRedirect, functionName, parseRedirects, routeMatches, validRoutePattern, declaresEndpoint } from '../../scripts/lib/netlify-routes.mjs';
@@ -57,4 +57,5 @@ test('runtime checker without dependencies reports PENDING instead of crashing',
   assert.equal(r.status, 0, r.stderr);
   assert.match(r.stdout, /PENDING.*esbuild not installed/);
   assert.doesNotMatch(r.stderr, /ReferenceError/);
+  rmSync(root, { recursive: true, force: true });
 });

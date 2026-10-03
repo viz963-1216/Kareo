@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 2,
+  "runId": "public-2026-10-03T09:40:04.203Z",
+  "apiMode": "real",
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "commit": "05b1c4a537381e04ecc29b841bdb6f43648346e6",
+  "startedAt": "2026-10-03T09:40:04.203Z",
+  "finishedAt": "2026-10-03T09:40:10.611Z",
+  "operator": "tests/e2e/run-public-api-e2e.mjs",
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "05b1c4a537381e04ecc29b841bdb6f43648346e6",
+    "before": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-03T09:40:04.204Z",
+      "httpStatus": 200,
+      "commit": "05b1c4a537381e04ecc29b841bdb6f43648346e6",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "staging",
+      "deployId": "6ac0bdd527664e000897ca52",
+      "builtAt": "2026-10-03T08:33:46.246Z"
+    },
+    "after": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-03T09:40:10.541Z",
+      "httpStatus": 200,
+      "commit": "05b1c4a537381e04ecc29b841bdb6f43648346e6",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "staging",
+      "deployId": "6ac0bdd527664e000897ca52",
+      "builtAt": "2026-10-03T08:33:46.246Z"
+    },
+    "matches": true
+  },
+  "results": [
+    {
+      "caseId": "E2E-21",
+      "status": "PASS",
+      "evidence": "unknown API: HTTP 404, code NOT_FOUND"
+    },
+    {
+      "caseId": "E2E-44",
+      "status": "PENDING",
+      "evidence": "/api/v1/providers: 400; list API unavailable, API/UI acceptance remains pending"
+    },
+    {
+      "caseId": "E2E-48",
+      "status": "PENDING",
+      "evidence": "/api/v1/knowledge/records: 404; list API unavailable, API/UI acceptance remains pending"
+    }
+  ],
+  "diagnostics": [
+    {
+      "check": "published knowledge status",
+      "status": 200,
+      "version": "KB-2026-09-24-001"
+    }
+  ]
+}
