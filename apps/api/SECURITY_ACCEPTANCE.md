@@ -20,10 +20,13 @@
 
 ## 2. SQL 層行為驗證（RPC／RLS）
 
-依專案慣例，新增 RPC／RLS 的行為驗證以一次性 PGlite scratch script 完成（寫、跑、刪），結果記錄於 PR
-說明，不留存在 repo（`@electric-sql/pglite` 目前只是 `tests/db/`（J-003 工具）的 devDependency，尚未
-加進 `apps/api/package.json`；B-012-r3 已取得 Jerry 核准加入，待該 PR 合併後本分支可透過 rebase 取得，
-屆時可比照改為常態留存的 PGlite 測試，不在本輪重複申請同一個套件的 GIT_RULES §9 核准）。
+B-011b-r4 起，刪除／撤回與到期清理的 SQL 行為測試常態留在 repo：`tests/retentionCleanup.pglite.test.ts`
+用 `@electric-sql/pglite`（`apps/api` devDependency，版本與 #48 相同的 0.3.16）套用本分支全部 migrations，
+直接呼叫 RPC 並核對資料列，隨 `npx vitest run` 執行。涵蓋：有 Lead／無 Lead、7 天／90 天邊界內外、
+Lead 結案 1 年後與隔日重跑時 Assessment／CareNeedProfile／RecommendationRun／RecommendationItem 的實際
+筆數；刪除與撤回兩個 RPC 的 CLOSED／CANCELLED／未終態三組 Lead；`rls_auto_enable` 權限收緊（以替身
+函式模擬雲端既有函式）。其餘項目（`check_rate_limit`、四時鐘計數等）仍是先前以一次性 scratch script
+驗證，結果記錄於 PR 說明。
 
 驗證涵蓋：
 
@@ -69,11 +72,10 @@
 - （B-011b-r3 修正）r2 曾寫「曾建立 Lead 的評估資料會在 Lead 滿 1 年刪除後自動清理」，經 Jerry
   2026-10-03 重現證明不成立（session 已轉 DELETED 後不會再被選到，評估資料永久殘留）。r3 已改為
   評估資料依 7 天／90 天期限直接刪除，與 Lead 案件骨架的 1 年期限各自獨立。
-- **待 J-002 補登規格**：DATA_MODEL §22 Lead 的 `assessmentId`／`recommendationId` 現為不帶外鍵的
-  歷史參考值，對應的評估資料可能已依期限刪除。
-- **SQL 層行為驗證未留存於 repo**：需要 `apps/api/package.json` 加入 `@electric-sql/pglite`
-  （GIT_RULES §9 共用關鍵檔）。B-012（#48）已加入同一套件與版本，待 #48 合併、本分支同步 staging
-  後補上常態測試；或由 Jerry 授權在本 PR 先加入。
+- **待 J-002 決定（schema／關聯調整提案）**：為了讓評估資料依 7 天／90 天刪除、Lead 依 1 年保存，
+  r3 移除了 `leads` 對 `assessments`／`recommendation_runs` 的外鍵（Lead 保留 id 值）。此關聯調整已
+  在 PR 提案交 J-002 決定並補登 DATA_MODEL §22；若 J-002 選擇其他做法（例如欄位改為可為 null 並在
+  清理時設為 null），本 PR 依決定修改。
 - **migration 改名 0021 待 #48 合併**：staging 尚無 B-012 的 0019／0020，現在改名會使
   `verify-db.mjs` M1 判定缺號失敗。
 - `public.rls_auto_enable()`：r3 已撤銷 `anon`／`authenticated` 的 `EXECUTE`（函式存在時才執行，
