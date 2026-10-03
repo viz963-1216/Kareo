@@ -66,4 +66,4 @@ The following checks pass after this update:
 node data/providers/qa/validate-providers.mjs
 node data/providers/qa/verify-coordinates.mjs --write
 node --test data/providers/qa/tests/validate-providers.test.mjs
-node --test data/providers/qa/tests/verify-coordinates.test.mjs
+node --test data/providers/qa/tests/verify-coordinates.test.mjs```
