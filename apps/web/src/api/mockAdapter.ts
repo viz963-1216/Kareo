@@ -9,6 +9,8 @@ import type {
   ConsentWithdrawalResponse,
   LeadRequest,
   LeadResponse,
+  KnowledgeRecordsRequest,
+  KnowledgeRecordsResponse,
   SessionDeletionResponse,
   SessionResponse,
   RecommendationRequest,
@@ -49,8 +51,24 @@ import invalidPageSizeError from "../../../../contracts/mock/providers/lookup/er
 import unsupportedCityError from "../../../../contracts/mock/providers/lookup/errors/unsupported-city-response.json";
 import unsupportedContractCityError from "../../../../contracts/mock/providers/lookup/errors/unsupported-contract-city-response.json";
 import unknownParameterError from "../../../../contracts/mock/providers/lookup/errors/unknown-parameter-response.json";
+import knowledgeFirstPage from "../../../../contracts/mock/knowledge/records-first-page-response.json";
+import knowledgeSecondPage from "../../../../contracts/mock/knowledge/records-second-page-response.json";
+import knowledgeTaipei from "../../../../contracts/mock/knowledge/records-taipei-response.json";
+import knowledgeNewTaipeiAssistive from "../../../../contracts/mock/knowledge/records-new-taipei-assistive-device-response.json";
+import knowledgeEmpty from "../../../../contracts/mock/knowledge/records-empty-response.json";
+import invalidJurisdiction from "../../../../contracts/mock/knowledge/errors/invalid-jurisdiction-response.json";
+import invalidCategory from "../../../../contracts/mock/knowledge/errors/invalid-category-response.json";
+import unknownParameter from "../../../../contracts/mock/knowledge/errors/unknown-parameter-response.json";
+import knowledgeUnavailable from "../../../../contracts/mock/knowledge/errors/knowledge-unavailable-response.json";
 import { ApiError } from "./realAdapter";
-import { assessmentMockScenario, type MockState, type RecommendationMockCount, type RecommendationMockRanking, type ResourceLookupMockScenario } from "./mockScenarios";
+import {
+  assessmentMockScenario,
+  type KnowledgeMockScenario,
+  type MockState,
+  type RecommendationMockCount,
+  type RecommendationMockRanking,
+  type ResourceLookupMockScenario,
+} from "./mockScenarios";
 import { createRecommendationFixture, rankingForPrecision } from "./recommendationMockFixtures";
 
 const wait = (milliseconds = 450) => new Promise((resolve) => window.setTimeout(resolve, milliseconds));
@@ -162,6 +180,27 @@ export const mockApi = {
   async getProviders(filters: ResourceLookupRequest, scenario?: ResourceLookupMockScenario): Promise<ResourceLookupResponse> {
     await wait(650);
     return scenario ? lookupScenarioFixture(scenario) : lookupFixture(filters);
+  },
+
+  async getKnowledgeRecords(_filters: KnowledgeRecordsRequest, scenario: KnowledgeMockScenario = "first-page"): Promise<KnowledgeRecordsResponse> {
+    await wait(500);
+    const successes = {
+      "first-page": knowledgeFirstPage,
+      "second-page": knowledgeSecondPage,
+      taipei: knowledgeTaipei,
+      "new-taipei-assistive-device": knowledgeNewTaipeiAssistive,
+      empty: knowledgeEmpty,
+    } as const;
+    if (scenario in successes) return structuredClone(successes[scenario as keyof typeof successes].data) as KnowledgeRecordsResponse;
+    const errors = {
+      "invalid-jurisdiction": invalidJurisdiction,
+      "invalid-category": invalidCategory,
+      "unknown-parameter": unknownParameter,
+      "knowledge-unavailable": knowledgeUnavailable,
+    } as const;
+    const fixture = errors[scenario as keyof typeof errors];
+    const status = scenario === "knowledge-unavailable" ? 503 : 400;
+    throw new ApiError(fixture.error.code, fixture.error.message, status);
   },
   async getProvider(providerId: string, simulateError = false): Promise<ProviderDetail | null> {
     await wait(650);

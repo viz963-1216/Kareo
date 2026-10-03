@@ -21,6 +21,7 @@ const FILE_NAMES = {
   providers: "providers.json",
   services: "provider-services.json",
   serviceAreas: "provider-service-areas.json",
+  contractRegions: "provider-contract-regions.json",
 };
 
 // DATA_MODEL §17: Provider Type allows OTHER.
@@ -47,6 +48,8 @@ function resolveFiles(target) {
       providers: path.join(dir, FILE_NAMES.providers),
       services: path.join(dir, FILE_NAMES.services),
       serviceAreas: path.join(dir, FILE_NAMES.serviceAreas),
+      contractRegions: path.join(dir, FILE_NAMES.contractRegions),
+      requireContractRegions: true,
     };
   }
 
@@ -57,6 +60,8 @@ function resolveFiles(target) {
       providers: path.join(resolved, FILE_NAMES.providers),
       services: path.join(resolved, FILE_NAMES.services),
       serviceAreas: path.join(resolved, FILE_NAMES.serviceAreas),
+      contractRegions: path.join(resolved, FILE_NAMES.contractRegions),
+      requireContractRegions: false,
     };
   }
 
@@ -65,6 +70,8 @@ function resolveFiles(target) {
     providers: resolved,
     services: path.join(dir, "provider-services-invalid.json"),
     serviceAreas: path.join(dir, "provider-service-areas-invalid.json"),
+    contractRegions: null,
+    requireContractRegions: false,
   };
 }
 
@@ -125,6 +132,15 @@ function loadJson(filePath) {
     );
     return [];
   }
+}
+
+function loadOptionalJson(filePath, required) {
+  if (!filePath) return [];
+  if (!fs.existsSync(filePath)) {
+    if (required) addError(filePath, null, null, null, "required file is missing.");
+    return [];
+  }
+  return loadJson(filePath);
 }
 
 function isNonEmptyString(value) {
@@ -291,10 +307,12 @@ console.log("");
 const providers = loadJson(files.providers);
 const services = loadJson(files.services);
 const serviceAreas = loadJson(files.serviceAreas);
+const contractRegions = loadOptionalJson(files.contractRegions, files.requireContractRegions);
 
 console.log(`Providers: ${providers.length}`);
 console.log(`Provider Services: ${services.length}`);
 console.log(`Provider Service Areas: ${serviceAreas.length}`);
+console.log(`Provider Contract Regions: ${contractRegions.length}`);
 console.log("");
 
 // --- Provider (DATA_MODEL §17) ---
@@ -452,6 +470,48 @@ validateRecords(files.serviceAreas, serviceAreas, (area, index) => {
 });
 
 checkDuplicateIds(files.serviceAreas, serviceAreas);
+
+// --- ProviderContractRegion (DATA_MODEL §19b, D-19 Q1) ---
+// This is intentionally separate from ProviderServiceArea: a city contract never creates a
+// recommendation area.  Custom/legacy fixtures may omit the new file; the formal dataset may not.
+const CONTRACT_CITIES = new Set(["臺北市", "新北市"]);
+
+validateRecords(files.contractRegions ?? "provider-contract-regions.json", contractRegions, (region, index) => {
+  const file = files.contractRegions ?? "provider-contract-regions.json";
+  checkId(file, index, region);
+  checkProviderReference(file, index, region, providerIds, validProviderIds);
+
+  if (!CONTRACT_CITIES.has(region.city)) {
+    addError(file, index, region, "city", `must be 臺北市 or 新北市 (got ${show(region.city)}).`);
+  }
+  if (region.serviceType !== "ASSISTIVE_DEVICE") {
+    addError(file, index, region, "serviceType", `must be ASSISTIVE_DEVICE (got ${show(region.serviceType)}).`);
+  }
+  if (!isNonEmptyString(region.sourceId)) {
+    addError(file, index, region, "sourceId", `required non-empty string (got ${show(region.sourceId)}).`);
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(region.checkedAt ?? "")) {
+    addError(file, index, region, "checkedAt", `must be YYYY-MM-DD (got ${show(region.checkedAt)}).`);
+  }
+  checkBoolean(file, index, region, "active");
+  if (!services.some((service) =>
+    service.providerId === region.providerId && service.serviceType === region.serviceType && service.active,
+  )) {
+    addError(file, index, region, "serviceType", "Provider must have the same active ProviderService.");
+  }
+});
+
+checkDuplicateIds(files.contractRegions ?? "provider-contract-regions.json", contractRegions);
+const contractPairs = new Map();
+contractRegions.forEach((region, index) => {
+  if (!region || typeof region !== "object") return;
+  const pair = `${region.providerId}::${region.city}::${region.serviceType}`;
+  if (contractPairs.has(pair)) {
+    addError(files.contractRegions ?? "provider-contract-regions.json", index, region, "city", `duplicate providerId/city/serviceType pair "${pair}" (first used by record #${contractPairs.get(pair)}).`);
+    return;
+  }
+  contractPairs.set(pair, index);
+});
 
 console.log("=== Validation Result ===");
 

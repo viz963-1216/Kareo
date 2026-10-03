@@ -11,9 +11,10 @@ export function HomePage() {
       <p className="supporting-text">全程免費，不需登入；約 3–5 分鐘完成。</p>
       <section className="home-secondary-actions" aria-labelledby="other-options-heading">
         <h2 id="other-options-heading">也可以直接查詢</h2>
-        <p>不需先做評估，即可查看雙北長照資源；交通預約將前往外部 Kareocar 平台。</p>
+        <p>不需先做評估，即可查看雙北長照資源或已審核發布的制度與補助資訊；交通預約將前往外部 Kareocar 平台。</p>
         <div className="button-row">
           <Link className="button secondary" to="/resources">查詢長照資源</Link>
+          <Link className="button secondary" to="/info">長照制度與補助資訊</Link>
           <a className="button secondary" href={KAREOCAR_URL} target="_blank" rel="noopener noreferrer">
             長照交通預約（Kareocar，外部服務・開啟新分頁）
           </a>

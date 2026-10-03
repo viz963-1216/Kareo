@@ -50,3 +50,30 @@ node scripts/smoke-release.mjs --base-url=https://<已確認的站點> --commit=
 ```
 
 exit 0 僅代表四項唯讀健康檢查通過；exit 1 代表檢查失敗；exit 2 代表輸入不完整。沒有任何情況可代替 J-003 release gate 或真人演練。
+
+## r3 最新演練準備（2026-10-03，取代上方 r2 現況）
+
+| 項目／案例 | 最新狀態 | 證據／下一步 |
+|---|---|---|
+| 信箱 P-01 | USER-CONFIRMED | Jerry 在對話確認另一信箱可寄入及回覆；無郵件內容入 repo |
+| R-01 完整驗收 | BLOCKED | J-003 #63：部署376f3ef，49 項僅4PASS；正式 gate 拒絕 |
+| R-02 唯讀 smoke | 歷史整合環境 PASS，正式待驗 | 376f3ef 四項通過，見 J003-2026-10-03-first-knowledge-publication；不採計未知正式版本 |
+| 資料庫／知識 | 基礎已匯入，正式待隔離 | 21 public 表、30providers/30services/86areas、KB-2026-09-24-001；不能說 DB 仍只有 sessions/consents |
+| Netlify | Kareo 已恢復；正式額度／Kareocar 待本次核對 | 不沿用9/29兩站503作現況 |
+| D-05／R-10 | BLOCKED | B-011b #55 未合併，文案DRAFT；依 PRIVACY_REQUEST_RUNBOOK P-02～08 演練 |
+| R-03／04／05 | PENDING／BLOCKED | B-006已在staging，先核對實際工具；真人接件、授權、入口開關尚未演練，不再寫成B-006未交付 |
+| R-06／07 | BLOCKED | 獨立恢復目標、schema相容性、刪除重套工具及RPO/RTO門檻待確認 |
+| R-08 | BLOCKED | workflow不在main、GitHub staging environment無secrets，尚無觸發證據 |
+| R-09 | BLOCKED | B-012 #48 待修正與合併，不能以首次發布代替完整管理端驗收 |
+
+本版交付是可執行流程與檢查表，不代表真人接件、刪除、還原或回滾已實演。下表由實際操作後填寫，不預填PASS。
+
+| 日期／操作者 | 案例 | 環境 ref／URL、commit／deploy | 步驟與實際結果 | 去識別證據位置 | 清理／重試 | 判定 |
+|---|---|---|---|---|---|---|
+| 待執行 | P-02～08、R-03～10 | 待固定 | 待執行 | 待附 | 待核對 | PENDING／BLOCKED |
+
+### r3 唯讀部署核對（2026-10-03）
+
+實際部署已更新為 `d12992bfeac7dfaa7b3e9c2d357f1d521d9f188f`，deploy `6ac02c388ae8e200076fd5c4`，branch staging，builtAt `2026-10-02T22:12:29.577Z`。
+
+先以舊 `376f3ef` 目標執行 smoke，commit 檢查正確拒絕；查 marker 後以實際 d12992b 執行，首頁／commit／知識 `KB-2026-09-24-001`／未知 API 四項 PASS。僅 GET，沒有建立使用者資料。這是整合環境健康檢查，不是新版本完整 E2E 或正式 production 驗收。
