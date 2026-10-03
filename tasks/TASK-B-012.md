@@ -1,8 +1,8 @@
 # TASK-B-012 — Admin Knowledge Review API（知識審核與發布 API）
 
 Owner: Engineer B — Backend  
-Status: IN REVIEW — #48 B-012-r2（`5c81cd1`）：10 個端點完成 8 個；publish-preview／publish 依 D-16b 於 r3 完成  
-Plan revision: 2026-10-01 / J-002-r6（MVP_DECISIONS D-16、D-16a、**D-16b**；API_CONTRACT v0.5 §26；ARCHITECTURE §22 第 8–9 點；DATA_MODEL §26b–26c）
+Status: IN REVIEW（#48，B-012-r5 `d5b2150`）；D-16c 匯入操作者／舊包不可變規則已定案，r5 排序測試新提交待核對；操作者／不可變規則與限流整合待收尾
+Plan revision: 2026-10-03 / J-002-r13
 
 ## Goal / 目標
 
@@ -98,3 +98,15 @@ PR Title：`[B-012] Admin Knowledge Review API`
 - 2026-09-24 J-002-r4：依 Jerry 核准（D-16）建立。
 - 2026-10-01 J-002-r6：依 D-16b 補 r3 要求（內容包登錄、逐筆審核紀錄、發布序列化、pglite 依賴）；狀態改為 IN REVIEW（#48）。
 - 2026-09-29 J-002：依 D-16a 補齊契約（API_CONTRACT v0.4 §26：發布預覽、可恢復版本、完整寫入回應、`KNOWLEDGE_STATE_CHANGED`）與 fixtures；新增驗收項目。
+
+## J-002-r13 收尾要求（D-16c，2026-10-03）
+
+規格：DATA_MODEL §26b–26c、ARCHITECTURE §21、contracts/knowledge/README §1／§3。定案證據：[J 留言 #48](https://github.com/viz963-1216/Kareo/pull/48#issuecomment-5967136756)。
+
+- 實際匯入／回填新增 `--operator-id`，重用既有個人密鑰與 `KNOWLEDGE_PUBLISHER` 驗證；缺身分、錯誤密鑰、停用、無角色時在任何寫入前拒絕。密鑰從安全環境取得，不入命令列／log。dry-run 不建立假稽核。
+- `importedBy` 為已驗證實際操作者 ID；首次登錄的時間／執行者在冪等重跑保持不變。回填不冒充原匯入人／時間，歷史 review 證據不改。
+- 不可變規則包含未登錄舊包：同 packId／recordId 改內容拒絕；內容不變的既有指紋相容路徑保留。修正內容以新批次及新紀錄重新審核。回填差異跳過、非零退出，不覆寫已發布紀錄／快照。
+- 登錄 `recordsFingerprint`，不改 `packFingerprint` 的版號／狀態輸入；匯入與回填使用同一集合與算法。
+- 補身分拒絕、首次登錄冪等、舊包改內容拒絕、歷史 review／已發布資料不變的測試；以合成操作者與資料驗證，不連正式資料庫。
+- 修正 recommendationService 的隨機測試假設（[部署失敗與修改要求](https://github.com/viz963-1216/Kareo/pull/48#issuecomment-5967066221)）；固定輸入／日期，不要求任意兩個 session 的 Top 3 必定不同，不 skip 或重試掩蓋失敗。
+- migration 使用已協調的 `0019_admin_knowledge_review.sql`／`0020_content_pack_persistence.sql`。10 個管理路由已在 #48，保留；B-011b 到位後接上共用限流／16 KB 請求限制。跨連線鎖定由 J-003 實測。

@@ -19,6 +19,7 @@ contracts/knowledge/
 ```
 
 - 已提交的內容包**不得改寫**；修正以新批次（新的 `packId`）提交，並在 `records[].review.notes` 註明取代關係。
+- 此規則包含尚未登錄 `content_packs` 的舊包。實際內容有變須使用新 packId／recordId 並重新審核，保留舊內容與核准／發布證據；不得用「舊資料尚未登錄」允許同 ID 改內容。只更新指紋的相容格式且內容未變，不等於內容修正。
 - 唯一例外：Jerry 審核時更新同一檔案的 `status`／`review`／`intendedKnowledgeVersion` 欄位。審核證據是**逐筆填寫的 `review`（審核人、日期、決定）加上 Jerry 在該 PR 留下的 review／comment 連結**；只合併 PR 而紀錄仍是 `NEEDS_REVIEW`，不構成核准，也不得由其他人或工具在合併時批次改成 `APPROVED`。
 
 ## 2. 三個不同的狀態（不可混用）
@@ -36,9 +37,13 @@ contracts/knowledge/
 1. 以 `content-pack.schema.json` 驗證；任一欄位不合格，**整批拒絕，不寫入任何資料**，以非零狀態結束。
 2. 驗證每個 `source.sourceId` 存在於 `docs/knowledge/source-registry.md` 且 `active = true`，URL 網域屬於白名單（gov.tw／gov.taipei）；`authority = KAREO_DRIVE` 時，URL 必須是 `https://drive.google.com/file/d/<fileId>/…` 且該 fileId 已登錄於 Source Registry 的 Jerry 指定資料夾區段（D-15）。
 3. 同一包內 `recordId` 不得重複；同一 `jurisdiction + category + title` 若與已 PUBLISHED 紀錄內容不同，標記 `CONFLICT`，不得自動覆蓋。
-4. 匯入後的資料庫紀錄狀態一律為 `NEEDS_REVIEW`，**匯入不代表核准**，即使內容包本身已是 `APPROVED`。
-5. 以 `(packId, recordId)` 冪等：重複匯入同一包不產生重複紀錄。
+4. 新匯入的資料庫紀錄狀態一律為 `NEEDS_REVIEW`，**匯入不代表核准**，即使內容包本身已是 `APPROVED`。
+5. 以 `(packId, recordId)` 冪等：重複匯入同一包不產生重複紀錄，也不重設已核准／已發布紀錄的狀態。
 6. 支援 `--dry-run`，只輸出驗證結果與將寫入的筆數。
+
+7. 實際匯入／回填必須提供 `--operator-id <InternalOperator ID>`，重用既有個人密鑰與 `KNOWLEDGE_PUBLISHER` 角色驗證；密鑰只由安全環境取得，不放命令列、內容包或 log。`importedBy` 是通過驗證的實際操作者 ID。缺身分、錯誤密鑰、停用或無角色時，在任何寫入前拒絕；離線 dry-run 不建立假稽核。
+8. 同一包冪等重跑保留首次登錄的 `importedAt`／`importedBy`。回填時間／執行者代表本次補登，不回填成原審核人或推測的歷史匯入時間。內容包及逐筆 `review` 繼續保留原審核人與時間。
+9. 回填遇到 DB 與已提交內容不同時跳過該包、回報差異且非零退出，不自動更正健康／政策內容；已發布紀錄／快照不覆寫。本節規格需由 B-012 實作後才可執行雲端回填，目前不能把既有 CLI 當成已符合第 7–9 點。
 
 ## 4. 核准與發布（B-008 提供工具，J-003 執行）
 

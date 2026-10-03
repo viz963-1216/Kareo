@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — API Contract
 
-Version: v0.6（J-002-r8，2026-10-01；§10／§10a 新增 `resourceCategory`、`contractRegions` 與篩選；新增 §13a 公開長照資訊查詢）  
+Version: v0.6.1（J-002-r13，2026-10-03；§6–7 刪除完成期限及終態案件行為澄清，回應格式不變）
 Status: v0.6 §10／§10a 追加欄位與 §13a 依 D-19 **SPEC-APPROVED 2026-10-01**（[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）；v0.5 §10a／§10 新增欄位 **SPEC-APPROVED 2026-10-01**（D-18a–e，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）；§26.8 內容包規則依 D-16b **SPEC-APPROVED 2026-10-01**；v0.1 內容 LOCKED FOR MVP；v0.2 session／安全段落（D-04）**SPEC-APPROVED 2026-09-24**；v0.2.2 位置與補助整併（D-13a–g、D-14a–b）**SPEC-APPROVED 2026-09-24**；Lead 接件（D-06）與同意版本（D-05）仍為 PROPOSED；§26 v0.4（D-16a）**SPEC-APPROVED 2026-09-29**  
 Owner: Jerry
 
@@ -220,6 +220,8 @@ v0.2：`sessionToken` 只在此回應出現一次，前端存於 `sessionStorage
 
 呼叫後 token 立即失效；重複呼叫回 `SESSION_INVALID`。
 
+立即清空該 session 全部 Lead 的聯絡欄位（包括 CLOSED／CANCELLED）；只把未終態案件取消並記 `USER_DELETED` 系統事件。`deletionScheduledBefore` 是請求後不超過 7 天的完成期限，不是開始清理的時間。評估／Profile／推薦資料按期限實體刪除，不因案件仍保存而排除（D-05a；DATA_MODEL §22）。回應結構不變。
+
 ---
 
 # 7. Consent API / 同意與免責聲明
@@ -269,6 +271,8 @@ v0.2：需要 `X-Kareo-Session-Token`。三個版本必須是 `contracts/legal/c
 ```
 
 撤回後 session 進入刪除流程，token 失效，未終態 Lead 轉為 `CANCELLED`（`CONSENT_WITHDRAWN`）。
+
+該 session 全部 Lead 的聯絡欄位立即清空；終態案件不改狀態、不新增取消事件。健康評估資料同樣須在請求後 7 天內完成清理（PRIVACY_AND_RETENTION §6.1），同意證據按自己的 3 年保存規則處理。回應結構不變。
 
 ---
 

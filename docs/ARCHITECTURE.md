@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — System Architecture
 
-Version: v0.5.4（J-002-r8，2026-10-01；§7.1 特約縣市與輔具資源中心、§9.1 公開長照資訊讀取、§10 Kareocar 常駐入口、§20.4 限流，D-19）  
+Version: v0.5.5（J-002-r13，2026-10-03；§20.7 保存期限分離、§21 內容包操作者與不可變規則）
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -710,6 +710,8 @@ Payload 限制：
 
 見 PRIVACY_AND_RETENTION §6。清理作業為受保護內部指令，支援 dry-run，寫入 DeletionRun（DATA_MODEL §40）。
 
+D-05a：Assessment／CareNeedProfile／RecommendationRun／Item 與 Lead 各自按期限清理（DATA_MODEL §22、§40）；Lead 的來源編號不以外鍵阻擋健康資料刪除。自助刪除／撤回立即使 token 失效、清空所有關聯 Lead 聯絡欄位，只取消未終態案件；健康資料必須在請求後 **7 天內**完成實體清理，不能等滿 7 天才成為清理候選。每日作業與失敗重試不得使 `deletionScheduledBefore` 成為不實承諾；J-003／J-004 驗證實際筆數與期限。
+
 ## 20.8 內部操作
 
 Lead 查件、清理作業使用受保護 CLI（InternalOperator 驗證，DATA_MODEL §36），不新增管理 endpoint。
@@ -725,6 +727,8 @@ Lead 查件、清理作業使用受保護 CLI（InternalOperator 驗證，DATA_M
 ---
 
 # 21. Knowledge MVP Ingest Path（v0.2，J-002-r1）
+
+D-16c（2026-10-03）：已提交內容包的不可變規則適用所有包，包含尚未登錄的舊資料。匯入／回填只在內容符合時登錄，差異交回人工以新批次修正。`--commit`／回填重用既有 InternalOperator 的個人密鑰與 `KNOWLEDGE_PUBLISHER` 角色驗證，`importedBy` 記錄實際操作者 ID（DATA_MODEL §26b）；這不新增登入系統或公開管理端點。
 
 每日自動更新（Crawler，B-009，每天 00:10 Asia/Taipei）屬原始 MVP（PRODUCT_SPEC §42），目前依原始範圍開發。「crawler 延後」提案（MVP_DECISIONS D-11）未核准、已擱置，不影響任何任務。
 
@@ -777,4 +781,3 @@ Postgres function：在單一交易內只做寫入（upsert）
 7. 已核准的例外：`publish_knowledge_version` 在函式內檢查紀錄必須為 APPROVED（額外安全檢查，不視為違反第 1 點）。
 8. 已核准的例外（v0.5.3，D-16b，2026-10-01）：知識管理 RPC（`admin_*`）可在函式內做「與寫入同一交易才能保證」的一致性檢查——內容指紋比對（compare-and-set）、目前發布版本與恢復條件、發布計畫與 `previewToken` 重算比對——並寫入稽核。業務驗證（欄位格式、權限、原因必填）仍留在 Node Service。
 9. 知識發布／撤回序列化（v0.5.3，D-16b）：CLI 發布、CLI 撤回、管理頁發布、管理頁撤回四個入口，交易一開始都取得**同一個** `pg_advisory_xact_lock(<固定常數>)`，取得後才檢查、寫入與稽核。只用 `select … for update` 不足（沒有 PUBLISHED 版本時沒有資料列可鎖，且各入口不一定經過同一列）。併發正確性須以真實多連線 Postgres 驗證（J-003）；PGlite 為單一 session，不能作為併發證據。
-
