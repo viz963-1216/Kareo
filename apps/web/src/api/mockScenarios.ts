@@ -19,6 +19,22 @@ export const ADMIN_MOCK_SCENARIOS: readonly AdminMockScenario[] = [
   "publish-blocked", "restore-unavailable", "no-current",
 ];
 
+export type KnowledgeMockScenario =
+  | "first-page"
+  | "second-page"
+  | "taipei"
+  | "new-taipei-assistive-device"
+  | "empty"
+  | "invalid-jurisdiction"
+  | "invalid-category"
+  | "unknown-parameter"
+  | "knowledge-unavailable";
+
+export const KNOWLEDGE_MOCK_SCENARIOS: readonly KnowledgeMockScenario[] = [
+  "first-page", "second-page", "taipei", "new-taipei-assistive-device", "empty",
+  "invalid-jurisdiction", "invalid-category", "unknown-parameter", "knowledge-unavailable",
+];
+
 export type RecommendationMockCount = 0 | 1 | 2 | 3;
 
 /** `?mockRanking=`: forces a recommendation scenario (contracts/mock/README.md, J-002-r4). */

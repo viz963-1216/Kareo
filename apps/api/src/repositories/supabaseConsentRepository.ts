@@ -2,6 +2,7 @@ import { getSupabaseClient } from "./supabaseClient.js";
 import type { ConsentRepository } from "./types.js";
 import type { Consent, CreateConsentInput } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
+import { logDbError } from "../lib/dbErrorLog.js";
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
 
 export class SupabaseConsentRepository implements ConsentRepository {
@@ -29,6 +30,7 @@ export class SupabaseConsentRepository implements ConsentRepository {
     });
 
     if (error) {
+      logDbError("consents.insert", error);
       throw new AppError("INTERNAL_ERROR", "無法建立 Consent，請稍後再試。");
     }
 
@@ -49,6 +51,7 @@ export class SupabaseConsentRepository implements ConsentRepository {
       .maybeSingle();
 
     if (error) {
+      logDbError("consents.selectLatest", error);
       throw new AppError("INTERNAL_ERROR", "無法確認 Consent 狀態，請稍後再試。");
     }
     if (!data) return null;

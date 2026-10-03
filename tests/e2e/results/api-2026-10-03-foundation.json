@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 2,
+  "runId": "api-2026-10-02T22:03:53.074Z",
+  "apiMode": "real",
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "commit": "376f3ef36d0e87871a780328de80c324881edd6a",
+  "startedAt": "2026-10-02T22:03:53.074Z",
+  "finishedAt": "2026-10-02T22:04:14.336Z",
+  "operator": "tests/e2e/run-api-e2e.mjs",
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "376f3ef36d0e87871a780328de80c324881edd6a",
+    "before": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-02T22:03:53.079Z",
+      "httpStatus": 200,
+      "commit": "376f3ef36d0e87871a780328de80c324881edd6a",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "staging",
+      "deployId": "6ac0274a74ad6e0008dfb3ae",
+      "builtAt": "2026-10-02T21:51:29.768Z"
+    },
+    "after": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-02T22:04:14.239Z",
+      "httpStatus": 200,
+      "commit": "376f3ef36d0e87871a780328de80c324881edd6a",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "staging",
+      "deployId": "6ac0274a74ad6e0008dfb3ae",
+      "builtAt": "2026-10-02T21:51:29.768Z"
+    },
+    "matches": true
+  },
+  "results": [
+    {
+      "caseId": "E2E-21",
+      "status": "PASS",
+      "evidence": "status 404 code NOT_FOUND"
+    },
+    {
+      "caseId": "E2E-01",
+      "status": "PASS",
+      "evidence": "sessionToken issued (43 chars)"
+    },
+    {
+      "caseId": "E2E-17",
+      "status": "PASS",
+      "evidence": "forged token → 401 SESSION_INVALID"
+    },
+    {
+      "caseId": "E2E-03",
+      "status": "PASS",
+      "evidence": "403 CONSENT_REQUIRED"
+    },
+    {
+      "caseId": "E2E-02",
+      "status": "PENDING",
+      "evidence": "no ACTIVE consent version in contracts/legal/consent-versions.json (D-05)"
+    },
+    {
+      "caseId": "E2E-04",
+      "status": "PENDING",
+      "evidence": "no consented session (E2E-02 not passing)"
+    },
+    {
+      "caseId": "E2E-07",
+      "status": "PENDING",
+      "evidence": "/api/v1/recommendations deployed; automated case not written yet (needs A-005 data cases)"
+    },
+    {
+      "caseId": "E2E-08",
+      "status": "PENDING",
+      "evidence": "/api/v1/recommendations deployed; automated case not written yet (needs A-005 data cases)"
+    },
+    {
+      "caseId": "E2E-09",
+      "status": "PENDING",
+      "evidence": "/api/v1/recommendations deployed; automated case not written yet (needs A-005 data cases)"
+    },
+    {
+      "caseId": "E2E-11",
+      "status": "PENDING",
+      "evidence": "/api/v1/recommendations deployed; automated case not written yet (needs A-005 data cases)"
+    },
+    {
+      "caseId": "E2E-28",
+      "status": "PENDING",
+      "evidence": "/api/v1/recommendations deployed; automated case not written yet (needs A-005 data cases)"
+    },
+    {
+      "caseId": "E2E-13",
+      "status": "PENDING",
+      "evidence": "/api/v1/leads deployed; automated case not written yet (needs A-005 data cases)"
+    },
+    {
+      "caseId": "E2E-14",
+      "status": "PENDING",
+      "evidence": "/api/v1/leads deployed; automated case not written yet (needs A-005 data cases)"
+    },
+    {
+      "caseId": "E2E-36",
+      "status": "PENDING",
+      "evidence": "/api/v1/leads deployed; automated case not written yet (needs A-005 data cases)"
+    },
+    {
+      "caseId": "E2E-18",
+      "status": "PENDING",
+      "evidence": "assessment: B token + A sessionId → 403 FORBIDDEN; recommendation／lead parts need B-005／B-006"
+    },
+    {
+      "caseId": "E2E-19",
+      "status": "PENDING",
+      "evidence": "withdraw endpoint answered 400; no consented session to verify (E2E-02)"
+    },
+    {
+      "caseId": "E2E-20",
+      "status": "PENDING",
+      "evidence": "rate limiting (B-011b) not deployed; automated case not written yet"
+    },
+    {
+      "caseId": "E2E-37",
+      "status": "PENDING",
+      "evidence": "DELETE /api/v1/session not implemented (400 INVALID_REQUEST; B-011b)"
+    },
+    {
+      "caseId": "E2E-33",
+      "status": "PENDING",
+      "evidence": "no consented session (E2E-02 not passing)"
+    },
+    {
+      "caseId": "E2E-34",
+      "status": "PENDING",
+      "evidence": "no consented session (E2E-02 not passing)"
+    },
+    {
+      "caseId": "E2E-16",
+      "status": "PENDING",
+      "evidence": "API part OK; new-tab UI and Kareocar availability still need a manual result"
+    }
+  ]
+}

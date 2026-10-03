@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-10-03T01:43:52.795Z",
+  "mode": "mock (vite dev)",
+  "fixtures": {
+    "subsidy": {
+      "file": "desktop-subsidy.jpg",
+      "pass": true,
+      "networkBefore": 64,
+      "networkAfter": 64
+    },
+    "disability": {
+      "file": "desktop-disability.jpg",
+      "pass": true,
+      "networkBefore": 63,
+      "networkAfter": 63
+    },
+    "estimate-general": {
+      "file": "desktop-estimate-general.jpg",
+      "pass": true,
+      "networkBefore": 63,
+      "networkAfter": 63
+    }
+  },
+  "interactions": {
+    "copyPrint": {
+      "pass": true,
+      "copiedLength": 1474,
+      "printCalls": 1
+    },
+    "copyFailure": {
+      "pass": true
+    },
+    "mobile": {
+      "pass": true
+    }
+  },
+  "shots": [
+    {
+      "file": "desktop-subsidy.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0
+    },
+    {
+      "file": "desktop-disability.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0
+    },
+    {
+      "file": "desktop-estimate-general.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0
+    },
+    {
+      "file": "desktop-copy-failure.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0
+    },
+    {
+      "file": "mobile-summary.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0
+    }
+  ]
+}

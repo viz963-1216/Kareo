@@ -1,5 +1,5 @@
 // J-003 built-Functions check. TypeScript and Vitest do not prove that a Netlify Function works after
-// bundling (JSON imports, import.meta, missing exports, top-level throws). This bundles every routed function
+// bundling in both ESM and CommonJS (the observed Netlify production format) (JSON imports, import.meta, missing exports, top-level throws). This bundles every routed function
 // with esbuild, as netlify.toml `node_bundler = "esbuild"` does, places it at its repo-relative path in an
 // empty directory together with only the `[functions] included_files` (what Netlify ships), loads it in plain
 // Node and calls the handler with no database credentials:
@@ -32,7 +32,7 @@ let esbuild;
 try {
   esbuild = createRequire(resolve('apps/api/package.json'))('esbuild');
 } catch {
-  for (const { fn } of routes) record('PENDING', 'function bundle runs', `${fn}: esbuild not installed (run npm ci --prefix apps/api)`);
+  for (const { fn } of routes) record('PENDING', 'function bundle runs', `${fn} [${format}]: esbuild not installed (run npm ci --prefix apps/api)`);
 }
 
 async function invoke(handler, event) {
@@ -65,35 +65,37 @@ if (esbuild) {
       const fn = basename(file, '.ts');
       const route = routes.find((r) => r.fn === fn);
       if (!route) continue; // check-integration.mjs already fails unrouted functions
-      const outfile = join(out, functionDir, `${fn}.mjs`);
-      try {
-        await esbuild.build({ entryPoints: [join(functionDir, file)], outfile, bundle: true, platform: 'node', target: 'node22', format: 'esm', logLevel: 'silent',
-          banner: { js: "import { createRequire as __kareoCreateRequire } from 'node:module'; const require = __kareoCreateRequire(import.meta.url);" } });
-      } catch (e) { record('FAIL', 'function bundles', `${fn}: ${e.message.split('\n')[0]}`); continue; }
-      let mod;
-      try { mod = await import(pathToFileURL(outfile).href); } catch (e) { record('FAIL', 'function bundle loads', `${fn}: ${e.message}`); continue; }
-      if (typeof mod.handler !== 'function') { record('FAIL', 'function exports handler', `${fn}: no handler export`); continue; }
+      for (const format of ['esm', 'cjs']) {
+        const outfile = join(out, functionDir, `${fn}.${format === 'esm' ? 'mjs' : 'cjs'}`);
+        try {
+          await esbuild.build({ entryPoints: [join(functionDir, file)], outfile, bundle: true, platform: 'node', target: 'node22', format, logLevel: 'silent',
+            banner: format === 'esm' ? { js: "import { createRequire as __kareoCreateRequire } from 'node:module'; const require = __kareoCreateRequire(import.meta.url);" } : undefined });
+        } catch (e) { record('FAIL', 'function bundles', `${fn} [${format}]: ${e.message.split('\n')[0]}`); continue; }
+        let mod;
+        try { mod = await import(pathToFileURL(outfile).href); } catch (e) { record('FAIL', 'function bundle loads', `${fn} [${format}]: ${e.message}`); continue; }
+        if (typeof mod.handler !== 'function') { record('FAIL', 'function exports handler', `${fn} [${format}]: no handler export`); continue; }
 
-      const methods = methodsFor(route.from);
-      const path = route.from.replace('*', 'PROV-RUNTIME-CHECK');
-      const event = (httpMethod) => ({ httpMethod, path, rawUrl: `https://example.invalid${path}`, headers: {}, queryStringParameters: {}, pathParameters: {}, body: httpMethod === 'GET' || httpMethod === 'DELETE' ? null : '{}' });
+        const methods = methodsFor(route.from);
+        const path = route.from.replace('*', 'PROV-RUNTIME-CHECK');
+        const event = (httpMethod) => ({ httpMethod, path, rawUrl: `https://example.invalid${path}`, headers: {}, queryStringParameters: {}, pathParameters: {}, body: httpMethod === 'GET' || httpMethod === 'DELETE' ? null : '{}' });
 
-      const wrong = await invoke(mod.handler, event('PATCH')).catch((e) => ({ error: e }));
-      if (wrong.error) record('FAIL', 'unsupported method', `${fn}: PATCH threw ${wrong.error.message}`);
-      else if (!(wrong.res.statusCode >= 400 && wrong.res.statusCode < 500 && isEnvelope(wrong.json) && wrong.json.success === false)) record('FAIL', 'unsupported method', `${fn}: PATCH → ${wrong.res?.statusCode} ${String(wrong.res?.body).slice(0, 80)}`);
-      else record('PASS', 'unsupported method', `${fn}: PATCH → ${wrong.res.statusCode} ${wrong.json.error.code}`);
+        const wrong = await invoke(mod.handler, event('PATCH')).catch((e) => ({ error: e }));
+        if (wrong.error) record('FAIL', 'unsupported method', `${fn} [${format}]: PATCH threw ${wrong.error.message}`);
+        else if (!(wrong.res.statusCode >= 400 && wrong.res.statusCode < 500 && isEnvelope(wrong.json) && wrong.json.success === false)) record('FAIL', 'unsupported method', `${fn} [${format}]: PATCH → ${wrong.res?.statusCode} ${String(wrong.res?.body).slice(0, 80)}`);
+        else record('PASS', 'unsupported method', `${fn} [${format}]: PATCH → ${wrong.res.statusCode} ${wrong.json.error.code}`);
 
-      for (const m of methods) {
-        const r = await invoke(mod.handler, event(m)).catch((e) => ({ error: e }));
-        if (r.error) { record('FAIL', 'contract method runs', `${fn}: ${m} threw ${r.error.message}`); continue; }
-        if (!isEnvelope(r.json)) { record('FAIL', 'contract method runs', `${fn}: ${m} → ${r.res?.statusCode} non-envelope body`); continue; }
-        const bad = leak(r.res.body);
-        // A contract method answered like an unsupported one: the function does not implement it yet.
-        if (!r.json.success && r.json.error.code === 'INVALID_REQUEST' && r.json.error.message === wrong.json?.error?.message) record('PENDING', 'contract method runs', `${fn}: ${m} ${route.from} not implemented yet (same response as PATCH)`);
-        else if (bad) record('FAIL', 'error body exposes internals', `${fn}: ${m} without DB credentials → ${r.res.statusCode} ${r.json.error?.code ?? ''} body matches ${bad}`);
-        else record('PASS', 'contract method runs', `${fn}: ${m} (no DB credentials) → ${r.res.statusCode} ${r.json.success ? 'success' : r.json.error.code}`);
+        for (const m of methods) {
+          const r = await invoke(mod.handler, event(m)).catch((e) => ({ error: e }));
+          if (r.error) { record('FAIL', 'contract method runs', `${fn} [${format}]: ${m} threw ${r.error.message}`); continue; }
+          if (!isEnvelope(r.json)) { record('FAIL', 'contract method runs', `${fn} [${format}]: ${m} → ${r.res?.statusCode} non-envelope body`); continue; }
+          const bad = leak(r.res.body);
+          // A contract method answered like an unsupported one: the function does not implement it yet.
+          if (!r.json.success && r.json.error.code === 'INVALID_REQUEST' && r.json.error.message === wrong.json?.error?.message) record('PENDING', 'contract method runs', `${fn} [${format}]: ${m} ${route.from} not implemented yet (same response as PATCH)`);
+          else if (bad) record('FAIL', 'error body exposes internals', `${fn} [${format}]: ${m} without DB credentials → ${r.res.statusCode} ${r.json.error?.code ?? ''} body matches ${bad}`);
+          else record('PASS', 'contract method runs', `${fn} [${format}]: ${m} (no DB credentials) → ${r.res.statusCode} ${r.json.success ? 'success' : r.json.error.code}`);
+        }
+        if (!methods.length) record('PENDING', 'contract method runs', `${fn} [${format}]: route ${route.from} has no endpoint in API_CONTRACT`);
       }
-      if (!methods.length) record('PENDING', 'contract method runs', `${fn}: route ${route.from} has no endpoint in API_CONTRACT`);
     }
   } finally {
     rmSync(out, { recursive: true, force: true });

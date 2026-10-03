@@ -5,13 +5,9 @@
 // 的設計），測試可以用 FakeConsentVersionChecker 指定任意組合，不受真實檔案目前內容影響
 // （目前真實檔案沒有任何 ACTIVE 組合，見下方 RealConsentVersionChecker 說明）。
 //
-// 用 createRequire 讀 JSON，不用 ESM 的 `import ... with { type: "json" }`：純 Node 執行編譯後的
-// dist 需要那個語法才能載入 JSON，但 esbuild bundler（Netlify）跟 Vitest 的轉譯都會悄悄放行，
-// 造成「測試全過、CI 也過，正式部署才炸」的落差（跟 B-004 的 event.pathParameters 是同一類問題）。
-// require() 讀 JSON 是 Node 原生就支援的行為，esbuild 也能正確打包，兩邊都不會出錯。
-import { createRequire } from "node:module";
-const require = createRequire(import.meta.url);
-const consentVersionsData = require("../../../../contracts/legal/consent-versions.json") as ConsentVersionsFile;
+// Static JSON import is bundled into both Netlify CommonJS and ESM outputs.
+// createRequire(import.meta.url) fails in CommonJS because import.meta is undefined.
+import consentVersionsData from "../../../../contracts/legal/consent-versions.json" with { type: "json" };
 
 export interface ConsentVersionEntry {
   disclaimerVersion: string;

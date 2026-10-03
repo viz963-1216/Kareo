@@ -8,6 +8,11 @@ export function HomePage() {
       <p className="lead">用幾分鐘完成免費初步評估，了解可能需要的長照服務與可採取的行動。</p>
       <Link className="button primary" to="/consent">開始免費長照評估</Link>
       <p className="supporting-text">全程免費，不需登入；約 3–5 分鐘完成。</p>
+      <section className="home-secondary" aria-labelledby="home-information-heading">
+        <h2 id="home-information-heading">先查閱長照制度與補助資訊</h2>
+        <p>不需填寫評估資料，也能瀏覽已審核發布的制度與補助資訊。</p>
+        <Link className="button secondary" to="/info">長照制度與補助資訊</Link>
+      </section>
       <section className="notice" aria-label="重要提醒">
         <h2>這是初步預估，不是正式核定</h2>
         <p>實際資格、長照等級、服務內容及補助，仍應由 1966 或所在地長期照顧管理中心正式評估確認。</p>
