@@ -151,11 +151,15 @@ export interface CareNeedProfile {
 // 依 docs/DATA_MODEL.md 第 17 節。
 export type ProviderType = "HOME_CARE" | "HOME_MEDICAL_NURSING" | "ASSISTIVE_DEVICE" | "OTHER";
 export type ProviderStatus = "ACTIVE" | "INACTIVE" | "UNKNOWN";
+// 依 docs/DATA_MODEL.md 第 17 節（v0.2.5，D-19 Q2）。ASSISTIVE_DEVICE_CENTER 一律 type=OTHER、
+// 沒有 ProviderService，推薦（§20）永遠不會選到。既有資料未提供者視為 SERVICE_PROVIDER。
+export type ProviderResourceCategory = "SERVICE_PROVIDER" | "ASSISTIVE_DEVICE_CENTER";
 
 export interface Provider {
   id: string;
   name: string;
   type: ProviderType;
+  resourceCategory: ProviderResourceCategory;
   address: string;
   city: string;
   district: string;
@@ -189,11 +193,30 @@ export interface ProviderServiceArea {
   active: boolean;
 }
 
+// 依 docs/DATA_MODEL.md 第 19b 節（v0.2.5，D-19 Q1）：記錄「已列於該縣市政府特約名單」的事實，
+// 不是服務範圍，推薦不讀取。
+export interface ProviderContractRegion {
+  id: string;
+  providerId: string;
+  city: string;
+  serviceType: ProviderServiceType;
+  sourceId: string | null;
+  checkedAt: string | null;
+  active: boolean;
+}
+
+// 公開時只回 city／serviceType（DATA_MODEL §19b：「來源與查核日期留在資料報告」）。
+export type PublicContractRegion = { city: string; serviceType: ProviderServiceType };
+
+// 依推導值（serviceAreas 是否非空），不另存欄位；DATA_MODEL §19。
+export type ServiceAreaStatus = "VERIFIED" | "UNCONFIRMED";
+
 // 依 docs/API_CONTRACT.md 第 10 節 GET /api/v1/providers/{providerId} Response。
 export interface ProviderDetailResponse {
   id: string;
   name: string;
   type: ProviderType;
+  resourceCategory: ProviderResourceCategory;
   address: string;
   city: string;
   district: string;
@@ -203,6 +226,58 @@ export interface ProviderDetailResponse {
   verified: boolean;
   services: ProviderServiceType[];
   serviceAreas: Array<{ city: string; district: string }>;
+  serviceAreaStatus: ServiceAreaStatus;
+  contractRegions: PublicContractRegion[];
+}
+
+// ===== Resource Lookup（TASK-B-013，依 docs/API_CONTRACT.md §10a v0.6）=====
+
+export type AreaFilter = "LOCATED_IN" | "SERVICE_AREA";
+
+// 一律回傳 10 個鍵，值為後端實際套用、補上預設值後的條件（§10a）。
+export interface ProviderLookupAppliedFilters {
+  resourceCategory: ProviderResourceCategory | null;
+  serviceType: ProviderServiceType | null;
+  city: string | null;
+  district: string | null;
+  areaFilter: AreaFilter | null;
+  includeUnconfirmed: boolean;
+  contractCity: string | null;
+  q: string | null;
+  page: number;
+  pageSize: number;
+}
+
+// 欄位只有這 15 個（v0.6 加入 resourceCategory、contractRegions），與 §10 同名欄位值相同；
+// 不得回傳 lat/lng/status/createdAt/updatedAt/rank/distanceKm/reasons。
+export interface ProviderLookupItem {
+  id: string;
+  name: string;
+  type: ProviderType;
+  resourceCategory: ProviderResourceCategory;
+  services: ProviderServiceType[];
+  address: string;
+  city: string;
+  district: string;
+  phone: string | null;
+  website: string | null;
+  googleMapsUrl: string | null;
+  verified: boolean;
+  serviceAreaStatus: ServiceAreaStatus;
+  contractRegions: PublicContractRegion[];
+  // 只有 areaFilter=SERVICE_AREA 時為 VERIFIED／UNCONFIRMED；其餘為 null。
+  areaMatch: ServiceAreaStatus | null;
+}
+
+export interface ProviderLookupResponse {
+  items: ProviderLookupItem[];
+  page: number;
+  pageSize: number;
+  totalCount: number;
+  // 只有 areaFilter=SERVICE_AREA 時為數字；其餘為 null。
+  unconfirmedCount: number | null;
+  appliedFilters: ProviderLookupAppliedFilters;
+  notice: string;
 }
 
 // ===== Recommendation（TASK-B-005，依 docs/DATA_MODEL.md 第 20-21 節）=====
@@ -262,6 +337,8 @@ export interface RawProviderRecord {
   id?: unknown;
   name?: unknown;
   type?: unknown;
+  // 選填：來源未提供時視為 SERVICE_PROVIDER（既有資料不受影響），依 DATA_MODEL §17。
+  resourceCategory?: unknown;
   address?: unknown;
   city?: unknown;
   district?: unknown;
@@ -289,10 +366,22 @@ export interface RawProviderServiceAreaRecord {
   active?: unknown;
 }
 
+// TASK-B-013（D-19 Q1）：選填陣列，來源可能完全沒有特約縣市資料。
+export interface RawProviderContractRegionRecord {
+  id?: unknown;
+  providerId?: unknown;
+  city?: unknown;
+  serviceType?: unknown;
+  sourceId?: unknown;
+  checkedAt?: unknown;
+  active?: unknown;
+}
+
 export interface ProviderImportDataset {
   providers: RawProviderRecord[];
   providerServices: RawProviderServiceRecord[];
   providerServiceAreas: RawProviderServiceAreaRecord[];
+  providerContractRegions: RawProviderContractRegionRecord[];
 }
 
 // commit：正式匯入，任何一筆拒收則整批不寫入。dry-run：只驗證與產生報告，永不寫入。
@@ -303,13 +392,20 @@ export interface ProviderImportReport {
   mode: ProviderImportMode;
   written: boolean;
   // 只有 commit 模式且寫入成功時才有值；數字來自資料庫交易實際寫入的筆數。
-  writtenCounts: { providers: number; providerServices: number; providerServiceAreas: number } | null;
+  writtenCounts: {
+    providers: number;
+    providerServices: number;
+    providerServiceAreas: number;
+    providerContractRegions: number;
+  } | null;
   providersValid: number;
   providersRejected: Array<{ record: RawProviderRecord; reasons: string[] }>;
   servicesValid: number;
   servicesRejected: Array<{ record: RawProviderServiceRecord; reasons: string[] }>;
   serviceAreasValid: number;
   serviceAreasRejected: Array<{ record: RawProviderServiceAreaRecord; reasons: string[] }>;
+  contractRegionsValid: number;
+  contractRegionsRejected: Array<{ record: RawProviderContractRegionRecord; reasons: string[] }>;
 }
 
 // 依 docs/DATA_MODEL.md 第 29 節。MVP 僅有 Kareocar 一筆，TASK-B-007 明確禁止

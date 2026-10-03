@@ -17,6 +17,7 @@ import type {
   LeadStatus,
   LeadStatusEvent,
   Provider,
+  ProviderContractRegion,
   ProviderDetailResponse,
   ProviderService,
   ProviderServiceArea,
@@ -134,12 +135,24 @@ export interface ProviderDatasetWrite {
   providers: Provider[];
   services: ProviderService[];
   serviceAreas: ProviderServiceArea[];
+  contractRegions: ProviderContractRegion[];
 }
 
 export interface ProviderDatasetWriteCounts {
   providers: number;
   providerServices: number;
   providerServiceAreas: number;
+  providerContractRegions: number;
+}
+
+// TASK-B-013：單筆 Provider 的完整查詢結果組合（服務類別／服務範圍／特約縣市皆只取 active），
+// 供 Service 層在 Node 端套用篩選、排序（縣市／行政區順序來自 service-districts.json，不是
+// plain DB column 可直接排序）與分頁，不新增 RPC（§10a Allowed Paths 指示「查詢只讀」）。
+export interface ProviderLookupCandidate {
+  provider: Provider;
+  services: ProviderServiceType[];
+  serviceAreas: Array<{ city: string; district: string }>;
+  contractRegions: Array<{ city: string; serviceType: ProviderServiceType }>;
 }
 
 // TASK-B-005：篩選推薦候選用的查詢條件。district 為 null 時代表只依縣市比對（CITY_ROTATION，
@@ -161,6 +174,9 @@ export interface ProviderRepository {
   // （provider_service_areas.active，與地址分開，PRODUCT_SPEC §19）。回傳完整 Provider（含 lat/lng），
   // 由 Service 層判斷是否所有候選都有已驗證座標（lat/lng 皆非 null）才走 DISTANCE。
   findEligibleForRecommendation(query: RecommendationCandidateQuery): Promise<Provider[]>;
+  // TASK-B-013：取出全部 status=ACTIVE 的 Provider 及其服務類別／服務範圍／特約縣市（皆只取
+  // active），交給 Service 層套用 §10a 的篩選、排序與分頁。
+  findActiveProvidersForLookup(): Promise<ProviderLookupCandidate[]>;
 }
 
 // TASK-B-005（Jerry 委託修正第二輪，2026-09-26，擴大 ARCHITECTURE §22 原子寫入核准範圍，

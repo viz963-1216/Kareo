@@ -45,6 +45,12 @@
   force = true
 
 [[redirects]]
+  from = "/api/v1/providers"
+  to = "/.netlify/functions/providers"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/v1/providers/*"
   to = "/.netlify/functions/providerDetail"
   status = 200

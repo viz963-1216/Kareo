@@ -9,7 +9,7 @@
 // 2 = 參數錯誤。
 //
 // 依 tasks/TASK-B-004.md：正式資料匯入必須等待 A-004 validator 通過，使用 A-003 校正後版本。
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { hasRejections, importProviderDataset } from "../services/providerImportService.js";
@@ -20,6 +20,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function readJson(filePath: string): unknown {
   return JSON.parse(readFileSync(filePath, "utf-8"));
+}
+
+// TASK-B-013（D-19 Q1）：特約縣市是新增的選填資料來源，既有 dataset 目錄可能還沒有這個檔案。
+function readJsonOrEmpty(filePath: string): unknown[] {
+  return existsSync(filePath) ? (JSON.parse(readFileSync(filePath, "utf-8")) as unknown[]) : [];
 }
 
 function parseArgs(argv: string[]): { mode: ProviderImportMode; datasetDir: string } | null {
@@ -51,6 +56,9 @@ async function main(): Promise<number> {
     providerServiceAreas: readJson(
       path.join(args.datasetDir, "provider-service-areas.json")
     ) as ProviderImportDataset["providerServiceAreas"],
+    providerContractRegions: readJsonOrEmpty(
+      path.join(args.datasetDir, "provider-contract-regions.json")
+    ) as ProviderImportDataset["providerContractRegions"],
   };
 
   const report = await importProviderDataset(new SupabaseProviderRepository(), dataset, { mode: args.mode });
@@ -59,11 +67,13 @@ async function main(): Promise<number> {
   console.log(`Providers valid: ${report.providersValid}, rejected: ${report.providersRejected.length}`);
   console.log(`Services valid: ${report.servicesValid}, rejected: ${report.servicesRejected.length}`);
   console.log(`Service Areas valid: ${report.serviceAreasValid}, rejected: ${report.serviceAreasRejected.length}`);
+  console.log(`Contract Regions valid: ${report.contractRegionsValid}, rejected: ${report.contractRegionsRejected.length}`);
   if (report.written && report.writtenCounts) {
     const c = report.writtenCounts;
     console.log(
       `Result: DATA WRITTEN in one transaction (providers: ${c.providers}, ` +
-        `provider_services: ${c.providerServices}, provider_service_areas: ${c.providerServiceAreas})`
+        `provider_services: ${c.providerServices}, provider_service_areas: ${c.providerServiceAreas}, ` +
+        `provider_contract_regions: ${c.providerContractRegions})`
     );
   } else {
     console.log("Result: NO DATA WRITTEN");
@@ -77,6 +87,7 @@ async function main(): Promise<number> {
           providersRejected: report.providersRejected,
           servicesRejected: report.servicesRejected,
           serviceAreasRejected: report.serviceAreasRejected,
+          contractRegionsRejected: report.contractRegionsRejected,
         },
         null,
         2

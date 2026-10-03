@@ -1,13 +1,16 @@
 import type { ProviderRepository } from "../repositories/types.js";
 import type {
   Provider,
+  ProviderContractRegion,
   ProviderImportDataset,
   ProviderImportMode,
   ProviderImportReport,
+  ProviderResourceCategory,
   ProviderService,
   ProviderServiceArea,
   ProviderStatus,
   ProviderType,
+  RawProviderContractRegionRecord,
   RawProviderRecord,
   RawProviderServiceAreaRecord,
   RawProviderServiceRecord,
@@ -17,6 +20,7 @@ import { nowTaipeiISOString } from "../lib/response.js";
 const PROVIDER_TYPES: ProviderType[] = ["HOME_CARE", "HOME_MEDICAL_NURSING", "ASSISTIVE_DEVICE", "OTHER"];
 const PROVIDER_STATUSES: ProviderStatus[] = ["ACTIVE", "INACTIVE", "UNKNOWN"];
 const PROVIDER_SERVICE_TYPES = ["HOME_CARE", "HOME_MEDICAL_NURSING", "ASSISTIVE_DEVICE"] as const;
+const PROVIDER_RESOURCE_CATEGORIES: ProviderResourceCategory[] = ["SERVICE_PROVIDER", "ASSISTIVE_DEVICE_CENTER"];
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
@@ -38,12 +42,19 @@ interface ValidationResult<T> {
 }
 
 // 依 tasks/TASK-B-004.md + docs/DATA_MODEL.md 第 17 節。不合法的欄位一律拒收，不猜值。
+// 依 DATA_MODEL.md 第 17 節（v0.2.5，D-19 Q2）：來源未提供 resourceCategory 時視為
+// SERVICE_PROVIDER；ASSISTIVE_DEVICE_CENTER 一律 type=OTHER，兩者不一致則拒收（不得自行改掉
+// 來源宣告的 type 來讓它「配合」resourceCategory）。
 function validateProvider(record: RawProviderRecord): ValidationResult<Provider> {
   const reasons: string[] = [];
 
   if (!isNonEmptyString(record.id)) reasons.push("缺少有效的 id");
   if (!isNonEmptyString(record.name)) reasons.push("缺少有效的 name");
   if (!isOneOf(record.type, PROVIDER_TYPES)) reasons.push("type 不合法");
+  const resourceCategory = record.resourceCategory === undefined ? "SERVICE_PROVIDER" : record.resourceCategory;
+  if (!isOneOf(resourceCategory, PROVIDER_RESOURCE_CATEGORIES)) reasons.push("resourceCategory 不合法");
+  else if (resourceCategory === "ASSISTIVE_DEVICE_CENTER" && record.type !== "OTHER")
+    reasons.push("resourceCategory=ASSISTIVE_DEVICE_CENTER 時 type 必須是 OTHER");
   if (!isNonEmptyString(record.address)) reasons.push("缺少有效的 address");
   if (!isNonEmptyString(record.city)) reasons.push("缺少有效的 city");
   if (!isNonEmptyString(record.district)) reasons.push("缺少有效的 district");
@@ -65,6 +76,7 @@ function validateProvider(record: RawProviderRecord): ValidationResult<Provider>
       id: record.id as string,
       name: record.name as string,
       type: record.type as ProviderType,
+      resourceCategory: resourceCategory as ProviderResourceCategory,
       address: record.address as string,
       city: record.city as string,
       district: record.district as string,
@@ -139,11 +151,46 @@ function validateProviderServiceArea(
   };
 }
 
+// 依 DATA_MODEL.md 第 19b 節（v0.2.5，D-19 Q1）：特約縣市只記錄「已列於該縣市政府特約名單」的
+// 事實，sourceId／checkedAt 選填（來源可能暫缺查核日期，不得由 B 自行捏造）。
+function validateProviderContractRegion(
+  record: RawProviderContractRegionRecord,
+  acceptedProviderIds: ReadonlySet<string>
+): ValidationResult<ProviderContractRegion> {
+  const reasons: string[] = [];
+
+  if (!isNonEmptyString(record.id)) reasons.push("缺少有效的 id");
+  if (!isNonEmptyString(record.providerId)) reasons.push("缺少有效的 providerId");
+  else if (!acceptedProviderIds.has(record.providerId)) reasons.push("providerId 不存在於已驗證通過的 Provider 清單");
+  if (!isNonEmptyString(record.city)) reasons.push("缺少有效的 city");
+  if (!isOneOf(record.serviceType, PROVIDER_SERVICE_TYPES)) reasons.push("serviceType 不合法");
+  if (!isNullableString(record.sourceId)) reasons.push("sourceId 格式不合法");
+  if (!isNullableString(record.checkedAt)) reasons.push("checkedAt 格式不合法");
+  if (typeof record.active !== "boolean") reasons.push("active 必須是 boolean");
+
+  if (reasons.length > 0) return { ok: false, reasons };
+
+  return {
+    ok: true,
+    reasons: [],
+    value: {
+      id: record.id as string,
+      providerId: record.providerId as string,
+      city: record.city as string,
+      serviceType: record.serviceType as ProviderContractRegion["serviceType"],
+      sourceId: (record.sourceId as string | null) ?? null,
+      checkedAt: (record.checkedAt as string | null) ?? null,
+      active: record.active as boolean,
+    },
+  };
+}
+
 export function hasRejections(report: ProviderImportReport): boolean {
   return (
     report.providersRejected.length > 0 ||
     report.servicesRejected.length > 0 ||
-    report.serviceAreasRejected.length > 0
+    report.serviceAreasRejected.length > 0 ||
+    report.contractRegionsRejected.length > 0
   );
 }
 
@@ -165,6 +212,8 @@ export async function importProviderDataset(
     servicesRejected: [],
     serviceAreasValid: 0,
     serviceAreasRejected: [],
+    contractRegionsValid: 0,
+    contractRegionsRejected: [],
   };
 
   const acceptedProviders: Provider[] = [];
@@ -198,9 +247,20 @@ export async function importProviderDataset(
     }
   }
 
+  const acceptedContractRegions: ProviderContractRegion[] = [];
+  for (const record of dataset.providerContractRegions) {
+    const result = validateProviderContractRegion(record, acceptedProviderIds);
+    if (result.ok && result.value) {
+      acceptedContractRegions.push(result.value);
+    } else {
+      report.contractRegionsRejected.push({ record, reasons: result.reasons });
+    }
+  }
+
   report.providersValid = acceptedProviders.length;
   report.servicesValid = acceptedServices.length;
   report.serviceAreasValid = acceptedAreas.length;
+  report.contractRegionsValid = acceptedContractRegions.length;
 
   if (options.mode === "dry-run" || hasRejections(report)) {
     return report;
@@ -212,6 +272,7 @@ export async function importProviderDataset(
     providers: acceptedProviders,
     services: acceptedServices,
     serviceAreas: acceptedAreas,
+    contractRegions: acceptedContractRegions,
   });
   report.written = true;
 
