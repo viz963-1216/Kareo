@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r1（PR #20）、r2／r3（PR #29）已合併：CI、路由、Real API adapter、release gate。r4（#38，2026-09-25 合併）：整合狀態表、43 個驗收案例、打包後 Functions 檢查、隔離 DB 驗證、排程入口、交回清單。r5（2026-09-27）：交回清單逐項重新驗證、migration 全域順序、升級路徑檢查、#40 推薦路由、#34 staging 同步。r7（2026-09-29）：C-005／B-010 合併後複驗。r8（2026-09-29，PR #44）：staging `6abe494` 上 r7 三項阻擋已解決；K10 改驗實際讀取路徑；CI `db-verify` 不再忽略 DB 失敗（尚無分支保護 required check）。**Integrated：否**；完整驗收 FAIL（43 個 E2E 全部 PENDING，部署 503）  
+Status: 進行中。r1–r9 已交付 CI、路由、打包驗證、隔離 DB、首次知識發布及部分真實證據。r10（2026-10-03）：B PR 的三條新路由與管理 action 路由修正、J 檢查工具補強、唯讀 runner、隔離組合重驗。**Integrated：否**；49 必要 E2E 尚未全通過。詳見最新驗收紀錄。
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -13,7 +13,7 @@ Plan revision: 2026-09-19 / 10-22 MVP
 - CI／gate 骨架：已完成（r1–r3）。
 - 首次知識發布：D-02 內容核准、D-03 格式核准（2026-09-24 已完成）＋**B-008-r2 合併**（發布版號必須等於 `intendedKnowledgeVersion`）。目標版本 `KB-2026-09-24-001`。不等待最終 E2E，避免與 B-010 循環依賴。
 - 階段 E2E（依開發順序逐步開啟，見 tasks/README「建議開發順序」）：B-011a → B-010 → B-005 → B-006 → C-005 → B-009 → B-011b；A-003-r2 提供距離排序的真實案例、A-005 提供推薦案例。
-- 部署環境可用（D-09 Netlify 額度；目前暫停）。平台阻擋一律記 PENDING。
+- 部署環境可用：D-09 Netlify 已恢復；2026-10-03 已確認線上部署 `05b1c4a`。模組尚未合併、DB 隔離／設定或 D-05 阻擋仍記 PENDING。
 
 ## 開始前必讀
 
@@ -32,7 +32,7 @@ CI 與整合接線（已交付，持續維護）：
 - [x] PR CI：frontend build、backend tests／typecheck、A-004 data validation、contract／mock 檢查；缺模組列 PENDING
 - [x] PR 不需 production secret；部署與 E2E 獨立手動觸發，不因 docs commit 消耗部署額度
 - [x] Real API adapter；正式模式不回 Mock 成功資料
-- [ ] 新 function 的路由（`/api/v1/recommendations` 已隨 #40 合併；r8 重新核對：7 個既有 function 全有路由，缺 function 的 12 個端點維持 PENDING、不建立假成功佔位；`/api/v1/leads`、`/api/v1/consent/withdraw`、§26 管理 API）在 B-005／B-006／B-011b／B-012 合併時補上（r4：endpoint 覆蓋檢查已納入 §26，11 個 PENDING）
+- [ ] 新 function 與路由整合：J 已在 #48 補管理路由（r10 中段 splat 改 named placeholder）；#55 `8455529` consent/withdraw、#57 `0d77774` providers 列表、#67 `a2abbc5` knowledge/records。原 PR 未合併，待 B 修正後依序合併及部署；不得在 staging 加入不存在的 handler 或假成功佔位。
 - [x] 打包後 Functions 的實際執行（r4：`scripts/check-functions-runtime.mjs`，CI 與 gate）；`included_files` 帶上執行期讀取的 consent 版本檔
 - [x] 每日知識更新排程入口（r4：`.github/workflows/knowledge-crawler.yml`，16:10 UTC＝00:10 Asia/Taipei、20 分鐘上限、不重疊）；需 B-009 合併與 GitHub environment `staging` secrets
 - [x] 隔離 DB 驗證（r4：`tests/db/verify-db.mjs`，migration 依序套用、RLS、Provider 匯入回滾、知識發布／撤回；r8：K10–K12／U5／C3 走實際 repository＋resolver 讀取路徑，R2 行為驗證，負向對照；CI 不再忽略失敗，分支保護 required check 未設定）
@@ -95,3 +95,7 @@ Submission Version 從 `J-003-r1` 起，退回後遞增。PR 必填 Added / Chan
 ## 2026-10-03 r9 真實環境驗證
 
 首次知識版本已發布；部署 `376f3ef` 的真實 API E2E 4 PASS／0 FAIL，完整 49 必要案例仍有 45 項未通過。D-18／D-19 新增 E2E-44～49，原 43 項保留。詳見 `docs/acceptance/J003-2026-10-03-first-knowledge-publication.md`；Integrated 維持否。後續部署須重跑，不沿用不同 commit 的證據。
+
+## 2026-10-03 r10 接線與隔離組合
+
+最新：[J003-2026-10-03-route-integration.md](../docs/acceptance/J003-2026-10-03-route-integration.md)。J 可處理部分已交付；B-012／B-011b／B-013／B-014／C-007 仍待模組修正與合併。B 可平行修正，不需等 J-003 全部完成。D-05 未 ACTIVE、隔離及雲端更新未驗證，release gate 維持失敗。

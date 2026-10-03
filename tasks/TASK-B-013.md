@@ -1,8 +1,8 @@
 # TASK-B-013 — Public Resource Lookup API（公開資源查詢 API）
 
 Owner: Engineer B — Backend  
-Status: QUEUED — 契約 API_CONTRACT v0.5 §10a 已核准（D-18a–e，2026-10-01）；B 的工作順序在 B-012-r3 之後  
-Plan revision: 2026-10-01 / J-002-r6（[Issue #49](https://github.com/viz963-1216/Kareo/issues/49)；MVP_DECISIONS D-18；API_CONTRACT §10、§10a）
+Status: IN REVIEW（#57，B-013-r2 `cf6d56e`）；打包修正已核對，限流／migration／J 路由待收尾
+Plan revision: 2026-10-03 / J-002-r13
 
 ## Goal / 目標
 
@@ -26,9 +26,9 @@ Plan revision: 2026-10-01 / J-002-r6（[Issue #49](https://github.com/viz963-121
 
 - 新 function（例如 `src/functions/providers.ts`）處理 `GET /api/v1/providers`；既有 `providerDetail.ts` 不改路由行為。
 - 參數驗證完全依 §10a：`serviceType`、`city`、`district`、`areaFilter`、`includeUnconfirmed`、`q`、`page`、`pageSize`；未定義參數 → `VALIDATION_ERROR`。縣市／行政區清單讀 `contracts/reference/service-districts.json`，不在程式內另寫一份。
-- 查詢只讀（Supabase REST），不新增 RPC、不新增 migration；只回 `status = ACTIVE`。
+- 查詢只讀（Supabase REST），不新增查詢 RPC；D-19 追加所需的資料表 migration／匯入 RPC 擴充依下節授權。只回 `status = ACTIVE`。
 - `serviceAreaStatus` 依 active ProviderServiceArea 推導；`LOCATED_IN` 比對 Provider `city`／`district`，`SERVICE_AREA` 只比對 active 範圍；`unconfirmedCount`、`appliedFilters`、`notice`、排序、分頁依 §10a。
-- 列表項目只回 §10a 列出的 13 個欄位；不得回 `lat`、`lng`、`status`、時間戳、證據或內部欄位。
+- 列表項目只回 §10a 列出的欄位（含 D-19 的 resourceCategory／contractRegions）；不得回 `lat`、`lng`、`status`、時間戳、證據或內部欄位。
 - §10 詳細回應新增 `serviceAreaStatus`。
 - 不讀寫 Session、Assessment、RecommendationRun、Lead；log 不記錄查詢條件（PRIVACY_AND_RETENTION §2）。
 - 限流沿用 B-011 元件（`Provider lookup` 120 次／小時，ARCHITECTURE §20.4）；元件尚未完成時列為 Known Issue，由 B-011b 追蹤。
@@ -52,7 +52,7 @@ Plan revision: 2026-10-01 / J-002-r6（[Issue #49](https://github.com/viz963-121
 
 ## Not In Scope
 
-推薦、距離、輪替、Lead、session；特約縣市欄位（D-18 Q1 未決）；輔具資源中心與住宿機構（D-19）；`netlify.toml`。
+推薦排序、距離、輪替、Lead、session、住宿機構與 `netlify.toml`。特約縣市及輔具資源中心已經 D-19 核准，屬本任務範圍；不得再列為未決或排除。
 
 ## Submission / Completion
 
@@ -63,3 +63,7 @@ PR Title：`[B-013] Public resource lookup API`
 
 - 2026-10-01 J-002-r6：依 Issue #49 建立。
 - 2026-10-01 J-002-r8：追加 `resourceCategory`、`contractRegions`（D-19）。
+
+## J-002-r13 收尾順序（2026-10-03）
+
+#48 → #55 合併後同步 staging，接上 B-011b 持久化共用限流（公開查詢 120 次／小時、429／Retry-After、不記明文 IP 或查詢條件），將尚未套用的 resource migration 協調為 `0022_resource_lookup.sql`；fresh／upgrade、ESM／CJS 打包後執行與既有推薦回歸通過。J-003 補 providers 路由。此為收尾依賴，不代表目前可合併或已部署。

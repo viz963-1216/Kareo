@@ -1,13 +1,13 @@
 # Kareo Integration Acceptance / 整合驗收紀錄
 
 Owner: Jerry（TASK-J-003）
-Submission Version: J-003-r9
+Submission Version: J-003-r10
 
 > 只有「部署環境中，以真實 API 與真實資料實際操作成功」才算通過。
 > Mock、單元測試、PR 合併都**不算**整合完成。平台額度或模組缺漏造成的阻擋一律記為 `PENDING`，必要項目 PENDING 時完整驗收判定為**失敗**。
 > 需求對應見 `docs/MVP_TRACEABILITY.md`（J-002-r4）；決策狀態見 `docs/MVP_DECISIONS.md`。
 
-> 最新快照：見 [2026-10-03 首次知識發布與真實 API 驗證](acceptance/J003-2026-10-03-first-knowledge-publication.md)。部署已恢復，知識已首次發布；49 必要 E2E 僅 4 項有上述部署的 PASS，Integrated 仍否。以下較早紀錄保留供追溯。
+> 最新快照：見 [2026-10-03 J-003-r10 路由與隔離組合](acceptance/J003-2026-10-03-route-integration.md)。本輪完成三條新路由及兩條管理 action 路由修正（在各 B PR，未合併），補強 J 檢查工具；目前部署 `05b1c4a` 的唯讀 E2E 1 PASS、2 PENDING。49 必要案例尚有 48 項未通過，Integrated 仍否。較早 r9／r8 紀錄保留追溯，不能當成新部署證據。
 
 ---
 
@@ -52,6 +52,16 @@ gate、`tests/e2e/run-api-e2e.mjs`、`tests/e2e/record-manual.mjs` 共用同一�
 - 沒有符合的紀錄 → PENDING；release 因此失敗。
 
 以上情境都有測試：`tests/scripts/acceptance-gate.test.mjs`、`tests/scripts/run-api-e2e.test.mjs`（本機 stub，含子路徑、版本不符、無版本標記、執行中版本改變）。
+
+### D-05 尚未 ACTIVE 時的唯讀檢查（J-003-r10）
+
+`tests/e2e/run-public-api-e2e.mjs` 只送 GET，不建立 session、不送健康／聯絡資料、不核准／發布知識。指定目標 SHA，前後各讀版本標記；版本不符不執行案例。可在 B／D-05 收尾時查證 JSON 404、知識狀態及兩個公開列表的 API 部分：
+
+```bash
+node tests/e2e/run-public-api-e2e.mjs --commit=<線上完整 SHA> --base-url=https://kareo-tw.netlify.app --out=tests/e2e/results/public-<日期>.json
+```
+
+E2E-44／48 是完整 UI 案例，即使 API 回列表也只記 PENDING；來源、篩選、狀態畫面與瀏覽器沒有建立 session 等仍需另外驗收。知識狀態只是診斷，不算首次發布程序 E2E-25。尚未部署 B-011b 清理時，先用此唯讀 runner；原 full API runner 會建立測試 session，需有清理與逐筆追蹤機制才重跑，不以時間窗批次刪除。
 
 ### 指定部署版本 → 跑 E2E → release gate
 
