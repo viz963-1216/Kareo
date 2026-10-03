@@ -35,8 +35,21 @@ async function fails(sql: string, params?: unknown[]): Promise<string | null> {
     return (e as Error).message;
   }
 }
+const PACK_REVIEW = { reviewedBy: "Jerry", reviewedAt: "2026-09-24T09:52:27+08:00", reviewDecision: "APPROVED" };
+const NO_REVIEW = { reviewedBy: null, reviewedAt: null, reviewDecision: null };
+// 完整的 upsert_content_pack payload；status=APPROVED 時預設帶完整內容包 review。
 const upsertPack = (input: Record<string, unknown>) =>
-  fails("select public.upsert_content_pack($1::jsonb)", [JSON.stringify({ now: "2026-10-01T00:00:00+08:00", ...input })]);
+  fails("select public.upsert_content_pack($1::jsonb)", [
+    JSON.stringify({
+      now: "2026-10-01T00:00:00+08:00",
+      formatVersion: "1.0",
+      sourceRegistryVersion: "SR-1",
+      importedBy: "TEST",
+      recordsFingerprint: "records-fp",
+      ...(input.status === "APPROVED" ? PACK_REVIEW : NO_REVIEW),
+      ...input,
+    }),
+  ]);
 
 // compute_publish_plan() looks at every APPROVED record in the whole database, not just the ones a
 // single test creates — a fresh PGlite instance per test keeps tests independent instead of leaving
@@ -70,54 +83,119 @@ async function addApprovedRecord(pack: string, title = "RPC test record") {
   return id;
 }
 
-describe("upsert_content_pack (B-012-r3)", () => {
-  it("registers a new pack and allows NEEDS_REVIEW corrections under the same packId", async () => {
+describe("upsert_content_pack (DATA_MODEL §26b, Jerry 2026-10-03 items 1 and 3)", () => {
+  it("registers a new pack and persists format version, pack review and import evidence", async () => {
     const packId = "RPC-PACK-upsert-1";
-    expect(await upsertPack({ packId, intendedKnowledgeVersion: null, sourceRegistryVersion: "SR-1", status: "NEEDS_REVIEW", packFingerprint: "fp-1" })).toBeNull();
-    expect(await upsertPack({ packId, intendedKnowledgeVersion: null, sourceRegistryVersion: "SR-1", status: "NEEDS_REVIEW", packFingerprint: "fp-2-corrected" })).toBeNull();
-    const row = await one("select status, pack_fingerprint from content_packs where id = $1", [packId]);
-    expect(row).toMatchObject({ status: "NEEDS_REVIEW", pack_fingerprint: "fp-2-corrected" });
+    expect(await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-900", status: "APPROVED", packFingerprint: "fp-1" })).toBeNull();
+    const row = await one(
+      "select status, format_version, reviewed_by, reviewed_at, review_decision, records_fingerprint, imported_by, imported_at from content_packs where id = $1",
+      [packId]
+    );
+    expect(row).toMatchObject({
+      status: "APPROVED",
+      format_version: "1.0",
+      reviewed_by: "Jerry",
+      review_decision: "APPROVED",
+      records_fingerprint: "records-fp",
+      imported_by: "TEST",
+    });
+    expect(row?.reviewed_at).toBeTruthy();
+    expect(row?.imported_at).toBeTruthy();
   });
 
-  it("allows promoting NEEDS_REVIEW -> APPROVED when content is unchanged (fingerprint matches)", async () => {
+  it("database rejects an APPROVED pack without a complete pack review (not only the status string)", async () => {
+    for (const review of [NO_REVIEW, { ...PACK_REVIEW, reviewedBy: null }, { ...PACK_REVIEW, reviewedAt: null }, { ...PACK_REVIEW, reviewDecision: "REJECTED" }]) {
+      const err = await upsertPack({ packId: "RPC-PACK-noreview", intendedKnowledgeVersion: "KB-2026-10-01-900", status: "APPROVED", packFingerprint: "fp", ...review });
+      expect(err).toMatch(/content_packs_approved_review_check/);
+    }
+    expect(await one("select count(*)::int as n from content_packs where id = 'RPC-PACK-noreview'")).toEqual({ n: 0 });
+  });
+
+  it("same content: promotes NEEDS_REVIEW -> APPROVED and stores the pack review", async () => {
     const packId = "RPC-PACK-upsert-2";
-    await upsertPack({ packId, intendedKnowledgeVersion: null, sourceRegistryVersion: "SR-1", status: "NEEDS_REVIEW", packFingerprint: "fp-stable" });
-    // Promotion legitimately changes intendedKnowledgeVersion (null -> a real version, per the
-    // content-pack schema: only filled once APPROVED) and status, but NOT packFingerprint — the
-    // fingerprint is computed purely from record content (packFingerprint.ts), so it must stay
-    // identical across a pure status/version promotion with no record changes.
-    const err = await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-900", sourceRegistryVersion: "SR-1", status: "APPROVED", packFingerprint: "fp-stable" });
+    await upsertPack({ packId, intendedKnowledgeVersion: null, status: "NEEDS_REVIEW", packFingerprint: "fp-needs-review" });
+    const err = await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-900", status: "APPROVED", packFingerprint: "fp-approved" });
     expect(err).toBeNull();
-    const row = await one("select status, intended_knowledge_version from content_packs where id = $1", [packId]);
-    expect(row?.status).toBe("APPROVED");
-    expect(row?.intended_knowledge_version).toBe("KB-2026-10-01-900");
+    const row = await one("select status, intended_knowledge_version, reviewed_by, pack_fingerprint from content_packs where id = $1", [packId]);
+    expect(row).toMatchObject({ status: "APPROVED", intended_knowledge_version: "KB-2026-10-01-900", reviewed_by: "Jerry", pack_fingerprint: "fp-approved" });
   });
 
-  it("2026-10-03 審查修正：rejects promoting to APPROVED when content changed in the same step (must correct-then-approve separately)", async () => {
-    const packId = "RPC-PACK-upsert-2b";
-    await upsertPack({ packId, intendedKnowledgeVersion: null, sourceRegistryVersion: "SR-1", status: "NEEDS_REVIEW", packFingerprint: "fp-1" });
-    // Changing content AND promoting to APPROVED in the same call is no longer allowed — approval
-    // must correspond to already-registered content, not whatever was just submitted.
-    const err = await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-900", sourceRegistryVersion: "SR-1", status: "APPROVED", packFingerprint: "fp-2-changed" });
-    expect(err).toMatch(/PACK_CONTENT_CHANGED/);
-    const row = await one("select status, pack_fingerprint from content_packs where id = $1", [packId]);
-    expect(row).toMatchObject({ status: "NEEDS_REVIEW", pack_fingerprint: "fp-1" }); // untouched
-  });
+  for (const declared of ["NEEDS_REVIEW", "APPROVED"]) {
+    it(`registered pack + changed records fingerprint is rejected even when this call declares ${declared}; row untouched`, async () => {
+      const packId = `RPC-PACK-changed-${declared}`;
+      await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-901", status: "APPROVED", packFingerprint: "fp-approved" });
+      const before = await one("select * from content_packs where id = $1", [packId]);
+      const err = await upsertPack({
+        packId,
+        intendedKnowledgeVersion: declared === "APPROVED" ? "KB-2026-10-01-901" : null,
+        status: declared,
+        packFingerprint: "fp-other",
+        recordsFingerprint: "records-fp-CHANGED",
+      });
+      expect(err).toMatch(/PACK_CONTENT_CHANGED/);
+      expect(await one("select * from content_packs where id = $1", [packId])).toEqual(before);
+    });
+  }
 
-  it("rejects swapping an already-APPROVED pack's content under the same packId", async () => {
-    const packId = "RPC-PACK-upsert-3";
-    await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-901", sourceRegistryVersion: "SR-1", status: "APPROVED", packFingerprint: "fp-approved" });
-    const err = await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-901", sourceRegistryVersion: "SR-1", status: "APPROVED", packFingerprint: "fp-sneaky" });
-    expect(err).toMatch(/PACK_CONTENT_CHANGED/);
-    const row = await one("select pack_fingerprint from content_packs where id = $1", [packId]);
-    expect(row?.pack_fingerprint).toBe("fp-approved"); // untouched
-  });
-
-  it("re-registering with the identical fingerprint is a no-op, not an error", async () => {
+  it("re-registering identical content is a no-op, not an error", async () => {
     const packId = "RPC-PACK-upsert-4";
-    await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-902", sourceRegistryVersion: "SR-1", status: "APPROVED", packFingerprint: "fp-same" });
-    const err = await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-902", sourceRegistryVersion: "SR-1", status: "APPROVED", packFingerprint: "fp-same" });
-    expect(err).toBeNull();
+    await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-902", status: "APPROVED", packFingerprint: "fp-same" });
+    const result = await one("select public.upsert_content_pack($1::jsonb) as r", [
+      JSON.stringify({
+        now: "2026-10-01T00:00:00+08:00", packId, formatVersion: "1.0", sourceRegistryVersion: "SR-1", importedBy: "TEST",
+        recordsFingerprint: "records-fp", intendedKnowledgeVersion: "KB-2026-10-01-902", status: "APPROVED", packFingerprint: "fp-same", ...PACK_REVIEW,
+      }),
+    ]);
+    expect(result?.r).toEqual({ action: "unchanged" });
+  });
+
+  it("an APPROVED pack is not demoted by a later NEEDS_REVIEW import of the same content", async () => {
+    const packId = "RPC-PACK-upsert-5";
+    await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-903", status: "APPROVED", packFingerprint: "fp-approved" });
+    expect(await upsertPack({ packId, intendedKnowledgeVersion: null, status: "NEEDS_REVIEW", packFingerprint: "fp-needs-review" })).toBeNull();
+    const row = await one("select status, reviewed_by, pack_fingerprint from content_packs where id = $1", [packId]);
+    expect(row).toMatchObject({ status: "APPROVED", reviewed_by: "Jerry", pack_fingerprint: "fp-approved" });
+  });
+});
+
+describe("backfill_record_review_event (DATA_MODEL §26c, Jerry 2026-10-03 item 2)", () => {
+  async function addRecord(status: string, fingerprint: string) {
+    await ensureSource();
+    const id = `RPC-REV-${++seq}`;
+    await query(
+      `insert into knowledge_records (id, source_id, title, category, jurisdiction, source_url, effective_from, effective_to,
+        fetched_at, last_verified_at, content_hash, status, raw_text, summary, rule_data, created_at, updated_at, pack_id, pack_record_id, content_fingerprint)
+       values ($1, 'RPC-SRC', 't', 'BENEFIT', 'TAIWAN', 'https://1966.gov.tw/', '2026-01-01', null, now(), now(), 'h', $2, 'raw', 's', '{}'::jsonb, now(), now(), 'P', $1, $3)`,
+      [id, status, fingerprint]
+    );
+    return id;
+  }
+  const backfill = async (recordId: string, contentFingerprint: string, eventId: string) =>
+    (
+      await one("select public.backfill_record_review_event($1::jsonb) as r", [
+        JSON.stringify({ recordId, contentFingerprint, eventId, reviewedBy: "Jerry", reviewedAt: "2026-09-24T09:52:27+08:00", reason: null, now: "2026-10-03T00:00:00+08:00" }),
+      ])
+    )?.r as { inserted: boolean };
+
+  it("writes one CLI_PACK event with the reviewer and review time from the pack (not now) for a PUBLISHED record; idempotent", async () => {
+    const id = await addRecord("PUBLISHED", "fp-pub");
+    expect(await backfill(id, "fp-pub", "EV-1")).toEqual({ inserted: true });
+    expect(await backfill(id, "fp-pub", "EV-2")).toEqual({ inserted: false });
+    const events = (await query("select decision, reviewed_by, reviewed_at, source, content_fingerprint from knowledge_record_review_events where knowledge_record_id = $1", [id]))
+      .rows as Array<Record<string, unknown>>;
+    expect(events).toHaveLength(1);
+    expect(events[0]).toMatchObject({ decision: "APPROVED", reviewed_by: "Jerry", source: "CLI_PACK", content_fingerprint: "fp-pub" });
+    expect(new Date(events[0].reviewed_at as string).toISOString()).toBe("2026-09-24T01:52:27.000Z");
+    const record = await one("select status, summary from knowledge_records where id = $1", [id]);
+    expect(record).toEqual({ status: "PUBLISHED", summary: "s" }); // record not changed
+  });
+
+  it("refuses to fabricate evidence for a record that was never approved or whose content differs", async () => {
+    const draft = await addRecord("NEEDS_REVIEW", "fp-draft");
+    const approved = await addRecord("APPROVED", "fp-current");
+    expect(await backfill(draft, "fp-draft", "EV-3")).toEqual({ inserted: false });
+    expect(await backfill(approved, "fp-old-content", "EV-4")).toEqual({ inserted: false });
+    expect(await one("select count(*)::int as n from knowledge_record_review_events")).toEqual({ n: 0 });
   });
 });
 

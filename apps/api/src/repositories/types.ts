@@ -8,6 +8,8 @@ import type {
   CareNeedProfile,
   Consent,
   ContentPack,
+  ContentPackUpsertAction,
+  ContentPackUpsertInput,
   CrawlerRun,
   CrawlerSnapshot,
   CreatedAdminSession,
@@ -141,17 +143,22 @@ export interface KnowledgeRepository {
   // B-010：取出指定 PUBLISHED 版本的全部 PUBLISHED 紀錄（含來源機關），供 Assessment 建立單一版本的知識快照。
   findPublishedSnapshotRecords(versionId: string): Promise<KnowledgeSnapshotRecord[]>;
 
-  // TASK-B-012-r3（Jerry 指示 2）：內容包層級中繼資料 upsert。同一 packId 重新匯入時，指紋不變
-  // 才允許 NEEDS_REVIEW → APPROVED；指紋變了拋出例外（呼叫端轉譯為匯入失敗，要求新 packId），
-  // 見 migration 0020 upsert_content_pack。
-  upsertContentPack(input: {
-    packId: string;
-    intendedKnowledgeVersion: string | null;
-    sourceRegistryVersion: string | null;
-    status: string;
-    packFingerprint: string;
-  }): Promise<void>;
+  // DATA_MODEL §26b：內容包登錄。同一 packId 已登錄時，recordsFingerprint（逐筆內容）不同一律拋出
+  // PACK_CONTENT_CHANGED（必須改用新 packId），不論這次宣告的 status；內容相同時只允許
+  // NEEDS_REVIEW → APPROVED 升級與 review／版號更新。見 migration 0020 upsert_content_pack。
+  upsertContentPack(input: ContentPackUpsertInput): Promise<ContentPackUpsertAction>;
   findContentPackById(packId: string): Promise<ContentPack | null>;
+
+  // DATA_MODEL §26c：回填既有已核准紀錄的逐筆審核證據（source=CLI_PACK）。審核人／時間取自已核准的
+  // 內容包 JSON，不使用執行當下時間；同一 (紀錄, CLI_PACK, 內容指紋) 已存在則不重複寫入。
+  // 不變更紀錄的狀態或內容。回傳 inserted=false 代表已存在。
+  backfillRecordReviewEvent(input: {
+    recordId: string;
+    reviewedBy: string;
+    reviewedAt: string;
+    reason: string | null;
+    contentFingerprint: string;
+  }): Promise<{ inserted: boolean }>;
 
   // approveKnowledgePack（CLI）用：跟 admin 的 decision 端點共用同一份審核證據表
   // （knowledge_record_review_events，source 區分 CLI_PACK／ADMIN_API），同一交易內完成原子

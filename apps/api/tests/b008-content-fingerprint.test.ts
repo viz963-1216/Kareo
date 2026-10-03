@@ -4,12 +4,9 @@
 //
 // Expected on 7b77e9c (before this round's fix): A, B and D FAIL; F passes.
 //
-// 2026-10-03（Jerry 審查修正）：A、B、F 原本在「同一次匯入」裡同時改內容＋把 pack 殼層 status 設
-// 為 APPROVED，這個輸入樣態在 B-012-r3 的指紋保護規則修正後已經是明確被拒收的情境（核准必須對應
-// 已登錄的內容，不能同一次匯入裡同時改內容又核准）。改為兩個獨立動作：先用 pack 殼層
-// status=NEEDS_REVIEW 匯入更正後的內容（只更正個別紀錄，不影響 content_packs 的核准狀態），
-// 再對「這筆紀錄」單獨核准（record.status=APPROVED＋完整 review），驗證的核心主張不變——核准
-// 綁定的是這次送審當下的實際內容，不是舊的來源雜湊。
+// A、B、F：先以 pack 殼層 status=NEEDS_REVIEW 匯入更正後的內容，再對「這筆紀錄」單獨核准
+// （record.status=APPROVED＋完整 review）；驗證的核心主張——核准綁定的是這次送審當下的實際內容，
+// 不是舊的來源雜湊。
 import { describe, it, expect } from "vitest";
 import { importContentPack, parseSourceRegistry } from "../src/services/knowledgeImportService.js";
 import { runApproveKnowledgePack } from "../src/scripts/approveKnowledgePack.js";
@@ -56,14 +53,34 @@ function pack(records: Rec[], status: "NEEDS_REVIEW" | "APPROVED"): RawContentPa
 }
 const rec = (over: Partial<Rec> = {}): Rec => ({ recordId: "KR-2026-901", summary: "上限 100 元", ruleData: { type: "T", amount: 100 }, effectiveFrom: "2026-07-01", ...over });
 
+// B-012（Jerry 2026-10-03 審查第 3 點）：A、B 的「更正草稿」只適用於尚未登錄 content_packs 的舊資料，
+// 第一次匯入後清掉登錄模擬該情境；已登錄的內容包改內容一律拒絕，見 A2。
+function simulateLegacyUnregistered(repo: InMemoryKnowledgeRepository): void {
+  repo.contentPacks.length = 0;
+}
+
 describe("B-008 approval binds to the reviewed content, not only the official-source hash", () => {
+  it("A2. registered pack: amount 100 → 200 under the same packId is rejected and nothing with amount 100 is approved", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    await importContentPack(repo, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit", importedBy: "TEST" });
+    const changed = pack([rec({ ruleData: { type: "T", amount: 200 }, summary: "上限 200 元", status: "APPROVED" })], "NEEDS_REVIEW");
+    const report = await importContentPack(repo, changed, REGISTRY, { mode: "commit", importedBy: "TEST" });
+    expect(report.written).toBe(false);
+    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/PACK_CONTENT_CHANGED/);
+
+    const outcome = await runApproveKnowledgePack(repo, changed);
+    expect(outcome.code).not.toBe(0); // the reviewed content (200) is not in the database
+    expect(repo.records.some((r) => r.status === "APPROVED")).toBe(false);
+  });
+
   it("A. ruleData amount 100 → 200 with the same source hash is not the reviewed content", async () => {
     const repo = new InMemoryKnowledgeRepository();
-    await importContentPack(repo, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit" });
+    await importContentPack(repo, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit", importedBy: "TEST" });
+    simulateLegacyUnregistered(repo);
     // 更正草稿內容：pack 殼層仍是 NEEDS_REVIEW（不是同一次匯入裡要求核准），只有這筆紀錄本身
     // 單獨標成 APPROVED（送審人已經核准「這次」送審的內容）。
     const changed = pack([rec({ ruleData: { type: "T", amount: 200 }, summary: "上限 200 元", status: "APPROVED" })], "NEEDS_REVIEW");
-    const report = await importContentPack(repo, changed, REGISTRY, { mode: "commit" });
+    const report = await importContentPack(repo, changed, REGISTRY, { mode: "commit", importedBy: "TEST" });
     expect(report.written).toBe(true);
     const outcome = await runApproveKnowledgePack(repo, changed);
     expect(outcome.code).toBe(0);
@@ -74,9 +91,10 @@ describe("B-008 approval binds to the reviewed content, not only the official-so
 
   it("B. only effectiveFrom changes: must be recognised as different content", async () => {
     const repo = new InMemoryKnowledgeRepository();
-    await importContentPack(repo, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit" });
+    await importContentPack(repo, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit", importedBy: "TEST" });
+    simulateLegacyUnregistered(repo);
     const changed = pack([rec({ effectiveFrom: "2027-01-01", status: "APPROVED" })], "NEEDS_REVIEW");
-    const report = await importContentPack(repo, changed, REGISTRY, { mode: "commit" });
+    const report = await importContentPack(repo, changed, REGISTRY, { mode: "commit", importedBy: "TEST" });
     expect(report.written).toBe(true);
     const outcome = await runApproveKnowledgePack(repo, changed);
     expect(outcome.code).toBe(0);
@@ -86,7 +104,7 @@ describe("B-008 approval binds to the reviewed content, not only the official-so
 
   it("C. complete review can approve; missing reviewedBy/reviewedAt or an invalid decision cannot", async () => {
     const repo = new InMemoryKnowledgeRepository();
-    await importContentPack(repo, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit" });
+    await importContentPack(repo, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit", importedBy: "TEST" });
 
     const validApproval = pack([rec()], "APPROVED");
     const good = await runApproveKnowledgePack(repo, validApproval);
@@ -99,7 +117,7 @@ describe("B-008 approval binds to the reviewed content, not only the official-so
       { reviewedBy: "Jerry", reviewedAt: "2026-09-27T10:00:00+08:00", decision: "REJECTED", notes: null },
     ]) {
       const repo2 = new InMemoryKnowledgeRepository();
-      await importContentPack(repo2, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit" });
+      await importContentPack(repo2, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit", importedBy: "TEST" });
       const badPack = pack([rec({ review: badReview })], "APPROVED");
       const outcome = await runApproveKnowledgePack(repo2, badPack);
       expect(outcome.code).not.toBe(0);
@@ -110,7 +128,7 @@ describe("B-008 approval binds to the reviewed content, not only the official-so
 
   it("D. the pack approves two records but the database has one: not a success (missing record reported, none approved)", async () => {
     const repo = new InMemoryKnowledgeRepository();
-    await importContentPack(repo, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit" });
+    await importContentPack(repo, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit", importedBy: "TEST" });
     const two = pack([rec(), rec({ recordId: "KR-2026-902" })], "APPROVED");
     const outcome = await runApproveKnowledgePack(repo, two);
     // Required: the missing record is reported and the whole batch fails (non-zero code), not a silent partial success.
@@ -121,7 +139,7 @@ describe("B-008 approval binds to the reviewed content, not only the official-so
 
   it("G. (B-012-r3) a successful CLI approval writes a CLI_PACK review event alongside the status update", async () => {
     const repo = new InMemoryKnowledgeRepository();
-    await importContentPack(repo, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit" });
+    await importContentPack(repo, pack([rec()], "NEEDS_REVIEW"), REGISTRY, { mode: "commit", importedBy: "TEST" });
     const approval = pack([rec()], "APPROVED");
     const outcome = await runApproveKnowledgePack(repo, approval);
 
@@ -137,9 +155,9 @@ describe("B-008 approval binds to the reviewed content, not only the official-so
 
   it("F. key order alone does not change the content", async () => {
     const repo = new InMemoryKnowledgeRepository();
-    await importContentPack(repo, pack([rec({ ruleData: { type: "T", amount: 100 } })], "NEEDS_REVIEW"), REGISTRY, { mode: "commit" });
+    await importContentPack(repo, pack([rec({ ruleData: { type: "T", amount: 100 } })], "NEEDS_REVIEW"), REGISTRY, { mode: "commit", importedBy: "TEST" });
     const reordered = pack([rec({ ruleData: { amount: 100, type: "T" }, status: "APPROVED" })], "NEEDS_REVIEW");
-    const report = await importContentPack(repo, reordered, REGISTRY, { mode: "commit" });
+    const report = await importContentPack(repo, reordered, REGISTRY, { mode: "commit", importedBy: "TEST" });
     const outcome = await runApproveKnowledgePack(repo, reordered);
     expect(report.recordsRejected).toEqual([]);
     expect(outcome.code).toBe(0);

@@ -3,6 +3,8 @@
 import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
 import type {
   ContentPack,
+  ContentPackUpsertAction,
+  ContentPackUpsertInput,
   CrawlerRun,
   CrawlerSnapshot,
   KnowledgeAuthority,
@@ -326,51 +328,77 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
       }));
   }
 
-  async upsertContentPack(input: {
-    packId: string;
-    intendedKnowledgeVersion: string | null;
-    sourceRegistryVersion: string | null;
-    status: string;
-    packFingerprint: string;
-  }): Promise<void> {
+  async upsertContentPack(input: ContentPackUpsertInput): Promise<ContentPackUpsertAction> {
+    // 同 migration 0020 的 content_packs_approved_review_check。
+    if (input.status === "APPROVED" && !(input.reviewedBy && input.reviewedAt && input.reviewDecision === "APPROVED")) {
+      throw new AppError("VALIDATION_ERROR", `內容包 ${input.packId} 為 APPROVED 但缺少完整的內容包 review。`);
+    }
     const now = nowTaipeiISOString();
     const existing = this.contentPacks.find((p) => p.id === input.packId);
     if (!existing) {
       this.contentPacks.push({
         id: input.packId,
+        formatVersion: input.formatVersion,
         intendedKnowledgeVersion: input.intendedKnowledgeVersion,
         sourceRegistryVersion: input.sourceRegistryVersion,
         status: input.status as ContentPack["status"],
+        reviewedBy: input.reviewedBy,
+        reviewedAt: input.reviewedAt,
+        reviewDecision: input.reviewDecision,
         packFingerprint: input.packFingerprint,
+        recordsFingerprint: input.recordsFingerprint,
+        importedAt: now,
+        importedBy: input.importedBy,
         createdAt: now,
         updatedAt: now,
       });
-      return;
+      return "inserted";
     }
-    if (existing.packFingerprint === input.packFingerprint) {
-      if (existing.status === "NEEDS_REVIEW" && input.status === "APPROVED") {
-        existing.status = "APPROVED";
-      }
-      existing.intendedKnowledgeVersion = input.intendedKnowledgeVersion;
-      existing.sourceRegistryVersion = input.sourceRegistryVersion;
-      existing.updatedAt = now;
-      return;
-    }
-    // 指紋不同：判斷依據是「這次匯入」宣告的 status 是否為 APPROVED（2026-10-03 審查修正，見
-    // knowledgeImportService.ts 同一處的詳細說明），不是既有已登錄的 pack 狀態——核准必須對應
-    // 已登錄的內容，不能在同一次匯入裡同時改內容又核准。這次匯入宣告 NEEDS_REVIEW（更正草稿）
-    // 則仍允許覆寫中繼資料。
-    if (input.status === "APPROVED") {
+    if (existing.recordsFingerprint !== input.recordsFingerprint) {
       throw new AppError(
         "VALIDATION_ERROR",
-        `內容包 ${input.packId} 已存在且內容已變更，不可用同一個 packId 以 APPROVED 狀態覆寫；請使用新的 packId 重新匯入。`
+        `PACK_CONTENT_CHANGED：內容包 ${input.packId} 已登錄且內容已變更，同一 packId 不可改內容；請使用新的 packId。`
       );
     }
-    existing.intendedKnowledgeVersion = input.intendedKnowledgeVersion;
+    const promoted = existing.status === "NEEDS_REVIEW" && input.status === "APPROVED";
+    if (promoted) existing.status = "APPROVED";
+    if (promoted || existing.status === input.status) {
+      existing.reviewedBy = input.reviewedBy;
+      existing.reviewedAt = input.reviewedAt;
+      existing.reviewDecision = input.reviewDecision;
+      existing.intendedKnowledgeVersion = input.intendedKnowledgeVersion;
+      existing.packFingerprint = input.packFingerprint;
+    }
     existing.sourceRegistryVersion = input.sourceRegistryVersion;
-    existing.status = input.status as ContentPack["status"];
-    existing.packFingerprint = input.packFingerprint;
+    existing.importedAt = now;
+    existing.importedBy = input.importedBy;
     existing.updatedAt = now;
+    return promoted ? "promoted" : "unchanged";
+  }
+
+  async backfillRecordReviewEvent(input: {
+    recordId: string;
+    reviewedBy: string;
+    reviewedAt: string;
+    reason: string | null;
+    contentFingerprint: string;
+  }): Promise<{ inserted: boolean }> {
+    const exists = this.reviewEvents.some(
+      (e) => e.knowledgeRecordId === input.recordId && e.source === "CLI_PACK" && e.contentFingerprint === input.contentFingerprint
+    );
+    if (exists) return { inserted: false };
+    this.reviewEvents.push({
+      id: `${input.recordId}-CLI_PACK-backfill-${this.reviewEvents.length}`,
+      knowledgeRecordId: input.recordId,
+      decision: "APPROVED",
+      reason: input.reason,
+      reviewedBy: input.reviewedBy,
+      reviewedAt: input.reviewedAt,
+      contentFingerprint: input.contentFingerprint,
+      source: "CLI_PACK",
+      createdAt: nowTaipeiISOString(),
+    });
+    return { inserted: true };
   }
 
   async findContentPackById(packId: string): Promise<ContentPack | null> {

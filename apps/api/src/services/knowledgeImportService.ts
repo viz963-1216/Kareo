@@ -11,7 +11,7 @@ import type {
 } from "../types/index.js";
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
 import { computeContentFingerprint } from "./contentFingerprint.js";
-import { computePackFingerprint } from "./packFingerprint.js";
+import { computePackFingerprint, computeRecordsFingerprint } from "./packFingerprint.js";
 
 // ===== 依 docs/knowledge/source-registry.md 解析白名單來源（Jerry 維護，B-008 只讀取，不修改）=====
 
@@ -178,8 +178,20 @@ function validateRecord(raw: RawContentPackRecord, packId: string, registry: Map
   };
 }
 
-function validatePackShell(raw: RawContentPack): { reasons: string[] } {
+// 內容包層級驗證，匯入與回填（backfillContentPacks）共用同一份。依 contracts/knowledge/
+// content-pack.schema.json 與 DATA_MODEL §26b：review 必填；status=APPROVED 時 review.reviewedBy
+// 不得為空、reviewedAt 須為 ISO 時間、decision 必須是 APPROVED（不能只信 status 字串）。
+export function validatePackShell(raw: RawContentPack): { reasons: string[] } {
   const reasons: string[] = [];
+  const review = raw.review as Record<string, unknown> | null | undefined;
+  if (typeof review !== "object" || review === null || Array.isArray(review)) {
+    reasons.push("缺少內容包層級 review");
+  } else if (raw.status === "APPROVED") {
+    if (!isNonEmptyString(review.reviewedBy)) reasons.push("status=APPROVED 時內容包 review.reviewedBy 不得為空");
+    if (!isNonEmptyString(review.reviewedAt) || !ISO_DATETIME.test(review.reviewedAt as string))
+      reasons.push("status=APPROVED 時內容包 review.reviewedAt 格式不合法");
+    if (review.decision !== "APPROVED") reasons.push("status=APPROVED 時內容包 review.decision 必須是 APPROVED");
+  }
   if (!isNonEmptyString(raw.packId) || !/^KP-\d{4}-\d{2}-\d{2}-\d{3}$/.test(raw.packId)) reasons.push("packId 格式不合法");
   if (raw.formatVersion !== "1.0") reasons.push("formatVersion 必須是 1.0");
   if (!isNonEmptyString(raw.createdAt) || !ISO_DATETIME.test(raw.createdAt)) reasons.push("createdAt 格式不合法");
@@ -218,7 +230,8 @@ export async function importContentPack(
   repo: KnowledgeRepository,
   raw: RawContentPack,
   registry: Map<string, RegistrySource>,
-  options: { mode: KnowledgeImportMode }
+  // importedBy：DATA_MODEL §26b 的匯入證據。CLI 沒有操作者身分輸入，目前記錄執行入口（見 PR 說明）。
+  options: { mode: KnowledgeImportMode; importedBy: string }
 ): Promise<ContentPackImportReport> {
   const shell = validatePackShell(raw);
   if (shell.reasons.length > 0) {
@@ -254,33 +267,35 @@ export async function importContentPack(
     return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: rejections, recordsCorrected: 0 };
   }
 
-  // TASK-B-012-r3（Jerry 指示 2，DATA_MODEL §26b；2026-10-03 審查修正）：「同一 packId 重新匯入：
-  // 只有在每筆內容指紋都不變時，才可把狀態從 NEEDS_REVIEW 升為 APPROVED；內容有變一律拒絕，必須
-  // 使用新 packId」——但這條規則管的是「內容包層級的核准登記」（content_packs.status 升級），
-  // 不能因此連帶擋下逐筆記錄的更正：B-008/B-008-r3（J-003 H-2）要求「更正草稿內容」必須永遠能
-  // 成功，否則資料庫會卡在舊的、未經審核的內容上，而這份舊內容後續仍可能被其他呼叫端（例如直接
-  // 呼叫 repo.approveRecords）核准掉（見 tests/b008-approval-binding.test.ts：approveRecords 用
-  // 「目前資料庫內容」當作 expectedContentFingerprint，不知道曾經有一次核准被擋下）。
-  //
-  // 因此兩件事分開處理：
-  //   1. 逐筆記錄的驗證／更正永遠照常進行（下方既有邏輯不變，不受這裡影響）。
-  //   2. content_packs 的登記：只有在「這次匯入宣告 APPROVED、且內容跟已登錄的不同」時，不會
-  //      真的把狀態登記為 APPROVED（改登記為 NEEDS_REVIEW，連同這次更正後的新指紋）——核准必須
-  //      是後續「內容不再變動」的單獨一次確認，不能跟這次的內容修正綁在同一次匯入。
-  //      repo.upsertContentPack 本身仍保留「已登錄為 APPROVED 的 pack 不能直接被置換內容」的
-  //      嚴格保護（見 inMemoryKnowledgeRepository.ts／migration 0020 的 upsert_content_pack），
-  //      這裡只是主動避免觸發那個例外，不是繞過它。
-  //
-  // 上一輪誤把判斷條件改成檢查「既有 pack 狀態是否為 APPROVED」、且會讓整次匯入連同逐筆更正一起
-  // 被拒收，是為了遷就舊測試而加的例外，不是規格授權的例外（Jerry 2026-10-03：「不能以舊測試
-  // 取代新核准規格」）；已改回依規格字面實作本節開頭說明的兩層分工。
+  // DATA_MODEL §26b、contracts/knowledge/README.md 第 21、68 行：已登錄的內容包身分固定，同一 packId
+  // 逐筆內容有任何改變一律拒絕（整批不寫入），必須以新 packId 提交；不論這次宣告的 status。
+  // 下方 B-008-r3 的「更正草稿」（更新未發布紀錄並回到 NEEDS_REVIEW）只適用於尚未登錄
+  // content_packs 的舊資料（B-012 上線前匯入、回填時因內容不符而未登錄的內容包）。
   const intendedKnowledgeVersion = (raw.intendedKnowledgeVersion as string | null) ?? null;
   const packStatus = raw.status as string;
-  const newPackFingerprint = computePackFingerprint(
-    validated.map((v) => ({ recordId: v.value.packRecordId, contentFingerprint: v.value.contentFingerprint }))
-  );
+  const packReview = raw.review as Record<string, unknown>;
+  const fingerprintInputs = validated.map((v) => ({
+    recordId: v.value.packRecordId,
+    contentFingerprint: v.value.contentFingerprint,
+    packStatus: v.packDecision,
+  }));
+  const recordsFingerprint = computeRecordsFingerprint(fingerprintInputs);
   const existingPack = await repo.findContentPackById(packId);
-  const blockedFromPromotion = packStatus === "APPROVED" && existingPack !== null && existingPack.packFingerprint !== newPackFingerprint;
+  if (existingPack !== null && existingPack.recordsFingerprint !== recordsFingerprint) {
+    return {
+      mode: options.mode,
+      written: false,
+      packId,
+      recordsValid: 0,
+      recordsRejected: [
+        {
+          recordId: null,
+          reasons: [`PACK_CONTENT_CHANGED：內容包 ${packId} 已登錄且內容已變更，同一 packId 不可改內容；請以新的 packId 提交。`],
+        },
+      ],
+      recordsCorrected: 0,
+    };
+  }
 
   // 找出這個 packId 目前資料庫裡已有的紀錄（含內容），依 packRecordId 建索引，用來判斷
   // 「全新」／「內容相同（略過）」／「內容不同（更正）」／「已發布不可覆寫（拒收）」。
@@ -342,17 +357,20 @@ export async function importContentPack(
     await repo.updateRecordContent(item.id, item.value);
   }
 
-  // TASK-B-012-r3：內容包層級中繼資料（intendedKnowledgeVersion／status／指紋）在這裡登錄，
-  // 讓 Admin API 的 publish-preview／publish 可以直接從資料庫算出候選紀錄與 blockers，
-  // 不再需要操作者手動指定 pack 檔案路徑（見 compute_publish_plan）。
-  // blockedFromPromotion 時改登記 NEEDS_REVIEW（見上方說明）：這次更正過的內容先登記下來，
-  // 核准（升級為 APPROVED）留給後續一次內容不再變動的獨立匯入／核准動作。
+  // DATA_MODEL §26b：內容包層級資料（含內容包 review 與匯入證據）在這裡登錄，Admin API 的
+  // publish-preview／publish 直接從資料庫算出候選紀錄與 blockers（見 compute_publish_plan）。
   await repo.upsertContentPack({
     packId,
+    formatVersion: raw.formatVersion as string,
     intendedKnowledgeVersion,
     sourceRegistryVersion: isNonEmptyString(raw.sourceRegistryVersion) ? raw.sourceRegistryVersion : null,
-    status: blockedFromPromotion ? "NEEDS_REVIEW" : packStatus,
-    packFingerprint: newPackFingerprint,
+    status: packStatus,
+    reviewedBy: isNonEmptyString(packReview.reviewedBy) ? packReview.reviewedBy : null,
+    reviewedAt: isNonEmptyString(packReview.reviewedAt) ? packReview.reviewedAt : null,
+    reviewDecision: isNonEmptyString(packReview.decision) ? packReview.decision : null,
+    packFingerprint: computePackFingerprint(fingerprintInputs, intendedKnowledgeVersion, packStatus),
+    recordsFingerprint,
+    importedBy: options.importedBy,
   });
 
   return {

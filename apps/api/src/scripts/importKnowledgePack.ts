@@ -37,7 +37,10 @@ async function main(): Promise<number> {
   const pack = JSON.parse(readFileSync(args.packPath, "utf-8")) as RawContentPack;
   const registry = parseSourceRegistry(readFileSync(args.registryPath, "utf-8"));
 
-  const report = await importContentPack(new SupabaseKnowledgeRepository(), pack, registry, { mode: args.mode });
+  const report = await importContentPack(new SupabaseKnowledgeRepository(), pack, registry, {
+    mode: args.mode,
+    importedBy: "CLI:importKnowledgePack",
+  });
 
   console.log(`Mode: ${report.mode}`);
   console.log(`Pack: ${report.packId ?? "(invalid)"}`);

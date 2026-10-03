@@ -20,6 +20,21 @@ create table if not exists content_packs (
 
 create index if not exists content_packs_status_idx on content_packs (status);
 
+-- DATA_MODEL §26b：內容包的核准與匯入證據都要持久化，不能只信 status 字串。records_fingerprint 是
+-- §26b「至少包含」以外的附加欄位：只含逐筆 (recordId, contentFingerprint)，用來判斷同一 packId 內容
+-- 是否改變；pack_fingerprint 依 §26b 另含 intendedKnowledgeVersion、status。
+-- content_packs 在 0019 已建立，這裡以 add column 補欄位（0019／0020 尚未套用到任何環境，表為空）。
+alter table content_packs add column if not exists format_version text not null;
+alter table content_packs add column if not exists reviewed_by text;
+alter table content_packs add column if not exists reviewed_at timestamptz;
+alter table content_packs add column if not exists review_decision text;
+alter table content_packs add column if not exists records_fingerprint text not null;
+alter table content_packs add column if not exists imported_at timestamptz not null;
+alter table content_packs add column if not exists imported_by text not null;
+alter table content_packs drop constraint if exists content_packs_approved_review_check;
+alter table content_packs add constraint content_packs_approved_review_check
+  check (status <> 'APPROVED' or (reviewed_by is not null and reviewed_at is not null and review_decision = 'APPROVED'));
+
 -- ===== 2. 逐筆審核證據（CLI 核准與管理頁核准共用同一份，只能新增）=====
 -- 跟 admin_audit_events（B-012 既有，記錄「誰透過管理 API 做了什麼」的一般稽核）不同：這張表
 -- 專門記錄「這筆 KnowledgeRecord 的核准/退回決定本身」，不論決定來自 CLI（approveKnowledgePack）
@@ -47,10 +62,16 @@ grant select, insert, update, delete on table content_packs to service_role;
 -- 只能新增：不 grant update／delete，在資料庫層擋掉事後竄改或刪除審核證據。
 grant select, insert on table knowledge_record_review_events to service_role;
 
+-- 回填（§26c）冪等鍵：同一紀錄、同一內容指紋的 CLI_PACK 核准證據只能有一筆。
+create unique index if not exists knowledge_record_review_events_cli_pack_uidx
+  on knowledge_record_review_events (knowledge_record_id, content_fingerprint)
+  where source = 'CLI_PACK';
+
 -- ===== 3. upsert_content_pack：匯入／回填時寫入 pack 層級中繼資料 =====
--- 同一 packId 重新匯入：指紋不變才允許 NEEDS_REVIEW → APPROVED。指紋變了，判斷依據是「這次
--- 匯入」宣告的 status 是否為 APPROVED（2026-10-03 審查修正）——核准必須對應已登錄的內容，不能
--- 在同一次匯入裡同時改內容又核准；這次匯入宣告 NEEDS_REVIEW（更正草稿）則仍允許覆寫中繼資料。
+-- DATA_MODEL §26b：同一 packId 已登錄時，逐筆內容（records_fingerprint）有變一律拒絕，必須用新
+-- packId，不論這次宣告的 status。內容不變時只允許 NEEDS_REVIEW → APPROVED 升級，以及審核時可更新
+-- 的 review／intendedKnowledgeVersion（contracts/knowledge/README.md 第 22 行）；不允許從 APPROVED
+-- 退回。APPROVED 必須有完整內容包 review（content_packs_approved_review_check）。
 create or replace function public.upsert_content_pack(payload jsonb)
 returns jsonb
 language plpgsql
@@ -59,54 +80,97 @@ set search_path = public
 as $$
 declare
   v_id text := payload ->> 'packId';
+  v_format_version text := payload ->> 'formatVersion';
   v_version text := payload ->> 'intendedKnowledgeVersion';
   v_source_registry_version text := payload ->> 'sourceRegistryVersion';
   v_status text := payload ->> 'status';
-  v_fingerprint text := payload ->> 'packFingerprint';
+  v_reviewed_by text := payload ->> 'reviewedBy';
+  v_reviewed_at timestamptz := (payload ->> 'reviewedAt')::timestamptz;
+  v_review_decision text := payload ->> 'reviewDecision';
+  v_pack_fingerprint text := payload ->> 'packFingerprint';
+  v_records_fingerprint text := payload ->> 'recordsFingerprint';
+  v_imported_by text := payload ->> 'importedBy';
   v_now timestamptz := (payload ->> 'now')::timestamptz;
   v_existing record;
+  v_promoted boolean;
 begin
-  select * into v_existing from public.content_packs where id = v_id;
+  select * into v_existing from public.content_packs where id = v_id for update;
 
   if not found then
-    insert into public.content_packs (id, intended_knowledge_version, source_registry_version, status, pack_fingerprint, created_at, updated_at)
-    values (v_id, v_version, v_source_registry_version, v_status, v_fingerprint, v_now, v_now);
+    insert into public.content_packs (
+      id, format_version, intended_knowledge_version, source_registry_version, status,
+      reviewed_by, reviewed_at, review_decision, pack_fingerprint, records_fingerprint,
+      imported_at, imported_by, created_at, updated_at)
+    values (
+      v_id, v_format_version, v_version, v_source_registry_version, v_status,
+      v_reviewed_by, v_reviewed_at, v_review_decision, v_pack_fingerprint, v_records_fingerprint,
+      v_now, v_imported_by, v_now, v_now);
     return jsonb_build_object('action', 'inserted');
   end if;
 
-  if v_existing.pack_fingerprint = v_fingerprint then
-    if v_existing.status = 'NEEDS_REVIEW' and v_status = 'APPROVED' then
-      -- 升級時 intendedKnowledgeVersion 依 schema 規則從 null 填入實際版號，這裡也要一併更新，
-      -- 不能只改 status（否則升級後讀回來仍是 null，跟「只有 APPROVED 時才會填」的規則矛盾）。
-      update public.content_packs
-      set status = 'APPROVED', intended_knowledge_version = v_version, source_registry_version = v_source_registry_version, updated_at = v_now
-      where id = v_id;
-      return jsonb_build_object('action', 'promoted');
-    end if;
+  if v_existing.records_fingerprint is distinct from v_records_fingerprint then
+    raise exception 'PACK_CONTENT_CHANGED: packId % already registered with different content; use a new packId', v_id;
+  end if;
+
+  v_promoted := v_existing.status = 'NEEDS_REVIEW' and v_status = 'APPROVED';
+  if v_promoted or v_existing.status = v_status then
     update public.content_packs
-    set intended_knowledge_version = v_version, source_registry_version = v_source_registry_version, updated_at = v_now
+    set status = v_status,
+        reviewed_by = v_reviewed_by,
+        reviewed_at = v_reviewed_at,
+        review_decision = v_review_decision,
+        intended_knowledge_version = v_version,
+        pack_fingerprint = v_pack_fingerprint,
+        source_registry_version = v_source_registry_version,
+        imported_at = v_now,
+        imported_by = v_imported_by,
+        updated_at = v_now
     where id = v_id;
-    return jsonb_build_object('action', 'unchanged');
+  else
+    update public.content_packs
+    set source_registry_version = v_source_registry_version, imported_at = v_now, imported_by = v_imported_by, updated_at = v_now
+    where id = v_id;
   end if;
-
-  -- 指紋不同、這次匯入宣告 APPROVED：拒絕，不管既有登錄狀態是什麼（核准必須對應已登錄的內容）。
-  if v_status = 'APPROVED' then
-    raise exception 'PACK_CONTENT_CHANGED: packId % already exists with different content; import a new packId instead', v_id;
-  end if;
-
-  update public.content_packs
-  set intended_knowledge_version = v_version,
-      source_registry_version = v_source_registry_version,
-      status = v_status,
-      pack_fingerprint = v_fingerprint,
-      updated_at = v_now
-  where id = v_id;
-  return jsonb_build_object('action', 'updated');
+  return jsonb_build_object('action', case when v_promoted then 'promoted' else 'unchanged' end);
 end;
 $$;
 
 revoke execute on function public.upsert_content_pack(jsonb) from public, anon, authenticated;
 grant execute on function public.upsert_content_pack(jsonb) to service_role;
+
+-- ===== 3b. backfill_record_review_event：回填既有已核准紀錄的逐筆審核證據（DATA_MODEL §26c）=====
+-- 審核人／時間取自已核准的內容包 JSON（不是執行當下），source 一律 CLI_PACK。只有在資料庫紀錄目前
+-- 的內容指紋與呼叫端算出的一致、且紀錄已是 APPROVED／PUBLISHED／SUPERSEDED（確實經過核准）時才寫入，
+-- 避免為未核准或內容不符的紀錄虛構審核證據；同一 (紀錄, 內容指紋) 已存在則不重複寫入。
+-- 不變更紀錄的狀態或內容。
+create or replace function public.backfill_record_review_event(payload jsonb)
+returns jsonb
+language plpgsql
+security invoker
+set search_path = public
+as $$
+declare
+  v_record_id text := payload ->> 'recordId';
+  v_fingerprint text := payload ->> 'contentFingerprint';
+  v_inserted integer;
+begin
+  insert into public.knowledge_record_review_events
+    (id, knowledge_record_id, decision, reason, reviewed_by, reviewed_at, content_fingerprint, source, created_at)
+  select payload ->> 'eventId', v_record_id, 'APPROVED', payload ->> 'reason', payload ->> 'reviewedBy',
+         (payload ->> 'reviewedAt')::timestamptz, v_fingerprint, 'CLI_PACK', (payload ->> 'now')::timestamptz
+  where exists (
+    select 1 from public.knowledge_records r
+    where r.id = v_record_id and r.content_fingerprint = v_fingerprint
+      and r.status in ('APPROVED', 'PUBLISHED', 'SUPERSEDED')
+  )
+  on conflict (knowledge_record_id, content_fingerprint) where source = 'CLI_PACK' do nothing;
+  get diagnostics v_inserted = row_count;
+  return jsonb_build_object('inserted', v_inserted > 0);
+end;
+$$;
+
+revoke execute on function public.backfill_record_review_event(jsonb) from public, anon, authenticated;
+grant execute on function public.backfill_record_review_event(jsonb) to service_role;
 
 -- ===== 4. compute_publish_plan：預覽與發布共用的唯一計畫計算（Jerry 指示 2）=====
 -- 候選紀錄 = status='APPROVED' 且所屬內容包在 content_packs 中 status='APPROVED'。

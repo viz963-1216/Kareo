@@ -387,13 +387,7 @@ describe("getPublishPreview / publishKnowledgeVersion", () => {
   it("getPublishPreview returns a publishable plan once the record's pack is registered as APPROVED", async () => {
     const { knowledge, admin } = buildFixture();
     knowledge.records.push(record({ status: "APPROVED" }));
-    await knowledge.upsertContentPack({
-      packId: "KP-2026-09-23-001",
-      intendedKnowledgeVersion: "KB-2026-10-01-001",
-      sourceRegistryVersion: "SR-2026-09-23-01",
-      status: "APPROVED",
-      packFingerprint: "sha256:pack-fp",
-    });
+    await knowledge.upsertContentPack(approvedPackInput());
     const plan = await getPublishPreview(admin);
     expect(plan.canPublish).toBe(true);
     expect(plan.blockers).toEqual([]);
@@ -402,16 +396,26 @@ describe("getPublishPreview / publishKnowledgeVersion", () => {
     expect(plan.newRecords.map((r) => r.id)).toEqual(["KREC-001"]);
   });
 
-  async function approvedPackFixture() {
-    const { knowledge, admin } = buildFixture();
-    knowledge.records.push(record({ status: "APPROVED" }));
-    await knowledge.upsertContentPack({
+  function approvedPackInput() {
+    return {
       packId: "KP-2026-09-23-001",
+      formatVersion: "1.0",
       intendedKnowledgeVersion: "KB-2026-10-01-001",
       sourceRegistryVersion: "SR-2026-09-23-01",
       status: "APPROVED",
+      reviewedBy: "Jerry",
+      reviewedAt: "2026-09-24T09:52:27+08:00",
+      reviewDecision: "APPROVED",
       packFingerprint: "sha256:pack-fp",
-    });
+      recordsFingerprint: "sha256:records-fp",
+      importedBy: "TEST",
+    };
+  }
+
+  async function approvedPackFixture() {
+    const { knowledge, admin } = buildFixture();
+    knowledge.records.push(record({ status: "APPROVED" }));
+    await knowledge.upsertContentPack(approvedPackInput());
     return { knowledge, admin };
   }
 

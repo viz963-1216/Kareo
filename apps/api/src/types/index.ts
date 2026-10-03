@@ -725,15 +725,41 @@ export interface AdminWithdrawResult {
 
 export type ContentPackStatus = "NEEDS_REVIEW" | "APPROVED" | "REJECTED";
 
+// DATA_MODEL §26b：內容包層級的核准與匯入證據都要持久化，不能只信 status 字串。
+// recordsFingerprint 是本表額外欄位（§26b「至少包含」），只含逐筆內容，用來判斷同一 packId 內容是否改變。
 export interface ContentPack {
   id: string;
+  formatVersion: string;
   intendedKnowledgeVersion: string | null;
   sourceRegistryVersion: string | null;
   status: ContentPackStatus;
+  reviewedBy: string | null;
+  reviewedAt: string | null;
+  reviewDecision: string | null;
   packFingerprint: string;
+  recordsFingerprint: string;
+  importedAt: string;
+  importedBy: string;
   createdAt: string;
   updatedAt: string;
 }
+
+export interface ContentPackUpsertInput {
+  packId: string;
+  formatVersion: string;
+  intendedKnowledgeVersion: string | null;
+  sourceRegistryVersion: string | null;
+  status: string;
+  reviewedBy: string | null;
+  reviewedAt: string | null;
+  reviewDecision: string | null;
+  packFingerprint: string;
+  recordsFingerprint: string;
+  importedBy: string;
+}
+
+// 同一 packId 重新登錄時的結果（同 migration 0020 upsert_content_pack 的回傳）。
+export type ContentPackUpsertAction = "inserted" | "promoted" | "unchanged";
 
 export type KnowledgeRecordReviewSource = "CLI_PACK" | "ADMIN_API";
 

@@ -1,6 +1,10 @@
+import { randomUUID } from "node:crypto";
 import { getSupabaseClient } from "./supabaseClient.js";
 import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
 import type {
+  ContentPack,
+  ContentPackUpsertAction,
+  ContentPackUpsertInput,
   CrawlerRun,
   CrawlerSnapshot,
   KnowledgeAuthority,
@@ -483,54 +487,66 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
     });
   }
 
-  async upsertContentPack(input: {
-    packId: string;
-    intendedKnowledgeVersion: string | null;
-    sourceRegistryVersion: string | null;
-    status: string;
-    packFingerprint: string;
-  }): Promise<void> {
+  async upsertContentPack(input: ContentPackUpsertInput): Promise<ContentPackUpsertAction> {
     const client = getSupabaseClient();
-    const { error } = await client.rpc("upsert_content_pack", {
-      payload: {
-        packId: input.packId,
-        intendedKnowledgeVersion: input.intendedKnowledgeVersion,
-        sourceRegistryVersion: input.sourceRegistryVersion,
-        status: input.status,
-        packFingerprint: input.packFingerprint,
-        now: nowTaipeiISOString(),
-      },
+    const { data, error } = await client.rpc("upsert_content_pack", {
+      payload: { ...input, now: nowTaipeiISOString() },
     });
     if (error) {
       if (error.message?.includes("PACK_CONTENT_CHANGED")) {
         throw new AppError(
           "VALIDATION_ERROR",
-          `內容包 ${input.packId} 已存在且內容已變更，不可覆寫；請使用新的 packId 重新匯入。`,
+          `PACK_CONTENT_CHANGED：內容包 ${input.packId} 已登錄且內容已變更，同一 packId 不可改內容；請使用新的 packId。`,
           { cause: error }
         );
       }
       throw new AppError("INTERNAL_ERROR", "無法寫入內容包中繼資料，請稍後再試。", { cause: error });
     }
+    return (data as { action: ContentPackUpsertAction }).action;
   }
 
-  async findContentPackById(packId: string): Promise<import("../types/index.js").ContentPack | null> {
+  async findContentPackById(packId: string): Promise<ContentPack | null> {
     const client = getSupabaseClient();
     const { data, error } = await client
       .from("content_packs")
-      .select("id, intended_knowledge_version, source_registry_version, status, pack_fingerprint, created_at, updated_at")
+      .select(
+        "id, format_version, intended_knowledge_version, source_registry_version, status, reviewed_by, reviewed_at, review_decision, pack_fingerprint, records_fingerprint, imported_at, imported_by, created_at, updated_at"
+      )
       .eq("id", packId)
       .maybeSingle();
     if (error) throw new AppError("INTERNAL_ERROR", "無法查詢內容包，請稍後再試。", { cause: error });
     if (!data) return null;
     return {
       id: data.id,
+      formatVersion: data.format_version,
       intendedKnowledgeVersion: data.intended_knowledge_version,
       sourceRegistryVersion: data.source_registry_version,
       status: data.status,
+      reviewedBy: data.reviewed_by,
+      reviewedAt: data.reviewed_at,
+      reviewDecision: data.review_decision,
       packFingerprint: data.pack_fingerprint,
+      recordsFingerprint: data.records_fingerprint,
+      importedAt: data.imported_at,
+      importedBy: data.imported_by,
       createdAt: data.created_at,
       updatedAt: data.updated_at,
     };
+  }
+
+  async backfillRecordReviewEvent(input: {
+    recordId: string;
+    reviewedBy: string;
+    reviewedAt: string;
+    reason: string | null;
+    contentFingerprint: string;
+  }): Promise<{ inserted: boolean }> {
+    const client = getSupabaseClient();
+    const { data, error } = await client.rpc("backfill_record_review_event", {
+      payload: { ...input, eventId: `KRRE-${randomUUID()}`, now: nowTaipeiISOString() },
+    });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法回填審核紀錄，請稍後再試。", { cause: error });
+    return { inserted: (data as { inserted: boolean }).inserted };
   }
 
   async approveOrRejectRecordWithReview(input: {
