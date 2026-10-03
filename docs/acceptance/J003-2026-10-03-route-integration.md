@@ -75,7 +75,17 @@ Owner：Jerry；執行：Codex
 
 Release gate：**FAILED**，49 PASS／0 FAIL／63 PENDING。這裡的 49 PASS 是全部 gate 檢查（含路由、格式與 bundle），**不是 49 個 E2E 都 PASS**；只有一個真實 E2E PASS。後续部署新 SHA 也必須重跑，不能沿用此檔。
 
-## 5. 尚待完成
+## 5. 雲端 catalog 與 advisor（唯讀，17:47–17:48 Taipei）
+
+對既有 Kareo 專案 `ojawadobnaxduxybqolk` 唯讀查 catalog，沒有查個案內容、沒有套用 migration：
+
+- public 仍是 21 個表，全部啟用 RLS；anon/authenticated 表權限 0。這符合只由後端 service role 讀寫的既有設計；advisor 的 21 個「RLS enabled no policy」INFO 不能直接當成匿名資料外洩。
+- 完整表清單沒有 admin_sessions／admin_audit_events／content_packs／knowledge_record_review_events／rate_limit_counters／deletion_runs；run_deletion_cleanup(jsonb)、request_session_deletion(jsonb) 不存在；providers 沒有 resource_category。**B 的新 schema 仍未在此專案實裝**，不能因 PR preview 或本機測試通過宣稱完成。
+- advisor 仍列同一個 public.rls_auto_enable 的 anon/authenticated EXECUTE 警示；catalog 回傳型別是 event_trigger，不是一般業務 RPC。本輪未改權限，B-011b migration 已包含 revoke，仍需在正確環境實際套用及重查。參考：[anon 警示](https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable)、[authenticated 警示](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable)。
+
+這些查詢只確認既有專案的物件狀態，沒有證明 staging 與 production 已隔離。沒有雲端 migration history 或逐條套用證據，不能單憑物件存在推斷所有 migration 正確完成。
+
+## 6. 尚待完成
 
 - B 模組修正／合併、migration 正式編號與雲端 catalog／回填驗證；只對已指定隔離環境作有準備的操作。
 - staging／production DB 隔離、crawler secrets／排程實跑、多 function instance 限流與真實權限測試。
