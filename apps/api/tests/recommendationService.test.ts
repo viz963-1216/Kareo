@@ -113,6 +113,17 @@ describe("createRecommendation: session and ownership (B-011a reuse)", () => {
     ).rejects.toMatchObject({ code: "SESSION_INVALID" });
   });
 
+  it("D-05 ①：撤回同意（session 轉 DELETION_REQUESTED）後，無法再建立新的 Recommendation", async () => {
+    const f = await buildFixture();
+    f.assessmentRepo.assessments.push(assessment({ sessionId: f.sessionId }));
+    const session = f.sessionRepo.sessions.find((s) => s.id === f.sessionId)!;
+    session.status = "DELETION_REQUESTED";
+
+    await expect(
+      createRecommendation(f, { assessmentId: "ASM-001", serviceType: "HOME_CARE" }, f.sessionToken)
+    ).rejects.toMatchObject({ code: "SESSION_INVALID" });
+  });
+
   it("assessmentId belonging to a different session -> NOT_FOUND (not FORBIDDEN, does not reveal existence)", async () => {
     const f = await buildFixture();
     const otherSession = await f.sessionRepo.createSession();

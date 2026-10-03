@@ -581,6 +581,8 @@ export interface InternalOperator {
 }
 
 // `note` 不得包含姓名、電話或健康細節（DATA_MODEL §37）。
+// operatorId 為 null：代表系統自動觸發（TASK-B-011b 的同意撤回／使用者刪除資料造成的 Lead 取消，
+// 不是真人操作者所為，依 LEAD_OPERATIONS §2「不使用共用帳號」不虛構一個系統操作者帳號頂替）。
 export interface LeadStatusEvent {
   id: string;
   leadId: string;
@@ -588,7 +590,7 @@ export interface LeadStatusEvent {
   toStatus: LeadStatus;
   reasonCode: string | null;
   note: string | null;
-  operatorId: string;
+  operatorId: string | null;
   createdAt: string;
 }
 
@@ -600,6 +602,31 @@ export interface LeadAccessEvent {
   operatorId: string;
   action: LeadAccessAction;
   createdAt: string;
+}
+
+// TASK-B-011b：ARCHITECTURE §20.4 持久化限流（DATA_MODEL §39）。
+export interface RateLimitCheckResult {
+  allowed: boolean;
+  retryAfterSeconds: number | null;
+}
+
+// TASK-B-011b：DATA_MODEL §40。保存期限到期清理作業的執行紀錄。
+export type DeletionRunStatus = "RUNNING" | "SUCCESS" | "FAILED";
+
+// 2026-10-03（Jerry D-05 確認四條保存期限定案後新增 leadsDeleted／consentsDeleted，見
+// migration 0019_security_acceptance.sql 的 deletion_runs 表註解）。
+export interface DeletionRun {
+  id: string;
+  startedAt: string;
+  finishedAt: string | null;
+  dryRun: boolean;
+  status: DeletionRunStatus;
+  sessionsDeleted: number;
+  leadsContactCleared: number;
+  leadsDeleted: number;
+  consentsDeleted: number;
+  errorMessage: string | null;
+  operatorId: string | null;
 }
 
 export type KnowledgeImportMode = "commit" | "dry-run";

@@ -1,6 +1,7 @@
 import type { ConsentRepository, SessionRepository } from "../repositories/types.js";
 import type { Consent, CreateConsentInput } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
+import { nowTaipeiISOString } from "../lib/response.js";
 import type { ConsentVersionChecker } from "./consentVersionService.js";
 import { requireMatchingSessionId, requireValidSession } from "./sessionSecurityService.js";
 
@@ -63,4 +64,23 @@ export async function createConsent(
 
   const input = validateCreateConsentInput(body, versionChecker);
   return consentRepo.createConsent(input);
+}
+
+// 依 API_CONTRACT §7 POST /api/v1/consent/withdraw、PRIVACY_AND_RETENTION §3.3：撤回後該 session
+// 不得再建立 Assessment／Recommendation／Lead，已提交的 Lead 標記 CANCELLED（CONSENT_WITHDRAWN），
+// session 進入跟 DELETE /session 相同的刪除流程。updated=false（沒有仍生效的 Consent）時視為
+// SESSION_INVALID（跟 deleteSession 對稱：並非真的 session token 失效，而是沒有「可撤回」的同意，
+// 但依 API_CONTRACT §7 本端點沒有專屬錯誤碼，比照同樣代表「這個操作現在做不到」的 SESSION_INVALID）。
+export async function withdrawConsent(
+  sessionRepo: SessionRepository,
+  consentRepo: ConsentRepository,
+  sessionTokenHeader: unknown
+): Promise<{ withdrawnAt: string; sessionStatus: "DELETION_REQUESTED" }> {
+  const session = await requireValidSession(sessionRepo, sessionTokenHeader);
+  const now = nowTaipeiISOString();
+  const { updated } = await consentRepo.withdraw(session.id, now);
+  if (!updated) {
+    throw new AppError("SESSION_INVALID", "目前沒有可撤回的同意紀錄。");
+  }
+  return { withdrawnAt: now, sessionStatus: "DELETION_REQUESTED" };
 }
