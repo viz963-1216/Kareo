@@ -4,7 +4,7 @@ import { spawnSync } from 'node:child_process';
 import { cpSync, mkdirSync, mkdtempSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { contractEndpoints, examplePath, firstRedirect, functionName, parseRedirects, routeMatches } from '../../scripts/lib/netlify-routes.mjs';
+import { contractEndpoints, examplePath, firstRedirect, functionName, parseRedirects, routeMatches, validRoutePattern, declaresEndpoint } from '../../scripts/lib/netlify-routes.mjs';
 
 test('numbered admin headings and table query strings retain all methods without duplicates', () => {
   const source = '## GET /api/v1/providers\n## 26.3 GET /api/v1/admin/knowledge/status\n| `GET /api/v1/admin/knowledge/status` |\n| `POST /api/v1/admin/knowledge/records/{id}/decision` |\n| `GET /api/v1/admin/knowledge/records?status=NEEDS_REVIEW` |';
@@ -23,11 +23,17 @@ test('first matching catch-all shadows a later function, while exact list and de
   assert.equal(functionName(firstRedirect([fallback, list], '/api/v1/providers')), null);
   assert.equal(firstRedirect([list, detail, fallback], '/api/v1/providers'), list);
   assert.equal(firstRedirect([list, detail, fallback], '/api/v1/providers/PROV-1'), detail);
-  assert.equal(routeMatches(detail.from, list.from), false);
+  assert.equal(routeMatches(detail.from, list.from), true);
+  assert.equal(firstRedirect([detail, list, fallback], list.from), detail);
+  assert.equal(declaresEndpoint(detail, { path: list.from }), false);
+  assert.equal(routeMatches(list.from, `${list.from}/`), true);
 });
 
-test('wildcards in the middle preserve admin action suffixes and do not route list requests', () => {
-  const rule = '/api/v1/admin/knowledge/records/*/decision';
+test('middle splats are rejected; named admin placeholders preserve the action suffix', () => {
+  const rule = '/api/v1/admin/knowledge/records/:recordId/decision';
+  assert.equal(validRoutePattern('/api/v1/admin/knowledge/records/*/decision'), false);
+  assert.equal(routeMatches('/api/v1/admin/knowledge/records/*/decision', '/api/v1/admin/knowledge/records/X/decision'), false);
+  assert.equal(validRoutePattern(rule), true);
   assert.equal(examplePath('/api/v1/admin/knowledge/records/{id}/decision'), '/api/v1/admin/knowledge/records/RUNTIME-CHECK/decision');
   assert.equal(routeMatches(rule, examplePath('/api/v1/admin/knowledge/records/{id}/decision')), true);
   assert.equal(routeMatches(rule, '/api/v1/admin/knowledge/records'), false);

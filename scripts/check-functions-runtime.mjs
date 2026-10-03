@@ -13,7 +13,7 @@ import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { parseRedirects, contractEndpoints, examplePath, firstRedirect, functionName } from './lib/netlify-routes.mjs';
+import { parseRedirects, contractEndpoints, examplePath, firstRedirect, functionName, declaresEndpoint } from './lib/netlify-routes.mjs';
 
 const results = [];
 const record = (status, check, detail) => results.push({ status, check, detail });
@@ -26,7 +26,7 @@ const includedFiles = [...(toml.match(/^\s*included_files\s*=\s*\[([^\]]*)\]/m)?
 const contract = readFileSync('docs/API_CONTRACT.md', 'utf8');
 const endpoints = contractEndpoints(contract);
 const methodsFor = (route) => [...new Set(endpoints.filter((e) =>
-  functionName(firstRedirect(redirects, examplePath(e.path))) === route.fn
+  functionName(firstRedirect(redirects, examplePath(e.path))) === route.fn && declaresEndpoint(route, e)
 ).map((e) => e.method))];
 
 // Response text a user or attacker must never see (PRODUCT_SPEC §30, J-003 失敗畫面不暴露).

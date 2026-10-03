@@ -15,10 +15,22 @@ export function contractEndpoints(contract) {
   })).values()];
 }
 
+// Netlify ignores trailing slashes; a terminal splat may also match an empty suffix.
+// Splats in the middle are unsupported: use a named placeholder for one segment.
+export function validRoutePattern(pattern) {
+  return !pattern.includes('*') || (pattern.endsWith('/*') && pattern.indexOf('*') === pattern.length - 1);
+}
+
 export function routeMatches(pattern, path) {
-  const escaped = pattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&')
-    .replace(/\*/g, '.*').replace(/:[A-Za-z_][A-Za-z0-9_]*/g, '[^/]+');
-  return new RegExp(`^${escaped}$`).test(path);
+  if (!validRoutePattern(pattern)) return false;
+  const normalized = pattern.replace(/\/$/, '');
+  const escaped = normalized.replace(/[.+?^${}()|[\]\\]/g, '\\$&')
+    .replace(/\/\*$/, '(?:/.*)?').replace(/:[A-Za-z_][A-Za-z0-9_]*/g, '[^/]+');
+  return new RegExp(`^${escaped}/?$`).test(path);
+}
+
+export function declaresEndpoint(route, endpoint) {
+  return examplePath(route.from) === examplePath(endpoint.path);
 }
 
 export function examplePath(path) {

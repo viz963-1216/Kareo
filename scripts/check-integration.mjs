@@ -6,7 +6,7 @@
 //  5. API_CONTRACT endpoints vs deployed routes (implemented / pending report)
 import { existsSync, readFileSync, readdirSync, statSync, appendFileSync } from 'node:fs';
 import { join, basename } from 'node:path';
-import { parseRedirects, contractEndpoints, examplePath, firstRedirect, functionName } from './lib/netlify-routes.mjs';
+import { parseRedirects, contractEndpoints, examplePath, firstRedirect, functionName, validRoutePattern, declaresEndpoint } from './lib/netlify-routes.mjs';
 
 const results = [];
 const record = (status, check, detail) => results.push({ status, check, detail });
@@ -18,6 +18,7 @@ const functionDir = 'apps/api/src/functions';
 const functionFiles = readdirSync(functionDir).filter((f) => f.endsWith('.ts')).map((f) => basename(f, '.ts'));
 const routed = new Map();
 for (const r of redirects) {
+  if (!validRoutePattern(r.from)) record('FAIL', 'supported route syntax', `${r.from}: splat must be terminal; use :id for a middle segment`);
   const m = r.to.match(/^\/\.netlify\/functions\/([A-Za-z0-9_-]+)$/);
   if (!m) continue;
   routed.set(r.from, m[1]);
@@ -76,7 +77,7 @@ const endpoints = contractEndpoints(contract);
 for (const ep of endpoints) {
   const match = firstRedirect(redirects, examplePath(ep.path));
   const fn = functionName(match);
-  const implemented = fn && functionFiles.includes(fn);
+  const implemented = fn && functionFiles.includes(fn) && declaresEndpoint(match, ep);
   record(implemented ? 'PASS' : 'PENDING', 'contract route declared', `${ep.method} ${ep.path}${implemented ? ' — static route only; handler behaviour and deployed E2E are separate' : ' — no route/function yet'}`);
 }
 
