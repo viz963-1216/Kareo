@@ -53,8 +53,8 @@ function pack(records: Rec[], status: "NEEDS_REVIEW" | "APPROVED"): RawContentPa
 }
 const rec = (over: Partial<Rec> = {}): Rec => ({ recordId: "KR-2026-901", summary: "上限 100 元", ruleData: { type: "T", amount: 100 }, effectiveFrom: "2026-07-01", ...over });
 
-// B-012（Jerry 2026-10-03 審查第 3 點）：A、B 的「更正草稿」只適用於尚未登錄 content_packs 的舊資料，
-// 第一次匯入後清掉登錄模擬該情境；已登錄的內容包改內容一律拒絕，見 A2。
+// D-16c：A、B 以第一次匯入後清掉登錄模擬尚未登錄 content_packs 的舊資料；舊資料同樣不可用同 ID 改內容
+// （不再走「更正草稿再核准」），已登錄的內容包見 A2。
 function simulateLegacyUnregistered(repo: InMemoryKnowledgeRepository): void {
   repo.contentPacks.length = 0;
 }
@@ -81,9 +81,10 @@ describe("B-008 approval binds to the reviewed content, not only the official-so
     // 單獨標成 APPROVED（送審人已經核准「這次」送審的內容）。
     const changed = pack([rec({ ruleData: { type: "T", amount: 200 }, summary: "上限 200 元", status: "APPROVED" })], "NEEDS_REVIEW");
     const report = await importContentPack(repo, changed, REGISTRY, { mode: "commit", importedBy: "TEST" });
-    expect(report.written).toBe(true);
+    expect(report.written).toBe(false);
+    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/RECORD_CONTENT_CHANGED/);
     const outcome = await runApproveKnowledgePack(repo, changed);
-    expect(outcome.code).toBe(0);
+    expect(outcome.code).not.toBe(0); // the reviewed content (200) is not in the database
     const approved = repo.records.filter((r) => r.status === "APPROVED").map((r) => (r.ruleData as { amount: number }).amount);
     // Required: either the approved row carries amount 200 (the reviewed text) or nothing is approved.
     expect(approved.filter((a) => a !== 200)).toEqual([]);
@@ -95,9 +96,11 @@ describe("B-008 approval binds to the reviewed content, not only the official-so
     simulateLegacyUnregistered(repo);
     const changed = pack([rec({ effectiveFrom: "2027-01-01", status: "APPROVED" })], "NEEDS_REVIEW");
     const report = await importContentPack(repo, changed, REGISTRY, { mode: "commit", importedBy: "TEST" });
-    expect(report.written).toBe(true);
+    expect(report.written).toBe(false);
+    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/RECORD_CONTENT_CHANGED/);
     const outcome = await runApproveKnowledgePack(repo, changed);
-    expect(outcome.code).toBe(0);
+    expect(outcome.code).not.toBe(0);
+    expect(repo.records[0].effectiveFrom).toBe("2026-07-01"); // old content untouched
     const approved = repo.records.filter((r) => r.status === "APPROVED").map((r) => r.effectiveFrom);
     expect(approved.filter((d) => d !== "2027-01-01")).toEqual([]);
   });

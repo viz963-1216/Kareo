@@ -147,46 +147,6 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
     if (error) throw new AppError("INTERNAL_ERROR", "無法匯入 Knowledge 紀錄，請稍後再試。", { cause: error });
   }
 
-  // B-008-r3：只更新內容欄位，強制 status=NEEDS_REVIEW、version=null；WHERE 排除 status='PUBLISHED'
-  // 當作最後一道防線（呼叫端理應已經檢查過，但不依賴呼叫端單一層防護）。
-  async updateRecordContent(
-    id: string,
-    content: Omit<KnowledgeRecord, "id" | "createdAt" | "updatedAt" | "packId" | "packRecordId" | "status" | "version">
-  ): Promise<void> {
-    const client = getSupabaseClient();
-    const { error, count } = await client
-      .from("knowledge_records")
-      .update(
-        {
-          source_id: content.sourceId,
-          title: content.title,
-          category: content.category,
-          jurisdiction: content.jurisdiction,
-          source_url: content.sourceUrl,
-          published_at: content.publishedAt,
-          effective_from: content.effectiveFrom,
-          effective_to: content.effectiveTo,
-          fetched_at: content.fetchedAt,
-          last_verified_at: content.lastVerifiedAt,
-          content_hash: content.contentHash,
-          content_fingerprint: content.contentFingerprint,
-          raw_text: content.rawText,
-          summary: content.summary,
-          rule_data: content.ruleData,
-          status: "NEEDS_REVIEW",
-          version: null,
-          updated_at: nowTaipeiISOString(),
-        },
-        { count: "exact" }
-      )
-      .eq("id", id)
-      .neq("status", "PUBLISHED");
-    if (error) throw new AppError("INTERNAL_ERROR", "無法更新 Knowledge 紀錄內容，請稍後再試。", { cause: error });
-    if (count === 0) {
-      throw new AppError("INTERNAL_ERROR", `無法更新紀錄 ${id}：目前狀態為 PUBLISHED，不可用匯入覆寫已發布的歷史內容。`);
-    }
-  }
-
   // Jerry 委託修正第二輪（2026-09-27）：核准一律是單一 UPDATE，WHERE 同時檢查 status='NEEDS_REVIEW'
   // 「與」content_fingerprint = 呼叫端宣稱的預期值，兩者由 Postgres 在同一次操作內原子檢查——
   // 不是先 SELECT 讀出目前內容比對、再另外送一次 UPDATE（那樣兩次操作之間仍有競態空隙）。

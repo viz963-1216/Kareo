@@ -156,6 +156,35 @@ describe("upsert_content_pack (DATA_MODEL §26b, Jerry 2026-10-03 items 1 and 3)
     const row = await one("select status, reviewed_by, pack_fingerprint from content_packs where id = $1", [packId]);
     expect(row).toMatchObject({ status: "APPROVED", reviewed_by: "Jerry", pack_fingerprint: "fp-approved" });
   });
+
+  // D-16c：imported_at／imported_by 是首次登錄（含回填）的時間與執行者，冪等重跑與升級都不覆寫。
+  it("keeps the first imported_at / imported_by across an idempotent rerun and a NEEDS_REVIEW -> APPROVED promotion", async () => {
+    const packId = "RPC-PACK-first-import";
+    await upsertPack({ packId, intendedKnowledgeVersion: null, status: "NEEDS_REVIEW", packFingerprint: "fp-nr", importedBy: "OP-FIRST", now: "2026-10-01T00:00:00+08:00" });
+    const first = await one("select imported_at, imported_by from content_packs where id = $1", [packId]);
+
+    expect(await upsertPack({ packId, intendedKnowledgeVersion: null, status: "NEEDS_REVIEW", packFingerprint: "fp-nr", importedBy: "OP-SECOND", now: "2026-10-02T00:00:00+08:00" })).toBeNull();
+    expect(await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-904", status: "APPROVED", packFingerprint: "fp-ap", importedBy: "OP-THIRD", now: "2026-10-03T00:00:00+08:00" })).toBeNull();
+    expect(await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-904", status: "APPROVED", packFingerprint: "fp-ap", importedBy: "OP-FOURTH", now: "2026-10-04T00:00:00+08:00" })).toBeNull();
+
+    const row = await one("select status, imported_at, imported_by from content_packs where id = $1", [packId]);
+    expect(row).toMatchObject({ status: "APPROVED", imported_by: "OP-FIRST" });
+    expect(row?.imported_at).toEqual(first?.imported_at);
+  });
+
+  it("an APPROVED pack keeps its existing reviewer / review time when a later call carries a different review", async () => {
+    const packId = "RPC-PACK-keep-review";
+    await upsertPack({ packId, intendedKnowledgeVersion: "KB-2026-10-01-905", status: "APPROVED", packFingerprint: "fp-ap" });
+    const before = await one("select * from content_packs where id = $1", [packId]);
+
+    const err = await upsertPack({
+      packId, intendedKnowledgeVersion: "KB-2026-10-01-905", status: "APPROVED", packFingerprint: "fp-ap",
+      reviewedBy: "Someone else", reviewedAt: "2026-10-03T09:00:00+08:00", importedBy: "OP-OTHER", now: "2026-10-05T00:00:00+08:00",
+    });
+
+    expect(err).toBeNull();
+    expect(await one("select * from content_packs where id = $1", [packId])).toEqual(before);
+  });
 });
 
 describe("backfill_record_review_event (DATA_MODEL §26c, Jerry 2026-10-03 item 2)", () => {

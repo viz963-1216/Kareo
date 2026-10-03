@@ -2,8 +2,9 @@ import { describe, it, expect } from "vitest";
 import { computePackFingerprint, computeRecordsFingerprint } from "../src/services/packFingerprint.js";
 
 // DATA_MODEL §26b：packFingerprint = 依 recordId 排序的 (recordId, contentFingerprint) + intendedKnowledgeVersion
-// + status；recordsFingerprint 只含逐筆內容，用來判斷同一 packId 內容是否改變。兩者都排除 REJECTED 紀錄。
-const rec = (recordId: string, contentFingerprint: string, packStatus = "APPROVED") => ({ recordId, contentFingerprint, packStatus });
+// + status；recordsFingerprint 只含逐筆內容，用來判斷同一 packId 內容是否改變。兩者都包含內容包中的
+// REJECTED 紀錄（D-16c：匯入與回填使用相同紀錄集合與算法）。
+const rec = (recordId: string, contentFingerprint: string) => ({ recordId, contentFingerprint });
 
 describe("computeRecordsFingerprint (content identity)", () => {
   it("same records give the same value regardless of order", () => {
@@ -18,16 +19,17 @@ describe("computeRecordsFingerprint (content identity)", () => {
     expect(computeRecordsFingerprint(base)).not.toBe(computeRecordsFingerprint([...base, rec("KR-2026-002", "sha256:bbb")]));
   });
 
-  it("does not depend on pack status / intendedKnowledgeVersion (promotion keeps content identity)", () => {
-    const needsReview = [rec("KR-2026-001", "sha256:aaa", "NEEDS_REVIEW")];
-    const approved = [rec("KR-2026-001", "sha256:aaa", "APPROVED")];
-    expect(computeRecordsFingerprint(needsReview)).toBe(computeRecordsFingerprint(approved));
+  it("does not take pack status / intendedKnowledgeVersion (promotion keeps content identity)", () => {
+    expect(computeRecordsFingerprint.length).toBe(1);
+    const records = [rec("KR-2026-001", "sha256:aaa")];
+    expect(computeRecordsFingerprint(records)).toBe(computeRecordsFingerprint(records.map((r) => ({ ...r }))));
   });
 
-  it("excludes REJECTED records, so import and backfill agree on packs that contain one", () => {
-    const withRejected = [rec("KR-2026-001", "sha256:aaa"), rec("KR-2026-002", "sha256:rejected", "REJECTED")];
-    const withoutRejected = [rec("KR-2026-001", "sha256:aaa")];
-    expect(computeRecordsFingerprint(withRejected)).toBe(computeRecordsFingerprint(withoutRejected));
+  it("includes REJECTED records: changing a rejected record's content changes the value (D-16c)", () => {
+    const approved = rec("KR-2026-001", "sha256:aaa");
+    const withRejected = [approved, rec("KR-2026-002", "sha256:rejected")];
+    expect(computeRecordsFingerprint(withRejected)).not.toBe(computeRecordsFingerprint([approved]));
+    expect(computeRecordsFingerprint(withRejected)).not.toBe(computeRecordsFingerprint([approved, rec("KR-2026-002", "sha256:rejected-edited")]));
   });
 });
 
@@ -41,8 +43,8 @@ describe("computePackFingerprint (DATA_MODEL §26b definition)", () => {
     expect(computePackFingerprint(records, "KB-2026-09-24-001", "APPROVED")).toBe(base);
   });
 
-  it("excludes REJECTED records", () => {
-    const withRejected = [...records, rec("KR-2026-002", "sha256:rejected", "REJECTED")];
-    expect(computePackFingerprint(withRejected, null, "NEEDS_REVIEW")).toBe(computePackFingerprint(records, null, "NEEDS_REVIEW"));
+  it("includes REJECTED records (D-16c)", () => {
+    const withRejected = [...records, rec("KR-2026-002", "sha256:rejected")];
+    expect(computePackFingerprint(withRejected, null, "NEEDS_REVIEW")).not.toBe(computePackFingerprint(records, null, "NEEDS_REVIEW"));
   });
 });

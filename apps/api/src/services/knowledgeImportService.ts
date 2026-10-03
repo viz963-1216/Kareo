@@ -10,6 +10,7 @@ import type {
   RawContentPackRecord,
 } from "../types/index.js";
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
+import { AppError } from "../errors/AppError.js";
 import { computeContentFingerprint } from "./contentFingerprint.js";
 import { computePackFingerprint, computeRecordsFingerprint } from "./packFingerprint.js";
 
@@ -217,22 +218,25 @@ export interface ImportRecordRejection {
   reasons: string[];
 }
 
-// 依 contracts/knowledge/README.md §3：整批驗證，任一筆不合格就整批不寫入；
-// 已存在且內容雜湊相同的 (packId, recordId) 視為已匯入，跳過但不算拒收（冪等，重複匯入不產生重複紀錄）。
-// 已存在但內容雜湊不同（B-008-r3，J-003 H-2）：不可靜默略過——核准必須綁定實際被審核的內容，不能只
-// 靠 (packId, recordId) 或 status 判斷。尚未 PUBLISHED 的紀錄會更新內容並強制回 NEEDS_REVIEW，即使
-// 內容包本身已是 APPROVED（核准仍要走獨立的 approveKnowledgePack 步驟，讀取「這次」的內容）；已經
-// PUBLISHED 的歷史紀錄不可被匯入覆寫，回報為拒收（需要走新版本發布流程，不得竄改已發布歷史）。
-// 內容包中 status=REJECTED 的紀錄不建立 KnowledgeRecord（沒有值得再審的內容）。
-// 匯入後資料庫狀態一律 NEEDS_REVIEW，除非偵測到與現有 PUBLISHED 紀錄衝突則標記 CONFLICT
-// （即使內容包本身已是 APPROVED，也不代表資料庫核准，見 README §3 第 4 點）。
+// 依 contracts/knowledge/README.md §1、§3 與 DATA_MODEL §26b（D-16c）：整批驗證，任一筆不合格就整批不寫入。
+// - 已存在且審核內容指紋相同的 (packId, recordId) 視為已匯入，跳過但不算拒收（冪等）。
+// - 已存在但內容不同：已提交內容不可改寫，不論內容包是否已登錄、紀錄是否已發布，一律整批拒收並列出
+//   差異；修正必須以新 packId／recordId 提交、重新審核（不走「更正草稿再核准」的路徑）。
+// - 內容包中 status=REJECTED 的紀錄不建立 KnowledgeRecord，但仍計入內容包指紋。
+// - 匯入後資料庫狀態一律 NEEDS_REVIEW，除非偵測到與現有 PUBLISHED 紀錄衝突則標記 CONFLICT
+//   （即使內容包本身已是 APPROVED，也不代表資料庫核准，見 README §3）。
 export async function importContentPack(
   repo: KnowledgeRepository,
   raw: RawContentPack,
   registry: Map<string, RegistrySource>,
-  // importedBy：DATA_MODEL §26b 的匯入證據。CLI 沒有操作者身分輸入，目前記錄執行入口（見 PR 說明）。
-  options: { mode: KnowledgeImportMode; importedBy: string }
+  // importedBy：DATA_MODEL §26b 的匯入證據＝已驗證的實際操作者 InternalOperator ID（由呼叫端以個人密鑰與
+  // KNOWLEDGE_PUBLISHER 角色驗證後傳入）。dry-run 不寫入，可為 null；commit 必須提供。
+  options: { mode: KnowledgeImportMode; importedBy: string | null }
 ): Promise<ContentPackImportReport> {
+  if (options.mode === "commit" && !isNonEmptyString(options.importedBy)) {
+    throw new AppError("FORBIDDEN", "commit 匯入需要已驗證的操作者身分。");
+  }
+
   const shell = validatePackShell(raw);
   if (shell.reasons.length > 0) {
     return {
@@ -241,7 +245,6 @@ export async function importContentPack(
       packId: isNonEmptyString(raw.packId) ? raw.packId : null,
       recordsValid: 0,
       recordsRejected: [{ recordId: null, reasons: shell.reasons }],
-      recordsCorrected: 0,
     };
   }
 
@@ -264,20 +267,17 @@ export async function importContentPack(
   }
 
   if (rejections.length > 0) {
-    return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: rejections, recordsCorrected: 0 };
+    return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: rejections };
   }
 
-  // DATA_MODEL §26b、contracts/knowledge/README.md 第 21、68 行：已登錄的內容包身分固定，同一 packId
-  // 逐筆內容有任何改變一律拒絕（整批不寫入），必須以新 packId 提交；不論這次宣告的 status。
-  // 下方 B-008-r3 的「更正草稿」（更新未發布紀錄並回到 NEEDS_REVIEW）只適用於尚未登錄
-  // content_packs 的舊資料（B-012 上線前匯入、回填時因內容不符而未登錄的內容包）。
+  // DATA_MODEL §26b：已登錄的內容包身分固定，同一 packId 逐筆內容有任何改變一律拒絕（整批不寫入），
+  // 必須以新 packId 提交；不論這次宣告的 status。匯入與回填使用相同紀錄集合（含 REJECTED）與算法。
   const intendedKnowledgeVersion = (raw.intendedKnowledgeVersion as string | null) ?? null;
   const packStatus = raw.status as string;
   const packReview = raw.review as Record<string, unknown>;
   const fingerprintInputs = validated.map((v) => ({
     recordId: v.value.packRecordId,
     contentFingerprint: v.value.contentFingerprint,
-    packStatus: v.packDecision,
   }));
   const recordsFingerprint = computeRecordsFingerprint(fingerprintInputs);
   const existingPack = await repo.findContentPackById(packId);
@@ -293,43 +293,36 @@ export async function importContentPack(
           reasons: [`PACK_CONTENT_CHANGED：內容包 ${packId} 已登錄且內容已變更，同一 packId 不可改內容；請以新的 packId 提交。`],
         },
       ],
-      recordsCorrected: 0,
     };
   }
 
-  // 找出這個 packId 目前資料庫裡已有的紀錄（含內容），依 packRecordId 建索引，用來判斷
-  // 「全新」／「內容相同（略過）」／「內容不同（更正）」／「已發布不可覆寫（拒收）」。
+  // 已提交內容不可改寫（含尚未登錄 content_packs 的舊包）：同一 (packId, recordId) 已存在但審核內容
+  // 指紋不同，一律拒收並列出差異，不更新既有紀錄。
   const existingRecords = await repo.findRecordsByPackId(packId);
   const existingByPackRecordId = new Map(existingRecords.map((r) => [r.packRecordId, r]));
 
   const toInsert: Array<{ value: (typeof validated)[number]["value"] }> = [];
-  const toCorrect: Array<{ id: string; value: (typeof validated)[number]["value"] }> = [];
-  const publishedConflicts: ImportRecordRejection[] = [];
+  const contentChanged: ImportRecordRejection[] = [];
 
   for (const item of validated) {
-    if (item.packDecision === "REJECTED") continue; // 內容包本身標記拒收，不建立也不更新任何紀錄。
+    if (item.packDecision === "REJECTED") continue; // 內容包本身標記拒收，不建立任何紀錄。
     const existing = existingByPackRecordId.get(item.value.packRecordId);
     if (!existing) {
       toInsert.push(item);
       continue;
     }
-    if (existing.contentFingerprint === item.value.contentFingerprint) {
-      continue; // 審核內容指紋相同，冪等略過（同一來源仍可能對應不同 contentHash 的重新擷取，
-      // 但只要實質內容一樣就不算變更；反過來 contentHash 不變但指紋不同也視為變更，見下方 toCorrect）。
-    }
-    if (existing.status === "PUBLISHED") {
-      publishedConflicts.push({
-        recordId: item.value.packRecordId,
-        reasons: [`此紀錄（資料庫 id ${existing.id}）已發布於正式版本，不可用匯入覆寫已發布的歷史內容；需要走新版本發布流程。`],
-      });
-      continue;
-    }
-    toCorrect.push({ id: existing.id, value: item.value });
+    if (existing.contentFingerprint === item.value.contentFingerprint) continue; // 內容相同，冪等略過。
+    contentChanged.push({
+      recordId: item.value.packRecordId,
+      reasons: [
+        `RECORD_CONTENT_CHANGED：資料庫紀錄 ${existing.id}（狀態 ${existing.status}）的內容指紋為 ${existing.contentFingerprint}，` +
+          `本次為 ${item.value.contentFingerprint}。已提交內容不可改寫，請以新的 packId／recordId 提交並重新審核。`,
+      ],
+    });
   }
 
-  if (publishedConflicts.length > 0) {
-    // 缺筆／部分失敗不得回報全部成功：本次匯入整批不寫入，讓操作者先解決已發布紀錄的處理方式。
-    return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: publishedConflicts, recordsCorrected: 0 };
+  if (contentChanged.length > 0) {
+    return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: contentChanged };
   }
 
   const records: KnowledgeRecord[] = [];
@@ -348,14 +341,10 @@ export async function importContentPack(
       packId,
       recordsValid: records.length,
       recordsRejected: [],
-      recordsCorrected: toCorrect.length,
     };
   }
 
   await repo.insertRecords(records);
-  for (const item of toCorrect) {
-    await repo.updateRecordContent(item.id, item.value);
-  }
 
   // DATA_MODEL §26b：內容包層級資料（含內容包 review 與匯入證據）在這裡登錄，Admin API 的
   // publish-preview／publish 直接從資料庫算出候選紀錄與 blockers（見 compute_publish_plan）。
@@ -370,15 +359,14 @@ export async function importContentPack(
     reviewDecision: isNonEmptyString(packReview.decision) ? packReview.decision : null,
     packFingerprint: computePackFingerprint(fingerprintInputs, intendedKnowledgeVersion, packStatus),
     recordsFingerprint,
-    importedBy: options.importedBy,
+    importedBy: options.importedBy as string,
   });
 
   return {
     mode: "commit",
-    written: records.length > 0 || toCorrect.length > 0,
+    written: records.length > 0,
     packId,
     recordsValid: records.length,
     recordsRejected: [],
-    recordsCorrected: toCorrect.length,
   };
 }

@@ -275,86 +275,140 @@ describe("KAREO_DRIVE source (D-15, B-008-r2)", () => {
   });
 });
 
-// B-008-r3 的「更正草稿」只適用於尚未登錄 content_packs 的舊資料（B-012 上線前匯入、回填因內容不符
-// 而未登錄的內容包）。這組測試在第一次匯入後清掉登錄，模擬這種舊資料；已登錄的內容包見下方 B-012 組。
+// D-16c：已提交內容不可改寫的規則也適用尚未登錄 content_packs 的舊資料（B-012 上線前匯入、回填因內容
+// 不符而未登錄的內容包）。這組測試在第一次匯入後清掉登錄，模擬這種舊資料；已登錄的內容包見下方 B-012 組。
 function simulateLegacyUnregistered(repo: InMemoryKnowledgeRepository): void {
   repo.contentPacks.length = 0;
 }
 
-describe("B-008-r3 (J-003 H-2): re-import with the same (packId, recordId) but different content — legacy, not registered", () => {
-  it("same content re-imported twice: idempotent, no correction, no duplicate row", async () => {
+describe("D-16c: legacy (unregistered) packs are immutable too — same (packId, recordId) with different content is rejected", () => {
+  it("same content re-imported twice: idempotent, no duplicate row", async () => {
     const repo = new InMemoryKnowledgeRepository();
     const registry = parseSourceRegistry(REGISTRY_MD);
     await importContentPack(repo, validPack(), registry, { mode: "commit", importedBy: "TEST" });
+    simulateLegacyUnregistered(repo);
     const second = await importContentPack(repo, validPack(), registry, { mode: "commit", importedBy: "TEST" });
 
-    expect(second.recordsCorrected).toBe(0);
+    expect(second.recordsRejected).toEqual([]);
     expect(second.recordsValid).toBe(0);
     expect(repo.records.filter((r) => r.packId === "KP-2026-09-23-001")).toHaveLength(1);
   });
 
-  it("changed content on a NEEDS_REVIEW record: updates content in place, forces status back to NEEDS_REVIEW, does not silently skip", async () => {
+  const cases = [
+    { label: "NEEDS_REVIEW", dbStatus: "NEEDS_REVIEW" as const },
+    { label: "APPROVED", dbStatus: "APPROVED" as const },
+    { label: "PUBLISHED", dbStatus: "PUBLISHED" as const },
+  ];
+  for (const { label, dbStatus } of cases) {
+    it(`changed content on a legacy ${label} record is rejected; the record and its status are untouched (was: toCorrect)`, async () => {
+      const repo = new InMemoryKnowledgeRepository();
+      const registry = parseSourceRegistry(REGISTRY_MD);
+      await importContentPack(repo, validPack([validRecord({ summary: "舊版摘要" })]), registry, { mode: "commit", importedBy: "TEST" });
+      simulateLegacyUnregistered(repo);
+      repo.records[0].status = dbStatus;
+      if (dbStatus === "PUBLISHED") repo.records[0].version = "KB-2026-09-25-001";
+      const before = { ...repo.records[0] };
+
+      const corrected = validRecord({
+        summary: "修正後摘要",
+        source: { ...validRecord().source, contentHash: "sha256:" + "b".repeat(64) },
+      });
+      const report = await importContentPack(repo, validPack([corrected]), registry, { mode: "commit", importedBy: "TEST" });
+
+      expect(report.written).toBe(false);
+      expect(report.recordsRejected).toHaveLength(1);
+      expect(report.recordsRejected[0].recordId).toBe("KR-2026-001");
+      const reason = report.recordsRejected[0].reasons.join(" ");
+      expect(reason).toMatch(/RECORD_CONTENT_CHANGED/);
+      expect(reason).toContain(before.contentFingerprint); // 列出差異：資料庫現有指紋
+      expect(reason).toMatch(/新的 packId／recordId/);
+      expect(repo.records).toHaveLength(1);
+      expect(repo.records[0]).toEqual(before);
+      expect(repo.contentPacks).toHaveLength(0); // 不登錄跟資料庫不一致的內容包
+    });
+  }
+
+  it("dry-run reports the same rejection and writes nothing", async () => {
     const repo = new InMemoryKnowledgeRepository();
     const registry = parseSourceRegistry(REGISTRY_MD);
     await importContentPack(repo, validPack([validRecord({ summary: "舊版摘要" })]), registry, { mode: "commit", importedBy: "TEST" });
     simulateLegacyUnregistered(repo);
-    const original = repo.records.find((r) => r.packId === "KP-2026-09-23-001")!;
+    const before = { ...repo.records[0] };
 
-    const corrected = validRecord({
-      summary: "修正後摘要",
-      source: { ...validRecord().source, contentHash: "sha256:" + "b".repeat(64) },
-    });
-    const report = await importContentPack(repo, validPack([corrected]), registry, { mode: "commit", importedBy: "TEST" });
+    const report = await importContentPack(repo, validPack([validRecord({ summary: "修正後摘要" })]), registry, { mode: "dry-run", importedBy: null });
 
-    expect(report.recordsCorrected).toBe(1);
-    expect(report.written).toBe(true);
-    expect(repo.records).toHaveLength(1); // updated in place, not a second row
-    const updated = repo.records[0];
-    expect(updated.id).toBe(original.id);
-    expect(updated.summary).toBe("修正後摘要");
-    expect(updated.contentHash).toBe("sha256:" + "b".repeat(64));
-    expect(updated.status).toBe("NEEDS_REVIEW"); // forced back to review even though the pack record itself says NEEDS_REVIEW/APPROVED
+    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/RECORD_CONTENT_CHANGED/);
+    expect(repo.records[0]).toEqual(before);
   });
+});
 
-  it("changed content whose pack record is already APPROVED still lands as NEEDS_REVIEW (approval is a separate deliberate step)", async () => {
+// D-16c：commit 必須帶已驗證的操作者；dry-run 不需要、也不建立任何稽核。
+describe("D-16c: importedBy is the verified operator", () => {
+  it("commit without an operator is refused before any repository access", async () => {
     const repo = new InMemoryKnowledgeRepository();
     const registry = parseSourceRegistry(REGISTRY_MD);
-    await importContentPack(repo, validPack([validRecord({ summary: "舊版摘要" })]), registry, { mode: "commit", importedBy: "TEST" });
-    simulateLegacyUnregistered(repo);
-
-    const corrected = validRecord({
-      summary: "修正後摘要（已核准）",
-      status: "APPROVED",
-      review: { reviewedBy: "Jerry", reviewedAt: "2026-09-25T10:00:00+08:00", decision: "APPROVED", notes: null },
-      source: { ...validRecord().source, contentHash: "sha256:" + "c".repeat(64) },
-    });
-    await importContentPack(repo, validPack([corrected]), registry, { mode: "commit", importedBy: "TEST" });
-
-    expect(repo.records[0].status).toBe("NEEDS_REVIEW");
-    expect(repo.records[0].summary).toBe("修正後摘要（已核准）");
+    for (const importedBy of [null, "", "   "]) {
+      await expect(importContentPack(repo, validPack(), registry, { mode: "commit", importedBy })).rejects.toMatchObject({ code: "FORBIDDEN" });
+    }
+    expect(repo.records).toHaveLength(0);
+    expect(repo.contentPacks).toHaveLength(0);
   });
 
-  it("attempting to correct a record that is already PUBLISHED is rejected, not silently applied (history must not be mutated)", async () => {
+  it("dry-run without an operator validates and writes nothing", async () => {
     const repo = new InMemoryKnowledgeRepository();
     const registry = parseSourceRegistry(REGISTRY_MD);
-    await importContentPack(repo, validPack([validRecord({ summary: "已發布版本" })]), registry, { mode: "commit", importedBy: "TEST" });
-    simulateLegacyUnregistered(repo);
-    const original = repo.records[0];
-    original.status = "PUBLISHED";
-    original.version = "KB-2026-09-25-001";
+    const report = await importContentPack(repo, validPack(), registry, { mode: "dry-run", importedBy: null });
+    expect(report.recordsValid).toBe(1);
+    expect(repo.records).toHaveLength(0);
+    expect(repo.contentPacks).toHaveLength(0);
+  });
 
-    const corrected = validRecord({
-      summary: "想要更改已發布內容",
-      source: { ...validRecord().source, contentHash: "sha256:" + "d".repeat(64) },
-    });
-    const report = await importContentPack(repo, validPack([corrected]), registry, { mode: "commit", importedBy: "TEST" });
+  it("re-runs keep the first importedAt/importedBy (idempotent rerun and NEEDS_REVIEW -> APPROVED promotion)", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    const record = validRecord({ status: "APPROVED", review: RECORD_REVIEW });
+    await importContentPack(repo, validPack([record]), registry, { mode: "commit", importedBy: "OP-FIRST" });
+    const first = { ...(await repo.findContentPackById("KP-2026-09-23-001"))! };
+    await new Promise((resolve) => setTimeout(resolve, 5));
+
+    await importContentPack(repo, validPack([record]), registry, { mode: "commit", importedBy: "OP-SECOND" });
+    await importContentPack(repo, approvedPack([record]), registry, { mode: "commit", importedBy: "OP-THIRD" });
+    await importContentPack(repo, approvedPack([record]), registry, { mode: "commit", importedBy: "OP-FOURTH" });
+    const after = await repo.findContentPackById("KP-2026-09-23-001");
+
+    expect(after?.status).toBe("APPROVED");
+    expect(after?.importedBy).toBe("OP-FIRST");
+    expect(after?.importedAt).toBe(first.importedAt);
+  });
+
+  it("an APPROVED pack keeps its existing reviewer/time when the file's review is edited later", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    await importContentPack(repo, approvedPack(), registry, { mode: "commit", importedBy: "OP-FIRST" });
+    const before = await repo.findContentPackById("KP-2026-09-23-001");
+
+    const edited = { ...approvedPack(), review: { ...PACK_REVIEW, reviewedBy: "Someone else", reviewedAt: "2026-10-03T09:00:00+08:00" } };
+    const report = await importContentPack(repo, edited, registry, { mode: "commit", importedBy: "OP-SECOND" });
+
+    expect(report.recordsRejected).toEqual([]);
+    expect(await repo.findContentPackById("KP-2026-09-23-001")).toEqual(before);
+  });
+
+  it("a registered pack whose REJECTED record content changed is rejected (REJECTED records are part of the fingerprint)", async () => {
+    const repo = new InMemoryKnowledgeRepository();
+    const registry = parseSourceRegistry(REGISTRY_MD);
+    const rejectedReview = { reviewedBy: "Jerry", reviewedAt: "2026-09-23T09:00:00+08:00", decision: "REJECTED", notes: "no" };
+    const kept = validRecord();
+    const rejected = validRecord({ recordId: "KR-2026-002", title: "拒收紀錄", status: "REJECTED", review: rejectedReview });
+    await importContentPack(repo, validPack([kept, rejected]), registry, { mode: "commit", importedBy: "TEST" });
+    const packBefore = await repo.findContentPackById("KP-2026-09-23-001");
+
+    const editedRejected = validRecord({ recordId: "KR-2026-002", title: "拒收紀錄", summary: "改過的拒收內容", status: "REJECTED", review: rejectedReview });
+    const report = await importContentPack(repo, validPack([kept, editedRejected]), registry, { mode: "commit", importedBy: "TEST" });
 
     expect(report.written).toBe(false);
-    expect(report.recordsRejected).toHaveLength(1);
-    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/已發布於正式版本/);
-    // the PUBLISHED record itself must be completely untouched
-    expect(repo.records[0].summary).toBe("已發布版本");
-    expect(repo.records[0].status).toBe("PUBLISHED");
+    expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/PACK_CONTENT_CHANGED/);
+    expect(await repo.findContentPackById("KP-2026-09-23-001")).toEqual(packBefore);
   });
 });
 
@@ -444,7 +498,6 @@ describe("B-012: importContentPack registers content_packs (DATA_MODEL §26b)", 
       const report = await importContentPack(repo, changedPack, registry, { mode: "commit", importedBy: "TEST" });
 
       expect(report.written).toBe(false);
-      expect(report.recordsCorrected).toBe(0);
       expect(report.recordsRejected[0].reasons.join(" ")).toMatch(/PACK_CONTENT_CHANGED/);
       expect(repo.records).toHaveLength(1);
       expect(repo.records[0]).toEqual(recordBefore);

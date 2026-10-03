@@ -70,18 +70,6 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
     this.records.push(...records);
   }
 
-  async updateRecordContent(
-    id: string,
-    content: Omit<KnowledgeRecord, "id" | "createdAt" | "updatedAt" | "packId" | "packRecordId" | "status" | "version">
-  ): Promise<void> {
-    const record = this.records.find((r) => r.id === id);
-    if (!record) throw new AppError("INTERNAL_ERROR", `updateRecordContent: record ${id} not found`);
-    if (record.status === "PUBLISHED") {
-      throw new AppError("INTERNAL_ERROR", `無法更新紀錄 ${id}：目前狀態為 PUBLISHED，不可用匯入覆寫已發布的歷史內容。`);
-    }
-    Object.assign(record, content, { status: "NEEDS_REVIEW" as const, version: null, updatedAt: new Date().toISOString() });
-  }
-
   async approveRecords(
     candidates: Array<{ id: string; expectedContentFingerprint: string }>
   ): Promise<{ approved: string[]; contentMismatched: string[] }> {
@@ -360,19 +348,19 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
         `PACK_CONTENT_CHANGED：內容包 ${input.packId} 已登錄且內容已變更，同一 packId 不可改內容；請使用新的 packId。`
       );
     }
+    // 同 migration 0020（D-16c）：importedAt／importedBy 保留首次登錄值；已 APPROVED／REJECTED 的內容包
+    // 保留既有審核人／時間，只有 NEEDS_REVIEW 階段（含升級為 APPROVED）可更新 review。
     const promoted = existing.status === "NEEDS_REVIEW" && input.status === "APPROVED";
-    if (promoted) existing.status = "APPROVED";
-    if (promoted || existing.status === input.status) {
+    if (promoted || (existing.status === "NEEDS_REVIEW" && input.status === "NEEDS_REVIEW")) {
+      existing.status = input.status as ContentPack["status"];
       existing.reviewedBy = input.reviewedBy;
       existing.reviewedAt = input.reviewedAt;
       existing.reviewDecision = input.reviewDecision;
       existing.intendedKnowledgeVersion = input.intendedKnowledgeVersion;
       existing.packFingerprint = input.packFingerprint;
+      existing.sourceRegistryVersion = input.sourceRegistryVersion;
+      existing.updatedAt = now;
     }
-    existing.sourceRegistryVersion = input.sourceRegistryVersion;
-    existing.importedAt = now;
-    existing.importedBy = input.importedBy;
-    existing.updatedAt = now;
     return promoted ? "promoted" : "unchanged";
   }
 

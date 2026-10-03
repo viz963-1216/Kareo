@@ -72,6 +72,8 @@ create unique index if not exists knowledge_record_review_events_cli_pack_uidx
 -- packId，不論這次宣告的 status。內容不變時只允許 NEEDS_REVIEW → APPROVED 升級，以及審核時可更新
 -- 的 review／intendedKnowledgeVersion（contracts/knowledge/README.md 第 22 行）；不允許從 APPROVED
 -- 退回。APPROVED 必須有完整內容包 review（content_packs_approved_review_check）。
+-- D-16c：imported_at／imported_by 是首次登錄（含回填）的時間與執行者，冪等重跑不覆寫；已 APPROVED／
+-- REJECTED 的內容包保留既有審核人／時間，只有 NEEDS_REVIEW 階段（含升級為 APPROVED 的那一次）可更新 review。
 create or replace function public.upsert_content_pack(payload jsonb)
 returns jsonb
 language plpgsql
@@ -113,7 +115,7 @@ begin
   end if;
 
   v_promoted := v_existing.status = 'NEEDS_REVIEW' and v_status = 'APPROVED';
-  if v_promoted or v_existing.status = v_status then
+  if v_promoted or (v_existing.status = 'NEEDS_REVIEW' and v_status = 'NEEDS_REVIEW') then
     update public.content_packs
     set status = v_status,
         reviewed_by = v_reviewed_by,
@@ -122,13 +124,7 @@ begin
         intended_knowledge_version = v_version,
         pack_fingerprint = v_pack_fingerprint,
         source_registry_version = v_source_registry_version,
-        imported_at = v_now,
-        imported_by = v_imported_by,
         updated_at = v_now
-    where id = v_id;
-  else
-    update public.content_packs
-    set source_registry_version = v_source_registry_version, imported_at = v_now, imported_by = v_imported_by, updated_at = v_now
     where id = v_id;
   end if;
   return jsonb_build_object('action', case when v_promoted then 'promoted' else 'unchanged' end);

@@ -11,10 +11,9 @@
 // B-012（Jerry 2026-10-03 審查第 3 點）：已登錄 content_packs 的內容包，同一 packId 內容有變一律拒絕
 // （DATA_MODEL §26b），上述「rejected or flagged」的要求以「拒絕」滿足；核准改用實際 CLI 入口
 // runApproveKnowledgePack（以內容包檔案內容算指紋），不再以資料庫目前內容當預期指紋。
-// 尚未登錄的舊資料仍走 B-008-r3 更正流程，見第二個案例。
+// D-16c：尚未登錄的舊資料同樣不可用同 ID 改內容（不再走 B-008-r3 更正草稿），見第二個案例。
 import { describe, it, expect } from "vitest";
 import { importContentPack, parseSourceRegistry } from "../src/services/knowledgeImportService.js";
-import { approveRecords } from "../src/services/knowledgeService.js";
 import { runApproveKnowledgePack } from "../src/scripts/approveKnowledgePack.js";
 import { InMemoryKnowledgeRepository } from "../src/repositories/inMemoryKnowledgeRepository.js";
 import type { RawContentPack } from "../src/types/index.js";
@@ -63,16 +62,19 @@ describe("B-008 approval must bind to the reviewed content", () => {
       .toEqual({ reimportSilentlySkipped: false, staleApprovedSummaries: [] });
   });
 
-  it("legacy, not registered: the corrected re-import updates the draft and only the corrected text can be approved", async () => {
+  it("legacy, not registered (D-16c): the corrected re-import is rejected too and approving the corrected pack approves nothing stale", async () => {
     const repo = new InMemoryKnowledgeRepository();
     await importContentPack(repo, pack("舊版摘要（有誤）", "a", "NEEDS_REVIEW"), REGISTRY, { mode: "commit", importedBy: "TEST" });
     repo.contentPacks.length = 0; // records imported before content_packs existed
+    const before = { ...repo.records[0] };
 
     const corrected = pack("修正後摘要", "b", "APPROVED");
     const reimport = await importContentPack(repo, corrected, REGISTRY, { mode: "commit", importedBy: "TEST" });
+    expect(reimport.written).toBe(false);
+    expect(reimport.recordsRejected[0].reasons.join(" ")).toMatch(/RECORD_CONTENT_CHANGED/);
+    expect(repo.records[0]).toEqual(before); // the old draft is not rewritten under the same ID
 
-    const dbRecords = await repo.findRecordsByPackId("KP-2026-09-25-901");
-    await approveRecords(repo, dbRecords.map((r) => ({ id: r.id, expectedContentFingerprint: r.contentFingerprint })));
+    await runApproveKnowledgePack(repo, corrected);
     const approvedRows = repo.records.filter((r) => r.status === "APPROVED");
 
     const stale = approvedRows.filter((r) => r.summary !== "修正後摘要" || r.contentHash !== "sha256:" + "b".repeat(64));
