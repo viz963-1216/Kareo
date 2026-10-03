@@ -160,4 +160,49 @@ describe("withdrawConsent", () => {
     expect(lead.contactPhone).toBeNull();
     expect(leadRepo.statusEvents[0]).toMatchObject({ leadId: "LEAD-1", toStatus: "CANCELLED", reasonCode: "CONSENT_WITHDRAWN", operatorId: null });
   });
+
+  it("CLOSED / CANCELLED Leads keep their status and get no event, but their contact fields are cleared immediately", async () => {
+    const leadRepo = new InMemoryLeadRepository();
+    const sessionRepo = new InMemorySessionRepository(leadRepo);
+    const consentRepo = new InMemoryConsentRepository(sessionRepo, leadRepo);
+    const created = await sessionRepo.createSession();
+    await createConsent(sessionRepo, consentRepo, checker, { sessionId: created.id, ...ACTIVE_VERSIONS, accepted: true }, created.sessionToken);
+    for (const [id, status, statusReason] of [
+      ["LEAD-CLOSED", "CLOSED", "CONNECTED"],
+      ["LEAD-CANCELLED", "CANCELLED", "USER_CANCELLED"],
+    ] as const) {
+      leadRepo.leads.push({
+        id,
+        sessionId: created.id,
+        assessmentId: "ASM-1",
+        recommendationId: "REC-1",
+        providerId: "PRV-1",
+        serviceType: "HOME_CARE",
+        contactName: "測試甲",
+        contactPhone: "0900000000",
+        contactConsentAt: created.createdAt,
+        idempotencyKey: `idem-${id}`,
+        status,
+        statusReason,
+        assignedOperatorId: null,
+        firstContactedAt: created.createdAt,
+        closedAt: created.createdAt,
+        createdAt: created.createdAt,
+        updatedAt: created.createdAt,
+      });
+    }
+
+    await withdrawConsent(sessionRepo, consentRepo, created.sessionToken);
+
+    const closed = leadRepo.leads.find((l) => l.id === "LEAD-CLOSED")!;
+    const cancelled = leadRepo.leads.find((l) => l.id === "LEAD-CANCELLED")!;
+    expect(closed.status).toBe("CLOSED");
+    expect(cancelled.status).toBe("CANCELLED");
+    expect(cancelled.statusReason).toBe("USER_CANCELLED");
+    for (const lead of [closed, cancelled]) {
+      expect(lead.contactName).toBeNull();
+      expect(lead.contactPhone).toBeNull();
+    }
+    expect(leadRepo.statusEvents).toHaveLength(0);
+  });
 });

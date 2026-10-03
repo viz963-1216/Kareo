@@ -95,10 +95,18 @@ grant select, insert, update, delete on table deletion_runs to service_role;
 -- 改為允許 operator_id 為 null 表示「系統自動」，查詢／顯示時可用 null 識別，不混入真人操作紀錄。
 alter table lead_status_events alter column operator_id drop not null;
 
+-- Lead 案件骨架（結案後 1 年）與健康評估資料（刪除請求 7 天／最後使用 90 天）的保存期限不同
+-- （PRIVACY_AND_RETENTION §2、§6.1，D-05）。leads 對 assessments／recommendation_runs 的外鍵會讓
+-- 評估資料在 Lead 存在期間無法刪除，因此移除這兩個外鍵：Lead 仍保留 assessment_id／
+-- recommendation_id 的值（DATA_MODEL §22「Lead 其餘欄位保留」），但評估資料可依自己的期限刪除。
+-- 建立 Lead 時的存在與歸屬檢查由 leadService 負責（assessment、recommendation run、provider 皆驗證）。
+alter table leads drop constraint if exists leads_assessment_id_fkey;
+alter table leads drop constraint if exists leads_recommendation_id_fkey;
+
 -- ===== 4. request_session_deletion：DELETE /api/v1/session（PRIVACY_AND_RETENTION §6.1）=====
 -- 同一交易內：session 只在目前 ACTIVE 時才能轉為 DELETION_REQUESTED（CAS，避免重複呼叫或跟
--- consent/withdraw 競爭）；同一 session 尚未終態的 Lead 立即標記 CANCELLED（USER_DELETED）並清空
--- 聯絡欄位（§6.1「Lead 的聯絡欄位立即清空」）。Assessment／CareNeedProfile／RecommendationRun
+-- consent/withdraw 競爭）；同一 session 尚未終態的 Lead 立即標記 CANCELLED（USER_DELETED），
+-- 且該 session 全部 Lead（含已 CLOSED／CANCELLED）的聯絡欄位立即清空（§6.1）。Assessment／CareNeedProfile／RecommendationRun
 -- 等資料的實際刪除由每日清理作業（run_deletion_cleanup）在 7 天後處理，不在這裡做。
 create or replace function public.request_session_deletion(payload jsonb)
 returns jsonb
@@ -142,6 +150,11 @@ begin
   )
   select count(*) into v_leads_cleared from events;
 
+  -- 已是 CLOSED／CANCELLED 的 Lead 不改狀態、不寫狀態事件（終態不可再轉移），但聯絡欄位同樣立即清空。
+  update public.leads
+  set contact_name = null, contact_phone = null, updated_at = v_now
+  where session_id = v_session_id and (contact_name is not null or contact_phone is not null);
+
   return jsonb_build_object('updated', true, 'leadsCancelled', v_leads_cleared);
 end;
 $$;
@@ -152,7 +165,7 @@ grant execute on function public.request_session_deletion(jsonb) to service_role
 -- ===== 5. withdraw_consent：POST /api/v1/consent/withdraw（PRIVACY_AND_RETENTION §3.3）=====
 -- 同一交易內：標記目前仍生效（withdrawn_at is null）的最新 Consent 為已撤回、session 轉
 -- DELETION_REQUESTED（進入跟 DELETE /session 相同的刪除流程，§3.3「session 資料進入刪除流程
--- （§6）」）、尚未終態的 Lead 立即標記 CANCELLED（CONSENT_WITHDRAWN）並清空聯絡欄位——跟
+-- （§6）」）、尚未終態的 Lead 立即標記 CANCELLED（CONSENT_WITHDRAWN）、全部 Lead 的聯絡欄位立即清空——跟
 -- request_session_deletion 的 Lead 處理方式一致，差別只在觸發原因與原因碼，因為兩者都代表
 -- 「使用者不再同意繼續處理資料」的同一種使用者意圖。
 create or replace function public.withdraw_consent(payload jsonb)
@@ -206,6 +219,11 @@ begin
   )
   select count(*) into v_leads_cleared from events;
 
+  -- 已是 CLOSED／CANCELLED 的 Lead 不改狀態、不寫狀態事件（終態不可再轉移），但聯絡欄位同樣立即清空。
+  update public.leads
+  set contact_name = null, contact_phone = null, updated_at = v_now
+  where session_id = v_session_id and (contact_name is not null or contact_phone is not null);
+
   return jsonb_build_object('updated', true, 'leadsCancelled', v_leads_cleared);
 end;
 $$;
@@ -222,8 +240,9 @@ grant execute on function public.withdraw_consent(jsonb) to service_role;
 --   1. session／評估資料（90 天）：涵蓋兩種到期來源——(a) 使用者主動刪除／撤回同意後 7 天
 --      （PRIVACY_AND_RETENTION §6.1，session 已轉 DELETION_REQUESTED）；(b) 一般 session 最後
 --      使用後 90 天未使用（status 仍是 ACTIVE，§2「匿名 session...最後使用後 90 天刪除」）。
---      兩者最終都刪除其「沒有建立過 Lead」的 Assessment／CareNeedProfile／RecommendationRun／
---      RecommendationItem（曾建立過 Lead 的保留，見下方 NOTE），並把 session 轉為 DELETED。
+--      兩者都刪除該 session 全部 Assessment／CareNeedProfile／RecommendationRun／
+--      RecommendationItem（不論是否建立過 Lead；Lead 案件骨架依項目 2、3 自己的期限處理），
+--      並把 session 轉為 DELETED。
 --   2. Lead 聯絡欄位（180 天）：已結案或取消滿 180 天、聯絡欄位尚未清空的 Lead（透過撤回／刪除
 --      觸發的取消已經在 request_session_deletion／withdraw_consent 當下立即清空，不會再被這裡
 --      重複計入）——清空 contact_name／contact_phone，Lead 本身（案件骨架）保留。
@@ -235,11 +254,6 @@ grant execute on function public.withdraw_consent(jsonb) to service_role;
 --
 -- dry_run=true 時只計算四項筆數，不實際刪除，也不寫入 deletion_runs（呼叫端的 CLI 另外決定是否
 -- 記錄 dry-run 的結果；本函式本身只負責「算」或「刪」，四項計數同時回傳供冪等驗證比對）。
---
--- NOTE（已知限制，詳見 PR Known Issues）：項目 1 曾建立過 Lead 的 Assessment／RecommendationRun
--- 因為 leads.recommendation_id 是 not null FK，在該 Lead 本身被項目 3 刪除之前不會被清理——這點
--- 會隨著項目 3 的執行自然解除（Lead 刪除後，下一輪項目 1 執行時該 Assessment 才會變成「沒有
--- 建立過 Lead」而符合清理條件），不需要額外處理。
 create or replace function public.run_deletion_cleanup(payload jsonb)
 returns jsonb
 language plpgsql
@@ -298,36 +312,21 @@ begin
 
   -- ---- 實際刪除：1. session／評估資料 ----
   if v_sessions_count > 0 then
-    with eligible_assessments as (
-      select a.id from public.assessments a
-      where a.session_id = any(v_session_ids)
-        and not exists (select 1 from public.leads l where l.assessment_id = a.id)
-    )
     delete from public.recommendation_items
     where recommendation_run_id in (
       select rr.id from public.recommendation_runs rr
-      where rr.assessment_id in (select id from eligible_assessments)
+      join public.assessments a on a.id = rr.assessment_id
+      where a.session_id = any(v_session_ids)
     );
 
-    with eligible_assessments as (
-      select a.id from public.assessments a
-      where a.session_id = any(v_session_ids)
-        and not exists (select 1 from public.leads l where l.assessment_id = a.id)
-    )
     delete from public.recommendation_runs
-    where assessment_id in (select id from eligible_assessments);
+    where assessment_id in (select a.id from public.assessments a where a.session_id = any(v_session_ids));
 
-    with eligible_assessments as (
-      select a.id from public.assessments a
-      where a.session_id = any(v_session_ids)
-        and not exists (select 1 from public.leads l where l.assessment_id = a.id)
-    )
     delete from public.care_need_profiles
-    where assessment_id in (select id from eligible_assessments);
+    where assessment_id in (select a.id from public.assessments a where a.session_id = any(v_session_ids));
 
     delete from public.assessments a
-    where a.session_id = any(v_session_ids)
-      and not exists (select 1 from public.leads l where l.assessment_id = a.id);
+    where a.session_id = any(v_session_ids);
 
     update public.sessions
     set status = 'DELETED', deleted_at = v_now, updated_at = v_now
@@ -366,3 +365,20 @@ $$;
 
 revoke execute on function public.run_deletion_cleanup(jsonb) from public, anon, authenticated;
 grant execute on function public.run_deletion_cleanup(jsonb) to service_role;
+
+-- ===== 7. public.rls_auto_enable()：收緊不必要的 EXECUTE（Supabase security advisor WARN）=====
+-- 雲端專案既有、非本專案 migration 建立的函式（RETURNS event_trigger，建立 public 表時自動啟用 RLS）。
+-- event trigger 由資料庫在 DDL 時觸發，不需要 anon／authenticated 的 EXECUTE；這裡只撤銷該權限，
+-- 不刪除函式、不變更 event trigger。函式不存在時（全新或本機資料庫）略過。
+do $$
+declare
+  v_fn regprocedure;
+begin
+  for v_fn in
+    select p.oid::regprocedure from pg_proc p
+    where p.proname = 'rls_auto_enable' and p.pronamespace = 'public'::regnamespace
+  loop
+    execute format('revoke execute on function %s from public, anon, authenticated', v_fn);
+  end loop;
+end;
+$$;

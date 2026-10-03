@@ -131,35 +131,47 @@ describe("deleteSession", () => {
     expect(leadRepo.statusEvents[0]).toMatchObject({ leadId: "LEAD-1", toStatus: "CANCELLED", reasonCode: "USER_DELETED", operatorId: null });
   });
 
-  it("does not touch a Lead that is already CLOSED or CANCELLED (terminal states stay untouched)", async () => {
+  it("CLOSED / CANCELLED Leads keep their status and get no event, but their contact fields are cleared immediately", async () => {
     const leadRepo = new InMemoryLeadRepository();
     const repo = new InMemorySessionRepository(leadRepo);
     const created = await createSession(repo);
-    leadRepo.leads.push({
-      id: "LEAD-CLOSED",
-      sessionId: created.id,
-      assessmentId: "ASM-1",
-      recommendationId: "REC-1",
-      providerId: "PRV-1",
-      serviceType: "HOME_CARE",
-      contactName: "陳小華",
-      contactPhone: "0911111111",
-      contactConsentAt: created.createdAt,
-      idempotencyKey: "idem-2",
-      status: "CLOSED",
-      statusReason: "CONNECTED",
-      assignedOperatorId: null,
-      firstContactedAt: created.createdAt,
-      closedAt: created.createdAt,
-      createdAt: created.createdAt,
-      updatedAt: created.createdAt,
-    });
+    for (const [id, status, statusReason] of [
+      ["LEAD-CLOSED", "CLOSED", "CONNECTED"],
+      ["LEAD-CANCELLED", "CANCELLED", "USER_CANCELLED"],
+    ] as const) {
+      leadRepo.leads.push({
+        id,
+        sessionId: created.id,
+        assessmentId: "ASM-1",
+        recommendationId: "REC-1",
+        providerId: "PRV-1",
+        serviceType: "HOME_CARE",
+        contactName: "測試甲",
+        contactPhone: "0900000000",
+        contactConsentAt: created.createdAt,
+        idempotencyKey: `idem-${id}`,
+        status,
+        statusReason,
+        assignedOperatorId: null,
+        firstContactedAt: created.createdAt,
+        closedAt: created.createdAt,
+        createdAt: created.createdAt,
+        updatedAt: created.createdAt,
+      });
+    }
 
     await deleteSession(repo, created.sessionToken);
 
-    const lead = leadRepo.leads.find((l) => l.id === "LEAD-CLOSED")!;
-    expect(lead.status).toBe("CLOSED");
-    expect(lead.contactName).toBe("陳小華");
+    const closed = leadRepo.leads.find((l) => l.id === "LEAD-CLOSED")!;
+    const cancelled = leadRepo.leads.find((l) => l.id === "LEAD-CANCELLED")!;
+    expect(closed.status).toBe("CLOSED");
+    expect(closed.statusReason).toBe("CONNECTED");
+    expect(cancelled.status).toBe("CANCELLED");
+    expect(cancelled.statusReason).toBe("USER_CANCELLED");
+    for (const lead of [closed, cancelled]) {
+      expect(lead.contactName).toBeNull();
+      expect(lead.contactPhone).toBeNull();
+    }
     expect(leadRepo.statusEvents).toHaveLength(0);
   });
 });

@@ -29,17 +29,19 @@
 
 - `check_rate_limit`：同一 key 在視窗內正確計數與封鎖、視窗過期後重置、不同 key 互不影響。
 - `request_session_deletion`／`withdraw_consent`：session 轉 `DELETION_REQUESTED`（CAS，重複呼叫
-  安全）、同一 session 的未終態 Lead 立即 `CANCELLED` 並清空聯絡欄位、`lead_status_events` 寫入
-  `operator_id = null`。
+  安全）、同一 session 的未終態 Lead 立即 `CANCELLED`、`lead_status_events` 寫入
+  `operator_id = null`；該 session **全部** Lead（含已 `CLOSED`／`CANCELLED`）的聯絡欄位立即清空，
+  終態 Lead 不改狀態、不寫事件（B-011b-r3 修正 Jerry P1-2）。
 - `run_deletion_cleanup`（D-05 四個時鐘，2026-10-03 Jerry 確認）：
   1. Session：`DELETION_REQUESTED` 滿 7 天（明確刪除請求）與 `ACTIVE` 閒置滿 90 天（一般未使用到期）
-     兩者聯集，7 天／90 天邊界內外皆驗證。
+     兩者聯集，7 天／90 天邊界內外皆驗證。該 session 的 Assessment／CareNeedProfile／
+     RecommendationRun／RecommendationItem **不論是否建立過 Lead** 都在此時刪除（B-011b-r3 修正
+     Jerry P1-1：已移除 `leads` 對 `assessments`／`recommendation_runs` 的外鍵，Lead 保留 id 值）。
   2. Lead 聯絡欄位：`CLOSED`／`CANCELLED` 且 `closed_at` 滿 180 天即清空 `contact_name`／
      `contact_phone`，Lead 列本身保留；已清空的不重複計數（冪等）。
   3. Lead 整筆刪除：`CLOSED`／`CANCELLED` 且 `closed_at` 滿 1 年，先刪子表
      （`lead_idempotency_records`／`lead_access_events`／`lead_status_events`）再刪 `leads` 本體
-     （無 `ON DELETE CASCADE`，需手動依序刪除）；此規則生效後，原本「曾建立 Lead 的 Assessment／
-     RecommendationRun 因 FK 被保留」的限制會在 1 年後自動解除（見 migration 內 NOTE）。
+     （無 `ON DELETE CASCADE`，需手動依序刪除）。
   4. Consent 整筆刪除：`accepted_at` 滿 3 年；precise boundary 另以 ±10 天的獨立 scratch script
      確認（避免天數換算誤差，見 PR 說明）。
   - dry-run 全部四個時鐘皆只回傳計數、不寫入／不異動；重跑（同一批已處理資料）皆正確回 0
@@ -64,16 +66,18 @@
 
 ## 3. 已知限制 / Known Issues（詳見 PR）
 
-- （已於本輪解除）原本「`run_deletion_cleanup` 不刪除曾建立過 Lead 的 Assessment／RecommendationRun」
-  的限制，隨 D-05 新增的 1 年 Lead 整筆刪除時鐘生效後自動解除：Lead 列滿 1 年即整筆刪除，其
-  `recommendation_id` FK 不再阻擋 RecommendationRun 的後續清理。
-- （已於本輪解除）原本「一般 session 90 天未使用到期的清理不在範圍內」的限制，已以 D-05 的
-  90 天閒置 `ACTIVE` session 時鐘補上。
-- SQL 層行為驗證未留存於 repo（見 §2 說明），下一輪建議隨 B-012-r3 的 `@electric-sql/pglite` 依賴
-  一起補上常態測試。
-- `public.rls_auto_enable()`（Supabase security advisor WARN）：確認為 `RETURNS event_trigger`、
-  `SECURITY DEFINER` 的自動 RLS 啟用函式，非可讀業務資料的 RPC；尚待另一輪收斂 `anon`／
-  `authenticated` 不必要的 `EXECUTE` 權限（保留 event trigger 本身），本輪未處理。
+- （B-011b-r3 修正）r2 曾寫「曾建立 Lead 的評估資料會在 Lead 滿 1 年刪除後自動清理」，經 Jerry
+  2026-10-03 重現證明不成立（session 已轉 DELETED 後不會再被選到，評估資料永久殘留）。r3 已改為
+  評估資料依 7 天／90 天期限直接刪除，與 Lead 案件骨架的 1 年期限各自獨立。
+- **待 J-002 補登規格**：DATA_MODEL §22 Lead 的 `assessmentId`／`recommendationId` 現為不帶外鍵的
+  歷史參考值，對應的評估資料可能已依期限刪除。
+- **SQL 層行為驗證未留存於 repo**：需要 `apps/api/package.json` 加入 `@electric-sql/pglite`
+  （GIT_RULES §9 共用關鍵檔）。B-012（#48）已加入同一套件與版本，待 #48 合併、本分支同步 staging
+  後補上常態測試；或由 Jerry 授權在本 PR 先加入。
+- **migration 改名 0021 待 #48 合併**：staging 尚無 B-012 的 0019／0020，現在改名會使
+  `verify-db.mjs` M1 判定缺號失敗。
+- `public.rls_auto_enable()`：r3 已撤銷 `anon`／`authenticated` 的 `EXECUTE`（函式存在時才執行，
+  不刪函式、不動 event trigger）。本機以替身函式驗證；雲端 security advisor 重跑仍待 J 確認。
 
 ## 4. 操作指令
 

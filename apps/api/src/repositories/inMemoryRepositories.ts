@@ -42,7 +42,16 @@ const OPEN_LEAD_STATUSES = ["NEW", "CONTACTED", "ACCEPTED"];
 function cancelOpenLeadsForSession(leadRepo: InMemoryLeadRepository, sessionId: string, reasonCode: string, now: string): number {
   let cancelled = 0;
   for (const lead of leadRepo.leads) {
-    if (lead.sessionId !== sessionId || !OPEN_LEAD_STATUSES.includes(lead.status)) continue;
+    if (lead.sessionId !== sessionId) continue;
+    if (!OPEN_LEAD_STATUSES.includes(lead.status)) {
+      // 終態 Lead 不改狀態、不寫事件，但聯絡欄位同樣立即清空（同 migration 的 SQL 行為）。
+      if (lead.contactName !== null || lead.contactPhone !== null) {
+        lead.contactName = null;
+        lead.contactPhone = null;
+        lead.updatedAt = now;
+      }
+      continue;
+    }
     const fromStatus = lead.status;
     lead.status = "CANCELLED";
     lead.statusReason = reasonCode;
