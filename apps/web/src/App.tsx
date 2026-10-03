@@ -9,6 +9,7 @@ import { AssessmentPage, type AssessmentForm, type AssessmentSubmission } from "
 import { AdminKnowledgePage } from "./pages/AdminKnowledgePage";
 import { ConsentPage } from "./pages/ConsentPage";
 import { HomePage } from "./pages/HomePage";
+import { KnowledgeInfoPage } from "./pages/KnowledgeInfoPage";
 import { LeadPage } from "./pages/LeadPage";
 import { ResultPage, type SessionClosure } from "./pages/ResultPage";
 import { RecommendationPage } from "./pages/RecommendationPage";
@@ -78,6 +79,7 @@ function AppRoutes() {
         <Route path="/admin/knowledge" element={<AdminKnowledgePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/info" element={<KnowledgeInfoPage />} />
         <Route path="/consent" element={<ConsentPage onAccept={acceptConsent} />} />
         <Route
           path="/assessment"

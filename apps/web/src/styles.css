@@ -30,6 +30,20 @@
 .admin-list .panel { margin-top: 0; }
 .admin-list h3 { margin-top: 0; overflow-wrap: anywhere; }
 .admin-list a { color: #17603d; font-weight: 700; overflow-wrap: anywhere; }
+.home-secondary { margin-top: 1.5rem; padding: 1.25rem; border: 1px solid #d8e1d8; border-radius: .75rem; background: #fff; }
+.home-secondary h2 { margin-top: 0; }
+.knowledge-filter { margin-top: 1.5rem; }
+.knowledge-list { display: grid; gap: 1rem; margin-top: 1.5rem; }
+.knowledge-card { padding: 1.25rem; border: 1px solid #d8e1d8; border-radius: .75rem; background: #fff; box-shadow: 0 .25rem .9rem rgba(23, 96, 61, .07); overflow-wrap: anywhere; }
+.knowledge-card h2 { margin-top: .2rem; }
+.knowledge-meta { margin: 0; color: #17603d; font-weight: 700; }
+.knowledge-facts { display: grid; gap: .65rem; margin: 1rem 0 0; }
+.knowledge-facts div { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: .75rem; }
+.knowledge-facts dt { font-weight: 700; color: #4d5b52; }
+.knowledge-facts dd { margin: 0; }
+.knowledge-facts a { color: #17603d; font-weight: 700; }
+.pagination { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
+.knowledge-next-step { margin-top: 2rem; }
 .admin-facts { display: grid; gap: .65rem; margin: 0; }
 .admin-facts div { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: .75rem; }
 .admin-facts dt { color: #4d5b52; font-weight: 700; }
@@ -44,4 +58,6 @@
 @media (max-width: 42rem) {
   .admin-heading-actions { align-items: stretch; flex-direction: column; }
   .admin-facts div { grid-template-columns: 1fr; gap: .15rem; }
+  .knowledge-facts div { grid-template-columns: 1fr; gap: .15rem; }
+  .pagination { align-items: stretch; flex-direction: column; text-align: center; }
 }
