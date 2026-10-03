@@ -4,6 +4,7 @@ import { api, isSessionProblem } from "../api";
 import { DraftBadge } from "../components/DraftBadge";
 import { FormalAssessmentReminder } from "../components/FormalAssessmentReminder";
 import { SessionProblem } from "../components/SessionProblem";
+import { KAREOCAR_URL } from "../externalServices";
 import { useSession } from "../session/SessionContext";
 import { useMockState } from "../session/useMockState";
 import type { AssessmentLocation, AssessmentResponse, CareNeed } from "../types/api";
@@ -16,8 +17,6 @@ import {
 } from "../summary/caseManagerSummary";
 
 const labels: Record<CareNeed, string> = { HOME_CARE: "居家照顧", HOME_MEDICAL_NURSING: "居家醫療與護理", ASSISTIVE_DEVICE: "輔具", TRANSPORTATION: "長照交通" };
-const KAREOCAR_URL = "https://kareocar.netlify.app/";
-
 interface Props {
   result: AssessmentResponse | null;
   location: AssessmentLocation | null;
