@@ -14,3 +14,10 @@ export function getIdempotencyKeyHeader(event: NetlifyEventHeaders): string | un
   const headers = event.headers ?? {};
   return headers["idempotency-key"] ?? headers["Idempotency-Key"];
 }
+
+// TASK-B-012：/api/v1/admin/** 一律以 X-Kareo-Admin-Token 驗證，不使用 X-Kareo-Session-Token
+// （API_CONTRACT §26.1、§3.1）。
+export function getAdminTokenHeader(event: NetlifyEventHeaders): string | undefined {
+  const headers = event.headers ?? {};
+  return headers["x-kareo-admin-token"] ?? headers["X-Kareo-Admin-Token"];
+}

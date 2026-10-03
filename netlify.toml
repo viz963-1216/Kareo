@@ -69,6 +69,66 @@
   force = true
 
 [[redirects]]
+  from = "/api/v1/admin/session"
+  to = "/.netlify/functions/adminSession"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/status"
+  to = "/.netlify/functions/adminKnowledgeStatus"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/changes"
+  to = "/.netlify/functions/adminKnowledgeChanges"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/changes/:changeId/dismiss"
+  to = "/.netlify/functions/adminKnowledgeChangeDismiss"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/records"
+  to = "/.netlify/functions/adminKnowledgeRecords"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/records/:recordId/decision"
+  to = "/.netlify/functions/adminKnowledgeRecordDecision"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/publish-preview"
+  to = "/.netlify/functions/adminKnowledgePublishPreview"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/publish"
+  to = "/.netlify/functions/adminKnowledgePublish"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/restorable-versions"
+  to = "/.netlify/functions/adminKnowledgeRestorableVersions"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/withdraw"
+  to = "/.netlify/functions/adminKnowledgeWithdraw"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/*"
   to = "/api-not-found.json"
   status = 404

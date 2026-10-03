@@ -1,6 +1,10 @@
+import { randomUUID } from "node:crypto";
 import { getSupabaseClient } from "./supabaseClient.js";
 import type { KnowledgeRepository, PublishVersionInput } from "./types.js";
 import type {
+  ContentPack,
+  ContentPackUpsertAction,
+  ContentPackUpsertInput,
   CrawlerRun,
   CrawlerSnapshot,
   KnowledgeAuthority,
@@ -141,46 +145,6 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
     const client = getSupabaseClient();
     const { error } = await client.from("knowledge_records").insert(records.map(toDbRecord));
     if (error) throw new AppError("INTERNAL_ERROR", "無法匯入 Knowledge 紀錄，請稍後再試。", { cause: error });
-  }
-
-  // B-008-r3：只更新內容欄位，強制 status=NEEDS_REVIEW、version=null；WHERE 排除 status='PUBLISHED'
-  // 當作最後一道防線（呼叫端理應已經檢查過，但不依賴呼叫端單一層防護）。
-  async updateRecordContent(
-    id: string,
-    content: Omit<KnowledgeRecord, "id" | "createdAt" | "updatedAt" | "packId" | "packRecordId" | "status" | "version">
-  ): Promise<void> {
-    const client = getSupabaseClient();
-    const { error, count } = await client
-      .from("knowledge_records")
-      .update(
-        {
-          source_id: content.sourceId,
-          title: content.title,
-          category: content.category,
-          jurisdiction: content.jurisdiction,
-          source_url: content.sourceUrl,
-          published_at: content.publishedAt,
-          effective_from: content.effectiveFrom,
-          effective_to: content.effectiveTo,
-          fetched_at: content.fetchedAt,
-          last_verified_at: content.lastVerifiedAt,
-          content_hash: content.contentHash,
-          content_fingerprint: content.contentFingerprint,
-          raw_text: content.rawText,
-          summary: content.summary,
-          rule_data: content.ruleData,
-          status: "NEEDS_REVIEW",
-          version: null,
-          updated_at: nowTaipeiISOString(),
-        },
-        { count: "exact" }
-      )
-      .eq("id", id)
-      .neq("status", "PUBLISHED");
-    if (error) throw new AppError("INTERNAL_ERROR", "無法更新 Knowledge 紀錄內容，請稍後再試。", { cause: error });
-    if (count === 0) {
-      throw new AppError("INTERNAL_ERROR", `無法更新紀錄 ${id}：目前狀態為 PUBLISHED，不可用匯入覆寫已發布的歷史內容。`);
-    }
   }
 
   // Jerry 委託修正第二輪（2026-09-27）：核准一律是單一 UPDATE，WHERE 同時檢查 status='NEEDS_REVIEW'
@@ -481,5 +445,92 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
         authority: (source as { authority?: KnowledgeAuthority } | null)?.authority ?? null,
       };
     });
+  }
+
+  async upsertContentPack(input: ContentPackUpsertInput): Promise<ContentPackUpsertAction> {
+    const client = getSupabaseClient();
+    const { data, error } = await client.rpc("upsert_content_pack", {
+      payload: { ...input, now: nowTaipeiISOString() },
+    });
+    if (error) {
+      if (error.message?.includes("PACK_CONTENT_CHANGED")) {
+        throw new AppError(
+          "VALIDATION_ERROR",
+          `PACK_CONTENT_CHANGED：內容包 ${input.packId} 已登錄且內容已變更，同一 packId 不可改內容；請使用新的 packId。`,
+          { cause: error }
+        );
+      }
+      throw new AppError("INTERNAL_ERROR", "無法寫入內容包中繼資料，請稍後再試。", { cause: error });
+    }
+    return (data as { action: ContentPackUpsertAction }).action;
+  }
+
+  async findContentPackById(packId: string): Promise<ContentPack | null> {
+    const client = getSupabaseClient();
+    const { data, error } = await client
+      .from("content_packs")
+      .select(
+        "id, format_version, intended_knowledge_version, source_registry_version, status, reviewed_by, reviewed_at, review_decision, pack_fingerprint, records_fingerprint, imported_at, imported_by, created_at, updated_at"
+      )
+      .eq("id", packId)
+      .maybeSingle();
+    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢內容包，請稍後再試。", { cause: error });
+    if (!data) return null;
+    return {
+      id: data.id,
+      formatVersion: data.format_version,
+      intendedKnowledgeVersion: data.intended_knowledge_version,
+      sourceRegistryVersion: data.source_registry_version,
+      status: data.status,
+      reviewedBy: data.reviewed_by,
+      reviewedAt: data.reviewed_at,
+      reviewDecision: data.review_decision,
+      packFingerprint: data.pack_fingerprint,
+      recordsFingerprint: data.records_fingerprint,
+      importedAt: data.imported_at,
+      importedBy: data.imported_by,
+      createdAt: data.created_at,
+      updatedAt: data.updated_at,
+    };
+  }
+
+  async backfillRecordReviewEvent(input: {
+    recordId: string;
+    reviewedBy: string;
+    reviewedAt: string;
+    reason: string | null;
+    contentFingerprint: string;
+  }): Promise<{ inserted: boolean }> {
+    const client = getSupabaseClient();
+    const { data, error } = await client.rpc("backfill_record_review_event", {
+      payload: { ...input, eventId: `KRRE-${randomUUID()}`, now: nowTaipeiISOString() },
+    });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法回填審核紀錄，請稍後再試。", { cause: error });
+    return { inserted: (data as { inserted: boolean }).inserted };
+  }
+
+  async approveOrRejectRecordWithReview(input: {
+    recordId: string;
+    decision: "APPROVED" | "REJECTED";
+    reason: string | null;
+    expectedContentFingerprint: string;
+    reviewedBy: string;
+    source: import("../types/index.js").KnowledgeRecordReviewSource;
+  }): Promise<{ updated: boolean }> {
+    const client = getSupabaseClient();
+    const { data, error } = await client.rpc("approve_or_reject_knowledge_record", {
+      payload: {
+        recordId: input.recordId,
+        decision: input.decision,
+        reason: input.reason,
+        expectedContentFingerprint: input.expectedContentFingerprint,
+        reviewedBy: input.reviewedBy,
+        source: input.source,
+        reviewEventId: `${input.recordId}-${input.source}-${Date.now()}`,
+        now: nowTaipeiISOString(),
+      },
+    });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法核准／退回紀錄，請稍後再試。", { cause: error });
+    return { updated: Boolean((data as { updated?: boolean } | null)?.updated) };
   }
 }

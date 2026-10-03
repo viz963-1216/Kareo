@@ -415,9 +415,16 @@ export interface KnowledgeVersion {
   createdBy: string;
   approvedBy: string | null;
   notes: string | null;
+  // migration 0007 欄位，TASK-B-012 之前沒有任何呼叫端需要區分「一般發布造成的 ARCHIVED（被取代）」
+  // 跟「操作者主動撤回造成的 ARCHIVED」，故未曝露於此型別。B-012 的可恢復版本清單
+  // （API_CONTRACT §26.10）需要這個區分：曾被撤回的版本不得再被選為恢復目標。
+  withdrawnAt: string | null;
+  withdrawnBy: string | null;
+  withdrawalReason: string | null;
 }
 
-export type KnowledgeChangeStatus = "NEEDS_REVIEW" | "APPROVED" | "REJECTED" | "CONFLICT";
+// DISMISSED（v0.2.3，D-16a）：管理頁確認「來源有變但不影響已審核內容」，見 API_CONTRACT §26.7。
+export type KnowledgeChangeStatus = "NEEDS_REVIEW" | "APPROVED" | "REJECTED" | "CONFLICT" | "DISMISSED";
 
 export interface KnowledgeChange {
   id: string;
@@ -610,7 +617,209 @@ export interface ContentPackImportReport {
   packId: string | null;
   recordsValid: number;
   recordsRejected: Array<{ recordId: string | null; reasons: string[] }>;
-  // B-008-r3（J-003 H-2）：同 (packId, recordId) 但內容實質改變時更新既有紀錄並強制回 NEEDS_REVIEW
-  // 的筆數，跟「全新匯入」的 recordsValid 分開統計，方便操作者知道這次匯入實際做了什麼。
-  recordsCorrected: number;
+}
+
+// ===== Admin Knowledge Review（TASK-B-012，依 docs/API_CONTRACT.md §26、docs/DATA_MODEL.md 第 41 節）=====
+
+// 15 分鐘管理 token，只存雜湊；跟 §3.1 的一般使用者 Session Token 是分開的憑證體系
+// （ARCHITECTURE §20.8、API_CONTRACT §26.1），沒有 lastSeenAt／閒置延長的概念。
+export interface AdminSession {
+  id: string;
+  operatorId: string;
+  expiresAt: string;
+  createdAt: string;
+}
+
+export interface CreatedAdminSession extends AdminSession {
+  adminToken: string;
+}
+
+export type AdminAuditAction =
+  | "KNOWLEDGE_RECORD_APPROVED"
+  | "KNOWLEDGE_RECORD_REJECTED"
+  | "KNOWLEDGE_CHANGE_DISMISSED"
+  | "KNOWLEDGE_VERSION_PUBLISHED"
+  | "KNOWLEDGE_VERSION_WITHDRAWN";
+
+export type AdminAuditTargetType = "KNOWLEDGE_RECORD" | "KNOWLEDGE_CHANGE" | "KNOWLEDGE_VERSION";
+
+export interface AdminAuditEvent {
+  id: string;
+  operatorId: string;
+  action: AdminAuditAction;
+  targetType: AdminAuditTargetType;
+  targetId: string;
+  reason: string | null;
+  detail: Record<string, unknown> | null;
+  createdAt: string;
+}
+
+// 依 API_CONTRACT §26.3。
+export interface AdminKnowledgeStatus {
+  publishedVersion: string | null;
+  publishedAt: string | null;
+  lastCrawlerRun: { status: CrawlerRunStatus; startedAt: string; finishedAt: string | null } | null;
+}
+
+// 依 API_CONTRACT §26.4。
+export interface AdminKnowledgeChangeSummary {
+  id: string;
+  sourceId: string;
+  detectedAt: string;
+  previousHash: string | null;
+  currentHash: string;
+  diffSummary: string;
+  status: KnowledgeChangeStatus;
+}
+
+// 依 API_CONTRACT §26.5。
+export interface AdminKnowledgeRecordSummary {
+  id: string;
+  packId: string;
+  recordId: string;
+  title: string;
+  jurisdiction: Jurisdiction;
+  category: KnowledgeCategory;
+  sourceUrl: string;
+  summary: string;
+  effectiveFrom: string;
+  effectiveTo: string | null;
+  contentFingerprint: string;
+  status: KnowledgeRecordStatus;
+}
+
+export interface AdminReviewInfo {
+  decision: "APPROVED" | "REJECTED" | "DISMISSED";
+  reason: string;
+  reviewedBy: string;
+  reviewedAt: string;
+}
+
+// 依 API_CONTRACT §26.10。
+export interface RestorableVersionSummary {
+  versionId: string;
+  publishedAt: string;
+  approvedBy: string | null;
+  notes: string | null;
+  recordCount: number;
+}
+
+export interface RestorableVersionsResponse {
+  currentVersion: { versionId: string; publishedAt: string; recordCount: number } | null;
+  versions: RestorableVersionSummary[];
+}
+
+// 依 API_CONTRACT §26.11。
+export interface AdminWithdrawResult {
+  withdrawnVersionId: string;
+  republishedVersionId: string | null;
+  withdrawnAt: string;
+  withdrawnBy: string;
+  reason: string;
+}
+
+// ===== 內容包持久化（TASK-B-012-r3，Jerry 2026-10-01 指示 2）=====
+
+export type ContentPackStatus = "NEEDS_REVIEW" | "APPROVED" | "REJECTED";
+
+// DATA_MODEL §26b：內容包層級的核准與匯入證據都要持久化，不能只信 status 字串。
+// recordsFingerprint 是本表額外欄位（§26b「至少包含」），只含逐筆內容，用來判斷同一 packId 內容是否改變。
+export interface ContentPack {
+  id: string;
+  formatVersion: string;
+  intendedKnowledgeVersion: string | null;
+  sourceRegistryVersion: string | null;
+  status: ContentPackStatus;
+  reviewedBy: string | null;
+  reviewedAt: string | null;
+  reviewDecision: string | null;
+  packFingerprint: string;
+  recordsFingerprint: string;
+  importedAt: string;
+  importedBy: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ContentPackUpsertInput {
+  packId: string;
+  formatVersion: string;
+  intendedKnowledgeVersion: string | null;
+  sourceRegistryVersion: string | null;
+  status: string;
+  reviewedBy: string | null;
+  reviewedAt: string | null;
+  reviewDecision: string | null;
+  packFingerprint: string;
+  recordsFingerprint: string;
+  importedBy: string;
+}
+
+// 同一 packId 重新登錄時的結果（同 migration 0020 upsert_content_pack 的回傳）。
+export type ContentPackUpsertAction = "inserted" | "promoted" | "unchanged";
+
+export type KnowledgeRecordReviewSource = "CLI_PACK" | "ADMIN_API";
+
+// 逐筆審核證據：CLI（approveKnowledgePack）與管理頁核准共用，只能新增。
+export interface KnowledgeRecordReviewEvent {
+  id: string;
+  knowledgeRecordId: string;
+  decision: "APPROVED" | "REJECTED";
+  reason: string | null;
+  reviewedBy: string;
+  reviewedAt: string;
+  contentFingerprint: string;
+  source: KnowledgeRecordReviewSource;
+  createdAt: string;
+}
+
+export type PublishPlanBlockerCode =
+  | "NO_APPROVED_RECORDS"
+  | "ALL_CANDIDATES_EXPIRED"
+  | "PACK_NOT_APPROVED"
+  | "TARGET_VERSION_INVALID"
+  | "TARGET_VERSION_CONFLICT"
+  | "VERSION_ALREADY_EXISTS";
+
+export interface PublishPlanBlocker {
+  code: PublishPlanBlockerCode;
+  message: string;
+}
+
+export interface PublishPlanNewRecord {
+  id: string;
+  packId: string;
+  recordId: string;
+  title: string;
+  jurisdiction: Jurisdiction;
+  effectiveFrom: string;
+  effectiveTo: string | null;
+}
+
+// 依 API_CONTRACT §26.8，由 public.compute_publish_plan() 算出（預覽與發布共用同一套計算）。
+export interface PublishPlan {
+  canPublish: boolean;
+  targetVersionId: string | null;
+  currentVersionId: string | null;
+  publishDate: string;
+  publishedRecordCount: number;
+  carriedForwardCount: number;
+  totalRecordCount: number;
+  supersededRecordCount: number;
+  excludedRecordCount: number;
+  newRecords: PublishPlanNewRecord[];
+  blockers: PublishPlanBlocker[];
+  previewToken: string | null;
+  generatedAt: string;
+}
+
+// 依 API_CONTRACT §26.9。
+export interface AdminPublishResult {
+  versionId: string;
+  publishedAt: string;
+  publishedRecordCount: number;
+  carriedForwardCount: number;
+  totalRecordCount: number;
+  supersededRecordCount: number;
+  excludedRecordCount: number;
 }
