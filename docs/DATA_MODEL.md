@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — Data Model
 
-Version: v0.2.5（J-002-r8，2026-10-01；§17 `resourceCategory`（輔具資源中心）、§19b ProviderContractRegion（特約縣市），D-19）  
+Version: v0.2.6（J-002-r13，2026-10-03；D-05a 保存期限與案件關聯、D-16c 內容包身分與匯入操作者）
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
@@ -70,6 +70,8 @@ RecommendationItem
 ↓
 Lead
 ```
+
+上述箭頭是建立媒合時的業務來源，不代表評估資料必須與案件保存同樣久。Lead 的 `assessmentId`／`recommendationId` 保存來源編號，不設指向 Assessment／RecommendationRun 的外鍵（§22，D-05a）；其他關聯不因此移除。
 
 ---
 
@@ -547,6 +549,9 @@ v0.2 補充：
 - `idempotencyKey`：前端送出時帶的 `Idempotency-Key`；`(sessionId, idempotencyKey)` 唯一。
 - `statusReason`：終態原因碼，見 LEAD_OPERATIONS §3。
 - `contactName`／`contactPhone`：刪除或保存期限到期時清空為 null，Lead 其餘欄位保留。
+- **保存期限分離（D-05a，2026-10-03）**：評估、CareNeedProfile、RecommendationRun／Item 依 PRIVACY_AND_RETENTION §2、§6 清理，不得因 Lead 存在而延長。Lead 案件骨架與其狀態／存取／冪等子表在結案或取消後 1 年清理；聯絡欄位在 180 天到期或自助刪除／撤回時先清空。
+- `assessmentId`／`recommendationId` 仍為必填來源編號，但不建立指向健康評估資料的外鍵。移除的範圍只限 `leads_assessment_id_fkey`／`leads_recommendation_id_fkey`；不移除 session、Provider 等其他外鍵。
+- 建立 Lead 時仍須驗證有效 session、同意、評估與推薦存在且屬於本人、Provider／服務符合推薦（API_CONTRACT §12）。健康資料已清理後，內部查件可讀案件骨架，不得重建已刪除的健康內容或因來源資料不存在而失敗。
 - 狀態轉移規則見 LEAD_OPERATIONS §3，每次轉移寫入 LeadStatusEvent（§37）。
 
 Lead Status：
@@ -723,6 +728,7 @@ sourceRegistryVersion
 status                    NEEDS_REVIEW / APPROVED / REJECTED（內容包層級）
 reviewedBy / reviewedAt / reviewDecision   取自內容包的 review
 packFingerprint           sha256：依 recordId 排序的 (recordId, contentFingerprint)，加上 intendedKnowledgeVersion、status
+recordsFingerprint        sha256：依 recordId 排序的 (recordId, contentFingerprint)，不含版號／狀態
 importedAt / importedBy / updatedAt
 ```
 
@@ -732,6 +738,10 @@ importedAt / importedBy / updatedAt
 - 內容包 `APPROVED` 只能經由匯入「已由 Jerry 在 PR 核准（`status = APPROVED` 且有內容包層級 `review`）」的檔案取得；管理頁不提供整包核准。
 - 同一 `packId` 重新匯入：只有每筆 `contentFingerprint` 都不變時，才可把狀態由 `NEEDS_REVIEW` 升為 `APPROVED`；內容有變一律拒絕，必須使用新 `packId`。
 - 既有資料以回填指令登錄：讀 `contracts/knowledge/packs/*.json`，逐筆比對資料庫內容指紋，一致才登錄。
+- `recordsFingerprint` 用於內容不變的比較；`packFingerprint` 仍包含版號與狀態，不以刪除雜湊輸入來允許狀態升級。匯入與回填使用相同紀錄集合與算法（包含內容包的 REJECTED 紀錄）。
+- **匯入操作者（D-16c）**：`importedBy` 保存實際授權操作者的 InternalOperator ID，不是 `CLI:importKnowledgePack` 等程式名稱、內容審核人或任意預設字串。寫入／回填必須提供身分並重用既有個人密鑰及 `KNOWLEDGE_PUBLISHER` 角色驗證；密鑰不進參數、log 或 GitHub。離線驗證不得虛構操作者或寫入稽核。
+- `importedAt`／`importedBy` 是首次登錄（含本次回填）的時間與執行者；冪等重跑保留原值。回填不冒充歷史匯入人／時間；逐筆 review 的人與時間仍取原核准證據（§26c）。
+- 已提交內容的不可變規則亦適用尚未登錄的舊包：同一 packId／recordId 的內容不同時拒絕／跳過並列出需人工處理的差異，不走「先更正草稿、再核准」的繞行路徑。只允許不改內容的既有指紋格式相容／回填；實際內容修正使用新批次與新紀錄，保留舊核准／發布證據（contracts/knowledge/README §1、§3）。
 
 ## 26c. KnowledgeRecordReview / 逐筆審核紀錄（v0.2.4，D-16b）
 
@@ -1013,6 +1023,8 @@ createdAt
 
 `note` 不得包含姓名、電話或健康細節。
 
+`operatorId` 可為 null，僅表示撤回同意／自助刪除觸發的系統自動取消（`CONSENT_WITHDRAWN`／`USER_DELETED`）。真人更新仍須驗證並記錄其 InternalOperator ID，不使用虛構共用系統帳號。系統只取消未終態 Lead；已 CLOSED／CANCELLED 不改狀態、不追加取消事件，但聯絡欄位仍須清空。
+
 ---
 
 # 38. LeadAccessEvent / 聯絡資料存取紀錄（v0.2）
@@ -1052,11 +1064,15 @@ dryRun
 status
 sessionsDeleted
 leadsContactCleared
+leadsDeleted
+consentsDeleted
 errorMessage
 operatorId
 ```
 
 status：`RUNNING`／`SUCCESS`／`FAILED`。`errorMessage` 不得包含個資。
+
+`leadsDeleted`／`consentsDeleted` 分別是案件整筆與同意證據清理計數（D-05a）。各類計數可能重疊，例如已滿 1 年且仍有聯絡欄位的案件可同時計入清空與整筆刪除，不可相加當作不重複人數。dry-run 不寫入資料／執行紀錄；實際執行留結果，已清理資料重跑不重複計數。Session 現有狀態墓碑不能當成健康資料實體刪除證據；墓碑的必要欄位與最終保存期限仍須在 D-05 審閱確認，不因此授權永久保留憑證或關聯資料。
 
 ---
 

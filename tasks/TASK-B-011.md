@@ -1,8 +1,8 @@
 # TASK-B-011 — Session Ownership + Privacy + API Abuse Controls
 
 Owner: Engineer B  
-Status: B-011a **READY**（B-004、B-008 已合併）；B-011b QUEUED（依賴 B-005、B-006、B-010）；皆未見提交  
-Plan revision: 2026-09-23 / J-002-r4 / 10-22 MVP
+Status: B-011a MERGED（#32）；B-011b IN REVIEW（#55，r4 `3625c83`）；D-05a 工程規格已定案，七天內清理／migration／路由與真實驗收待收尾
+Plan revision: 2026-10-03 / J-002-r13
 
 ## Goal / 目標
 
@@ -18,7 +18,7 @@ Plan revision: 2026-09-23 / J-002-r4 / 10-22 MVP
 ## Prerequisite / 前置條件
 
 - B-011a：B-004、B-008 已合併（完成）。不依賴 B-005／B-006／B-010。
-- B-011b：B-005、B-006、B-010 已合併；D-05 保存期限（PROPOSED，法務待確認）。
+- B-011b：B-005、B-006、B-010 已合併；D-05 保存期限產品規劃已確認（D-05a）；法律審閱與實際清理驗收仍未完成。
 - 無 ACTIVE 同意版本（D-05 法務 BLOCKED）時，後端仍須拒絕 DRAFT 版本；測試使用明確標示的測試版本設定。
 
 ## 開始前必讀
@@ -69,3 +69,14 @@ B-011b：
 - 2026-09-19：建立（單一任務）。
 - 2026-09-23 J-002-r3：拆為 B-011a／B-011b。
 - 2026-09-23 J-002-r4：B-011a 前置改為只依賴已合併的 B-004／B-008 → READY；B-010 也改為依賴 B-011a；統一兩段的 branch、Submission Version、PR 標題（取代舊的 `feat/b-011-mvp`／`B-011-r1`）；清理範圍加入座標。
+
+## J-002-r13 收尾要求（D-05a，2026-10-03）
+
+規格：DATA_MODEL §22／§37／§40、ARCHITECTURE §20.7、API_CONTRACT §6–7、PRIVACY_AND_RETENTION §2／§6。定案證據：[J 留言 #55](https://github.com/viz963-1216/Kareo/pull/55#issuecomment-5967136580)。
+
+- 核准兩個 Lead → 健康資料外鍵移除、必填來源編號保留；其餘外鍵與建立 Lead 的授權／來源驗證保留。健康資料按自己的期限清理，不因 Lead 存在而排除。
+- 系統自動取消 `operatorId = null`；真人仍用已驗證個人 ID。全部 Lead 聯絡欄位清空，只取消未終態案件，終態不新增取消事件。
+- 核准 `leadsDeleted`／`consentsDeleted` 計數；90 天／180 天／1 年／3 年各自驗證實際資料列、dry-run、失敗重試與冪等。
+- **必須修正七天期限**：接受刪除／撤回後，健康資料於 7 天內清理。不得滿 7 天才成為候選而在第 8 天刪除；測試截止前／截止時刻、Lead 存在與失敗重試，不以第 6 天保留、第 8 天刪除當作通過。
+- 與 #48 同步後，未套用的 security migration 協調為 `0021_security_acceptance.sql`；已套用歷史不改名。fresh／upgrade 無缺號或重號。`netlify.toml` 由 J-003 補。
+- 不改 DRAFT 為 ACTIVE、不將分支 SQL 測試當成真實排程／雲端證據。

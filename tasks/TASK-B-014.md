@@ -1,8 +1,8 @@
 # TASK-B-014 — Public Knowledge Records API（公開長照資訊查詢 API）
 
 Owner: Engineer B — Backend  
-Status: QUEUED — 契約 API_CONTRACT v0.6 §13a 已核准（D-19 Q3）；B 的工作順序在 B-012-r3、B-013 之後  
-Plan revision: 2026-10-01 / J-002-r8（MVP_DECISIONS D-19，[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)；PRODUCT_SPEC §14c；ARCHITECTURE §9.1）
+Status: IN REVIEW（#67，B-014-r2 `9b6e822`）；限流、B-012 介面同步、J 路由與真實查詢待完成
+Plan revision: 2026-10-03 / J-002-r13
 
 ## Goal / 目標
 
@@ -50,3 +50,7 @@ PR Title：`[B-014] Public knowledge records API`
 ## 變更紀錄
 
 - 2026-10-01 J-002-r8：依 D-19 Q3 建立。
+
+## J-002-r13 收尾順序（2026-10-03）
+
+B-012／B-011b 到位後同步 staging，repository 同時保留內容包方法與 findPublicKnowledgeRecords；測試 KnowledgeVersion 補齊 withdrawnAt／withdrawnBy／withdrawalReason。接上共用限流（120 次／小時、429／Retry-After、不記明文 IP／查詢條件），J-003 補 knowledgeRecords 路由。Kareo 已有 KB-2026-09-24-001（21 筆），但仍須在部署後驗證 §13a／E2E-48；不把分支環境沒有資料寫成整個 Kareo 尚未發布。
