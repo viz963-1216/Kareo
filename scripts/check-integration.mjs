@@ -6,13 +6,14 @@
 //  5. API_CONTRACT endpoints vs deployed routes (implemented / pending report)
 import { existsSync, readFileSync, readdirSync, statSync, appendFileSync } from 'node:fs';
 import { join, basename } from 'node:path';
+import { parseRedirects, contractEndpoints, examplePath, firstRedirect, functionName } from './lib/netlify-routes.mjs';
 
 const results = [];
 const record = (status, check, detail) => results.push({ status, check, detail });
 
 // 1-2. Netlify routes
 const toml = readFileSync('netlify.toml', 'utf8');
-const redirects = [...toml.matchAll(/\[\[redirects\]\]\s*\n\s*from = "([^"]+)"\s*\n\s*to = "([^"]+)"/g)].map((m) => ({ from: m[1], to: m[2] }));
+const redirects = parseRedirects(toml);
 const functionDir = 'apps/api/src/functions';
 const functionFiles = readdirSync(functionDir).filter((f) => f.endsWith('.ts')).map((f) => basename(f, '.ts'));
 const routed = new Map();
@@ -28,6 +29,13 @@ for (const fn of functionFiles) {
 const catchAll = redirects.findIndex((r) => r.from === '/api/*');
 if (catchAll === -1) record('FAIL', 'api catch-all', 'missing /api/* JSON 404 redirect');
 redirects.forEach((r, i) => { if (r.from.startsWith('/api/v1/') && catchAll !== -1 && i > catchAll) record('FAIL', 'route order', `${r.from} is after /api/* catch-all`); });
+
+// Netlify uses the first matching rule. A later declaration cannot rescue a shadowed route.
+for (const r of redirects.filter((r) => functionName(r))) {
+  const first = firstRedirect(redirects, examplePath(r.from));
+  if (first !== r) record('FAIL', 'route first match', `${r.from} is shadowed by ${first?.from ?? '(none)'}`);
+}
+
 if (!results.some((r) => r.status === 'FAIL')) record('PASS', 'netlify routes', `${routed.size} API routes map to ${functionFiles.length} functions`);
 
 // 3. Mock contracts
@@ -64,15 +72,12 @@ if (!srcFails) record('PASS', 'source forbidden fields', 'none found');
 
 // 5. Contract endpoints vs routes
 const contract = readFileSync('docs/API_CONTRACT.md', 'utf8');
-// Section headings, plus the admin API table (§26, D-16) whose endpoints are listed inline as `METHOD /path`.
-const endpoints = [...new Set([
-  ...[...contract.matchAll(/^## (GET|POST|DELETE|PUT|PATCH) (\/api\/v1\/[^\s（(]+)/gm)].map((m) => `${m[1]} ${m[2]}`),
-  ...[...contract.matchAll(/`(GET|POST|DELETE|PUT|PATCH) (\/api\/v1\/admin\/[^`?\s]+)/g)].map((m) => `${m[1]} ${m[2]}`),
-])];
+const endpoints = contractEndpoints(contract);
 for (const ep of endpoints) {
-  const path = ep.split(' ')[1].replace(/\{[^}]+\}/g, '*');
-  const match = [...routed.keys()].some((from) => from === path || (from.endsWith('*') && path.startsWith(from.slice(0, -1))) || from.replace(/:[^/]+/g, '*') === path);
-  record(match ? 'PASS' : 'PENDING', 'contract endpoint deployed', `${ep}${match ? '' : ' — no route/function yet'}`);
+  const match = firstRedirect(redirects, examplePath(ep.path));
+  const fn = functionName(match);
+  const implemented = fn && functionFiles.includes(fn);
+  record(implemented ? 'PASS' : 'PENDING', 'contract route declared', `${ep.method} ${ep.path}${implemented ? ' — static route only; handler behaviour and deployed E2E are separate' : ' — no route/function yet'}`);
 }
 
 const pad = (s, n) => String(s).padEnd(n);

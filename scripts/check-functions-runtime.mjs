@@ -13,17 +13,21 @@ import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { parseRedirects, contractEndpoints, examplePath, firstRedirect, functionName } from './lib/netlify-routes.mjs';
 
 const results = [];
 const record = (status, check, detail) => results.push({ status, check, detail });
 
 const functionDir = 'apps/api/src/functions';
 const toml = readFileSync('netlify.toml', 'utf8');
-const routes = [...toml.matchAll(/\[\[redirects\]\]\s*\n\s*from = "([^"]+)"\s*\n\s*to = "\/\.netlify\/functions\/([A-Za-z0-9_-]+)"/g)].map((m) => ({ from: m[1], fn: m[2] }));
+const redirects = parseRedirects(toml);
+const routes = redirects.filter((r) => functionName(r)).map((r) => ({ ...r, fn: functionName(r) }));
 const includedFiles = [...(toml.match(/^\s*included_files\s*=\s*\[([^\]]*)\]/m)?.[1] ?? '').matchAll(/"([^"]+)"/g)].map((m) => m[1]);
 const contract = readFileSync('docs/API_CONTRACT.md', 'utf8');
-const endpoints = [...contract.matchAll(/^## (GET|POST|DELETE|PUT|PATCH) (\/api\/v1\/[^\s（(]+)/gm)].map((m) => ({ method: m[1], path: m[2].replace(/\{[^}]+\}/g, '*') }));
-const methodsFor = (from) => [...new Set(endpoints.filter((e) => e.path === from || (from.endsWith('*') && e.path.startsWith(from.slice(0, -1)))).map((e) => e.method))];
+const endpoints = contractEndpoints(contract);
+const methodsFor = (route) => [...new Set(endpoints.filter((e) =>
+  functionName(firstRedirect(redirects, examplePath(e.path))) === route.fn
+).map((e) => e.method))];
 
 // Response text a user or attacker must never see (PRODUCT_SPEC §30, J-003 失敗畫面不暴露).
 const LEAKS = [/\bat .+\.(ts|js):\d+/, /SUPABASE_/i, /service[_ ]?role/i, /postgres|PGRST|relation "|violates/i, /eyJ[A-Za-z0-9_-]{10,}/];
@@ -32,7 +36,7 @@ let esbuild;
 try {
   esbuild = createRequire(resolve('apps/api/package.json'))('esbuild');
 } catch {
-  for (const { fn } of routes) record('PENDING', 'function bundle runs', `${fn} [${format}]: esbuild not installed (run npm ci --prefix apps/api)`);
+  for (const { fn } of routes) record('PENDING', 'function bundle runs', `${fn}: esbuild not installed (run npm ci --prefix apps/api)`);
 }
 
 async function invoke(handler, event) {
@@ -40,7 +44,11 @@ async function invoke(handler, event) {
   delete process.env.SUPABASE_URL;
   delete process.env.SUPABASE_SERVICE_ROLE_KEY;
   try {
-    const res = await Promise.race([handler(event, {}), new Promise((_, rej) => setTimeout(() => rej(new Error('handler timed out (10s)')), 10_000))]);
+    let timer;
+    let res;
+    try {
+      res = await Promise.race([handler(event, {}), new Promise((_, rej) => { timer = setTimeout(() => rej(new Error('handler timed out (10s)')), 10_000); })]);
+    } finally { clearTimeout(timer); }
     let json = null;
     try { json = JSON.parse(res?.body ?? ''); } catch { /* not JSON */ }
     return { res, json };
@@ -75,8 +83,8 @@ if (esbuild) {
         try { mod = await import(pathToFileURL(outfile).href); } catch (e) { record('FAIL', 'function bundle loads', `${fn} [${format}]: ${e.message}`); continue; }
         if (typeof mod.handler !== 'function') { record('FAIL', 'function exports handler', `${fn} [${format}]: no handler export`); continue; }
 
-        const methods = methodsFor(route.from);
-        const path = route.from.replace('*', 'PROV-RUNTIME-CHECK');
+        const methods = methodsFor(route);
+        const path = examplePath(route.from);
         const event = (httpMethod) => ({ httpMethod, path, rawUrl: `https://example.invalid${path}`, headers: {}, queryStringParameters: {}, pathParameters: {}, body: httpMethod === 'GET' || httpMethod === 'DELETE' ? null : '{}' });
 
         const wrong = await invoke(mod.handler, event('PATCH')).catch((e) => ({ error: e }));
