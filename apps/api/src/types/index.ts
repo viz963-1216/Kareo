@@ -613,6 +613,8 @@ export interface RateLimitCheckResult {
 // TASK-B-011b：DATA_MODEL §40。保存期限到期清理作業的執行紀錄。
 export type DeletionRunStatus = "RUNNING" | "SUCCESS" | "FAILED";
 
+// 2026-10-03（Jerry D-05 確認四條保存期限定案後新增 leadsDeleted／consentsDeleted，見
+// migration 0019_security_acceptance.sql 的 deletion_runs 表註解）。
 export interface DeletionRun {
   id: string;
   startedAt: string;
@@ -621,6 +623,8 @@ export interface DeletionRun {
   status: DeletionRunStatus;
   sessionsDeleted: number;
   leadsContactCleared: number;
+  leadsDeleted: number;
+  consentsDeleted: number;
   errorMessage: string | null;
   operatorId: string | null;
 }

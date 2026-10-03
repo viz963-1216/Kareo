@@ -43,8 +43,13 @@ export interface SessionRepository {
   // 已經不是 ACTIVE（重複呼叫、或已經被 consent withdraw 標記）。
   requestDeletion(sessionId: string, now: string): Promise<{ updated: boolean; leadsCancelled: number }>;
 
-  // TASK-B-011b：每日到期清理作業（PRIVACY_AND_RETENTION §6.3）。dryRun=true 只計算不刪除。
-  runDeletionCleanup(input: { now: string; dryRun: boolean }): Promise<{ sessionsDeleted: number }>;
+  // TASK-B-011b：每日到期清理作業（PRIVACY_AND_RETENTION §6.3，2026-10-03 Jerry D-05 確認四條
+  // 保存期限：session／評估資料 90 天、Lead 聯絡欄位 180 天、Lead 案件紀錄 1 年、Consent 3 年）。
+  // dryRun=true 只計算不刪除，四項計數都要回傳供冪等驗證比對。
+  runDeletionCleanup(input: {
+    now: string;
+    dryRun: boolean;
+  }): Promise<{ sessionsDeleted: number; leadsContactCleared: number; leadsDeleted: number; consentsDeleted: number }>;
   insertDeletionRun(run: DeletionRun): Promise<void>;
 }
 

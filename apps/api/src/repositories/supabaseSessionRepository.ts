@@ -98,14 +98,22 @@ export class SupabaseSessionRepository implements SessionRepository {
     return { updated: r.updated, leadsCancelled: r.leadsCancelled ?? 0 };
   }
 
-  async runDeletionCleanup(input: { now: string; dryRun: boolean }): Promise<{ sessionsDeleted: number }> {
+  async runDeletionCleanup(input: {
+    now: string;
+    dryRun: boolean;
+  }): Promise<{ sessionsDeleted: number; leadsContactCleared: number; leadsDeleted: number; consentsDeleted: number }> {
     const client = getSupabaseClient();
     const { data, error } = await client.rpc("run_deletion_cleanup", { payload: { now: input.now, dryRun: input.dryRun } });
     if (error) {
       throw new AppError("INTERNAL_ERROR", "無法執行清理作業，請稍後再試。");
     }
-    const r = data as { sessionsDeleted: number };
-    return { sessionsDeleted: r.sessionsDeleted };
+    const r = data as { sessionsDeleted: number; leadsContactCleared: number; leadsDeleted: number; consentsDeleted: number };
+    return {
+      sessionsDeleted: r.sessionsDeleted,
+      leadsContactCleared: r.leadsContactCleared,
+      leadsDeleted: r.leadsDeleted,
+      consentsDeleted: r.consentsDeleted,
+    };
   }
 
   async insertDeletionRun(run: DeletionRun): Promise<void> {
@@ -118,6 +126,8 @@ export class SupabaseSessionRepository implements SessionRepository {
       status: run.status,
       sessions_deleted: run.sessionsDeleted,
       leads_contact_cleared: run.leadsContactCleared,
+      leads_deleted: run.leadsDeleted,
+      consents_deleted: run.consentsDeleted,
       error_message: run.errorMessage,
       operator_id: run.operatorId,
     });

@@ -71,7 +71,10 @@ export class InMemorySessionRepository implements SessionRepository {
   // 測試用：token 只在建立當下回傳，記憶體版額外保留雜湊對照表供 findByTokenHash 使用。
   private readonly tokenHashBySessionId = new Map<string, string>();
 
-  constructor(private readonly leadRepo?: InMemoryLeadRepository) {}
+  constructor(
+    private readonly leadRepo?: InMemoryLeadRepository,
+    private readonly consentRepo?: InMemoryConsentRepository
+  ) {}
 
   async createSession(): Promise<CreatedSession> {
     const now = nowTaipeiISOString();
@@ -114,13 +117,48 @@ export class InMemorySessionRepository implements SessionRepository {
     return { updated: true, leadsCancelled };
   }
 
-  async runDeletionCleanup(input: { now: string; dryRun: boolean }): Promise<{ sessionsDeleted: number }> {
-    const cutoff = new Date(input.now).getTime() - 7 * 24 * 60 * 60 * 1000;
-    const eligible = this.sessions.filter(
-      (s) => s.status === "DELETION_REQUESTED" && new Date(s.updatedAt).getTime() <= cutoff
+  async runDeletionCleanup(
+    input: { now: string; dryRun: boolean }
+  ): Promise<{ sessionsDeleted: number; leadsContactCleared: number; leadsDeleted: number; consentsDeleted: number }> {
+    const nowMs = new Date(input.now).getTime();
+    const day = 24 * 60 * 60 * 1000;
+
+    // 1. session：7 天明確刪除請求 + 90 天閒置（ACTIVE）聯集（D-05）。
+    const eligibleSessions = this.sessions.filter(
+      (s) =>
+        (s.status === "DELETION_REQUESTED" && nowMs - new Date(s.updatedAt).getTime() >= 7 * day) ||
+        (s.status === "ACTIVE" && nowMs - new Date(s.lastSeenAt ?? s.createdAt).getTime() >= 90 * day)
     );
-    if (input.dryRun) return { sessionsDeleted: eligible.length };
-    for (const session of eligible) {
+
+    // 2. Lead 聯絡欄位清空：180 天（CLOSED/CANCELLED 且仍有聯絡欄位）。
+    const leads = this.leadRepo?.leads ?? [];
+    const eligibleContactClear = leads.filter(
+      (l) =>
+        (l.status === "CLOSED" || l.status === "CANCELLED") &&
+        l.closedAt !== null &&
+        nowMs - new Date(l.closedAt).getTime() >= 180 * day &&
+        (l.contactName !== null || l.contactPhone !== null)
+    );
+
+    // 3. Lead 整筆刪除：1 年（CLOSED/CANCELLED）。
+    const eligibleLeadDelete = leads.filter(
+      (l) => (l.status === "CLOSED" || l.status === "CANCELLED") && l.closedAt !== null && nowMs - new Date(l.closedAt).getTime() >= 365 * day
+    );
+
+    // 4. Consent 整筆刪除：3 年。
+    const consents = this.consentRepo?.consents ?? [];
+    const eligibleConsentDelete = consents.filter((c) => nowMs - new Date(c.acceptedAt).getTime() >= 3 * 365 * day);
+
+    if (input.dryRun) {
+      return {
+        sessionsDeleted: eligibleSessions.length,
+        leadsContactCleared: eligibleContactClear.length,
+        leadsDeleted: eligibleLeadDelete.length,
+        consentsDeleted: eligibleConsentDelete.length,
+      };
+    }
+
+    for (const session of eligibleSessions) {
       session.status = "DELETED";
       session.deletedAt = input.now;
       session.updatedAt = input.now;
@@ -129,7 +167,50 @@ export class InMemorySessionRepository implements SessionRepository {
       // 跨 Repository 操作（同 Supabase 版把這些都放進同一個 RPC 不同，記憶體版的職責邊界維持
       // 各 Repository 自治，詳見 PR Known Issues）。
     }
-    return { sessionsDeleted: eligible.length };
+
+    for (const lead of eligibleContactClear) {
+      lead.contactName = null;
+      lead.contactPhone = null;
+      lead.updatedAt = input.now;
+    }
+
+    const leadDeleteIds = new Set(eligibleLeadDelete.map((l) => l.id));
+    if (this.leadRepo && leadDeleteIds.size > 0) {
+      // 先刪子表（lead_idempotency_records／lead_access_events／lead_status_events），再刪 leads 本體，
+      // 對齊 migration 0019 run_deletion_cleanup 的刪除順序（避免外鍵參照殘留）。
+      this.leadRepo.idempotencyRecords.splice(
+        0,
+        this.leadRepo.idempotencyRecords.length,
+        ...this.leadRepo.idempotencyRecords.filter((r) => !leadDeleteIds.has(r.leadId))
+      );
+      this.leadRepo.accessEvents.splice(
+        0,
+        this.leadRepo.accessEvents.length,
+        ...this.leadRepo.accessEvents.filter((e) => !leadDeleteIds.has(e.leadId))
+      );
+      this.leadRepo.statusEvents.splice(
+        0,
+        this.leadRepo.statusEvents.length,
+        ...this.leadRepo.statusEvents.filter((e) => !leadDeleteIds.has(e.leadId))
+      );
+      this.leadRepo.leads.splice(0, this.leadRepo.leads.length, ...this.leadRepo.leads.filter((l) => !leadDeleteIds.has(l.id)));
+    }
+
+    const consentDeleteIds = new Set(eligibleConsentDelete.map((c) => c.id));
+    if (this.consentRepo && consentDeleteIds.size > 0) {
+      this.consentRepo.consents.splice(
+        0,
+        this.consentRepo.consents.length,
+        ...this.consentRepo.consents.filter((c) => !consentDeleteIds.has(c.id))
+      );
+    }
+
+    return {
+      sessionsDeleted: eligibleSessions.length,
+      leadsContactCleared: eligibleContactClear.length,
+      leadsDeleted: eligibleLeadDelete.length,
+      consentsDeleted: eligibleConsentDelete.length,
+    };
   }
 
   async insertDeletionRun(run: DeletionRun): Promise<void> {

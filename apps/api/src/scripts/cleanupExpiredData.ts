@@ -19,7 +19,10 @@ async function main(): Promise<number> {
 
   console.log(`Mode: ${run.dryRun ? "dry-run" : "commit"}`);
   console.log(`Status: ${run.status}`);
-  console.log(`Sessions deleted: ${run.sessionsDeleted}`);
+  console.log(`Sessions deleted (90-day idle / 7-day explicit-delete): ${run.sessionsDeleted}`);
+  console.log(`Lead contact fields cleared (180-day): ${run.leadsContactCleared}`);
+  console.log(`Leads deleted (1-year): ${run.leadsDeleted}`);
+  console.log(`Consents deleted (3-year): ${run.consentsDeleted}`);
   return run.status === "SUCCESS" ? 0 : 1;
 }
 

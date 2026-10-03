@@ -13,7 +13,10 @@ export async function runRetentionCleanup(
   const id = generateId("DRUN");
 
   try {
-    const { sessionsDeleted } = await repo.runDeletionCleanup({ now: startedAt, dryRun: options.dryRun });
+    const { sessionsDeleted, leadsContactCleared, leadsDeleted, consentsDeleted } = await repo.runDeletionCleanup({
+      now: startedAt,
+      dryRun: options.dryRun,
+    });
     const finishedAt = nowTaipeiISOString();
     const run: DeletionRun = {
       id,
@@ -22,9 +25,9 @@ export async function runRetentionCleanup(
       dryRun: options.dryRun,
       status: "SUCCESS",
       sessionsDeleted,
-      // Lead 聯絡欄位在 request_session_deletion／withdraw_consent 當下就已清空（非這次清理作業
-      // 清的），這裡固定回 0；欄位保留供未來若改為在清理作業階段才清空聯絡欄位時使用。
-      leadsContactCleared: 0,
+      leadsContactCleared,
+      leadsDeleted,
+      consentsDeleted,
       errorMessage: null,
       operatorId: options.operatorId,
     };
@@ -40,6 +43,8 @@ export async function runRetentionCleanup(
       status: "FAILED",
       sessionsDeleted: 0,
       leadsContactCleared: 0,
+      leadsDeleted: 0,
+      consentsDeleted: 0,
       // 依 DATA_MODEL §40：errorMessage 不得包含個資；只記錄分類訊息，不帶出原始例外內容
       // （可能含 SQL 或內部細節）。
       errorMessage: "清理作業執行失敗，請查看伺服器 log。",

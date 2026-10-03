@@ -67,6 +67,10 @@ revoke all on table rate_limit_counters from anon, authenticated;
 grant select, insert, update, delete on table rate_limit_counters to service_role;
 
 -- ===== 2. DeletionRun（DATA_MODEL §40）=====
+-- 2026-10-03（Jerry D-05 確認四條保存期限定案後新增）：leads_deleted／consents_deleted 是
+-- DATA_MODEL §40 原始 9 個欄位之外，為了交付「案件紀錄 1 年整筆刪除」「同意證據 3 年」這兩條
+-- 新確認規則的冪等計數證據而新增的欄位，屬於額外新增、可為空／有預設值，不影響既有欄位；
+-- 請 Jerry 視需要同步更新 DATA_MODEL §40 文件。
 create table if not exists deletion_runs (
   id text primary key,
   started_at timestamptz not null,
@@ -75,6 +79,8 @@ create table if not exists deletion_runs (
   status text not null,                 -- RUNNING | SUCCESS | FAILED
   sessions_deleted integer not null default 0,
   leads_contact_cleared integer not null default 0,
+  leads_deleted integer not null default 0,
+  consents_deleted integer not null default 0,
   error_message text,
   operator_id text references internal_operators (id)
 );
@@ -207,22 +213,33 @@ $$;
 revoke execute on function public.withdraw_consent(jsonb) from public, anon, authenticated;
 grant execute on function public.withdraw_consent(jsonb) to service_role;
 
--- ===== 6. run_deletion_cleanup：每日到期清理作業（PRIVACY_AND_RETENTION §6.3）=====
--- 支援 dry-run；找出 DELETION_REQUESTED 滿 7 天的 session，刪除其「沒有建立過 Lead」的
--- Assessment／CareNeedProfile／RecommendationRun／RecommendationItem（Lead 已在
--- request_session_deletion／withdraw_consent 當下立即處理，這裡不重複處理 Lead；曾經建立過
--- Lead 的 Assessment／RecommendationRun 因為 leads.recommendation_id 是 not null FK、且 Lead
--- 案件骨架要永久保留供統計，不在這裡刪除，見下方 NOTE），並把 session 轉為 DELETED、寫入
--- deleted_at。dry_run=true 時只計算筆數，不實際刪除，也不寫入 deletion_runs（呼叫端的 CLI
--- 另外決定是否記錄 dry-run 的結果；本函式本身只負責「算」或「刪」）。
+-- ===== 6. run_deletion_cleanup：每日到期清理作業（PRIVACY_AND_RETENTION §6.3，2026-10-03
+-- Jerry D-05 確認四條保存期限定案：評估資料 90 天、媒合聯絡資料結案/取消後 180 天、案件紀錄
+-- 結案後 1 年整筆刪除、同意證據 3 年）=====
 --
--- NOTE（已知限制，B-011b 範圍內的簡化，詳見 PR Known Issues）：PRIVACY_AND_RETENTION §6.1 字面
--- 要求 7 天後「刪除」session 的 Assessment／RecommendationRun，不分是否曾建立 Lead；但現有
--- schema（B-006／migration 0018）讓 Lead 永久保留（§6.1「案件骨架保留供統計」）又對
--- RecommendationRun 有 not null FK，兩者在「曾送出媒合需求」的案例上互相矛盾。本函式選擇優先
--- 保留 Lead 案件骨架的完整性（不違反 FK、不刪除還有 Lead 在參照的資料），讓曾經送出媒合需求的
--- Assessment／RecommendationRun 繼續存在，直到這點由 Jerry 決定是否調整 Lead 的保存期限規則或
--- schema（例如讓 recommendation_id 可為 null）。
+-- 四條各自獨立的到期清理，每次執行都全部處理一輪，彼此不互相影響：
+--
+--   1. session／評估資料（90 天）：涵蓋兩種到期來源——(a) 使用者主動刪除／撤回同意後 7 天
+--      （PRIVACY_AND_RETENTION §6.1，session 已轉 DELETION_REQUESTED）；(b) 一般 session 最後
+--      使用後 90 天未使用（status 仍是 ACTIVE，§2「匿名 session...最後使用後 90 天刪除」）。
+--      兩者最終都刪除其「沒有建立過 Lead」的 Assessment／CareNeedProfile／RecommendationRun／
+--      RecommendationItem（曾建立過 Lead 的保留，見下方 NOTE），並把 session 轉為 DELETED。
+--   2. Lead 聯絡欄位（180 天）：已結案或取消滿 180 天、聯絡欄位尚未清空的 Lead（透過撤回／刪除
+--      觸發的取消已經在 request_session_deletion／withdraw_consent 當下立即清空，不會再被這裡
+--      重複計入）——清空 contact_name／contact_phone，Lead 本身（案件骨架）保留。
+--   3. Lead 案件紀錄（1 年）：已結案或取消滿 1 年的 Lead，整筆連同其
+--      lead_status_events／lead_access_events／lead_idempotency_records 一併刪除（這些表的
+--      lead_id 外鍵沒有 cascade，需要依序刪除子表再刪主表）。
+--   4. Consent 同意證據（3 年）：建立滿 3 年的 Consent 整筆刪除（本身只存版本與時間，不含健康
+--      資料，見 DATA_MODEL §6／PRIVACY_AND_RETENTION §2）。
+--
+-- dry_run=true 時只計算四項筆數，不實際刪除，也不寫入 deletion_runs（呼叫端的 CLI 另外決定是否
+-- 記錄 dry-run 的結果；本函式本身只負責「算」或「刪」，四項計數同時回傳供冪等驗證比對）。
+--
+-- NOTE（已知限制，詳見 PR Known Issues）：項目 1 曾建立過 Lead 的 Assessment／RecommendationRun
+-- 因為 leads.recommendation_id 是 not null FK，在該 Lead 本身被項目 3 刪除之前不會被清理——這點
+-- 會隨著項目 3 的執行自然解除（Lead 刪除後，下一輪項目 1 執行時該 Assessment 才會變成「沒有
+-- 建立過 Lead」而符合清理條件），不需要額外處理。
 create or replace function public.run_deletion_cleanup(payload jsonb)
 returns jsonb
 language plpgsql
@@ -232,62 +249,118 @@ as $$
 declare
   v_now timestamptz := (payload ->> 'now')::timestamptz;
   v_dry_run boolean := coalesce((payload ->> 'dryRun')::boolean, false);
-  v_cutoff timestamptz := v_now - interval '7 days';
   v_session_ids text[];
   v_sessions_count integer;
+  v_lead_contact_ids text[];
+  v_leads_contact_cleared integer;
+  v_lead_delete_ids text[];
+  v_leads_deleted integer;
+  v_consent_ids text[];
+  v_consents_deleted integer;
 begin
-  select array_agg(id) into v_session_ids
-  from public.sessions
-  where status = 'DELETION_REQUESTED' and updated_at <= v_cutoff;
-
+  -- ---- 1. session／評估資料（90 天 idle，或 7 天 explicit-delete）----
+  select array_agg(distinct s.id) into v_session_ids
+  from public.sessions s
+  where (s.status = 'DELETION_REQUESTED' and s.updated_at <= v_now - interval '7 days')
+     or (s.status = 'ACTIVE' and coalesce(s.last_seen_at, s.created_at) <= v_now - interval '90 days');
   v_sessions_count := coalesce(array_length(v_session_ids, 1), 0);
 
-  if v_dry_run or v_sessions_count = 0 then
-    return jsonb_build_object('sessionsDeleted', v_sessions_count, 'dryRun', v_dry_run);
+  -- ---- 2. Lead 聯絡欄位（180 天）----
+  select array_agg(id) into v_lead_contact_ids
+  from public.leads
+  where status in ('CLOSED', 'CANCELLED')
+    and closed_at <= v_now - interval '180 days'
+    and (contact_name is not null or contact_phone is not null);
+  v_leads_contact_cleared := coalesce(array_length(v_lead_contact_ids, 1), 0);
+
+  -- ---- 3. Lead 案件紀錄整筆（1 年）----
+  select array_agg(id) into v_lead_delete_ids
+  from public.leads
+  where status in ('CLOSED', 'CANCELLED')
+    and closed_at <= v_now - interval '1 year';
+  v_leads_deleted := coalesce(array_length(v_lead_delete_ids, 1), 0);
+
+  -- ---- 4. Consent 同意證據（3 年）----
+  select array_agg(id) into v_consent_ids
+  from public.consents
+  where accepted_at <= v_now - interval '3 years';
+  v_consents_deleted := coalesce(array_length(v_consent_ids, 1), 0);
+
+  if v_dry_run then
+    return jsonb_build_object(
+      'sessionsDeleted', v_sessions_count,
+      'leadsContactCleared', v_leads_contact_cleared,
+      'leadsDeleted', v_leads_deleted,
+      'consentsDeleted', v_consents_deleted,
+      'dryRun', true
+    );
   end if;
 
-  -- Lead 案件骨架（無個資）永久保留供統計（PRIVACY_AND_RETENTION §6.1），且 leads.recommendation_id
-  -- 是 not null FK 指向 recommendation_runs——只要這個 session 底下任何一筆 Assessment 曾經產生過
-  -- 被 Lead 引用的 RecommendationRun，就不能刪除該 Assessment／RecommendationRun／Item，否則違反
-  -- FK。因此只清理「完全沒有建立過 Lead」的 Assessment（多數情況：使用者做完評估、看了推薦，
-  -- 但沒有送出媒合需求）；曾經送出媒合需求的 Assessment／RecommendationRun 保留，直到 Lead 本身
-  -- 的保存期限另外處理（不在本次 B-011b 範圍內，見 PR Known Issues）。
-  with eligible_assessments as (
-    select a.id from public.assessments a
+  -- ---- 實際刪除：1. session／評估資料 ----
+  if v_sessions_count > 0 then
+    with eligible_assessments as (
+      select a.id from public.assessments a
+      where a.session_id = any(v_session_ids)
+        and not exists (select 1 from public.leads l where l.assessment_id = a.id)
+    )
+    delete from public.recommendation_items
+    where recommendation_run_id in (
+      select rr.id from public.recommendation_runs rr
+      where rr.assessment_id in (select id from eligible_assessments)
+    );
+
+    with eligible_assessments as (
+      select a.id from public.assessments a
+      where a.session_id = any(v_session_ids)
+        and not exists (select 1 from public.leads l where l.assessment_id = a.id)
+    )
+    delete from public.recommendation_runs
+    where assessment_id in (select id from eligible_assessments);
+
+    with eligible_assessments as (
+      select a.id from public.assessments a
+      where a.session_id = any(v_session_ids)
+        and not exists (select 1 from public.leads l where l.assessment_id = a.id)
+    )
+    delete from public.care_need_profiles
+    where assessment_id in (select id from eligible_assessments);
+
+    delete from public.assessments a
     where a.session_id = any(v_session_ids)
-      and not exists (select 1 from public.leads l where l.assessment_id = a.id)
-  )
-  delete from public.recommendation_items
-  where recommendation_run_id in (
-    select rr.id from public.recommendation_runs rr
-    where rr.assessment_id in (select id from eligible_assessments)
+      and not exists (select 1 from public.leads l where l.assessment_id = a.id);
+
+    update public.sessions
+    set status = 'DELETED', deleted_at = v_now, updated_at = v_now
+    where id = any(v_session_ids);
+  end if;
+
+  -- ---- 實際刪除：2. Lead 聯絡欄位 ----
+  if v_leads_contact_cleared > 0 then
+    update public.leads
+    set contact_name = null, contact_phone = null, updated_at = v_now
+    where id = any(v_lead_contact_ids);
+  end if;
+
+  -- ---- 實際刪除：3. Lead 案件紀錄（先刪子表，再刪主表）----
+  if v_leads_deleted > 0 then
+    delete from public.lead_idempotency_records where lead_id = any(v_lead_delete_ids);
+    delete from public.lead_access_events where lead_id = any(v_lead_delete_ids);
+    delete from public.lead_status_events where lead_id = any(v_lead_delete_ids);
+    delete from public.leads where id = any(v_lead_delete_ids);
+  end if;
+
+  -- ---- 實際刪除：4. Consent 同意證據 ----
+  if v_consents_deleted > 0 then
+    delete from public.consents where id = any(v_consent_ids);
+  end if;
+
+  return jsonb_build_object(
+    'sessionsDeleted', v_sessions_count,
+    'leadsContactCleared', v_leads_contact_cleared,
+    'leadsDeleted', v_leads_deleted,
+    'consentsDeleted', v_consents_deleted,
+    'dryRun', false
   );
-
-  with eligible_assessments as (
-    select a.id from public.assessments a
-    where a.session_id = any(v_session_ids)
-      and not exists (select 1 from public.leads l where l.assessment_id = a.id)
-  )
-  delete from public.recommendation_runs
-  where assessment_id in (select id from eligible_assessments);
-
-  with eligible_assessments as (
-    select a.id from public.assessments a
-    where a.session_id = any(v_session_ids)
-      and not exists (select 1 from public.leads l where l.assessment_id = a.id)
-  )
-  delete from public.care_need_profiles
-  where assessment_id in (select id from eligible_assessments);
-
-  delete from public.assessments a
-  where a.session_id = any(v_session_ids)
-    and not exists (select 1 from public.leads l where l.assessment_id = a.id);
-
-  update public.sessions
-  set status = 'DELETED', deleted_at = v_now, updated_at = v_now
-  where id = any(v_session_ids);
-
-  return jsonb_build_object('sessionsDeleted', v_sessions_count, 'dryRun', v_dry_run);
 end;
 $$;
 
