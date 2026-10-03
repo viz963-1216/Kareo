@@ -7,6 +7,10 @@ import type {
   ConsentWithdrawalResponse,
   LeadRequest,
   LeadResponse,
+  KnowledgeRecordsRequest,
+  KnowledgeRecordsResponse,
+  KnowledgeCategory,
+  KnowledgeJurisdiction,
   ProviderDetail,
   RankingType,
   RecommendationRequest,
@@ -30,6 +34,7 @@ const PUBLIC_ENDPOINTS: Array<[method: string, path: RegExp]> = [
   ["GET", /^\/providers\/[^/]+$/],
   ["GET", /^\/external-services\/transportation$/],
   ["GET", /^\/knowledge\/status$/],
+  ["GET", /^\/knowledge\/records(?:\?.*)?$/],
 ];
 
 export class ApiError extends Error {
@@ -125,6 +130,11 @@ const RECOMMENDATION_SERVICES = ["HOME_CARE", "HOME_MEDICAL_NURSING", "ASSISTIVE
 const RANKING_TYPES: readonly RankingType[] = ["DISTANCE", "DISTRICT_ROTATION", "CITY_ROTATION", "NO_LOCATION"];
 const PRECISIONS = ["NONE", "CITY", "DISTRICT", "EXACT", "GPS"];
 const LEAD_STATUSES = ["NEW", "CONTACTED", "ACCEPTED", "CLOSED", "CANCELLED"];
+const KNOWLEDGE_JURISDICTIONS: readonly KnowledgeJurisdiction[] = ["TAIWAN", "TAIPEI", "NEW_TAIPEI"];
+const KNOWLEDGE_CATEGORIES: readonly KnowledgeCategory[] = [
+  "ELIGIBILITY", "BENEFIT", "COPAY", "TRANSPORTATION", "HOME_MEDICAL_NURSING",
+  "APPLICATION", "ASSISTIVE_DEVICE", "RESPITE", "HOME_CARE", "OTHER",
+];
 
 const isText = (value: unknown): value is string => typeof value === "string" && value.length > 0;
 const isStringArray = (value: unknown): value is string[] => Array.isArray(value) && value.every((item) => typeof item === "string");
@@ -141,6 +151,41 @@ export function isAssessmentResponse(value: unknown): value is AssessmentRespons
     // API_CONTRACT §15: every assessment carries the preliminary-result warnings.
     && isStringArray(profile.warnings)
     && profile.warnings.length > 0;
+}
+
+const exactKeys = (value: Record<string, unknown>, keys: readonly string[]) => {
+  const actual = Object.keys(value).sort();
+  return actual.length === keys.length && actual.every((key, index) => key === [...keys].sort()[index]);
+};
+
+export function isKnowledgeRecordsResponse(value: unknown): value is KnowledgeRecordsResponse {
+  if (!isRecord(value) || !exactKeys(value, ["knowledgeVersion", "publishedAt", "items", "page", "pageSize", "totalCount", "appliedFilters", "notice"])) return false;
+  if (!isText(value.knowledgeVersion) || !isText(value.publishedAt) || !isText(value.notice)) return false;
+  if (!Number.isInteger(value.page) || (value.page as number) < 1 || !Number.isInteger(value.pageSize) || (value.pageSize as number) < 1 || !Number.isInteger(value.totalCount) || (value.totalCount as number) < 0) return false;
+  if (!isRecord(value.appliedFilters) || !exactKeys(value.appliedFilters, ["jurisdiction", "category", "page", "pageSize"])) return false;
+  const filters = value.appliedFilters;
+  if (filters.jurisdiction !== null && !KNOWLEDGE_JURISDICTIONS.includes(filters.jurisdiction as KnowledgeJurisdiction)) return false;
+  if (filters.category !== null && !KNOWLEDGE_CATEGORIES.includes(filters.category as KnowledgeCategory)) return false;
+  if (!Number.isInteger(filters.page) || !Number.isInteger(filters.pageSize) || filters.page !== value.page || filters.pageSize !== value.pageSize) return false;
+  if (!Array.isArray(value.items)) return false;
+  return value.items.every((item) => {
+    if (!isRecord(item) || !exactKeys(item, ["id", "title", "category", "jurisdiction", "summary", "effectiveFrom", "effectiveTo", "publishedAt", "lastVerifiedAt", "source"])) return false;
+    if (!isText(item.id) || !isText(item.title) || !isText(item.summary) || !isText(item.effectiveFrom) || !isText(item.lastVerifiedAt)) return false;
+    if (!KNOWLEDGE_CATEGORIES.includes(item.category as KnowledgeCategory) || !KNOWLEDGE_JURISDICTIONS.includes(item.jurisdiction as KnowledgeJurisdiction)) return false;
+    if (item.effectiveTo !== null && !isText(item.effectiveTo)) return false;
+    if (item.publishedAt !== null && !isText(item.publishedAt)) return false;
+    if (!isRecord(item.source) || !exactKeys(item.source, ["title", "publisher", "url"])) return false;
+    return isText(item.source.title) && isText(item.source.publisher) && (item.source.url === null || isText(item.source.url));
+  });
+}
+
+export function knowledgeRecordsPath(filters: KnowledgeRecordsRequest) {
+  const query = new URLSearchParams();
+  if (filters.jurisdiction) query.set("jurisdiction", filters.jurisdiction);
+  if (filters.category) query.set("category", filters.category);
+  query.set("page", String(filters.page));
+  query.set("pageSize", String(filters.pageSize));
+  return `/knowledge/records?${query.toString()}`;
 }
 
 export function isRecommendationResponse(value: unknown): value is RecommendationResponse {
@@ -315,5 +360,10 @@ export const realApi = {
       if (reason instanceof ApiError && reason.code === "NOT_FOUND") return null;
       throw reason;
     }
+  },
+
+  async getKnowledgeRecords(filters: KnowledgeRecordsRequest): Promise<KnowledgeRecordsResponse> {
+    const data = await request<unknown>("GET", knowledgeRecordsPath(filters));
+    return isKnowledgeRecordsResponse(data) ? data : invalidResponse();
   },
 };

@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-10-03T01:44:16.860Z",
+  "mode": "mock (vite dev)",
+  "scenarios": {
+    "first-page": {
+      "file": "desktop-first-page.jpg",
+      "pass": true,
+      "cards": 20
+    },
+    "second-page": {
+      "file": "desktop-second-page.jpg",
+      "pass": true,
+      "cards": 1
+    },
+    "taipei": {
+      "file": "desktop-taipei.jpg",
+      "pass": true,
+      "cards": 7
+    },
+    "new-taipei-assistive-device": {
+      "file": "desktop-new-taipei-assistive-device.jpg",
+      "pass": true,
+      "cards": 2
+    },
+    "empty": {
+      "file": "desktop-empty.jpg",
+      "pass": true,
+      "cards": 0
+    },
+    "invalid-jurisdiction": {
+      "file": "desktop-invalid-jurisdiction.jpg",
+      "pass": true,
+      "cards": 0
+    },
+    "invalid-category": {
+      "file": "desktop-invalid-category.jpg",
+      "pass": true,
+      "cards": 0
+    },
+    "unknown-parameter": {
+      "file": "desktop-unknown-parameter.jpg",
+      "pass": true,
+      "cards": 0
+    },
+    "knowledge-unavailable": {
+      "file": "desktop-knowledge-unavailable.jpg",
+      "pass": true,
+      "cards": 0
+    }
+  },
+  "interactions": {
+    "nullSource": {
+      "pass": true
+    },
+    "keyboard": {
+      "pass": true
+    },
+    "mobile": {
+      "pass": true
+    }
+  },
+  "shots": [
+    {
+      "file": "desktop-first-page.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0,
+      "h1": "瀏覽已審核發布的長照資訊",
+      "scenario": "first-page"
+    },
+    {
+      "file": "desktop-second-page.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0,
+      "h1": "瀏覽已審核發布的長照資訊",
+      "scenario": "second-page"
+    },
+    {
+      "file": "desktop-taipei.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0,
+      "h1": "瀏覽已審核發布的長照資訊",
+      "scenario": "taipei"
+    },
+    {
+      "file": "desktop-new-taipei-assistive-device.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0,
+      "h1": "瀏覽已審核發布的長照資訊",
+      "scenario": "new-taipei-assistive-device"
+    },
+    {
+      "file": "desktop-empty.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0,
+      "h1": "瀏覽已審核發布的長照資訊",
+      "scenario": "empty"
+    },
+    {
+      "file": "desktop-invalid-jurisdiction.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0,
+      "h1": "瀏覽已審核發布的長照資訊",
+      "scenario": "invalid-jurisdiction"
+    },
+    {
+      "file": "desktop-invalid-category.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0,
+      "h1": "瀏覽已審核發布的長照資訊",
+      "scenario": "invalid-category"
+    },
+    {
+      "file": "desktop-unknown-parameter.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0,
+      "h1": "瀏覽已審核發布的長照資訊",
+      "scenario": "unknown-parameter"
+    },
+    {
+      "file": "desktop-knowledge-unavailable.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0,
+      "h1": "瀏覽已審核發布的長照資訊",
+      "scenario": "knowledge-unavailable"
+    },
+    {
+      "file": "desktop-interactions.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0,
+      "h1": "瀏覽已審核發布的長照資訊"
+    },
+    {
+      "file": "mobile-new-taipei-assistive-device.jpg",
+      "noHorizontalScroll": true,
+      "iframes": 0,
+      "h1": "瀏覽已審核發布的長照資訊"
+    }
+  ]
+}
