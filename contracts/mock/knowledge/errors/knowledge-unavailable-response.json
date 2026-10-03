@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "code": "KNOWLEDGE_UNAVAILABLE",
+    "message": "目前沒有可用的已發布長照資訊，請稍後再試，或聯絡 1966 長照專線。"
+  }
+}

@@ -4,6 +4,7 @@
     "id": "PROV-MOCK-101",
     "name": "測試居家醫療護理所",
     "type": "HOME_MEDICAL_NURSING",
+    "resourceCategory": "SERVICE_PROVIDER",
     "address": "新北市三重區三和路四段101號",
     "city": "新北市",
     "district": "三重區",
@@ -24,6 +25,7 @@
         "district": "蘆洲區"
       }
     ],
-    "serviceAreaStatus": "VERIFIED"
+    "serviceAreaStatus": "VERIFIED",
+    "contractRegions": []
   }
 }

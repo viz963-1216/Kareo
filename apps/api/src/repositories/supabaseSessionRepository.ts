@@ -2,6 +2,7 @@ import { getSupabaseClient } from "./supabaseClient.js";
 import type { SessionRepository } from "./types.js";
 import type { CreatedSession, DeletionRun, Session } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
+import { logDbError } from "../lib/dbErrorLog.js";
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
 import { computeExpiresAt, generateSessionToken, hashSessionToken } from "../services/sessionSecurityService.js";
 
@@ -55,6 +56,7 @@ export class SupabaseSessionRepository implements SessionRepository {
     });
 
     if (error) {
+      logDbError("sessions.insert", error);
       throw new AppError("INTERNAL_ERROR", "無法建立 Session，請稍後再試。");
     }
 
@@ -70,6 +72,7 @@ export class SupabaseSessionRepository implements SessionRepository {
       .maybeSingle();
 
     if (error) {
+      logDbError("sessions.selectByTokenHash", error);
       throw new AppError("INTERNAL_ERROR", "無法確認 Session 狀態，請稍後再試。");
     }
     if (!data) return null;
@@ -84,6 +87,7 @@ export class SupabaseSessionRepository implements SessionRepository {
       .eq("id", sessionId);
 
     if (error) {
+      logDbError("sessions.touch", error);
       throw new AppError("INTERNAL_ERROR", "無法更新 Session 狀態，請稍後再試。");
     }
   }

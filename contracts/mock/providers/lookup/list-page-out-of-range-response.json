@@ -7,11 +7,13 @@
     "totalCount": 3,
     "unconfirmedCount": null,
     "appliedFilters": {
+      "resourceCategory": null,
       "serviceType": "ASSISTIVE_DEVICE",
       "city": "新北市",
       "district": null,
       "areaFilter": "LOCATED_IN",
       "includeUnconfirmed": false,
+      "contractCity": null,
       "q": null,
       "page": 2,
       "pageSize": 20

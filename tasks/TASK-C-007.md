@@ -35,6 +35,13 @@ Plan revision: 2026-10-01 / J-002-r6（[Issue #49](https://github.com/viz963-121
   - 從查詢頁進入時**不帶** lead state，**不顯示**「我要媒合」，改顯示「如需媒合，請先完成免費評估」並連到評估入口。
 - `realAdapter`／`mockAdapter` 新增查詢呼叫，格式完全依 §10a。
 
+## 追加（2026-10-01，D-19 Q1／Q2／Q4，[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）
+
+- **特約縣市**：輔具商家顯示 `contractRegions`（例如「列於臺北市輔具特約廠商名單」），並加上說明「長照輔具補助須向核定縣市的特約廠商購置；特約名單不代表能到府或服務您所在的行政區」。篩選新增「特約縣市」（`contractCity`）。
+- **輔具資源中心**：篩選新增資源類別（服務單位／輔具資源中心，`resourceCategory`）；選資源中心時停用服務類別篩選。資源中心的詳細頁不顯示媒合入口。
+- **Kareocar 常駐入口**（PRODUCT_SPEC §13、ARCHITECTURE §10）：首頁與導覽列加「長照交通預約（Kareocar）」，外部新分頁（`target="_blank"`、`rel="noopener noreferrer"`），標示為外部服務；網址與結果頁相同，不得出現第二個網址。
+- 對照 fixtures：`list-contract-city`、`list-resource-center`、兩個新錯誤、`PROV-MOCK-301`。
+
 ## 用詞規則
 
 查詢頁與從查詢頁進入的詳細頁，不得出現「推薦」「為您推薦」「最近」「附近」「適合您」「一定可到府」。API `notice` 照原文顯示。
@@ -59,3 +66,4 @@ PR Title：`[C-007] Homepage entry and resource lookup page`
 ## 變更紀錄
 
 - 2026-10-01 J-002-r6：依 Issue #49 建立。
+- 2026-10-01 J-002-r8：追加特約縣市、輔具資源中心、Kareocar 常駐入口（D-19）。

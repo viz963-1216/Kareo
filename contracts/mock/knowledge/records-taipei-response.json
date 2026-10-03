@@ -1,0 +1,131 @@
+{
+  "success": true,
+  "data": {
+    "knowledgeVersion": "KB-MOCK-001",
+    "publishedAt": "2026-09-24T12:00:00+08:00",
+    "items": [
+      {
+        "id": "KREC-MOCK-019",
+        "title": "臺北市失能者生活輔助器具自辦補助計畫（資格與請款）",
+        "category": "ASSISTIVE_DEVICE",
+        "jurisdiction": "TAIPEI",
+        "summary": "臺北市社會局另有自辦的失能者生活輔助器具補助，與身心障礙者輔具費用補助或其他政府機關相同性質補助不得重複申請。個人衛星定位器（GPS）：設籍且居住臺北市、經地區型以上醫院診斷為失智症者，須先向社會局申請核定才能購買，核定後 6 個月內請款。其他品項：設籍且居住臺北市、經照管中心評估長照需要等級第 2 級以上，且為 65 歲以上、領有身心障礙證明、55 歲以上原住民、失智症或急性後期照護收案者；於發票開立後 6 個月內請款，須輔具評估的品項應於評估報告開立後 6 個月內依建議購買；也可先取得核可編號，於 6 個月內向特約廠商購置並由廠商代償墊付。",
+        "effectiveFrom": "2026-09-24",
+        "effectiveTo": null,
+        "publishedAt": null,
+        "lastVerifiedAt": "2026-09-24T16:25:01+08:00",
+        "source": {
+          "title": "臺北市政府社會局辦理失能者生活輔助器具自辦補助計畫（附件）",
+          "publisher": "臺北市政府",
+          "url": "https://www-ws.gov.taipei/Download.ashx?u=LzAwMS9VcGxvYWQvMzU4L3JlbGZpbGUvMTY0OTUvMTE1ODI3L2I0MDUyODJjLTU2NTgtNDMwZS05NzZjLWVjOTY0Zjk4MGQ4MC5wZGY%3d&n=6Ie65YyX5biC5pS%2f5bqc56S%2b5pyD5bGA6L6m55CG5aSx6IO96ICF55Sf5rS76LyU5Yqp5Zmo5YW36Ieq6L6m6KOc5Yqp6KiI55WrLnBkZg%3d%3d&icon=..pdf"
+        }
+      },
+      {
+        "id": "KREC-MOCK-020",
+        "title": "臺北市失能者生活輔助器具自辦補助：115 年補助項目與最高額度",
+        "category": "ASSISTIVE_DEVICE",
+        "jurisdiction": "TAIPEI",
+        "summary": "臺北市 115 年自辦輔具補助共 18 項，各項訂有補助最高額度與最低使用年限，例如個人衛星定位器 10,000 元、爬梯機 80,000 元、防摔墊 4,000 元、離床警示器 3,000 元，皆為上限，不是固定可領金額。購置金額低於最高額度時，依實際支出按長照身分別的部分負擔比率核算補助：第一類（列冊低收入戶、中低收入戶等）0%、第二類 10%、第三類 30%。爬梯機、防摔墊、沐浴椅或便盆椅類、馬桶扶手須輔具評估；個人衛星定位器須失智症診斷；感應式照明等 5 項限居家使用。",
+        "effectiveFrom": "2026-09-24",
+        "effectiveTo": null,
+        "publishedAt": null,
+        "lastVerifiedAt": "2026-09-24T16:25:01+08:00",
+        "source": {
+          "title": "115年臺北市政府社會局失能者生活輔助器具自辦補助計畫之補助項目、額度及規定（附件）",
+          "publisher": "臺北市政府",
+          "url": "https://www-ws.gov.taipei/Download.ashx?u=LzAwMS9VcGxvYWQvMzU4L3JlbGZpbGUvMTY0OTUvMTE1ODI3L2QzMWM5M2RiLTYyMTEtNGYzMi1iOWY2LWE1YzA2ZDI2MzMxOS5wZGY%3d&n=MTE15bm06Ie65YyX5biC5pS%2f5bqc56S%2b5pyD5bGA6L6m55CG5aSx6IO96ICF55Sf5rS76LyU5Yqp5Zmo5YW36Ieq6L6m6KOc5Yqp6KiI55Wr5LmL6KOc5Yqp6aCF55uu44CB6KOc5Yqp5pyA6auY6aGN5bqm5Y%2bK6KOc5Yqp55u46Zec6KaP5a6aLnBkZg%3d%3d&icon=..pdf"
+        }
+      },
+      {
+        "id": "KREC-MOCK-021",
+        "title": "臺北市居家無障礙環境改善申請與施工流程",
+        "category": "ASSISTIVE_DEVICE",
+        "jurisdiction": "TAIPEI",
+        "summary": "臺北市長照居家無障礙環境改善（長照需要等級第 2 級以上）須先核定：照管專員擬定照顧計畫並照會輔具中心，輔具評估人員到府評估後開立評估報告與核定結果通知；申請人於核定日起 6 個月內依核定項目找本市特約廠商施工，項目或內容要變更須先與輔具中心確認，完工後到場驗收，只需支付自付額，由廠商代償墊付。身心障礙者輔具另依身障規定申請（設籍並實際居住臺北市等條件），可找非特約廠商。",
+        "effectiveFrom": "2026-09-24",
+        "effectiveTo": null,
+        "publishedAt": null,
+        "lastVerifiedAt": "2026-09-24T16:25:01+08:00",
+        "source": {
+          "title": "臺北市居家無障礙環境改善補助注意事項（附件）",
+          "publisher": "臺北市政府",
+          "url": "https://www-ws.gov.taipei/Download.ashx?u=LzAwMS9VcGxvYWQvMzU4L3JlbGZpbGUvMTY0OTUvMTE1ODI3L2UxMTk4NzNkLTAzNzgtNDczMi05ZDE2LTA4MjUwZmY1NzgwZC5wZGY%3d&n=5bGF5a6254Sh6Zqc56SZ55Kw5aKD5pS55ZaE6KOc5Yqp5rOo5oSP5LqL6aCFLnBkZg%3d%3d&icon=..pdf"
+        }
+      },
+      {
+        "id": "KREC-MOCK-010",
+        "title": "臺北市長照交通接送服務使用規則",
+        "category": "TRANSPORTATION",
+        "jurisdiction": "TAIPEI",
+        "summary": "臺北市長照交通接送限往返居所與醫院或診所（就醫、定期復健或透析），服務範圍為臺北市與新北市，每日 6:00 首班、20:30 末班；至遲於使用前一日預約，最多可預約 14 日後車班。以計程車日間費率 1.2 倍計價、共乘打 66 折；每月額度最高 1,680 元，低收入戶自付 0%、中低收入戶 10%、一般戶 30%，超出額度自費。長照等級 7 級以上或未滿 18 歲須有陪伴者。",
+        "effectiveFrom": "2026-09-04",
+        "effectiveTo": null,
+        "publishedAt": "2026-09-04",
+        "lastVerifiedAt": "2026-09-24T10:00:00+08:00",
+        "source": {
+          "title": "臺北市政府社會局「長期照顧交通接送服務-申請說明」",
+          "publisher": "臺北市政府",
+          "url": "https://dosw.gov.taipei/cp.aspx?n=1847C5A001C1DC3C"
+        }
+      },
+      {
+        "id": "KREC-MOCK-022",
+        "title": "臺北市喘息服務的三種方式",
+        "category": "RESPITE",
+        "jurisdiction": "TAIPEI",
+        "summary": "臺北市長照需要等級第 2 級以上者可申請喘息服務，讓家庭照顧者休息，可依需求選擇或混合使用：居家喘息（照顧服務員到家協助）、機構喘息（短期入住長照機構 24 小時照顧）、社區喘息（白天到日間照顧中心或巷弄長照站，或夜間到小規模多機能中心）。可撥 1966 或上臺北市長期照顧資訊網申請。",
+        "effectiveFrom": "2025-04-18",
+        "effectiveTo": null,
+        "publishedAt": "2025-04-18",
+        "lastVerifiedAt": "2026-09-24T16:25:01+08:00",
+        "source": {
+          "title": "臺北市政府衛生局新聞稿「北市長照喘息服務，減輕照顧者壓力」",
+          "publisher": "臺北市政府",
+          "url": "https://health.gov.taipei/News_Content.aspx?n=4F01EBDF8F61F315&sms=72544237BBE4C5F6&s=B50D5370D99E02DC"
+        }
+      },
+      {
+        "id": "KREC-MOCK-009",
+        "title": "臺北市長期照顧管理中心聯絡資訊",
+        "category": "APPLICATION",
+        "jurisdiction": "TAIPEI",
+        "summary": "臺北市長期照顧管理中心位於中山區錦州街 233 號，申請請撥 1966。",
+        "effectiveFrom": "2026-09-04",
+        "effectiveTo": null,
+        "publishedAt": "2026-09-04",
+        "lastVerifiedAt": "2026-09-23T10:40:00+08:00",
+        "source": {
+          "title": "臺北市政府衛生局「如何申請長照服務」",
+          "publisher": "臺北市政府",
+          "url": "https://health.gov.taipei/News_Content.aspx?n=4244BB51FC46A03C&sms=72730260368A9FA4&s=718465B2053B7E77"
+        }
+      },
+      {
+        "id": "KREC-MOCK-011",
+        "title": "臺北市申請長照服務的管道",
+        "category": "APPLICATION",
+        "jurisdiction": "TAIPEI",
+        "summary": "臺北市可透過「臺北市長期照顧資訊網」線上申請，或撥長照專線 1966 向臺北市長期照顧管理中心申請；受理時間為週一至週五 8:30–12:00、13:30–17:30。",
+        "effectiveFrom": "2026-06-05",
+        "effectiveTo": null,
+        "publishedAt": "2026-06-05",
+        "lastVerifiedAt": "2026-09-24T10:00:00+08:00",
+        "source": {
+          "title": "臺北市政府社會局「居家服務-洽辦資訊」",
+          "publisher": "臺北市政府",
+          "url": "https://dosw.gov.taipei/cp.aspx?n=F07637F92E4E85A0"
+        }
+      }
+    ],
+    "page": 1,
+    "pageSize": 20,
+    "totalCount": 7,
+    "appliedFilters": {
+      "jurisdiction": "TAIPEI",
+      "category": null,
+      "page": 1,
+      "pageSize": 20
+    },
+    "notice": "以下為 Kareo 已審核發布的長照制度與補助資訊摘要，內容可能隨主管機關公告調整。實際資格、服務內容與補助，仍應由 1966 或所在地長期照顧管理中心正式評估確認。"
+  }
+}

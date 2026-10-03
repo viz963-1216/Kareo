@@ -1,0 +1,7 @@
+{
+  "method": "GET",
+  "path": "/api/v1/providers",
+  "query": {
+    "resourceCategory": "ASSISTIVE_DEVICE_CENTER"
+  }
+}

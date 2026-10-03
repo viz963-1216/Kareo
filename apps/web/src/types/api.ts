@@ -85,6 +85,55 @@ export interface AssessmentResponse {
   careNeedProfile: CareNeedProfile;
 }
 
+export type KnowledgeJurisdiction = "TAIWAN" | "TAIPEI" | "NEW_TAIPEI";
+export type KnowledgeCategory =
+  | "ELIGIBILITY"
+  | "BENEFIT"
+  | "COPAY"
+  | "TRANSPORTATION"
+  | "HOME_MEDICAL_NURSING"
+  | "APPLICATION"
+  | "ASSISTIVE_DEVICE"
+  | "RESPITE"
+  | "HOME_CARE"
+  | "OTHER";
+
+export interface KnowledgeRecordsRequest {
+  jurisdiction?: KnowledgeJurisdiction;
+  category?: KnowledgeCategory;
+  page: number;
+  pageSize: number;
+}
+
+export interface PublicKnowledgeRecord {
+  id: string;
+  title: string;
+  category: KnowledgeCategory;
+  jurisdiction: KnowledgeJurisdiction;
+  summary: string;
+  effectiveFrom: string;
+  effectiveTo: string | null;
+  publishedAt: string | null;
+  lastVerifiedAt: string;
+  source: { title: string; publisher: string; url: string | null };
+}
+
+export interface KnowledgeRecordsResponse {
+  knowledgeVersion: string;
+  publishedAt: string;
+  items: PublicKnowledgeRecord[];
+  page: number;
+  pageSize: number;
+  totalCount: number;
+  appliedFilters: {
+    jurisdiction: KnowledgeJurisdiction | null;
+    category: KnowledgeCategory | null;
+    page: number;
+    pageSize: number;
+  };
+  notice: string;
+}
+
 export interface RecommendationRequest {
   assessmentId: string;
   serviceType: RecommendationServiceType;

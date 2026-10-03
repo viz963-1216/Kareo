@@ -32,6 +32,19 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新整合快照（2026-10-03，J-003-r9；以下舊看板為歷史，衝突以本節為準）
+
+- staging `376f3ef`；Netlify 部署與 Supabase Kareo 已恢復。J-001 環境可用，但尚非完整驗收。
+- A-006 #53、Session runtime #59、隱私 #61/#62 已合併。Provider 已匯入 30 家／30 服務／86 已確認範圍。
+- 首次知識版本 `KB-2026-09-24-001` 已發布：18 來源、21 筆紀錄、21 版本成員。知識狀態 API HTTP 200。lastVerifiedAt 保留來源原核對時間，不改成發布日。
+- 開啟 PR：B-012 #48、B-011b #55、B-013 #57、C-007 #58，仍待修正／依賴。
+- A-007、B-014、C-008、C-009 未見 PR；A-006 已完成模組，公開查詢整合仍待 B-013/C-007。
+- D-05：Jerry 已核准 90 天／180 天／1 年／3 年的產品保存規劃（#62 留言）；同意仍 DRAFT，工程及最終審閱未完成。
+- 每日 crawler：staging 有 workflow，但 main 沒有；GitHub staging environment 已建立，只允許 staging 分支，目前無 secrets。尚未定時實跑。
+- D-18/D-19 六項新增驗收已列 E2E-44～49；合計 49 必要案例，不以早期 43 項代替完整範圍。Integrated 維持否。
+- 詳細證據：`docs/acceptance/J003-2026-10-03-first-knowledge-publication.md`。
+- J-004-r3：發布／回滾／隔離還原及 D-05 權利處理文件已準備；Jerry 已確認信箱收信回覆。實際資料處理與演練仍待完成，D-05 DRAFT／release gate CLOSED。
+
 # Task Board（2026-10-01，J-002-r6 依 staging `2ef21a8`、GitHub PR 與遠端分支核對）
 
 「模組」欄只代表 PR 狀態；「整合」欄只在 J-003 有對應證據時才寫。逐項證據與交回清單見 `docs/INTEGRATION_ACCEPTANCE.md`〈目前結論（2026-09-29，J-003-r8）〉。
@@ -44,6 +57,7 @@ A / B / C 不直接 Push `staging` 或 `main`。
 | A-003 r1 | MERGED（#13） | — | — | — |
 | A-003-r13 已驗證座標 | MERGED（#39）：30／30 有座標（29 官方門牌＋NTPC-AD-004 經核准的非官方商家座標）；14 家服務範圍待查 | 未確認：正式匯入未執行 | — | 範圍補查由 A-006 承接 |
 | **A-006 可查詢資料與範圍補查** | READY（2026-10-01 建立，Issue #49） | — | — | 用既有欄位查核 14 家；新增機器欄位先找 J-002 |
+| **A-007 雙北輔具資源中心資料** | READY（2026-10-01 建立，D-19 Q2） | — | — | 官方來源；`resourceCategory = ASSISTIVE_DEVICE_CENTER`，不建立 ProviderService |
 | A-004 Validation Gate | MERGED（#18） | 未確認：正式匯入未執行 | — | 供 B-004 正式匯入（J-003） |
 | A-005 QA Cases | MERGED（#30 `ffc0796`，位置案例已依 D-13 更新） | — | — | 供 B-005／J-003 推薦驗收 |
 
@@ -65,6 +79,7 @@ A / B / C 不直接 Push `staging` 或 `main`。
 | **B-011b 完整安全驗收** | 未見提交（2026-09-29 重新查證） | — | B-005 ✅、B-006、B-010 ✅ | 缺 `POST /api/v1/consent/withdraw`、`DELETE /api/v1/session` 實作；阻擋 E2E-19、20、37 |
 | **B-012 Admin Knowledge API（D-16）** | IN REVIEW（#48 r2 `5c81cd1`：8／10 端點） | — | B-006 ✅ | **r3**：同步 staging，依 D-16b 完成 publish-preview／publish、內容包登錄、統一鎖定；之後 J 補 10 個 admin 路由；阻擋 E2E-40 與 C-006 真實接線 |
 | **B-013 公開資源查詢 API** | QUEUED（2026-10-01 建立，Issue #49） | — | 契約 ✅（#50、D-18a–e 核准）；排在 B-012-r3 之後 | API_CONTRACT §10a |
+| **B-014 公開長照資訊 API** | QUEUED（2026-10-01 建立，D-19 Q3） | — | 排在 B-013 之後；真實資料需首次知識發布 | API_CONTRACT §13a |
 
 ## Engineer C
 
@@ -74,6 +89,8 @@ A / B / C 不直接 Push `staging` 或 `main`。
 | C-005 | MERGED（#34） | 真實 API 待驗 | — | staging 31 項前端測試與 real build 通過；不等於真實 E2E |
 | C-006 知識審核與發布頁（D-16） | MERGED（#46，2026-10-01） | 否：真實接線等 B-012 | — | B-012-r3 合併後由 J-003 接線 |
 | **C-007 首頁入口與資源查詢頁** | READY（Mock，2026-10-01 建立，Issue #49） | — | `contracts/mock/providers/lookup/` ✅；真實接線 B-013 | 依 API_CONTRACT §10a 以 Mock 開發 |
+| **C-008 長照制度與補助資訊頁** | READY（Mock，2026-10-01 建立，D-19 Q3） | — | `contracts/mock/knowledge/` ✅；真實接線 B-014 | API_CONTRACT §13a |
+| **C-009 需求摘要（列印／複製）** | READY（2026-10-01 建立，D-19 Q5） | — | 只用既有評估回應 | 只在前端產生，不保存、不分享 |
 
 **C 的驗收分層**：Mock 模組驗收不代替 J-003 真實 API E2E。
 
@@ -83,7 +100,7 @@ A / B / C 不直接 Push `staging` 或 `main`。
 | Task | 狀態 | 下一步 |
 |---|---|---|
 | J-001 Netlify + Supabase staging | MERGED（#6） | 部署仍 503 `usage_exceeded`（2026-09-29 重新查證，D-09）；staging Supabase 隔離未確認 |
-| J-002 規格／知識 | r1–r5 DOC-MERGED（#19、#28、#31、#35、#43）；r6（資源查詢契約、D-16b）DOC-MERGED（#50）；D-18a–e 核准（2026-10-01）；5 包 21 筆核准、1 筆退回，**尚未發布** | Jerry 回答 D-19 Q1–Q5、Q7 |
+| J-002 規格／知識 | r1–r5 DOC-MERGED（#19、#28、#31、#35、#43）；r6（資源查詢契約、D-16b）DOC-MERGED（#50、#51）；D-18a–e、D-19 核准（2026-10-01）；r8（D-19 規格）DOC-MERGED（#54）、§14b 問題文字核准；5 包 21 筆核准、1 筆退回，**尚未發布** | D-09 Netlify 額度；D-05 法務 |
 | J-003 CI + Integration | r1–r4 MERGED（#20、#29、#38）、前端 CI MERGED（#42）；r5–r8 IN REVIEW（#44，#41 已被包含）；**Integrated：否** | J 持續負責整合與驗證；43 項真實 E2E 依環境與模組到位逐段補證據（見 INTEGRATION_ACCEPTANCE〈目前結論（J-003-r8）〉） |
 | J-004 Release readiness | 準備文件 MERGED（#22、#45）；gate CLOSED | smoke 工具測試 3／3 PASS；真實演練待部署恢復 |
 
@@ -115,9 +132,11 @@ B-008 ✅ ─┼─→ B-008-r2 ─→ J-003 首次知識發布      │ │
           ├─→ B-011a ─┬─→ B-010（規則引擎＋知識）│ │
           │           └─→ B-005 ─→ B-006         │ │
           └─→ B-009（每日 00:10）─→ B-012 ─→ C-006（管理頁面）
-J-002-r6 契約（D-18）─┬─→ A-006（資料查核，可立即開始）
+J-002-r6／r8 契約（D-18、D-19）─┬─→ A-006、A-007（資料，可立即開始）
                       ├─→ B-013（B-012-r3 之後）─┐
                       └─→ C-007（Mock）──────────┴─→ J-003 路由＋同機構對照案例
+                      ├─→ B-014（B-013 之後）─→ C-008 真實接線
+                      └─→ C-008（Mock）、C-009（前端，可立即開始）
 B-005＋B-006＋B-010 ─→ B-011b                    │ │
 C-004 ✅ ─→ C-005（Mock）                        │ │
 J-002：D-02、D-03 核准 ✅ ＋ B-008-r2 ─→ J-003 首次知識發布 ─→ B-010 真實 smoke
@@ -142,7 +161,7 @@ J-002：D-02、D-03 核准 ✅ ＋ B-008-r2 ─→ J-003 首次知識發布 ─�
 | 待決定 | **D-09 Netlify 額度**（Jerry：日後補充） |
 | 已完成（2026-09-24） | D-03-v2、規則表 r3、D-15（雲端硬碟資料夾來源）、D-16（管理頁面） |
 | 已完成（2026-09-24） | `KP-2026-09-24-002` 6 筆核准；來源 `SR-2026-09-24-01` 核准；接件人蘇子傑（週一至週五 09:00–21:00），不設備援 |
-| 待輸入 | D-05 法務意見與客服信箱（暫不填） |
+| 待輸入 | D-05 草案及蒐集者蘇子傑已補；客服信箱 viz963@gmail.com，處理地區／刪除／最終審閱待驗（2026-10-03） |
 
 ---
 

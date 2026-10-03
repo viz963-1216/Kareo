@@ -6,6 +6,7 @@
         "id": "PROV-MOCK-202",
         "name": "測試安心輔具中心",
         "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
         "services": [
           "ASSISTIVE_DEVICE"
         ],
@@ -17,12 +18,23 @@
         "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-202",
         "verified": false,
         "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [
+          {
+            "city": "臺北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          },
+          {
+            "city": "新北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          }
+        ],
         "areaMatch": null
       },
       {
         "id": "PROV-MOCK-201",
         "name": "測試輔具服務中心",
         "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
         "services": [
           "ASSISTIVE_DEVICE"
         ],
@@ -34,12 +46,19 @@
         "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-201",
         "verified": true,
         "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [
+          {
+            "city": "新北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          }
+        ],
         "areaMatch": null
       },
       {
         "id": "PROV-MOCK-204",
         "name": "測試輔具商行（服務範圍待確認）",
         "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
         "services": [
           "ASSISTIVE_DEVICE"
         ],
@@ -51,12 +70,19 @@
         "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-204",
         "verified": true,
         "serviceAreaStatus": "UNCONFIRMED",
+        "contractRegions": [
+          {
+            "city": "新北市",
+            "serviceType": "ASSISTIVE_DEVICE"
+          }
+        ],
         "areaMatch": null
       },
       {
         "id": "PROV-MOCK-203",
         "name": "測試樂齡輔具中心",
         "type": "ASSISTIVE_DEVICE",
+        "resourceCategory": "SERVICE_PROVIDER",
         "services": [
           "ASSISTIVE_DEVICE"
         ],
@@ -68,19 +94,39 @@
         "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-203",
         "verified": true,
         "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [],
+        "areaMatch": null
+      },
+      {
+        "id": "PROV-MOCK-301",
+        "name": "測試輔具資源中心",
+        "type": "OTHER",
+        "resourceCategory": "ASSISTIVE_DEVICE_CENTER",
+        "services": [],
+        "address": "新北市蘆洲區集賢路301號",
+        "city": "新北市",
+        "district": "蘆洲區",
+        "phone": "02-43010101",
+        "website": "https://example.com/kareo-mock/prov-mock-301",
+        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=PROV-MOCK-301",
+        "verified": true,
+        "serviceAreaStatus": "VERIFIED",
+        "contractRegions": [],
         "areaMatch": null
       }
     ],
     "page": 1,
     "pageSize": 20,
-    "totalCount": 4,
+    "totalCount": 5,
     "unconfirmedCount": null,
     "appliedFilters": {
+      "resourceCategory": null,
       "serviceType": null,
       "city": null,
       "district": null,
       "areaFilter": null,
       "includeUnconfirmed": false,
+      "contractCity": null,
       "q": "輔具",
       "page": 1,
       "pageSize": 20

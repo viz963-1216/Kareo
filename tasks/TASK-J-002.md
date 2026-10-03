@@ -49,6 +49,8 @@ Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/
 - [x] **r6（2026-10-01）D-18 公開資源查詢**（[Issue #49](https://github.com/viz963-1216/Kareo/issues/49)）：PRODUCT_SPEC v0.7 §1／§14a／§19／§53–55、API_CONTRACT v0.5 §10a／§10、DATA_MODEL v0.2.4 §17／§19、ARCHITECTURE v0.5.3 §7.1／§20.4、`contracts/reference/service-districts.json`、`contracts/mock/providers/lookup/`（含 `validate-fixtures.mjs`）、TASK-A-006／B-013／C-007、MVP_TRACEABILITY §5。
 - [x] Jerry 核准 D-18a–e（2026-10-01，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）；r6 已合併（#50）。
 - [ ] Jerry 回答 D-19 Q1–Q5、Q7 後，另建 A-007／B-014／C-008／C-009。
+- [x] **r8（2026-10-01）D-19**：Jerry 決定 Q1–Q5、Q7（[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）；PRODUCT_SPEC v0.8 §13／§14a–c、API_CONTRACT v0.6（§10／§10a 追加、§13a）、DATA_MODEL v0.2.5（§17、§19b）、ARCHITECTURE v0.5.4（§7.1、§9.1、§10、§20.4）、`contracts/mock/knowledge/`、lookup fixtures 追加、TASK-A-007／B-014／C-008／C-009 與 A-006／B-013／C-007 追加。
+- [x] Jerry 核准 PRODUCT_SPEC §14b 建議問題文字（2026-10-01，[PR #54 comment 5927605020](https://github.com/viz963-1216/Kareo/pull/54#issuecomment-5927605020)）；r8 已合併（#54）。
 - [ ] D-09 Netlify 額度（Jerry：日後補充）。
 - [ ] 法務確認（D-05 L-1～L-6）後把同意版本改為 ACTIVE（含位置告知）。Jerry 2026-09-24 指示暫不填。
 - [x] 主要接件人：蘇子傑，09:00–21:00（LEAD_OPERATIONS §2、§5）。
@@ -73,5 +75,7 @@ PR Title：`[J-002] <本次修正摘要>`（r4：`[J-002] Align tasks and accept
 - r2（PR #19）：Assessment 改規則引擎（D-01）；D-10 原子寫入。
 - r3（PR #28）：恢復原始 MVP 範圍、分離提案與核准狀態、需求追蹤表。
 - r5：臺北市地方知識（KP-2026-09-24-005）、規則表 r6 提案。
+- r8（2026-10-01）：D-19 一站式功能定案（特約縣市、輔具資源中心、長照資訊查詢、需求摘要只在前端產生、Kareocar 常駐入口；住宿機構延後）。
+- r7（2026-10-01，#51）：D-18a–e 標示核准。
 - r6（2026-10-01）：資源查詢與個案推薦分離（D-18）、一站式缺口盤點（D-19）、B-012 內容包規則（D-16b）；更正過時狀態（座標 30／30、KR-019～021 已重新核准）。
 - r4（PR #31）：D-08／D-11／D-12 標示未核准、已擱置（依原始 MVP 開發）；補助說明模板與 contract；位置流程統一與 D-13a–g／D-14a–b 建議；清理 AI 指示；任務狀態、依賴與驗收整併。

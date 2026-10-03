@@ -7,11 +7,13 @@
     "totalCount": 0,
     "unconfirmedCount": null,
     "appliedFilters": {
+      "resourceCategory": null,
       "serviceType": "HOME_MEDICAL_NURSING",
       "city": "新北市",
       "district": "烏來區",
       "areaFilter": "LOCATED_IN",
       "includeUnconfirmed": false,
+      "contractCity": null,
       "q": null,
       "page": 1,
       "pageSize": 20

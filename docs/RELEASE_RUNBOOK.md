@@ -1,7 +1,7 @@
 # Kareo Release Runbook / 發布與維運手冊
 
 Owner: Jerry（TASK-J-004）
-Submission Version: J-004-r2
+Submission Version: J-004-r3
 Status: DRAFT — 尚未演練
 
 > 本手冊的每個步驟都要在 10/20–10/21 的發布演練中實際跑過一次，並把結果填入 §7。
@@ -18,11 +18,16 @@ Status: DRAFT — 尚未演練
 | 資料庫 migration／備份／還原 | Jerry | （待指定） | Supabase project owner |
 | 媒合接件 | 蘇子傑（週一至週五 09:00–21:00） | 不設；無法接件時暫停入口 | InternalOperator 個人密鑰 |
 | 告警處理 | Jerry | （待指定） | 同上 |
-| 刪除請求 | （待指定） | Jerry | InternalOperator `DATA_STEWARD` |
+| 刪除請求 | Jerry（蘇子傑，沿用資料管理者責任） | 未指定 | InternalOperator `DATA_STEWARD` |
 
 交接時確認每個人**實際登入並執行過一次**自己的操作，不以口頭承諾代替。
 
 ## 2. 發布步驟
+
+先填 RELEASE_CHECKLIST 的固定目標表。整合／正式資料庫未隔離時不執行正式 migration；目前 kareo-tw 是 staging 部署，不能當成隔離的 production。
+
+下列先固定待發布版本，發布後改以實際 main merge SHA 與 marker 驗證；兩者 SHA 可不同，不能填舊 E2E 當成新版本證據。
+
 
 1. 確認 `docs/RELEASE_CHECKLIST.md` Gate 0–6 全部勾選並附證據。
 2. 在 staging 固定 release commit，執行完整 CI（綠燈）。
@@ -53,6 +58,16 @@ node scripts/smoke-release.mjs --base-url=https://<production-site> --commit=<�
 smoke 產生的合成資料必須清除或標註，不得混入正式統計。
 
 ## 4. 回滾
+
+回滾前記：事件時間、受影響範圍、現行／目標 deploy ID、commit、schema 相容性、知識版號、入口狀態及操作者。目標 deploy ID 必須實際可選；本版不提供未驗證的 UI 點擊或命令作為已通過演練。
+
+1. 限制受影響寫入入口，確認直接 API 也被阻擋；未交付開關時 BLOCKED，不能假稱已暫停。
+2. 判斷前端／Functions 舊版是否相容現在 schema、同意版本與資料；不相容則以前向修復處理。
+3. 使用符合條件的已知成功 deploy。資料庫不自動倒退、不刪資料，不在現有專案做測試還原。
+4. 回滾後以目標完整 SHA 和預期知識版本跑唯讀 smoke，另驗證受影響功能及禁止寫入狀態。
+5. 保存去識別證據，確認原因與資料完整性後才恢復入口；FAIL／BLOCKED 不得恢復並宣稱成功。
+
+
 
 | 問題 | 動作 |
 |---|---|
@@ -98,3 +113,13 @@ smoke 產生的合成資料必須清除或標註，不得混入正式統計。
 - 備份還原：先核實實際方案、資料庫版本與工具；只在已確認隔離的目標演練。RPO／RTO 先記實測值，可接受門檻待 Jerry 決定，不自行宣稱達標。
 - 發布回滾：前一個 deploy 必須與目前資料 schema 相容；若不相容，維持入口關閉並以前向修復處理，不盲目回退 Functions。
 - 不在 GitHub／截圖／log 留存密鑰、token、聯絡方式或備份內容；只記去識別的結果與受控證據位置。
+
+## 9. 權利申請與隔離還原
+
+權利申請依 [PRIVACY_REQUEST_RUNBOOK.md](PRIVACY_REQUEST_RUNBOOK.md) 執行。信箱收件確認不等於刪除成功；客服無 token 的管理者操作工具尚需核對交付。
+
+備份演練先記來源 ref、備份時間、資料庫版本、目的 ref／URL、通知與排程狀態；確認目的不為來源、正式或 Kareocar，再啟動。來源 physical 備份不能假定可直接下載成 pg_dump。依當時實際方案與[Supabase 官方備份文件](https://supabase.com/docs/guides/platform/backups)選已支援方法；需要付費／新專案另由 Jerry 決定，不預先買 PITR。
+
+隔離目標保持對外入口關閉、排程停用、不使用真實電話，不複用正式操作者密鑰。恢復後核對 schema、列數、RLS、權限、RPC、知識成員完整性，先重套備份時間之後的刪除紀錄，再核對合成已刪資料不能讀回、不能聯繫。尚未交付可重套刪除的正式工具時記 BLOCKED，不編造自訂 SQL 補過。
+
+記錄 RPO＝復原資料的時間點與事故目標時間差，RTO＝恢復到核對完成可服務的耗時；兩者先記實测，可接受門檻未核准前不能稱達標。備份有 7 份不代表所有副本 7 天刪除，也不包括 Storage objects 的檔案復原。
