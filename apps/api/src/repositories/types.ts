@@ -11,6 +11,7 @@ import type {
   KnowledgeChange,
   KnowledgeRecord,
   KnowledgeStatusResponse,
+  PublicKnowledgeSnapshotRecord,
   Jurisdiction,
   Lead,
   LeadAccessEvent,
@@ -128,6 +129,13 @@ export interface KnowledgeRepository {
 
   // B-010：取出指定 PUBLISHED 版本的全部 PUBLISHED 紀錄（含來源機關），供 Assessment 建立單一版本的知識快照。
   findPublishedSnapshotRecords(versionId: string): Promise<KnowledgeSnapshotRecord[]>;
+
+  // TASK-B-014：取出指定 PUBLISHED 版本的全部 PUBLISHED 紀錄，供 GET /api/v1/knowledge/records 公開查詢使用。
+  // 刻意獨立於 findPublishedSnapshotRecords（Assessment 專用）之外：公開 API 需要額外的
+  // sourceUrl／sourceName／publishedAt／lastVerifiedAt 欄位，且絕不能讓 ruleData／contentFingerprint／
+  // status／packId 等內部欄位有機會外流；有效期間與目前版本判斷仍沿用同一套共用邏輯
+  // （getCurrentPublishedStatus／isEffectiveOn），不另寫一套。
+  findPublicKnowledgeRecords(versionId: string): Promise<PublicKnowledgeSnapshotRecord[]>;
 }
 
 export interface ProviderDatasetWrite {
