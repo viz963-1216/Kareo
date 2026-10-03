@@ -9,6 +9,7 @@ import type {
   KnowledgeRecord,
   KnowledgeStatusResponse,
   Jurisdiction,
+  PublicKnowledgeSnapshotRecord,
 } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
 import { nowTaipeiISOString } from "../lib/response.js";
@@ -479,6 +480,51 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
         summary: row.summary,
         ruleData: row.rule_data ?? {},
         authority: (source as { authority?: KnowledgeAuthority } | null)?.authority ?? null,
+      };
+    });
+  }
+
+  // TASK-B-014：跟 findPublishedSnapshotRecords 同一個 knowledge_version_records 成員查詢路徑
+  // （目前版本判斷、有效期間篩選都共用既有邏輯，不另寫一套），但多選公開查詢需要的欄位
+  // （source_url／knowledge_sources.name／published_at／last_verified_at），且不選 raw_text／
+  // content_hash／content_fingerprint／pack_id／status 等內部欄位，從查詢層就不讓這些資料有機會外流。
+  async findPublicKnowledgeRecords(versionId: string): Promise<PublicKnowledgeSnapshotRecord[]> {
+    const client = getSupabaseClient();
+    const { data: memberRows, error: memberError } = await client
+      .from("knowledge_version_records")
+      .select("knowledge_record_id")
+      .eq("version_id", versionId);
+    if (memberError) throw new AppError("INTERNAL_ERROR", "無法查詢 Knowledge 版本成員，請稍後再試。");
+    const memberIds = (memberRows ?? []).map((r) => r.knowledge_record_id as string);
+    if (memberIds.length === 0) return [];
+
+    const { data, error } = await client
+      .from("knowledge_records")
+      .select(
+        "id, title, category, jurisdiction, summary, effective_from, effective_to, published_at, last_verified_at, source_url, rule_data, knowledge_sources(name, authority)"
+      )
+      .in("id", memberIds)
+      .eq("status", "PUBLISHED")
+      .order("id", { ascending: true });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法查詢 Knowledge 紀錄，請稍後再試。");
+    return (data ?? []).map((row) => {
+      const source = Array.isArray(row.knowledge_sources) ? row.knowledge_sources[0] : row.knowledge_sources;
+      const s = source as { name?: string; authority?: KnowledgeAuthority } | null;
+      const ruleData = (row.rule_data ?? {}) as Record<string, unknown>;
+      return {
+        id: row.id,
+        title: row.title,
+        category: row.category,
+        jurisdiction: row.jurisdiction,
+        summary: row.summary,
+        effectiveFrom: row.effective_from,
+        effectiveTo: row.effective_to,
+        publishedAt: row.published_at,
+        lastVerifiedAt: row.last_verified_at,
+        sourceUrl: row.source_url,
+        sourceName: s?.name ?? "",
+        authority: s?.authority ?? null,
+        issuer: typeof ruleData.issuer === "string" ? ruleData.issuer : null,
       };
     });
   }

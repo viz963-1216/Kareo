@@ -11,6 +11,7 @@ import type {
   KnowledgeStatusResponse,
   KnowledgeVersion,
   Jurisdiction,
+  PublicKnowledgeSnapshotRecord,
 } from "../types/index.js";
 import type { KnowledgeSnapshotRecord } from "../assessment/knowledgeSnapshot.js";
 import { AppError } from "../errors/AppError.js";
@@ -30,6 +31,8 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
   readonly versionRecords = new Map<string, Set<string>>();
   // 模擬 knowledge_sources.authority（sourceId → authority）。
   readonly sourceAuthorities = new Map<string, KnowledgeAuthority>();
+  // 模擬 knowledge_sources.name（sourceId → name），TASK-B-014 公開查詢需要來源名稱。
+  readonly sourceNames = new Map<string, string>();
 
   // 測試用：讓 publish / withdraw 模擬寫入失敗（驗證失敗時不留半套資料）。
   failNextPublish = false;
@@ -308,6 +311,29 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
         summary: r.summary,
         ruleData: structuredClone(r.ruleData),
         authority: this.sourceAuthorities.get(r.sourceId) ?? null,
+      }));
+  }
+
+  // TASK-B-014：同一個 versionRecords 成員查詢路徑，但額外帶出公開查詢需要的欄位。
+  async findPublicKnowledgeRecords(versionId: string): Promise<PublicKnowledgeSnapshotRecord[]> {
+    const memberIds = this.versionRecords.get(versionId) ?? new Set<string>();
+    return this.records
+      .filter((r) => memberIds.has(r.id) && r.status === "PUBLISHED")
+      .sort((a, b) => a.id.localeCompare(b.id))
+      .map((r) => ({
+        id: r.id,
+        title: r.title,
+        category: r.category,
+        jurisdiction: r.jurisdiction,
+        summary: r.summary,
+        effectiveFrom: r.effectiveFrom,
+        effectiveTo: r.effectiveTo,
+        publishedAt: r.publishedAt,
+        lastVerifiedAt: r.lastVerifiedAt,
+        sourceUrl: r.sourceUrl,
+        sourceName: this.sourceNames.get(r.sourceId) ?? "",
+        authority: this.sourceAuthorities.get(r.sourceId) ?? null,
+        issuer: typeof r.ruleData?.issuer === "string" ? r.ruleData.issuer : null,
       }));
   }
 }

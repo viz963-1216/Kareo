@@ -51,6 +51,12 @@
   force = true
 
 [[redirects]]
+  from = "/api/v1/knowledge/records"
+  to = "/.netlify/functions/knowledgeRecords"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/v1/knowledge/status"
   to = "/.netlify/functions/knowledgeStatus"
   status = 200
