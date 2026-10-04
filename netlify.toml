@@ -33,6 +33,12 @@
   force = true
 
 [[redirects]]
+  from = "/api/v1/consent/withdraw"
+  to = "/.netlify/functions/consentWithdraw"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/v1/assessments"
   to = "/.netlify/functions/assessment"
   status = 200

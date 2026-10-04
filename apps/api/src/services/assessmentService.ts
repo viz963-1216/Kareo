@@ -1,5 +1,6 @@
 import type { AssessmentRepository, ConsentRepository, SessionRepository } from "../repositories/types.js";
 import { requireMatchingSessionId, requireValidSession } from "./sessionSecurityService.js";
+import { requireFreeTextLength } from "./requestLimitsService.js";
 import type { CareAssessmentAIAdapter } from "../adapters/aiAdapter.js";
 import type { PublishedKnowledgeResolver } from "../adapters/knowledgeVersionResolver.js";
 import type { KnowledgeSnapshot } from "../assessment/knowledgeSnapshot.js";
@@ -211,6 +212,7 @@ export function validateCreateAssessmentInput(body: unknown): CreateAssessmentIn
   if (typeof input.freeText !== "string") {
     throw new AppError("VALIDATION_ERROR", "freeText 格式不合法。");
   }
+  requireFreeTextLength(input.freeText);
 
   return {
     sessionId: input.sessionId,

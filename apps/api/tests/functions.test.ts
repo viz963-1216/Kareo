@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { handler as sessionHandler } from "../src/functions/session.js";
 import { handler as consentHandler } from "../src/functions/consent.js";
+import { handler as consentWithdrawHandler } from "../src/functions/consentWithdraw.js";
 import { handler as assessmentHandler } from "../src/functions/assessment.js";
 import { handler as knowledgeStatusHandler } from "../src/functions/knowledgeStatus.js";
 import { handler as providerDetailHandler } from "../src/functions/providerDetail.js";
@@ -31,6 +32,37 @@ describe("Function handlers (no live Supabase configured)", () => {
     expect(body.error.code).toBe("INTERNAL_ERROR");
     expect(JSON.stringify(body)).not.toMatch(/eyJ[a-zA-Z0-9_-]{10,}/); // JWT-like secret pattern
     expect(JSON.stringify(body)).not.toMatch(/at\s+\w+\s+\(.*:\d+:\d+\)/); // stack trace pattern
+  });
+
+  // TASK-B-011b.
+  it("session handler rejects DELETE with no session token, without touching Supabase (SESSION_INVALID)", async () => {
+    const res = await sessionHandler({ httpMethod: "DELETE" });
+    expect(res.statusCode).toBe(401);
+    expect(JSON.parse(res.body).error.code).toBe("SESSION_INVALID");
+  });
+
+  it("session handler rejects a method other than POST/DELETE with INVALID_REQUEST", async () => {
+    const res = await sessionHandler({ httpMethod: "PUT" });
+    expect(res.statusCode).toBe(400);
+    expect(JSON.parse(res.body).error.code).toBe("INVALID_REQUEST");
+  });
+
+  it("consentWithdraw handler rejects non-POST method", async () => {
+    const res = await consentWithdrawHandler({ httpMethod: "GET" });
+    expect(res.statusCode).toBe(400);
+    expect(JSON.parse(res.body).error.code).toBe("INVALID_REQUEST");
+  });
+
+  it("consentWithdraw handler rejects with no session token, without touching Supabase (SESSION_INVALID)", async () => {
+    const res = await consentWithdrawHandler({ httpMethod: "POST" });
+    expect(res.statusCode).toBe(401);
+    expect(JSON.parse(res.body).error.code).toBe("SESSION_INVALID");
+  });
+
+  it("assessment handler rejects a body over 16 KB with PAYLOAD_TOO_LARGE, before touching Supabase", async () => {
+    const res = await assessmentHandler({ httpMethod: "POST", body: JSON.stringify({ freeText: "x".repeat(20 * 1024) }) });
+    expect(res.statusCode).toBe(413);
+    expect(JSON.parse(res.body).error.code).toBe("PAYLOAD_TOO_LARGE");
   });
 
   it("consent handler rejects invalid JSON body (checked before the session token, since it's cheaper)", async () => {

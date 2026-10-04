@@ -134,6 +134,15 @@ describe("Assessment service — session / consent gate (TASK-B-011a)", () => {
     await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "SESSION_INVALID" });
   });
 
+  it("D-05 ①：撤回同意（session 轉 DELETION_REQUESTED）後，無法再建立新的 Assessment", async () => {
+    const { deps, sessionRepo, sessionId, sessionToken } = await buildDeps();
+    const session = sessionRepo.sessions.find((s) => s.id === sessionId)!;
+    session.status = "DELETION_REQUESTED"; // 等同 withdrawConsent／DELETE session 後的狀態
+
+    const body = { ...validBody, sessionId };
+    await expect(createAssessment(deps, body, sessionToken)).rejects.toMatchObject({ code: "SESSION_INVALID" });
+  });
+
   it("session A's token cannot be used to act as session B (FORBIDDEN) — no cross-session access", async () => {
     const { deps, sessionToken } = await buildDeps(); // session A
     const otherSessionRepo = new InMemorySessionRepository();

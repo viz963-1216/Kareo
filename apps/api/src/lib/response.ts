@@ -32,7 +32,11 @@ export function errorResponse(err: AppError): HttpResponse {
     success: false,
     error: { code: err.code, message: err.message },
   };
-  return { statusCode: err.statusCode, headers: JSON_HEADERS, body: JSON.stringify(body) };
+  const headers =
+    err.code === "RATE_LIMITED" && err.retryAfterSeconds !== undefined
+      ? { ...JSON_HEADERS, "Retry-After": String(err.retryAfterSeconds) }
+      : JSON_HEADERS;
+  return { statusCode: err.statusCode, headers, body: JSON.stringify(body) };
 }
 
 // 未預期例外統一包裝為 INTERNAL_ERROR，不得洩漏原始錯誤內容（可能含 Secret / Stack）給前端。
