@@ -246,3 +246,58 @@ test("ProviderContractRegion must use a supported city and an active matching se
     /city.*must be 臺北市 or 新北市/,
   );
 });
+
+test("Assistive device center passes without ProviderService", () => {
+  const result = runGate({
+    providers: [
+      baseProvider({
+        id: "TEST-ADC-001",
+        name: "測試輔具資源中心",
+        type: "OTHER",
+        resourceCategory: "ASSISTIVE_DEVICE_CENTER",
+      }),
+    ],
+    services: [],
+    serviceAreas: [],
+  });
+
+  assert.equal(result.status, 0, result.output);
+  assert.match(result.output, /RESULT: PASS/);
+});
+
+test("Assistive device center with ProviderService fails", () => {
+  const result = runGate({
+    providers: [
+      baseProvider({
+        id: "TEST-ADC-001",
+        name: "測試輔具資源中心",
+        type: "OTHER",
+        resourceCategory: "ASSISTIVE_DEVICE_CENTER",
+      }),
+    ],
+    services: [
+      baseService({
+        id: "PSV-TEST-ADC-001-HOME_CARE",
+        providerId: "TEST-ADC-001",
+      }),
+    ],
+    serviceAreas: [],
+  });
+
+  assertFails(
+    result,
+    /ASSISTIVE_DEVICE_CENTER must not have ProviderService records/,
+  );
+});
+
+test("Service provider without ProviderService fails", () => {
+  const result = runGate({
+    services: [],
+    serviceAreas: [],
+  });
+
+  assertFails(
+    result,
+    /SERVICE_PROVIDER must have at least one ProviderService record/,
+  );
+});

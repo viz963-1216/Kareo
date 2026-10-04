@@ -127,6 +127,24 @@
       "sha256": null,
       "retrievedAt": "2026-09-29",
       "use": "TP-HMN-003 所屬北護分院提供居家護理的官方佐證；與 SRC-008 一併核對附設居家護理所名稱／地址，不載服務行政區。"
+    },
+    {
+      "sourceId": "SRC-011",
+      "name": "臺北市輔具服務－輔具中心",
+      "url": "https://dosw.gov.taipei/cp.aspx?n=F00D57EC34399445",
+      "document": "臺北市政府社會局官方輔具中心頁面",
+      "sha256": null,
+      "retrievedAt": "2026-10-03",
+      "use": "確認臺北市三家輔具中心的名稱、地址、電話、網站與公告服務行政區；不作為座標證據。"
+    },
+    {
+      "sourceId": "SRC-012",
+      "name": "新北市輔具中心及各分站據點服務項目列表",
+      "url": "https://atrc.aihsin.ntpc.gov.tw/NewsInfo/131",
+      "document": "新北市輔具資源中心官方輔具中心頁面",
+      "sha256": null,
+      "retrievedAt": "2026-10-03",
+      "use": "確認新北市蘆洲與新店輔具中心的名稱、地址、電話與服務資訊；不作為座標證據。"
     }
   ],
   "coordinates": [
@@ -1065,6 +1083,51 @@
       "sourceText": "士林區、北投區",
       "checkedAt": "2026-09-29",
       "basis": "OFFICIAL"
+    },
+    {
+      "providerId": "TP-ARC-001",
+      "city": "臺北市",
+      "districts": [
+        "北投區",
+        "士林區",
+        "中山區",
+        "大同區"
+      ],
+      "sourceText": "服務區域：北投區、士林區、中山區、大同區",
+      "sourceId": "SRC-011",
+      "document": "臺北市政府社會局官方輔具中心頁面",
+      "checkedAt": "2026-10-03",
+      "basis": "OFFICIAL"
+    },
+    {
+      "providerId": "TP-ARC-002",
+      "city": "臺北市",
+      "districts": [
+        "中正區",
+        "萬華區",
+        "大安區",
+        "松山區"
+      ],
+      "sourceText": "服務區域：中正區、萬華區、大安區、松山區",
+      "sourceId": "SRC-011",
+      "document": "臺北市政府社會局官方輔具中心頁面",
+      "checkedAt": "2026-10-03",
+      "basis": "OFFICIAL"
+    },
+    {
+      "providerId": "TP-ARC-003",
+      "city": "臺北市",
+      "districts": [
+        "信義區",
+        "內湖區",
+        "南港區",
+        "文山區"
+      ],
+      "sourceText": "服務區域：信義區、內湖區、南港區、文山區",
+      "sourceId": "SRC-011",
+      "document": "臺北市政府社會局官方輔具中心頁面",
+      "checkedAt": "2026-10-03",
+      "basis": "OFFICIAL"
     }
   ],
   "pending": [
@@ -1346,6 +1409,81 @@
       ],
       "reason": "已證實附設居家護理所提供 HOME_MEDICAL_NURSING；但醫院本體的行政區名單不能自動轉用到附設居家護理所。",
       "nextStep": "取得該居家護理所本身的服務行政區或正式書面範圍後，再建立 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "TP-ARC-001",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-011",
+          "checkedAt": "2026-10-03",
+          "result": "官方頁面已確認中心名稱、地址與電話；尚未完成官方門牌座標比對。"
+        }
+      ],
+      "reason": "尚未以官方門牌位置數值資料完成可重現的座標驗證，因此 lat/lng 維持 null。",
+      "nextStep": "以 SRC-COORD-TPE-001 的官方門牌位置資料精確比對玉門街1號，完成 EPSG:3826 至 EPSG:4326 轉換後再補座標。"
+    },
+    {
+      "providerId": "TP-ARC-002",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-011",
+          "checkedAt": "2026-10-03",
+          "result": "官方頁面已確認中心名稱、地址與電話；尚未完成官方門牌座標比對。"
+        }
+      ],
+      "reason": "尚未以官方門牌位置數值資料完成可重現的座標驗證，因此 lat/lng 維持 null。",
+      "nextStep": "以 SRC-COORD-TPE-001 的官方門牌位置資料精確比對長安西路5巷2號，完成 EPSG:3826 至 EPSG:4326 轉換後再補座標。"
+    },
+    {
+      "providerId": "TP-ARC-003",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-011",
+          "checkedAt": "2026-10-03",
+          "result": "官方頁面已確認中心名稱、地址與電話；尚未完成官方門牌座標比對。"
+        }
+      ],
+      "reason": "尚未以官方門牌位置數值資料完成可重現的座標驗證，因此 lat/lng 維持 null。",
+      "nextStep": "以 SRC-COORD-TPE-001 的官方門牌位置資料精確比對大道路116號，完成 EPSG:3826 至 EPSG:4326 轉換後再補座標。"
+    },
+    {
+      "providerId": "NTPC-ARC-001",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-012",
+          "checkedAt": "2026-10-03",
+          "result": "官方頁面已確認中心名稱、地址與電話；尚未完成官方門牌座標比對。"
+        }
+      ],
+      "reason": "尚未以官方門牌位置數值資料完成可重現的座標驗證，因此 lat/lng 維持 null。",
+      "nextStep": "以 SRC-COORD-NTPC-001 的官方門牌位置資料精確比對集賢路245號，完成 EPSG:3826 至 EPSG:4326 轉換後再補座標。"
+    },
+    {
+      "providerId": "NTPC-ARC-002",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-012",
+          "checkedAt": "2026-10-03",
+          "result": "官方頁面已確認中心名稱、地址與電話；尚未完成官方門牌座標比對。"
+        }
+      ],
+      "reason": "尚未以官方門牌位置數值資料完成可重現的座標驗證，因此 lat/lng 維持 null。",
+      "nextStep": "以 SRC-COORD-NTPC-001 的官方門牌位置資料精確比對北新路一段281號，完成 EPSG:3826 至 EPSG:4326 轉換後再補座標。"
     }
   ],
   "decisions": [
