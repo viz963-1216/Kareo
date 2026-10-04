@@ -129,3 +129,10 @@ PR Title：
 
 - 2026-09-19：補內部查件／狀態更新工具與驗收。
 - 2026-09-23 J-002-r4：補充整併進主文；前置改為 B-011a＋B-005（recommendationId 驗證需要推薦結果），移除與 B-005 平行的舊說法。
+
+
+## B-006-r3 中心整合複驗修正（2026-10-04）
+
+Jerry 授權持續修復 ABCJ；基底 staging #74 `74f235b`。POST Lead 不得再分兩筆交易寫 Lead 與冪等 ledger。新增內部 RPC `create_lead_with_idempotency`（前向 migration 0024），在 Session 鎖內再次檢查 ACTIVE／token／expiry／consent／來源歸屬，並同交易寫入。公開 API、欄位、保存期限及同意政策不變；既有 key 仍回原 Lead、原 duplicate 旗標與該 Lead 當前狀態。僅 service_role 可執行。
+
+12 項實際 service＋repository＋SQL 測試、716 項後端測試通過；PG17 三連線總計 14 PASS（含六項新媒合競態），錯誤知識鎖對照仍按預期失敗。測試檔修正原「模擬 genuine insert race」其實沒有執行強迫衝突路徑的證據問題。J 授權更新架構／任務／tests/db；未修改 A 資料或 C UI。此為模組修正，部署 E2E 與正式驗收仍未完成。

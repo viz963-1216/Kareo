@@ -1,6 +1,6 @@
 import { getSupabaseClient } from "./supabaseClient.js";
-import type { LeadIdempotencyRecord, LeadRepository } from "./types.js";
-import type { InternalOperator, Lead, LeadAccessEvent, LeadStatus, ProviderServiceType } from "../types/index.js";
+import type { AtomicLeadInput, LeadIdempotencyRecord, LeadRepository } from "./types.js";
+import type { CreateLeadResult, InternalOperator, Lead, LeadAccessEvent, LeadStatus, ProviderServiceType } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
 
 // Postgres unique_violation。依 ARCHITECTURE §20.5：唯一約束是防重複的最終防線，這裡只負責辨識
@@ -33,6 +33,31 @@ const LEAD_COLUMNS =
   "id, session_id, assessment_id, recommendation_id, provider_id, service_type, contact_name, contact_phone, contact_consent_at, idempotency_key, status, status_reason, assigned_operator_id, first_contacted_at, closed_at, created_at, updated_at";
 
 export class SupabaseLeadRepository implements LeadRepository {
+  async createLeadAndRecord(input: AtomicLeadInput): Promise<CreateLeadResult> {
+    const { data, error } = await getSupabaseClient().rpc("create_lead_with_idempotency", {
+      payload: { ...input.lead, requestFingerprint: input.requestFingerprint,
+        consentId: input.consentId, sessionTokenHash: input.sessionTokenHash },
+    });
+    if (error) {
+      // Only stable, known codes leave this boundary; never expose SQL/contact details.
+      const messages = {
+        SESSION_INVALID: "Session 已失效，請重新開始。",
+        CONSENT_REQUIRED: "請先完成服務說明與免責聲明同意。",
+        NOT_FOUND: "找不到指定的評估或推薦結果。",
+        VALIDATION_ERROR: "媒合資料與推薦結果不符。",
+        IDEMPOTENCY_CONFLICT: "同一 Idempotency-Key 但內容不同。",
+      } as const;
+      for (const code of Object.keys(messages) as Array<keyof typeof messages>) {
+        if (error.message?.startsWith(code + ":")) throw new AppError(code, messages[code]);
+      }
+      throw new AppError("INTERNAL_ERROR", "無法建立 Lead，請稍後再試。");
+    }
+    if (!data || typeof data.leadId !== "string" || typeof data.createdAt !== "string"
+        || !["NEW", "CONTACTED", "ACCEPTED", "CLOSED", "CANCELLED"].includes(data.status)
+        || typeof data.duplicate !== "boolean") throw new AppError("INTERNAL_ERROR", "無法建立 Lead，請稍後再試。");
+    return { leadId: data.leadId, status: data.status, createdAt: data.createdAt, duplicate: data.duplicate };
+  }
+
   async findOpenBySessionProviderService(
     sessionId: string,
     providerId: string,

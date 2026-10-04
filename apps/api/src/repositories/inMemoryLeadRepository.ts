@@ -1,6 +1,6 @@
 // 測試用 Fake Repository，介面同 SupabaseLeadRepository，不得用於 Production。
-import type { LeadIdempotencyRecord, LeadRepository } from "./types.js";
-import type { InternalOperator, Lead, LeadAccessEvent, LeadStatus, LeadStatusEvent, ProviderServiceType } from "../types/index.js";
+import type { AtomicLeadInput, LeadIdempotencyRecord, LeadRepository } from "./types.js";
+import type { CreateLeadResult, InternalOperator, Lead, LeadAccessEvent, LeadStatus, LeadStatusEvent, ProviderServiceType } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
 
 const OPEN_STATUSES: LeadStatus[] = ["NEW", "CONTACTED", "ACCEPTED"];
@@ -16,6 +16,25 @@ export class InMemoryLeadRepository implements LeadRepository {
   readonly accessEvents: LeadAccessEvent[] = [];
   readonly operators: InternalOperator[] = [];
   readonly idempotencyRecords: StoredIdempotencyRecord[] = [];
+
+  async createLeadAndRecord(input: AtomicLeadInput): Promise<CreateLeadResult> {
+    // Test-only atomic model: no await between resolution and the two writes.
+    // Session/consent race protection is verified against actual SQL separately.
+    const record = this.idempotencyRecords.find(r => r.sessionId === input.lead.sessionId && r.idempotencyKey === input.lead.idempotencyKey);
+    if (record && record.requestFingerprint !== input.requestFingerprint) {
+      throw new AppError("IDEMPOTENCY_CONFLICT", "同一 Idempotency-Key 但內容不同。");
+    }
+    const existing = record ? this.leads.find(l => l.id === record.leadId)
+      : this.leads.find(l => l.sessionId === input.lead.sessionId && l.providerId === input.lead.providerId && l.serviceType === input.lead.serviceType && OPEN_STATUSES.includes(l.status));
+    if (record && !existing) throw new AppError("INTERNAL_ERROR", "無法建立 Lead，請稍後再試。");
+    const chosen = existing ?? input.lead;
+    const duplicate = record?.duplicate ?? Boolean(existing);
+    if (!record) {
+      if (!existing) this.leads.push({ ...input.lead });
+      this.idempotencyRecords.push({ sessionId: input.lead.sessionId, idempotencyKey: input.lead.idempotencyKey, leadId: chosen.id, requestFingerprint: input.requestFingerprint, duplicate });
+    }
+    return { leadId: chosen.id, status: chosen.status, createdAt: chosen.createdAt, duplicate };
+  }
 
   // 測試用：模擬 update_lead_status_with_event 這個 RPC 在事件寫入那一步失敗（同一交易應整個
   // 回滾），驗證狀態與 firstContactedAt/closedAt/updatedAt 都不會被改動（J-003-r8 問題 1）。

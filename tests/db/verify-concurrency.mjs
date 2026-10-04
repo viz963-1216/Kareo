@@ -18,7 +18,8 @@ let holding = false;
 const record = (id, detail) => { result.push({ id, status: 'PASS' }); console.log(`PASS ${id} ${detail}`); };
 const rpc = async (db, name, payload) => {
   assert.ok(['publish_knowledge_version', 'withdraw_knowledge_version', 'admin_publish_knowledge_version',
-    'admin_withdraw_knowledge_version', 'upsert_content_pack'].includes(name));
+    'admin_withdraw_knowledge_version', 'upsert_content_pack', 'create_lead_with_idempotency',
+    'request_session_deletion', 'withdraw_consent'].includes(name));
   return (await db.query(`select public.${name}($1::jsonb) as result`, [JSON.stringify(payload)])).rows[0].result;
 };
 const cliPublish = (recordIds = ['PG-RECORD-1'], versionId = VERSION) => ({ versionId, recordIds, createdBy: OPERATOR, approvedBy: OPERATOR });
@@ -166,6 +167,86 @@ async function twoPublishers() {
   } finally { await releaseHolder(); }
 }
 
+async function seedLead() {
+  await observer.query('truncate sessions,providers cascade');
+  const now = new Date().toISOString();
+  // Supply synthetic values for required columns; real constraints and RPCs remain active.
+  const rows = [
+    ['sessions',{id:'PG-S',status:'ACTIVE',token_hash:'synthetic-hash',expires_at:'2035-01-01T00:00:00Z'}],
+    ['consents',{id:'PG-C',session_id:'PG-S',withdrawn_at:null}],
+    ['providers',{id:'PG-P'}],['providers',{id:'PG-P2'}],
+    ['assessments',{id:'PG-A',session_id:'PG-S',status:'COMPLETED'}],
+    ['recommendation_runs',{id:'PG-R',assessment_id:'PG-A',service_type:'HOME_CARE'}],
+    ['recommendation_items',{id:'PG-I',recommendation_run_id:'PG-R',provider_id:'PG-P',rank:1}],
+    ['recommendation_items',{id:'PG-I2',recommendation_run_id:'PG-R',provider_id:'PG-P2',rank:2}],
+  ];
+  for (const [table,row] of rows) {
+    assert.match(table,/^[a-z_]+$/);
+    const cols = (await observer.query("select column_name,data_type from information_schema.columns where table_schema='public' and table_name=$1 and is_nullable='NO' and column_default is null",[table])).rows;
+    for (const {column_name:c,data_type:t} of cols) if (!(c in row)) row[c] = /timestamp|date/.test(t) ? now
+      : /int|numeric|double|real/.test(t) ? 0 : t==='boolean' ? false : ['json','jsonb','ARRAY'].includes(t) ? '{}' : 'SYNTHETIC';
+    const keys=Object.keys(row); for (const k of keys) assert.match(k,/^[a-z_]+$/);
+    await observer.query(`insert into ${table} (${keys.join(',')}) values (${keys.map((_,i)=>'$'+(i+1)).join(',')})`,keys.map(k=>row[k]));
+  }
+}
+const leadPayload = (id='PG-LEAD-1',key='11111111-1111-1111-1111-111111111111',provider='PG-P') => ({
+  id,sessionId:'PG-S',assessmentId:'PG-A',recommendationId:'PG-R',providerId:provider,serviceType:'HOME_CARE',
+  contactName:'Synthetic',contactPhone:'0900000000',contactConsentAt:new Date().toISOString(),
+  createdAt:new Date().toISOString(),idempotencyKey:key,requestFingerprint:'synthetic-'+provider,
+  consentId:'PG-C',sessionTokenHash:'synthetic-hash',
+});
+const leadCounts = async () => (await observer.query('select (select count(*)::int from leads) leads,(select count(*)::int from lead_idempotency_records) ledger')).rows[0];
+async function blockedSessionOperation(operation) {
+  const h={done:false};
+  h.pending=operation(worker).then(value=>{h.done=true;return {ok:true,value};},error=>{h.done=true;return {ok:false,message:error.message};});
+  const deadline=Date.now()+5000;
+  while (Date.now()<deadline && !h.done) {
+    const row=(await observer.query("select pg_blocking_pids($1) blockers,(select wait_event_type from pg_stat_activity where pid=$1) wait",[workerPid])).rows[0];
+    if (row.wait==='Lock' && row.blockers.includes(holderPid)) return h;
+    await delay(20);
+  }
+  await releaseHolder(); await h.pending;
+  throw Object.assign(new Error('Session transaction lock not observed'),{code:'SESSION_LOCK_NOT_OBSERVED'});
+}
+async function leadConcurrency() {
+  for (const name of ['request_session_deletion','withdraw_consent']) {
+    await seedLead();await holder.query('begin');holding=true;
+    try {
+      await rpc(holder,name,{sessionId:'PG-S',now:new Date().toISOString()});
+      const h=await blockedSessionOperation(c=>rpc(c,'create_lead_with_idempotency',leadPayload()));
+      await releaseHolder(true);const out=await h.pending;
+      assert.equal(out.ok,false);assert.match(out.message,/^SESSION_INVALID:/);
+      assert.deepEqual(await leadCounts(),{leads:0,ledger:0});
+      record('PG-LEAD-'+name,'withdrawal/deletion wins the Session lock; queued creation rejects without contacts');
+    } finally {await releaseHolder();}
+  }
+  for (const sameKey of [true,false]) {
+    await seedLead();await holder.query('begin');holding=true;
+    try {
+      const first=await rpc(holder,'create_lead_with_idempotency',leadPayload());
+      const second=leadPayload('PG-LEAD-2',sameKey?'11111111-1111-1111-1111-111111111111':'22222222-2222-2222-2222-222222222222',sameKey?'PG-P2':'PG-P');
+      const h=await blockedSessionOperation(c=>rpc(c,'create_lead_with_idempotency',second));
+      await releaseHolder(true);const out=await h.pending;
+      if(sameKey){assert.equal(out.ok,false);assert.match(out.message,/^IDEMPOTENCY_CONFLICT:/);}
+      else {assert.equal(out.ok,true);assert.equal(out.value.leadId,first.leadId);assert.equal(out.value.duplicate,true);}
+      assert.deepEqual(await leadCounts(),{leads:1,ledger:sameKey?1:2});
+      record('PG-LEAD-'+(sameKey?'same-key':'business-duplicate'),'two actual connections serialize; no unclaimed Lead remains');
+    } finally {await releaseHolder();}
+  }
+  for (const name of ['request_session_deletion','withdraw_consent']) {
+    await seedLead();await holder.query('begin');holding=true;
+    try {
+      await rpc(holder,'create_lead_with_idempotency',leadPayload());
+      const h=await blockedSessionOperation(c=>rpc(c,name,{sessionId:'PG-S',now:new Date().toISOString()}));
+      await releaseHolder(true);const out=await h.pending;assert.equal(out.ok,true);
+      const lead=(await observer.query('select status,contact_name,contact_phone from leads')).rows[0];
+      assert.deepEqual(lead,{status:'CANCELLED',contact_name:null,contact_phone:null});
+      assert.deepEqual(await leadCounts(),{leads:1,ledger:1});
+      record('PG-LEAD-create-before-'+name,'creation wins; queued withdrawal/deletion cancels and clears newly committed contacts');
+    } finally {await releaseHolder();}
+  }
+}
+
 try {
   if (args.length && !negative) throw new Error('Unsupported arguments');
   const url = new URL(process.env.KAREO_TEST_PG_URL ?? '');
@@ -205,10 +286,11 @@ try {
     await lockCase('PG-L3', 'admin_publish_knowledge_version');
     await lockCase('PG-L4', 'admin_withdraw_knowledge_version', true);
     await stalePublish(); await staleWithdrawal(); await twoPublishers();
+    await leadConcurrency();
   }
 } catch (error) {
   // All data is synthetic, nevertheless avoid echoing connection URLs or arbitrary SQL exceptions.
-  console.error(`FAIL PG-CONCURRENCY ${['SHARED_LOCK_NOT_OBSERVED', 'CONFIG_REJECTED'].includes(error.code) ? error.code
+  console.error(`FAIL PG-CONCURRENCY ${['SHARED_LOCK_NOT_OBSERVED', 'SESSION_LOCK_NOT_OBSERVED', 'CONFIG_REJECTED'].includes(error.code) ? error.code
     : error instanceof assert.AssertionError ? error.message : 'setup or RPC behaviour failed'}`);
   process.exitCode = 1;
 } finally {
