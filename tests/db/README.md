@@ -13,7 +13,7 @@ export KAREO_TEST_PG_DISPOSABLE=1
 node tests/db/verify-concurrency.mjs
 ```
 
-所有資料／密碼為本機合成資料，無 Supabase 憑證。CI 使用官方 `postgres:17` service，不需安裝在應用 runtime。正向預期 8 PASS／exit 0。
+所有資料／密碼為本機合成資料，無 Supabase 憑證。CI 使用官方 `postgres:17` service，不需安裝在應用 runtime。正向預期 14 PASS／exit 0（八項知識／migration，加六項 Lead 建立與撤回、刪除、冪等競態）。
 
 ```sh
 node tests/db/verify-concurrency.mjs --negative-control=wrong-publish-lock

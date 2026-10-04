@@ -15,6 +15,7 @@ import type {
   CreatedAdminSession,
   CreatedSession,
   CreateConsentInput,
+  CreateLeadResult,
   DeletionRun,
   InternalOperator,
   KnowledgeCategory,
@@ -281,7 +282,16 @@ export interface LeadIdempotencyRecord {
   duplicate: boolean;
 }
 
+export interface AtomicLeadInput {
+  lead: Lead;
+  requestFingerprint: string;
+  consentId: string;
+  sessionTokenHash: string;
+}
+
 export interface LeadRepository {
+  // Session/consent recheck + Lead + replay ledger in one database transaction.
+  createLeadAndRecord(input: AtomicLeadInput): Promise<CreateLeadResult>;
   // API_CONTRACT §12 / ARCHITECTURE §20.5：同一 session+provider+serviceType 尚未終態的既有 Lead。
   findOpenBySessionProviderService(
     sessionId: string,

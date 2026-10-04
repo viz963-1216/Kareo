@@ -367,37 +367,17 @@ describe("createLead", () => {
     expect(fixture.leadRepo.leads).toHaveLength(2);
   });
 
-  it("recovers from a genuine insert race by re-querying instead of leaking the raw DB conflict", async () => {
+  it("concurrent requests with different keys share one open Lead and record both mappings", async () => {
     const fixture = await buildFixture();
     await seedAssessmentAndRun(fixture, fixture.sessionId);
-    const key = "11111111-1111-1111-1111-111111111111";
-
-    // 模擬 insertLead 因唯一約束衝突回 inserted=false，但呼叫端尚未查到既有紀錄的極端情境
-    // （正常流程下這代表真正的併發競態）：先建立一筆，之後強迫 insertLead 回 false，
-    // 驗證服務層會重新查詢並回傳既有結果，而不是把資料庫衝突原文往外拋。
-    const originalInsert = fixture.leadRepo.insertLead.bind(fixture.leadRepo);
-    let forceFail = false;
-    fixture.leadRepo.insertLead = async (lead) => {
-      if (forceFail) {
-        forceFail = false;
-        await originalInsert(lead);
-        return { inserted: false };
-      }
-      return originalInsert(lead);
-    };
-
-    const result = await createLead(fixture, validBody(fixture.sessionId), fixture.sessionToken, key);
-    expect(result.duplicate).toBe(false);
-
-    forceFail = true;
-    const raced = await createLead(
-      fixture,
-      validBody(fixture.sessionId),
-      fixture.sessionToken,
-      "22222222-2222-2222-2222-222222222222"
-    );
-    expect(raced.leadId).toBe(result.leadId);
-    expect(raced.duplicate).toBe(true);
+    const results = await Promise.all([
+      createLead(fixture, validBody(fixture.sessionId), fixture.sessionToken, "11111111-1111-1111-1111-111111111111"),
+      createLead(fixture, validBody(fixture.sessionId), fixture.sessionToken, "22222222-2222-2222-2222-222222222222"),
+    ]);
+    expect(results[0].leadId).toBe(results[1].leadId);
+    expect(results.map(r => r.duplicate).sort()).toEqual([false, true]);
+    expect(fixture.leadRepo.leads).toHaveLength(1);
+    expect(fixture.leadRepo.idempotencyRecords).toHaveLength(2);
   });
 
   it("does not leak whether a mismatched AppError code slips through: unrelated errors still throw AppError, not raw errors", async () => {

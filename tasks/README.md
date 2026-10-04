@@ -32,6 +32,10 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新媒合寫入修正（2026-10-04；B-006-r3）
+
+基底 #74 已合併（staging `74f235b`）。J 複驗重現 ledger 失敗留下孤立 Lead、撤回／刪除後晚到請求仍成功。前向 0024＋正式 repository/service 改成 Session 鎖內重新驗證並原子寫入 Lead 與 ledger；716 項 API 測試、真正 PG17 六項媒合競態通過。維持既有 API；此結果不計入部署 E2E，不啟用排程、不啟用 D-05。證據見 `docs/acceptance/B006-2026-10-04-atomic-lead.md`。
+
 # 最新清理驗收修正（2026-10-04；B-011b-r7）
 
 基底 #73 已合併（staging `6a4ffe6`）。J-004 複驗抓到「刪除已提交、成功紀錄寫入失敗」缺口；前向 0023＋正式 repository/service 改為清理與 SUCCESS 紀錄同交易。六項回歸、704 項 API 測試通過；本提交未把排程、D-05、雲端回填或完整 E2E 標為完成。證據見 `docs/acceptance/B011b-2026-10-04-atomic-cleanup.md`。

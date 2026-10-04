@@ -706,6 +706,7 @@ Payload 限制：
 - `POST /api/v1/leads` 必須帶 `Idempotency-Key`。`(sessionId, key)` 相同且內容相同 → 回傳原結果；內容不同 → `IDEMPOTENCY_CONFLICT (409)`。
 - 同一 session＋provider＋serviceType 已有未終態 Lead → 回傳既有 Lead 並標示 `duplicate: true`。
 - 以資料庫唯一約束保證，不以應用層先查後寫代替（避免併發重複）。
+- Lead 與 `lead_idempotency_records` 在同一 RPC 交易提交／回滾；寫入前鎖定 Session，重新確認 token 雜湊、有效期限、ACTIVE、有效同意與來源歸屬。撤回／刪除與建立在同一 Session 鎖上序列化；若建立先完成，後續撤回／刪除仍立即取消未終態案件並清空聯絡欄位。
 
 ## 20.6 錯誤與 log
 
@@ -783,7 +784,7 @@ Postgres function：在單一交易內只做寫入（upsert）
 5. 測試：
    - 單元測試：證明 Service 只呼叫一次 rpc，且驗證失敗時完全不呼叫。
    - 整合測試（J-003 於 staging Supabase 執行）：故意讓第二、第三張表寫入失敗，確認三張表都沒有新資料。
-6. 目前核准用途：Provider 匯入（B-004）；知識發布／撤回（B-008，2026-09-24 延伸核准，MVP_DECISIONS D-10）；Lead 狀態與事件、案件接手（B-006，`update_lead_status_with_event`、`claim_lead_for_reveal`，2026-10-01 隨 #47 合併）；知識管理寫入與內容包登錄（B-012，D-16b）。其他用途需再經 Jerry 核准並登記於 MVP_DECISIONS。
+6. 目前核准用途：Provider 匯入（B-004）；知識發布／撤回（B-008，2026-09-24 延伸核准，MVP_DECISIONS D-10）；Lead 狀態與事件、案件接手與 Lead／重送紀錄原子建立（B-006，`create_lead_with_idempotency`、`update_lead_status_with_event`、`claim_lead_for_reveal`，2026-10-01 隨 #47 合併）；知識管理寫入與內容包登錄（B-012，D-16b）。其他用途需再經 Jerry 核准並登記於 MVP_DECISIONS。
 7. 已核准的例外：`publish_knowledge_version` 在函式內檢查紀錄必須為 APPROVED（額外安全檢查，不視為違反第 1 點）。
 8. 已核准的例外（v0.5.3，D-16b，2026-10-01）：知識管理 RPC（`admin_*`）可在函式內做「與寫入同一交易才能保證」的一致性檢查——內容指紋比對（compare-and-set）、目前發布版本與恢復條件、發布計畫與 `previewToken` 重算比對——並寫入稽核。業務驗證（欄位格式、權限、原因必填）仍留在 Node Service。
 9. 知識發布／撤回序列化（v0.5.3，D-16b）：CLI 發布、CLI 撤回、管理頁發布、管理頁撤回四個入口，交易一開始都取得**同一個** `pg_advisory_xact_lock(<固定常數>)`，取得後才檢查、寫入與稽核。只用 `select … for update` 不足（沒有 PUBLISHED 版本時沒有資料列可鎖，且各入口不一定經過同一列）。併發正確性須以真實多連線 Postgres 驗證（J-003）；PGlite 為單一 session，不能作為併發證據。
