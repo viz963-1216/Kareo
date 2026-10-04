@@ -1,7 +1,7 @@
 # TASK-C-009 — Case Manager Summary（給個管師／1966 的需求摘要）
 
 Owner: Engineer C — Frontend  
-Status: READY — 只需既有評估回應（API_CONTRACT §8），不需新 API  
+Status: MERGED（#66）；瀏覽器內個管師摘要／複製／列印已交付；部署操作 E2E 待 J-003。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-10-01 / J-002-r8（MVP_DECISIONS D-19 Q5，[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)；PRODUCT_SPEC §14b）
 
 ## Goal / 目標

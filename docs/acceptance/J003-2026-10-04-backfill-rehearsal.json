@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "scope": "offline clone rehearsal, not cloud backfill or deployed E2E",
+  "sourceProject": "ojawadobnaxduxybqolk",
+  "snapshotSha256": "0dcf0a3f12e81f3eebed4e4e811eef1da43db1f3ce3f166887d753a188528ba3",
+  "backend": "PGlite + local GET/RPC shim; actual CLI, repositories, supabase-js and repository SQL",
+  "limitations": "Local shim has no JWT/RLS evaluation; database privileges and real deployment require separate verification.",
+  "executedAt": "2026-10-04T10:54:01.056Z",
+  "counts": {
+    "packs": 5,
+    "reviews": 21
+  },
+  "results": [
+    {
+      "id": "BF-01",
+      "status": "PASS",
+      "detail": "Incorrect personal key rejected before loading packs or making RPC writes"
+    },
+    {
+      "id": "BF-02",
+      "status": "PASS",
+      "detail": "Actual protected CLI registers five matching packs and 21 historical review events in the local clone"
+    },
+    {
+      "id": "BF-03",
+      "status": "PASS",
+      "detail": "Knowledge record content/status, published version and all memberships unchanged"
+    },
+    {
+      "id": "BF-04",
+      "status": "PASS",
+      "detail": "Import attribution is the authenticated synthetic local operator, not a fabricated cloud execution"
+    },
+    {
+      "id": "BF-05",
+      "status": "PASS",
+      "detail": "Rerun adds no duplicate review events and preserves first import metadata"
+    },
+    {
+      "id": "BF-06",
+      "status": "PASS",
+      "detail": "Changed submitted content is rejected and leaves existing metadata/content/reviews unchanged"
+    },
+    {
+      "id": "BF-07",
+      "status": "PASS",
+      "detail": "Disabled operator rejected before reading packs or attempting writes"
+    }
+  ],
+  "cloudWrites": 0
+}

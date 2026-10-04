@@ -2,7 +2,7 @@
 
 Owner: Engineer C — Frontend  
 Type: Frontend / Assessment Result / Location / Lead / UX  
-Status: **READY**（C-004 已合併，PR #27）；未見提交  
+Status: MERGED（#34）；Lead Flow／Mock UX 已交付；正式同意、真實 API 與部署全流程 E2E 待 J-003。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-09-23 / J-002-r4
 
 ---

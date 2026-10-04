@@ -2,7 +2,7 @@
 
 Owner: Engineer B — Backend  
 Type: Backend / Knowledge  
-Status: r1 MERGED（PR #26）— 模組完成，非整合完成；D-03、D-10 延伸使用 2026-09-24 核准；**r2 READY**（修正發布版號與失效紀錄，首次知識發布前必須完成）  
+Status: MERGED（#26、#36 及後續修正）；內容指紋、版號與歷史快照已交付，首次 KB-2026-09-24-001 已發布；雲端內容包 metadata 回填待受保護 CLI 執行。（2026-10-04 J-003-r12 核對）
 
 ---
 

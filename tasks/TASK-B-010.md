@@ -1,7 +1,7 @@
 # TASK-B-010 — Production Assessment Engine（規則引擎＋正式知識接線）
 
 Owner: Engineer B  
-Status: QUEUED — 依賴 B-011a（B-003、B-008 已合併）；未見提交  
+Status: MERGED（#33）；正式規則引擎與 PUBLISHED 知識接線已交付；完整部署評估 E2E 待 J-003／D-05。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-09-23 / J-002-r4 / 10-22 MVP
 
 ## Goal / 目標

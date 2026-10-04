@@ -642,3 +642,7 @@ node tests/db/verify-db.mjs --knowledge-repository-from=/tmp/legacy-repo.ts   # 
 | 23 | release gate（`--commit=688f3d6…`（staging 合併後）、`--base-url=https://kareo-tw.netlify.app`） | **FAILED**，exit 1：29 PASS、0 FAIL、56 PENDING（43 E2E 沒有任何此目標的結果檔） |
 
 C-006 缺陷重現步驟（試驗組合，`apps/web`）：`sessionStorage` 放入 `kareo.adminToken`，`globalThis.fetch` 回 `new Response('{"success":true,"data":{}}', {status: 200})`，呼叫 `adminRealApi.publish({ targetVersionId: "KB-2026-09-29-001", previewToken: "p", confirm: true })`。預期 reject `code = INVALID_RESPONSE`；實際 resolve `{}`。`withdraw(...)` 相同。位置：`apps/web/src/api/adminRealAdapter.ts`（`request()` 只擋 `data` 為 undefined／null）。負責：C-006。
+
+## 2026-10-04 J-003-r12：併發與回填分層證據
+
+`tests/db/verify-concurrency.mjs` 在真正 PostgreSQL 17 三個獨立 backend 通過 8 項鎖／過期狀態檢查；錯誤鎖對照指定失敗。`scripts/rehearse-content-backfill.mjs` 在私人快照的本機副本通過受保護 CLI 七項檢查。詳見 `docs/acceptance/J003-2026-10-04-postgres-and-backfill.md`。這些不採計 49 項部署 E2E；沒有雲端回填、沒有改 D-05 DRAFT、沒有改憑證或預設分支。

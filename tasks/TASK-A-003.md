@@ -2,7 +2,7 @@
 
 Owner: Engineer A — Data / QA / Research  
 Type: Data QA  
-Status: r1 MERGED（PR #13，模組完成）；**r2 已驗證座標 READY**（A-004 已合併）  
+Status: MERGED（#13、#39）；30 家服務 Provider 已有可追溯座標，服務範圍／特約縣市由 A-006 保留與補查；部署距離案例待 J-003。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-09-23 / J-002-r4
 
 ---

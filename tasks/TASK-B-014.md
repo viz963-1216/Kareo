@@ -1,7 +1,7 @@
 # TASK-B-014 — Public Knowledge Records API（公開長照資訊查詢 API）
 
 Owner: Engineer B — Backend  
-Status: IN REVIEW（#67，B-014-r2 `9b6e822`）；限流、B-012 介面同步、J 路由與真實查詢待完成
+Status: MERGED（#67、#71，中央 B-014-r4）；公開知識查詢、repository 與持久化限流已整合；部署查詢待 J-003。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-10-03 / J-002-r13
 
 ## Goal / 目標

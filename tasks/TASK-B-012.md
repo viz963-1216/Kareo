@@ -1,7 +1,7 @@
 # TASK-B-012 — Admin Knowledge Review API（知識審核與發布 API）
 
 Owner: Engineer B — Backend  
-Status: IN REVIEW（#48，B-012-r5 `d5b2150`）；D-16c 匯入操作者／舊包不可變規則已定案，r5 排序測試新提交待核對；操作者／不可變規則與限流整合待收尾
+Status: MERGED（#48、#71，中央 B-012-r8）；管理端路由、不可變內容包、稽核與限流已整合，0019／0020 已套用驗收 DB。真實 PostgreSQL 併發通過本機工具；雲端個人操作者／metadata 回填與部署管理 E2E 待驗。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-10-03 / J-002-r13
 
 ## Goal / 目標

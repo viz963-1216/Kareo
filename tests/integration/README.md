@@ -27,3 +27,7 @@ run the real API repository and resolver (bundled with esbuild) through supabase
 `--upgrade-from=0008` checks the upgrade path (existing published knowledge, then the new migrations).
 `tests/db/detect-applied-migrations.sql` is a read-only catalog query that shows which migrations a real
 database already has.
+
+## 2026-10-04 J-003-r12：併發與回填分層證據
+
+`tests/db/verify-concurrency.mjs` 在真正 PostgreSQL 17 三個獨立 backend 通過 8 項鎖／過期狀態檢查；錯誤鎖對照指定失敗。`scripts/rehearse-content-backfill.mjs` 在私人快照的本機副本通過受保護 CLI 七項檢查。詳見 `docs/acceptance/J003-2026-10-04-postgres-and-backfill.md`。這些不採計 49 項部署 E2E；沒有雲端回填、沒有改 D-05 DRAFT、沒有改憑證或預設分支。

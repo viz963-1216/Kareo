@@ -1,7 +1,7 @@
 # TASK-A-007 — Assistive Device Resource Centers Data（雙北輔具資源中心資料）
 
 Owner: Engineer A — Provider Data
-Status: A-007-r2 本機驗證完成，中央整合 PR 待合併；真實公開查詢待 J-003
+Status: MERGED（#70、#71，A-007-r2）；5 個輔具中心及座標已原子匯入現有驗收 DB；中心僅供查詢，部署查詢待 J-003。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-10-01 / J-002-r8（MVP_DECISIONS D-19 Q2，[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)；PRODUCT_SPEC §14a）
 
 ## Goal / 目標

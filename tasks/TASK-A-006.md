@@ -1,7 +1,7 @@
 # TASK-A-006 — Lookup Listing + Service Area Verification（可查詢資料與服務範圍補查）
 
 Owner: Engineer A — Provider Data  
-Status: READY — 用既有欄位查核可立即開始；不需等待 B-013／C-007  
+Status: MERGED（#53，A-006-r2）；30 家列表、86 個已確認服務範圍、19 筆特約縣市保留；14 家範圍未確認，不能當推薦覆蓋率。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-10-01 / J-002-r6（[Issue #49](https://github.com/viz963-1216/Kareo/issues/49)；MVP_DECISIONS D-18；PRODUCT_SPEC §14a、§19；DATA_MODEL §19）
 
 ## Goal / 目標
