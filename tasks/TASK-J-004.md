@@ -1,7 +1,7 @@
 # TASK-J-004 — Release + Lead Operations + Recovery Readiness
 
 Owner: Jerry  
-Status: r3 操作文件準備完成；release gate CLOSED；未完成真人接件／備份還原／部署回滾演練
+Status: r4 已執行驗收 DB migration／資源匯入與應用資料隔離還原；每日清理 workflow 已準備但未啟用。release gate CLOSED；完整備份／真人接件／部署回滾仍待驗。
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -56,3 +56,7 @@ Submission Version 從 `J-004-r1` 起，退回後遞增。PR 必填 Added / Chan
 ## r3 操作準備（2026-10-03）
 
 新增 docs/PRIVACY_REQUEST_RUNBOOK.md，涵蓋收件、最少身分確認、停止聯繫、正式工具處理、核對、回覆與備份再刪除；Jerry 已確認信箱能收信與回覆。更新發布固定目標表、回滾及隔離還原步驟與最新演練狀態。文件準備完成，不勾選未執行的 Deliverables；D-05仍DRAFT、release gate仍CLOSED，整體J-004未完成。
+
+## r4 現有驗收環境與恢復工具（2026-10-04）
+
+Jerry 指定現有 Kareo 為驗收並暫不建立付費正式 DB。#71 與六個來源模組 PR 已合併；既有核准 migration 0019～0022 已套用，35 資源／30 服務／98 範圍／19 特約縣市已匯入，原始業務資料完整保留。21 表應用快照在本機 PGlite 還原並逐列雙向比對通過；這不是 Supabase physical 還原或正式 RPO/RTO。每日清理沿用受保護 DATA_STEWARD CLI，workflow 預設未啟用，人工執行預設 dry-run。12 個操作工具測試通過。詳見 `docs/acceptance/J004-2026-10-04-acceptance-environment.md`；未完成項目仍不勾選。

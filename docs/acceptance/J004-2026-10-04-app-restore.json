@@ -1,0 +1,188 @@
+{
+  "kind": "application-logical-restore",
+  "physicalBackupRestored": false,
+  "target": "isolated in-memory PGlite",
+  "sourceProject": "ojawadobnaxduxybqolk",
+  "schemaThrough": "0018",
+  "migrationsApplied": 18,
+  "tables": [
+    {
+      "table": "leads",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "consents",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "sessions",
+      "expected": 6,
+      "restored": 6,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "providers",
+      "expected": 30,
+      "restored": 30,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "assessments",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "crawler_runs",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "crawler_snapshots",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "knowledge_changes",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "knowledge_records",
+      "expected": 21,
+      "restored": 21,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "knowledge_sources",
+      "expected": 18,
+      "restored": 18,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "provider_services",
+      "expected": 30,
+      "restored": 30,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "care_need_profiles",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "internal_operators",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "knowledge_versions",
+      "expected": 1,
+      "restored": 1,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "lead_access_events",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "lead_status_events",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "recommendation_runs",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "recommendation_items",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "provider_service_areas",
+      "expected": 86,
+      "restored": 86,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "lead_idempotency_records",
+      "expected": 0,
+      "restored": 0,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    },
+    {
+      "table": "knowledge_version_records",
+      "expected": 21,
+      "restored": 21,
+      "missing": 0,
+      "extra": 0,
+      "status": "PASS"
+    }
+  ],
+  "rlsDisabledTables": 0,
+  "publicRoleGrants": 0,
+  "knowledge": {
+    "published_members": 21,
+    "missing_records": 0
+  },
+  "status": "PASS",
+  "durationMs": 1055,
+  "snapshotSha256": "0dcf0a3f12e81f3eebed4e4e811eef1da43db1f3ce3f166887d753a188528ba3",
+  "executedAt": "2026-10-04T10:23:54.561Z"
+}

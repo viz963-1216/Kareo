@@ -1,9 +1,11 @@
 # Kareo MVP Release Checklist / 發布檢查表
 
 Owner: Jerry（TASK-J-004）
-Submission Version: J-004-r3
+Submission Version: J-004-r4
 Target: 2026-10-22（10/19 功能凍結、10/20–10/21 發布演練）
 Release gate status: **CLOSED**
+
+2026-10-04 更新：#71 與六個來源 PR 已合併；現有 Kareo 指定驗收，已套用至0022及35資源／30服務／98範圍／19特約縣市。Jerry暫不建立付費正式DB。21表應用資料本機隔離還原PASS；完整physical／刪除重套／部署回滾未驗。清理workflow尚未啟用，Preview待憑證，D-05 DRAFT；以下正式 Gate 不因此勾選。證據：`acceptance/J004-2026-10-04-acceptance-environment.md`。
 
 > Gate 0–6 是正式合併與部署前置；可先建立草稿 Release PR 整理證據。Gate 7 在發布後執行，不能作為建立 PR 的前置，避免循環依賴。正式媒合須等發布後 smoke 與接件演練通過才開放。
 > 未通過時，正式站維持「整合中」狀態並在本文件記錄原因。

@@ -1,5 +1,9 @@
 # J-004-r2 發布演練與證據表
 
+## r4 最新狀態（2026-10-04，優先於以下歷史快照）
+
+#71 與六個 ABC 模組 PR 已合併。Kareo 現有驗收 DB 套用至0022且完成35資源匯入。R-06 部分執行：21表應用快照在隔離 PGlite 逐列雙向比對PASS；不是平台 physical 備份還原、刪除重套或正式RPO/RTO。清理workflow已準備但未啟用；R-08仍未有每日觸發。Preview部署成功、團隊保護保留，缺DB憑證所以公開查詢未通過。真人R-03、權利R-10、部署回滾R-07及49項E2E仍待驗；D-05 DRAFT、release gate CLOSED。詳見 `acceptance/J004-2026-10-04-acceptance-environment.md` 與去識別還原結果JSON。
+
 2026-09-29：準備文件已整理；**未演練、未上線、release gate CLOSED**。
 
 ## 已確認與待確認

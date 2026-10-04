@@ -32,7 +32,17 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
-# 中央接手快照（2026-10-04；J-003-r11，尚未合併）
+# 最新驗收環境快照（2026-10-04；J-003-r11 已合併／J-004-r4 工具與部分實演）
+
+- #71 已合併，staging `9b3fc3036745052d2a16196c2ca4019de1440262`；A-007 #70、B-012 #48、B-011b #55、B-013 #57、B-014 #67、C-007 #58 也都已合併。ABC 目前已提交模組均為 MERGED，不能據此標記 INTEGRATED。
+- 現有 Kareo 已指定為驗收 DB；Jerry 明確暫不新增每月估計 US$10 的正式專案。Kareocar 未改動。
+- 實際套用 0019～0022；28 應用表 RLS 開啟且 anon/authenticated 無表權限。實際原子匯入 35 資源／30 服務／98 已確認範圍／19 特約縣市；原 30 家及86範圍業務欄位完整保留。5 中心不進推薦／媒合。
+- 21 表應用快照已在隔離本機逐列還原比對 PASS；不等同 Supabase physical 備份還原、刪除重套或部署回滾。J-004 12 個工具測試 PASS。
+- 清理 workflow 已準備且預設未啟用；個人操作者、憑證授權／配置及預設分支決定仍待處理。Crawler 亦未定時實跑。
+- Netlify Preview #71 成功並使用 real 模式；保留團隊存取保護，簽入 Chrome 可看首頁。Preview DB 憑證未配置，資源查詢仍顯示錯誤；這不是API E2E通過。production deploy credits耗盡，既有發布版本仍8f509c0，未購買。
+- D-05仍DRAFT；J-003完整49項E2E、J-004真人接件／權利／完整恢復／正式發布仍待驗。最新證據：`docs/acceptance/J004-2026-10-04-acceptance-environment.md`。
+
+# 中央接手前快照（2026-10-04；以下為 #71 合併與雲端操作前歷史）
 
 Jerry 已授權 Codex 接手目前 ABCJ 任務與一般技術選擇。現有 Kareo (`ojawadobnaxduxybqolk`) 指定為驗收 DB；新增正式 DB 報價每月估計 US$10，Jerry 決定暫不建立。
 
