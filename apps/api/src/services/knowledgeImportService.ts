@@ -303,22 +303,49 @@ export async function importContentPack(
 
   const toInsert: Array<{ value: (typeof validated)[number]["value"] }> = [];
   const contentChanged: ImportRecordRejection[] = [];
+  const incomingRecordIds = new Set(validated.map((item) => item.value.packRecordId));
+
+  // 未登錄舊包沒有 recordsFingerprint 可比較，仍須確認檔案沒有漏列既有 DB 紀錄。
+  // 所有一致性檢查在 insertRecords/upsertContentPack 前完成，不讓新紀錄部分寫入。
+  for (const existing of existingRecords) {
+    if (!incomingRecordIds.has(existing.packRecordId)) {
+      contentChanged.push({
+        recordId: existing.packRecordId,
+        reasons: [
+          `PACK_RECORDS_MISMATCH：資料庫紀錄 ${existing.id}（${existing.packRecordId}）不在內容包檔案中；` +
+            "檔案與資料庫不一致，請以新的 packId／recordId 提交並重新審核。",
+        ],
+      });
+    }
+  }
 
   for (const item of validated) {
-    if (item.packDecision === "REJECTED") continue; // 內容包本身標記拒收，不建立任何紀錄。
     const existing = existingByPackRecordId.get(item.value.packRecordId);
     if (!existing) {
-      toInsert.push(item);
+      // 全新拒收紀錄不建立，但既有紀錄不能因檔案宣告 REJECTED 而略過比對。
+      if (item.packDecision !== "REJECTED") toInsert.push(item);
       continue;
     }
-    if (existing.contentFingerprint === item.value.contentFingerprint) continue; // 內容相同，冪等略過。
-    contentChanged.push({
-      recordId: item.value.packRecordId,
-      reasons: [
-        `RECORD_CONTENT_CHANGED：資料庫紀錄 ${existing.id}（狀態 ${existing.status}）的內容指紋為 ${existing.contentFingerprint}，` +
-          `本次為 ${item.value.contentFingerprint}。已提交內容不可改寫，請以新的 packId／recordId 提交並重新審核。`,
-      ],
-    });
+    if (existing.contentFingerprint !== item.value.contentFingerprint) {
+      contentChanged.push({
+        recordId: item.value.packRecordId,
+        reasons: [
+          `RECORD_CONTENT_CHANGED：資料庫紀錄 ${existing.id}（狀態 ${existing.status}）的內容指紋為 ${existing.contentFingerprint}，` +
+            `本次為 ${item.value.contentFingerprint}。已提交內容不可改寫，請以新的 packId／recordId 提交並重新審核。`,
+        ],
+      });
+      continue;
+    }
+    if (item.packDecision === "REJECTED" && existing.status !== "REJECTED") {
+      contentChanged.push({
+        recordId: item.value.packRecordId,
+        reasons: [
+          `RECORD_DECISION_MISMATCH：內容包將 ${item.value.packRecordId} 標為 REJECTED，` +
+            `但資料庫紀錄 ${existing.id} 仍為 ${existing.status}；匯入不得自動改變審核或發布狀態，請先經正式審核／撤回流程處理。`,
+        ],
+      });
+    }
+    // 內容相同且沒有矛盾的拒收決定：冪等略過，保留既有狀態與發布證據。
   }
 
   if (contentChanged.length > 0) {

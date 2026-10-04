@@ -6,7 +6,8 @@
 // 安全性：
 // - 這份檔案宣告的每一筆非 REJECTED 紀錄，依內容算出的指紋都必須與資料庫目前內容一致；REJECTED 紀錄
 //   從未建立資料庫紀錄，但仍以檔案內容計入指紋（與匯入相同的紀錄集合與算法，DATA_MODEL §26b），若資料庫
-//   中意外存在同 recordId 的紀錄也必須一致。任何一筆缺漏或不符，整個內容包都跳過並列出差異，非零退出
+//   中存在同 recordId 的紀錄也必須內容一致且已為 REJECTED，不能補登與既有審核／發布狀態矛盾的包。
+//   任何一筆缺漏或不符，整個內容包都跳過並列出差異，非零退出
 //   （不自動更正內容，不登錄跟資料庫現況不符的資料）。
 // - 執行者（D-16c）：必須以 --operator-id 加上既有個人密鑰（環境變數 KAREO_OPERATOR_KEY）通過
 //   KNOWLEDGE_PUBLISHER 角色驗證，失敗時在任何讀檔與寫入前拒絕。content_packs.importedBy 記錄本次補登
@@ -112,6 +113,13 @@ export async function runBackfillContentPacks(
         reasons.push(
           `${recordId}: 內容指紋與資料庫現況不符（檔案 ${computed}，資料庫紀錄 ${dbRecord.id} 為 ${dbRecord.contentFingerprint}）；` +
             `已提交內容不可改寫，需人工以新 packId／recordId 處理`
+        );
+        continue;
+      }
+      if (dbRecord && isRejectedInPack && dbRecord.status !== "REJECTED") {
+        reasons.push(
+          `${recordId}: RECORD_DECISION_MISMATCH：檔案宣告 REJECTED，但資料庫紀錄 ${dbRecord.id} 仍為 ${dbRecord.status}；` +
+            "回填不得改變既有審核或發布狀態，請先經正式審核／撤回流程處理"
         );
         continue;
       }
