@@ -94,6 +94,13 @@ export interface RateLimitRepository {
   checkAndIncrement(input: { key: string; windowSeconds: number; limit: number; now: string }): Promise<RateLimitCheckResult>;
 }
 
+// Public HTTP services supply this context; Supabase write repositories reject omissions.
+// Optional method arguments preserve test-only in-memory fixture seeding.
+export interface SessionWriteContext {
+  sessionId: string;
+  sessionTokenHash: string;
+}
+
 export interface CreateAssessmentRecord {
   assessment: Omit<Assessment, "id" | "createdAt" | "updatedAt">;
   careNeedProfile: Omit<CareNeedProfile, "id" | "assessmentId" | "createdAt">;
@@ -101,7 +108,8 @@ export interface CreateAssessmentRecord {
 
 export interface AssessmentRepository {
   createAssessment(
-    input: CreateAssessmentRecord
+    input: CreateAssessmentRecord,
+    security?: SessionWriteContext
   ): Promise<{ assessment: Assessment; careNeedProfile: CareNeedProfile }>;
   // TASK-B-005：Recommendation 讀取該 Assessment 已保存的 location，不另外驗證輸入；
   // 找不到時回 null（呼叫端據此回 NOT_FOUND，不透露資源是否存在，見 sessionSecurityService）。
@@ -262,9 +270,9 @@ export interface ProviderRepository {
 // 真正寫入（Run + Items 在單一交易內）發生在 insertItems 呼叫時；insertItems 失敗時，
 // Run 完全不會寫入資料庫，不會留下沒有 Items、卻可能被後續 Lead 引用的孤立 Run
 // （不用容易失敗的補償刪除冒充原子性——這裡沒有補償刪除，是真正的單一交易）。
-// 呼叫順序仍是 insertRun 後接 insertItems，介面不變，呼叫端（recommendationService）不需要修改。
+// 呼叫順序仍是 insertRun 後接 insertItems；正式 service 在 insertRun 同時傳入 SessionWriteContext。
 export interface RecommendationRepository {
-  insertRun(run: RecommendationRun): Promise<void>;
+  insertRun(run: RecommendationRun, security?: SessionWriteContext): Promise<void>;
   insertItems(items: RecommendationItem[]): Promise<void>;
   // TASK-B-006：Lead 建立時需驗證 recommendationId 屬於同一 session（透過 assessmentId 反查，
   // 見 leadService）且 providerId／serviceType 出現在該次推薦結果中（API_CONTRACT §12、

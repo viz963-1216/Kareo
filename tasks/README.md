@@ -32,6 +32,10 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新晚到健康寫入修正（2026-10-04；J-003-r13）
+
+基底 #76 已合併（staging `e1ec25a`）。J 複驗重現四種評估／推薦晚到請求：撤回／刪除已提交，舊服務仍能建立健康資料。前向 0026＋正式 repository/service 在最後原子交易重新檢查 token／Session／同意與歸屬；14 項實際服務＋SQL 回歸、真正 PG17 22 PASS。公共 API 与規則引擎／排序不變。證據見 `docs/acceptance/J003-2026-10-04-late-health-writes.md`；Integrated 仍否。
+
 # 最新清理併發修正（2026-10-04；B-011b-r8）
 
 基底 #75 已合併（staging `4866937`）。前向 0025 在刪健康資料前鎖 Session 並重新確認期限，避免恢復使用後仍被舊候選名單刪除；撤回改成 Session → Consent／Lead 鎖顺序。PG17 16 PASS，舊 withdrawal 的 40P01 deadlock 對照 FAIL 已納入 CI；716 項 API PASS。證據見 `docs/acceptance/B011b-2026-10-04-cleanup-concurrency.md`。未啟用排程、未把 E2E 標完成。

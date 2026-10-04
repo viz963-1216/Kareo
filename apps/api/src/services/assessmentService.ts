@@ -1,5 +1,5 @@
 import type { AssessmentRepository, ConsentRepository, SessionRepository } from "../repositories/types.js";
-import { requireMatchingSessionId, requireValidSession } from "./sessionSecurityService.js";
+import { hashSessionToken, requireMatchingSessionId, requireValidSession } from "./sessionSecurityService.js";
 import { requireFreeTextLength } from "./requestLimitsService.js";
 import type { CareAssessmentAIAdapter } from "../adapters/aiAdapter.js";
 import type { PublishedKnowledgeResolver } from "../adapters/knowledgeVersionResolver.js";
@@ -308,7 +308,7 @@ export async function createAssessment(
       ruleTrace: result.ruleTrace,
     },
     careNeedProfile: result.profile,
-  });
+  }, { sessionId: session.id, sessionTokenHash: hashSessionToken(sessionTokenHeader as string) });
 
   return { assessment, careNeedProfile };
 }

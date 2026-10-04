@@ -21,7 +21,7 @@ const record = (id, detail) => { result.push({ id, status: 'PASS' }); console.lo
 const rpc = async (db, name, payload) => {
   assert.ok(['publish_knowledge_version', 'withdraw_knowledge_version', 'admin_publish_knowledge_version',
     'admin_withdraw_knowledge_version', 'upsert_content_pack', 'create_lead_with_idempotency',
-    'request_session_deletion', 'withdraw_consent', 'run_deletion_cleanup'].includes(name));
+    'request_session_deletion', 'withdraw_consent', 'run_deletion_cleanup', 'create_assessment_authorized', 'create_recommendation_authorized'].includes(name));
   return (await db.query(`select public.${name}($1::jsonb) as result`, [JSON.stringify(payload)])).rows[0].result;
 };
 const cliPublish = (recordIds = ['PG-RECORD-1'], versionId = VERSION) => ({ versionId, recordIds, createdBy: OPERATOR, approvedBy: OPERATOR });
@@ -306,6 +306,42 @@ async function cleanupWithdrawalLockOrder() {
   }
 }
 
+async function healthPayload(kind) {
+  const security={sessionId:'PG-S',sessionTokenHash:'synthetic-hash'};
+  if(kind==='assessment') {
+    const a=(await observer.query("select to_jsonb(a) row from assessments a where id='PG-A'")).rows[0].row;
+    return {...security,assessment:{...a,id:'PG-A2',rules_version:'SYNTHETIC',rule_trace:{}},care_need_profile:{id:'PG-CNP',assessment_id:'PG-A2',care_needs:[],priority:[],warnings:[],summary:'synthetic',created_at:new Date().toISOString()}};
+  }
+  const run=(await observer.query("select to_jsonb(r) row from recommendation_runs r where id='PG-R'")).rows[0].row;
+  return {...security,run:{...run,id:'PG-R2'},items:[]};
+}
+async function healthWriteConcurrency() {
+  for(const kind of ['assessment','recommendation']) {
+    for(const name of ['request_session_deletion','withdraw_consent']) {
+      await seedLead();const payload=await healthPayload(kind);await holder.query('begin');holding=true;
+      try {
+        await rpc(holder,name,{sessionId:'PG-S',now:new Date().toISOString()});
+        const h=await blockedSessionOperation(c=>rpc(c,`create_${kind}_authorized`,payload));
+        await releaseHolder(true);const out=await h.pending;
+        assert.equal(out.ok,false);assert.match(out.message,/^SESSION_INVALID:/);
+        assert.equal((await observer.query('select count(*)::int n from assessments')).rows[0].n,1);
+        assert.equal((await observer.query('select count(*)::int n from recommendation_runs')).rows[0].n,1);
+        assert.equal((await observer.query('select count(*)::int n from care_need_profiles')).rows[0].n,0);
+        record(`PG-HEALTH-${kind}-${name}`,'deletion/withdrawal wins; queued health write rejects with no new health rows');
+      } finally {await releaseHolder();}
+    }
+    await seedLead();const payload=await healthPayload(kind);await holder.query('begin');holding=true;
+    try {
+      await rpc(holder,`create_${kind}_authorized`,payload);
+      const h=await blockedSessionOperation(c=>rpc(c,'request_session_deletion',{sessionId:'PG-S',now:new Date().toISOString()}));
+      await releaseHolder(true);const out=await h.pending;assert.equal(out.ok,true);
+      await rpc(observer,'run_deletion_cleanup',{now:new Date().toISOString(),dryRun:false});
+      for(const table of ['assessments','care_need_profiles','recommendation_runs','recommendation_items']) assert.equal((await observer.query(`select count(*)::int n from ${table}`)).rows[0].n,0);
+      record(`PG-HEALTH-${kind}-before-deletion`,'health write wins; queued deletion and subsequent real cleanup remove all associated health rows');
+    } finally {await releaseHolder();}
+  }
+}
+
 try {
   if (args.length && !negative) throw new Error('Unsupported arguments');
   const url = new URL(process.env.KAREO_TEST_PG_URL ?? '');
@@ -354,6 +390,7 @@ try {
     await leadConcurrency();
     await cleanupWhileSessionResumes();
     await cleanupWithdrawalLockOrder();
+    await healthWriteConcurrency();
   }
 } catch (error) {
   // All data is synthetic, nevertheless avoid echoing connection URLs or arbitrary SQL exceptions.
