@@ -16,9 +16,10 @@
   # version list with createRequire(), which esbuild does not inline (scripts/check-functions-runtime.mjs).
   included_files = ["contracts/legal/consent-versions.json"]
 
-# Deploy Previews may use the frontend mock adapter; every other context calls the real API.
+# Central integration now verifies real API calls against the designated acceptance database.
+# Mock remains available locally for isolated module tests, not in deployed acceptance previews.
 [context.deploy-preview.environment]
-  VITE_KAREO_API_MODE = "mock"
+  VITE_KAREO_API_MODE = "real"
 
 [[redirects]]
   from = "/api/v1/session"

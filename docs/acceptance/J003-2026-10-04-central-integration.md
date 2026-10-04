@@ -43,7 +43,7 @@ Each input is retained as a merge ancestor. Repository conflicts preserve both C
 
 Security regression tests: 22 new tests, including each admin write blocked by operator quota, all admin endpoints blocked before authentication by IP quota, login attempt 21, public request 121, UTF-8 body before parsing, separate IP/operator/window. Original route tests isolate rate-limit persistence; the new handler tests exercise actual counters and middleware.
 
-A-007 original-data regression tests: deletion of an old coverage row, changed old provider coordinates, center accidentally given a service, and stale generated report all fail. Coordinate/data tests will be rerun after the five new points are written.
+A-007 original-data regression tests: deletion of an old coverage row, changed old provider coordinates, center accidentally given a service, and stale generated report all fail. Coordinate/data tests after all five new points: 52 PASS; validators, evidence and generated inventory all PASS. Netlify deploy previews now use real API mode against the designated acceptance database; Mock stays in local module tests.
 
 ## Deployment and operation limits
 
