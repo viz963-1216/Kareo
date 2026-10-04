@@ -37,6 +37,32 @@ export const KNOWLEDGE_MOCK_SCENARIOS: readonly KnowledgeMockScenario[] = [
 
 export type RecommendationMockCount = 0 | 1 | 2 | 3;
 
+export type ResourceLookupMockScenario =
+  | "all"
+  | "located-in"
+  | "service-area"
+  | "service-area-unconfirmed"
+  | "keyword"
+  | "contract-city"
+  | "resource-center"
+  | "empty"
+  | "page-out-of-range"
+  | "error-unsupported-city"
+  | "error-district-mismatch"
+  | "error-district-without-city"
+  | "error-include-unconfirmed"
+  | "error-invalid-page-size"
+  | "error-unknown-parameter"
+  | "error-unsupported-contract-city"
+  | "error-center-with-service-type";
+
+export const RESOURCE_LOOKUP_MOCK_SCENARIOS: readonly ResourceLookupMockScenario[] = [
+  "all", "located-in", "service-area", "service-area-unconfirmed", "keyword", "contract-city",
+  "resource-center", "empty", "page-out-of-range", "error-unsupported-city", "error-district-mismatch",
+  "error-district-without-city", "error-include-unconfirmed", "error-invalid-page-size",
+  "error-unknown-parameter", "error-unsupported-contract-city", "error-center-with-service-type",
+];
+
 /** `?mockRanking=`: forces a recommendation scenario (contracts/mock/README.md, J-002-r4). */
 export type RecommendationMockRanking = "distance" | "missing-coordinates" | "district" | "city" | "no-location";
 export const RECOMMENDATION_MOCK_RANKINGS: readonly RecommendationMockRanking[] = [

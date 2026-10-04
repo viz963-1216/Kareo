@@ -4,6 +4,7 @@ import { api } from "./api";
 import { defaultAssessmentForm } from "./assessment/assessmentRequest";
 import { FormalAssessmentReminder } from "./components/FormalAssessmentReminder";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { KAREOCAR_URL } from "./externalServices";
 import type { AssessmentLocation, AssessmentResponse } from "./types/api";
 import { AssessmentPage, type AssessmentForm, type AssessmentSubmission } from "./pages/AssessmentPage";
 import { AdminKnowledgePage } from "./pages/AdminKnowledgePage";
@@ -13,6 +14,7 @@ import { KnowledgeInfoPage } from "./pages/KnowledgeInfoPage";
 import { LeadPage } from "./pages/LeadPage";
 import { ResultPage, type SessionClosure } from "./pages/ResultPage";
 import { RecommendationPage } from "./pages/RecommendationPage";
+import { ResourceLookupPage } from "./pages/ResourceLookupPage";
 import { PrivacyPage } from "./pages/PrivacyPage";
 import { ProviderDetailPage } from "./pages/ProviderDetailPage";
 import { SessionEndedPage } from "./pages/SessionEndedPage";
@@ -74,6 +76,12 @@ function AppRoutes() {
         <Link to="/" className="brand" aria-label="Kareo 長照一點通首頁">
           Kareo <span>長照一點通</span>
         </Link>
+        <nav className="site-nav" aria-label="主要導覽">
+          <Link to="/resources">查詢長照資源</Link>
+          <a href={KAREOCAR_URL} target="_blank" rel="noopener noreferrer">
+            長照交通預約（Kareocar）<span className="external-label">外部服務・開啟新分頁</span>
+          </a>
+        </nav>
       </header>
       <Routes>
         <Route path="/admin/knowledge" element={<AdminKnowledgePage />} />
@@ -86,6 +94,7 @@ function AppRoutes() {
           element={hasConsent ? <AssessmentPage sessionId={sessionId} initialForm={form} onSubmit={submitAssessment} /> : <Navigate to="/consent" replace />}
         />
         <Route path="/result" element={<ResultPage result={result} location={location} onSessionClosed={sessionClosed} />} />
+        <Route path="/resources" element={<ResourceLookupPage />} />
         <Route path="/providers/:providerId" element={<ProviderDetailPage />} />
         <Route
           path="/recommendations/:serviceType"

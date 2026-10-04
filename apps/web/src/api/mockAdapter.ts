@@ -15,6 +15,8 @@ import type {
   SessionResponse,
   RecommendationRequest,
   RecommendationResponse,
+  ResourceLookupRequest,
+  ResourceLookupResponse,
 } from "../types/api";
 import basicAssessmentFixture from "../../../../contracts/mock/assessment-response.json";
 import disabilityNewTaipeiFixture from "../../../../contracts/mock/assessments/WITH-DISABILITY-NEW_TAIPEI.json";
@@ -30,6 +32,25 @@ import provider103 from "../../../../contracts/mock/providers/PROV-MOCK-103.json
 import provider201 from "../../../../contracts/mock/providers/PROV-MOCK-201.json";
 import provider202 from "../../../../contracts/mock/providers/PROV-MOCK-202.json";
 import provider203 from "../../../../contracts/mock/providers/PROV-MOCK-203.json";
+import provider204 from "../../../../contracts/mock/providers/PROV-MOCK-204.json";
+import provider301 from "../../../../contracts/mock/providers/PROV-MOCK-301.json";
+import lookupAll from "../../../../contracts/mock/providers/lookup/list-all-first-page-response.json";
+import lookupContractCity from "../../../../contracts/mock/providers/lookup/list-contract-city-response.json";
+import lookupEmpty from "../../../../contracts/mock/providers/lookup/list-empty-response.json";
+import lookupKeyword from "../../../../contracts/mock/providers/lookup/list-keyword-response.json";
+import lookupLocatedIn from "../../../../contracts/mock/providers/lookup/list-located-in-response.json";
+import lookupPageOutOfRange from "../../../../contracts/mock/providers/lookup/list-page-out-of-range-response.json";
+import lookupResourceCenter from "../../../../contracts/mock/providers/lookup/list-resource-center-response.json";
+import lookupServiceAreaWithUnconfirmed from "../../../../contracts/mock/providers/lookup/list-service-area-include-unconfirmed-response.json";
+import lookupServiceAreaVerified from "../../../../contracts/mock/providers/lookup/list-service-area-verified-only-response.json";
+import centerWithServiceTypeError from "../../../../contracts/mock/providers/lookup/errors/center-with-service-type-response.json";
+import districtMismatchError from "../../../../contracts/mock/providers/lookup/errors/district-mismatch-response.json";
+import districtWithoutCityError from "../../../../contracts/mock/providers/lookup/errors/district-without-city-response.json";
+import includeUnconfirmedError from "../../../../contracts/mock/providers/lookup/errors/include-unconfirmed-without-service-area-response.json";
+import invalidPageSizeError from "../../../../contracts/mock/providers/lookup/errors/invalid-page-size-response.json";
+import unsupportedCityError from "../../../../contracts/mock/providers/lookup/errors/unsupported-city-response.json";
+import unsupportedContractCityError from "../../../../contracts/mock/providers/lookup/errors/unsupported-contract-city-response.json";
+import unknownParameterError from "../../../../contracts/mock/providers/lookup/errors/unknown-parameter-response.json";
 import knowledgeFirstPage from "../../../../contracts/mock/knowledge/records-first-page-response.json";
 import knowledgeSecondPage from "../../../../contracts/mock/knowledge/records-second-page-response.json";
 import knowledgeTaipei from "../../../../contracts/mock/knowledge/records-taipei-response.json";
@@ -40,7 +61,14 @@ import invalidCategory from "../../../../contracts/mock/knowledge/errors/invalid
 import unknownParameter from "../../../../contracts/mock/knowledge/errors/unknown-parameter-response.json";
 import knowledgeUnavailable from "../../../../contracts/mock/knowledge/errors/knowledge-unavailable-response.json";
 import { ApiError } from "./realAdapter";
-import { assessmentMockScenario, type KnowledgeMockScenario, type MockState, type RecommendationMockCount, type RecommendationMockRanking } from "./mockScenarios";
+import {
+  assessmentMockScenario,
+  type KnowledgeMockScenario,
+  type MockState,
+  type RecommendationMockCount,
+  type RecommendationMockRanking,
+  type ResourceLookupMockScenario,
+} from "./mockScenarios";
 import { createRecommendationFixture, rankingForPrecision } from "./recommendationMockFixtures";
 
 const wait = (milliseconds = 450) => new Promise((resolve) => window.setTimeout(resolve, milliseconds));
@@ -55,11 +83,66 @@ const providerFixtures = [
   provider201,
   provider202,
   provider203,
+  provider204,
+  provider301,
 ] as const;
 
 const providersById = new Map(
   providerFixtures.map((fixture) => [fixture.data.id, fixture.data as ProviderDetail]),
 );
+
+type LookupErrorFixture = { error: { code: string; message: string } };
+
+function lookupError(fixture: LookupErrorFixture): never {
+  throw new ApiError(fixture.error.code, fixture.error.message, 400);
+}
+
+function matches(filters: ResourceLookupRequest, expected: ResourceLookupRequest) {
+  const entries = Object.entries(expected) as Array<[keyof ResourceLookupRequest, ResourceLookupRequest[keyof ResourceLookupRequest]]>;
+  return entries.every(([key, value]) => filters[key] === value);
+}
+
+function lookupFixture(filters: ResourceLookupRequest): ResourceLookupResponse {
+  if (filters.resourceCategory === "ASSISTIVE_DEVICE_CENTER" && filters.serviceType) lookupError(centerWithServiceTypeError);
+  if (filters.district && !filters.city) lookupError(districtWithoutCityError);
+  if (filters.city === "臺北市" && filters.district === "三重區") lookupError(districtMismatchError);
+  if (filters.includeUnconfirmed && filters.areaFilter !== "SERVICE_AREA") lookupError(includeUnconfirmedError);
+  if (filters.pageSize !== undefined && (filters.pageSize < 1 || filters.pageSize > 50)) lookupError(invalidPageSizeError);
+  if ((filters.city as string | undefined) && !["臺北市", "新北市"].includes(filters.city as string)) lookupError(unsupportedCityError);
+  if ((filters.contractCity as string | undefined) && !["臺北市", "新北市"].includes(filters.contractCity as string)) lookupError(unsupportedContractCityError);
+
+  if (matches(filters, { resourceCategory: "ASSISTIVE_DEVICE_CENTER" })) return structuredClone(lookupResourceCenter.data) as ResourceLookupResponse;
+  if (matches(filters, { serviceType: "ASSISTIVE_DEVICE", contractCity: "臺北市" })) return structuredClone(lookupContractCity.data) as ResourceLookupResponse;
+  if (matches(filters, { q: "輔具" })) return structuredClone(lookupKeyword.data) as ResourceLookupResponse;
+  if (matches(filters, { serviceType: "HOME_MEDICAL_NURSING", city: "新北市", district: "烏來區", areaFilter: "LOCATED_IN" })) return structuredClone(lookupEmpty.data) as ResourceLookupResponse;
+  if (matches(filters, { serviceType: "ASSISTIVE_DEVICE", city: "新北市", areaFilter: "LOCATED_IN", page: 2, pageSize: 20 })) return structuredClone(lookupPageOutOfRange.data) as ResourceLookupResponse;
+  if (matches(filters, { serviceType: "ASSISTIVE_DEVICE", city: "新北市", district: "三重區", areaFilter: "SERVICE_AREA", includeUnconfirmed: true })) return structuredClone(lookupServiceAreaWithUnconfirmed.data) as ResourceLookupResponse;
+  if (matches(filters, { serviceType: "ASSISTIVE_DEVICE", city: "新北市", district: "三重區", areaFilter: "SERVICE_AREA" })) return structuredClone(lookupServiceAreaVerified.data) as ResourceLookupResponse;
+  if (matches(filters, { serviceType: "ASSISTIVE_DEVICE", city: "新北市", district: "三重區", areaFilter: "LOCATED_IN" })) return structuredClone(lookupLocatedIn.data) as ResourceLookupResponse;
+  return structuredClone(lookupAll.data) as ResourceLookupResponse;
+}
+
+function lookupScenarioFixture(scenario: ResourceLookupMockScenario): ResourceLookupResponse {
+  switch (scenario) {
+    case "all": return structuredClone(lookupAll.data) as ResourceLookupResponse;
+    case "located-in": return structuredClone(lookupLocatedIn.data) as ResourceLookupResponse;
+    case "service-area": return structuredClone(lookupServiceAreaVerified.data) as ResourceLookupResponse;
+    case "service-area-unconfirmed": return structuredClone(lookupServiceAreaWithUnconfirmed.data) as ResourceLookupResponse;
+    case "keyword": return structuredClone(lookupKeyword.data) as ResourceLookupResponse;
+    case "contract-city": return structuredClone(lookupContractCity.data) as ResourceLookupResponse;
+    case "resource-center": return structuredClone(lookupResourceCenter.data) as ResourceLookupResponse;
+    case "empty": return structuredClone(lookupEmpty.data) as ResourceLookupResponse;
+    case "page-out-of-range": return structuredClone(lookupPageOutOfRange.data) as ResourceLookupResponse;
+    case "error-unsupported-city": return lookupError(unsupportedCityError);
+    case "error-district-mismatch": return lookupError(districtMismatchError);
+    case "error-district-without-city": return lookupError(districtWithoutCityError);
+    case "error-include-unconfirmed": return lookupError(includeUnconfirmedError);
+    case "error-invalid-page-size": return lookupError(invalidPageSizeError);
+    case "error-unknown-parameter": return lookupError(unknownParameterError);
+    case "error-unsupported-contract-city": return lookupError(unsupportedContractCityError);
+    case "error-center-with-service-type": return lookupError(centerWithServiceTypeError);
+  }
+}
 
 // Mock-only failure scenarios, selected with `?mockState=` on the page being tested (development and deploy
 // previews only; the real API never reads them). See ./mockScenarios.ts.
@@ -94,6 +177,11 @@ let leadCount = 0;
 // These fixtures mirror the current Contract mock responses. Keep UI calls behind
 // this adapter so Jerry can later replace its implementation with the real API.
 export const mockApi = {
+  async getProviders(filters: ResourceLookupRequest, scenario?: ResourceLookupMockScenario): Promise<ResourceLookupResponse> {
+    await wait(650);
+    return scenario ? lookupScenarioFixture(scenario) : lookupFixture(filters);
+  },
+
   async getKnowledgeRecords(_filters: KnowledgeRecordsRequest, scenario: KnowledgeMockScenario = "first-page"): Promise<KnowledgeRecordsResponse> {
     await wait(500);
     const successes = {
