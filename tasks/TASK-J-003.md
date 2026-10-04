@@ -103,3 +103,8 @@ Submission Version 從 `J-003-r1` 起，退回後遞增。PR 必填 Added / Chan
 ## 2026-10-04 r12 PostgreSQL 併發與回填預演
 
 真正 PostgreSQL 17、三個獨立 backend、22 個實際 migration：8 個行為檢查 PASS，錯誤 mutex 負向對照按預期 FAIL。受保護回填 CLI＋實際 repository／SQL 在既有驗收快照的隔離本機副本通過 7 項；五包／21 筆歷史核准事件、原內容與發布版本不變、重跑不重複。雲端回填未執行；JWT／RLS 與部署驗收不由本機 HTTP shim 證明。見 `docs/acceptance/J003-2026-10-04-postgres-and-backfill.md`。
+
+
+## J-003-r13：最後健康寫入授權（2026-10-04）
+
+基底 #76；Jerry 已委託中心修復 ABCJ。實際 service＋Supabase repositories＋SQL 重現四種晚到評估／推薦請求：撤回／刪除完成後仍寫入。新增前向 0026 的 Session 鎖／token／期限／同意與歸屬檢查，保留 B 原子寫入，公開契約／規則引擎／排序不變。14 項 SQL 回歸、PG17 22 PASS＋兩個特定 FAIL 對照；缺傳安全 context 的正式 repository 拒絕。Known Issues：D-05、正式排程、內容包雲端回填與 49 項部署 E2E 仍待完成；不能把本機測試算 E2E。詳見 docs/acceptance/J003-2026-10-04-late-health-writes.md。

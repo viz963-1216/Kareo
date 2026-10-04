@@ -16,7 +16,7 @@ import type {
 } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
-import { requireOwnedResource, requireValidSession } from "./sessionSecurityService.js";
+import { hashSessionToken, requireOwnedResource, requireValidSession } from "./sessionSecurityService.js";
 
 // 依 PRODUCT_SPEC §17：AI／LLM 完全不參與挑選，全部由本檔的規則決定，可重現、可測試。
 
@@ -192,7 +192,7 @@ export async function createRecommendation(
     createdAt: now,
   };
 
-  await deps.recommendationRepo.insertRun(run);
+  await deps.recommendationRepo.insertRun(run, { sessionId: session.id, sessionTokenHash: hashSessionToken(sessionTokenHeader as string) });
   await deps.recommendationRepo.insertItems(items);
 
   const providers: RecommendationProviderResult[] = items.map((item) => {

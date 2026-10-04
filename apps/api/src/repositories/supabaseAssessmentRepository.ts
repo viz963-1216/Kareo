@@ -1,13 +1,15 @@
 import { getSupabaseClient } from "./supabaseClient.js";
-import type { AssessmentRepository, CreateAssessmentRecord } from "./types.js";
+import type { AssessmentRepository, CreateAssessmentRecord, SessionWriteContext } from "./types.js";
 import type { Assessment, CareNeedProfile } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
 
 export class SupabaseAssessmentRepository implements AssessmentRepository {
   async createAssessment(
-    input: CreateAssessmentRecord
+    input: CreateAssessmentRecord,
+    security?: SessionWriteContext
   ): Promise<{ assessment: Assessment; careNeedProfile: CareNeedProfile }> {
+    if (!security) throw new AppError("SESSION_INVALID", "Session 已失效，請重新開始。");
     const client = getSupabaseClient();
     const now = nowTaipeiISOString();
 
@@ -26,8 +28,9 @@ export class SupabaseAssessmentRepository implements AssessmentRepository {
 
     // 依 ARCHITECTURE §22 / D-10 的原子寫入模式：兩張表在同一個 Postgres function（同一個交易）內寫入，
     // 任一步失敗整個交易回滾，不會留下沒有 CareNeedProfile 的 COMPLETED Assessment（migration 0009）。
-    const { error } = await client.rpc("create_assessment_with_profile", {
+    const { error } = await client.rpc("create_assessment_authorized", {
       payload: {
+        ...security,
         assessment: {
           id: assessment.id,
           session_id: assessment.sessionId,
@@ -69,6 +72,9 @@ export class SupabaseAssessmentRepository implements AssessmentRepository {
 
     // 不把資料庫錯誤原文帶出（可能含 SQL、欄位值或自由文字）。
     if (error) {
+      if (error.message?.startsWith("SESSION_INVALID:")) throw new AppError("SESSION_INVALID", "Session 已失效，請重新開始。");
+      if (error.message?.startsWith("CONSENT_REQUIRED:")) throw new AppError("CONSENT_REQUIRED", "請先完成服務說明與免責聲明同意。");
+      if (error.message?.startsWith("NOT_FOUND:")) throw new AppError("NOT_FOUND", "找不到指定的評估結果。");
       throw new AppError("INTERNAL_ERROR", "無法建立 Assessment，請稍後再試。");
     }
 
