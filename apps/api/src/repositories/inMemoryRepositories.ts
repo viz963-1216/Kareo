@@ -7,6 +7,7 @@ import type {
   CreateAssessmentRecord,
   ProviderDatasetWrite,
   ProviderDatasetWriteCounts,
+  ProviderLookupCandidate,
   ProviderRepository,
   RecommendationCandidateQuery,
   RecommendationRepository,
@@ -22,6 +23,7 @@ import type {
   CreateConsentInput,
   DeletionRun,
   Provider,
+  ProviderContractRegion,
   ProviderDetailResponse,
   ProviderService,
   ProviderServiceArea,
@@ -308,15 +310,21 @@ export class InMemoryProviderRepository implements ProviderRepository {
   readonly providers: Provider[] = [];
   readonly services: ProviderService[] = [];
   readonly serviceAreas: ProviderServiceArea[] = [];
+  readonly contractRegions: ProviderContractRegion[] = [];
 
   async findDetailById(providerId: string): Promise<ProviderDetailResponse | null> {
     const provider = this.providers.find((p) => p.id === providerId);
     if (!provider || provider.status !== "ACTIVE") return null;
 
+    const serviceAreas = this.serviceAreas
+      .filter((a) => a.providerId === providerId && a.active)
+      .map((a) => ({ city: a.city, district: a.district }));
+
     return {
       id: provider.id,
       name: provider.name,
       type: provider.type,
+      resourceCategory: provider.resourceCategory,
       address: provider.address,
       city: provider.city,
       district: provider.district,
@@ -327,23 +335,26 @@ export class InMemoryProviderRepository implements ProviderRepository {
       services: this.services
         .filter((s) => s.providerId === providerId && s.active)
         .map((s) => s.serviceType),
-      serviceAreas: this.serviceAreas
-        .filter((a) => a.providerId === providerId && a.active)
-        .map((a) => ({ city: a.city, district: a.district })),
+      serviceAreas,
+      serviceAreaStatus: serviceAreas.length > 0 ? "VERIFIED" : "UNCONFIRMED",
+      contractRegions: this.contractRegions
+        .filter((c) => c.providerId === providerId && c.active)
+        .map((c) => ({ city: c.city, serviceType: c.serviceType })),
     };
   }
 
   // 測試用：記錄呼叫次數，並可指定讓某一張表的寫入失敗。
   atomicWriteCalls = 0;
-  failOnTable: "providers" | "services" | "serviceAreas" | null = null;
+  failOnTable: "providers" | "services" | "serviceAreas" | "contractRegions" | null = null;
 
-  // 模擬單一交易：先在副本上寫入三張表，全部成功才替換正式資料；任一步失敗則正式資料完全不變。
+  // 模擬單一交易：先在副本上寫入四張表，全部成功才替換正式資料；任一步失敗則正式資料完全不變。
   async importDatasetAtomically(dataset: ProviderDatasetWrite): Promise<ProviderDatasetWriteCounts> {
     this.atomicWriteCalls += 1;
 
     const providers = [...this.providers];
     const services = [...this.services];
     const serviceAreas = [...this.serviceAreas];
+    const contractRegions = [...this.contractRegions];
 
     upsertById(providers, dataset.providers);
     if (this.failOnTable === "providers") throw new AppError("INTERNAL_ERROR", "模擬寫入失敗：providers");
@@ -352,15 +363,20 @@ export class InMemoryProviderRepository implements ProviderRepository {
     upsertById(serviceAreas, dataset.serviceAreas);
     if (this.failOnTable === "serviceAreas")
       throw new AppError("INTERNAL_ERROR", "模擬寫入失敗：provider_service_areas");
+    upsertById(contractRegions, dataset.contractRegions);
+    if (this.failOnTable === "contractRegions")
+      throw new AppError("INTERNAL_ERROR", "模擬寫入失敗：provider_contract_regions");
 
     this.providers.splice(0, this.providers.length, ...providers);
     this.services.splice(0, this.services.length, ...services);
     this.serviceAreas.splice(0, this.serviceAreas.length, ...serviceAreas);
+    this.contractRegions.splice(0, this.contractRegions.length, ...contractRegions);
 
     return {
       providers: dataset.providers.length,
       providerServices: dataset.services.length,
       providerServiceAreas: dataset.serviceAreas.length,
+      providerContractRegions: dataset.contractRegions.length,
     };
   }
 
@@ -379,6 +395,21 @@ export class InMemoryProviderRepository implements ProviderRepository {
           p.status === "ACTIVE" && eligibleProviderIds.has(p.id) && areaMatchProviderIds.has(p.id)
       )
       .map((p) => ({ ...p }));
+  }
+
+  async findActiveProvidersForLookup(): Promise<ProviderLookupCandidate[]> {
+    return this.providers
+      .filter((p) => p.status === "ACTIVE")
+      .map((p) => ({
+        provider: { ...p },
+        services: this.services.filter((s) => s.providerId === p.id && s.active).map((s) => s.serviceType),
+        serviceAreas: this.serviceAreas
+          .filter((a) => a.providerId === p.id && a.active)
+          .map((a) => ({ city: a.city, district: a.district })),
+        contractRegions: this.contractRegions
+          .filter((c) => c.providerId === p.id && c.active)
+          .map((c) => ({ city: c.city, serviceType: c.serviceType })),
+      }));
   }
 }
 

@@ -2,10 +2,11 @@ import { getSupabaseClient } from "./supabaseClient.js";
 import type {
   ProviderDatasetWrite,
   ProviderDatasetWriteCounts,
+  ProviderLookupCandidate,
   ProviderRepository,
   RecommendationCandidateQuery,
 } from "./types.js";
-import type { Provider, ProviderDetailResponse } from "../types/index.js";
+import type { Provider, ProviderDetailResponse, ProviderServiceType } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
 
 export const IMPORT_PROVIDER_DATASET_RPC = "import_provider_dataset";
@@ -17,6 +18,7 @@ export function toImportPayload(dataset: ProviderDatasetWrite) {
       id: p.id,
       name: p.name,
       type: p.type,
+      resource_category: p.resourceCategory,
       address: p.address,
       city: p.city,
       district: p.district,
@@ -43,6 +45,15 @@ export function toImportPayload(dataset: ProviderDatasetWrite) {
       district: a.district,
       active: a.active,
     })),
+    provider_contract_regions: dataset.contractRegions.map((c) => ({
+      id: c.id,
+      provider_id: c.providerId,
+      city: c.city,
+      service_type: c.serviceType,
+      source_id: c.sourceId,
+      checked_at: c.checkedAt,
+      active: c.active,
+    })),
   };
 }
 
@@ -52,7 +63,7 @@ export class SupabaseProviderRepository implements ProviderRepository {
 
     const { data: provider, error: providerError } = await client
       .from("providers")
-      .select("id, name, type, address, city, district, phone, website, google_maps_url, verified, status")
+      .select("id, name, type, resource_category, address, city, district, phone, website, google_maps_url, verified, status")
       .eq("id", providerId)
       .maybeSingle();
 
@@ -84,10 +95,21 @@ export class SupabaseProviderRepository implements ProviderRepository {
       throw new AppError("INTERNAL_ERROR", "無法查詢 Provider 服務範圍，請稍後再試。");
     }
 
+    const { data: contractRegions, error: contractRegionsError } = await client
+      .from("provider_contract_regions")
+      .select("city, service_type")
+      .eq("provider_id", providerId)
+      .eq("active", true);
+
+    if (contractRegionsError) {
+      throw new AppError("INTERNAL_ERROR", "無法查詢 Provider 特約縣市，請稍後再試。");
+    }
+
     return {
       id: provider.id,
       name: provider.name,
       type: provider.type,
+      resourceCategory: provider.resource_category,
       address: provider.address,
       city: provider.city,
       district: provider.district,
@@ -97,6 +119,8 @@ export class SupabaseProviderRepository implements ProviderRepository {
       verified: provider.verified,
       services: (services ?? []).map((s) => s.service_type),
       serviceAreas: (areas ?? []).map((a) => ({ city: a.city, district: a.district })),
+      serviceAreaStatus: (areas ?? []).length > 0 ? "VERIFIED" : "UNCONFIRMED",
+      contractRegions: (contractRegions ?? []).map((c) => ({ city: c.city, serviceType: c.service_type })),
     };
   }
 
@@ -112,11 +136,17 @@ export class SupabaseProviderRepository implements ProviderRepository {
       });
     }
 
-    const counts = data as { providers: number; provider_services: number; provider_service_areas: number };
+    const counts = data as {
+      providers: number;
+      provider_services: number;
+      provider_service_areas: number;
+      provider_contract_regions: number;
+    };
     return {
       providers: counts.providers,
       providerServices: counts.provider_services,
       providerServiceAreas: counts.provider_service_areas,
+      providerContractRegions: counts.provider_contract_regions,
     };
   }
 
@@ -144,7 +174,7 @@ export class SupabaseProviderRepository implements ProviderRepository {
 
     const { data: providers, error: providersError } = await client
       .from("providers")
-      .select("id, name, type, address, city, district, lat, lng, phone, website, google_maps_url, status, verified, created_at, updated_at")
+      .select("id, name, type, resource_category, address, city, district, lat, lng, phone, website, google_maps_url, status, verified, created_at, updated_at")
       .in("id", eligibleIds)
       .eq("status", "ACTIVE");
     if (providersError) throw new AppError("INTERNAL_ERROR", "無法查詢 Provider，請稍後再試。", { cause: providersError });
@@ -153,6 +183,7 @@ export class SupabaseProviderRepository implements ProviderRepository {
       id: p.id,
       name: p.name,
       type: p.type,
+      resourceCategory: p.resource_category,
       address: p.address,
       city: p.city,
       district: p.district,
@@ -165,6 +196,88 @@ export class SupabaseProviderRepository implements ProviderRepository {
       verified: p.verified,
       createdAt: p.created_at,
       updatedAt: p.updated_at,
+    }));
+  }
+
+  // TASK-B-013：比照既有作法（findDetailById／findEligibleForRecommendation），分次查詢再於
+  // Service 邊界組合，不用 join 或新的 RPC（§10a Allowed Paths 指示「查詢只讀」）。MVP 資料量小，
+  // 全量取出 ACTIVE Provider 後交給 Service 層套用篩選、排序（依 service-districts.json 順序，
+  // 不是 DB 能直接排序的欄位）與分頁。
+  async findActiveProvidersForLookup(): Promise<ProviderLookupCandidate[]> {
+    const client = getSupabaseClient();
+
+    const { data: providers, error: providersError } = await client
+      .from("providers")
+      .select("id, name, type, resource_category, address, city, district, lat, lng, phone, website, google_maps_url, status, verified, created_at, updated_at")
+      .eq("status", "ACTIVE");
+    if (providersError) throw new AppError("INTERNAL_ERROR", "無法查詢 Provider，請稍後再試。", { cause: providersError });
+    if (!providers || providers.length === 0) return [];
+
+    const ids = providers.map((p) => p.id);
+
+    const { data: services, error: servicesError } = await client
+      .from("provider_services")
+      .select("provider_id, service_type")
+      .in("provider_id", ids)
+      .eq("active", true);
+    if (servicesError) throw new AppError("INTERNAL_ERROR", "無法查詢服務類別，請稍後再試。", { cause: servicesError });
+
+    const { data: areas, error: areasError } = await client
+      .from("provider_service_areas")
+      .select("provider_id, city, district")
+      .in("provider_id", ids)
+      .eq("active", true);
+    if (areasError) throw new AppError("INTERNAL_ERROR", "無法查詢服務範圍，請稍後再試。", { cause: areasError });
+
+    const { data: contractRegions, error: contractRegionsError } = await client
+      .from("provider_contract_regions")
+      .select("provider_id, city, service_type")
+      .in("provider_id", ids)
+      .eq("active", true);
+    if (contractRegionsError)
+      throw new AppError("INTERNAL_ERROR", "無法查詢特約縣市，請稍後再試。", { cause: contractRegionsError });
+
+    const servicesByProvider = new Map<string, ProviderServiceType[]>();
+    for (const s of services ?? []) {
+      const list = servicesByProvider.get(s.provider_id) ?? [];
+      list.push(s.service_type);
+      servicesByProvider.set(s.provider_id, list);
+    }
+    const areasByProvider = new Map<string, Array<{ city: string; district: string }>>();
+    for (const a of areas ?? []) {
+      const list = areasByProvider.get(a.provider_id) ?? [];
+      list.push({ city: a.city, district: a.district });
+      areasByProvider.set(a.provider_id, list);
+    }
+    const contractRegionsByProvider = new Map<string, Array<{ city: string; serviceType: ProviderServiceType }>>();
+    for (const c of contractRegions ?? []) {
+      const list = contractRegionsByProvider.get(c.provider_id) ?? [];
+      list.push({ city: c.city, serviceType: c.service_type });
+      contractRegionsByProvider.set(c.provider_id, list);
+    }
+
+    return providers.map((p) => ({
+      provider: {
+        id: p.id,
+        name: p.name,
+        type: p.type,
+        resourceCategory: p.resource_category,
+        address: p.address,
+        city: p.city,
+        district: p.district,
+        lat: p.lat,
+        lng: p.lng,
+        phone: p.phone,
+        website: p.website,
+        googleMapsUrl: p.google_maps_url,
+        status: p.status,
+        verified: p.verified,
+        createdAt: p.created_at,
+        updatedAt: p.updated_at,
+      },
+      services: servicesByProvider.get(p.id) ?? [],
+      serviceAreas: areasByProvider.get(p.id) ?? [],
+      contractRegions: contractRegionsByProvider.get(p.id) ?? [],
     }));
   }
 }

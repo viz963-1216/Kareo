@@ -46,6 +46,7 @@ function provider(overrides: Partial<Provider> = {}): Provider {
     id: "PROV-001",
     name: "測試居家照顧中心",
     type: "HOME_CARE",
+    resourceCategory: "SERVICE_PROVIDER",
     address: "新北市三重區重新路一段100號",
     city: "新北市",
     district: "三重區",
