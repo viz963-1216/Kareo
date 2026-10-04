@@ -12,8 +12,9 @@ export function hashOperatorKey(key: string): string {
 
 // 依 LEAD_OPERATIONS §4：每個指令都驗證操作者身分與權限；失敗一律視為未授權，不透露是操作者不存在、
 // 已停用還是密鑰錯誤（避免被用來枚舉有效的 operatorId）。
+// Lead 指令與知識匯入／回填指令（D-16c）共用；只需要能依 id 查操作者。
 export async function requireOperator(
-  repo: LeadRepository,
+  repo: Pick<LeadRepository, "findOperatorById">,
   operatorId: unknown,
   keyPlaintext: unknown,
   requiredRole: InternalOperatorRole

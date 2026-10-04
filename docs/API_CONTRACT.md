@@ -1200,6 +1200,8 @@ v0.4 依 Jerry 核准的 C-006 決定（[PR #34 comment 5883232266](https://gith
 - **寫入操作**（decision、dismiss、publish、withdraw）一律需要 `confirm: true`（前端二次確認後才送出）；decision、dismiss、withdraw 必填 `reason`（去除前後空白後 1–500 字）。publish 依 D-16a 不需要 `reason`。每個成功的寫入都寫入稽核紀錄（DATA_MODEL §41：操作者、時間、動作、目標、原因、結果數量），log 不含密鑰或 token。
 - 時間一律 ISO 8601 含 `+08:00`；日期 `YYYY-MM-DD`（Asia/Taipei）。
 
+管理端限流（2026-10-04 中央整合）：登入 20 次／小時／IP 雜湊；其餘管理請求 300 次／小時／IP 雜湊，驗證後讀取 300 次、寫入 60 次／小時／操作者（各端點合計）。超額回 `RATE_LIMITED (429)`、`Retry-After`、`Cache-Control: no-store`；不執行操作。POST body >16 KB（UTF-8）回 `PAYLOAD_TOO_LARGE (413)`，在解析 JSON 前檢查。詳見 ARCHITECTURE §20.4。
+
 ## 26.2 端點一覽
 
 | 方法與路徑 | 用途 | Request | Success `data` | Mock |

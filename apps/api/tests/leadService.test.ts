@@ -138,6 +138,17 @@ describe("createLead", () => {
     ).rejects.toMatchObject({ code: "SESSION_INVALID" });
   });
 
+  it("D-05 ①：撤回同意（session 轉 DELETION_REQUESTED）後，無法再送出新的 Lead（停止案件聯繫）", async () => {
+    const fixture = await buildFixture();
+    await seedAssessmentAndRun(fixture, fixture.sessionId);
+    const session = fixture.sessionRepo.sessions.find((s) => s.id === fixture.sessionId)!;
+    session.status = "DELETION_REQUESTED";
+
+    await expect(
+      createLead(fixture, validBody(fixture.sessionId), fixture.sessionToken, "11111111-1111-1111-1111-111111111111")
+    ).rejects.toMatchObject({ code: "SESSION_INVALID" });
+  });
+
   it("rejects a body sessionId that does not match the token's session with FORBIDDEN", async () => {
     const fixture = await buildFixture();
     await seedAssessmentAndRun(fixture, fixture.sessionId);

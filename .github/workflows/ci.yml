@@ -81,6 +81,11 @@ jobs:
         run: node scripts/validate-knowledge-pack.mjs .
       - name: Provider data gate (TASK-A-004)
         run: node scripts/check-provider-data.mjs
+      - name: Provider coordinate evidence and immutable resource inventory
+        run: |
+          node data/providers/qa/verify-coordinates.mjs
+          node data/providers/qa/resource-center-report.mjs
+          node --test data/providers/qa/tests/*.test.mjs
 
   script-tests:
     name: Adapter, deploy-ignore and gate tests

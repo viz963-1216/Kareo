@@ -1,28 +1,46 @@
 import type {
+  AdminKnowledgeChangeSummary,
+  AdminKnowledgeRecordSummary,
+  AdminKnowledgeStatus,
+  AdminPublishResult,
+  AdminSession,
   Assessment,
   CareNeedProfile,
   Consent,
+  ContentPack,
+  ContentPackUpsertAction,
+  ContentPackUpsertInput,
   CrawlerRun,
   CrawlerSnapshot,
+  CreatedAdminSession,
   CreatedSession,
   CreateConsentInput,
+  DeletionRun,
   InternalOperator,
   KnowledgeCategory,
   KnowledgeChange,
+  KnowledgeChangeStatus,
   KnowledgeRecord,
+  KnowledgeRecordReviewSource,
+  KnowledgeRecordStatus,
   KnowledgeStatusResponse,
+  PublicKnowledgeSnapshotRecord,
   Jurisdiction,
   Lead,
   LeadAccessEvent,
   LeadStatus,
   LeadStatusEvent,
   Provider,
+  ProviderContractRegion,
   ProviderDetailResponse,
   ProviderService,
   ProviderServiceArea,
   ProviderServiceType,
+  PublishPlan,
+  RateLimitCheckResult,
   RecommendationItem,
   RecommendationRun,
+  RestorableVersionsResponse,
   Session,
 } from "../types/index.js";
 import type { KnowledgeSnapshotRecord } from "../assessment/knowledgeSnapshot.js";
@@ -34,6 +52,21 @@ export interface SessionRepository {
   createSession(): Promise<CreatedSession>;
   findByTokenHash(tokenHash: string): Promise<Session | null>;
   touchSession(sessionId: string, updates: { lastSeenAt: string; expiresAt: string }): Promise<void>;
+
+  // TASK-B-011b：DELETE /api/v1/session（PRIVACY_AND_RETENTION §6.1）。同一交易內：session 只在
+  // 目前 ACTIVE 時才能轉為 DELETION_REQUESTED（CAS），並立即取消該 session 尚未終態的 Lead、清空
+  // 聯絡欄位（見 migration 0019 request_session_deletion）。updated=false 代表 session 不存在或
+  // 已經不是 ACTIVE（重複呼叫、或已經被 consent withdraw 標記）。
+  requestDeletion(sessionId: string, now: string): Promise<{ updated: boolean; leadsCancelled: number }>;
+
+  // TASK-B-011b：每日到期清理作業（PRIVACY_AND_RETENTION §6.3，2026-10-03 Jerry D-05 確認四條
+  // 保存期限：session／評估資料 90 天、Lead 聯絡欄位 180 天、Lead 案件紀錄 1 年、Consent 3 年）。
+  // dryRun=true 只計算不刪除，四項計數都要回傳供冪等驗證比對。
+  runDeletionCleanup(input: {
+    now: string;
+    dryRun: boolean;
+  }): Promise<{ sessionsDeleted: number; leadsContactCleared: number; leadsDeleted: number; consentsDeleted: number }>;
+  insertDeletionRun(run: DeletionRun): Promise<void>;
 }
 
 export interface ConsentRepository {
@@ -41,6 +74,18 @@ export interface ConsentRepository {
   // 依 accepted=true 才會建立 Consent 記錄（見 consentService），且只回傳 withdrawnAt 為空的最新一筆；
   // 因此「找得到 Consent」即代表該 Session 已完成「目前仍有效」的同意（依 DATA_MODEL.md v0.2）。
   findLatestBySession(sessionId: string): Promise<Consent | null>;
+
+  // TASK-B-011b：POST /api/v1/consent/withdraw（PRIVACY_AND_RETENTION §3.3）。同一交易內：標記最新
+  // 仍生效的 Consent 為已撤回、session 轉 DELETION_REQUESTED、立即取消尚未終態的 Lead 並清空聯絡
+  // 欄位（見 migration 0019 withdraw_consent）。updated=false 代表這個 session 目前沒有仍生效的
+  // Consent（已經撤回過，或從未建立）。
+  withdraw(sessionId: string, now: string): Promise<{ updated: boolean; leadsCancelled: number }>;
+}
+
+// TASK-B-011b：ARCHITECTURE §20.4 持久化限流（DATA_MODEL §39）。key 由呼叫端組成
+// （規則名稱＋session id 或 IP 雜湊），Repository 不關心 key 的組成規則。
+export interface RateLimitRepository {
+  checkAndIncrement(input: { key: string; windowSeconds: number; limit: number; now: string }): Promise<RateLimitCheckResult>;
 }
 
 export interface CreateAssessmentRecord {
@@ -72,14 +117,6 @@ export interface KnowledgeRepository {
   findRecordsByPackId(packId: string): Promise<KnowledgeRecord[]>; // CLI 用：把 packRecordId 對應回資料庫 id
   findPublishedByKey(jurisdiction: Jurisdiction, category: KnowledgeCategory, title: string): Promise<KnowledgeRecord | null>;
   insertRecords(records: KnowledgeRecord[]): Promise<void>;
-
-  // B-008-r3（J-003 H-2）：同 (packId, packRecordId) 但內容包實質內容改變時，更新既有紀錄的內容並
-  // 強制重回 NEEDS_REVIEW（不可靜默略過、也不可讓舊文字停留在 APPROVED）。只允許更新「尚未 PUBLISHED」
-  // 的紀錄；呼叫端須先確認目前狀態不是 PUBLISHED（已發布的歷史紀錄不可被匯入覆寫）。
-  updateRecordContent(
-    id: string,
-    content: Omit<KnowledgeRecord, "id" | "createdAt" | "updatedAt" | "packId" | "packRecordId" | "status" | "version">
-  ): Promise<void>;
 
   // Jerry 委託修正第二輪（2026-09-27）：核准一律是單一 UPDATE，條件同時包含 status = 'NEEDS_REVIEW'
   // 「與」content_fingerprint = 呼叫端宣稱的預期值，兩者在同一次資料庫操作內原子檢查（不是先讀後寫的
@@ -128,18 +165,66 @@ export interface KnowledgeRepository {
 
   // B-010：取出指定 PUBLISHED 版本的全部 PUBLISHED 紀錄（含來源機關），供 Assessment 建立單一版本的知識快照。
   findPublishedSnapshotRecords(versionId: string): Promise<KnowledgeSnapshotRecord[]>;
+
+  // DATA_MODEL §26b：內容包登錄。同一 packId 已登錄時，recordsFingerprint（逐筆內容）不同一律拋出
+  // PACK_CONTENT_CHANGED（必須改用新 packId），不論這次宣告的 status；內容相同時只允許
+  // NEEDS_REVIEW → APPROVED 升級與 review／版號更新。見 migration 0020 upsert_content_pack。
+  upsertContentPack(input: ContentPackUpsertInput): Promise<ContentPackUpsertAction>;
+  findContentPackById(packId: string): Promise<ContentPack | null>;
+
+  // DATA_MODEL §26c：回填既有已核准紀錄的逐筆審核證據（source=CLI_PACK）。審核人／時間取自已核准的
+  // 內容包 JSON，不使用執行當下時間；同一 (紀錄, CLI_PACK, 內容指紋) 已存在則不重複寫入。
+  // 不變更紀錄的狀態或內容。回傳 inserted=false 代表已存在。
+  backfillRecordReviewEvent(input: {
+    recordId: string;
+    reviewedBy: string;
+    reviewedAt: string;
+    reason: string | null;
+    contentFingerprint: string;
+  }): Promise<{ inserted: boolean }>;
+
+  // approveKnowledgePack（CLI）用：跟 admin 的 decision 端點共用同一份審核證據表
+  // （knowledge_record_review_events，source 區分 CLI_PACK／ADMIN_API），同一交易內完成原子
+  // UPDATE 與審核證據寫入（見 migration 0020 approve_or_reject_knowledge_record）。
+  approveOrRejectRecordWithReview(input: {
+    recordId: string;
+    decision: "APPROVED" | "REJECTED";
+    reason: string | null;
+    expectedContentFingerprint: string;
+    reviewedBy: string;
+    source: KnowledgeRecordReviewSource;
+  }): Promise<{ updated: boolean }>;
+
+  // TASK-B-014：取出指定 PUBLISHED 版本的全部 PUBLISHED 紀錄，供 GET /api/v1/knowledge/records 公開查詢使用。
+  // 刻意獨立於 findPublishedSnapshotRecords（Assessment 專用）之外：公開 API 需要額外的
+  // sourceUrl／sourceName／publishedAt／lastVerifiedAt 欄位，且絕不能讓 ruleData／contentFingerprint／
+  // status／packId 等內部欄位有機會外流；有效期間與目前版本判斷仍沿用同一套共用邏輯
+  // （getCurrentPublishedStatus／isEffectiveOn），不另寫一套。
+  findPublicKnowledgeRecords(versionId: string): Promise<PublicKnowledgeSnapshotRecord[]>;
 }
 
 export interface ProviderDatasetWrite {
   providers: Provider[];
   services: ProviderService[];
   serviceAreas: ProviderServiceArea[];
+  contractRegions: ProviderContractRegion[];
 }
 
 export interface ProviderDatasetWriteCounts {
   providers: number;
   providerServices: number;
   providerServiceAreas: number;
+  providerContractRegions: number;
+}
+
+// TASK-B-013：單筆 Provider 的完整查詢結果組合（服務類別／服務範圍／特約縣市皆只取 active），
+// 供 Service 層在 Node 端套用篩選、排序（縣市／行政區順序來自 service-districts.json，不是
+// plain DB column 可直接排序）與分頁，不新增 RPC（§10a Allowed Paths 指示「查詢只讀」）。
+export interface ProviderLookupCandidate {
+  provider: Provider;
+  services: ProviderServiceType[];
+  serviceAreas: Array<{ city: string; district: string }>;
+  contractRegions: Array<{ city: string; serviceType: ProviderServiceType }>;
 }
 
 // TASK-B-005：篩選推薦候選用的查詢條件。district 為 null 時代表只依縣市比對（CITY_ROTATION，
@@ -161,6 +246,9 @@ export interface ProviderRepository {
   // （provider_service_areas.active，與地址分開，PRODUCT_SPEC §19）。回傳完整 Provider（含 lat/lng），
   // 由 Service 層判斷是否所有候選都有已驗證座標（lat/lng 皆非 null）才走 DISTANCE。
   findEligibleForRecommendation(query: RecommendationCandidateQuery): Promise<Provider[]>;
+  // TASK-B-013：取出全部 status=ACTIVE 的 Provider 及其服務類別／服務範圍／特約縣市（皆只取
+  // active），交給 Service 層套用 §10a 的篩選、排序與分頁。
+  findActiveProvidersForLookup(): Promise<ProviderLookupCandidate[]>;
 }
 
 // TASK-B-005（Jerry 委託修正第二輪，2026-09-26，擴大 ARCHITECTURE §22 原子寫入核准範圍，
@@ -238,4 +326,79 @@ export interface LeadRepository {
   }): Promise<boolean>;
 
   findOperatorById(id: string): Promise<InternalOperator | null>;
+}
+
+// TASK-B-012，依 docs/API_CONTRACT.md §26、docs/DATA_MODEL.md 第 36、41 節。
+// publish-preview／publish（§26.8-9）不在此介面：candidate 內容包的 intendedKnowledgeVersion／
+// status 目前完全沒有持久化（只存在 CLI 讀取的內容包 JSON 檔案裡），Admin API 只能存取資料庫，
+// 無法重建這兩個端點需要的 targetVersionId 與 blockers；此為已知架構缺口，留待 Jerry 決定
+// 持久化方案後再補（見 PR Known Issues）。
+export interface AdminKnowledgeRepository {
+  findOperatorById(id: string): Promise<InternalOperator | null>;
+  createAdminSession(session: CreatedAdminSession & { tokenHash: string }): Promise<void>;
+  findAdminSessionByTokenHash(tokenHash: string): Promise<AdminSession | null>;
+
+  getAdminKnowledgeStatus(): Promise<AdminKnowledgeStatus>;
+  // MVP 只接受 NEEDS_REVIEW（API_CONTRACT §26.2），介面仍接受任意狀態以便未來擴充，不在此限制。
+  listChanges(status: KnowledgeChangeStatus): Promise<AdminKnowledgeChangeSummary[]>;
+  listRecords(status: KnowledgeRecordStatus): Promise<AdminKnowledgeRecordSummary[]>;
+
+  // decision／dismiss 更新前的唯讀查詢，用來分類找不到 vs 狀態不對（NOT_FOUND vs
+  // INVALID_STATUS_TRANSITION），不是原子操作本身。
+  findRecordById(id: string): Promise<AdminKnowledgeRecordSummary | null>;
+  findChangeById(id: string): Promise<AdminKnowledgeChangeSummary | null>;
+
+  // 沿用 B-008-r4 approveRecords 的原子檢查模式（status=NEEDS_REVIEW 且 content_fingerprint 相符），
+  // 並在同一交易內寫入 AdminAuditEvent（見 migration 0019 admin_decide_knowledge_record）。
+  // updated=false 時呼叫端須另外用 findRecordById 分類原因，這裡不分類。
+  decideRecord(input: {
+    recordId: string;
+    decision: "APPROVED" | "REJECTED";
+    reason: string;
+    expectedContentFingerprint: string;
+    operatorId: string;
+    auditId: string;
+    now: string;
+  }): Promise<{ updated: boolean; record: AdminKnowledgeRecordSummary | null }>;
+
+  dismissChange(input: {
+    changeId: string;
+    reason: string;
+    operatorId: string;
+    auditId: string;
+    now: string;
+  }): Promise<{ updated: boolean; change: AdminKnowledgeChangeSummary | null }>;
+
+  // API_CONTRACT §26.10：符合恢復條件（ARCHIVED、從未被撤回、knowledge_version_records 至少
+  // 1 筆、快照內無失效紀錄）的版本清單。
+  listRestorableVersions(): Promise<RestorableVersionsResponse>;
+
+  // API_CONTRACT §26.11：withdrawVersionId／republishVersionId 的一致性檢查、實際撤回寫入（沿用
+  // withdraw_knowledge_version）、稽核紀錄，三者在同一交易內完成（見 migration 0019
+  // admin_withdraw_knowledge_version）；「目前版本已變」「恢復目標不符合條件」以 KNOWLEDGE_STATE_CHANGED
+  // 標記回傳，不是一般例外。
+  adminWithdraw(input: {
+    withdrawVersionId: string;
+    republishVersionId: string | null;
+    reason: string;
+    operatorId: string;
+    auditId: string;
+    now: string;
+    today: string;
+  }): Promise<{ stateChanged: boolean; republishedVersionId: string | null }>;
+
+  // TASK-B-012-r3（Jerry 指示 2）：預覽與發布共用的唯一計畫計算（見 migration 0020
+  // compute_publish_plan）。純讀取，不寫入任何資料。
+  computePublishPlan(): Promise<PublishPlan>;
+
+  // 同一交易內：取得鎖 → 重算計畫與 token → 跟操作者確認時的 versionId／previewToken 比對 →
+  // 不一致或重算後有 blocker 都不寫入 → 一致才沿用 publish_knowledge_version 寫入 → 寫稽核
+  // （見 migration 0020 admin_publish_knowledge_version）。stateChanged=true 時資料完全不變。
+  adminPublish(input: {
+    versionId: string;
+    previewToken: string;
+    operatorId: string;
+    auditId: string;
+    now: string;
+  }): Promise<{ stateChanged: boolean; result: AdminPublishResult | null }>;
 }

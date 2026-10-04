@@ -10,7 +10,9 @@ import type {
   RawContentPackRecord,
 } from "../types/index.js";
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
+import { AppError } from "../errors/AppError.js";
 import { computeContentFingerprint } from "./contentFingerprint.js";
+import { computePackFingerprint, computeRecordsFingerprint } from "./packFingerprint.js";
 
 // ===== 依 docs/knowledge/source-registry.md 解析白名單來源（Jerry 維護，B-008 只讀取，不修改）=====
 
@@ -177,8 +179,20 @@ function validateRecord(raw: RawContentPackRecord, packId: string, registry: Map
   };
 }
 
-function validatePackShell(raw: RawContentPack): { reasons: string[] } {
+// 內容包層級驗證，匯入與回填（backfillContentPacks）共用同一份。依 contracts/knowledge/
+// content-pack.schema.json 與 DATA_MODEL §26b：review 必填；status=APPROVED 時 review.reviewedBy
+// 不得為空、reviewedAt 須為 ISO 時間、decision 必須是 APPROVED（不能只信 status 字串）。
+export function validatePackShell(raw: RawContentPack): { reasons: string[] } {
   const reasons: string[] = [];
+  const review = raw.review as Record<string, unknown> | null | undefined;
+  if (typeof review !== "object" || review === null || Array.isArray(review)) {
+    reasons.push("缺少內容包層級 review");
+  } else if (raw.status === "APPROVED") {
+    if (!isNonEmptyString(review.reviewedBy)) reasons.push("status=APPROVED 時內容包 review.reviewedBy 不得為空");
+    if (!isNonEmptyString(review.reviewedAt) || !ISO_DATETIME.test(review.reviewedAt as string))
+      reasons.push("status=APPROVED 時內容包 review.reviewedAt 格式不合法");
+    if (review.decision !== "APPROVED") reasons.push("status=APPROVED 時內容包 review.decision 必須是 APPROVED");
+  }
   if (!isNonEmptyString(raw.packId) || !/^KP-\d{4}-\d{2}-\d{2}-\d{3}$/.test(raw.packId)) reasons.push("packId 格式不合法");
   if (raw.formatVersion !== "1.0") reasons.push("formatVersion 必須是 1.0");
   if (!isNonEmptyString(raw.createdAt) || !ISO_DATETIME.test(raw.createdAt)) reasons.push("createdAt 格式不合法");
@@ -186,6 +200,15 @@ function validatePackShell(raw: RawContentPack): { reasons: string[] } {
   if (!isNonEmptyString(raw.sourceRegistryVersion) || !/^SR-\d{4}-\d{2}-\d{2}-\d{2}$/.test(raw.sourceRegistryVersion))
     reasons.push("sourceRegistryVersion 格式不合法");
   if (!isOneOf(raw.status, ["NEEDS_REVIEW", "APPROVED", "REJECTED"])) reasons.push("pack status 不合法");
+  // 依 contracts/knowledge/content-pack.schema.json：intendedKnowledgeVersion 只有 APPROVED 時
+  // 才會填（null 是合法值，代表尚未決定版號）；APPROVED 時必填且格式須為 KB-YYYY-MM-DD-NNN。
+  if (raw.intendedKnowledgeVersion !== null) {
+    if (!isNonEmptyString(raw.intendedKnowledgeVersion) || !/^KB-\d{4}-\d{2}-\d{2}-\d{3}$/.test(raw.intendedKnowledgeVersion)) {
+      reasons.push("intendedKnowledgeVersion 格式不合法（需為 KB-YYYY-MM-DD-NNN 或 null）");
+    }
+  } else if (raw.status === "APPROVED") {
+    reasons.push("status=APPROVED 時 intendedKnowledgeVersion 不得為 null");
+  }
   if (!Array.isArray(raw.records) || raw.records.length === 0) reasons.push("records 必須是非空陣列");
   return { reasons };
 }
@@ -195,21 +218,25 @@ export interface ImportRecordRejection {
   reasons: string[];
 }
 
-// 依 contracts/knowledge/README.md §3：整批驗證，任一筆不合格就整批不寫入；
-// 已存在且內容雜湊相同的 (packId, recordId) 視為已匯入，跳過但不算拒收（冪等，重複匯入不產生重複紀錄）。
-// 已存在但內容雜湊不同（B-008-r3，J-003 H-2）：不可靜默略過——核准必須綁定實際被審核的內容，不能只
-// 靠 (packId, recordId) 或 status 判斷。尚未 PUBLISHED 的紀錄會更新內容並強制回 NEEDS_REVIEW，即使
-// 內容包本身已是 APPROVED（核准仍要走獨立的 approveKnowledgePack 步驟，讀取「這次」的內容）；已經
-// PUBLISHED 的歷史紀錄不可被匯入覆寫，回報為拒收（需要走新版本發布流程，不得竄改已發布歷史）。
-// 內容包中 status=REJECTED 的紀錄不建立 KnowledgeRecord（沒有值得再審的內容）。
-// 匯入後資料庫狀態一律 NEEDS_REVIEW，除非偵測到與現有 PUBLISHED 紀錄衝突則標記 CONFLICT
-// （即使內容包本身已是 APPROVED，也不代表資料庫核准，見 README §3 第 4 點）。
+// 依 contracts/knowledge/README.md §1、§3 與 DATA_MODEL §26b（D-16c）：整批驗證，任一筆不合格就整批不寫入。
+// - 已存在且審核內容指紋相同的 (packId, recordId) 視為已匯入，跳過但不算拒收（冪等）。
+// - 已存在但內容不同：已提交內容不可改寫，不論內容包是否已登錄、紀錄是否已發布，一律整批拒收並列出
+//   差異；修正必須以新 packId／recordId 提交、重新審核（不走「更正草稿再核准」的路徑）。
+// - 內容包中 status=REJECTED 的紀錄不建立 KnowledgeRecord，但仍計入內容包指紋。
+// - 匯入後資料庫狀態一律 NEEDS_REVIEW，除非偵測到與現有 PUBLISHED 紀錄衝突則標記 CONFLICT
+//   （即使內容包本身已是 APPROVED，也不代表資料庫核准，見 README §3）。
 export async function importContentPack(
   repo: KnowledgeRepository,
   raw: RawContentPack,
   registry: Map<string, RegistrySource>,
-  options: { mode: KnowledgeImportMode }
+  // importedBy：DATA_MODEL §26b 的匯入證據＝已驗證的實際操作者 InternalOperator ID（由呼叫端以個人密鑰與
+  // KNOWLEDGE_PUBLISHER 角色驗證後傳入）。dry-run 不寫入，可為 null；commit 必須提供。
+  options: { mode: KnowledgeImportMode; importedBy: string | null }
 ): Promise<ContentPackImportReport> {
+  if (options.mode === "commit" && !isNonEmptyString(options.importedBy)) {
+    throw new AppError("FORBIDDEN", "commit 匯入需要已驗證的操作者身分。");
+  }
+
   const shell = validatePackShell(raw);
   if (shell.reasons.length > 0) {
     return {
@@ -218,7 +245,6 @@ export async function importContentPack(
       packId: isNonEmptyString(raw.packId) ? raw.packId : null,
       recordsValid: 0,
       recordsRejected: [{ recordId: null, reasons: shell.reasons }],
-      recordsCorrected: 0,
     };
   }
 
@@ -241,42 +267,89 @@ export async function importContentPack(
   }
 
   if (rejections.length > 0) {
-    return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: rejections, recordsCorrected: 0 };
+    return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: rejections };
   }
 
-  // 找出這個 packId 目前資料庫裡已有的紀錄（含內容），依 packRecordId 建索引，用來判斷
-  // 「全新」／「內容相同（略過）」／「內容不同（更正）」／「已發布不可覆寫（拒收）」。
+  // DATA_MODEL §26b：已登錄的內容包身分固定，同一 packId 逐筆內容有任何改變一律拒絕（整批不寫入），
+  // 必須以新 packId 提交；不論這次宣告的 status。匯入與回填使用相同紀錄集合（含 REJECTED）與算法。
+  const intendedKnowledgeVersion = (raw.intendedKnowledgeVersion as string | null) ?? null;
+  const packStatus = raw.status as string;
+  const packReview = raw.review as Record<string, unknown>;
+  const fingerprintInputs = validated.map((v) => ({
+    recordId: v.value.packRecordId,
+    contentFingerprint: v.value.contentFingerprint,
+  }));
+  const recordsFingerprint = computeRecordsFingerprint(fingerprintInputs);
+  const existingPack = await repo.findContentPackById(packId);
+  if (existingPack !== null && existingPack.recordsFingerprint !== recordsFingerprint) {
+    return {
+      mode: options.mode,
+      written: false,
+      packId,
+      recordsValid: 0,
+      recordsRejected: [
+        {
+          recordId: null,
+          reasons: [`PACK_CONTENT_CHANGED：內容包 ${packId} 已登錄且內容已變更，同一 packId 不可改內容；請以新的 packId 提交。`],
+        },
+      ],
+    };
+  }
+
+  // 已提交內容不可改寫（含尚未登錄 content_packs 的舊包）：同一 (packId, recordId) 已存在但審核內容
+  // 指紋不同，一律拒收並列出差異，不更新既有紀錄。
   const existingRecords = await repo.findRecordsByPackId(packId);
   const existingByPackRecordId = new Map(existingRecords.map((r) => [r.packRecordId, r]));
 
   const toInsert: Array<{ value: (typeof validated)[number]["value"] }> = [];
-  const toCorrect: Array<{ id: string; value: (typeof validated)[number]["value"] }> = [];
-  const publishedConflicts: ImportRecordRejection[] = [];
+  const contentChanged: ImportRecordRejection[] = [];
+  const incomingRecordIds = new Set(validated.map((item) => item.value.packRecordId));
+
+  // 未登錄舊包沒有 recordsFingerprint 可比較，仍須確認檔案沒有漏列既有 DB 紀錄。
+  // 所有一致性檢查在 insertRecords/upsertContentPack 前完成，不讓新紀錄部分寫入。
+  for (const existing of existingRecords) {
+    if (!incomingRecordIds.has(existing.packRecordId)) {
+      contentChanged.push({
+        recordId: existing.packRecordId,
+        reasons: [
+          `PACK_RECORDS_MISMATCH：資料庫紀錄 ${existing.id}（${existing.packRecordId}）不在內容包檔案中；` +
+            "檔案與資料庫不一致，請以新的 packId／recordId 提交並重新審核。",
+        ],
+      });
+    }
+  }
 
   for (const item of validated) {
-    if (item.packDecision === "REJECTED") continue; // 內容包本身標記拒收，不建立也不更新任何紀錄。
     const existing = existingByPackRecordId.get(item.value.packRecordId);
     if (!existing) {
-      toInsert.push(item);
+      // 全新拒收紀錄不建立，但既有紀錄不能因檔案宣告 REJECTED 而略過比對。
+      if (item.packDecision !== "REJECTED") toInsert.push(item);
       continue;
     }
-    if (existing.contentFingerprint === item.value.contentFingerprint) {
-      continue; // 審核內容指紋相同，冪等略過（同一來源仍可能對應不同 contentHash 的重新擷取，
-      // 但只要實質內容一樣就不算變更；反過來 contentHash 不變但指紋不同也視為變更，見下方 toCorrect）。
-    }
-    if (existing.status === "PUBLISHED") {
-      publishedConflicts.push({
+    if (existing.contentFingerprint !== item.value.contentFingerprint) {
+      contentChanged.push({
         recordId: item.value.packRecordId,
-        reasons: [`此紀錄（資料庫 id ${existing.id}）已發布於正式版本，不可用匯入覆寫已發布的歷史內容；需要走新版本發布流程。`],
+        reasons: [
+          `RECORD_CONTENT_CHANGED：資料庫紀錄 ${existing.id}（狀態 ${existing.status}）的內容指紋為 ${existing.contentFingerprint}，` +
+            `本次為 ${item.value.contentFingerprint}。已提交內容不可改寫，請以新的 packId／recordId 提交並重新審核。`,
+        ],
       });
       continue;
     }
-    toCorrect.push({ id: existing.id, value: item.value });
+    if (item.packDecision === "REJECTED" && existing.status !== "REJECTED") {
+      contentChanged.push({
+        recordId: item.value.packRecordId,
+        reasons: [
+          `RECORD_DECISION_MISMATCH：內容包將 ${item.value.packRecordId} 標為 REJECTED，` +
+            `但資料庫紀錄 ${existing.id} 仍為 ${existing.status}；匯入不得自動改變審核或發布狀態，請先經正式審核／撤回流程處理。`,
+        ],
+      });
+    }
+    // 內容相同且沒有矛盾的拒收決定：冪等略過，保留既有狀態與發布證據。
   }
 
-  if (publishedConflicts.length > 0) {
-    // 缺筆／部分失敗不得回報全部成功：本次匯入整批不寫入，讓操作者先解決已發布紀錄的處理方式。
-    return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: publishedConflicts, recordsCorrected: 0 };
+  if (contentChanged.length > 0) {
+    return { mode: options.mode, written: false, packId, recordsValid: 0, recordsRejected: contentChanged };
   }
 
   const records: KnowledgeRecord[] = [];
@@ -295,21 +368,32 @@ export async function importContentPack(
       packId,
       recordsValid: records.length,
       recordsRejected: [],
-      recordsCorrected: toCorrect.length,
     };
   }
 
   await repo.insertRecords(records);
-  for (const item of toCorrect) {
-    await repo.updateRecordContent(item.id, item.value);
-  }
+
+  // DATA_MODEL §26b：內容包層級資料（含內容包 review 與匯入證據）在這裡登錄，Admin API 的
+  // publish-preview／publish 直接從資料庫算出候選紀錄與 blockers（見 compute_publish_plan）。
+  await repo.upsertContentPack({
+    packId,
+    formatVersion: raw.formatVersion as string,
+    intendedKnowledgeVersion,
+    sourceRegistryVersion: isNonEmptyString(raw.sourceRegistryVersion) ? raw.sourceRegistryVersion : null,
+    status: packStatus,
+    reviewedBy: isNonEmptyString(packReview.reviewedBy) ? packReview.reviewedBy : null,
+    reviewedAt: isNonEmptyString(packReview.reviewedAt) ? packReview.reviewedAt : null,
+    reviewDecision: isNonEmptyString(packReview.decision) ? packReview.decision : null,
+    packFingerprint: computePackFingerprint(fingerprintInputs, intendedKnowledgeVersion, packStatus),
+    recordsFingerprint,
+    importedBy: options.importedBy as string,
+  });
 
   return {
     mode: "commit",
-    written: records.length > 0 || toCorrect.length > 0,
+    written: records.length > 0,
     packId,
     recordsValid: records.length,
     recordsRejected: [],
-    recordsCorrected: toCorrect.length,
   };
 }

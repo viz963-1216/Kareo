@@ -127,6 +127,51 @@
       "sha256": null,
       "retrievedAt": "2026-09-29",
       "use": "TP-HMN-003 所屬北護分院提供居家護理的官方佐證；與 SRC-008 一併核對附設居家護理所名稱／地址，不載服務行政區。"
+    },
+    {
+      "sourceId": "SRC-011",
+      "name": "臺北市輔具服務－輔具中心",
+      "url": "https://dosw.gov.taipei/cp.aspx?n=F00D57EC34399445",
+      "document": "臺北市政府社會局官方輔具中心頁面",
+      "sha256": null,
+      "retrievedAt": "2026-10-03",
+      "use": "確認臺北市三家輔具中心的名稱、地址、電話、網站與公告服務行政區；不作為座標證據。"
+    },
+    {
+      "sourceId": "SRC-012",
+      "name": "新北市輔具中心及各分站據點服務項目列表",
+      "url": "https://atrc.aihsin.ntpc.gov.tw/NewsInfo/131",
+      "document": "新北市輔具資源中心官方輔具中心頁面",
+      "sha256": null,
+      "retrievedAt": "2026-10-03",
+      "use": "確認新北市蘆洲與新店輔具中心的名稱、地址、電話與服務資訊；不作為座標證據。"
+    },
+    {
+      "sourceId": "SRC-COORD-TPE-003",
+      "name": "臺北市門牌位置數值資料（2026-10-04 下載）",
+      "url": "https://data.taipei/api/dataset/b7c8e724-1e98-45ee-a0bd-f3840623ed97/resource/ce76ca0c-7f94-4935-ab47-1d2a41ca2abb/download",
+      "document": "臺北市政府民政局門牌資料 CSV（124662109 bytes；data.gov.tw/dataset/155472）",
+      "sha256": "7212058161f10a13d52ee46e74155526ca4ebf182b151562ba0e533f882a89ab",
+      "retrievedAt": "2026-10-04",
+      "use": "A-007 三中心精確門牌點；EPSG:3826 沿用 SRC-COORD-TPE-002 已查證圖層詮釋資料，無地圖猜測"
+    },
+    {
+      "sourceId": "SRC-COORD-NTPC-002",
+      "name": "新北市門牌位置數值資料（245號 API 篩選）",
+      "url": "https://data.ntpc.gov.tw/api/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101/json?$filter=number%20eq%20%EF%BC%92%EF%BC%94%EF%BC%95%E8%99%9F&size=10000&page=0",
+      "document": "官方 JSON 完整篩選回應；精確核對 areacode、street、lane、alley、number；API 用法 https://data.ntpc.gov.tw/applications",
+      "sha256": "79e6f11049e9a86d6e9227e4aec6841a2dfc83c15109ff270248099706808403",
+      "retrievedAt": "2026-10-04",
+      "use": "A-007 新北中心精確門牌點；x_3826／y_3826 表示 EPSG:3826"
+    },
+    {
+      "sourceId": "SRC-COORD-NTPC-003",
+      "name": "新北市門牌位置數值資料（281號 API 篩選）",
+      "url": "https://data.ntpc.gov.tw/api/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101/json?$filter=number%20eq%20%EF%BC%92%EF%BC%98%EF%BC%91%E8%99%9F&size=10000&page=0",
+      "document": "官方 JSON 完整篩選回應；精確核對 areacode、street、lane、alley、number；API 用法 https://data.ntpc.gov.tw/applications",
+      "sha256": "c5e7becfb873f80b1d39feb2270638341abbf33ab835e73d89d4ae01c458fd12",
+      "retrievedAt": "2026-10-04",
+      "use": "A-007 新北中心精確門牌點；x_3826／y_3826 表示 EPSG:3826"
     }
   ],
   "coordinates": [
@@ -972,6 +1017,151 @@
       },
       "method": "EPSG:3826 → EPSG:4326，PROJ 9.8.1（pyproj 3.8.0）轉換並四捨五入至小數 8 位；verify-coordinates.mjs 以 GRS80 逆橫麥卡托重算，容差 1e-7°",
       "decisionId": "DEC-A003-03"
+    },
+    {
+      "providerId": "TP-ARC-001",
+      "name": "臺北市合宜輔具中心（財團法人第一社會福利基金會承辦）",
+      "address": "臺北市中山區玉門街1號",
+      "identity": [
+        {
+          "sourceId": "SRC-011",
+          "document": "臺北市政府社會局輔具中心頁",
+          "sourceName": "臺北市合宜輔具中心（財團法人第一社會福利基金會承辦）",
+          "sourceAddress": "臺北市中山區玉門街1號",
+          "checkedAt": "2026-10-04"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-TPE-003",
+        "document": "官方門牌 API／CSV 精確地址点（樓層共用建物門牌點）",
+        "record": "63000,63000040,圓山里,011,玉門街,,,,１號,302509.45893025323,2773671.8076971923",
+        "sourceCrs": "EPSG:3826",
+        "x": 302509.4589302532,
+        "y": 2773671.8076971923,
+        "crsEvidence": "既有 SRC-COORD-TPE-002 圖層詮釋資料 latestWkid=3826；本次圖層 DNS 暫不可用，不宣稱已重新查驗",
+        "checkedAt": "2026-10-04"
+      },
+      "wgs84": {
+        "lat": 25.07035947,
+        "lng": 121.52049687
+      },
+      "method": "EPSG:3826 → WGS84；qa/lib/a-003-coverage.mjs GRS80 逆橫麥卡托重算並四捨五入至小數 8 位（容差 1e-7°）"
+    },
+    {
+      "providerId": "TP-ARC-002",
+      "name": "臺北市西區輔具中心（財團法人伊甸社會福利基金會承辦）",
+      "address": "臺北市中山區長安西路5巷2號1樓、2樓",
+      "identity": [
+        {
+          "sourceId": "SRC-011",
+          "document": "臺北市政府社會局輔具中心頁",
+          "sourceName": "臺北市西區輔具中心（財團法人伊甸社會福利基金會承辦）",
+          "sourceAddress": "臺北市中山區長安西路5巷2號1樓、2樓",
+          "checkedAt": "2026-10-04"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-TPE-003",
+        "document": "官方門牌 API／CSV 精確地址点（樓層共用建物門牌點）",
+        "record": "63000,63000040,民安里,005,長安西路,,５巷,,２號,302545.7498215673,2771472.742209312",
+        "sourceCrs": "EPSG:3826",
+        "x": 302545.7498215673,
+        "y": 2771472.742209312,
+        "crsEvidence": "既有 SRC-COORD-TPE-002 圖層詮釋資料 latestWkid=3826；本次圖層 DNS 暫不可用，不宣稱已重新查驗",
+        "checkedAt": "2026-10-04"
+      },
+      "wgs84": {
+        "lat": 25.05050519,
+        "lng": 121.52077267
+      },
+      "method": "EPSG:3826 → WGS84；qa/lib/a-003-coverage.mjs GRS80 逆橫麥卡托重算並四捨五入至小數 8 位（容差 1e-7°）"
+    },
+    {
+      "providerId": "TP-ARC-003",
+      "name": "臺北市南區輔具中心（財團法人第一社會福利基金會承辦）",
+      "address": "臺北市信義區大道路116號3樓之2",
+      "identity": [
+        {
+          "sourceId": "SRC-011",
+          "document": "臺北市政府社會局輔具中心頁",
+          "sourceName": "臺北市南區輔具中心（財團法人第一社會福利基金會承辦）",
+          "sourceAddress": "臺北市信義區大道路116號3樓之2",
+          "checkedAt": "2026-10-04"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-TPE-003",
+        "document": "官方門牌 API／CSV 精確地址点（樓層共用建物門牌點）",
+        "record": "63000,63000020,大仁里,027,大道路,,,,１１６號,308830.5772,2770223.718",
+        "sourceCrs": "EPSG:3826",
+        "x": 308830.5772,
+        "y": 2770223.718,
+        "crsEvidence": "既有 SRC-COORD-TPE-002 圖層詮釋資料 latestWkid=3826；本次圖層 DNS 暫不可用，不宣稱已重新查驗",
+        "checkedAt": "2026-10-04"
+      },
+      "wgs84": {
+        "lat": 25.03899775,
+        "lng": 121.58300488
+      },
+      "method": "EPSG:3826 → WGS84；qa/lib/a-003-coverage.mjs GRS80 逆橫麥卡托重算並四捨五入至小數 8 位（容差 1e-7°）"
+    },
+    {
+      "providerId": "NTPC-ARC-001",
+      "name": "新北市輔具資源中心（蘆洲）",
+      "address": "新北市蘆洲區集賢路245號9樓",
+      "identity": [
+        {
+          "sourceId": "SRC-012",
+          "document": "新北市輔具中心官方分站據點列表",
+          "sourceName": "新北市輔具資源中心（蘆洲）",
+          "sourceAddress": "新北市蘆洲區集賢路245號9樓",
+          "checkedAt": "2026-10-04"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-002",
+        "document": "官方門牌 API／CSV 精確地址点（樓層共用建物門牌點）",
+        "record": "65000,65000140,仁義里,001,集賢路,,,,２４５號,298581.878556,2775260.0973286",
+        "sourceCrs": "EPSG:3826",
+        "x": 298581.878556,
+        "y": 2775260.0973286,
+        "crsEvidence": "官方欄位 x_3826／y_3826",
+        "checkedAt": "2026-10-04"
+      },
+      "wgs84": {
+        "lat": 25.08482988,
+        "lng": 121.48162219
+      },
+      "method": "EPSG:3826 → WGS84；qa/lib/a-003-coverage.mjs GRS80 逆橫麥卡托重算並四捨五入至小數 8 位（容差 1e-7°）"
+    },
+    {
+      "providerId": "NTPC-ARC-002",
+      "name": "新北市輔具資源中心（新店）",
+      "address": "新北市新店區北新路一段281號",
+      "identity": [
+        {
+          "sourceId": "SRC-012",
+          "document": "新北市輔具中心官方分站據點列表",
+          "sourceName": "新北市輔具資源中心（新店）",
+          "sourceAddress": "新北市新店區北新路一段281號",
+          "checkedAt": "2026-10-04"
+        }
+      ],
+      "coordinate": {
+        "sourceId": "SRC-COORD-NTPC-003",
+        "document": "官方門牌 API／CSV 精確地址点（樓層共用建物門牌點）",
+        "record": "65000,65000060,新德里,002,北新路一段,,,,２８１號,304626.674500,2762221.1858000",
+        "sourceCrs": "EPSG:3826",
+        "x": 304626.6745,
+        "y": 2762221.1858,
+        "crsEvidence": "官方欄位 x_3826／y_3826",
+        "checkedAt": "2026-10-04"
+      },
+      "wgs84": {
+        "lat": 24.9669087,
+        "lng": 121.54102965
+      },
+      "method": "EPSG:3826 → WGS84；qa/lib/a-003-coverage.mjs GRS80 逆橫麥卡托重算並四捨五入至小數 8 位（容差 1e-7°）"
     }
   ],
   "serviceAreas": [
@@ -1064,6 +1254,51 @@
       "document": "(市民版)長照專業服務-特約服務單位一覽表 序號 49（臺北市立聯合醫院附設陽明居家護理所，臺北市士林區雨聲街105號6樓）",
       "sourceText": "士林區、北投區",
       "checkedAt": "2026-09-29",
+      "basis": "OFFICIAL"
+    },
+    {
+      "providerId": "TP-ARC-001",
+      "city": "臺北市",
+      "districts": [
+        "北投區",
+        "士林區",
+        "中山區",
+        "大同區"
+      ],
+      "sourceText": "服務區域：北投區、士林區、中山區、大同區",
+      "sourceId": "SRC-011",
+      "document": "臺北市政府社會局官方輔具中心頁面",
+      "checkedAt": "2026-10-03",
+      "basis": "OFFICIAL"
+    },
+    {
+      "providerId": "TP-ARC-002",
+      "city": "臺北市",
+      "districts": [
+        "中正區",
+        "萬華區",
+        "大安區",
+        "松山區"
+      ],
+      "sourceText": "服務區域：中正區、萬華區、大安區、松山區",
+      "sourceId": "SRC-011",
+      "document": "臺北市政府社會局官方輔具中心頁面",
+      "checkedAt": "2026-10-03",
+      "basis": "OFFICIAL"
+    },
+    {
+      "providerId": "TP-ARC-003",
+      "city": "臺北市",
+      "districts": [
+        "信義區",
+        "內湖區",
+        "南港區",
+        "文山區"
+      ],
+      "sourceText": "服務區域：信義區、內湖區、南港區、文山區",
+      "sourceId": "SRC-011",
+      "document": "臺北市政府社會局官方輔具中心頁面",
+      "checkedAt": "2026-10-03",
       "basis": "OFFICIAL"
     }
   ],

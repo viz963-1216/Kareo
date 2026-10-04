@@ -15,6 +15,7 @@ function readRealDataset(): ProviderImportDataset {
     providers: read("providers.json"),
     providerServices: read("provider-services.json"),
     providerServiceAreas: read("provider-service-areas.json"),
+    providerContractRegions: read("provider-contract-regions.json"),
   };
 }
 
@@ -41,6 +42,7 @@ function fullyValidDataset(): ProviderImportDataset {
     providerServiceAreas: [
       { id: "PSA-001", providerId: "PROV-001", city: "新北市", district: "三重區", active: true },
     ],
+    providerContractRegions: [],
   };
 }
 
@@ -68,6 +70,7 @@ describe("Provider Import (TASK-B-004)", () => {
       providerServiceAreas: [
         { id: "PSA-001", providerId: "PROV-001", city: "新北市", district: "三重區", active: true },
       ],
+      providerContractRegions: [],
     };
 
     const report = await importProviderDataset(repo, dataset, { mode: "commit" });
@@ -101,6 +104,7 @@ describe("Provider Import (TASK-B-004)", () => {
       providers: [validProvider],
       providerServices: [{ providerId: "PROV-001", serviceType: "HOME_CARE" }],
       providerServiceAreas: [],
+      providerContractRegions: [],
     };
 
     const report = await importProviderDataset(repo, dataset, { mode: "dry-run" });
@@ -118,6 +122,7 @@ describe("Provider Import (TASK-B-004)", () => {
       providers: [{ ...validProvider, type: "NOT_A_REAL_TYPE" }],
       providerServices: [],
       providerServiceAreas: [],
+      providerContractRegions: [],
     };
 
     const report = await importProviderDataset(repo, dataset, { mode: "dry-run" });
@@ -133,6 +138,7 @@ describe("Provider Import (TASK-B-004)", () => {
       providerServiceAreas: [
         { id: "PSA-001", providerId: "PROV-999", city: "新北市", district: "三重區", active: true },
       ],
+      providerContractRegions: [],
     };
 
     const report = await importProviderDataset(repo, dataset, { mode: "dry-run" });
@@ -159,8 +165,8 @@ describe("Provider Import (TASK-B-004)", () => {
 
     const report = await importProviderDataset(repo, dataset, { mode: "commit" });
 
-    expect(dataset.providers.length).toBe(30);
-    expect(report.providersValid).toBe(30);
+    expect(dataset.providers.filter((p) => (p as { resourceCategory?: string }).resourceCategory !== "ASSISTIVE_DEVICE_CENTER")).toHaveLength(30);
+    expect(report.providersValid).toBe(dataset.providers.length);
     expect(report.providersRejected).toHaveLength(0);
 
     expect(dataset.providerServices.length).toBe(30);
@@ -172,7 +178,7 @@ describe("Provider Import (TASK-B-004)", () => {
 
     expect(report.written).toBe(true);
     expect(repo.atomicWriteCalls).toBe(1);
-    expect(repo.providers).toHaveLength(30);
+    expect(repo.providers).toHaveLength(dataset.providers.length);
     expect(repo.services).toHaveLength(30);
     expect(repo.serviceAreas).toHaveLength(dataset.providerServiceAreas.length);
   });
@@ -186,7 +192,12 @@ describe("Provider Import atomic write (TASK-B-004 r2, P1)", () => {
     const report = await importProviderDataset(repo, fullyValidDataset(), { mode: "commit" });
 
     expect(repo.atomicWriteCalls).toBe(1);
-    expect(report.writtenCounts).toEqual({ providers: 1, providerServices: 1, providerServiceAreas: 1 });
+    expect(report.writtenCounts).toEqual({
+      providers: 1,
+      providerServices: 1,
+      providerServiceAreas: 1,
+      providerContractRegions: 0,
+    });
   });
 
   it("validation failure in commit mode never calls the atomic write", async () => {

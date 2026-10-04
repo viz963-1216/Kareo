@@ -12,6 +12,11 @@ import type {
   KnowledgeCategory,
   KnowledgeJurisdiction,
   ProviderDetail,
+  ProviderContractRegion,
+  ResourceLookupAppliedFilters,
+  ResourceLookupItem,
+  ResourceLookupRequest,
+  ResourceLookupResponse,
   RankingType,
   RecommendationRequest,
   RecommendationResponse,
@@ -32,6 +37,7 @@ const TOKEN_HEADER = "X-Kareo-Session-Token";
 const PUBLIC_ENDPOINTS: Array<[method: string, path: RegExp]> = [
   ["POST", /^\/session$/],
   ["GET", /^\/providers\/[^/]+$/],
+  ["GET", /^\/providers(?:\?.*)?$/],
   ["GET", /^\/external-services\/transportation$/],
   ["GET", /^\/knowledge\/status$/],
   ["GET", /^\/knowledge\/records(?:\?.*)?$/],
@@ -130,6 +136,11 @@ const RECOMMENDATION_SERVICES = ["HOME_CARE", "HOME_MEDICAL_NURSING", "ASSISTIVE
 const RANKING_TYPES: readonly RankingType[] = ["DISTANCE", "DISTRICT_ROTATION", "CITY_ROTATION", "NO_LOCATION"];
 const PRECISIONS = ["NONE", "CITY", "DISTRICT", "EXACT", "GPS"];
 const LEAD_STATUSES = ["NEW", "CONTACTED", "ACCEPTED", "CLOSED", "CANCELLED"];
+const RESOURCE_CATEGORIES = ["SERVICE_PROVIDER", "ASSISTIVE_DEVICE_CENTER"];
+const SERVICE_AREA_STATUSES = ["VERIFIED", "UNCONFIRMED"];
+const RESOURCE_AREA_FILTERS = ["LOCATED_IN", "SERVICE_AREA"];
+const RESOURCE_AREA_MATCHES = ["VERIFIED", "UNCONFIRMED"];
+const LOOKUP_CITIES = ["臺北市", "新北市"];
 const KNOWLEDGE_JURISDICTIONS: readonly KnowledgeJurisdiction[] = ["TAIWAN", "TAIPEI", "NEW_TAIPEI"];
 const KNOWLEDGE_CATEGORIES: readonly KnowledgeCategory[] = [
   "ELIGIBILITY", "BENEFIT", "COPAY", "TRANSPORTATION", "HOME_MEDICAL_NURSING",
@@ -218,6 +229,119 @@ export function isSessionDeletionResponse(value: unknown): value is SessionDelet
     && isText(value.sessionId)
     && value.status === "DELETION_REQUESTED"
     && typeof value.deletionScheduledBefore === "string";
+}
+
+function isNullableText(value: unknown): value is string | null {
+  return value === null || typeof value === "string";
+}
+
+function isNonNegativeInteger(value: unknown): value is number {
+  return typeof value === "number" && Number.isInteger(value) && value >= 0;
+}
+
+function isPositiveInteger(value: unknown): value is number {
+  return typeof value === "number" && Number.isInteger(value) && value >= 1;
+}
+
+function isContractRegion(value: unknown): value is ProviderContractRegion {
+  return isRecord(value)
+    && Object.keys(value).length === 2
+    && "city" in value
+    && "serviceType" in value
+    && LOOKUP_CITIES.includes(value.city as string)
+    && RECOMMENDATION_SERVICES.includes(value.serviceType as string);
+}
+
+function isProviderSharedFields(value: Record<string, unknown>) {
+  return isText(value.id)
+    && isText(value.name)
+    && [...RECOMMENDATION_SERVICES, "OTHER"].includes(value.type as string)
+    && RESOURCE_CATEGORIES.includes(value.resourceCategory as string)
+    && isStringArray(value.services)
+    && value.services.every((service) => RECOMMENDATION_SERVICES.includes(service))
+    && typeof value.address === "string"
+    && typeof value.city === "string"
+    && typeof value.district === "string"
+    && typeof value.phone === "string"
+    && isNullableText(value.website)
+    && typeof value.googleMapsUrl === "string"
+    && typeof value.verified === "boolean"
+    && SERVICE_AREA_STATUSES.includes(value.serviceAreaStatus as string)
+    && Array.isArray(value.contractRegions)
+    && value.contractRegions.every(isContractRegion);
+}
+
+export function isProviderDetail(value: unknown): value is ProviderDetail {
+  if (!isRecord(value) || !isProviderSharedFields(value) || !Array.isArray(value.serviceAreas)) return false;
+  const detailKeys = ["id", "name", "type", "resourceCategory", "address", "city", "district", "phone", "website", "googleMapsUrl", "verified", "services", "serviceAreas", "serviceAreaStatus", "contractRegions"];
+  if (Object.keys(value).length !== detailKeys.length || !detailKeys.every((key) => key in value)) return false;
+  if (!value.serviceAreas.every((area) => isRecord(area)
+    && Object.keys(area).length === 2
+    && "city" in area
+    && "district" in area
+    && typeof area.city === "string"
+    && typeof area.district === "string")) return false;
+  if ((value.serviceAreaStatus === "VERIFIED") !== (value.serviceAreas.length > 0)) return false;
+  if (!isStringArray(value.services)) return false;
+  if (value.resourceCategory === "ASSISTIVE_DEVICE_CENTER") {
+    return value.type === "OTHER" && value.services.length === 0;
+  }
+  return value.services.length > 0;
+}
+
+function isResourceLookupItem(value: unknown): value is ResourceLookupItem {
+  if (!isRecord(value) || !isProviderSharedFields(value)) return false;
+  const itemKeys = ["id", "name", "type", "resourceCategory", "services", "address", "city", "district", "phone", "website", "googleMapsUrl", "verified", "serviceAreaStatus", "contractRegions", "areaMatch"];
+  return Object.keys(value).length === itemKeys.length
+    && itemKeys.every((key) => key in value)
+    && (value.areaMatch === null || RESOURCE_AREA_MATCHES.includes(value.areaMatch as string));
+}
+
+function isAppliedFilters(value: unknown): value is ResourceLookupAppliedFilters {
+  if (!isRecord(value)) return false;
+  const expectedKeys = ["resourceCategory", "serviceType", "city", "district", "areaFilter", "includeUnconfirmed", "contractCity", "q", "page", "pageSize"];
+  if (Object.keys(value).length !== expectedKeys.length || !expectedKeys.every((key) => key in value)) return false;
+  return (value.resourceCategory === null || RESOURCE_CATEGORIES.includes(value.resourceCategory as string))
+    && (value.serviceType === null || RECOMMENDATION_SERVICES.includes(value.serviceType as string))
+    && (value.city === null || LOOKUP_CITIES.includes(value.city as string))
+    && isNullableText(value.district)
+    && (value.areaFilter === null || RESOURCE_AREA_FILTERS.includes(value.areaFilter as string))
+    && typeof value.includeUnconfirmed === "boolean"
+    && (value.contractCity === null || LOOKUP_CITIES.includes(value.contractCity as string))
+    && isNullableText(value.q)
+    && isPositiveInteger(value.page)
+    && isPositiveInteger(value.pageSize)
+    && value.pageSize <= 50;
+}
+
+export function isResourceLookupResponse(value: unknown): value is ResourceLookupResponse {
+  if (!isRecord(value) || !Array.isArray(value.items) || !value.items.every(isResourceLookupItem)) return false;
+  const responseKeys = ["items", "page", "pageSize", "totalCount", "unconfirmedCount", "appliedFilters", "notice"];
+  return Object.keys(value).length === responseKeys.length
+    && responseKeys.every((key) => key in value)
+    && isPositiveInteger(value.page)
+    && isPositiveInteger(value.pageSize)
+    && value.pageSize <= 50
+    && isNonNegativeInteger(value.totalCount)
+    && (value.unconfirmedCount === null || isNonNegativeInteger(value.unconfirmedCount))
+    && isAppliedFilters(value.appliedFilters)
+    && typeof value.notice === "string";
+}
+
+export function resourceLookupPath(filters: ResourceLookupRequest) {
+  const query = new URLSearchParams();
+  if (filters.resourceCategory) query.set("resourceCategory", filters.resourceCategory);
+  if (filters.serviceType) query.set("serviceType", filters.serviceType);
+  if (filters.city) query.set("city", filters.city);
+  if (filters.district) query.set("district", filters.district);
+  if (filters.areaFilter) query.set("areaFilter", filters.areaFilter);
+  if (filters.includeUnconfirmed !== undefined) query.set("includeUnconfirmed", String(filters.includeUnconfirmed));
+  if (filters.contractCity) query.set("contractCity", filters.contractCity);
+  if (filters.q) query.set("q", filters.q);
+  if (filters.page !== undefined) query.set("page", String(filters.page));
+  if (filters.pageSize !== undefined) query.set("pageSize", String(filters.pageSize));
+  const suffix = query.toString();
+  return suffix ? `/providers?${suffix}` : "/providers";
 }
 
 function invalidResponse(): never {
@@ -355,11 +479,17 @@ export const realApi = {
 
   async getProvider(providerId: string): Promise<ProviderDetail | null> {
     try {
-      return await request<ProviderDetail>("GET", `/providers/${encodeURIComponent(providerId)}`);
+      const data = await request<unknown>("GET", `/providers/${encodeURIComponent(providerId)}`);
+      return isProviderDetail(data) ? data : invalidResponse();
     } catch (reason) {
       if (reason instanceof ApiError && reason.code === "NOT_FOUND") return null;
       throw reason;
     }
+  },
+
+  async getProviders(filters: ResourceLookupRequest): Promise<ResourceLookupResponse> {
+    const data = await request<unknown>("GET", resourceLookupPath(filters));
+    return isResourceLookupResponse(data) ? data : invalidResponse();
   },
 
   async getKnowledgeRecords(filters: KnowledgeRecordsRequest): Promise<KnowledgeRecordsResponse> {

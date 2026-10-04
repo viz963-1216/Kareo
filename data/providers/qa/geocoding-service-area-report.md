@@ -13,10 +13,10 @@
 ## Current Figures (generated)
 
 <!-- A003:BEGIN summary -->
-- Provider 總數：30
-- ProviderServiceArea 筆數：86
-- lat/lng 非 null：30
-- 有完整驗證證據的座標：29（名稱／地址核對＋官方門牌點＋可重現轉換，見 `qa/a-003-evidence.json`）
+- Provider 總數：35
+- ProviderServiceArea 筆數：98
+- lat/lng 非 null：35
+- 有完整驗證證據的座標：34（名稱／地址核對＋官方門牌點＋可重現轉換，見 `qa/a-003-evidence.json`）
 - 依指示採用的非官方座標（非官方門牌點，不計入已驗證）：1（NTPC-AD-004，DEC-A003-07）
 - 非 null 但缺任何證據：0
 - 仍無座標：0
@@ -108,6 +108,7 @@ Every instruction is recorded in `qa/a-003-evidence.json` (`decisions`), with th
 | --- | --- | --- | --- | --- |
 | HOME_CARE | 23 | 61 | 0 | 84 |
 | HOME_MEDICAL_NURSING | 2 | 0 | 0 | 2 |
+| OTHER | 12 | 0 | 0 | 12 |
 
 <!-- A003:END service-area-basis -->
 

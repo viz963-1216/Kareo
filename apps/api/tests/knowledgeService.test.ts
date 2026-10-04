@@ -408,7 +408,7 @@ describe("publishVersion — real content packs (KP-2026-09-23-001 + KP-2026-09-
 
   async function importAndApprove(repo: InMemoryKnowledgeRepository, pack: RawContentPack) {
     const registry = parseSourceRegistry(REGISTRY_MD);
-    await importContentPack(repo, pack, registry, { mode: "commit" });
+    await importContentPack(repo, pack, registry, { mode: "commit", importedBy: "TEST" });
     const records = repo.records.filter((r) => r.packId === pack.packId);
     await approveRecords(repo, records.map((r) => ({ id: r.id, expectedContentFingerprint: r.contentFingerprint })));
     return records.map((r) => r.id);

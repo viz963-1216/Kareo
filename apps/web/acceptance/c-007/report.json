@@ -1,0 +1,449 @@
+{
+  "generatedAt": "2026-10-02T12:46:44.237Z",
+  "base": "http://localhost:5173",
+  "mode": "mock (vite dev)",
+  "scope": "C-007 public resource lookup",
+  "successFixtures": {
+    "list-all-first-page-response.json": "desktop-01-all.jpg",
+    "list-located-in-response.json": "desktop-success-located-in.jpg",
+    "list-keyword-response.json": "desktop-success-keyword.jpg",
+    "list-contract-city-response.json": "desktop-success-contract-city.jpg",
+    "list-resource-center-response.json": "desktop-success-resource-center.jpg",
+    "list-service-area-verified-only-response.json": "desktop-02-service-area.jpg",
+    "list-service-area-include-unconfirmed-response.json": "desktop-03-service-area-with-unconfirmed.jpg",
+    "list-empty-response.json": "desktop-scenario-empty.jpg",
+    "list-page-out-of-range-response.json": "desktop-scenario-page-out-of-range.jpg"
+  },
+  "errorFixtures": {
+    "unsupported-city-response.json": "desktop-scenario-error-unsupported-city.jpg",
+    "district-mismatch-response.json": "desktop-scenario-error-district-mismatch.jpg",
+    "district-without-city-response.json": "desktop-scenario-error-district-without-city.jpg",
+    "include-unconfirmed-without-service-area-response.json": "desktop-scenario-error-include-unconfirmed.jpg",
+    "invalid-page-size-response.json": "desktop-scenario-error-invalid-page-size.jpg",
+    "unknown-parameter-response.json": "desktop-scenario-error-unknown-parameter.jpg",
+    "unsupported-contract-city-response.json": "desktop-scenario-error-unsupported-contract-city.jpg",
+    "center-with-service-type-response.json": "desktop-scenario-error-center-with-service-type.jpg"
+  },
+  "interactions": {
+    "loading": {
+      "pass": true
+    },
+    "keyboardOrder": {
+      "order": [
+        {
+          "tag": "SELECT",
+          "type": "select-one",
+          "label": "資源類別"
+        },
+        {
+          "tag": "SELECT",
+          "type": "select-one",
+          "label": "服務類別"
+        },
+        {
+          "tag": "SELECT",
+          "type": "select-one",
+          "label": "縣市"
+        },
+        {
+          "tag": "SELECT",
+          "type": "select-one",
+          "label": "特約縣市"
+        },
+        {
+          "tag": "INPUT",
+          "type": "search",
+          "label": "名稱關鍵字"
+        },
+        {
+          "tag": "BUTTON",
+          "type": "submit",
+          "label": "查詢"
+        },
+        {
+          "tag": "BUTTON",
+          "type": "button",
+          "label": "清除條件"
+        }
+      ],
+      "focusVisible": true,
+      "pass": true
+    },
+    "keyboardSubmit": {
+      "submitFocused": true,
+      "loadingObserved": true,
+      "keptValue": true,
+      "pass": true
+    },
+    "keyboardToggle": {
+      "checkedBeforeLoadingUnmount": true,
+      "loadingObserved": true,
+      "unconfirmedShown": true,
+      "pass": true
+    },
+    "pagination": {
+      "previousEnabled": true,
+      "nextDisabled": true,
+      "pageTwoShown": true,
+      "focused": true,
+      "focusVisibleCoveredByKeyboardOrder": true,
+      "previousPageFunctionCoveredByUnitTest": true,
+      "pass": true
+    },
+    "retry": {
+      "loadingObserved": true,
+      "errorReturned": true,
+      "pass": true
+    },
+    "otherCity": {
+      "selected": true,
+      "localMessage": true,
+      "busy": "false",
+      "providerRequests": 0,
+      "elapsedMs": 122,
+      "pass": true
+    },
+    "clear": {
+      "selectsEmpty": true,
+      "keywordEmpty": true,
+      "pass": true
+    }
+  },
+  "regressions": {
+    "lookupIncludes204": {
+      "visible": true,
+      "pass": true
+    },
+    "lookupDetailNoDirectLead": {
+      "noDirectLead": true,
+      "assessmentFirst": true,
+      "pass": true
+    },
+    "assistiveRecommendation": {
+      "ids": [
+        "PROV-MOCK-201",
+        "PROV-MOCK-202",
+        "PROV-MOCK-203"
+      ],
+      "excludes204": true,
+      "leadCount": 3,
+      "pass": true
+    },
+    "recommendationDetailKeepsLead": {
+      "providerPath": "/providers/PROV-MOCK-201",
+      "hasLead": true,
+      "returnsToRecommendation": true,
+      "pass": true
+    }
+  },
+  "shots": [
+    {
+      "file": "desktop-01-all.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-success-located-in.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-success-keyword.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-success-contract-city.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-success-resource-center.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-02-service-area.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-03-service-area-with-unconfirmed.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-04-unconfirmed-detail.jpg",
+      "title": "測試輔具商行（服務範圍待確認）",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-05-resource-center-detail.jpg",
+      "title": "測試輔具資源中心",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-scenario-empty.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-scenario-page-out-of-range.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-scenario-error-unsupported-city.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-scenario-error-district-mismatch.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-scenario-error-district-without-city.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-scenario-error-include-unconfirmed.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-scenario-error-invalid-page-size.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-scenario-error-unknown-parameter.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-scenario-error-unsupported-contract-city.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-scenario-error-center-with-service-type.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-interaction-loading.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-interaction-keyboard-submit.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-interaction-keyboard-toggle.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-interaction-other-city.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-regression-assistive-recommendation.jpg",
+      "title": "輔具服務單位",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "desktop-regression-recommendation-detail.jpg",
+      "title": "測試輔具服務中心",
+      "noHorizontalScroll": true,
+      "scrollWidth": 1280,
+      "innerWidth": 1280,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "mobile-01-all.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "mobile-02-unconfirmed.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    },
+    {
+      "file": "mobile-03-error.jpg",
+      "title": "查詢長照資源",
+      "noHorizontalScroll": true,
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "nearWords": false,
+      "iframes": 0,
+      "unsafeBlankLinks": 0,
+      "pass": true
+    }
+  ]
+}

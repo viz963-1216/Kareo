@@ -1,9 +1,12 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { handler as sessionHandler } from "../src/functions/session.js";
 import { handler as consentHandler } from "../src/functions/consent.js";
+import { handler as consentWithdrawHandler } from "../src/functions/consentWithdraw.js";
 import { handler as assessmentHandler } from "../src/functions/assessment.js";
 import { handler as knowledgeStatusHandler } from "../src/functions/knowledgeStatus.js";
+import { handler as knowledgeRecordsHandler } from "../src/functions/knowledgeRecords.js";
 import { handler as providerDetailHandler } from "../src/functions/providerDetail.js";
+import { handler as providersHandler } from "../src/functions/providers.js";
 
 // 這裡刻意不設定 SUPABASE_* 環境變數，驗證：
 // 1) 沒有真實 DB 連線時，Function 不會 crash 或洩漏原始錯誤，而是回傳安全的 INTERNAL_ERROR
@@ -31,6 +34,37 @@ describe("Function handlers (no live Supabase configured)", () => {
     expect(body.error.code).toBe("INTERNAL_ERROR");
     expect(JSON.stringify(body)).not.toMatch(/eyJ[a-zA-Z0-9_-]{10,}/); // JWT-like secret pattern
     expect(JSON.stringify(body)).not.toMatch(/at\s+\w+\s+\(.*:\d+:\d+\)/); // stack trace pattern
+  });
+
+  // TASK-B-011b.
+  it("session handler rejects DELETE with no session token, without touching Supabase (SESSION_INVALID)", async () => {
+    const res = await sessionHandler({ httpMethod: "DELETE" });
+    expect(res.statusCode).toBe(401);
+    expect(JSON.parse(res.body).error.code).toBe("SESSION_INVALID");
+  });
+
+  it("session handler rejects a method other than POST/DELETE with INVALID_REQUEST", async () => {
+    const res = await sessionHandler({ httpMethod: "PUT" });
+    expect(res.statusCode).toBe(400);
+    expect(JSON.parse(res.body).error.code).toBe("INVALID_REQUEST");
+  });
+
+  it("consentWithdraw handler rejects non-POST method", async () => {
+    const res = await consentWithdrawHandler({ httpMethod: "GET" });
+    expect(res.statusCode).toBe(400);
+    expect(JSON.parse(res.body).error.code).toBe("INVALID_REQUEST");
+  });
+
+  it("consentWithdraw handler rejects with no session token, without touching Supabase (SESSION_INVALID)", async () => {
+    const res = await consentWithdrawHandler({ httpMethod: "POST" });
+    expect(res.statusCode).toBe(401);
+    expect(JSON.parse(res.body).error.code).toBe("SESSION_INVALID");
+  });
+
+  it("assessment handler rejects a body over 16 KB with PAYLOAD_TOO_LARGE, before touching Supabase", async () => {
+    const res = await assessmentHandler({ httpMethod: "POST", body: JSON.stringify({ freeText: "x".repeat(20 * 1024) }) });
+    expect(res.statusCode).toBe(413);
+    expect(JSON.parse(res.body).error.code).toBe("PAYLOAD_TOO_LARGE");
   });
 
   it("consent handler rejects invalid JSON body (checked before the session token, since it's cheaper)", async () => {
@@ -136,6 +170,20 @@ describe("Function handlers (no live Supabase configured)", () => {
     expect(JSON.stringify(body)).not.toMatch(/eyJ[a-zA-Z0-9_-]{10,}/);
   });
 
+  it("knowledgeRecords handler rejects non-GET method", async () => {
+    const res = await knowledgeRecordsHandler({ httpMethod: "POST" });
+    expect(res.statusCode).toBe(400);
+    expect(JSON.parse(res.body).error.code).toBe("INVALID_REQUEST");
+  });
+
+  it("knowledgeRecords handler returns safe INTERNAL_ERROR when Supabase is not configured", async () => {
+    const res = await knowledgeRecordsHandler({ httpMethod: "GET", queryStringParameters: null });
+    const body = JSON.parse(res.body);
+    expect(res.statusCode).toBe(500);
+    expect(body.error.code).toBe("INTERNAL_ERROR");
+    expect(JSON.stringify(body)).not.toMatch(/eyJ[a-zA-Z0-9_-]{10,}/);
+  });
+
   it("providerDetail handler rejects non-GET method", async () => {
     const res = await providerDetailHandler({ httpMethod: "POST" });
     expect(res.statusCode).toBe(400);
@@ -153,6 +201,29 @@ describe("Function handlers (no live Supabase configured)", () => {
       httpMethod: "GET",
       queryStringParameters: { providerId: "PROV-001" },
     });
+    const body = JSON.parse(res.body);
+
+    expect(res.statusCode).toBe(500);
+    expect(body.success).toBe(false);
+    expect(body.error.code).toBe("INTERNAL_ERROR");
+    expect(JSON.stringify(body)).not.toMatch(/eyJ[a-zA-Z0-9_-]{10,}/);
+  });
+
+  // TASK-B-013.
+  it("providers (lookup) handler rejects non-GET method", async () => {
+    const res = await providersHandler({ httpMethod: "POST" });
+    expect(res.statusCode).toBe(400);
+    expect(JSON.parse(res.body).error.code).toBe("INVALID_REQUEST");
+  });
+
+  it("providers (lookup) handler rejects an unknown query parameter without touching Supabase (VALIDATION_ERROR)", async () => {
+    const res = await providersHandler({ httpMethod: "GET", queryStringParameters: { sort: "distance" } });
+    expect(res.statusCode).toBe(400);
+    expect(JSON.parse(res.body).error.code).toBe("VALIDATION_ERROR");
+  });
+
+  it("providers (lookup) handler returns safe INTERNAL_ERROR when Supabase is not configured", async () => {
+    const res = await providersHandler({ httpMethod: "GET" });
     const body = JSON.parse(res.body);
 
     expect(res.statusCode).toBe(500);

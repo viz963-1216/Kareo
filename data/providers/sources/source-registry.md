@@ -32,6 +32,8 @@ Unknown or unverified information must not be guessed.
 | SRC-COORD-TPE-001 | 臺北市門牌位置數值資料 | 臺北市政府民政局 | https://data.taipei/dataset/detail?id=b7c8e724-1e98-45ee-a0bd-f3840623ed97 (also https://data.gov.tw/dataset/155472) | Coordinates | Taipei City | 2026-09-29 | A-003: building address points, `臺北市門牌位置數值資料_20260902.CSV` (sha256 `cdae1c5d…29682db55`). CRS EPSG:3826, confirmed by SRC-COORD-TPE-002. |
 | SRC-COORD-TPE-002 | 門牌整合檢索系統 門牌圖層 CA/HOUSENO | 臺北市政府民政局 | https://arcgis.tpgos.gov.taipei/arcgis/rest/services/CA/HOUSENO/MapServer/4?f=json | Coordinates (CRS) | Taipei City | 2026-09-29 | A-003: layer `spatialReference` = wkid 102443 / latestWkid 3826. TM2X/TM2Y equal the SRC-COORD-TPE-001 values for all 15 checked addresses. |
 | SRC-GMAPS-001 | Google Maps 商家頁 | Google（非官方） | https://www.google.com/maps | ASSISTIVE_DEVICE / HOME_CARE | Taipei / New Taipei | 2026-09-29 | Not an official source. Used only by the recorded instructions DEC-A003-03 (TP-AD-002 house number, cross-checked by the same phone as SRC-004 and by the official address-point data) and DEC-A003-05 (NTPC-HC-003 phone). Never used for coordinates. See `qa/a-003-evidence.json` `decisions`. |
+| SRC-011 | 臺北市輔具服務－輔具中心 | 臺北市政府社會局 | https://dosw.gov.taipei/cp.aspx?n=F00D57EC34399445 | ASSISTIVE_DEVICE_CENTER | Taipei City | 2026-10-03 | Official Taipei City government page. Lists the three centres, their addresses, phones, websites and district service areas. |
+| SRC-012 | 新北市輔具中心及各分站據點服務項目列表 | 新北市輔具資源中心／新北市政府社會局 | https://atrc.aihsin.ntpc.gov.tw/NewsInfo/131 | ASSISTIVE_DEVICE_CENTER | New Taipei City | 2026-10-03 | Official New Taipei City resource-centre page. Confirms the Luzhou and Xindian centres, addresses, phones and service information. |
 
 ---
 
@@ -64,3 +66,9 @@ Sources that have not yet been verified should be recorded here before being inc
 | Source Name | URL | Reason Pending | Next Action |
 |---|---|---|---|
 | None | — | — | — |
+
+## A-007-r2 coordinate verification (2026-10-04)
+
+- `SRC-COORD-TPE-003`: [Taipei official complete address CSV](https://data.taipei/api/dataset/b7c8e724-1e98-45ee-a0bd-f3840623ed97/resource/ce76ca0c-7f94-4935-ab47-1d2a41ca2abb/download), retrieved 2026-10-04; SHA-256 in `qa/a-003-evidence.json`.
+- `SRC-COORD-NTPC-002/003`: official address API exact-number queries, then exact district/street/lane/alley matching. Query URLs and response SHA-256 are in `qa/a-003-evidence.json`; [official API guide](https://data.ntpc.gov.tw/applications).
+- These sources support building coordinates only. Service coverage still requires its own official evidence; the existing 30 providers and all original service-area records are unchanged.

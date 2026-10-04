@@ -680,10 +680,16 @@ Service role 繞過 RLS，因此上述檢查必須在 Service 層完成，不能
 | Provider detail | 60 次／小時 | IP 雜湊 |
 | Provider lookup（`GET /api/v1/providers`，v0.5.3） | 120 次／小時 | IP 雜湊 |
 | Knowledge records（`GET /api/v1/knowledge/records`，v0.5.4） | 120 次／小時 | IP 雜湊 |
+| 管理登入（含失敗嘗試） | 20 次／小時 | IP 雜湊 |
+| 管理端所有讀寫（驗證前） | 300 次／小時 | IP 雜湊 |
+| 已驗證管理讀取（所有讀取端點合計） | 300 次／小時 | 操作者 ID 雜湊 |
+| 已驗證管理寫入（所有寫入端點合計） | 60 次／小時 | 操作者 ID 雜湊 |
 | Lead | 5 次／日 | session |
 | Lead（同一電話） | 3 次／日 | 電話雜湊 |
 
 超過回 `RATE_LIMITED (429)`，附 `Retry-After` header。上限數值屬 D-04 建議值，Jerry 核准後生效。
+
+2026-10-04 J-003 中央整合：Jerry 已授權接手 ABCJ 與一般技術選擇，管理端採上述初始操作額度。登入所有有效 JSON 嘗試（包含無效憑證）均計數；更換 token 或網路不能重設操作者額度。超額先返回 429，不執行業務寫入／稽核；只寫入持久限流計數。16 KB 限制適用管理端 POST，先檢查 UTF-8 位元組再解析 JSON。數值為 Kareo 初始設定，不是外部安全標準指定值。
 
 Payload 限制：
 

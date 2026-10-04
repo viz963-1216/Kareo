@@ -16,6 +16,7 @@ const dataset: ProviderDatasetWrite = {
       id: "PROV-001",
       name: "測試居家照顧中心",
       type: "HOME_CARE",
+      resourceCategory: "SERVICE_PROVIDER",
       address: "新北市三重區重新路三段1號",
       city: "新北市",
       district: "三重區",
@@ -32,13 +33,19 @@ const dataset: ProviderDatasetWrite = {
   ],
   services: [{ id: "PSV-001", providerId: "PROV-001", serviceType: "HOME_CARE", active: true }],
   serviceAreas: [{ id: "PSA-001", providerId: "PROV-001", city: "新北市", district: "三重區", active: true }],
+  contractRegions: [
+    { id: "PCR-001", providerId: "PROV-001", city: "新北市", serviceType: "HOME_CARE", sourceId: "SRC-X", checkedAt: "2026-09-01T00:00:00+08:00", active: true },
+  ],
 };
 
 describe("SupabaseProviderRepository.importDatasetAtomically (ARCHITECTURE §22)", () => {
   beforeEach(() => rpc.mockReset());
 
-  it("makes exactly one rpc call to import_provider_dataset with a snake_case payload for all three tables", async () => {
-    rpc.mockResolvedValue({ data: { providers: 1, provider_services: 1, provider_service_areas: 1 }, error: null });
+  it("makes exactly one rpc call to import_provider_dataset with a snake_case payload for all four tables", async () => {
+    rpc.mockResolvedValue({
+      data: { providers: 1, provider_services: 1, provider_service_areas: 1, provider_contract_regions: 1 },
+      error: null,
+    });
 
     const counts = await new SupabaseProviderRepository().importDatasetAtomically(dataset);
 
@@ -47,13 +54,21 @@ describe("SupabaseProviderRepository.importDatasetAtomically (ARCHITECTURE §22)
     expect(rpc).toHaveBeenCalledWith("import_provider_dataset", {
       payload: {
         providers: [
-          expect.objectContaining({ id: "PROV-001", google_maps_url: "https://maps.google.com/...", created_at: "2026-09-23T00:00:00+08:00" }),
+          expect.objectContaining({
+            id: "PROV-001",
+            resource_category: "SERVICE_PROVIDER",
+            google_maps_url: "https://maps.google.com/...",
+            created_at: "2026-09-23T00:00:00+08:00",
+          }),
         ],
         provider_services: [{ id: "PSV-001", provider_id: "PROV-001", service_type: "HOME_CARE", active: true }],
         provider_service_areas: [{ id: "PSA-001", provider_id: "PROV-001", city: "新北市", district: "三重區", active: true }],
+        provider_contract_regions: [
+          { id: "PCR-001", provider_id: "PROV-001", city: "新北市", service_type: "HOME_CARE", source_id: "SRC-X", checked_at: "2026-09-01T00:00:00+08:00", active: true },
+        ],
       },
     });
-    expect(counts).toEqual({ providers: 1, providerServices: 1, providerServiceAreas: 1 });
+    expect(counts).toEqual({ providers: 1, providerServices: 1, providerServiceAreas: 1, providerContractRegions: 1 });
   });
 
   it("turns an rpc (SQL) error into a safe AppError; SQL details stay in cause and never reach the API response", async () => {

@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {inspect, syncReport} from '../resource-center-report.mjs';
+const baseline=JSON.parse(readFileSync(new URL('../a-007-baseline.json',import.meta.url)));
+const dataset=()=>Object.fromEntries(Object.keys(baseline.files).map(file=>[file,JSON.parse(readFileSync(new URL(`../../staging/${file}`,import.meta.url)))]));
+test('current inventory preserves every original row and keeps centers query only',()=>assert.deepEqual(inspect(dataset(),baseline).errors,[]));
+test('removed service coverage cannot be hidden by adding centers',()=>{const d=dataset();d['provider-service-areas.json'].shift();assert.match(inspect(d,baseline).errors.join('\n'),/Original record removed/);});
+test('changed coordinates/values in original providers fail baseline integrity',()=>{const d=dataset();d['providers.json'][0].lat=0;assert.match(inspect(d,baseline).errors.join('\n'),/Original record changed/);});
+test('centers cannot silently become recommendation candidates',()=>{const d=dataset();const p=d['providers.json'].find(p=>p.resourceCategory==='ASSISTIVE_DEVICE_CENTER');d['provider-services.json'].push({id:'bad',providerId:p.id,serviceType:'ASSISTIVE_DEVICE',active:true});assert.match(inspect(d,baseline).errors.join('\n'),/must not enter recommendation/);});
+test('stale generated statistics fail until regenerated; other report evidence is preserved',()=>{const s=inspect(dataset(),baseline).section;const r=syncReport('Official evidence\n',s,true);assert.ok(r.text.startsWith('Official evidence'));assert.deepEqual(syncReport(r.text,s,false).errors,[]);assert.equal(syncReport(r.text.replace('35 |','34 |'),s,false).errors.length,1);});

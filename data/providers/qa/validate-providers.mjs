@@ -41,6 +41,15 @@ const PROVIDER_SERVICE_TYPES = new Set([
 
 const PROVIDER_STATUSES = new Set(["ACTIVE", "INACTIVE", "UNKNOWN"]);
 
+const RESOURCE_CATEGORIES = new Set([
+  "SERVICE_PROVIDER",
+  "ASSISTIVE_DEVICE_CENTER",
+]);
+
+function resourceCategoryOf(provider) {
+  return provider.resourceCategory ?? "SERVICE_PROVIDER";
+}
+
 function resolveFiles(target) {
   if (!target) {
     const dir = path.resolve(__dirname, "../staging");
@@ -330,6 +339,31 @@ const providerResults = validateRecords(files.providers, providers, (provider, i
     addError(file, index, provider, "type", `invalid Provider type ${show(provider.type)}.`);
   }
 
+  const resourceCategory = resourceCategoryOf(provider);
+
+  if (!RESOURCE_CATEGORIES.has(resourceCategory)) {
+    addError(
+      file,
+      index,
+      provider,
+      "resourceCategory",
+      `invalid resource category ${show(resourceCategory)}.`,
+    );
+  }
+
+  if (
+    resourceCategory === "ASSISTIVE_DEVICE_CENTER" &&
+    provider.type !== "OTHER"
+  ) {
+    addError(
+      file,
+      index,
+      provider,
+      "type",
+      'ASSISTIVE_DEVICE_CENTER must use type "OTHER".',
+    );
+  }
+
   if (!PROVIDER_STATUSES.has(provider.status)) {
     addError(file, index, provider, "status", `invalid status ${show(provider.status)}.`);
   }
@@ -455,6 +489,51 @@ services.forEach((service, index) => {
   }
 
   providerServicePairs.set(pair, index);
+});
+
+// Resource centers are query-only and must never enter recommendation services.
+providers.forEach((provider, index) => {
+  if (
+    !provider ||
+    typeof provider !== "object" ||
+    !validProviderIds.has(provider.id)
+  ) {
+    return;
+  }
+
+  const resourceCategory = resourceCategoryOf(provider);
+  const linkedServices = services.filter(
+    (service) =>
+      service &&
+      typeof service === "object" &&
+      service.providerId === provider.id,
+  );
+
+  if (
+    resourceCategory === "ASSISTIVE_DEVICE_CENTER" &&
+    linkedServices.length > 0
+  ) {
+    addError(
+      files.providers,
+      index,
+      provider,
+      "resourceCategory",
+      "ASSISTIVE_DEVICE_CENTER must not have ProviderService records.",
+    );
+  }
+
+  if (
+    resourceCategory === "SERVICE_PROVIDER" &&
+    linkedServices.length === 0
+  ) {
+    addError(
+      files.providers,
+      index,
+      provider,
+      "resourceCategory",
+      "SERVICE_PROVIDER must have at least one ProviderService record.",
+    );
+  }
 });
 
 // --- ProviderServiceArea (DATA_MODEL §19) ---

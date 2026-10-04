@@ -7,11 +7,13 @@ import type {
   CreateAssessmentRecord,
   ProviderDatasetWrite,
   ProviderDatasetWriteCounts,
+  ProviderLookupCandidate,
   ProviderRepository,
   RecommendationCandidateQuery,
   RecommendationRepository,
   SessionRepository,
 } from "./types.js";
+import type { InMemoryLeadRepository } from "./inMemoryLeadRepository.js";
 import { AppError } from "../errors/AppError.js";
 import type {
   Assessment,
@@ -19,7 +21,9 @@ import type {
   Consent,
   CreatedSession,
   CreateConsentInput,
+  DeletionRun,
   Provider,
+  ProviderContractRegion,
   ProviderDetailResponse,
   ProviderService,
   ProviderServiceArea,
@@ -30,10 +34,58 @@ import type {
 import { generateId, nowTaipeiISOString } from "../lib/response.js";
 import { computeExpiresAt, generateSessionToken, hashSessionToken } from "../services/sessionSecurityService.js";
 
+const OPEN_LEAD_STATUSES = ["NEW", "CONTACTED", "ACCEPTED"];
+
+// TASK-B-011b：同意撤回／使用者刪除需要立即取消該 session 尚未終態的 Lead 並清空聯絡欄位
+// （PRIVACY_AND_RETENTION §3.3、§6.1）。Supabase 版以單一 RPC 在一個交易內完成（migration 0019
+// request_session_deletion／withdraw_consent）；記憶體版比照 InMemoryAdminKnowledgeRepository
+// 持有 InMemoryKnowledgeRepository 參照的既有模式，用建構子注入的 leadRepo 模擬同樣的級聯效果
+// （選填：不傳入時沿用舊行為，不影響既有不涉及 Lead 的測試）。
+function cancelOpenLeadsForSession(leadRepo: InMemoryLeadRepository, sessionId: string, reasonCode: string, now: string): number {
+  let cancelled = 0;
+  for (const lead of leadRepo.leads) {
+    if (lead.sessionId !== sessionId) continue;
+    if (!OPEN_LEAD_STATUSES.includes(lead.status)) {
+      // 終態 Lead 不改狀態、不寫事件，但聯絡欄位同樣立即清空（同 migration 的 SQL 行為）。
+      if (lead.contactName !== null || lead.contactPhone !== null) {
+        lead.contactName = null;
+        lead.contactPhone = null;
+        lead.updatedAt = now;
+      }
+      continue;
+    }
+    const fromStatus = lead.status;
+    lead.status = "CANCELLED";
+    lead.statusReason = reasonCode;
+    lead.contactName = null;
+    lead.contactPhone = null;
+    lead.closedAt = now;
+    lead.updatedAt = now;
+    leadRepo.statusEvents.push({
+      id: generateId("LSE"),
+      leadId: lead.id,
+      fromStatus,
+      toStatus: "CANCELLED",
+      reasonCode,
+      note: null,
+      operatorId: null,
+      createdAt: now,
+    });
+    cancelled += 1;
+  }
+  return cancelled;
+}
+
 export class InMemorySessionRepository implements SessionRepository {
   readonly sessions: Session[] = [];
+  readonly deletionRuns: DeletionRun[] = [];
   // 測試用：token 只在建立當下回傳，記憶體版額外保留雜湊對照表供 findByTokenHash 使用。
   private readonly tokenHashBySessionId = new Map<string, string>();
+
+  constructor(
+    private readonly leadRepo?: InMemoryLeadRepository,
+    private readonly consentRepo?: InMemoryConsentRepository
+  ) {}
 
   async createSession(): Promise<CreatedSession> {
     const now = nowTaipeiISOString();
@@ -66,10 +118,124 @@ export class InMemorySessionRepository implements SessionRepository {
     session.lastSeenAt = updates.lastSeenAt;
     session.expiresAt = updates.expiresAt;
   }
+
+  async requestDeletion(sessionId: string, now: string): Promise<{ updated: boolean; leadsCancelled: number }> {
+    const session = this.sessions.find((s) => s.id === sessionId && s.status === "ACTIVE");
+    if (!session) return { updated: false, leadsCancelled: 0 };
+    session.status = "DELETION_REQUESTED";
+    session.updatedAt = now;
+    const leadsCancelled = this.leadRepo ? cancelOpenLeadsForSession(this.leadRepo, sessionId, "USER_DELETED", now) : 0;
+    return { updated: true, leadsCancelled };
+  }
+
+  async runDeletionCleanup(
+    input: { now: string; dryRun: boolean }
+  ): Promise<{ sessionsDeleted: number; leadsContactCleared: number; leadsDeleted: number; consentsDeleted: number }> {
+    const nowMs = new Date(input.now).getTime();
+    const day = 24 * 60 * 60 * 1000;
+
+    // 1. session：已請求刪除／撤回者立即入選（D-05a：7 天是最遲完成期限，不是等待期）+ 90 天閒置（ACTIVE）聯集。
+    const eligibleSessions = this.sessions.filter(
+      (s) =>
+        s.status === "DELETION_REQUESTED" ||
+        (s.status === "ACTIVE" && nowMs - new Date(s.lastSeenAt ?? s.createdAt).getTime() >= 90 * day)
+    );
+
+    // 2. Lead 聯絡欄位清空：180 天（CLOSED/CANCELLED 且仍有聯絡欄位）。
+    const leads = this.leadRepo?.leads ?? [];
+    const eligibleContactClear = leads.filter(
+      (l) =>
+        (l.status === "CLOSED" || l.status === "CANCELLED") &&
+        l.closedAt !== null &&
+        nowMs - new Date(l.closedAt).getTime() >= 180 * day &&
+        (l.contactName !== null || l.contactPhone !== null)
+    );
+
+    // 3. Lead 整筆刪除：1 年（CLOSED/CANCELLED）。
+    const eligibleLeadDelete = leads.filter(
+      (l) => (l.status === "CLOSED" || l.status === "CANCELLED") && l.closedAt !== null && nowMs - new Date(l.closedAt).getTime() >= 365 * day
+    );
+
+    // 4. Consent 整筆刪除：3 年。
+    const consents = this.consentRepo?.consents ?? [];
+    const eligibleConsentDelete = consents.filter((c) => nowMs - new Date(c.acceptedAt).getTime() >= 3 * 365 * day);
+
+    if (input.dryRun) {
+      return {
+        sessionsDeleted: eligibleSessions.length,
+        leadsContactCleared: eligibleContactClear.length,
+        leadsDeleted: eligibleLeadDelete.length,
+        consentsDeleted: eligibleConsentDelete.length,
+      };
+    }
+
+    for (const session of eligibleSessions) {
+      session.status = "DELETED";
+      session.deletedAt = input.now;
+      session.updatedAt = input.now;
+      // 注意：Assessment／RecommendationRun 等資料的實際刪除（且排除曾建立 Lead 的 Assessment）
+      // 由各自的 Repository 負責，記憶體版本的清理 CLI 測試只驗證 Session 狀態轉移本身，不在這裡
+      // 跨 Repository 操作（同 Supabase 版把這些都放進同一個 RPC 不同，記憶體版的職責邊界維持
+      // 各 Repository 自治，詳見 PR Known Issues）。
+    }
+
+    for (const lead of eligibleContactClear) {
+      lead.contactName = null;
+      lead.contactPhone = null;
+      lead.updatedAt = input.now;
+    }
+
+    const leadDeleteIds = new Set(eligibleLeadDelete.map((l) => l.id));
+    if (this.leadRepo && leadDeleteIds.size > 0) {
+      // 先刪子表（lead_idempotency_records／lead_access_events／lead_status_events），再刪 leads 本體，
+      // 對齊 migration 0019 run_deletion_cleanup 的刪除順序（避免外鍵參照殘留）。
+      this.leadRepo.idempotencyRecords.splice(
+        0,
+        this.leadRepo.idempotencyRecords.length,
+        ...this.leadRepo.idempotencyRecords.filter((r) => !leadDeleteIds.has(r.leadId))
+      );
+      this.leadRepo.accessEvents.splice(
+        0,
+        this.leadRepo.accessEvents.length,
+        ...this.leadRepo.accessEvents.filter((e) => !leadDeleteIds.has(e.leadId))
+      );
+      this.leadRepo.statusEvents.splice(
+        0,
+        this.leadRepo.statusEvents.length,
+        ...this.leadRepo.statusEvents.filter((e) => !leadDeleteIds.has(e.leadId))
+      );
+      this.leadRepo.leads.splice(0, this.leadRepo.leads.length, ...this.leadRepo.leads.filter((l) => !leadDeleteIds.has(l.id)));
+    }
+
+    const consentDeleteIds = new Set(eligibleConsentDelete.map((c) => c.id));
+    if (this.consentRepo && consentDeleteIds.size > 0) {
+      this.consentRepo.consents.splice(
+        0,
+        this.consentRepo.consents.length,
+        ...this.consentRepo.consents.filter((c) => !consentDeleteIds.has(c.id))
+      );
+    }
+
+    return {
+      sessionsDeleted: eligibleSessions.length,
+      leadsContactCleared: eligibleContactClear.length,
+      leadsDeleted: eligibleLeadDelete.length,
+      consentsDeleted: eligibleConsentDelete.length,
+    };
+  }
+
+  async insertDeletionRun(run: DeletionRun): Promise<void> {
+    this.deletionRuns.push(run);
+  }
 }
 
 export class InMemoryConsentRepository implements ConsentRepository {
   readonly consents: Consent[] = [];
+
+  constructor(
+    private readonly sessionRepo?: InMemorySessionRepository,
+    private readonly leadRepo?: InMemoryLeadRepository
+  ) {}
 
   async createConsent(input: CreateConsentInput): Promise<Consent> {
     const consent: Consent = {
@@ -90,6 +256,21 @@ export class InMemoryConsentRepository implements ConsentRepository {
       .filter((c) => c.sessionId === sessionId && c.withdrawnAt === null)
       .sort((a, b) => (a.acceptedAt < b.acceptedAt ? 1 : -1));
     return matches[0] ?? null;
+  }
+
+  async withdraw(sessionId: string, now: string): Promise<{ updated: boolean; leadsCancelled: number }> {
+    const consent = await this.findLatestBySession(sessionId);
+    if (!consent) return { updated: false, leadsCancelled: 0 };
+    const stored = this.consents.find((c) => c.id === consent.id)!;
+    stored.withdrawnAt = now;
+
+    const session = this.sessionRepo?.sessions.find((s) => s.id === sessionId && s.status === "ACTIVE");
+    if (session) {
+      session.status = "DELETION_REQUESTED";
+      session.updatedAt = now;
+    }
+    const leadsCancelled = this.leadRepo ? cancelOpenLeadsForSession(this.leadRepo, sessionId, "CONSENT_WITHDRAWN", now) : 0;
+    return { updated: true, leadsCancelled };
   }
 }
 
@@ -129,15 +310,21 @@ export class InMemoryProviderRepository implements ProviderRepository {
   readonly providers: Provider[] = [];
   readonly services: ProviderService[] = [];
   readonly serviceAreas: ProviderServiceArea[] = [];
+  readonly contractRegions: ProviderContractRegion[] = [];
 
   async findDetailById(providerId: string): Promise<ProviderDetailResponse | null> {
     const provider = this.providers.find((p) => p.id === providerId);
     if (!provider || provider.status !== "ACTIVE") return null;
 
+    const serviceAreas = this.serviceAreas
+      .filter((a) => a.providerId === providerId && a.active)
+      .map((a) => ({ city: a.city, district: a.district }));
+
     return {
       id: provider.id,
       name: provider.name,
       type: provider.type,
+      resourceCategory: provider.resourceCategory,
       address: provider.address,
       city: provider.city,
       district: provider.district,
@@ -148,23 +335,26 @@ export class InMemoryProviderRepository implements ProviderRepository {
       services: this.services
         .filter((s) => s.providerId === providerId && s.active)
         .map((s) => s.serviceType),
-      serviceAreas: this.serviceAreas
-        .filter((a) => a.providerId === providerId && a.active)
-        .map((a) => ({ city: a.city, district: a.district })),
+      serviceAreas,
+      serviceAreaStatus: serviceAreas.length > 0 ? "VERIFIED" : "UNCONFIRMED",
+      contractRegions: this.contractRegions
+        .filter((c) => c.providerId === providerId && c.active)
+        .map((c) => ({ city: c.city, serviceType: c.serviceType })),
     };
   }
 
   // 測試用：記錄呼叫次數，並可指定讓某一張表的寫入失敗。
   atomicWriteCalls = 0;
-  failOnTable: "providers" | "services" | "serviceAreas" | null = null;
+  failOnTable: "providers" | "services" | "serviceAreas" | "contractRegions" | null = null;
 
-  // 模擬單一交易：先在副本上寫入三張表，全部成功才替換正式資料；任一步失敗則正式資料完全不變。
+  // 模擬單一交易：先在副本上寫入四張表，全部成功才替換正式資料；任一步失敗則正式資料完全不變。
   async importDatasetAtomically(dataset: ProviderDatasetWrite): Promise<ProviderDatasetWriteCounts> {
     this.atomicWriteCalls += 1;
 
     const providers = [...this.providers];
     const services = [...this.services];
     const serviceAreas = [...this.serviceAreas];
+    const contractRegions = [...this.contractRegions];
 
     upsertById(providers, dataset.providers);
     if (this.failOnTable === "providers") throw new AppError("INTERNAL_ERROR", "模擬寫入失敗：providers");
@@ -173,15 +363,20 @@ export class InMemoryProviderRepository implements ProviderRepository {
     upsertById(serviceAreas, dataset.serviceAreas);
     if (this.failOnTable === "serviceAreas")
       throw new AppError("INTERNAL_ERROR", "模擬寫入失敗：provider_service_areas");
+    upsertById(contractRegions, dataset.contractRegions);
+    if (this.failOnTable === "contractRegions")
+      throw new AppError("INTERNAL_ERROR", "模擬寫入失敗：provider_contract_regions");
 
     this.providers.splice(0, this.providers.length, ...providers);
     this.services.splice(0, this.services.length, ...services);
     this.serviceAreas.splice(0, this.serviceAreas.length, ...serviceAreas);
+    this.contractRegions.splice(0, this.contractRegions.length, ...contractRegions);
 
     return {
       providers: dataset.providers.length,
       providerServices: dataset.services.length,
       providerServiceAreas: dataset.serviceAreas.length,
+      providerContractRegions: dataset.contractRegions.length,
     };
   }
 
@@ -200,6 +395,21 @@ export class InMemoryProviderRepository implements ProviderRepository {
           p.status === "ACTIVE" && eligibleProviderIds.has(p.id) && areaMatchProviderIds.has(p.id)
       )
       .map((p) => ({ ...p }));
+  }
+
+  async findActiveProvidersForLookup(): Promise<ProviderLookupCandidate[]> {
+    return this.providers
+      .filter((p) => p.status === "ACTIVE")
+      .map((p) => ({
+        provider: { ...p },
+        services: this.services.filter((s) => s.providerId === p.id && s.active).map((s) => s.serviceType),
+        serviceAreas: this.serviceAreas
+          .filter((a) => a.providerId === p.id && a.active)
+          .map((a) => ({ city: a.city, district: a.district })),
+        contractRegions: this.contractRegions
+          .filter((c) => c.providerId === p.id && c.active)
+          .map((c) => ({ city: c.city, serviceType: c.serviceType })),
+      }));
   }
 }
 
@@ -226,6 +436,34 @@ export class InMemoryRecommendationRepository implements RecommendationRepositor
     const run = this.runs.find((r) => r.id === id);
     if (!run) return null;
     return { run: { ...run }, items: this.items.filter((i) => i.recommendationRunId === id).map((i) => ({ ...i })) };
+  }
+}
+
+// TASK-B-011b：ARCHITECTURE §20.4 持久化限流的記憶體版（供測試）。邏輯對齊 migration 0019
+// check_rate_limit：視窗過期則重置為新視窗的第 1 次，否則遞增；呼叫端須自行序列化同一 key 的
+// 併發呼叫（記憶體版本身單執行緒，不需要額外鎖）。
+export class InMemoryRateLimitRepository {
+  private readonly counters = new Map<string, { windowStart: number; count: number }>();
+
+  async checkAndIncrement(input: { key: string; windowSeconds: number; limit: number; now: string }) {
+    const nowMs = new Date(input.now).getTime();
+    const existing = this.counters.get(input.key);
+    let windowStart: number;
+    let count: number;
+    if (!existing || existing.windowStart + input.windowSeconds * 1000 <= nowMs) {
+      windowStart = nowMs;
+      count = 1;
+    } else {
+      windowStart = existing.windowStart;
+      count = existing.count + 1;
+    }
+    this.counters.set(input.key, { windowStart, count });
+
+    if (count > input.limit) {
+      const expiresAt = windowStart + input.windowSeconds * 1000;
+      return { allowed: false, retryAfterSeconds: Math.max(1, Math.ceil((expiresAt - nowMs) / 1000)) };
+    }
+    return { allowed: true, retryAfterSeconds: null };
   }
 }
 

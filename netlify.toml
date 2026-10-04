@@ -16,9 +16,10 @@
   # version list with createRequire(), which esbuild does not inline (scripts/check-functions-runtime.mjs).
   included_files = ["contracts/legal/consent-versions.json"]
 
-# Deploy Previews may use the frontend mock adapter; every other context calls the real API.
+# Central integration now verifies real API calls against the designated acceptance database.
+# Mock remains available locally for isolated module tests, not in deployed acceptance previews.
 [context.deploy-preview.environment]
-  VITE_KAREO_API_MODE = "mock"
+  VITE_KAREO_API_MODE = "real"
 
 [[redirects]]
   from = "/api/v1/session"
@@ -29,6 +30,12 @@
 [[redirects]]
   from = "/api/v1/consent"
   to = "/.netlify/functions/consent"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/consent/withdraw"
+  to = "/.netlify/functions/consentWithdraw"
   status = 200
   force = true
 
@@ -45,8 +52,20 @@
   force = true
 
 [[redirects]]
+  from = "/api/v1/providers"
+  to = "/.netlify/functions/providers"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/v1/providers/*"
   to = "/.netlify/functions/providerDetail"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/knowledge/records"
+  to = "/.netlify/functions/knowledgeRecords"
   status = 200
   force = true
 
@@ -65,6 +84,66 @@
 [[redirects]]
   from = "/api/v1/leads"
   to = "/.netlify/functions/leads"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/session"
+  to = "/.netlify/functions/adminSession"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/status"
+  to = "/.netlify/functions/adminKnowledgeStatus"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/changes"
+  to = "/.netlify/functions/adminKnowledgeChanges"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/changes/:changeId/dismiss"
+  to = "/.netlify/functions/adminKnowledgeChangeDismiss"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/records"
+  to = "/.netlify/functions/adminKnowledgeRecords"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/records/:recordId/decision"
+  to = "/.netlify/functions/adminKnowledgeRecordDecision"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/publish-preview"
+  to = "/.netlify/functions/adminKnowledgePublishPreview"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/publish"
+  to = "/.netlify/functions/adminKnowledgePublish"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/restorable-versions"
+  to = "/.netlify/functions/adminKnowledgeRestorableVersions"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/v1/admin/knowledge/withdraw"
+  to = "/.netlify/functions/adminKnowledgeWithdraw"
   status = 200
   force = true
 
