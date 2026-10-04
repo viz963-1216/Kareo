@@ -84,3 +84,8 @@ B-011b：
 ## B-011b-r7 中央修正（2026-10-04）
 
 J-004 複驗重現：舊清理先提交刪除，再寫 DeletionRun；成功紀錄 INSERT 失敗時，健康資料已刪，卻只留下 FAILED／0 計數。r7 增加前向 `0023_retention_cleanup_audit.sql`，正式 CLI 透過 repository 的 `run_deletion_cleanup_recorded` 在同一交易完成清理及成功紀錄；FAILED 在回滾後另記，dry-run 無寫入。六個實際 repository/service＋SQL 回歸通過；部署排程及還原後重套刪除仍待驗，不改保存期限或 D-05 DRAFT。見 `docs/acceptance/B011b-2026-10-04-atomic-cleanup.md`。
+
+
+## B-011b-r8 中心整合複驗（2026-10-04）
+
+基底 #75；Jerry 授權中心修正。前向 0025 修復「last_seen_at 更新提交後仍按舊候選清理」及撤回與清理相反鎖順序。先鎖 Session／重查期限再清理；withdraw 先 Session，再 Consent／Lead。保存期限與 response 不變。真正 PG17 16 PASS；舊 withdrawal 實際 40P01 對照、錯誤知識鎖對照皆正確 FAIL；CI 要求特定失敗證據。716 項 API、fresh／upgrade 通過；排程與 E2E 仍待驗。詳見 docs/acceptance/B011b-2026-10-04-cleanup-concurrency.md。

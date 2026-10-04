@@ -717,6 +717,8 @@ Payload 限制：
 
 見 PRIVACY_AND_RETENTION §6。清理作業為受保護內部指令，支援 dry-run，寫入 DeletionRun（DATA_MODEL §40）。資料清理與 SUCCESS 紀錄使用單一 RPC 交易；紀錄寫入失敗則回滾，dry-run 不寫紀錄。FAILED 於回滾後另記，RPC 與個人 DATA_STEWARD 驗證仍只供受保護內部指令。
 
+真正清理在刪除健康資料前鎖 Session 並重新確認保存期限；鎖固定 ID 順序。撤回也先鎖 Session 再變更 Consent／Lead，避免與清理相反鎖順序；dry-run 維持只讀計數。
+
 D-05a：Assessment／CareNeedProfile／RecommendationRun／Item 與 Lead 各自按期限清理（DATA_MODEL §22、§40）；Lead 的來源編號不以外鍵阻擋健康資料刪除。自助刪除／撤回立即使 token 失效、清空所有關聯 Lead 聯絡欄位，只取消未終態案件；健康資料必須在請求後 **7 天內**完成實體清理，不能等滿 7 天才成為清理候選。每日作業與失敗重試不得使 `deletionScheduledBefore` 成為不實承諾；J-003／J-004 驗證實際筆數與期限。
 
 ## 20.8 內部操作

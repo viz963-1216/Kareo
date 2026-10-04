@@ -10,16 +10,18 @@ const LOCK = 8823001;
 const VERSION = 'KB-2026-10-04-900';
 const OPERATOR = 'PG-SYNTHETIC-OPERATOR';
 const args = process.argv.slice(2);
-const negative = args.length === 1 && args[0] === '--negative-control=wrong-publish-lock';
+const wrongMutex = args.length === 1 && args[0] === '--negative-control=wrong-publish-lock';
+const oldWithdrawalOrder = args.length === 1 && args[0] === '--negative-control=old-withdraw-lock-order';
+const negative = wrongMutex || oldWithdrawalOrder;
 const result = [];
 const clients = [];
-let observer, holder, worker, holderPid, workerPid;
+let observer, holder, worker, observerPid, holderPid, workerPid;
 let holding = false;
 const record = (id, detail) => { result.push({ id, status: 'PASS' }); console.log(`PASS ${id} ${detail}`); };
 const rpc = async (db, name, payload) => {
   assert.ok(['publish_knowledge_version', 'withdraw_knowledge_version', 'admin_publish_knowledge_version',
     'admin_withdraw_knowledge_version', 'upsert_content_pack', 'create_lead_with_idempotency',
-    'request_session_deletion', 'withdraw_consent'].includes(name));
+    'request_session_deletion', 'withdraw_consent', 'run_deletion_cleanup'].includes(name));
   return (await db.query(`select public.${name}($1::jsonb) as result`, [JSON.stringify(payload)])).rows[0].result;
 };
 const cliPublish = (recordIds = ['PG-RECORD-1'], versionId = VERSION) => ({ versionId, recordIds, createdBy: OPERATOR, approvedBy: OPERATOR });
@@ -247,6 +249,63 @@ async function leadConcurrency() {
   }
 }
 
+async function cleanupWhileSessionResumes() {
+  await seedLead();
+  await observer.query("update sessions set created_at=now()-interval '120 days',last_seen_at=now()-interval '100 days' where id='PG-S'");
+  await holder.query('begin');holding=true;
+  try {
+    await holder.query("update sessions set last_seen_at=now() where id='PG-S'");
+    const h=await blockedSessionOperation(c=>rpc(c,'run_deletion_cleanup',{now:new Date().toISOString(),dryRun:false}));
+    await releaseHolder(true);const out=await h.pending;assert.equal(out.ok,true);
+    assert.equal(out.value.sessionsDeleted,0,'cleanup must recheck expiry after a concurrent last_seen_at touch');
+    const session=(await observer.query("select status from sessions where id='PG-S'")).rows[0];
+    assert.equal(session.status,'ACTIVE');
+    assert.equal((await observer.query("select count(*)::int n from assessments where session_id='PG-S'")).rows[0].n,1);
+    assert.equal((await observer.query("select count(*)::int n from recommendation_items")).rows[0].n,2);
+    record('PG-CLEANUP-RESUMED','cleanup waits for Session and rechecks retention eligibility; resumed Session/health remains');
+  } finally {await releaseHolder();}
+}
+
+async function cleanupWithdrawalLockOrder() {
+  await seedLead();
+  await observer.query("update sessions set created_at=now()-interval '120 days',last_seen_at=now()-interval '100 days';update consents set accepted_at=now()-interval '4 years'");
+  // A synthetic trigger pauses the actual withdrawal RPC at Consent UPDATE. The
+  // lock ordering itself is production SQL; no replacement business function.
+  await observer.query(`create function zz_pause_consent_update() returns trigger language plpgsql as $$
+    begin perform pg_advisory_xact_lock(991100);return new;end $$;
+    create trigger zz_pause_consent_update before update on consents for each row execute function zz_pause_consent_update()`);
+  await holder.query('begin');holding=true;await holder.query('select pg_advisory_xact_lock(991100)');
+  const settled=promise=>promise.then(value=>({ok:true,value}),error=>({ok:false,code:error.code}));
+  let withdrawal,cleanup;
+  try {
+    withdrawal=settled(rpc(worker,'withdraw_consent',{sessionId:'PG-S',now:new Date().toISOString()}));
+    let seen=false;
+    for (let i=0;i<200;i++) {
+      const locks=(await holder.query('select pg_blocking_pids($1) blockers',[workerPid])).rows[0];
+      if (locks.blockers.includes(holderPid)) {seen=true;break;}await delay(20);
+    }
+    assert.equal(seen,true,'actual withdrawal paused in its Consent UPDATE');
+    cleanup=settled(rpc(observer,'run_deletion_cleanup',{now:new Date().toISOString(),dryRun:false}));
+    seen=false;
+    for (let i=0;i<200;i++) {
+      const locks=(await holder.query('select pg_blocking_pids($1) blockers',[observerPid])).rows[0];
+      if (locks.blockers.includes(workerPid)) {seen=true;break;}await delay(20);
+    }
+    assert.equal(seen,true,'actual cleanup is queued behind the withdrawal');
+    await releaseHolder(true);
+    const [w,c]=await Promise.all([withdrawal,cleanup]);
+    if ([w,c].some(out=>!out.ok && out.code==='40P01')) throw Object.assign(new Error('Actual inverse-lock deadlock observed'),{code:'DEADLOCK_OBSERVED'});
+    assert.equal(w.ok,true,'withdrawal must not deadlock');assert.equal(c.ok,true,'cleanup must not deadlock');
+    assert.equal(w.value.updated,true);assert.equal(c.value.sessionsDeleted,1);assert.equal(c.value.consentsDeleted,1);
+    assert.equal((await observer.query("select status from sessions where id='PG-S'")).rows[0].status,'DELETED');
+    assert.equal((await observer.query('select count(*)::int n from assessments')).rows[0].n,0);
+    record('PG-CLEANUP-WITHDRAW-ORDER','actual withdrawal paused at Consent UPDATE; cleanup waits, both complete without inverse-lock deadlock');
+  } finally {
+    await releaseHolder();await Promise.allSettled([withdrawal,cleanup].filter(Boolean));
+    await observer.query('drop trigger zz_pause_consent_update on consents;drop function zz_pause_consent_update()');
+  }
+}
+
 try {
   if (args.length && !negative) throw new Error('Unsupported arguments');
   const url = new URL(process.env.KAREO_TEST_PG_URL ?? '');
@@ -264,7 +323,7 @@ try {
   assert.ok(server.version >= 170000 && server.version < 180000, 'PostgreSQL 17 required');
   const pids = await Promise.all(clients.map(async c => (await c.query('select pg_backend_pid() pid')).rows[0].pid));
   assert.equal(new Set(pids).size, 3, 'three genuinely distinct PostgreSQL backends required');
-  [, holderPid, workerPid] = pids;
+  [observerPid, holderPid, workerPid] = pids;
   await observer.query('drop schema public cascade; create schema public');
   await observer.query(`do $$ begin
     if not exists(select 1 from pg_roles where rolname='anon') then create role anon nologin; end if;
@@ -275,22 +334,30 @@ try {
   const files = readdirSync(dir).filter(f => /^\d{4}_.+\.sql$/.test(f)).sort();
   for (const file of files) await observer.query(readFileSync(join(dir, file), 'utf8'));
   record('PG-M1', `PostgreSQL ${server.version}; ${files.length} actual repository migrations, three independent connections`);
-  if (negative) {
+  if (wrongMutex) {
     const definition = (await observer.query("select pg_get_functiondef('public.publish_knowledge_version(jsonb)'::regprocedure) definition")).rows[0].definition;
     assert.ok(definition.includes('pg_advisory_xact_lock(8823001)'));
     await observer.query(definition.replace('pg_advisory_xact_lock(8823001)', 'pg_advisory_xact_lock(8823002)'));
   }
-  await lockCase('PG-L1', 'publish_knowledge_version');
+  if (oldWithdrawalOrder) {
+    const original=readFileSync(join(dir,'0021_security_acceptance.sql'),'utf8');
+    const start=original.indexOf('create or replace function public.withdraw_consent(payload jsonb)');
+    assert.ok(start>=0);const end=original.indexOf('$$;',start)+3;
+    await observer.query(original.slice(start,end));
+    await cleanupWithdrawalLockOrder();
+  } else await lockCase('PG-L1', 'publish_knowledge_version');
   if (!negative) {
     await lockCase('PG-L2', 'withdraw_knowledge_version', true);
     await lockCase('PG-L3', 'admin_publish_knowledge_version');
     await lockCase('PG-L4', 'admin_withdraw_knowledge_version', true);
     await stalePublish(); await staleWithdrawal(); await twoPublishers();
     await leadConcurrency();
+    await cleanupWhileSessionResumes();
+    await cleanupWithdrawalLockOrder();
   }
 } catch (error) {
   // All data is synthetic, nevertheless avoid echoing connection URLs or arbitrary SQL exceptions.
-  console.error(`FAIL PG-CONCURRENCY ${['SHARED_LOCK_NOT_OBSERVED', 'SESSION_LOCK_NOT_OBSERVED', 'CONFIG_REJECTED'].includes(error.code) ? error.code
+  console.error(`FAIL PG-CONCURRENCY ${['SHARED_LOCK_NOT_OBSERVED', 'SESSION_LOCK_NOT_OBSERVED', 'DEADLOCK_OBSERVED', 'CONFIG_REJECTED'].includes(error.code) ? error.code
     : error instanceof assert.AssertionError ? error.message : 'setup or RPC behaviour failed'}`);
   process.exitCode = 1;
 } finally {

@@ -216,3 +216,11 @@ jobs:
           fi
           grep '^PASS PG-M1 ' "$RUNNER_TEMP/concurrency-negative.log"
           grep '^FAIL PG-CONCURRENCY SHARED_LOCK_NOT_OBSERVED$' "$RUNNER_TEMP/concurrency-negative.log"
+      - name: Counterexample must expose the retired Consent-first withdrawal deadlock
+        run: |
+          if node tests/db/verify-concurrency.mjs --negative-control=old-withdraw-lock-order > "$RUNNER_TEMP/withdraw-order-negative.log" 2>&1; then
+            cat "$RUNNER_TEMP/withdraw-order-negative.log"
+            echo "::error::Concurrency verifier accepted the inverse withdrawal lock order"; exit 1
+          fi
+          grep '^PASS PG-M1 ' "$RUNNER_TEMP/withdraw-order-negative.log"
+          grep '^FAIL PG-CONCURRENCY DEADLOCK_OBSERVED$' "$RUNNER_TEMP/withdraw-order-negative.log"
