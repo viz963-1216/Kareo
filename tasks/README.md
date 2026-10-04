@@ -32,6 +32,10 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新清理驗收修正（2026-10-04；B-011b-r7）
+
+基底 #73 已合併（staging `6a4ffe6`）。J-004 複驗抓到「刪除已提交、成功紀錄寫入失敗」缺口；前向 0023＋正式 repository/service 改為清理與 SUCCESS 紀錄同交易。六項回歸、704 項 API 測試通過；本提交未把排程、D-05、雲端回填或完整 E2E 標為完成。證據見 `docs/acceptance/B011b-2026-10-04-atomic-cleanup.md`。
+
 # 最新整合工具更新（2026-10-04；J-003-r12）
 
 基底 #72 已合併，staging `2ecf3eec1d3ef9e13310f1d0aa845be4506b6e59`。新增真正 PostgreSQL 17 三連線併發驗證，本機 8 PASS、錯誤鎖對照按預期 FAIL；實際 protected CLI 的離線回填 7 PASS，五包／21 歷史核准事件且原知識內容／版本不變。雲端回填尚未執行。更正各 A／B／C Task 的過時「待提交／待審」header：已提交的模組均已 MERGED，部署 E2E 仍待驗。證據見 `docs/acceptance/J003-2026-10-04-postgres-and-backfill.md`。

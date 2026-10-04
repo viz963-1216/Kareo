@@ -120,6 +120,14 @@ export class SupabaseSessionRepository implements SessionRepository {
     };
   }
 
+  async runDeletionCleanupAndRecord(input: {
+    now: string; dryRun: boolean; runId: string; operatorId: string | null;
+  }): Promise<DeletionRun> {
+    const { data, error } = await getSupabaseClient().rpc("run_deletion_cleanup_recorded", { payload: input });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法完成清理及執行紀錄，請稍後再試。");
+    return data as DeletionRun;
+  }
+
   async insertDeletionRun(run: DeletionRun): Promise<void> {
     const client = getSupabaseClient();
     const { error } = await client.from("deletion_runs").insert({

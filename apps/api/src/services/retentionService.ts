@@ -13,26 +13,9 @@ export async function runRetentionCleanup(
   const id = generateId("DRUN");
 
   try {
-    const { sessionsDeleted, leadsContactCleared, leadsDeleted, consentsDeleted } = await repo.runDeletionCleanup({
-      now: startedAt,
-      dryRun: options.dryRun,
+    return await repo.runDeletionCleanupAndRecord({
+      now: startedAt, dryRun: options.dryRun, runId: id, operatorId: options.operatorId,
     });
-    const finishedAt = nowTaipeiISOString();
-    const run: DeletionRun = {
-      id,
-      startedAt,
-      finishedAt,
-      dryRun: options.dryRun,
-      status: "SUCCESS",
-      sessionsDeleted,
-      leadsContactCleared,
-      leadsDeleted,
-      consentsDeleted,
-      errorMessage: null,
-      operatorId: options.operatorId,
-    };
-    if (!options.dryRun) await repo.insertDeletionRun(run);
-    return run;
   } catch (err) {
     const finishedAt = nowTaipeiISOString();
     const run: DeletionRun = {

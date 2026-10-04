@@ -372,6 +372,7 @@ describe("stable rotation (D-13f): reproducible, not pure random", () => {
         touchSession: async () => {},
         requestDeletion: async () => { throw new Error("not used in this test"); },
         runDeletionCleanup: async () => { throw new Error("not used in this test"); },
+        runDeletionCleanupAndRecord: async () => { throw new Error("not used in this test"); },
         insertDeletionRun: async () => { throw new Error("not used in this test"); },
       },
       tokenFor,
