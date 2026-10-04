@@ -582,6 +582,65 @@ export interface KnowledgeStatusResponse {
   notice: string;
 }
 
+// ===== TASK-B-014：GET /api/v1/knowledge/records（依 API_CONTRACT §13a，v0.6）=====
+
+// Repository 內部傳遞用：比 KnowledgeSnapshotRecord（Assessment 專用）多了公開回應需要的欄位
+// （sourceUrl／sourceName／publishedAt／lastVerifiedAt），刻意不擴充 KnowledgeSnapshotRecord 本身，
+// 避免影響 Assessment 既有的知識快照邏輯。issuer 僅供內部算出 source.publisher 用（KAREO_DRIVE
+// 來源），絕不可出現在回應裡。
+export interface PublicKnowledgeSnapshotRecord {
+  id: string;
+  title: string;
+  category: KnowledgeCategory;
+  jurisdiction: Jurisdiction;
+  summary: string;
+  effectiveFrom: string; // YYYY-MM-DD
+  effectiveTo: string | null;
+  publishedAt: string | null; // 官方公告日（DATA_MODEL §24），不是 Kareo 發布時間
+  lastVerifiedAt: string;
+  sourceUrl: string;
+  sourceName: string;
+  authority: KnowledgeAuthority | null;
+  issuer: string | null; // ruleData.issuer（僅 KAREO_DRIVE 來源使用）
+}
+
+export interface PublicKnowledgeSource {
+  title: string;
+  publisher: string;
+  url: string | null;
+}
+
+export interface PublicKnowledgeRecordItem {
+  id: string;
+  title: string;
+  category: KnowledgeCategory;
+  jurisdiction: Jurisdiction;
+  summary: string;
+  effectiveFrom: string;
+  effectiveTo: string | null;
+  publishedAt: string | null;
+  lastVerifiedAt: string;
+  source: PublicKnowledgeSource;
+}
+
+export interface KnowledgeRecordsAppliedFilters {
+  jurisdiction: Jurisdiction | null;
+  category: KnowledgeCategory | null;
+  page: number;
+  pageSize: number;
+}
+
+export interface KnowledgeRecordsResponse {
+  knowledgeVersion: string;
+  publishedAt: string; // KnowledgeVersion.publishedAt（Kareo 這次發布的時間）
+  items: PublicKnowledgeRecordItem[];
+  page: number;
+  pageSize: number;
+  totalCount: number;
+  appliedFilters: KnowledgeRecordsAppliedFilters;
+  notice: string;
+}
+
 // ===== Content Pack Import（依 contracts/knowledge/content-pack.schema.json v1.0）=====
 
 export interface RawContentPackSourceRef {
