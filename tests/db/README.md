@@ -13,13 +13,19 @@ export KAREO_TEST_PG_DISPOSABLE=1
 node tests/db/verify-concurrency.mjs
 ```
 
-所有資料／密碼為本機合成資料，無 Supabase 憑證。CI 使用官方 `postgres:17` service，不需安裝在應用 runtime。正向預期 14 PASS／exit 0（八項知識／migration，加六項 Lead 建立與撤回、刪除、冪等競態）。
+所有資料／密碼為本機合成資料，無 Supabase 憑證。CI 使用官方 `postgres:17` service，不需安裝在應用 runtime。正向預期 16 PASS／exit 0（八項知識／migration、六項 Lead 競態、兩項 cleanup 競態）。
 
 ```sh
 node tests/db/verify-concurrency.mjs --negative-control=wrong-publish-lock
 ```
 
 對照預期初始化 PG-M1 通過，PG-L1 回 `FAIL PG-CONCURRENCY SHARED_LOCK_NOT_OBSERVED`／exit 1。它只修改可丟棄庫的函式，不改 repo migration。CI 同時檢查指定失敗及非零 exit，避免初始化問題被當作有效對照。
+
+```sh
+node tests/db/verify-concurrency.mjs --negative-control=old-withdraw-lock-order
+```
+
+此對照只在可丟棄庫恢復 0021 舊 withdrawal 函式；合成 gate 在真正 Consent UPDATE 暫停，與 cleanup 交錯，預期 `FAIL PG-CONCURRENCY DEADLOCK_OBSERVED`／exit 1。CI 必須匹配此特定 PostgreSQL 40P01 證據。
 
 ## 私人快照的內容包回填預演
 
