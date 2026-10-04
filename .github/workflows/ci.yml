@@ -156,3 +156,63 @@ jobs:
             cat "$RUNNER_TEMP/legacy.log"; echo "::error::verify-db passed with the known-bad reader"; exit 1
           fi
           grep -E '^FAIL +K10 ' "$RUNNER_TEMP/legacy.log" || { cat "$RUNNER_TEMP/legacy.log"; echo "::error::K10 did not fail on the known-bad reader"; exit 1; }
+
+  postgres-concurrency:
+    name: Real PostgreSQL concurrency
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: kareo_test
+          POSTGRES_PASSWORD: synthetic-ci-only
+          POSTGRES_DB: kareo_concurrency_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      KAREO_TEST_PG_URL: postgresql://kareo_test:synthetic-ci-only@127.0.0.1:5432/kareo_concurrency_test
+      KAREO_TEST_PG_DISPOSABLE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: tests/db/package-lock.json
+      - run: npm ci --prefix tests/db
+      - name: Destructive verifier rejects remote databases and URI overrides
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import { spawnSync } from 'node:child_process';
+          for (const url of [
+            'postgresql://kareo_test:synthetic-ci-only@example.invalid/kareo_concurrency_test',
+            'postgresql://kareo_test:synthetic-ci-only@127.0.0.1:5432/kareo_concurrency_test?host=example.invalid',
+            'postgresql://kareo_test:synthetic-ci-only@127.0.0.1:5432/other_database',
+            'postgresql://other_user:synthetic-ci-only@127.0.0.1:5432/kareo_concurrency_test',
+          ]) {
+            const result = spawnSync(process.execPath, ['tests/db/verify-concurrency.mjs'], {
+              env: { ...process.env, KAREO_TEST_PG_URL: url }, encoding: 'utf8', timeout: 5000,
+            });
+            assert.equal(result.status, 1);
+            assert.match(result.stderr, /^FAIL PG-CONCURRENCY CONFIG_REJECTED$/m);
+            assert.doesNotMatch(result.stdout, /^PASS PG-M1 /m);
+          }
+          console.log('PASS: four unsafe configurations rejected before database initialization');
+          JS
+      - name: Independent backend locking and stale-state rejection
+        run: node tests/db/verify-concurrency.mjs
+      - name: Counterexample must fail when the CLI publisher uses a different mutex
+        run: |
+          if node tests/db/verify-concurrency.mjs --negative-control=wrong-publish-lock > "$RUNNER_TEMP/concurrency-negative.log" 2>&1; then
+            cat "$RUNNER_TEMP/concurrency-negative.log"
+            echo "::error::Concurrency verifier accepted a publisher with the wrong shared lock"; exit 1
+          fi
+          grep '^PASS PG-M1 ' "$RUNNER_TEMP/concurrency-negative.log"
+          grep '^FAIL PG-CONCURRENCY SHARED_LOCK_NOT_OBSERVED$' "$RUNNER_TEMP/concurrency-negative.log"

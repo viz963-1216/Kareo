@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r1–r9 已交付 CI、路由、打包驗證、隔離 DB、首次知識發布及部分真實證據。r10（2026-10-03）：B PR 的三條新路由與管理 action 路由修正、J 檢查工具補強、唯讀 runner、隔離組合重驗。**Integrated：否**；49 必要 E2E 尚未全通過。詳見最新驗收紀錄。
+Status: 進行中。r11（#71）已合併中央整合；r12 補真正 PostgreSQL 17 三連線併發與受保護內容包離線回填預演。Integrated：否；49 必要部署 E2E 尚未全通過。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -32,7 +32,7 @@ CI 與整合接線（已交付，持續維護）：
 - [x] PR CI：frontend build、backend tests／typecheck、A-004 data validation、contract／mock 檢查；缺模組列 PENDING
 - [x] PR 不需 production secret；部署與 E2E 獨立手動觸發，不因 docs commit 消耗部署額度
 - [x] Real API adapter；正式模式不回 Mock 成功資料
-- [ ] 新 function 與路由整合：J 已在 #48 補管理路由（r10 中段 splat 改 named placeholder）；#55 `8455529` consent/withdraw、#57 `0d77774` providers 列表、#67 `a2abbc5` knowledge/records。原 PR 未合併，待 B 修正後依序合併及部署；不得在 staging 加入不存在的 handler 或假成功佔位。
+- [x] 新 function 與路由整合：管理端、撤回／刪除 session、providers 列表與 knowledge/records 已隨 #71 合併。路由靜態／打包後執行通過；部署行為另列 E2E，不以此勾選。
 - [x] 打包後 Functions 的實際執行（r4：`scripts/check-functions-runtime.mjs`，CI 與 gate）；`included_files` 帶上執行期讀取的 consent 版本檔
 - [x] 每日知識更新排程入口（r4：`.github/workflows/knowledge-crawler.yml`，16:10 UTC＝00:10 Asia/Taipei、20 分鐘上限、不重疊）；需 B-009 合併與 GitHub environment `staging` secrets
 - [x] 隔離 DB 驗證（r4：`tests/db/verify-db.mjs`，migration 依序套用、RLS、Provider 匯入回滾、知識發布／撤回；r8：K10–K12／U5／C3 走實際 repository＋resolver 讀取路徑，R2 行為驗證，負向對照；CI 不再忽略失敗，分支保護 required check 未設定）
@@ -99,3 +99,7 @@ Submission Version 從 `J-003-r1` 起，退回後遞增。PR 必填 Added / Chan
 ## 2026-10-03 r10 接線與隔離組合
 
 最新：[J003-2026-10-03-route-integration.md](../docs/acceptance/J003-2026-10-03-route-integration.md)。J 可處理部分已交付；B-012／B-011b／B-013／B-014／C-007 仍待模組修正與合併。B 可平行修正，不需等 J-003 全部完成。D-05 未 ACTIVE、隔離及雲端更新未驗證，release gate 維持失敗。
+
+## 2026-10-04 r12 PostgreSQL 併發與回填預演
+
+真正 PostgreSQL 17、三個獨立 backend、22 個實際 migration：8 個行為檢查 PASS，錯誤 mutex 負向對照按預期 FAIL。受保護回填 CLI＋實際 repository／SQL 在既有驗收快照的隔離本機副本通過 7 項；五包／21 筆歷史核准事件、原內容與發布版本不變、重跑不重複。雲端回填未執行；JWT／RLS 與部署驗收不由本機 HTTP shim 證明。見 `docs/acceptance/J003-2026-10-04-postgres-and-backfill.md`。

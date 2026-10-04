@@ -2,7 +2,7 @@
 
 Owner: Engineer A — Data / QA / Research  
 Type: QA Dataset  
-Status: READY（A-004 已合併，PR #18）；未見提交  
+Status: MERGED（#30，A-005-r2）；驗收案例與負向資料已交付，實際推薦 E2E 待 J-003。（2026-10-04 J-003-r12 核對）
 
 ---
 

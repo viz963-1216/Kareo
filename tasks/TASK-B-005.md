@@ -2,7 +2,7 @@
 
 Owner: Engineer B — Backend  
 Type: Backend / Recommendation  
-Status: QUEUED — 依賴 B-011a（B-004 已合併）；未見提交  
+Status: MERGED（#40）；推薦引擎與 API 已交付，0／1／2／3 家及位置模式部署 E2E 待 J-003。（2026-10-04 J-003-r12 核對）
 
 ---
 

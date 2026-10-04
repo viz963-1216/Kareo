@@ -2,7 +2,7 @@
 
 Owner: Engineer B — Backend  
 Type: Backend / Lead  
-Status: QUEUED — 依賴 B-011a、B-005（B-004 已合併）；未見提交  
+Status: MERGED（#47）；Lead API／內部查件與狀態流程已交付，正式同意與部署接件驗收待 J-003／J-004。（2026-10-04 J-003-r12 核對）
 
 ---
 

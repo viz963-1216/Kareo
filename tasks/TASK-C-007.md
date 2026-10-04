@@ -1,7 +1,7 @@
 # TASK-C-007 — Homepage Entry + Resource Lookup Page（首頁入口與資源查詢頁）
 
 Owner: Engineer C — Frontend  
-Status: READY（Mock）— 可依 `contracts/mock/providers/lookup/` 開發；契約細節 D-18a–e 已核准（2026-10-01）；真實接線依賴 B-013  
+Status: MERGED（#58、#71）；首頁入口與資源查詢 UI 已交付，B-013 已接線；Preview 查詢仍缺 DB 憑證，不計 Integrated。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-10-01 / J-002-r6（[Issue #49](https://github.com/viz963-1216/Kareo/issues/49)；PRODUCT_SPEC §14a、§53–54；API_CONTRACT §10、§10a）
 
 ## Goal / 目標

@@ -1,7 +1,7 @@
 # TASK-C-008 — Knowledge Info Page（長照制度與補助資訊頁）
 
 Owner: Engineer C — Frontend  
-Status: READY（Mock）— 依 `contracts/mock/knowledge/` 開發；真實接線依賴 B-014  
+Status: MERGED（#65）；公開長照資訊 UI／契約類別已交付，B-014 已接線；真實部署查詢待 J-003。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-10-01 / J-002-r8（MVP_DECISIONS D-19 Q3，[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)；PRODUCT_SPEC §14c；API_CONTRACT §13a）
 
 ## Goal / 目標

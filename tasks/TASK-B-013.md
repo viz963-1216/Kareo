@@ -1,7 +1,7 @@
 # TASK-B-013 — Public Resource Lookup API（公開資源查詢 API）
 
 Owner: Engineer B — Backend  
-Status: IN REVIEW（#57，B-013-r2 `cf6d56e`）；打包修正已核對，限流／migration／J 路由待收尾
+Status: MERGED（#57、#71，中央 B-013-r4）；公開資源查詢、持久化限流及路由已整合，0022 已套用驗收 DB；部署查詢待 J-003。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-10-03 / J-002-r13
 
 ## Goal / 目標

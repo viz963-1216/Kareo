@@ -1,7 +1,7 @@
 # TASK-C-006 — Admin Knowledge Review Page（知識審核與發布頁）
 
 Owner: Engineer C — Frontend  
-Status: READY（Mock）— 寫入流程契約與 fixtures 已補齊（2026-09-29），可完成 Mock 實作；真實接線依賴 B-012  
+Status: MERGED（#46）；管理前端與回應驗證已交付，後端 B-012 亦已合併；個人管理登入與部署管理 E2E 待 J-003。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-09-29 / J-002（MVP_DECISIONS D-16、D-16a，Jerry 核准；API_CONTRACT v0.4 §26）
 
 ## Goal / 目標

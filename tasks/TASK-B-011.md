@@ -1,7 +1,7 @@
 # TASK-B-011 — Session Ownership + Privacy + API Abuse Controls
 
 Owner: Engineer B  
-Status: B-011a MERGED（#32）；B-011b IN REVIEW（#55，r4 `3625c83`）；D-05a 工程規格已定案，七天內清理／migration／路由與真實驗收待收尾
+Status: B-011a／b MERGED（#32、#55、#71）；r6 安全、限流、撤回／刪除路由已整合，0021 已套用驗收 DB。清理排程尚未啟用，正式權利流程與部署 E2E 待驗。（2026-10-04 J-003-r12 核對）
 Plan revision: 2026-10-03 / J-002-r13
 
 ## Goal / 目標

@@ -2,7 +2,7 @@
 
 Owner: Engineer B — Backend  
 Type: Backend / Crawler  
-Status: READY — **原始 MVP 必要項目**（PRODUCT_SPEC §42）；B-008 已合併（PR #26）；未見提交  
+Status: MERGED（#37）；Crawler 模組與排程入口已交付，排程憑證／預設分支及實際定時執行仍待處理。（2026-10-04 J-003-r12 核對）
 
 ---
 

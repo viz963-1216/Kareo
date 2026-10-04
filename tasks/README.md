@@ -32,6 +32,10 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新整合工具更新（2026-10-04；J-003-r12）
+
+基底 #72 已合併，staging `2ecf3eec1d3ef9e13310f1d0aa845be4506b6e59`。新增真正 PostgreSQL 17 三連線併發驗證，本機 8 PASS、錯誤鎖對照按預期 FAIL；實際 protected CLI 的離線回填 7 PASS，五包／21 歷史核准事件且原知識內容／版本不變。雲端回填尚未執行。更正各 A／B／C Task 的過時「待提交／待審」header：已提交的模組均已 MERGED，部署 E2E 仍待驗。證據見 `docs/acceptance/J003-2026-10-04-postgres-and-backfill.md`。
+
 # 最新驗收環境快照（2026-10-04；J-003-r11 已合併／J-004-r4 工具與部分實演）
 
 - #71 已合併，staging `9b3fc3036745052d2a16196c2ca4019de1440262`；A-007 #70、B-012 #48、B-011b #55、B-013 #57、B-014 #67、C-007 #58 也都已合併。ABC 目前已提交模組均為 MERGED，不能據此標記 INTEGRATED。
