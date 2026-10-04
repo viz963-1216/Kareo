@@ -97,7 +97,7 @@ jobs:
           node-version: 22
       - run: node --experimental-strip-types --test "tests/**/*.test.*"
       - name: Release smoke safety tests (J-004)
-        run: node --test scripts/tests/smoke-release.test.mjs
+        run: node --test scripts/tests/smoke-release.test.mjs scripts/tests/cleanup-staging.test.mjs
 
   acceptance-dev:
     name: Acceptance (dev check — PENDING allowed, not MVP acceptance)
@@ -139,6 +139,8 @@ jobs:
             tests/db/package-lock.json
             apps/api/package-lock.json
       - run: npm ci --prefix tests/db
+      - name: Application restore negative controls (J-004)
+        run: node --test scripts/tests/restore-app-snapshot.test.mjs
       # esbuild + supabase-js: K10–K12, U5 and C3 bundle and run the real API repository.
       - run: npm ci --prefix apps/api
       - name: Fresh database
