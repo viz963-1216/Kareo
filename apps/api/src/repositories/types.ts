@@ -66,6 +66,11 @@ export interface SessionRepository {
     now: string;
     dryRun: boolean;
   }): Promise<{ sessionsDeleted: number; leadsContactCleared: number; leadsDeleted: number; consentsDeleted: number }>;
+  // Actual cleanup + SUCCESS evidence must commit together. FAILED is recorded
+  // separately only after the deletion transaction has rolled back.
+  runDeletionCleanupAndRecord(input: {
+    now: string; dryRun: boolean; runId: string; operatorId: string | null;
+  }): Promise<DeletionRun>;
   insertDeletionRun(run: DeletionRun): Promise<void>;
 }
 

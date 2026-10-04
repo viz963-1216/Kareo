@@ -224,6 +224,17 @@ export class InMemorySessionRepository implements SessionRepository {
     };
   }
 
+  async runDeletionCleanupAndRecord(input: {
+    now: string; dryRun: boolean; runId: string; operatorId: string | null;
+  }): Promise<DeletionRun> {
+    // Test-only model; actual SQL atomicity is covered by retentionAuditAtomic.test.
+    const counts = await this.runDeletionCleanup(input);
+    const run: DeletionRun = { id: input.runId, startedAt: input.now, finishedAt: nowTaipeiISOString(),
+      dryRun: input.dryRun, status: "SUCCESS", ...counts, errorMessage: null, operatorId: input.operatorId };
+    if (!input.dryRun) await this.insertDeletionRun(run);
+    return run;
+  }
+
   async insertDeletionRun(run: DeletionRun): Promise<void> {
     this.deletionRuns.push(run);
   }

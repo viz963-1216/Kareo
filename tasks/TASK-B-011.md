@@ -80,3 +80,7 @@ B-011b：
 - **必須修正七天期限**：接受刪除／撤回後，健康資料於 7 天內清理。不得滿 7 天才成為候選而在第 8 天刪除；測試截止前／截止時刻、Lead 存在與失敗重試，不以第 6 天保留、第 8 天刪除當作通過。
 - 與 #48 同步後，未套用的 security migration 協調為 `0021_security_acceptance.sql`；已套用歷史不改名。fresh／upgrade 無缺號或重號。`netlify.toml` 由 J-003 補。
 - 不改 DRAFT 為 ACTIVE、不將分支 SQL 測試當成真實排程／雲端證據。
+
+## B-011b-r7 中央修正（2026-10-04）
+
+J-004 複驗重現：舊清理先提交刪除，再寫 DeletionRun；成功紀錄 INSERT 失敗時，健康資料已刪，卻只留下 FAILED／0 計數。r7 增加前向 `0023_retention_cleanup_audit.sql`，正式 CLI 透過 repository 的 `run_deletion_cleanup_recorded` 在同一交易完成清理及成功紀錄；FAILED 在回滾後另記，dry-run 無寫入。六個實際 repository/service＋SQL 回歸通過；部署排程及還原後重套刪除仍待驗，不改保存期限或 D-05 DRAFT。見 `docs/acceptance/B011b-2026-10-04-atomic-cleanup.md`。
