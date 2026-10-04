@@ -301,3 +301,8 @@ export async function lookupProviders(
     notice: buildNotice(filters, totalCount, filters.areaFilter === "SERVICE_AREA" ? unconfirmedCount : null),
   };
 }
+
+// Cheap validation precedes persistent rate-limit/lookup I/O. No query values are logged.
+export function validateLookupQuery(query: Record<string, unknown> | null | undefined): void {
+  parseQuery(query);
+}

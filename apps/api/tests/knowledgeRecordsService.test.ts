@@ -48,6 +48,9 @@ function setupPublished(
     createdBy: "OP-1",
     approvedBy: "OP-1",
     notes: null,
+    withdrawnAt: null,
+    withdrawnBy: null,
+    withdrawalReason: null,
   });
   for (const r of records) {
     repo.records.push(r);

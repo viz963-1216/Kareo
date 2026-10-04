@@ -2,7 +2,7 @@
 // 單純 GET／POST），這裡驗證 handler 本身的方法檢查與「沒有 session 時安全回 401」，服務層邏輯
 // （compute_publish_plan／adminPublish 的各種 blocker／狀態改變）已經在 adminKnowledgeService.test.ts
 // 覆蓋，不在這裡重複。
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { handler as previewHandler } from "../src/functions/adminKnowledgePublishPreview.js";
 import { handler as publishHandler } from "../src/functions/adminKnowledgePublish.js";
 
@@ -42,3 +42,8 @@ describe("adminKnowledgePublish: POST /api/v1/admin/knowledge/publish", () => {
     expect(JSON.parse(res.body).error.code).toBe("SESSION_INVALID");
   });
 });
+
+// Isolate persistence here; actual handler quotas are covered by handlerSecurity.test.ts.
+import { SupabaseRateLimitRepository } from "../src/repositories/supabaseRateLimitRepository.js";
+beforeEach(() => { vi.spyOn(SupabaseRateLimitRepository.prototype, "checkAndIncrement").mockResolvedValue({ allowed: true, retryAfterSeconds: null }); });
+afterEach(() => { vi.restoreAllMocks(); });

@@ -26,6 +26,7 @@ export const REPORT_SECTIONS = {
 // MOI town codes used by address-point records (NTPC column areacode, Taipei 鄉鎮市區代碼).
 // Taipei codes were cross-checked against TOWN_NAME in SRC-COORD-TPE-002.
 const AREA_CODES = {
+  "63000020": "信義區",
   "63000040": "中山區",
   "63000070": "萬華區",
   "63000080": "文山區",

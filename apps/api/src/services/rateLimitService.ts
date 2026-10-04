@@ -29,6 +29,10 @@ export const RATE_LIMIT_RULES = {
   // B-014 `GET /api/v1/knowledge/records`，鍵為 IP 雜湊。
   PROVIDER_LOOKUP: { name: "PROVIDER_LOOKUP", limit: 120, windowSeconds: 3600 },
   KNOWLEDGE_RECORDS: { name: "KNOWLEDGE_RECORDS", limit: 120, windowSeconds: 3600 },
+  ADMIN_SESSION: { name: "ADMIN_SESSION", limit: 20, windowSeconds: 3600 },
+  ADMIN_REQUEST: { name: "ADMIN_REQUEST", limit: 300, windowSeconds: 3600 },
+  ADMIN_READ: { name: "ADMIN_READ", limit: 300, windowSeconds: 3600 },
+  ADMIN_WRITE: { name: "ADMIN_WRITE", limit: 60, windowSeconds: 3600 },
   LEAD: { name: "LEAD", limit: 5, windowSeconds: 86400 },
   LEAD_PHONE: { name: "LEAD_PHONE", limit: 3, windowSeconds: 86400 },
 } as const satisfies Record<string, RateLimitRule>;

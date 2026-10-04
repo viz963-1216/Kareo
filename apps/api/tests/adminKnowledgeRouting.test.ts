@@ -2,7 +2,7 @@
 // 的路徑正確傳到 handler，不能只讓靜態 route checker 通過」——同 providerDetailRouting.test.ts
 // 既有模式，直接驗證 extractRecordId／extractChangeId 從 Netlify 的 event.path／event.rawUrl
 // 正確解析出帶路徑參數的 id（Netlify Functions 沒有 pathParameters）。
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { extractRecordId, handler as decisionHandler } from "../src/functions/adminKnowledgeRecordDecision.js";
 import { extractChangeId, handler as dismissHandler } from "../src/functions/adminKnowledgeChangeDismiss.js";
 
@@ -97,3 +97,8 @@ describe("adminKnowledgeChangeDismiss: id from /api/v1/admin/knowledge/changes/{
     expect(JSON.parse(res.body).error.code).toBe("SESSION_INVALID");
   });
 });
+
+// Isolate persistence here; actual handler quotas are covered by handlerSecurity.test.ts.
+import { SupabaseRateLimitRepository } from "../src/repositories/supabaseRateLimitRepository.js";
+beforeEach(() => { vi.spyOn(SupabaseRateLimitRepository.prototype, "checkAndIncrement").mockResolvedValue({ allowed: true, retryAfterSeconds: null }); });
+afterEach(() => { vi.restoreAllMocks(); });

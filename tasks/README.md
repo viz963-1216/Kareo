@@ -32,6 +32,17 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 中央接手快照（2026-10-04；J-003-r11，尚未合併）
+
+Jerry 已授權 Codex 接手目前 ABCJ 任務與一般技術選擇。現有 Kareo (`ojawadobnaxduxybqolk`) 指定為驗收 DB；新增正式 DB 報價每月估計 US$10，Jerry 決定暫不建立。
+
+- 組合來源：A-007 #70 `a9ab406`、B-012 #48 `cab4d3f`、B-011b #55 `b1ba906`、B-013 #57 `5a9f929`、B-014 #67 `f9f361f`、C-007 #58 `fc957ea`。
+- 中央修正：19／20／21／22 migration 唯一且順序正確；管理端 payload／IP／操作者限流，公開查詢 120／小時限流；B-012/B-014 repository 介面均保留；測試 fixture 同步。
+- A-007-r2：5 個輔具中心官方門牌座標＋可重算報告；原 30／30／86／19 資料逐 ID／全部欄位指紋保護。仍只供查詢；新北中心未證實行政區服務範圍，維持未知。
+- 本機：API 698 PASS、web 78 PASS，fresh DB 24 PASS／upgrade 28 PASS，打包後 Functions 86 PASS、路由25 PASS。這些不是部署 E2E。
+- 目前雲端仍 18 migration／30 providers／21 published records。Netlify 2026-10-04 再度顯示 production deploy credits exhausted（網站維持在線）；PR Preview 能否部署須以此次實際結果為準，不自行購買。
+- D-05 仍 DRAFT；J-003 完整49 E2E／J-004正式發布尚未完成。各原 PR 狀態仍以 GitHub 為準，下面 10-03 看板為歷史快照。
+
 # 最新規格與整合快照（2026-10-03，J-002-r13／J-003-r10）
 
 - 文件基準 staging `05b1c4a`；r10 唯讀 E2E 1 PASS／2 PENDING，49 必要項目尚有 48 項未通過。r9 的 4 PASS 只屬 `376f3ef`，不能移植。Netlify 已恢復，staging／production DB 隔離仍待核對。

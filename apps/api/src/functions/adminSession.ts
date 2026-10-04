@@ -1,3 +1,5 @@
+import { requireBodySize } from "../services/requestLimitsService.js";
+import { enforceAdminIpLimit } from "../services/adminRequestSecurity.js";
 import { createAdminSession } from "../services/adminAuthService.js";
 import { SupabaseAdminKnowledgeRepository } from "../repositories/supabaseAdminKnowledgeRepository.js";
 import { adminSuccessResponse, adminErrorResponse, adminInternalErrorResponse } from "../lib/adminResponse.js";
@@ -6,6 +8,7 @@ import { AppError } from "../errors/AppError.js";
 
 interface NetlifyEvent {
   httpMethod: string;
+  headers?: Record<string, string | undefined> | null;
   body: string | null;
 }
 
@@ -17,12 +20,15 @@ export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
 
   let parsedBody: unknown;
   try {
+    requireBodySize(event.body);
     parsedBody = event.body ? JSON.parse(event.body) : {};
-  } catch {
+  } catch (err) {
+    if (err instanceof AppError) return adminErrorResponse(err);
     return adminErrorResponse(new AppError("INVALID_REQUEST", "請求 Body 不是合法 JSON。"));
   }
 
   try {
+    await enforceAdminIpLimit(event, true);
     const result = await createAdminSession(new SupabaseAdminKnowledgeRepository(), parsedBody);
     return adminSuccessResponse(result);
   } catch (err) {

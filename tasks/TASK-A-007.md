@@ -1,7 +1,7 @@
 # TASK-A-007 — Assistive Device Resource Centers Data（雙北輔具資源中心資料）
 
-Owner: Engineer A — Provider Data  
-Status: READY — 可與 A-006 並行；資料欄位依 DATA_MODEL v0.2.5 §17 `resourceCategory`  
+Owner: Engineer A — Provider Data
+Status: A-007-r2 本機驗證完成，中央整合 PR 待合併；真實公開查詢待 J-003
 Plan revision: 2026-10-01 / J-002-r8（MVP_DECISIONS D-19 Q2，[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)；PRODUCT_SPEC §14a）
 
 ## Goal / 目標
@@ -30,10 +30,10 @@ Plan revision: 2026-10-01 / J-002-r8（MVP_DECISIONS D-19 Q2，[Issue #49 commen
 
 ## Acceptance Criteria
 
-- [ ] 每一筆資源中心都有官方來源與查核日期
-- [ ] `node data/providers/qa/validate-providers.mjs` 與既有 gate 全部通過；資源中心沒有 ProviderService
-- [ ] 既有 30 家資料不受影響
-- [ ] 報告數字由腳本產生
+- [x] 每一筆資源中心都有官方來源與查核日期
+- [x] `node data/providers/qa/validate-providers.mjs` 與既有 gate 全部通過；資源中心沒有 ProviderService
+- [x] 既有 30 家資料不受影響
+- [x] 報告數字由腳本產生
 
 ## Not In Scope
 
@@ -41,9 +41,13 @@ Plan revision: 2026-10-01 / J-002-r8（MVP_DECISIONS D-19 Q2，[Issue #49 commen
 
 ## Submission / Completion
 
-Branch：`feat/a-007-resource-centers`　Submission Version：`A-007-r1`　PR → `staging`，引用 Issue #49  
+Branch：`feat/a-007-resource-centers`　Submission Version：`A-007-r1`　PR → `staging`，引用 Issue #49
 PR Title：`[A-007] Assistive device resource centers data`
 
 ## 變更紀錄
 
 - 2026-10-01 J-002-r8：依 D-19 Q2 建立。
+
+## A-007-r2 中央收尾（2026-10-04）
+
+5／5 官方精確門牌點已驗證，報告由 `qa/resource-center-report.mjs` 產生／檢查；原 A-006 基準逐筆全欄位 SHA-256 保護，缺資料／數量漂移／中心誤入服務推薦均有反例。中央整合已獲 Jerry 跨模組授權；合併後仍需 B-013/C-007 真實公開查詢驗收，不以模組勾選代替 INTEGRATED。

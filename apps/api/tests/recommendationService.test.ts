@@ -370,6 +370,9 @@ describe("stable rotation (D-13f): reproducible, not pure random", () => {
         },
         findByTokenHash: async (hash: string) => byHash.get(hash) ?? null,
         touchSession: async () => {},
+        requestDeletion: async () => { throw new Error("not used in this test"); },
+        runDeletionCleanup: async () => { throw new Error("not used in this test"); },
+        insertDeletionRun: async () => { throw new Error("not used in this test"); },
       },
       tokenFor,
     };

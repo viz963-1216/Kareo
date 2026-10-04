@@ -1,0 +1,674 @@
+{
+  "sourceCommit": "8f509c0567436392b9421bfb2e906d565c6f9438",
+  "algorithm": "SHA-256 of recursively key-sorted JSON, including all original field values",
+  "files": {
+    "providers.json": [
+      {
+        "id": "TP-HC-001",
+        "fingerprint": "a496b7cc6c780f8f207e9e9bd7eb873bb46644682e190a5b0103e4d619b9646d"
+      },
+      {
+        "id": "TP-HC-002",
+        "fingerprint": "88fcb9149323e0c8ec4d7c51f86de082815e589835f4582efc5b0c7344b04313"
+      },
+      {
+        "id": "TP-HC-003",
+        "fingerprint": "f79ede3e5a7f91e65895e5d49997d0fff22fd2a60cad47577bfaecfc64c61c10"
+      },
+      {
+        "id": "TP-HC-004",
+        "fingerprint": "0369f3df6a97fc1939a642858c17c1aac03eb1108310cb2a108d0cb08c76e4ba"
+      },
+      {
+        "id": "TP-HC-005",
+        "fingerprint": "16492410060127c2b135a1611496674f820f3505cee78bb12ac840dd0aba099f"
+      },
+      {
+        "id": "TP-HC-006",
+        "fingerprint": "dd73a0341433d743fbb5a84e696e7987cc60c477b1be2aec53f6d552d56b1c82"
+      },
+      {
+        "id": "TP-HC-007",
+        "fingerprint": "5842c871fb759204b6a74cd6af51c1772d1d0813e7c72c66fcfb09721c491bc2"
+      },
+      {
+        "id": "TP-HC-008",
+        "fingerprint": "5a701fc0c48681a967c603517c9911248ae3d0a07019139a110d8de9637a5cae"
+      },
+      {
+        "id": "TP-HC-009",
+        "fingerprint": "294b1e8e6e26ce68efca053ed7923df509fcbe2e24b37f4133f69cd48be658bd"
+      },
+      {
+        "id": "TP-HC-010",
+        "fingerprint": "acebb0c55450de5e63a91910ec02d88bb325d7aa0c306d1150ea55492af8947a"
+      },
+      {
+        "id": "NTPC-HC-001",
+        "fingerprint": "b2bbf459eeab7349ab0f30327ae675f851131ea7a2a224f6225086952ed53cec"
+      },
+      {
+        "id": "NTPC-HC-002",
+        "fingerprint": "6ee3f4afc87520be936e6439efd970104e90a176b69896441dfadea6ac6956db"
+      },
+      {
+        "id": "NTPC-HC-003",
+        "fingerprint": "a81d773cf121d5629861266bd618e71ba49c8ca65eade91b2fbe08a8ceec21b0"
+      },
+      {
+        "id": "NTPC-HC-004",
+        "fingerprint": "139c61a974fb753bc2278c25395d7bbbbceb290ede5eed18e175de51aab6f766"
+      },
+      {
+        "id": "NTPC-HC-005",
+        "fingerprint": "5141169679bda56f69c07117f1606cff0865dd6bc35d0a8929eb3f589551432e"
+      },
+      {
+        "id": "TP-HMN-001",
+        "fingerprint": "9767eccd4aabac0be56f9b50bd57683fdaa7792f1620fb039ddca8cbdb7604da"
+      },
+      {
+        "id": "TP-HMN-002",
+        "fingerprint": "f31f16d0cd31911752f76e4d3cd601e9c5885d84e14c863c92f774d2de680750"
+      },
+      {
+        "id": "TP-HMN-003",
+        "fingerprint": "b1b5e333ebb3ad7ea3a85100f875c6f29429738b1bc593167baf09d50dc8df3a"
+      },
+      {
+        "id": "TP-AD-001",
+        "fingerprint": "958bf9078325a44ae857bd9e9f6c5ce747bd69da29c3ff3e6d53fbb725a7783b"
+      },
+      {
+        "id": "TP-AD-002",
+        "fingerprint": "b3deaf5479c8b62288dc7141de281a2037137fbb6c894fdaf4285b92479d959d"
+      },
+      {
+        "id": "TP-AD-003",
+        "fingerprint": "711edd3a17c8b915a769dd9cae426178e4580d8d2ddc44a641844c8112a1d88d"
+      },
+      {
+        "id": "NTPC-AD-001",
+        "fingerprint": "6c869917e1dc1dd4b9c1beb95c998639b7ff900deff5ef9812919522e4c075f3"
+      },
+      {
+        "id": "NTPC-AD-002",
+        "fingerprint": "6cb048b9443155b1774fb66805df5952fcad60ea11a8699dbf36af4706ac0916"
+      },
+      {
+        "id": "NTPC-AD-003",
+        "fingerprint": "850d7c7ac47edb7ee3d06401913dc058089c41a4eb1238bb7fa9661a4b059c6f"
+      },
+      {
+        "id": "NTPC-AD-004",
+        "fingerprint": "91d4e877648b8956815c7d5a3fae0e70655add694c7f23090e183f153bce2ecf"
+      },
+      {
+        "id": "NTPC-AD-005",
+        "fingerprint": "4eed040db20242c6c30984ceff699c3b74cd54832f6a06fcffa11966b52aac9d"
+      },
+      {
+        "id": "NTPC-AD-006",
+        "fingerprint": "e86224389a3062feeb17c0901ae74592e3c6751ab38a0f22ca18ddc63c64df84"
+      },
+      {
+        "id": "NTPC-AD-007",
+        "fingerprint": "5c76f5c815977357661754f0deed6fcb4f14481bdcd93c72d24eb8ca6c7dba59"
+      },
+      {
+        "id": "NTPC-AD-008",
+        "fingerprint": "d4d5dc1d51c473fec36f0136aadc7a0918e76161d004d10514d9015d97883ea9"
+      },
+      {
+        "id": "NTPC-AD-009",
+        "fingerprint": "a9e2ecb8e66cca43364dcfd553dc1766740e1bf031d9c74c447208e784d5862a"
+      }
+    ],
+    "provider-services.json": [
+      {
+        "id": "PSV-TP-HC-001-HOME_CARE",
+        "fingerprint": "70357281a19103dbd7c06f087859d18c3debf0ec421fb4f29ad3a66fb44d3036"
+      },
+      {
+        "id": "PSV-TP-HC-002-HOME_CARE",
+        "fingerprint": "e474e93fb1f1f3d684b965532cfe8dc1637722602a14b8b1be8ca34e4db310af"
+      },
+      {
+        "id": "PSV-TP-HC-003-HOME_CARE",
+        "fingerprint": "78d96a921f7217811c27b87da5becee012215a08d2f7c351e1c78d6119f822d9"
+      },
+      {
+        "id": "PSV-TP-HC-004-HOME_CARE",
+        "fingerprint": "6f7bbbac0f00e3ee170d3a9988a05f3842a12da9caf842f35a9712fbe700c794"
+      },
+      {
+        "id": "PSV-TP-HC-005-HOME_CARE",
+        "fingerprint": "80d5c96f6b222d8ac1b622d107cff64375966bb6b7578a96036f3773318a37dd"
+      },
+      {
+        "id": "PSV-TP-HC-006-HOME_CARE",
+        "fingerprint": "1d3c241601c7a04406052e93fd0503c803a9f2f7b8b44d5b72e62a471040b4d0"
+      },
+      {
+        "id": "PSV-TP-HC-007-HOME_CARE",
+        "fingerprint": "513f799c2fb090e7b5d48fb95f6fe5b9ebcab5ecbc1d24dfb45f04b1352976fe"
+      },
+      {
+        "id": "PSV-TP-HC-008-HOME_CARE",
+        "fingerprint": "5187c5e4b69341e85263602ff2c34c5027cd94fa3752ec1f595206f34d41dd5a"
+      },
+      {
+        "id": "PSV-TP-HC-009-HOME_CARE",
+        "fingerprint": "47f8dac5c7221de360aab5efaeb269bdbe62f0d9200eaca49f2a71c8f3e0e4f9"
+      },
+      {
+        "id": "PSV-TP-HC-010-HOME_CARE",
+        "fingerprint": "b655f376489915f5935978d816bfaedba121491650ed7310026663125ba9b998"
+      },
+      {
+        "id": "PSV-NTPC-HC-001-HOME_CARE",
+        "fingerprint": "04e7e195912549df4f4dd7b185719a7f0a3a87afc9eac8a72ef819c2fbb2cf05"
+      },
+      {
+        "id": "PSV-NTPC-HC-002-HOME_CARE",
+        "fingerprint": "9c105059444a457c8db98494f039c1b32dde978b83cf6439eaba99561b7d1b48"
+      },
+      {
+        "id": "PSV-NTPC-HC-003-HOME_CARE",
+        "fingerprint": "488d0cb80b104e57e868f76871d92847a3af773c88c2b14e36d87958a822fe96"
+      },
+      {
+        "id": "PSV-NTPC-HC-004-HOME_CARE",
+        "fingerprint": "f05e26d59c2b55f1f4adfc927c66b384385869dbbd677431b7d76b87e1bd76b4"
+      },
+      {
+        "id": "PSV-NTPC-HC-005-HOME_CARE",
+        "fingerprint": "6d821322184e4a5c67673f37ed04adc8f07e18c0d0bb6f12bba399ef39fd3a7d"
+      },
+      {
+        "id": "PSV-TP-HMN-001-HOME_MEDICAL_NURSING",
+        "fingerprint": "45aa8dd3a6b4c716562e439de6edf26adddc36c01ab8093c9ccdd150b1e87f02"
+      },
+      {
+        "id": "PSV-TP-HMN-002-HOME_MEDICAL_NURSING",
+        "fingerprint": "7fd84ae3f3e9741f612ad8d3861fd54a148bb49d65a1119629604656fd4272ac"
+      },
+      {
+        "id": "PSV-TP-HMN-003-HOME_MEDICAL_NURSING",
+        "fingerprint": "e9c230f84a71ee5cc422b01a463d8fabdf68b4d5720274eb15deaa60b52f8dfb"
+      },
+      {
+        "id": "PSV-TP-AD-001-ASSISTIVE_DEVICE",
+        "fingerprint": "dc194e2a360a3f25be130e57dada0c2598e2770b7ca609724564da9993a29a93"
+      },
+      {
+        "id": "PSV-TP-AD-002-ASSISTIVE_DEVICE",
+        "fingerprint": "e6a17264f1dd58828583cad80a9bbc02aa7aedeef1bf13ceff32dd28175600d2"
+      },
+      {
+        "id": "PSV-TP-AD-003-ASSISTIVE_DEVICE",
+        "fingerprint": "cf39ca8361a56b72bcb051999fc713e16d273577e52066f8fe6360ba3c0d34e9"
+      },
+      {
+        "id": "PSV-NTPC-AD-001-ASSISTIVE_DEVICE",
+        "fingerprint": "65f05bf56a8fedf00ceeaca3ad6de1c6deb2d4e950c02f9a3674d2bf7e639080"
+      },
+      {
+        "id": "PSV-NTPC-AD-002-ASSISTIVE_DEVICE",
+        "fingerprint": "a64769927dca06bad187620e8b167e213787bea229a6a70cbb3be52dc2385707"
+      },
+      {
+        "id": "PSV-NTPC-AD-003-ASSISTIVE_DEVICE",
+        "fingerprint": "1b5ab6afa55fdb510b4da8993e1280da60c0b142242bc802bd908dd239cf2aad"
+      },
+      {
+        "id": "PSV-NTPC-AD-004-ASSISTIVE_DEVICE",
+        "fingerprint": "50cc27e4617d1f32d30791443b82da1bb0894070125534dfd3324992964d0c84"
+      },
+      {
+        "id": "PSV-NTPC-AD-005-ASSISTIVE_DEVICE",
+        "fingerprint": "8df87cb6c39f62e990b8d5e8e4cd110a0fceb05ada15c94f484e45fe2c37d309"
+      },
+      {
+        "id": "PSV-NTPC-AD-006-ASSISTIVE_DEVICE",
+        "fingerprint": "afa32ea8c5546bfaa9ca3a5a962e59e19953639b8c51812ee0fd6d413f744e01"
+      },
+      {
+        "id": "PSV-NTPC-AD-007-ASSISTIVE_DEVICE",
+        "fingerprint": "2f5ff9218d6a0e531bc35529b63d98d0962ca0092076dc8464552faad40859be"
+      },
+      {
+        "id": "PSV-NTPC-AD-008-ASSISTIVE_DEVICE",
+        "fingerprint": "75b474cb0dbffae9ae640ad001558f686d6b818c324f7bc08bb2553a155da77d"
+      },
+      {
+        "id": "PSV-NTPC-AD-009-ASSISTIVE_DEVICE",
+        "fingerprint": "6c0bcc977fdb8abb1d2cf3306288688250ec941b0d2f989cb7cf03906dd578a3"
+      }
+    ],
+    "provider-service-areas.json": [
+      {
+        "id": "TP-HC-001-SA-001",
+        "fingerprint": "b32d3383267252545803f1221cb558ff3cc4778bce94ca6cd2fa623a48e693ae"
+      },
+      {
+        "id": "TP-HC-001-SA-002",
+        "fingerprint": "344c08affcb2650f18c19e995d5fe1ae7527ec734f04456a04914aff4583ae96"
+      },
+      {
+        "id": "TP-HC-001-SA-003",
+        "fingerprint": "765427719ea0fbcf431e917495a50bdf972e6c253a7c62ed246be735b99cff2b"
+      },
+      {
+        "id": "TP-HC-001-SA-004",
+        "fingerprint": "211158abd53c2bc6b470fcacbf8cde12699a21c471cc69032e175dd9a0d0ad3b"
+      },
+      {
+        "id": "TP-HC-002-SA-001",
+        "fingerprint": "b1154fae427976ef7bc5747332a2fc7bd7b8a124c8184a1d310afc5a1bebe109"
+      },
+      {
+        "id": "TP-HC-002-SA-002",
+        "fingerprint": "0091a61b21224f5c6bd37dc298e1da3221f25f52b44174e006b37f90be25d008"
+      },
+      {
+        "id": "TP-HC-002-SA-003",
+        "fingerprint": "f97fe9c8ef0ddac0d962314d5591cdd08bc0010ae3de73e49782c56fdb96e4fc"
+      },
+      {
+        "id": "TP-HC-003-SA-001",
+        "fingerprint": "986b21c7ef7f99611b197c10246979ef29c7091da16dec4645c255bb013a6d87"
+      },
+      {
+        "id": "TP-HC-003-SA-002",
+        "fingerprint": "9411c5350e2c79e13ae73f14aebb5eecd9b0dbadc2f4fedda14199ad3a58d947"
+      },
+      {
+        "id": "TP-HC-003-SA-003",
+        "fingerprint": "61427aea78db0179b7cb224a8242ffe0b65376924473fb856fcbe1e8b7df6776"
+      },
+      {
+        "id": "TP-HC-003-SA-004",
+        "fingerprint": "c05922e4bc6f1eb90041db62db8e041e91ecea88005cb05dd98b50e0b5475fcc"
+      },
+      {
+        "id": "TP-HC-003-SA-005",
+        "fingerprint": "6a9970ce50f253e4668f1528ba141fed6da6196ce0464df4594aeee7f4a57c9a"
+      },
+      {
+        "id": "TP-HC-004-SA-001",
+        "fingerprint": "97753bcb8b8f8d0d2ccb4d42e05dbe53e6e14d6f3b795d0eb57ee5a1a0be0274"
+      },
+      {
+        "id": "TP-HC-004-SA-002",
+        "fingerprint": "1cb61085724fe85d4ad0419c416e3f6a9e2d1ed99b03c01d5ebeb91280871e3d"
+      },
+      {
+        "id": "TP-HC-004-SA-003",
+        "fingerprint": "b6743a90a61a9220492b8489b7795323302cb87f2d7a346a5a0a5ab84f9a1cac"
+      },
+      {
+        "id": "TP-HC-004-SA-004",
+        "fingerprint": "b38cbed112617fd7608b66c4938ba763d6c99e78c17ef5f7d1630561f3e2cc34"
+      },
+      {
+        "id": "TP-HC-004-SA-005",
+        "fingerprint": "dddf1321304db0778d6faf9e77007a21d54792934b1577c00c9587f5d11cb712"
+      },
+      {
+        "id": "TP-HC-004-SA-006",
+        "fingerprint": "83b52a8fbfc8f377ea9541ba4d3a5bb4b21d7463df85dc9f6193bc61d1e3c1a3"
+      },
+      {
+        "id": "TP-HC-004-SA-007",
+        "fingerprint": "b6d417ef12c7899f533837c7e6e6d90405e9d645d398e7a3b2528f07249314af"
+      },
+      {
+        "id": "TP-HC-004-SA-008",
+        "fingerprint": "0b795b5a188532f318859f01b2054fea1f7ebae19745cc3cd6ee72571ba49f9e"
+      },
+      {
+        "id": "TP-HC-004-SA-009",
+        "fingerprint": "7d785ccaf40a86e7a4fb1be181f650ed080fbbe8d53158e9d58ffe4d8652a0f4"
+      },
+      {
+        "id": "TP-HC-004-SA-010",
+        "fingerprint": "e9f532372c22b36a20b67b32850a4ffcf0088a07577f2dfffb26e0f2b4a463a9"
+      },
+      {
+        "id": "TP-HC-004-SA-011",
+        "fingerprint": "229d6f192760f12d1edd4b52d01afd013a58d55f1e5319292b64733d20bd368a"
+      },
+      {
+        "id": "TP-HC-004-SA-012",
+        "fingerprint": "8d50a30887ae49e7b01ff1390bc5e268850bd555cd846f2b9a44be6e581e473e"
+      },
+      {
+        "id": "TP-HC-005-SA-001",
+        "fingerprint": "c6b23ed4b37df04d83698a42103dad5b047d42ebf4eeb93414219516a2c2e7f6"
+      },
+      {
+        "id": "TP-HC-005-SA-002",
+        "fingerprint": "3ebbd5ac7b73c2fcb3268fce6f2e8d42e4fcf925771774648bc994b3fff4fef4"
+      },
+      {
+        "id": "TP-HC-005-SA-003",
+        "fingerprint": "141b39c137b577d48838617e5bc1a30bc65cb4357e4b904864d1078bc3bdc543"
+      },
+      {
+        "id": "TP-HC-005-SA-004",
+        "fingerprint": "51a8dceac1c204f2f8f45726b7e6ced5b7624a9d97756cfb4f6fa6d89889c3e9"
+      },
+      {
+        "id": "TP-HC-006-SA-001",
+        "fingerprint": "8bfbf2ee739d65e3615ca5625d4b075352410a42443211399ff769d01c87a68f"
+      },
+      {
+        "id": "TP-HC-006-SA-002",
+        "fingerprint": "4f53f91682f68cdfdffc3648d3d1bf2f63d694bed6d78b5fd4e96e0329e644c2"
+      },
+      {
+        "id": "TP-HC-006-SA-003",
+        "fingerprint": "d1cd741909a68aa9bedaf0d4eed6e258dcceb9a3de611ba087bc2a1901bf23e6"
+      },
+      {
+        "id": "TP-HC-006-SA-004",
+        "fingerprint": "af6d50f338117f7f06b42f4538eb5f4863c519f949ae328ce11fe907d48b89ca"
+      },
+      {
+        "id": "TP-HC-007-SA-001",
+        "fingerprint": "d860b158f7bd26593a0aca24cb5eb18a63754c31aaada94da2886f64052bf318"
+      },
+      {
+        "id": "TP-HC-007-SA-002",
+        "fingerprint": "d449304bd4f4524258617223697df5e97b971220fd865a2f1562490b34d9524a"
+      },
+      {
+        "id": "TP-HC-007-SA-003",
+        "fingerprint": "aeb2b22d27e8a5a6d7b158b75f595fbc225553869ee0b9c62ae5649aeacab089"
+      },
+      {
+        "id": "TP-HC-008-SA-001",
+        "fingerprint": "5df9be068139c6d9de7ace25f931015df1a478d723b3ccf2025702f210107188"
+      },
+      {
+        "id": "TP-HC-008-SA-002",
+        "fingerprint": "4a5aa023dc176d3a633c8b9348a56fdc709be6eb064c1c9b865a7e44b5285f3b"
+      },
+      {
+        "id": "TP-HC-008-SA-003",
+        "fingerprint": "679c1e8caf8b6fa5e68a9a9fa7d712d53a7d85f13369c915be1ed1330940f4fe"
+      },
+      {
+        "id": "TP-HC-008-SA-004",
+        "fingerprint": "a093dc96250b8fb3b393631ce9995622011d1f4fa0fedb6e52368e121511a8be"
+      },
+      {
+        "id": "TP-HC-009-SA-001",
+        "fingerprint": "b5d9ab2cce2c90ad5b3dcb397868e3206579a9935a74fa433819f3c1b1adb203"
+      },
+      {
+        "id": "TP-HC-009-SA-002",
+        "fingerprint": "277ce77bd69b6c4476550f26aba02d3417ab534e9f107024a6e3547381a18590"
+      },
+      {
+        "id": "TP-HC-009-SA-003",
+        "fingerprint": "580ab6de531ffcd04df26ba3280fc770fc4c6cd5b9ffb06bd13187e26b2cf4e2"
+      },
+      {
+        "id": "TP-HC-009-SA-004",
+        "fingerprint": "33d9d2ac4d7e023832b68575ec0e7d0c03b3f2facbff2291404d1f137f3eeef4"
+      },
+      {
+        "id": "TP-HC-009-SA-005",
+        "fingerprint": "1e8882582d6bfd1eda687819fb9faa7be205899ca299e43767236d556d5e18cd"
+      },
+      {
+        "id": "TP-HC-009-SA-006",
+        "fingerprint": "a1df9d0cb1b412f4ba3e5919148b94fba0284c764aa2ea5b623d25c83ae19814"
+      },
+      {
+        "id": "TP-HC-009-SA-007",
+        "fingerprint": "2b7b109b4ffeaaa3ee86f700ad21a5ecaf10f6a8a6bd81dedb07c0074c00375c"
+      },
+      {
+        "id": "TP-HC-009-SA-008",
+        "fingerprint": "c67b42e05005e992eb67730ec4f8f83a70b7ef211c30aa4bbad90988bf2858e0"
+      },
+      {
+        "id": "TP-HC-009-SA-009",
+        "fingerprint": "1fdf187076a651de9623e1e7c0515498f39cae6f7ce946809d5e9c91719f48d7"
+      },
+      {
+        "id": "TP-HC-009-SA-010",
+        "fingerprint": "8d236c191683ec359614a84fc98a9c24f46fd43607fe6aca22460d86a61d7cba"
+      },
+      {
+        "id": "TP-HC-010-SA-001",
+        "fingerprint": "2fea53b10183352b3c6cdf9775b4c2d209ceb353e2b195ac8e786b2283e00ae7"
+      },
+      {
+        "id": "TP-HC-010-SA-002",
+        "fingerprint": "d5912a2160235a0bc9bf38298149a3b46dcf61b54492954f5796e4c064d5f6d6"
+      },
+      {
+        "id": "TP-HC-010-SA-003",
+        "fingerprint": "97d0302668ee24b0db7d01fd1740a0b371c5b3aaec9644aeb876b63a00a24203"
+      },
+      {
+        "id": "TP-HC-010-SA-004",
+        "fingerprint": "b273c2a5c3c47033109a4e49f1cb238ae87eb3885422c90e7c62db74073d9ecc"
+      },
+      {
+        "id": "TP-HC-010-SA-005",
+        "fingerprint": "e0eb647ff63d5cd9871dc8a8511501073d1c2642f8968421333020a35336dbb6"
+      },
+      {
+        "id": "TP-HC-010-SA-006",
+        "fingerprint": "c487c2f3cefcde3dd1c4292597ba6952f68f72e856bf4abb3e973e06492fd36a"
+      },
+      {
+        "id": "TP-HC-010-SA-007",
+        "fingerprint": "b94031973a6da2f7667f7bb73ecd5e1909f83d3114c8ea25c5dcf50ba52d9fd1"
+      },
+      {
+        "id": "TP-HC-010-SA-008",
+        "fingerprint": "15b79e4ec8efee10a6db4ab52afac795d2deebff7a22a746b6322f7ca07beb32"
+      },
+      {
+        "id": "TP-HC-010-SA-009",
+        "fingerprint": "ec6cff64547aed6eb7dc27c221ce46934877cfe6bf616e062b49c04c51a8c34c"
+      },
+      {
+        "id": "TP-HC-010-SA-010",
+        "fingerprint": "f3ca5b52ce81698be1adc355bd70d392b04acc06e9f7db9964ad3af5abcef546"
+      },
+      {
+        "id": "TP-HC-010-SA-011",
+        "fingerprint": "8631bdcfb34e494bbf38087e889d3417b513d30ecafd895b0a570c65fc09f591"
+      },
+      {
+        "id": "TP-HC-010-SA-012",
+        "fingerprint": "a55c68a449e03bd060b056ad9cd5874ec83c12848c0b49c0cbc798055d559099"
+      },
+      {
+        "id": "TP-HMN-002-SA-001",
+        "fingerprint": "1781c2658ad5d4d0240a5f582d2732b88e881bcf84d715ff03ecd3d549e60883"
+      },
+      {
+        "id": "TP-HMN-002-SA-002",
+        "fingerprint": "b94a59a93250b87b4016bfd126a375a932dbb47bdc93a3d5ba2a0f696b7c389c"
+      },
+      {
+        "id": "NTPC-HC-001-SA-001",
+        "fingerprint": "d974d3635c15d3ef3964b0bdec6bedbb7a311b756f29a9f21003182d222eba8a"
+      },
+      {
+        "id": "NTPC-HC-002-SA-001",
+        "fingerprint": "19e4d8c922e186a4e51bda6cdab8f8fcef815037ea7e1efb445299688a8d2fb8"
+      },
+      {
+        "id": "NTPC-HC-002-SA-002",
+        "fingerprint": "ec120dd5a2e79fec73480c8b77cf8d6b247e01c28979f99681bbd928a4e78b12"
+      },
+      {
+        "id": "NTPC-HC-002-SA-003",
+        "fingerprint": "44839d66a2b015a813df5412b5a1998d4c5aea336cb4b207bc1a443f48291252"
+      },
+      {
+        "id": "NTPC-HC-003-SA-001",
+        "fingerprint": "24d21e3d59aa7b8d73776c86ac00d010df20b470003e7a797f0c12a843fa5504"
+      },
+      {
+        "id": "NTPC-HC-003-SA-002",
+        "fingerprint": "45e962cf12e6d19e5f71c03ac0efdae215bb424b95e73a7c8f7f93d404ebeef7"
+      },
+      {
+        "id": "NTPC-HC-003-SA-003",
+        "fingerprint": "ee74317ed5741f9c84acdb45ff3254d1f60b644d9c6bc200c2c1ce8c7e95b55a"
+      },
+      {
+        "id": "NTPC-HC-004-SA-001",
+        "fingerprint": "3816cb20be480d4b13a441a2fb0796c6706277bcc18f34c15d6aa0f1953dad24"
+      },
+      {
+        "id": "NTPC-HC-004-SA-002",
+        "fingerprint": "be74aafa4ffa1e88c5b82638c6b30d12b8175e5fa5ee3be7cfc55a8a76b9d822"
+      },
+      {
+        "id": "NTPC-HC-004-SA-003",
+        "fingerprint": "4ed40b77999ac083a97abd4df90edb3f2cf58845d7f7b4bf2d8d6a4778dbc51b"
+      },
+      {
+        "id": "NTPC-HC-004-SA-004",
+        "fingerprint": "4d3409c692dfea433f9a514cb73f1778e30007f67a8ad734681112f6474b6a18"
+      },
+      {
+        "id": "NTPC-HC-004-SA-005",
+        "fingerprint": "ddc82f62545d822a244619610544c08b293d71517b275a89847019c5e6c8a70a"
+      },
+      {
+        "id": "NTPC-HC-005-SA-001",
+        "fingerprint": "587a2a9439f98207fa39a75ac29c31a6096e081c10995d34fbc177315b6c2de3"
+      },
+      {
+        "id": "NTPC-HC-005-SA-002",
+        "fingerprint": "f3d6c724142cbe5a66a3bfc81777219736c1ed3fe24fb2b8fd1c9c53c251c680"
+      },
+      {
+        "id": "NTPC-HC-005-SA-003",
+        "fingerprint": "19a1a6d2bdec92ddf590c9ab8be2793042fa5b5c6cdd6ee23d86b3b766e13955"
+      },
+      {
+        "id": "NTPC-HC-005-SA-004",
+        "fingerprint": "fc4100353f5df0366686965c35f036f21d1b2edcec2a9770dff93d999ddba42e"
+      },
+      {
+        "id": "NTPC-HC-005-SA-005",
+        "fingerprint": "8e3a70790a94b34ec5e2d13e1c90182aad8e1b0a893c1bd2fcf6923f7e0521c5"
+      },
+      {
+        "id": "NTPC-HC-005-SA-006",
+        "fingerprint": "4f9d34a629594f98bb36cdf1d104a384ecd05acd32791ac68964c014e4dfa25c"
+      },
+      {
+        "id": "NTPC-HC-005-SA-007",
+        "fingerprint": "89da1f7cccd1a133cff788ae333df8df48d9cb366c992b1293af2d0697ec9b3d"
+      },
+      {
+        "id": "NTPC-HC-005-SA-008",
+        "fingerprint": "58051563279f18c738936663efc328c357317f38f250e89be8747dc7dac99748"
+      },
+      {
+        "id": "NTPC-HC-005-SA-009",
+        "fingerprint": "ba0569807dba709465680dfaa100697122abc0bbffcdcb13aa44db1a2e8f99f8"
+      },
+      {
+        "id": "NTPC-HC-005-SA-010",
+        "fingerprint": "b5f97c3c5ba3510b7290819d061470076171cb41c86c02e1f0872dbc5534e89e"
+      },
+      {
+        "id": "NTPC-HC-005-SA-011",
+        "fingerprint": "5ca02c330e0e815fcbc0289f25101c3fe1a530644dcb872249c17cb094455fe7"
+      }
+    ],
+    "provider-contract-regions.json": [
+      {
+        "id": "PCR-NTPC-AD-001-NTPC",
+        "fingerprint": "0f52718bcacfab59426e5c874847fce1635a09364d630e23a9db0fcbf338dde3"
+      },
+      {
+        "id": "PCR-NTPC-AD-001-TPE",
+        "fingerprint": "6b91982612d4e3e1685bce7de1ea9f1d86d9a0142e3a31554a1a8eaa2c0ef1ce"
+      },
+      {
+        "id": "PCR-NTPC-AD-002-NTPC",
+        "fingerprint": "32f6eaa6b94623457355acf32b30dea569aad212acd38da034d1775a1d72ceee"
+      },
+      {
+        "id": "PCR-NTPC-AD-003-NTPC",
+        "fingerprint": "81104a14d8474c19103fec0d8e2cd98da7b8f4c64a357f781065b9a3516be013"
+      },
+      {
+        "id": "PCR-NTPC-AD-004-NTPC",
+        "fingerprint": "12c5955c967c7a615339ff0674c1fa07988fd3540fbe041d37526ef1fee277c6"
+      },
+      {
+        "id": "PCR-NTPC-AD-004-TPE",
+        "fingerprint": "159b3e68df546b6d554e1cdfd127ac3baac215221b444894beb259b995769a3b"
+      },
+      {
+        "id": "PCR-NTPC-AD-005-NTPC",
+        "fingerprint": "7489d7e2c542e28d714c1745f73a226f0066e797be1cee6fd203d666d37fd790"
+      },
+      {
+        "id": "PCR-NTPC-AD-005-TPE",
+        "fingerprint": "50f3acb6343a0222d5e4fc364b7db53c747c03a95e70e5ee5c4c2e580ae644c5"
+      },
+      {
+        "id": "PCR-NTPC-AD-006-NTPC",
+        "fingerprint": "6bdff5065af2dd525da5783d25ad0e1134914ce60b49caf81ac7e2cf7f73fff0"
+      },
+      {
+        "id": "PCR-NTPC-AD-007-NTPC",
+        "fingerprint": "0287417883d039c698962e6ed3060d5234161f5434eadfdef3d460d627d929ac"
+      },
+      {
+        "id": "PCR-NTPC-AD-008-NTPC",
+        "fingerprint": "088e9c5b3fbbe418b4ac9c7286f0ca8db21326f5bb25652b6157eccca8b24811"
+      },
+      {
+        "id": "PCR-NTPC-AD-008-TPE",
+        "fingerprint": "f97b7b9e007a555f28351df4f456dc20981dfd52c9061bbf1312674ee0dad657"
+      },
+      {
+        "id": "PCR-NTPC-AD-009-NTPC",
+        "fingerprint": "fd787625056a8f4b994e2009fda165b04c2bd3b9d9ffa410e2868a3ece428e2a"
+      },
+      {
+        "id": "PCR-NTPC-AD-009-TPE",
+        "fingerprint": "fb5301b85a4383741b7a4133f8ccf309e2ace616790f2a6fa4bc39abbf882a1c"
+      },
+      {
+        "id": "PCR-TP-AD-001-NTPC",
+        "fingerprint": "531a03a337cacfd13d65928449fde97db4cdce68a2533d18145df631a012929a"
+      },
+      {
+        "id": "PCR-TP-AD-001-TPE",
+        "fingerprint": "55c41d5c8eafd9ae586433881c922efc3e4335aaebf6515361530d9a4cca1733"
+      },
+      {
+        "id": "PCR-TP-AD-002-TPE",
+        "fingerprint": "d6e4b5bf3cdeb0dee6756834d7892886cf0e1513251aaf25be65e261cca54208"
+      },
+      {
+        "id": "PCR-TP-AD-003-NTPC",
+        "fingerprint": "26af73af0ddd193b18280135d1295e6e1dcc9a3fe1b3e65c6c34b4209f2d7adc"
+      },
+      {
+        "id": "PCR-TP-AD-003-TPE",
+        "fingerprint": "18a83c0910713f4514527dad0adc9ca16aef309a01263f30767a04f781ac08b3"
+      }
+    ]
+  }
+}

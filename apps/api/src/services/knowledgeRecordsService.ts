@@ -177,3 +177,8 @@ export async function getKnowledgeRecords(
     notice: totalCount === 0 ? NOTICE_EMPTY : NOTICE_DEFAULT,
   };
 }
+
+// Cheap validation precedes persistent rate-limit/lookup I/O. No query values are logged.
+export function validateLookupQuery(query: Record<string, unknown> | null | undefined): void {
+  parseQuery(query);
+}

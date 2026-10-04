@@ -1,3 +1,4 @@
+import { enforceAdminIpLimit, enforceAdminOperatorLimit } from "../services/adminRequestSecurity.js";
 import { requireAdminSession } from "../services/adminAuthService.js";
 import { getAdminKnowledgeStatus } from "../services/adminKnowledgeService.js";
 import { SupabaseAdminKnowledgeRepository } from "../repositories/supabaseAdminKnowledgeRepository.js";
@@ -18,8 +19,10 @@ export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
   }
 
   try {
+    await enforceAdminIpLimit(event);
     const repo = new SupabaseAdminKnowledgeRepository();
-    await requireAdminSession(repo, getAdminTokenHeader(event));
+    const operator = await requireAdminSession(repo, getAdminTokenHeader(event));
+    await enforceAdminOperatorLimit(operator.id, false);
     const status = await getAdminKnowledgeStatus(repo);
     return adminSuccessResponse(status);
   } catch (err) {

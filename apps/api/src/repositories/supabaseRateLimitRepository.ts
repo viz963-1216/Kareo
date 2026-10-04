@@ -3,7 +3,7 @@ import type { RateLimitRepository } from "./types.js";
 import type { RateLimitCheckResult } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
 
-// TASK-B-011b：ARCHITECTURE §20.4 持久化限流。原子檢查＋遞增在 migration 0019 check_rate_limit
+// TASK-B-011b：ARCHITECTURE §20.4 持久化限流。原子檢查＋遞增在 migration 0021 check_rate_limit
 // 內以 pg_advisory_xact_lock 完成，這裡只負責呼叫 RPC。
 export class SupabaseRateLimitRepository implements RateLimitRepository {
   async checkAndIncrement(input: { key: string; windowSeconds: number; limit: number; now: string }): Promise<RateLimitCheckResult> {
