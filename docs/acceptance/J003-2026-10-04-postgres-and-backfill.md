@@ -21,7 +21,7 @@ PG-L1～L4 查 `pg_locks` 未授予 advisory waiter 及 `pg_blocking_pids`，並
 
 負向對照只在可丟棄本機資料庫把 CLI publisher 的鎖 `8823001` 改成 `8823002`。預期及實際：初始化 PASS、`FAIL PG-CONCURRENCY SHARED_LOCK_NOT_OBSERVED`、exit 1。CI 必須觀察到這個指定失敗，不能把初始化失敗誤算為成功對照。
 
-工具只接受 loopback、固定 `kareo_concurrency_test` 資料庫／`kareo_test` 帳號及明確 disposable flag。**會重建 public schema，只能對專用可丟棄本機庫執行。** 本機臨時 cluster 已停止並刪除。未修改業務 SQL、未連 Supabase、未寫雲端。
+工具只接受 loopback、固定 `kareo_concurrency_test` 資料庫／`kareo_test` 帳號及明確 disposable flag。**會重建 public schema，只能對專用可丟棄本機庫執行。** URI query／fragment 也遭拒絕，避免 pg 連線參數覆寫 loopback 限制；遠端主機、host query、錯誤資料庫及帳號四項實際入口檢查均在初始化前以 CONFIG_REJECTED 拒絕。本機臨時 cluster 已停止並刪除。未修改業務 SQL、未連 Supabase、未寫雲端。
 
 新增 CI job `Real PostgreSQL concurrency`；失敗會紅燈，沒有 `continue-on-error`。GitHub 分支保護尚未設定，不能把此描述為已設 required check。
 

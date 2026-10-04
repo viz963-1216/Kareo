@@ -170,8 +170,9 @@ try {
   if (args.length && !negative) throw new Error('Unsupported arguments');
   const url = new URL(process.env.KAREO_TEST_PG_URL ?? '');
   if (!['postgres:', 'postgresql:'].includes(url.protocol) || !['localhost', '127.0.0.1'].includes(url.hostname)
+      || url.search !== '' || url.hash !== ''
       || url.pathname !== '/kareo_concurrency_test' || url.username !== 'kareo_test'
-      || process.env.KAREO_TEST_PG_DISPOSABLE !== '1') throw new Error('Explicit disposable local test database configuration required');
+      || process.env.KAREO_TEST_PG_DISPOSABLE !== '1') throw Object.assign(new Error('Explicit disposable local test database configuration required'), { code: 'CONFIG_REJECTED' });
   for (let i = 0; i < 3; i++) {
     const db = new pg.Client({ connectionString: url.href, connectionTimeoutMillis: 5000, statement_timeout: 10000 });
     clients.push(db); await db.connect();
@@ -207,7 +208,7 @@ try {
   }
 } catch (error) {
   // All data is synthetic, nevertheless avoid echoing connection URLs or arbitrary SQL exceptions.
-  console.error(`FAIL PG-CONCURRENCY ${error.code === 'SHARED_LOCK_NOT_OBSERVED' ? 'SHARED_LOCK_NOT_OBSERVED'
+  console.error(`FAIL PG-CONCURRENCY ${['SHARED_LOCK_NOT_OBSERVED', 'CONFIG_REJECTED'].includes(error.code) ? error.code
     : error instanceof assert.AssertionError ? error.message : 'setup or RPC behaviour failed'}`);
   process.exitCode = 1;
 } finally {

@@ -4,7 +4,7 @@
 
 ## 真正 PostgreSQL 併發
 
-從 repo 根目錄執行。先準備**專用可丟棄** PostgreSQL 17，固定資料庫 `kareo_concurrency_test`、帳號 `kareo_test`、loopback 監聽。腳本會 DROP／重建 public schema，不得使用含有其他資料的本機庫。
+從 repo 根目錄執行。先準備**專用可丟棄** PostgreSQL 17，固定資料庫 `kareo_concurrency_test`、帳號 `kareo_test`、loopback 監聽。URI 不允許 query／fragment，避免連線參數覆寫本機限制。腳本會 DROP／重建 public schema，不得使用含有其他資料的本機庫。
 
 ```sh
 npm ci --prefix tests/db
