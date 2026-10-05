@@ -15,7 +15,7 @@ export async function captureSyntheticSnapshot(db) {
     tables[tablename] = (await db.query(`select to_jsonb(t) as row from public."${tablename}" t`)).rows.map(r => r.row);
   }
   // Caller is the guarded disposable local HTTP stack. Never persist raw rows.
-  return { format:'kareo-app-snapshot-v1', projectRef:'LOCAL-SYNTHETIC', schemaThrough:'0026', tables };
+  return { format:'kareo-app-snapshot-v1', projectRef:'LOCAL-SYNTHETIC', schemaThrough:'0027', tables };
 }
 
 export async function restoreAndReplaySyntheticDeletion(snapshot, receipt, operatorId) {

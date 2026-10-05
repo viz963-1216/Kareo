@@ -4,7 +4,7 @@ This is LOCAL evidence, not deployed E2E or release approval. It starts actual b
 
 ## What it verifies
 
-41 checks cover public resources and knowledge, session tokens and consent, rule-based assessment, recommendation and location fallback, Lead idempotency and protected operator CLI, admin review/publish/withdraw, safe HTTP errors, and protected retention cleanup with rollback/retry. The frontend is built in real API mode and its HTML is served; this does **not** verify browser interaction, keyboard navigation or RWD.
+46 checks cover public resources and knowledge, session tokens and consent, rule-based assessment, recommendation and location fallback, Lead idempotency and protected operator CLI, admin review/publish/withdraw, safe HTTP errors, and protected retention cleanup with rollback/retry. The frontend is built in real API mode and its HTML is served; this does **not** verify browser interaction, keyboard navigation or RWD.
 
 Actual dataset imports use the existing protected CLIs: 35 resources, 30 services, 98 active service areas, 19 contract regions and 5 approved packs / 21 published knowledge records. Mutated candidate sets, failure triggers, additional knowledge and contact details are synthetic fixtures inside the disposable database. Original data files stay unchanged.
 
@@ -68,3 +68,5 @@ LOCAL-39 and LOCAL-40 capture earlier application snapshots inside the guarded d
 This is application-level restore evidence, not a Supabase physical backup exercise. The receipt is synthetic and kept separately in memory during the test; a durable production deletion ledger independent of the restored backup still needs implementation and operational verification. No cloud data or formal consent version is changed.
 
 LOCAL-41 verifies the frontend HTTP archive returns the exact proposed text bytes and SHA-256, explicitly marks it non-active, and excludes private approval metadata from the public index. Both frontend dev/build prepare these generated assets; this does not activate any consent version.
+
+LOCAL-42–46 execute the protected privacy CLI through actual supabase-js/PostgREST: wrong-key and verification rejection, exact private export, real published-rule correction, stale recommendation invalidation, and lost-token stop/delete. No real mail or identity verification is claimed; requests are synthetic operator attestations. All 27 migrations apply.

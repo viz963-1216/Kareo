@@ -186,6 +186,12 @@ export async function startLocalStack({ databaseUrl, postgrestBinary, disposable
       const path = join(temp, 'synthetic-admin-pack.json'); writeFileSync(path, JSON.stringify(pack));
       await cli('importKnowledgePack', ['--commit', '--operator-id', LOCAL_OPERATOR, path, join(root, 'docs/knowledge/source-registry.md')]);
     };
-    return { baseUrl, db, cli, close, operatorKey, jwt, migrations, prepareAdminFixture, backend: 'PostgreSQL 17 + official PostgREST + supabase-js + bundled Functions', frontendBuilt: frontend };
+    const privateFile = (name, value) => {
+      assert.match(name,/^[a-z0-9_-]+\.json$/);
+      const path = join(temp,name);
+      if (value !== undefined) writeFileSync(path,JSON.stringify(value),{mode:0o600});
+      return path;
+    };
+    return { baseUrl, db, cli, close, operatorKey, jwt, migrations, prepareAdminFixture, privateFile, backend: 'PostgreSQL 17 + official PostgREST + supabase-js + bundled Functions', frontendBuilt: frontend };
   } catch (e) { await close(); throw e; }
 }

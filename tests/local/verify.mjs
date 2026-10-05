@@ -1,7 +1,7 @@
 // Local HTTP integration evidence; never a deployed E2E result or release gate input.
 import assert from 'node:assert/strict';
 import { createHash, randomUUID } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 import { TEST_CONSENT, LOCAL_OPERATOR } from './stack.mjs';
 import { captureSyntheticSnapshot, restoreAndReplaySyntheticDeletion } from './restore-delete.mjs';
 
@@ -39,8 +39,8 @@ export async function verifyLocalStack(stack) {
   let main, mainAssessment, mainRecommendation, lead, adminToken, stalePreview, adminRecords, deletionTargets, deletionAssessments, deletionRuns, healthBefore;
   const legalBefore = createHash('sha256').update(readFileSync('contracts/legal/consent-versions.json')).digest('hex');
   try {
-    await test('LOCAL-01', '26 migrations, imported 35 resources / 30 services / 98 areas / 19 contract regions; 5 approved packs / 21 published records', async () => {
-      assert.equal(stack.migrations.length, 26);
+    await test('LOCAL-01', '27 migrations, imported 35 resources / 30 services / 98 areas / 19 contract regions; 5 approved packs / 21 published records', async () => {
+      assert.equal(stack.migrations.length, 27);
       const counts = (await db.query(`select (select count(*)::int from providers) providers, (select count(*)::int from provider_services) services,
         (select count(*)::int from provider_service_areas where active) areas, (select count(*)::int from provider_contract_regions) contracts,
         (select count(*)::int from content_packs) packs, (select count(*)::int from knowledge_version_records) records`)).rows[0];
@@ -185,6 +185,56 @@ export async function verifyLocalStack(stack) {
       const centers = success(await call('GET', '/api/v1/providers?resourceCategory=ASSISTIVE_DEVICE_CENTER')).items;
       const centerIds = new Set(centers.map(p => p.id));
       assert.ok(r.providers.every(p => !centerIds.has(p.id)));
+    });
+    let privacySession, privacyAssessment, privacyLead;
+    const privacyRequest = (suffix, action, extra={}) => ({requestId:'PRQ-LOCAL-'+suffix,action,sessionId:privacySession.sessionId,
+      receivedAt:new Date(Date.now()-10000).toISOString(),verifiedAt:new Date().toISOString(),verificationMethod:'ORIGINAL_CONTACT_CONFIRMED',verificationRef:'CASE-LOCAL-PRIVACY',...extra});
+    const privacyCli = async (name,q,overrides={},output=false) => {
+      const request = stack.privateFile(name+'.json',q);
+      const path = stack.privateFile(name+'-export.json');
+      const log = await cli('privacyRights',['--request='+request,...(output?['--output='+path]:[])],overrides);
+      return {log,path};
+    };
+    await test('LOCAL-42','Protected lost-token privacy CLI rejects wrong key, missing verification and cross-target request without mutation',async()=>{
+      privacySession=await session();privacyAssessment=await assess(privacySession);const r=await recommend(privacySession,privacyAssessment);
+      privacyLead=success(await call('POST','/api/v1/leads',{token:privacySession.sessionToken,headers:{'Idempotency-Key':randomUUID()},body:{sessionId:privacySession.sessionId,assessmentId:privacyAssessment.assessmentId,recommendationId:r.recommendationId,providerId:r.providers[0].id,serviceType:'HOME_CARE',contact:{name:'合成權利測試',phone:'0900000000'},contactConsent:true}}));
+      await assert.rejects(()=>privacyCli('privacy-denied',privacyRequest('DENIED','DELETE'),{KAREO_OPERATOR_KEY:'wrong'}),/Privacy operation failed/);
+      await assert.rejects(()=>privacyCli('privacy-proof',privacyRequest('PROOF','DELETE',{verificationMethod:'KNOWS_ID'})),/Privacy operation failed/);
+      await assert.rejects(()=>privacyCli('privacy-cross',privacyRequest('CROSS','DELETE',{leadId:lead.leadId})),/Privacy operation failed/);
+      assert.equal((await db.query('select status from sessions where id=$1',[privacySession.sessionId])).rows[0].status,'ACTIVE');
+      assert.equal((await db.query('select count(*)::int n from privacy_operations')).rows[0].n,0);
+    });
+    await test('LOCAL-43','Actual privacy export CLI writes only the verified case to a private file, excluding tokens/key hashes and other users',async()=>{
+      const {log,path}=await privacyCli('privacy-export',privacyRequest('EXPORT','EXPORT'),{},true);
+      const raw=readFileSync(path,'utf8');const exported=JSON.parse(raw);
+      assert.equal(statSync(path).mode&0o777,0o600);assert.equal(exported.session.id,privacySession.sessionId);
+      assert.ok(!raw.includes(main.sessionId)&&!raw.includes(privacySession.sessionToken)&&!raw.includes('token_hash')&&!raw.includes(stack.operatorKey));
+      assert.equal(exported.assessments[0].id,privacyAssessment.assessmentId);assert.ok(!log.includes('0900000000')&&!log.includes('本機虛構'));
+      await assert.rejects(()=>privacyCli('privacy-reuse',privacyRequest('EXPORT','DELETE')),/Privacy operation failed/);
+    });
+    await test('LOCAL-44','Actual correction CLI uses published rule engine, atomically replaces profile and removes stale recommendations/outreach',async()=>{
+      await privacyCli('privacy-contact',privacyRequest('CONTACT','CORRECT_CONTACT',{leadId:privacyLead.leadId,correction:{name:'合成更正稱呼',phone:'0900000001'}}));
+      assert.equal((await db.query('select contact_phone from leads where id=$1',[privacyLead.leadId])).rows[0].contact_phone,'0900000001');
+      const correction={...assessmentBody(privacySession.sessionId),mobilityLevel:'INDEPENDENT',dailyLivingLevel:'INDEPENDENT',freeText:'本機合成更正，無居服需求。',needs:{homeCare:'NO',medicalNursing:'NO',assistiveDevice:'YES',transportation:'NO'}};
+      await privacyCli('privacy-assessment',privacyRequest('ASSESSMENT','CORRECT_ASSESSMENT',{assessmentId:privacyAssessment.assessmentId,correction}));
+      const profile=(await db.query('select care_needs,summary from care_need_profiles where assessment_id=$1',[privacyAssessment.assessmentId])).rows[0];
+      assert.ok(!profile.care_needs.includes('HOME_CARE')&&profile.care_needs.includes('ASSISTIVE_DEVICE'));
+      assert.equal((await db.query('select count(*)::int n from recommendation_runs where assessment_id=$1',[privacyAssessment.assessmentId])).rows[0].n,0);
+      const l=(await db.query('select status,status_reason,contact_phone from leads where id=$1',[privacyLead.leadId])).rows[0];
+      assert.deepEqual(l,{status:'CANCELLED',status_reason:'DATA_CORRECTED',contact_phone:null});
+      assert.ok(!(await db.query('select result_counts::text result from privacy_operations')).rows.some(r=>r.result.includes('0900000001')));
+    });
+    await test('LOCAL-45','Verified data steward stops a lost-token case; old visitor token cannot create more health data',async()=>{
+      await privacyCli('privacy-stop',privacyRequest('STOP','STOP'));
+      error(await call('POST','/api/v1/assessments',{token:privacySession.sessionToken,body:assessmentBody(privacySession.sessionId)}),401,'SESSION_INVALID');
+      assert.equal((await db.query('select status from sessions where id=$1',[main.sessionId])).rows[0].status,'ACTIVE');
+    });
+    await test('LOCAL-46','Verified data steward deletes another lost-token case and records the exact target without impersonating the user',async()=>{
+      const s=await session();await assess(s);
+      await privacyCli('privacy-delete',privacyRequest('DELETE','DELETE',{sessionId:s.sessionId}));
+      assert.equal((await db.query('select status from sessions where id=$1',[s.sessionId])).rows[0].status,'DELETION_REQUESTED');
+      assert.equal((await db.query("select count(*)::int n from privacy_operations where request_id='PRQ-LOCAL-DELETE' and session_id=$1",[s.sessionId])).rows[0].n,1);
+      error(await call('POST','/api/v1/assessments',{token:s.sessionToken,body:assessmentBody(s.sessionId)}),401,'SESSION_INVALID');
     });
     await test('LOCAL-18', 'Withdrawal schedules deletion, clears contacts, cancels an open Lead; all subsequent writes rejected', async () => {
       const s = await session(); const a = await assess(s); const r = await recommend(s,a);
@@ -340,7 +390,7 @@ export async function verifyLocalStack(stack) {
       return rows;
     };
     await test('LOCAL-35', 'Actual protected retention CLI rejects wrong key; dry-run changes neither health tables nor audit', async () => {
-      deletionTargets=(await db.query("select id from sessions where status='DELETION_REQUESTED'")).rows.map(r=>r.id); assert.equal(deletionTargets.length,2);
+      deletionTargets=(await db.query("select id from sessions where status='DELETION_REQUESTED'")).rows.map(r=>r.id); assert.equal(deletionTargets.length,4);
       deletionAssessments=(await db.query('select id from assessments where session_id=any($1::text[])',[deletionTargets])).rows.map(r=>r.id);
       deletionRuns=(await db.query('select id from recommendation_runs where assessment_id=any($1::text[])',[deletionAssessments])).rows.map(r=>r.id);
       assert.ok(deletionAssessments.length > 0); assert.ok(deletionRuns.length > 0);
@@ -360,16 +410,16 @@ export async function verifyLocalStack(stack) {
     });
     await test('LOCAL-37', 'Retry cleans all requested health data, retains required consent evidence, creates SUCCESS audit; second retry deletes zero', async () => {
       const cleaned=await cli('cleanupExpiredData',['--commit','--operator-id',LOCAL_OPERATOR]); assert.ok(cleaned.includes('Status: SUCCESS'));
-      assert.equal((await db.query("select count(*)::int n from sessions where id=any($1::text[]) and status='DELETED'",[deletionTargets])).rows[0].n,2);
+      assert.equal((await db.query("select count(*)::int n from sessions where id=any($1::text[]) and status='DELETED'",[deletionTargets])).rows[0].n,deletionTargets.length);
       assert.equal((await db.query('select count(*)::int n from assessments where session_id=any($1::text[])',[deletionTargets])).rows[0].n,0);
       assert.equal((await db.query('select count(*)::int n from care_need_profiles where assessment_id=any($1::text[])',[deletionAssessments])).rows[0].n,0);
       assert.equal((await db.query('select count(*)::int n from recommendation_runs where assessment_id=any($1::text[])',[deletionAssessments])).rows[0].n,0);
       assert.equal((await db.query('select count(*)::int n from recommendation_items where recommendation_run_id=any($1::text[])',[deletionRuns])).rows[0].n,0);
-      assert.equal((await db.query('select count(*)::int n from consents where session_id=any($1::text[])',[deletionTargets])).rows[0].n,2);
+      assert.equal((await db.query('select count(*)::int n from consents where session_id=any($1::text[])',[deletionTargets])).rows[0].n,deletionTargets.length);
       const current=await health();
       await cli('cleanupExpiredData',['--commit','--operator-id',LOCAL_OPERATOR]); assert.deepEqual(await health(),current);
       const successes=(await db.query("select sessions_deleted from deletion_runs where status='SUCCESS' order by started_at,id")).rows;
-      assert.deepEqual(successes.map(r=>r.sessions_deleted),[2,0]);
+      assert.deepEqual(successes.map(r=>r.sessions_deleted),[4,0]);
     });
     await test('LOCAL-39', 'Earlier synthetic backup revives health/contact; replay actual withdrawal receipt and cleanup removes them again', async () => {
       restoreRehearsals.push(await restoreAndReplaySyntheticDeletion(withdrawalSnapshot,withdrawalReceipt,LOCAL_OPERATOR));
@@ -380,6 +430,6 @@ export async function verifyLocalStack(stack) {
   } catch { /* first failure is recorded; no false success or dependent-case cascade */ }
   return { schemaVersion:1, scope:'LOCAL-INTEGRATION-ONLY', releaseAcceptance:false, backend:stack.backend, baseUrl, startedAt, finishedAt:new Date().toISOString(),
     consent:'Synthetic LOCAL-TEST combo only in temporary bundles; production contract remains DRAFT', cloudWrites:0,
-    status:results.length===41 && results.every(r=>r.status==='PASS')?'PASS':'FAIL', results, restoreRehearsals,
+    status:results.length===46 && results.every(r=>r.status==='PASS')?'PASS':'FAIL', results, restoreRehearsals,
     limitations:['Not Netlify/deployed E2E; not counted toward the 49-case release gate','Browser/manual/operational cases require separate evidence','No actual daily scheduler trigger or formal D-05 approval'] };
 }
