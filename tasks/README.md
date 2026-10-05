@@ -32,6 +32,10 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新本機 HTTP 整合（2026-10-05；J-003-r14）
+
+基底 staging `5edbd1e`（#77）；目前已提交 ABC 模組均已 MERGED。新增一次性 PostgreSQL 17＋官方 PostgREST＋正式 Functions／supabase-js HTTP 整合與 CI，驗證主流程、權限、管理知識與清理回滾；只使用隔離資料及暫存測試同意。38 項 LOCAL 檢查不計入 49 項部署 E2E，D-05 仍 DRAFT，Integrated 仍否。Jerry 暫緩付費正式上線，現階段可持續本機驗證、操作／資料權利與復原準備。證據見 `docs/acceptance/J003-2026-10-05-local-http.md`；以下為較早快照。
+
 # 最新晚到健康寫入修正（2026-10-04；J-003-r13）
 
 基底 #76 已合併（staging `e1ec25a`）。J 複驗重現四種評估／推薦晚到請求：撤回／刪除已提交，舊服務仍能建立健康資料。前向 0026＋正式 repository/service 在最後原子交易重新檢查 token／Session／同意與歸屬；14 項實際服務＋SQL 回歸、真正 PG17 22 PASS。公共 API 与規則引擎／排序不變。證據見 `docs/acceptance/J003-2026-10-04-late-health-writes.md`；Integrated 仍否。

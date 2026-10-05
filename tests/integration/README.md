@@ -31,3 +31,8 @@ database already has.
 ## 2026-10-04 J-003-r12：併發與回填分層證據
 
 `tests/db/verify-concurrency.mjs` 在真正 PostgreSQL 17 三個獨立 backend 通過 8 項鎖／過期狀態檢查；錯誤鎖對照指定失敗。`scripts/rehearse-content-backfill.mjs` 在私人快照的本機副本通過受保護 CLI 七項檢查。詳見 `docs/acceptance/J003-2026-10-04-postgres-and-backfill.md`。這些不採計 49 項部署 E2E；沒有雲端回填、沒有改 D-05 DRAFT、沒有改憑證或預設分支。
+
+
+## 2026-10-05 J-003-r14：官方 PostgREST 本機 HTTP
+
+新入口在 `tests/local/`，見 [重跑指南](../local/README.md)。它與上面的 shim 不同：啟動官方 PostgREST，以正式 JWT role switching、supabase-js、正式 Functions 和受保護 CLI 實際 HTTP 讀寫隔離 PostgreSQL 17。38 項 LOCAL 檢查涵蓋主要流程與失敗回滾；輸出不是 `tests/e2e/` 證據。獨立 CI 無雲端憑證，對應 [本輪驗證紀錄](../../docs/acceptance/J003-2026-10-05-local-http.md)。既有 repro 與歷史結果保留，不代替新版測試或部署驗收。
