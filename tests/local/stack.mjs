@@ -11,6 +11,7 @@ import { pathToFileURL, fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 import { setTimeout as delay } from 'node:timers/promises';
 import { parseRedirects, firstRedirect, functionName } from '../../scripts/lib/netlify-routes.mjs';
+import { publishConsentProposals } from '../../scripts/lib/consent-proposal-archive.mjs';
 
 export const TEST_CONSENT = { disclaimerVersion: 'LOCAL-TEST-2026-10-05', privacyVersion: 'LOCAL-TEST-2026-10-05', termsVersion: 'LOCAL-TEST-2026-10-05' };
 export const LOCAL_OPERATOR = 'LOCAL-SYNTHETIC-OPERATOR';
@@ -172,6 +173,9 @@ export async function startLocalStack({ databaseUrl, postgrestBinary, disposable
         ...process.env, VITE_KAREO_API_MODE: 'real', VITE_KAREO_DEPLOY_CONTEXT: 'local', VITE_KAREO_REQUIRE_SESSION_TOKEN: 'true', VITE_KAREO_ENABLE_PRECISE_LOCATION: 'true',
         VITE_CONSENT_DISCLAIMER_VERSION: TEST_CONSENT.disclaimerVersion, VITE_CONSENT_PRIVACY_VERSION: TEST_CONSENT.privacyVersion, VITE_CONSENT_TERMS_VERSION: TEST_CONSENT.termsVersion,
       }, join(root, 'apps/web'));
+      // This disposable build calls Vite directly, so npm's prebuild hook does
+      // not run. Generate its archive explicitly from canonical source bytes.
+      await publishConsentProposals(root, staticRoot);
     }
     const prepareAdminFixture = async () => {
       const pack = JSON.parse(readFileSync(packs[0], 'utf8'));

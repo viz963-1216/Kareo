@@ -3,9 +3,9 @@
   "scope": "LOCAL-INTEGRATION-ONLY",
   "releaseAcceptance": false,
   "backend": "PostgreSQL 17 + official PostgREST + supabase-js + bundled Functions",
-  "baseUrl": "http://127.0.0.1:60072",
-  "startedAt": "2026-10-05T02:34:22.936Z",
-  "finishedAt": "2026-10-05T02:34:31.578Z",
+  "baseUrl": "http://127.0.0.1:60297",
+  "startedAt": "2026-10-05T02:43:31.492Z",
+  "finishedAt": "2026-10-05T02:43:45.842Z",
   "consent": "Synthetic LOCAL-TEST combo only in temporary bundles; production contract remains DRAFT",
   "cloudWrites": 0,
   "status": "PASS",
@@ -275,6 +275,6 @@
     "Browser/manual/operational cases require separate evidence",
     "No actual daily scheduler trigger or formal D-05 approval"
   ],
-  "sourceCommit": "f790840103c10882cc6c8a28f81394a7c12f34e4",
+  "sourceCommit": "d33160252b06c14595ef74b9502fc168f2d9dd79",
   "workingTreeDirty": true
 }

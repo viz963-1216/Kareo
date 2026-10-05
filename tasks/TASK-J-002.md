@@ -94,3 +94,5 @@ Jerry 授權依適用法規與同類平台做法通過審閱，記錄營運方�
 本輪中心整合範圍依 Jerry 持續完成 ABCJ 與 D-05 的授權，包含 `/apps/web/**` 的草案狀態文案與候選下載連結、前端 npm 建置鉤子、`/scripts/**` 的全文輸出與檢查、`/tests/**` 的實際 HTTP 與指紋負向驗證，以及根 `.gitignore`。這是 J 負責的本輪跨模組整合授權；不更改 A／B／C 的一般 Ownership 或所有 Task 的 Allowed Paths。未改 API、資料庫 schema、實際同意版本狀態或套件版本。
 
 本輪驗證：前端 78 PASS；全文輸出負向測試 1 PASS；根目錄正式建置 PASS；真實 PostgreSQL／PostgREST 本機整合 41／41 PASS（新增 LOCAL-41 取回全文的位元組及指紋）。報告 `docs/acceptance/evidence/D05-2026-10-05-conditional-review.json` 記錄基底 commit 與 dirty 工作樹，非部署 E2E；PR CI 將驗證提交後的實際 head。
+
+PR #80 乾淨 CI 首次檢查發現測試工具直接呼叫 Vite、未執行 npm prebuild；LOCAL-41 下載取得 SPA HTML，依指紋正確失敗。已修正本機隔離建置以同一個正式全文輸出函式產生暫存下載檔；刪除全部已產生 public 文案後重跑，41／41 PASS。更新報告基底為 `d33160252b06c14595ef74b9502fc168f2d9dd79`、workingTreeDirty=true。先前本機成功依賴已產生檔案，不能替代這次乾淨驗證；合併仍待修正 head CI 通過。
