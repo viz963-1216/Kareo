@@ -8,15 +8,16 @@ export async function cleanupStaging({ mode, env, loadCli, log = console.log, er
     if (!['dry-run', 'commit'].includes(mode)) throw new Error('Invalid mode');
     const url = new URL(env.SUPABASE_URL);
     if (url.protocol !== 'https:' || url.hostname !== 'ojawadobnaxduxybqolk.supabase.co'
-        || url.username || url.password || url.search || url.hash || !['', '/'].includes(url.pathname)) {
+        || url.username || url.password || url.port || url.search || url.hash || !['', '/'].includes(url.pathname)) {
       throw new Error('Wrong acceptance project');
     }
-    for (const key of ['SUPABASE_SERVICE_ROLE_KEY', 'KAREO_OPERATOR_ID', 'KAREO_OPERATOR_KEY']) {
+    for (const key of ['SUPABASE_SERVICE_ROLE_KEY', 'KAREO_OPERATOR_ID', 'KAREO_OPERATOR_KEY', 'NETLIFY_AUTH_TOKEN', 'NETLIFY_SITE_ID']) {
       if (typeof env[key] !== 'string' || !env[key].trim()) throw new Error('Missing configuration');
     }
-    const { runCleanupCli, sessionRepo, operatorRepo } = await loadCli();
+    const { runCleanupCli, sessionRepo, operatorRepo, journal, replayRepo } = await loadCli();
+    if (!journal || !replayRepo) throw new Error('Missing independent journal');
     return await runCleanupCli([`--${mode}`, '--operator-id', env.KAREO_OPERATOR_ID], env,
-      { sessionRepo, operatorRepo, log, error });
+      { sessionRepo, operatorRepo, journal, replayRepo, log, error });
   } catch {
     // CLI/database exceptions can carry SQL or private data. Let DeletionRun keep
     // its sanitized failure classification; Actions logs must not echo exceptions.
@@ -29,11 +30,13 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
   const args = process.argv.slice(2);
   const mode = args.length === 1 ? args[0].match(/^--mode=(dry-run|commit)$/)?.[1] : undefined;
   process.exitCode = await cleanupStaging({ mode, env: process.env, loadCli: async () => {
-    const [{ runCleanupCli }, { SupabaseSessionRepository }, { SupabaseLeadRepository }] = await Promise.all([
+    const [{ runCleanupCli }, { SupabaseSessionRepository }, { SupabaseLeadRepository }, { createDeletionJournal }, { SupabaseDeletionJournalRepository }] = await Promise.all([
       import('../apps/api/dist/scripts/cleanupExpiredData.js'),
       import('../apps/api/dist/repositories/supabaseSessionRepository.js'),
       import('../apps/api/dist/repositories/supabaseLeadRepository.js'),
+      import('../apps/api/dist/privacy/netlifyDeletionJournal.js'),
+      import('../apps/api/dist/repositories/supabaseDeletionJournalRepository.js'),
     ]);
-    return { runCleanupCli, sessionRepo: new SupabaseSessionRepository(), operatorRepo: new SupabaseLeadRepository() };
+    return { runCleanupCli, journal:createDeletionJournal(), replayRepo:new SupabaseDeletionJournalRepository(), sessionRepo: new SupabaseSessionRepository(), operatorRepo: new SupabaseLeadRepository() };
   } });
 }

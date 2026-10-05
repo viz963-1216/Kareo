@@ -53,14 +53,15 @@ export async function startLocalStack({ databaseUrl, postgrestBinary, disposable
   const db = new Client({ connectionString: dbUrl.href, statement_timeout: 15000 });
   const temp = realpathSync(mkdtempSync(join(tmpdir(), 'kareo-local-stack-')));
   const handlers = new Map();
-  let gateway, postgrest, stopped = false;
-  const savedEnv = Object.fromEntries(['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'].map(k => [k, process.env[k]]));
+  let gateway, postgrest, blobsServer, stopped = false;
+  const savedEnv = Object.fromEntries(['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'NETLIFY_BLOBS_CONTEXT'].map(k => [k, process.env[k]]));
   const close = async () => {
     if (stopped) return; stopped = true;
     if (gateway) { gateway.closeAllConnections(); await new Promise(r => gateway.close(r)); }
     if (postgrest && postgrest.exitCode === null && postgrest.signalCode === null) {
       const ended = new Promise(r => postgrest.once('exit', r)); postgrest.kill('SIGTERM'); await ended;
     }
+    if (blobsServer) await blobsServer.stop();
     await db.end();
     for (const [k, v] of Object.entries(savedEnv)) { if (v === undefined) delete process.env[k]; else process.env[k] = v; }
     rmSync(temp, { recursive: true, force: true });
@@ -105,6 +106,14 @@ export async function startLocalStack({ databaseUrl, postgrestBinary, disposable
       await delay(100);
     }
     assert.ok(ready, 'PostgREST schema not ready');
+    // Official SDK's filesystem server is a separate durable store, not in the
+    // PostgreSQL snapshot. Only synthetic receipts and random local credentials.
+    const {BlobsServer}=apiRequire('@netlify/blobs/server');
+    const blobsToken=randomBytes(32).toString('hex'), blobsSite='00000000-0000-4000-8000-000000000001';
+    blobsServer=new BlobsServer({directory:join(temp,'independent-blobs'),token:blobsToken,logger:()=>{},debug:false});
+    const blobAddress=await blobsServer.start(), blobsUrl=`http://127.0.0.1:${blobAddress.port}`;
+    const blobsContext=Buffer.from(JSON.stringify({edgeURL:blobsUrl,uncachedEdgeURL:blobsUrl,siteID:blobsSite,token:blobsToken})).toString('base64');
+    process.env.NETLIFY_BLOBS_CONTEXT=blobsContext;
     const routes = parseRedirects(readFileSync(join(root, 'netlify.toml'), 'utf8'));
     const esbuild = apiRequire('esbuild');
     const consentPlugin = { name: 'local-test-consent-only', setup(build) {
@@ -114,10 +123,16 @@ export async function startLocalStack({ databaseUrl, postgrestBinary, disposable
         return { contents: JSON.stringify({ ...original, versions: [...original.versions, { ...TEST_CONSENT, status: 'ACTIVE' }] }), loader: 'json' };
       });
     } };
+    const journalPlugin={name:'explicit-local-journal-project',setup(build) {
+      build.onLoad({filter:/netlifyDeletionJournal\.ts$/},({path})=>{
+        assert.equal(resolve(path),join(root,'apps/api/src/privacy/netlifyDeletionJournal.ts'));
+        return {contents:readFileSync(path,'utf8').replaceAll('journalProjectRef(process.env.SUPABASE_URL)',"'LOCAL-SYNTHETIC'"),loader:'ts'};
+      });
+    }};
     for (const fn of new Set(routes.map(functionName).filter(Boolean))) {
       const output = join(temp, `${fn}.cjs`);
-      await esbuild.build({ entryPoints: [join(root, 'apps/api/src/functions', fn + '.ts')], outfile: output, bundle: true, platform: 'node', target: 'node22', format: 'cjs', logLevel: 'silent', plugins: [consentPlugin] });
-      handlers.set(fn, (await import(pathToFileURL(output).href)).handler);
+      await esbuild.build({ entryPoints: [join(root, 'apps/api/src/functions', fn + '.ts')], outfile: output, bundle: true, platform: 'node', target: 'node22', format: 'cjs', logLevel: 'silent', plugins: [consentPlugin,journalPlugin] });
+      handlers.set(fn, await import(pathToFileURL(output).href));
     }
     const staticRoot = join(temp, 'web');
     gateway = createServer(async (req, res) => {
@@ -135,8 +150,15 @@ export async function startLocalStack({ databaseUrl, postgrestBinary, disposable
           if (!fn) return send(404, { success: false, error: { code: 'NOT_FOUND', message: '此 API 尚未提供。' } });
           const body = []; let size = 0;
           for await (const b of req) { size += b.length; if (size > 65536) return send(413, { success: false, error: { code: 'INVALID_REQUEST', message: '請求過大。' } }); body.push(b); }
-          const event = { httpMethod: req.method, path: url.pathname, rawUrl: `http://${req.headers.host}${req.url}`, queryStringParameters: Object.fromEntries(url.searchParams), headers: { ...req.headers, 'x-nf-client-connection-ip': '127.0.0.1' }, body: body.length ? Buffer.concat(body).toString('utf8') : null };
-          const response = await handlers.get(fn)(event, {});
+          const event = { httpMethod: req.method, path: url.pathname, rawUrl: `http://${req.headers.host}${req.url}`, queryStringParameters: Object.fromEntries(url.searchParams), headers: { ...req.headers, 'x-nf-client-connection-ip': '127.0.0.1', 'x-nf-site-id':blobsSite, 'x-nf-deploy-id':'local-synthetic-deploy' }, body: body.length ? Buffer.concat(body).toString('utf8') : null };
+          const module=handlers.get(fn);
+          const modern=typeof module.default==='function'?module.default:typeof module.default?.default==='function'?module.default.default:null;
+          const response=modern
+            ? await modern(new Request(event.rawUrl,{method:req.method,headers:event.headers,body:body.length?Buffer.concat(body):undefined}),{requestId:'local-synthetic'})
+            : await module.handler(event,{});
+          if (response instanceof Response) {
+            res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));return;
+          }
           res.writeHead(response.statusCode, response.headers); res.end(response.body); return;
         }
         const asset = resolve(staticRoot, '.' + decodeURIComponent(url.pathname));
@@ -157,7 +179,7 @@ export async function startLocalStack({ databaseUrl, postgrestBinary, disposable
     const localEnv = { ...process.env, SUPABASE_URL: baseUrl, SUPABASE_SERVICE_ROLE_KEY: jwt('service_role'), KAREO_OPERATOR_ID: LOCAL_OPERATOR, KAREO_OPERATOR_KEY: operatorKey };
     const cli = async (name, args, overrides = {}) => {
       const output = join(temp, `${name}.mjs`);
-      await esbuild.build({ entryPoints: [join(root, 'apps/api/src/scripts', name + '.ts')], outfile: output, bundle: true, platform: 'node', target: 'node22', format: 'esm', logLevel: 'silent', banner: { js: "import { createRequire as __createRequire } from 'node:module'; const require = __createRequire(import.meta.url);" } });
+      await esbuild.build({ entryPoints: [join(root, 'apps/api/src/scripts', name + '.ts')], outfile: output, bundle: true, platform: 'node', target: 'node22', format: 'esm', logLevel: 'silent', plugins:[journalPlugin], banner: { js: "import { createRequire as __createRequire } from 'node:module'; const require = __createRequire(import.meta.url);" } });
       return childRun(process.execPath, [output, ...args], { ...localEnv, ...overrides });
     };
     await cli('importProviderDataset', ['--commit', join(root, 'data/providers/staging')]);
@@ -186,12 +208,21 @@ export async function startLocalStack({ databaseUrl, postgrestBinary, disposable
       const path = join(temp, 'synthetic-admin-pack.json'); writeFileSync(path, JSON.stringify(pack));
       await cli('importKnowledgePack', ['--commit', '--operator-id', LOCAL_OPERATOR, path, join(root, 'docs/knowledge/source-registry.md')]);
     };
+    const journalOutput=join(temp,'journal.mjs');
+    await esbuild.build({entryPoints:[join(root,'apps/api/src/privacy/netlifyDeletionJournal.ts')],outfile:journalOutput,bundle:true,platform:'node',target:'node22',format:'esm',logLevel:'silent',plugins:[journalPlugin],banner:{js:"import { createRequire as __createRequire } from 'node:module'; const require = __createRequire(import.meta.url);"}});
+    const journal=(await import(pathToFileURL(journalOutput).href)).createDeletionJournal();
+    const unavailableBlobsContext=Buffer.from(JSON.stringify({edgeURL:blobsUrl,uncachedEdgeURL:blobsUrl,siteID:blobsSite,token:'wrong-local-token'})).toString('base64');
+    const withJournalUnavailable=async action=>{
+      const saved=process.env.NETLIFY_BLOBS_CONTEXT;
+      process.env.NETLIFY_BLOBS_CONTEXT=unavailableBlobsContext;
+      try {return await action();} finally {process.env.NETLIFY_BLOBS_CONTEXT=saved;}
+    };
     const privateFile = (name, value) => {
       assert.match(name,/^[a-z0-9_-]+\.json$/);
       const path = join(temp,name);
       if (value !== undefined) writeFileSync(path,JSON.stringify(value),{mode:0o600});
       return path;
     };
-    return { baseUrl, db, cli, close, operatorKey, jwt, migrations, prepareAdminFixture, privateFile, backend: 'PostgreSQL 17 + official PostgREST + supabase-js + bundled Functions', frontendBuilt: frontend };
+    return { baseUrl, db, cli, close, journal, withJournalUnavailable, unavailableBlobsContext, operatorKey, jwt, migrations, prepareAdminFixture, privateFile, backend: 'PostgreSQL 17 + official PostgREST + supabase-js + bundled Functions', frontendBuilt: frontend };
   } catch (e) { await close(); throw e; }
 }

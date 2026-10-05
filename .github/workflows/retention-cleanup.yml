@@ -31,6 +31,10 @@ jobs:
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       KAREO_OPERATOR_KEY: ${{ secrets.KAREO_OPERATOR_KEY }}
       KAREO_OPERATOR_ID: ${{ vars.KAREO_OPERATOR_ID }}
+      # Outside Netlify Functions there is no automatic Blobs context. The
+      # steward must explicitly delegate this access; missing access fails closed.
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ vars.NETLIFY_SITE_ID }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

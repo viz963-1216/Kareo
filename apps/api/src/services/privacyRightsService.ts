@@ -1,3 +1,5 @@
+import type { DeletionJournal } from "../privacy/deletionJournal.js";
+import { persistDeletionIntent } from "../privacy/persistDeletionIntent.js";
 import { hashOperatorKey, requireOperator } from './internalOperatorService.js';
 import { validateCreateAssessmentInput } from './assessmentService.js';
 import { taipeiDate } from '../assessment/knowledgeSnapshot.js';
@@ -28,6 +30,7 @@ export function validatePrivacyRequest(raw: unknown, now: Date): Record<string, 
     ...(q.assessmentId===undefined?{}:{assessmentId:q.assessmentId}), correction:q.correction };
 }
 export interface PrivacyRightsDeps {
+  journal?: DeletionJournal;
   operatorRepo: Pick<LeadRepository,'findOperatorById'>; privacyRepo: PrivacyRepository;
   knowledgeResolver: PublishedKnowledgeResolver; engine: CareAssessmentAIAdapter;
 }
@@ -55,6 +58,14 @@ export async function executePrivacyRight(deps: PrivacyRightsDeps, request: unkn
     const generated=await deps.engine.generateCareNeedProfile(input,{knowledge,today:taipeiDate(now)});
     return deps.privacyRepo.process({...q,...auth,sessionId,correction:undefined,expectedUpdatedAt:row.updatedAt,
       assessment:{...input,knowledgeVersion:knowledge.version,rulesVersion:generated.rulesVersion,ruleTrace:generated.ruleTrace},profile:generated.profile});
+  }
+  if (deps.journal && (q.action==='STOP' || q.action==='DELETE')) {
+    await deps.privacyRepo.checkUnused({...auth,requestId:q.requestId as string});
+    const context=await deps.privacyRepo.process({...q,...auth,action:'CONTEXT',requestId:q.requestId+'-CTX',correction:undefined});
+    const sessionId=context.data?.sessionId;
+    if (typeof sessionId!=='string') throw new Error('PRIVACY_TARGET_MISMATCH');
+    await persistDeletionIntent(deps.journal,sessionId,q.action==='STOP'?'CONSENT_WITHDRAWN':'USER_DELETED',now.toISOString());
+    q.sessionId=sessionId;
   }
   return deps.privacyRepo.process({...q,...auth,correction:undefined});
 }

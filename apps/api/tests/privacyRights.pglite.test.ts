@@ -103,4 +103,31 @@ describe('protected privacy SQL operations',()=>{
   expect((await db.query("select request_id from privacy_operations where request_id='PRQ-EXPORT'")).rows).toHaveLength(1);
  });
 
+ it('independent replay denies visitor/forged operator and foreign batch before mutation',async()=>{
+  await seed('REPLAY');
+  const r={schemaVersion:1,projectRef:'LOCAL-SYNTHETIC',sessionId:'SES-REPLAY',action:'USER_DELETED',requestedAt:new Date().toISOString()};
+  const input={projectRef:'LOCAL-SYNTHETIC',receipts:[r],operatorId:'OP-PRIVACY',operatorKeyHash:keyHash};
+  const replay=(q:unknown)=>db.query('select replay_deletion_receipts($1::jsonb)',[JSON.stringify(q)]);
+  for(const role of ['anon','authenticated']) {await db.exec('set role '+role);await expect(replay(input)).rejects.toThrow('permission denied');await db.exec('reset role');}
+  await expect(replay({...input,operatorKeyHash:'forged'})).rejects.toThrow('DELETION_REPLAY_UNAUTHORIZED');
+  await expect(replay({...input,receipts:[r,{...r,projectRef:'wrong'}]})).rejects.toThrow('DELETION_REPLAY_INVALID');
+  expect((await db.query("select status from sessions where id='SES-REPLAY'")).rows[0].status).toBe('ACTIVE');
+ });
+ it('replay, cleanup and audit failure roll back together; retry preserves the original receipt clock',async()=>{
+  await seed('REPLAY-ROLLBACK');const requestedAt=new Date(Date.now()-10000).toISOString();
+  const input={projectRef:'LOCAL-SYNTHETIC',receipts:[{schemaVersion:1,projectRef:'LOCAL-SYNTHETIC',sessionId:'SES-REPLAY-ROLLBACK',action:'USER_DELETED',requestedAt}],operatorId:'OP-PRIVACY',operatorKeyHash:keyHash,cleanup:{runId:'DRUN-REPLAY',operatorId:'forged-attribution',now:new Date().toISOString(),dryRun:false}};
+  const replay=(q:unknown)=>db.query<{r:{deletionRun:{operatorId:string;sessionsDeleted:number}}}>('select replay_deletion_receipts($1::jsonb) r',[JSON.stringify(q)]);
+  await db.exec("create function journal_fail() returns trigger language plpgsql as $$ begin raise exception 'SYNTHETIC_AUDIT_FAILURE'; end $$;create trigger journal_fail before insert on deletion_runs for each row execute function journal_fail();");
+  await expect(replay(input)).rejects.toThrow('SYNTHETIC_AUDIT_FAILURE');
+  expect((await db.query("select status from sessions where id='SES-REPLAY-ROLLBACK'")).rows[0].status).toBe('ACTIVE');
+  expect((await db.query("select contact_phone from leads where id='L-REPLAY-ROLLBACK'")).rows[0].contact_phone).toBe('0900000000');
+  await db.exec('drop trigger journal_fail on deletion_runs;drop function journal_fail();');
+  const result=(await replay(input)).rows[0].r;
+  expect(result.deletionRun.operatorId).toBe('OP-PRIVACY');expect(result.deletionRun.sessionsDeleted).toBeGreaterThan(0);
+  expect((await db.query("select status from sessions where id='SES-REPLAY-ROLLBACK'")).rows[0].status).toBe('DELETED');
+  expect((await db.query("select count(*)::int n from assessments where session_id='SES-REPLAY-ROLLBACK'")).rows[0].n).toBe(0);
+  const retry=(await replay({...input,cleanup:{...input.cleanup,runId:'DRUN-REPLAY-RETRY'}})).rows[0].r;
+  expect(retry.deletionRun.sessionsDeleted).toBe(0);
+ });
+
 });

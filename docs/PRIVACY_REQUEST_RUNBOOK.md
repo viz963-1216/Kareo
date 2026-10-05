@@ -7,7 +7,7 @@ Status：受保護工具已實作、本機合成端到端通過；雲端部署�
 
 ## 依據與已確認項目
 
-本文件落實 PRIVACY_AND_RETENTION §3、§6，不新增 API、資料表、保存期限或對外 SLA。Jerry 於 2026-10-03 在對話確認已用另一信箱測試收件及回覆；這是本人確認，未保存郵件內容或驗證實際刪除。
+本文件落實 PRIVACY_AND_RETENTION §3、§6，不新增公開 API 或對外 SLA。2026-10-05 的中心代辦 B-015 補了必要最小權利操作稽核表（1 年上限並提早檢視必要性）；B-016 補了依備份汰換檢查點處理的獨立刪除紀錄。Jerry 於 2026-10-03 在對話確認已用另一信箱測試收件及回覆；這是本人確認，未保存郵件內容或驗證實際刪除。
 
 權利種類包含查詢／閱覽／複製、補充更正、停止蒐集處理利用、刪除。依[個資法第 3、10、11、13 條](https://law.pdpc.gov.tw/LawContent.aspx?id=FL010627)分流：第 10 條請求的准駁決定為 15 日內，必要延長最多 15 日並書面告知原因；第 11 條請求為 30 日內，必要延長最多 30 日並書面告知原因。實際適用及例外由最終審閱確認，不因補件自行重設期限。現有規格「7 個工作天完成回覆」僅為未核准產品建議，不能替代法定准駁期限；自助刪除的 7 天清理則是另一項既有工程規格。
 
@@ -79,3 +79,7 @@ CORRECT_CONTACT additionally supplies leadId and correction `{name,phone}`; it m
 Never automatically interpret a pasted verificationMethod as proof. The human DATA_STEWARD attests only after the original-channel/proxy check; code can enforce its presence and scope but cannot certify a call. Independent request/identity evidence stays in the restricted case record, not GitHub. Transmit any export only to the checked recipient with a suitable protected channel.
 
 Local evidence: 46/46 actual HTTP/CLI checks and protected SQL regression, see [verification](acceptance/D05-2026-10-05-privacy-rights.md). P-02/P-04/P-08 technical paths are now tested with synthetic attestations; actual human processing remains to rehearse. Earlier BLOCKED rows above are historical, not current module status. Independent deletion journal, physical-backup scope and deployed E2E remain pending.
+
+## B-016 update (2026-10-05)
+
+Independent journal and guarded replay are now implemented with the actual official Netlify SDK. The expanded local suite passes 49/49; this does not count as deployed release E2E. See [journal verification and restore/checkpoint runbook](acceptance/D05-2026-10-05-deletion-journal.md). Before STOP/DELETE, the private rights CLI also needs delegated Netlify Blobs access; it writes no external record until personal authorization, human-verification attestation, target scope and unused request reference checks pass. Do not change a manifest/receipt by hand to bypass a failure. Keep the visitor entry closed after restore until replay and recorded cleanup have completed.

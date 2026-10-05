@@ -1,3 +1,5 @@
+import { withLambda } from "@netlify/aws-lambda-compat";
+import { createDeletionJournal } from "../privacy/netlifyDeletionJournal.js";
 // Netlify Functions 風格 Handler：(event) => HttpResponse。
 // 實際部署設定（netlify.toml functions 目錄）由 Jerry 於 Root Config 處理，
 // 本 Task 依 Allowed Paths 限制只提供 /apps/api/** 內的 Handler 實作。
@@ -11,6 +13,7 @@ import { AppError } from "../errors/AppError.js";
 
 interface NetlifyEvent {
   httpMethod: string;
+  blobs?: string;
   headers?: Record<string, string | undefined> | null;
 }
 
@@ -42,7 +45,7 @@ export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
   if (event.httpMethod === "DELETE") {
     try {
       const repo = new SupabaseSessionRepository();
-      const result = await deleteSession(repo, getSessionTokenHeader(event));
+      const result = await deleteSession(repo, getSessionTokenHeader(event), createDeletionJournal(event));
       return successResponse(result);
     } catch (err) {
       if (err instanceof AppError) return errorResponse(err);
@@ -52,3 +55,7 @@ export async function handler(event: NetlifyEvent): Promise<HttpResponse> {
 
   return errorResponse(new AppError("INVALID_REQUEST", "僅支援 POST 或 DELETE /api/v1/session。"));
 }
+
+// Modern runtime supplies uncached Blob access for strong-consistency reads.
+// Keep the named handler for isolated Lambda-shape module regressions.
+export default withLambda(handler);

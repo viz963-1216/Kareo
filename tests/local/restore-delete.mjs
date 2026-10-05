@@ -1,5 +1,6 @@
 // Synthetic application-data restore and deletion replay. No cloud/physical restore.
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
 import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
@@ -15,10 +16,10 @@ export async function captureSyntheticSnapshot(db) {
     tables[tablename] = (await db.query(`select to_jsonb(t) as row from public."${tablename}" t`)).rows.map(r => r.row);
   }
   // Caller is the guarded disposable local HTTP stack. Never persist raw rows.
-  return { format:'kareo-app-snapshot-v1', projectRef:'LOCAL-SYNTHETIC', schemaThrough:'0027', tables };
+  return { format:'kareo-app-snapshot-v1', projectRef:'LOCAL-SYNTHETIC', schemaThrough:'0028', tables };
 }
 
-export async function restoreAndReplaySyntheticDeletion(snapshot, receipt, operatorId) {
+export async function restoreAndReplaySyntheticDeletion(snapshot, receipt, operatorId, journal, operatorKey) {
   if (snapshot.projectRef !== 'LOCAL-SYNTHETIC' || operatorId !== 'LOCAL-SYNTHETIC-OPERATOR'
       || !['CONSENT_WITHDRAWN','USER_DELETED'].includes(receipt.action)
       || typeof receipt.sessionId !== 'string' || !Number.isFinite(Date.parse(receipt.requestedAt))) {
@@ -46,11 +47,15 @@ export async function restoreAndReplaySyntheticDeletion(snapshot, receipt, opera
     const publishedBefore = (await db.query(`select count(*)::int n from knowledge_version_records m
       join knowledge_versions v on v.id=m.version_id where v.status='PUBLISHED'`)).rows[0].n;
 
-    // Replay the synthetic receipt captured from the ACTUAL HTTP request after
-    // this earlier snapshot. This is not a production durable deletion ledger.
-    const rpc = receipt.action === 'CONSENT_WITHDRAWN' ? 'withdraw_consent' : 'request_session_deletion';
-    const replay = (await db.query(`select public.${rpc}($1::jsonb) as result`,[JSON.stringify({sessionId:sid,now:receipt.requestedAt})])).rows[0].result;
-    assert.ok(replay && (replay.updated === true || replay.sessionId === sid),'Actual deletion RPC must acknowledge request');
+    // Read the REAL SDK journal AFTER restoring the earlier PG snapshot. It
+    // survives independently in the official filesystem-backed Blobs server.
+    const archived=(await journal.readAll()).filter(r=>r.sessionId===sid && r.action===receipt.action);
+    assert.equal(archived.length,1,'Missing independent deletion intent blocks reopening');
+    assert.equal(Date.parse(archived[0].requestedAt),Date.parse(receipt.requestedAt));
+    const replay=(await db.query('select public.replay_deletion_receipts($1::jsonb) as result',[JSON.stringify({
+      projectRef:journal.projectRef,receipts:archived,operatorId,operatorKeyHash:createHash('sha256').update(operatorKey).digest('hex'),
+    })])).rows[0].result;
+    assert.equal(replay.receiptsRead,1);
     const cleared = (await db.query('select status,status_reason,contact_name,contact_phone from leads where session_id=$1',[sid])).rows;
     assert.ok(cleared.every(r => r.status === 'CANCELLED' && r.status_reason === receipt.action && r.contact_name === null && r.contact_phone === null));
     if (receipt.action === 'CONSENT_WITHDRAWN') {
@@ -69,11 +74,11 @@ export async function restoreAndReplaySyntheticDeletion(snapshot, receipt, opera
     const retry = (await db.query('select public.run_deletion_cleanup_recorded($1::jsonb) as result',[JSON.stringify(payload)])).rows[0].result;
     assert.equal(retry.sessionsDeleted,0);
     return {status:'PASS',kind:'synthetic-application-restore-and-deletion-replay',physicalBackupRestored:false,
-      cloudWrites:0,action:receipt.action,tablesCompared:restored.tables.length,migrationsApplied:restored.migrationsApplied,
+      cloudWrites:0,independentJournal:'official Netlify SDK filesystem server, outside database snapshot',action:receipt.action,tablesCompared:restored.tables.length,migrationsApplied:restored.migrationsApplied,
       negativeControl:{healthRestored:before.assessments,contactsRestored:beforeLeads},
       afterReplay:{healthRows:0,contacts:0,sessionStatus:'DELETED',consentEvidence:1},
       unrelatedActiveAssessmentsPreserved:true,publishedMembersPreserved:publishedBefore,retrySessionsDeleted:0,
-      limitations:['In-memory PGlite application restore, not Supabase physical backup','Synthetic in-memory receipt; production independent deletion ledger remains to implement and verify']};
+      limitations:['In-memory PGlite application restore, not Supabase physical backup','Official SDK local filesystem journal; deployed Netlify Blobs still require separate verification']};
   } catch { throw new Error('Synthetic application restore or deletion replay failed; no cloud database modified'); }
   finally { await db.close(); }
 }

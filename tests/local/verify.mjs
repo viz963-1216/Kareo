@@ -39,8 +39,8 @@ export async function verifyLocalStack(stack) {
   let main, mainAssessment, mainRecommendation, lead, adminToken, stalePreview, adminRecords, deletionTargets, deletionAssessments, deletionRuns, healthBefore;
   const legalBefore = createHash('sha256').update(readFileSync('contracts/legal/consent-versions.json')).digest('hex');
   try {
-    await test('LOCAL-01', '27 migrations, imported 35 resources / 30 services / 98 areas / 19 contract regions; 5 approved packs / 21 published records', async () => {
-      assert.equal(stack.migrations.length, 27);
+    await test('LOCAL-01', '28 migrations, imported 35 resources / 30 services / 98 areas / 19 contract regions; 5 approved packs / 21 published records', async () => {
+      assert.equal(stack.migrations.length, 28);
       const counts = (await db.query(`select (select count(*)::int from providers) providers, (select count(*)::int from provider_services) services,
         (select count(*)::int from provider_service_areas where active) areas, (select count(*)::int from provider_contract_regions) contracts,
         (select count(*)::int from content_packs) packs, (select count(*)::int from knowledge_version_records) records`)).rows[0];
@@ -256,6 +256,23 @@ export async function verifyLocalStack(stack) {
       error(await call('POST','/api/v1/assessments',{token:s.sessionToken,body:assessmentBody(s.sessionId)}),401,'SESSION_INVALID');
       error(await call('POST','/api/v1/recommendations',{token:s.sessionToken,body:{assessmentId:a.assessmentId,serviceType:'HOME_CARE'}}),401,'SESSION_INVALID');
     });
+    await test('LOCAL-47','Actual official SDK journal has minimal immutable receipts; unauthenticated visitor cannot write an intent',async()=>{
+      const before=await stack.journal.readAll(); assert.equal(before.length,4);
+      assert.ok(before.some(r=>r.sessionId===withdrawalReceipt.sessionId && r.action==='CONSENT_WITHDRAWN'));
+      assert.ok(before.every(r=>Object.keys(r).sort().join(',')==='action,projectRef,requestedAt,schemaVersion,sessionId'));
+      error(await call('DELETE','/api/v1/session',{token:'forged-invalid-token'}),401,'SESSION_INVALID');
+      await stack.journal.record(deletionReceipt.sessionId,'USER_DELETED',new Date().toISOString());
+      assert.deepEqual(await stack.journal.readAll(),before);
+    });
+    await test('LOCAL-48','Unavailable independent journal prevents successful DELETE and database mutation; repair and retry succeed',async()=>{
+      const s=await session(); await assess(s);
+      const count=(await stack.journal.readAll()).length;
+      await stack.withJournalUnavailable(async()=>error(await call('DELETE','/api/v1/session',{token:s.sessionToken}),500,'INTERNAL_ERROR'));
+      assert.equal((await db.query('select status from sessions where id=$1',[s.sessionId])).rows[0].status,'ACTIVE');
+      assert.equal((await stack.journal.readAll()).length,count);
+      success(await call('DELETE','/api/v1/session',{token:s.sessionToken}));
+      assert.equal((await stack.journal.readAll()).length,count+1);
+    });
     await test('LOCAL-20', 'Body above contract limit rejected; real persistent assessment rate limit returns 429 and Retry-After', async () => {
       error(await call('POST','/api/v1/assessments',{token:main.sessionToken,body:{...assessmentBody(main.sessionId),freeText:'x'.repeat(20000)}}),413,'PAYLOAD_TOO_LARGE');
       const s=await session(); await assess(s); await assess(s); await assess(s);
@@ -389,8 +406,13 @@ export async function verifyLocalStack(stack) {
         rows[table]=(await db.query(`select to_jsonb(t) row from public.${table} t order by to_jsonb(t)::text`)).rows;
       return rows;
     };
+    await test('LOCAL-49','Unreadable external journal blocks authenticated retention CLI before mutation or success audit',async()=>{
+      const original=await health(); const count=(await db.query('select count(*)::int n from deletion_runs')).rows[0].n;
+      await assert.rejects(cli('cleanupExpiredData',['--commit','--operator-id',LOCAL_OPERATOR],{NETLIFY_BLOBS_CONTEXT:stack.unavailableBlobsContext}),/Independent deletion journal\/read failed/);
+      assert.deepEqual(await health(),original); assert.equal((await db.query('select count(*)::int n from deletion_runs')).rows[0].n,count);
+    });
     await test('LOCAL-35', 'Actual protected retention CLI rejects wrong key; dry-run changes neither health tables nor audit', async () => {
-      deletionTargets=(await db.query("select id from sessions where status='DELETION_REQUESTED'")).rows.map(r=>r.id); assert.equal(deletionTargets.length,4);
+      deletionTargets=(await db.query("select id from sessions where status='DELETION_REQUESTED'")).rows.map(r=>r.id); assert.equal(deletionTargets.length,5);
       deletionAssessments=(await db.query('select id from assessments where session_id=any($1::text[])',[deletionTargets])).rows.map(r=>r.id);
       deletionRuns=(await db.query('select id from recommendation_runs where assessment_id=any($1::text[])',[deletionAssessments])).rows.map(r=>r.id);
       assert.ok(deletionAssessments.length > 0); assert.ok(deletionRuns.length > 0);
@@ -419,17 +441,17 @@ export async function verifyLocalStack(stack) {
       const current=await health();
       await cli('cleanupExpiredData',['--commit','--operator-id',LOCAL_OPERATOR]); assert.deepEqual(await health(),current);
       const successes=(await db.query("select sessions_deleted from deletion_runs where status='SUCCESS' order by started_at,id")).rows;
-      assert.deepEqual(successes.map(r=>r.sessions_deleted),[4,0]);
+      assert.deepEqual(successes.map(r=>r.sessions_deleted),[5,0]);
     });
     await test('LOCAL-39', 'Earlier synthetic backup revives health/contact; replay actual withdrawal receipt and cleanup removes them again', async () => {
-      restoreRehearsals.push(await restoreAndReplaySyntheticDeletion(withdrawalSnapshot,withdrawalReceipt,LOCAL_OPERATOR));
+      restoreRehearsals.push(await restoreAndReplaySyntheticDeletion(withdrawalSnapshot,withdrawalReceipt,LOCAL_OPERATOR,stack.journal,stack.operatorKey));
     });
     await test('LOCAL-40', 'Earlier synthetic backup revives deleted Session health; replay actual deletion receipt and cleanup, preserving unrelated data', async () => {
-      restoreRehearsals.push(await restoreAndReplaySyntheticDeletion(deletionSnapshot,deletionReceipt,LOCAL_OPERATOR));
+      restoreRehearsals.push(await restoreAndReplaySyntheticDeletion(deletionSnapshot,deletionReceipt,LOCAL_OPERATOR,stack.journal,stack.operatorKey));
     });
   } catch { /* first failure is recorded; no false success or dependent-case cascade */ }
   return { schemaVersion:1, scope:'LOCAL-INTEGRATION-ONLY', releaseAcceptance:false, backend:stack.backend, baseUrl, startedAt, finishedAt:new Date().toISOString(),
     consent:'Synthetic LOCAL-TEST combo only in temporary bundles; production contract remains DRAFT', cloudWrites:0,
-    status:results.length===46 && results.every(r=>r.status==='PASS')?'PASS':'FAIL', results, restoreRehearsals,
+    status:results.length===49 && results.every(r=>r.status==='PASS')?'PASS':'FAIL', results, restoreRehearsals,
     limitations:['Not Netlify/deployed E2E; not counted toward the 49-case release gate','Browser/manual/operational cases require separate evidence','No actual daily scheduler trigger or formal D-05 approval'] };
 }
