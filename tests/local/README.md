@@ -4,7 +4,7 @@ This is LOCAL evidence, not deployed E2E or release approval. It starts actual b
 
 ## What it verifies
 
-38 checks cover public resources and knowledge, session tokens and consent, rule-based assessment, recommendation and location fallback, Lead idempotency and protected operator CLI, admin review/publish/withdraw, safe HTTP errors, and protected retention cleanup with rollback/retry. The frontend is built in real API mode and its HTML is served; this does **not** verify browser interaction, keyboard navigation or RWD.
+40 checks cover public resources and knowledge, session tokens and consent, rule-based assessment, recommendation and location fallback, Lead idempotency and protected operator CLI, admin review/publish/withdraw, safe HTTP errors, and protected retention cleanup with rollback/retry. The frontend is built in real API mode and its HTML is served; this does **not** verify browser interaction, keyboard navigation or RWD.
 
 Actual dataset imports use the existing protected CLIs: 35 resources, 30 services, 98 active service areas, 19 contract regions and 5 approved packs / 21 published knowledge records. Mutated candidate sets, failure triggers, additional knowledge and contact details are synthetic fixtures inside the disposable database. Original data files stay unchanged.
 
@@ -60,3 +60,9 @@ Download PostgREST from its [official 16.4 release](https://github.com/PostgREST
 - Generated JSON is deliberately rejected under `tests/e2e/results/`. It cannot be used to claim any of the 49 deployed acceptance cases passed.
 - Official PostgREST verifies database/JWT roles; this environment does not reproduce Netlify edge/CDN behavior, managed Supabase backup/Auth/Gateway settings, production deployment, daily scheduled triggers or operational handling by a person.
 - A frontend build and HTML response are HTTP evidence only. Manual browser/mobile/accessibility testing still needs separate evidence.
+
+## Synthetic restore and deletion replay
+
+LOCAL-39 and LOCAL-40 capture earlier application snapshots inside the guarded disposable stack, before actual HTTP withdrawal or Session deletion. They restore every table into a new in-memory PGlite database, first prove that restore alone revives the old health/contact data, then replay the synthetic request receipt through the actual SQL functions and recorded cleanup. Health rows disappear, contacts stay cleared, necessary consent evidence remains, unrelated active assessments and published knowledge remain, and retry deletes zero. Raw snapshots and receipts stay in memory; reports contain counts only.
+
+This is application-level restore evidence, not a Supabase physical backup exercise. The receipt is synthetic and kept separately in memory during the test; a durable production deletion ledger independent of the restored backup still needs implementation and operational verification. No cloud data or formal consent version is changed.

@@ -28,7 +28,7 @@ Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/
 - [x] 位置流程：API_CONTRACT §8–§9、DATA_MODEL §7／§9／§17／§20、ARCHITECTURE §7；原始規格未決定的細節列為 D-13a–g（每項附建議）。
 - [x] 位置用途、保存與同意告知草案（PRIVACY_AND_RETENTION §2、§8，DRAFT）。
 - [x] `docs/knowledge/source-registry.md` 與 `contracts/knowledge/` 首批內容包、格式、匯入／發布／撤回規則（D-02a、D-03 已核准；D-02 內容已核准，2026-09-24）。
-- [x] Session 安全（D-04 已核准）、隱私保存（D-05 PROPOSED，法務待確認）、Lead 接件規格（D-06 PROPOSED，人選待指定）。
+- [x] Session 安全（D-04 已核准）、隱私保存（D-05 PROPOSED，營運者審閱及工程待確認）、Lead 接件規格（D-06 PROPOSED，人選待指定）。
 - [x] `docs/MVP_TRACEABILITY.md`：每項原始需求 → 使用者行為 → 任務 → 前置 → 驗收 → 證據／狀態。
 - [x] **首批知識逐筆審核**（D-02）：2026-09-24 Jerry 全部核准（9／9），內容包逐筆 `review` 已填；審核證據：[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806103227)。發布由 J-003 執行。
 - [x] **地方知識**：`KP-2026-09-24-002`（臺北市 2 筆、新北市 4 筆，2026-09-24 核准）、來源登錄 `SR-2026-09-24-01`、規則表 r3（修正 S-LOCAL-*）已提交（2026-09-24）。官方頁面未找到地方現金加碼補助。
@@ -52,7 +52,7 @@ Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/
 - [x] **r8（2026-10-01）D-19**：Jerry 決定 Q1–Q5、Q7（[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）；PRODUCT_SPEC v0.8 §13／§14a–c、API_CONTRACT v0.6（§10／§10a 追加、§13a）、DATA_MODEL v0.2.5（§17、§19b）、ARCHITECTURE v0.5.4（§7.1、§9.1、§10、§20.4）、`contracts/mock/knowledge/`、lookup fixtures 追加、TASK-A-007／B-014／C-008／C-009 與 A-006／B-013／C-007 追加。
 - [x] Jerry 核准 PRODUCT_SPEC §14b 建議問題文字（2026-10-01，[PR #54 comment 5927605020](https://github.com/viz963-1216/Kareo/pull/54#issuecomment-5927605020)）；r8 已合併（#54）。
 - [x] D-09 原額度阻擋已解除（J-003 10/03 真實部署證據）；監控與正式發布仍由 J-004 驗收。
-- [ ] 法務確認（D-05 L-1～L-6）後把同意版本改為 ACTIVE（含位置告知）。Jerry 2026-09-24 指示暫不填。
+- [ ] Jerry 審閱具體營運方案與文案、工程啟用條件具備證據後，把同意版本改為 ACTIVE（含位置告知）。2026-10-05 官方研究及候選全文已提供，仍待本人核准，不填虛構法務結果。
 - [x] 主要接件人：蘇子傑，09:00–21:00（LEAD_OPERATIONS §2、§5）。
 - [x] 接件服務日別：週一至週五；不設備援接件人（2026-09-24）。
 - [x] **r13（2026-10-03）**：D-05a 資料保存／Lead 關聯與清理計數、D-16c 匯入操作者／未登錄舊包不可變規則、B-013 範圍矛盾及最新任務狀態已同步。交付證據與交回要求見 docs/acceptance/J002-2026-10-03-spec-closeout.md。
@@ -82,3 +82,7 @@ PR Title：`[J-002] <本次修正摘要>`（r4：`[J-002] Align tasks and accept
 - r4（PR #31）：D-08／D-11／D-12 標示未核准、已擱置（依原始 MVP 開發）；補助說明模板與 contract；位置流程統一與 D-13a–g／D-14a–b 建議；清理 AI 指示；任務狀態、依賴與驗收整併。
 
 - r13（2026-10-03）：依 Jerry「好那先幫我完成J002」授權完成工程定案；七天內清理保留原期限、首次知識發布／Netlify 狀態更新，不修改 DRAFT 或法律審閱結果。
+
+## J-002-r14：D-05 營運者審閱提案（2026-10-05）
+
+依 Jerry 最新要求，查核官方個資法、施行細則、電子簽章法及供應商公開委託資料，提出 L-1／L-3／L-6、境外資料流及權利處理方案；新增固定三文案全文及 SHA-256，核准欄位保持空白。見 `docs/acceptance/D05-2026-10-05-owner-review.md`。本輪不啟用 ACTIVE、不宣稱法務意見、D-05 完成或正式發布。Gemini 前端／驗收部署提示詞已交付；每日排程與 49 項證據由 Codex 接續。

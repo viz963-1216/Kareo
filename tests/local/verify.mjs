@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { createHash, randomUUID } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { TEST_CONSENT, LOCAL_OPERATOR } from './stack.mjs';
+import { captureSyntheticSnapshot, restoreAndReplaySyntheticDeletion } from './restore-delete.mjs';
 
 const district = { city: '新北市', district: '三重區', precision: 'DISTRICT', lat: null, lng: null };
 const none = { city: null, district: null, precision: 'NONE', lat: null, lng: null };
@@ -14,6 +15,8 @@ export async function verifyLocalStack(stack) {
   const { baseUrl, db, cli } = stack;
   const startedAt = new Date().toISOString();
   const results = [];
+  const restoreRehearsals = [];
+  let withdrawalSnapshot, withdrawalReceipt, deletionSnapshot, deletionReceipt;
   async function test(id, detail, operation) {
     try { await operation(); results.push({ id, status: 'PASS', detail }); console.log(`PASS ${id} ${detail}`); }
     catch (e) { results.push({ id, status: 'FAIL', detail, error: e.message }); console.log(`FAIL ${id} ${detail}: ${e.message}`); throw e; }
@@ -175,14 +178,19 @@ export async function verifyLocalStack(stack) {
       const s = await session(); const a = await assess(s); const r = await recommend(s,a);
       const body = { ...leadBody(), sessionId: s.sessionId, assessmentId: a.assessmentId, recommendationId: r.recommendationId, providerId: r.providers[0].id, contact: { ...contact, phone: '0912340001' } };
       const l = success(await call('POST', '/api/v1/leads', { token: s.sessionToken, headers: { 'Idempotency-Key': randomUUID() }, body }));
+      withdrawalSnapshot = await captureSyntheticSnapshot(db);
       success(await call('POST', '/api/v1/consent/withdraw', { token: s.sessionToken }));
+      withdrawalReceipt = {sessionId:s.sessionId,action:'CONSENT_WITHDRAWN',requestedAt:(await db.query('select withdrawn_at from consents where session_id=$1',[s.sessionId])).rows[0].withdrawn_at};
       for (const [path, payload] of [['/api/v1/assessments',assessmentBody(s.sessionId)],['/api/v1/recommendations',{assessmentId:a.assessmentId,serviceType:'HOME_CARE'}],['/api/v1/leads',body]])
         error(await call('POST',path,{token:s.sessionToken,body:payload,headers:{'Idempotency-Key':randomUUID()}}),401,'SESSION_INVALID');
       const row = (await db.query('select status,contact_name,contact_phone from leads where id=$1',[l.leadId])).rows[0];
       assert.deepEqual(row,{status:'CANCELLED',contact_name:null,contact_phone:null});
     });
     await test('LOCAL-19', 'Session DELETE invalidates token; assessment and recommendation remain blocked', async () => {
-      const s=await session(); const a=await assess(s); success(await call('DELETE','/api/v1/session',{token:s.sessionToken}));
+      const s=await session(); const a=await assess(s);
+      deletionSnapshot = await captureSyntheticSnapshot(db);
+      success(await call('DELETE','/api/v1/session',{token:s.sessionToken}));
+      deletionReceipt = {sessionId:s.sessionId,action:'USER_DELETED',requestedAt:(await db.query('select updated_at from sessions where id=$1',[s.sessionId])).rows[0].updated_at};
       error(await call('POST','/api/v1/assessments',{token:s.sessionToken,body:assessmentBody(s.sessionId)}),401,'SESSION_INVALID');
       error(await call('POST','/api/v1/recommendations',{token:s.sessionToken,body:{assessmentId:a.assessmentId,serviceType:'HOME_CARE'}}),401,'SESSION_INVALID');
     });
@@ -351,9 +359,15 @@ export async function verifyLocalStack(stack) {
       const successes=(await db.query("select sessions_deleted from deletion_runs where status='SUCCESS' order by started_at,id")).rows;
       assert.deepEqual(successes.map(r=>r.sessions_deleted),[2,0]);
     });
+    await test('LOCAL-39', 'Earlier synthetic backup revives health/contact; replay actual withdrawal receipt and cleanup removes them again', async () => {
+      restoreRehearsals.push(await restoreAndReplaySyntheticDeletion(withdrawalSnapshot,withdrawalReceipt,LOCAL_OPERATOR));
+    });
+    await test('LOCAL-40', 'Earlier synthetic backup revives deleted Session health; replay actual deletion receipt and cleanup, preserving unrelated data', async () => {
+      restoreRehearsals.push(await restoreAndReplaySyntheticDeletion(deletionSnapshot,deletionReceipt,LOCAL_OPERATOR));
+    });
   } catch { /* first failure is recorded; no false success or dependent-case cascade */ }
   return { schemaVersion:1, scope:'LOCAL-INTEGRATION-ONLY', releaseAcceptance:false, backend:stack.backend, baseUrl, startedAt, finishedAt:new Date().toISOString(),
     consent:'Synthetic LOCAL-TEST combo only in temporary bundles; production contract remains DRAFT', cloudWrites:0,
-    status:results.length===38 && results.every(r=>r.status==='PASS')?'PASS':'FAIL', results,
+    status:results.length===40 && results.every(r=>r.status==='PASS')?'PASS':'FAIL', results, restoreRehearsals,
     limitations:['Not Netlify/deployed E2E; not counted toward the 49-case release gate','Browser/manual/operational cases require separate evidence','No actual daily scheduler trigger or formal D-05 approval'] };
 }

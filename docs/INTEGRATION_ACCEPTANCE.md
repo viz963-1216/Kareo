@@ -648,3 +648,7 @@ C-006 缺陷重現步驟（試驗組合，`apps/web`）：`sessionStorage` 放�
 ## 2026-10-04 J-003-r12：併發與回填分層證據
 
 `tests/db/verify-concurrency.mjs` 在真正 PostgreSQL 17 三個獨立 backend 通過 8 項鎖／過期狀態檢查；錯誤鎖對照指定失敗。`scripts/rehearse-content-backfill.mjs` 在私人快照的本機副本通過受保護 CLI 七項檢查。詳見 `docs/acceptance/J003-2026-10-04-postgres-and-backfill.md`。這些不採計 49 項部署 E2E；沒有雲端回填、沒有改 D-05 DRAFT、沒有改憑證或預設分支。
+
+## 2026-10-05 D-05 審閱提案與合成備份再刪除
+
+基底 staging `fccd6d961c96c85b2c5827601ab2ffd8b9c83514`。本機 HTTP 40／40 PASS，新增 LOCAL-39／40 在早期合成應用快照還原後，重套實際撤回／刪除的合成請求及正式 SQL 清理，含復活負向對照與無關有效資料保留。報告 `docs/acceptance/evidence/D05-2026-10-05-local-restore.json` 標記 releaseAcceptance=false、physicalBackupRestored=false；不是 49 項部署 E2E。D-05 候選全文已固定，營運者核准 pending、版本 DRAFT；正式權利工具、獨立刪除紀錄、每日排程及目標部署尚待驗證。Integrated 維持否。
