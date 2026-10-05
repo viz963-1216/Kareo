@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r13（#77）已合併；r14 建立正式 Functions＋supabase-js＋官方 PostgREST＋隔離 PostgreSQL 17 的本機 HTTP 整合與 CI。Integrated：否；本機證據不採計 49 必要部署 E2E。（2026-10-05 核對）
+Status: 進行中。r15 記錄 B-015／B-016（#81／#82）合併及雲端 0027／0028，49 LOCAL 與 CI 通過；受保護預覽可用 Chrome 看頁面，自動版本驗證 401，公開站仍舊版。Integrated：否；本機證據不採計 49 必要部署 E2E。（2026-10-05 核對）
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -117,3 +117,9 @@ Submission Version 從 `J-003-r1` 起，退回後遞增。PR 必填 Added / Chan
 涵蓋 Session／同意、評估、推薦、媒合重送、內部接件、管理核准／發布／撤回、故障回滾及實體清理。38 項 LOCAL 檢查與防止誤連雲端的 guard，結果见 [本輪證據](../docs/acceptance/J003-2026-10-05-local-http.md)。前端 real build 與首頁 HTTP 送達另列；瀏覽器自動化阻擋本機網址，RWD／鍵盤／畫面操作尚未驗證。
 
 **未完成的完整任務**：D-05 審閱及 ACTIVE、目標 commit 部署與 49 項真實 E2E、實際每日排程、內容包雲端回填、操作／資料權利與完整復原演練。沒有新增付費服務、雲端健康資料或正式核准；不得勾選 Integrated。
+
+## J-003-r15：獨立刪除紀錄與部署存取查證（2026-10-05）
+
+B-015 #81、B-016 #82 已合併；0027／0028 套用現有驗收專案。新增的 SDK、故障拒絕假成功、還原後重套刪除及清理稽核同交易，由本機 49 項及 exact-head CI 9 jobs 驗證。正式排程沒有實跑：預設分支 main、staging credentials／個人 DATA_STEWARD 尚未配置。僅有入口不等於每日更新／清理完成。
+
+預覽 #82 建置成功並可登入看 DRAFT 頁，但自動版本標記 HTTP 401；公開 URL 仍部署 8f509c0。新增工具診斷將受保護的 401／403 與非 JSON 建置問題分開，保留嚴格前後版本核對，不新增登入繞過。兩次實際 runner 均未執行案例，完整 49 項仍無本輪可採計結果。Gemini 提示詞已加入 exact-head preview 及限制。詳見 docs/acceptance/J003-2026-10-05-journal-and-deployment.md。

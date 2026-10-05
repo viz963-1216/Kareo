@@ -235,3 +235,5 @@ Engineer C：Frontend / UX
 2026-10-05 B-015-r1（中心代辦）：客服無 token 權利工具已實作，46 項本機整合通過；雲端套用、真人核對與外部刪除紀錄待後續。驗收文件 docs/acceptance/D05-2026-10-05-privacy-rights.md。
 
 2026-10-05 B-015 更新：PR #81 九項 CI 通過、已合併 staging e5c13c9，0027 已套用現有 Kareo 驗收 DB；沒有執行真實個案權利操作。B-016-r1 補獨立 Netlify Blobs 刪除紀錄、故障拒絕假成功、受保護重套刪除與清理稽核同交易；49／49 LOCAL、後端 748 測試通過。尚須本次 PR CI／雲端部署、排程帳號設定、備份汰換核對與實際回復演練；D-05 DRAFT、Integrated 否。參考 docs/acceptance/D05-2026-10-05-deletion-journal.md，勿把本機 49 項當成部署 49 項。
+
+2026-10-05 J-003-r15：#82 九項 CI 通過並合併 afdf01b，雲端 0028 已套用。PR #82 Private Preview 已建立，登入 Chrome 可看到 DRAFT 同意頁，但自動 marker HTTP 401，公開站仍 8f509c0。兩次 runner 均沒執行案例，本輪部署驗收採計 0／49；預設分支／Secrets／個人 DATA_STEWARD 及每日實跑仍待完成。詳見 docs/acceptance/J003-2026-10-05-journal-and-deployment.md，Gemini 提示詞已更新。
