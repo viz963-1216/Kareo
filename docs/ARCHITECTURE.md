@@ -792,3 +792,7 @@ Postgres function：在單一交易內只做寫入（upsert）
 7. 已核准的例外：`publish_knowledge_version` 在函式內檢查紀錄必須為 APPROVED（額外安全檢查，不視為違反第 1 點）。
 8. 已核准的例外（v0.5.3，D-16b，2026-10-01）：知識管理 RPC（`admin_*`）可在函式內做「與寫入同一交易才能保證」的一致性檢查——內容指紋比對（compare-and-set）、目前發布版本與恢復條件、發布計畫與 `previewToken` 重算比對——並寫入稽核。業務驗證（欄位格式、權限、原因必填）仍留在 Node Service。
 9. 知識發布／撤回序列化（v0.5.3，D-16b）：CLI 發布、CLI 撤回、管理頁發布、管理頁撤回四個入口，交易一開始都取得**同一個** `pg_advisory_xact_lock(<固定常數>)`，取得後才檢查、寫入與稽核。只用 `select … for update` 不足（沒有 PUBLISHED 版本時沒有資料列可鎖，且各入口不一定經過同一列）。併發正確性須以真實多連線 Postgres 驗證（J-003）；PGlite 為單一 session，不能作為併發證據。
+
+## D-05 protected data-rights processing (2026-10-05, B-015-r1)
+
+The DATA_STEWARD-only privacy CLI receives an independently verified, exact case target from a private request file. It never exposes a visitor-callable administration endpoint. Node verifies the personal key before querying; a security-invoker RPC rechecks the active operator/key hash/role under a SHARE lock. Session is locked before consent/lead/assessment. Successful reads and changes commit a minimal privacy_operation audit in the same transaction; failure exposes only a safe code. Export goes only to a restricted exclusive file. Corrections reuse the existing input validator, published resolver and rule engine; a stale source timestamp or publication aborts, old recommendations are removed and outstanding outreach based on wrong answers is cancelled. See TASK-B-015 and PRIVACY_REQUEST_RUNBOOK.

@@ -1,9 +1,9 @@
 # D-05／J-004 個人資料權利申請處理手冊
 
-Submission Version: J-004-r3（2026-10-03）  
+Submission Version: J-004-r6 / B-015-r1（2026-10-05）
 Owner／處理者：Jerry（蘇子傑，沿用資料管理者職責）  
 管道：viz963@gmail.com  
-Status：準備完成，端到端演練待 B-011b；不代表 D-05 ACTIVE 或法律簽核。
+Status：受保護工具已實作、本機合成端到端通過；雲端部署、真人權利流程與 D-05 ACTIVE 尚待驗證。
 
 ## 依據與已確認項目
 
@@ -63,3 +63,19 @@ Status：準備完成，端到端演練待 B-011b；不代表 D-05 ACTIVE 或法
 | P-06 | 清理途中故障後重試 | 不假成功、冪等，最終資料及紀錄一致 | BLOCKED：B-011b |
 | P-07 | 隔離還原含已刪合成資料的舊備份 | 重套刪除後無可見聯絡／評估，入口開放前完成核對 | BLOCKED：隔離目標、還原及再刪除 |
 | P-08 | 查詢／更正／代理申請／延長 | 正確分類、必要驗證、合法准駁及書面原因，無跨人資料 | PENDING：桌上演練及工具核對 |
+
+## 2026-10-05 protected tool specification
+
+B-015-r1 is the formal lost-token tool. A DATA_STEWARD first completes human identity/authority checks using the original registered contact route; code cannot certify that phone call. Prepare a private JSON request with controlled reference and verification attestation. No identifiers-only attestation or phone search. Export/copy writes a 0600 file with no tokens, key hashes or other users; transmit it only after human identity and recipient checks, never post it to GitHub. Contact correction targets a single Lead; health correction re-evaluates exact assessment through the current published rules, deletes stale recommendations and cancels unresolved old outreach. Operators must separately handle any already disclosed data with its recipient; code does not pretend to have notified them. All read/change operations leave transactional minimal audit; originals/identity documents stay out of database audit. Audit ceiling 1 year with early-purpose review. Detailed command examples and actual verification results will be added after implementation.
+
+## Protected CLI usage
+
+Build: `npm run build --prefix apps/api`. Put the private JSON request in an operator-owned 0700 directory, file mode 0600. Supply SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, KAREO_OPERATOR_ID and KAREO_OPERATOR_KEY through the secure environment (never command history). Run `node apps/api/dist/scripts/privacyRights.js --request=/absolute/private/request.json`; EXPORT also requires `--output=/absolute/private/export.json`. Output file is exclusive 0600 and never stdout. Do not choose a CI workspace/artifact or publish private requests/exports.
+
+Required request fields: requestId (`PRQ-...` controlled reference), action (`EXPORT`, `CORRECT_CONTACT`, `CORRECT_ASSESSMENT`, `STOP`, `DELETE`), receivedAt, verifiedAt (within seven days of execution), verificationMethod (`ORIGINAL_CONTACT_CONFIRMED` or `AUTHORIZED_PROXY_CONFIRMED`), verificationRef (controlled case reference), sessionId or exact leadId. Proxy also needs separately recorded proxyAuthorityRef. Case references are codes only, never phone/health/mail text.
+
+CORRECT_CONTACT additionally supplies leadId and correction `{name,phone}`; it may correct retained closed-case contact, never recreate erased fields. CORRECT_ASSESSMENT supplies assessmentId and correction as a complete existing Assessment input including its sessionId; generation binds the source timestamp and current publication. Unknown/expired knowledge or changed row stops the operation. Requests are not guessed from a name or phone. No session/Lead and no reliable verification: document inability to identify safely, request the minimum useful information, and make an actual decision within the applicable deadline.
+
+Never automatically interpret a pasted verificationMethod as proof. The human DATA_STEWARD attests only after the original-channel/proxy check; code can enforce its presence and scope but cannot certify a call. Independent request/identity evidence stays in the restricted case record, not GitHub. Transmit any export only to the checked recipient with a suitable protected channel.
+
+Local evidence: 46/46 actual HTTP/CLI checks and protected SQL regression, see [verification](acceptance/D05-2026-10-05-privacy-rights.md). P-02/P-04/P-08 technical paths are now tested with synthetic attestations; actual human processing remains to rehearse. Earlier BLOCKED rows above are historical, not current module status. Independent deletion journal, physical-backup scope and deployed E2E remain pending.

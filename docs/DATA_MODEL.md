@@ -1103,3 +1103,7 @@ KNOWLEDGE_VERSION_WITHDRAWN
 - `targetType`：`KNOWLEDGE_RECORD`／`KNOWLEDGE_CHANGE`／`KNOWLEDGE_VERSION`。`reason`：decision、dismiss、withdraw 必填；publish 為 `null`。
 - `detail`（jsonb）只放非敏感的結果：例如核准時的 `contentFingerprint`、發布的版號與五個數量、撤回的 `republishVersionId`。不得包含密鑰、token 或個資。
 - 只能新增，不得修改或刪除；只有 service_role 可寫入。
+
+# 42. PrivacyOperation (2026-10-05, B-015-r1)
+
+`privacy_operations`: request_id primary key; operator_id, session_id (restricted reference, not public), action, received_at, verified_at, verification_method, verification_ref, proxy_authority_ref, created_at, result_counts jsonb. No health/contact values, plaintext keys/token/hash, mail body or identification images. Only DATA_STEWARD through the protected operation; RLS enabled, no anon/authenticated privileges. Retain at most 1 year after execution, delete earlier when purpose ends; this is operational planning, not a legal universal period. Lookup/export each create a distinct audit reference. Reusing an operation reference fails, including on a changed target. A correction cancels nonterminal Lead with DATA_CORRECTED and invalidates its stale recommendation; terminal history remains. No new public response fields.

@@ -232,16 +232,20 @@ record(noRls.length || exposed.length ? 'FAIL' : 'PASS', 'M3',
   noRls.length || exposed.length ? `RLS off: ${noRls.join(', ') || '-'}; client roles have table privileges: ${exposed.join(', ') || '-'}`
     : `${tables.length} tables: RLS on, no anon/authenticated table privileges`, noRls.length || exposed.length ? 'B (migration owner)' : undefined);
 
-const fns = (await db.query("select p.oid::regprocedure::text as sig from pg_proc p where p.pronamespace = 'public'::regnamespace and p.prokind = 'f' order by 1")).rows.map((r) => r.sig);
+const functionRows = (await db.query("select p.oid::regprocedure::text as sig, p.prorettype = 'pg_catalog.trigger'::regtype as is_trigger from pg_proc p where p.pronamespace = 'public'::regnamespace and p.prokind = 'f' order by 1")).rows;
+const fns = functionRows.map((r) => r.sig);
 const callable = [];
 for (const sig of fns) for (const role of ['anon', 'authenticated']) {
   if ((await one('select has_function_privilege($1, $2, \'EXECUTE\') x', [role, sig])).x) callable.push(`${role}→${sig}`);
 }
 const serviceMissing = [];
-for (const sig of fns) if (!(await one("select has_function_privilege('service_role', $1, 'EXECUTE') x", [sig])).x) serviceMissing.push(sig);
+// Trigger bodies are invoked by PostgreSQL through the installed trigger, not
+// callable RPCs. Keep the visitor-denial check for every function, but do not
+// require a direct service-role EXECUTE grant on an intentionally private trigger.
+for (const { sig, is_trigger } of functionRows) if (!is_trigger && !(await one("select has_function_privilege('service_role', $1, 'EXECUTE') x", [sig])).x) serviceMissing.push(sig);
 record(callable.length || serviceMissing.length ? 'FAIL' : 'PASS', 'M4',
   callable.length || serviceMissing.length ? `anon/authenticated can execute: ${callable.join(', ') || '-'}; service_role cannot execute: ${serviceMissing.join(', ') || '-'}`
-    : `${fns.length} RPC functions (${fns.map((s) => s.split('(')[0]).join(', ')}): service_role only`, callable.length || serviceMissing.length ? 'B (migration owner)' : undefined);
+    : `${functionRows.filter(r=>!r.is_trigger).length} RPC functions: service_role only; ${functionRows.filter(r=>r.is_trigger).length} trigger functions: visitor EXECUTE denied`, callable.length || serviceMissing.length ? 'B (migration owner)' : undefined);
 
 // ---------- P: provider import rollback (D-10) ----------
 if (!(await has('fn', 'import_provider_dataset'))) record('PENDING', 'P1', 'import_provider_dataset not present', 'B-004');
