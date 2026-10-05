@@ -1,13 +1,13 @@
 # Kareo Integration Acceptance / 整合驗收紀錄
 
 Owner: Jerry（TASK-J-003）
-Submission Version: J-003-r10
+Submission Version: J-003-r14
 
 > 只有「部署環境中，以真實 API 與真實資料實際操作成功」才算通過。
 > Mock、單元測試、PR 合併都**不算**整合完成。平台額度或模組缺漏造成的阻擋一律記為 `PENDING`，必要項目 PENDING 時完整驗收判定為**失敗**。
 > 需求對應見 `docs/MVP_TRACEABILITY.md`（J-002-r4）；決策狀態見 `docs/MVP_DECISIONS.md`。
 
-> 最新快照：見 [2026-10-03 J-003-r10 路由與隔離組合](acceptance/J003-2026-10-03-route-integration.md)。本輪完成三條新路由及兩條管理 action 路由修正（在各 B PR，未合併），補強 J 檢查工具；目前部署 `05b1c4a` 的唯讀 E2E 1 PASS、2 PENDING。49 必要案例尚有 48 項未通過，Integrated 仍否。較早 r9／r8 紀錄保留追溯，不能當成新部署證據。
+> 最新快照：見 [2026-10-05 J-003-r14 本機 HTTP 整合](acceptance/J003-2026-10-05-local-http.md)。基底 staging `5edbd1e`（#77），已提交 ABC 模組皆已合併。本輪以正式 Functions、supabase-js、官方 PostgREST 與隔離 PostgreSQL 17 驗證 HTTP 流程；結果只屬 LOCAL，**不採計 49 項部署 E2E，Integrated 仍否**。同意測試版只在暫存建置內，正式 D-05 仍 DRAFT。舊部署及較早快照留作追溯，不代表最新 staging 的驗收。
 
 ---
 
@@ -17,6 +17,8 @@ Submission Version: J-003-r10
 |---|---|---|---|---|
 | 開發檢查（每個 PR，CI `acceptance-dev`） | `node scripts/acceptance-gate.mjs --mode=dev` | 允許 | 只有 FAIL → 1 | 「目前沒有壞掉的東西」。沒給目標時 E2E 一律 PENDING（不評估）。exit 0 **不是** MVP 通過，輸出最後一行會明寫 |
 | 完整驗收／release gate（手動 workflow `Release gate`、PR → main） | `node scripts/acceptance-gate.mjs --mode=release --commit=<40 碼 SHA> --base-url=<https URL>` | **不允許** | 任何 FAIL 或 PENDING → 1；缺目標或格式錯 → 2 | **這一個 commit** 部署在**這一個環境**時，原始 MVP 所有必要項目都有真實證據 |
+
+新增本機 HTTP 整合：`node tests/local/run.mjs --out=<LOCAL JSON>`，環境與重跑方式見 [tests/local/README.md](../tests/local/README.md)。CI `Local HTTP integration (not deployed E2E)` 使用一次性 PostgreSQL 17，無雲端 secrets；輸出 `releaseAcceptance: false`，禁止寫入 `tests/e2e/results/`。這項測試不改 release gate 的 49 項必要案例。
 
 Gate 內容：路由／contract／禁止欄位（`check-integration.mjs`，含 §26 管理 API）、**打包後的 Functions 能否載入與執行**（`check-functions-runtime.mjs`，J-003-r4）、**驗收案例完整性**（MVP_TRACEABILITY 引用的案例不得缺、每個案例都要被引用，J-003-r4）、知識包格式、**知識內容是否已核准**（格式正確 ≠ 核准）、Provider 資料 gate（A-004），以及 `tests/e2e/acceptance-cases.json` 的 49 個 E2E 案例。
 

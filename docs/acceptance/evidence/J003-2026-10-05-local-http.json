@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "scope": "LOCAL-INTEGRATION-ONLY",
+  "releaseAcceptance": false,
+  "backend": "PostgreSQL 17 + official PostgREST + supabase-js + bundled Functions",
+  "baseUrl": "http://127.0.0.1:58486",
+  "startedAt": "2026-10-05T01:29:30.378Z",
+  "finishedAt": "2026-10-05T01:29:36.787Z",
+  "consent": "Synthetic LOCAL-TEST combo only in temporary bundles; production contract remains DRAFT",
+  "cloudWrites": 0,
+  "status": "PASS",
+  "results": [
+    {
+      "id": "LOCAL-01",
+      "status": "PASS",
+      "detail": "26 migrations, imported 35 resources / 30 services / 98 areas / 19 contract regions; 5 approved packs / 21 published records"
+    },
+    {
+      "id": "LOCAL-02",
+      "status": "PASS",
+      "detail": "Official PostgREST JWT role switch denies anon/authenticated table reads and internal RPC"
+    },
+    {
+      "id": "LOCAL-03",
+      "status": "PASS",
+      "detail": "Unknown API returns JSON NOT_FOUND, not SPA HTML"
+    },
+    {
+      "id": "LOCAL-38",
+      "status": "PASS",
+      "detail": "Real frontend build serves homepage and SPA path with an explicit local-test banner"
+    },
+    {
+      "id": "LOCAL-04",
+      "status": "PASS",
+      "detail": "Public resources are queryable without Session; five centers are not service providers"
+    },
+    {
+      "id": "LOCAL-05",
+      "status": "PASS",
+      "detail": "Public knowledge lists only current effective records; local jurisdictions stay separate; no internal fields"
+    },
+    {
+      "id": "LOCAL-06",
+      "status": "PASS",
+      "detail": "Session issues a token, stores only its hash; assessment before consent is rejected"
+    },
+    {
+      "id": "LOCAL-07",
+      "status": "PASS",
+      "detail": "Refused, DRAFT and unknown consent are rejected; isolated test combo succeeds"
+    },
+    {
+      "id": "LOCAL-08",
+      "status": "PASS",
+      "detail": "Forged token rejected; another Session cannot impersonate sessionId or read assessment"
+    },
+    {
+      "id": "LOCAL-09",
+      "status": "PASS",
+      "detail": "Actual rule-based assessment persists Assessment + Profile, published version, warnings and deterministic result"
+    },
+    {
+      "id": "LOCAL-10",
+      "status": "PASS",
+      "detail": "District recommendation has explainable Top 3, no distances, same-day order stable"
+    },
+    {
+      "id": "LOCAL-11",
+      "status": "PASS",
+      "detail": "Provider card/detail identity and Maps match; absent provider returns NOT_FOUND"
+    },
+    {
+      "id": "LOCAL-12",
+      "status": "PASS",
+      "detail": "Lead and idempotency ledger persist together; same-key replay returns same Lead, changed content conflicts"
+    },
+    {
+      "id": "LOCAL-13",
+      "status": "PASS",
+      "detail": "Actual operator CLI rejects wrong key, claims contact, updates NEW→CONTACTED→ACCEPTED→CLOSED with audit"
+    },
+    {
+      "id": "LOCAL-14",
+      "status": "PASS",
+      "detail": "No-location assessment succeeds with null fields and recommendation returns NO_LOCATION / zero candidates"
+    },
+    {
+      "id": "LOCAL-15",
+      "status": "PASS",
+      "detail": "City-only and GPS assessments choose CITY_ROTATION and DISTANCE respectively"
+    },
+    {
+      "id": "LOCAL-16",
+      "status": "PASS",
+      "detail": "Taipei/New Taipei assessments use only their own local summary"
+    },
+    {
+      "id": "LOCAL-17",
+      "status": "PASS",
+      "detail": "Unknown service area remains queryable but absent from location-matched recommendation; centers never recommended"
+    },
+    {
+      "id": "LOCAL-18",
+      "status": "PASS",
+      "detail": "Withdrawal schedules deletion, clears contacts, cancels an open Lead; all subsequent writes rejected"
+    },
+    {
+      "id": "LOCAL-19",
+      "status": "PASS",
+      "detail": "Session DELETE invalidates token; assessment and recommendation remain blocked"
+    },
+    {
+      "id": "LOCAL-20",
+      "status": "PASS",
+      "detail": "Body above contract limit rejected; real persistent assessment rate limit returns 429 and Retry-After"
+    },
+    {
+      "id": "LOCAL-21",
+      "status": "PASS",
+      "detail": "Kareocar endpoint returns the approved external URL and NEW_TAB"
+    },
+    {
+      "id": "LOCAL-26",
+      "status": "PASS",
+      "detail": "Cross-session recommendation and Lead source ownership reject other users resources"
+    },
+    {
+      "id": "LOCAL-27",
+      "status": "PASS",
+      "detail": "Controlled local candidate fixtures return 2 / 1 / 0 without padding; zero is successful empty state"
+    },
+    {
+      "id": "LOCAL-28",
+      "status": "PASS",
+      "detail": "One eligible provider missing coordinates downgrades the entire GPS result and explains it"
+    },
+    {
+      "id": "LOCAL-29",
+      "status": "PASS",
+      "detail": "Actual HTTP assessment failure rolls back Assessment and Profile; safe error and retry succeed"
+    },
+    {
+      "id": "LOCAL-30",
+      "status": "PASS",
+      "detail": "Real repository read failure returns safe INTERNAL_ERROR, not an empty successful resource list"
+    },
+    {
+      "id": "LOCAL-22",
+      "status": "PASS",
+      "detail": "Admin authentication rejects forged tokens; actual operator key creates a separate admin Session"
+    },
+    {
+      "id": "LOCAL-23",
+      "status": "PASS",
+      "detail": "Admin publish preview is read-only and blocked without new approvals; restorable list excludes current version"
+    },
+    {
+      "id": "LOCAL-31",
+      "status": "PASS",
+      "detail": "Actual admin decision checks content fingerprint; review and rejection remove items from pending list"
+    },
+    {
+      "id": "LOCAL-32",
+      "status": "PASS",
+      "detail": "Old preview token is rejected without a publish; refreshed preview publishes exactly 2 new + 21 carried records"
+    },
+    {
+      "id": "LOCAL-33",
+      "status": "PASS",
+      "detail": "Withdrawal restores an allowed historical version, excludes withdrawn version, preserves historical memberships"
+    },
+    {
+      "id": "LOCAL-34",
+      "status": "PASS",
+      "detail": "Admin changes route, confirmation, dismiss and repeated-decision conflict use actual SQL with audit"
+    },
+    {
+      "id": "LOCAL-24",
+      "status": "PASS",
+      "detail": "Stale withdrawal rejected with 409; explicit no-republish withdraw makes knowledge unavailable without fake success"
+    },
+    {
+      "id": "LOCAL-25",
+      "status": "PASS",
+      "detail": "Real consent contract unchanged and contains no activated local test version"
+    },
+    {
+      "id": "LOCAL-35",
+      "status": "PASS",
+      "detail": "Actual protected retention CLI rejects wrong key; dry-run changes neither health tables nor audit"
+    },
+    {
+      "id": "LOCAL-36",
+      "status": "PASS",
+      "detail": "Cleanup success-audit failure rolls back deletion, records FAILED and remains retryable via real PostgREST"
+    },
+    {
+      "id": "LOCAL-37",
+      "status": "PASS",
+      "detail": "Retry cleans all requested health data, retains required consent evidence, creates SUCCESS audit; second retry deletes zero"
+    }
+  ],
+  "limitations": [
+    "Not Netlify/deployed E2E; not counted toward the 49-case release gate",
+    "Browser/manual/operational cases require separate evidence",
+    "No actual daily scheduler trigger or formal D-05 approval"
+  ],
+  "sourceCommit": "5edbd1e0ac441f046b609006dd9b86293980c515",
+  "workingTreeDirty": true
+}

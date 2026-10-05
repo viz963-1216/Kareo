@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r11（#71）已合併中央整合；r12 補真正 PostgreSQL 17 三連線併發與受保護內容包離線回填預演。Integrated：否；49 必要部署 E2E 尚未全通過。（2026-10-04 J-003-r12 核對）
+Status: 進行中。r13（#77）已合併；r14 建立正式 Functions＋supabase-js＋官方 PostgREST＋隔離 PostgreSQL 17 的本機 HTTP 整合與 CI。Integrated：否；本機證據不採計 49 必要部署 E2E。（2026-10-05 核對）
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -13,7 +13,7 @@ Plan revision: 2026-09-19 / 10-22 MVP
 - CI／gate 骨架：已完成（r1–r3）。
 - 首次知識發布：D-02 內容核准、D-03 格式核准（2026-09-24 已完成）＋**B-008-r2 合併**（發布版號必須等於 `intendedKnowledgeVersion`）。目標版本 `KB-2026-09-24-001`。不等待最終 E2E，避免與 B-010 循環依賴。
 - 階段 E2E（依開發順序逐步開啟，見 tasks/README「建議開發順序」）：B-011a → B-010 → B-005 → B-006 → C-005 → B-009 → B-011b；A-003-r2 提供距離排序的真實案例、A-005 提供推薦案例。
-- 部署環境可用：D-09 Netlify 已恢復；2026-10-03 已確認線上部署 `05b1c4a`。模組尚未合併、DB 隔離／設定或 D-05 阻擋仍記 PENDING。
+- 部署環境：Jerry 決定提交前再處理 Netlify 付費／正式上線，暫不新增付費正式資料庫；先完成既有驗收與本機準備。現有部署不代表 staging `5edbd1e`；新部署、環境配置與 D-05 阻擋仍列 PENDING。
 
 ## 開始前必讀
 
@@ -108,3 +108,12 @@ Submission Version 從 `J-003-r1` 起，退回後遞增。PR 必填 Added / Chan
 ## J-003-r13：最後健康寫入授權（2026-10-04）
 
 基底 #76；Jerry 已委託中心修復 ABCJ。實際 service＋Supabase repositories＋SQL 重現四種晚到評估／推薦請求：撤回／刪除完成後仍寫入。新增前向 0026 的 Session 鎖／token／期限／同意與歸屬檢查，保留 B 原子寫入，公開契約／規則引擎／排序不變。14 項 SQL 回歸、PG17 22 PASS＋兩個特定 FAIL 對照；缺傳安全 context 的正式 repository 拒絕。Known Issues：D-05、正式排程、內容包雲端回填與 49 項部署 E2E 仍待完成；不能把本機測試算 E2E。詳見 docs/acceptance/J003-2026-10-04-late-health-writes.md。
+
+
+## J-003-r14：本機 HTTP 整合（2026-10-05）
+
+基底 staging `5edbd1e`（#77）。新增 `tests/local/` 與獨立 CI：套用全部 26 migration，透過受保護的正式 CLI 匯入 35 資源／30 服務／98 範圍／19 特約與 5 包／21 筆已核准知識；正式 Functions 經官方 PostgREST 與 supabase-js 實際 HTTP 讀寫。測試同意只加入暫存 bundle，原契約保留 DRAFT。
+
+涵蓋 Session／同意、評估、推薦、媒合重送、內部接件、管理核准／發布／撤回、故障回滾及實體清理。38 項 LOCAL 檢查與防止誤連雲端的 guard，結果见 [本輪證據](../docs/acceptance/J003-2026-10-05-local-http.md)。前端 real build 與首頁 HTTP 送達另列；瀏覽器自動化阻擋本機網址，RWD／鍵盤／畫面操作尚未驗證。
+
+**未完成的完整任務**：D-05 審閱及 ACTIVE、目標 commit 部署與 49 項真實 E2E、實際每日排程、內容包雲端回填、操作／資料權利與完整復原演練。沒有新增付費服務、雲端健康資料或正式核准；不得勾選 Integrated。

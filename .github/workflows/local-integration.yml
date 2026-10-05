@@ -1,0 +1,75 @@
+name: Local HTTP integration
+
+on:
+  pull_request:
+    branches: [staging, main]
+    paths:
+      - 'apps/**'
+      - 'contracts/**'
+      - 'data/providers/**'
+      - 'docs/knowledge/source-registry.md'
+      - 'tests/local/**'
+      - 'tests/scripts/local-stack-guards.test.mjs'
+      - 'tests/db/package*.json'
+      - 'scripts/lib/netlify-routes.mjs'
+      - 'netlify.toml'
+      - '.github/workflows/local-integration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  local-http:
+    name: Local HTTP integration (not deployed E2E)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: kareo_test
+          POSTGRES_PASSWORD: synthetic-ci-only
+          POSTGRES_DB: kareo_local_integration_test
+        ports: ['5432/tcp']
+        options: >-
+          --health-cmd "pg_isready -U kareo_test -d kareo_local_integration_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --prefix apps/api
+      - run: npm ci --prefix apps/web
+      - run: npm ci --prefix tests/db
+      - name: Install checksum-verified official PostgREST 16.4 in runner temp
+        env:
+          PGRST_ARCHIVE: ${{ runner.temp }}/postgrest.tar.xz
+          PGRST_BIN_DIR: ${{ runner.temp }}/postgrest-bin
+        run: |
+          curl --fail --location --retry 2 https://github.com/PostgREST/postgrest/releases/download/v16.4/postgrest-v16.4-linux-static-x86-64.tar.xz --output "$PGRST_ARCHIVE"
+          python3 - <<'PY'
+          import hashlib,os
+          with open(os.environ['PGRST_ARCHIVE'],'rb') as f:
+              assert hashlib.sha256(f.read()).hexdigest() == 'b47ecc82fce1dcebbbc4183d839e52f07f7630c9d7ad0f54db753d1939299354'
+          PY
+          mkdir -p "$PGRST_BIN_DIR"
+          tar -xJf "$PGRST_ARCHIVE" -C "$PGRST_BIN_DIR"
+          "$PGRST_BIN_DIR/postgrest" --version
+      - name: Guard and actual HTTP integration
+        env:
+          KAREO_LOCAL_PG_URL: postgresql://kareo_test:synthetic-ci-only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/kareo_local_integration_test
+          KAREO_LOCAL_DISPOSABLE: '1'
+          KAREO_LOCAL_POSTGREST: ${{ runner.temp }}/postgrest-bin/postgrest
+        run: |
+          node --test tests/scripts/local-stack-guards.test.mjs
+          node tests/local/run.mjs --out=local-evidence/http-integration.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: local-http-integration-not-release-acceptance
+          path: local-evidence/http-integration.json
+          if-no-files-found: ignore
