@@ -652,3 +652,9 @@ C-006 缺陷重現步驟（試驗組合，`apps/web`）：`sessionStorage` 放�
 ## 2026-10-05 D-05 審閱提案與合成備份再刪除
 
 基底 staging `fccd6d961c96c85b2c5827601ab2ffd8b9c83514`。本機 HTTP 40／40 PASS，新增 LOCAL-39／40 在早期合成應用快照還原後，重套實際撤回／刪除的合成請求及正式 SQL 清理，含復活負向對照與無關有效資料保留。報告 `docs/acceptance/evidence/D05-2026-10-05-local-restore.json` 標記 releaseAcceptance=false、physicalBackupRestored=false；不是 49 項部署 E2E。D-05 候選全文已固定，營運者核准 pending、版本 DRAFT；正式權利工具、獨立刪除紀錄、每日排程及目標部署尚待驗證。Integrated 維持否。
+
+## 2026-10-05 D-05 有條件核准與候選全文取出
+
+Jerry 的直接授權已記為 OWNER_APPROVED_CONDITIONAL；不是外部法律意見或正式同意啟用。候選固定全文可從 `/privacy/versions/2026-10-05-r1-proposed.txt` 保存與取出，SHA-256 固定為 `5f28c3de07e260214bf7e6b12dd45642fceac619076858d253027d0920e6c1a2`。LOCAL-41 實際 HTTP 驗證通過，本機整合 41／41 PASS。報告 `docs/acceptance/evidence/D05-2026-10-05-conditional-review.json` 的 sourceCommit 是提交前基底，workingTreeDirty=true；不是部署驗收。所有實際同意版本仍為 DRAFT、activationAllowed=false；無 token 權利工具、正式獨立刪除紀錄、供應商副本範圍、排程及一致版本部署仍待補齊。Integrated 維持否。
+
+PR #80 乾淨 CI 首次檢查發現測試工具直接呼叫 Vite、未執行 npm prebuild；LOCAL-41 下載取得 SPA HTML，依指紋正確失敗。已修正本機隔離建置以同一個正式全文輸出函式產生暫存下載檔；刪除全部已產生 public 文案後重跑，41／41 PASS。更新報告基底為 `d33160252b06c14595ef74b9502fc168f2d9dd79`、workingTreeDirty=true。先前本機成功依賴已產生檔案，不能替代這次乾淨驗證；合併仍待修正 head CI 通過。

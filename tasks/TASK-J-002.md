@@ -1,8 +1,8 @@
 # TASK-J-002 — MVP Decisions + Knowledge + Privacy / Lead / Location Specifications
 
 Owner: Jerry  
-Status: J-002-r13 本輪工程規格收尾已完成；D-05 最終審閱／正式同意與 J-003／J-004 實測仍待完成；合併不代表上線驗收
-Plan revision: 2026-10-03 / J-002-r13
+Status: J-002-r15 營運方案有條件核准；候選全文下載與指紋檢查完成；D-05 工程啟用與 J-003／J-004 實測仍待完成
+Plan revision: 2026-10-05 / J-002-r15
 
 ## Goal / 目標
 
@@ -52,7 +52,7 @@ Forbidden: 所有未列出的路徑（含 `/apps/**`、`/services/**`、`/tests/
 - [x] **r8（2026-10-01）D-19**：Jerry 決定 Q1–Q5、Q7（[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）；PRODUCT_SPEC v0.8 §13／§14a–c、API_CONTRACT v0.6（§10／§10a 追加、§13a）、DATA_MODEL v0.2.5（§17、§19b）、ARCHITECTURE v0.5.4（§7.1、§9.1、§10、§20.4）、`contracts/mock/knowledge/`、lookup fixtures 追加、TASK-A-007／B-014／C-008／C-009 與 A-006／B-013／C-007 追加。
 - [x] Jerry 核准 PRODUCT_SPEC §14b 建議問題文字（2026-10-01，[PR #54 comment 5927605020](https://github.com/viz963-1216/Kareo/pull/54#issuecomment-5927605020)）；r8 已合併（#54）。
 - [x] D-09 原額度阻擋已解除（J-003 10/03 真實部署證據）；監控與正式發布仍由 J-004 驗收。
-- [ ] Jerry 審閱具體營運方案與文案、工程啟用條件具備證據後，把同意版本改為 ACTIVE（含位置告知）。2026-10-05 官方研究及候選全文已提供，仍待本人核准，不填虛構法務結果。
+- [ ] Jerry 審閱具體營運方案與文案、工程啟用條件具備證據後，把同意版本改為 ACTIVE（含位置告知）。2026-10-05 營運方案及候選全文有條件核准；工程條件未完成，不填虛構法務結果。
 - [x] 主要接件人：蘇子傑，09:00–21:00（LEAD_OPERATIONS §2、§5）。
 - [x] 接件服務日別：週一至週五；不設備援接件人（2026-09-24）。
 - [x] **r13（2026-10-03）**：D-05a 資料保存／Lead 關聯與清理計數、D-16c 匯入操作者／未登錄舊包不可變規則、B-013 範圍矛盾及最新任務狀態已同步。交付證據與交回要求見 docs/acceptance/J002-2026-10-03-spec-closeout.md。
@@ -86,3 +86,13 @@ PR Title：`[J-002] <本次修正摘要>`（r4：`[J-002] Align tasks and accept
 ## J-002-r14：D-05 營運者審閱提案（2026-10-05）
 
 依 Jerry 最新要求，查核官方個資法、施行細則、電子簽章法及供應商公開委託資料，提出 L-1／L-3／L-6、境外資料流及權利處理方案；新增固定三文案全文及 SHA-256，核准欄位保持空白。見 `docs/acceptance/D05-2026-10-05-owner-review.md`。本輪不啟用 ACTIVE、不宣稱法務意見、D-05 完成或正式發布。Gemini 前端／驗收部署提示詞已交付；每日排程與 49 項證據由 Codex 接續。
+
+## J-002-r15：有條件核准與固定全文取出（2026-10-05）
+
+Jerry 授權依適用法規與同類平台做法通過審閱，記錄營運方案有條件核准、日期精度、固定全文指紋與真實 GitHub 證據；不新增 ACTIVE 或宣稱法律認證。建置候選全文下載及指紋驗證，隱私頁提供入口；仍待正式同意與權利工具、備份刪除紀錄、排程及部署回歸。
+
+本輪中心整合範圍依 Jerry 持續完成 ABCJ 與 D-05 的授權，包含 `/apps/web/**` 的草案狀態文案與候選下載連結、前端 npm 建置鉤子、`/scripts/**` 的全文輸出與檢查、`/tests/**` 的實際 HTTP 與指紋負向驗證，以及根 `.gitignore`。這是 J 負責的本輪跨模組整合授權；不更改 A／B／C 的一般 Ownership 或所有 Task 的 Allowed Paths。未改 API、資料庫 schema、實際同意版本狀態或套件版本。
+
+本輪驗證：前端 78 PASS；全文輸出負向測試 1 PASS；根目錄正式建置 PASS；真實 PostgreSQL／PostgREST 本機整合 41／41 PASS（新增 LOCAL-41 取回全文的位元組及指紋）。報告 `docs/acceptance/evidence/D05-2026-10-05-conditional-review.json` 記錄基底 commit 與 dirty 工作樹，非部署 E2E；PR CI 將驗證提交後的實際 head。
+
+PR #80 乾淨 CI 首次檢查發現測試工具直接呼叫 Vite、未執行 npm prebuild；LOCAL-41 下載取得 SPA HTML，依指紋正確失敗。已修正本機隔離建置以同一個正式全文輸出函式產生暫存下載檔；刪除全部已產生 public 文案後重跑，41／41 PASS。更新報告基底為 `d33160252b06c14595ef74b9502fc168f2d9dd79`、workingTreeDirty=true。先前本機成功依賴已產生檔案，不能替代這次乾淨驗證；合併仍待修正 head CI 通過。

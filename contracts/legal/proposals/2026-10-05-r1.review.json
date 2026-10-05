@@ -1,21 +1,25 @@
 {
   "schemaVersion": 1,
-  "status": "PROPOSED",
+  "status": "OWNER_APPROVED_CONDITIONAL",
   "intendedVersion": "2026-10-05-r1",
   "fullTextPath": "contracts/legal/proposals/2026-10-05-r1.md",
   "fullTextSha256": "5f28c3de07e260214bf7e6b12dd45642fceac619076858d253027d0920e6c1a2",
   "sourceCommit": "fccd6d961c96c85b2c5827601ab2ffd8b9c83514",
   "reviewType": "OFFICIAL_SOURCE_RESEARCH_AND_OWNER_DECISION",
   "externalLegalOpinionObtained": false,
-  "approvedBy": null,
-  "approvedAt": null,
+  "approvedBy": "蘇子傑",
+  "approvedAt": "2026-10-05",
   "activationAllowed": false,
   "activationConditions": [
-    "Owner approves this exact full text and operational policy",
+    "Owner conditional authorization recorded; substantively changed text must be reviewed again",
     "Vendor account scope and retention confirmed",
     "Consent display, retrieval, withdrawal, deletion and cleanup verified",
     "No-token rights processing and backup deletion replay verified",
     "Frontend/backend deployment regression verified"
   ],
-  "sourcesCheckedOn": "2026-10-05"
+  "sourcesCheckedOn": "2026-10-05",
+  "approvalTimePrecision": "DAY",
+  "approvalScope": "Operational proposal and candidate text; subject to applicable requirements and engineering evidence",
+  "approvalEvidence": "https://github.com/viz963-1216/Kareo/pull/79#issuecomment-5987094678",
+  "approvalConditionsSatisfied": false
 }

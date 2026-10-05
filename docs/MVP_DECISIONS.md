@@ -23,6 +23,7 @@ Last reviewed: 2026-10-03（staging `6c74dee`；本輪工程規格定案）
 | 範圍變更 | `CHANGE-PROPOSED` | 會縮減或改變原始 MVP 的提案。**核准前原始 MVP 要求維持不變**，工程師依原始要求工作 | J-002 提出、Jerry 決定 |
 | 範圍變更 | `SHELVED` | 未核准、已擱置的範圍變更提案。開發與驗收依原始 MVP；要重提必須走新的 Change 流程（PRODUCT_SPEC §58） | Jerry |
 | 資料 | `DATA-GAP` | 原始要求不變，但目前缺資料或功能，無法測試或提供。必須列出補齊的負責人與驗收 | J-002 |
+| 營運審閱 | `OWNER_APPROVED_CONDITIONAL` | 本人授權並有條件核准具體方案／候選文案；未完成工程或其他條件不得啟用 ACTIVE 或宣稱整體完成 | Jerry／獲授權的中心審查 |
 | 外部輸入 | `BLOCKED` | 缺人、帳號、額度或法務意見，不得以假設解鎖 | Jerry |
 | 知識內容 | `NEEDS_REVIEW` → `APPROVED`（內容核准）→ `PUBLISHED`（已在資料庫發布） | 見 `contracts/knowledge/README.md`。只有 `PUBLISHED` 可被正式 Assessment 使用 | 審核人／J-003 |
 
@@ -45,7 +46,7 @@ Last reviewed: 2026-10-03（staging `6c74dee`；本輪工程規格定案）
 | D-02a | 官方來源白名單與 Source Registry `SR-2026-09-23-01` | **SPEC-APPROVED**（2026-09-24）；地方來源已補入已核准內容包並首次發布；後續來源變更由 B-009／J-002 追蹤 | D-02a-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-008（已合併）、B-009、J-002 地方知識 |
 | D-03 | 知識內容包格式、匯入驗證、發布／撤回規則 | **SPEC-APPROVED**（2026-09-24）；B-008-r2～r5 已合併並取得首次發布證據；D-16c 新收尾要求另由 B-012 實作 | D-03-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806617991) | B-008-r2、J-003 首次發布 |
 | D-04 | 匿名 session 持有證明、有效期、資源歸屬、濫用限制、冪等、刪除（API_CONTRACT v0.2 §3） | **SPEC-APPROVED**（2026-09-24） | D-04-v1 | Jerry | [PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685) | B-011a、B-010、B-005、B-006、J-003 adapter |
-| D-05 | 隱私、同意版本、保存／刪除、外部資料流 | PROPOSED；**做法已核准**（優先確認 L-6、L-1，[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806704685)）；客服／刪除信箱已指定為 `viz963@gmail.com`（2026-10-03）；蒐集者蘇子傑僅於隱私頁公開；網路研究草案已補齊，委託地區／權利流程與最終審閱仍待驗；版本維持 DRAFT | D-05-v1 | Jerry | — | B-011、C-005、J-004 |
+| D-05 | 隱私、同意版本、保存／刪除、外部資料流 | **營運方案有條件核准（2026-10-05）**；官方來源研究及同類平台告知結構已比較，候選全文固定；工程啟用條件尚未滿足，版本保持 DRAFT。不是外部法律意見或整體 D-05 完成 | D-05-v2 | Jerry 授權中心審查 | [本人決定紀錄](https://github.com/viz963-1216/Kareo/pull/79#issuecomment-5987094678) | B-011、C-005、J-003、J-004 |
 | D-05a | 四個保存期限分離、Lead 來源關聯、系統取消與清理計數；七天內刪除保留原期限 | **SPEC-APPROVED（工程規劃）**；不代表 D-05 法律審閱／ACTIVE 或實測完成 | D-05a-v1 | Jerry 委託 J-002 定案 | [J 留言 #55](https://github.com/viz963-1216/Kareo/pull/55#issuecomment-5967136580) | B-011b、J-003、J-004 |
 | D-06 | Lead 接件方式、角色、狀態轉移、回覆時程 | PROPOSED；主要接件人 **蘇子傑**，週一至週五 09:00–21:00；**不設備援接件人**（2026-09-24 Jerry 決定，以逾時暫停媒合入口替代） | D-06-v1 | Jerry | — | B-006、J-004 |
 | D-07 | 推薦排序：有精確位置依距離、只有行政區穩定輪替、無位置不宣稱附近（PRODUCT_SPEC §21–24） | **原始 MVP 要求（不變）**；Provider 座標 30／30（29 筆官方門牌點＋NTPC-AD-004 經 Jerry 核准的非官方商家座標 DEC-A003-07；#39，2026-10-01 staging） | D-07-v3 | Jerry | PRODUCT_SPEC §20–24 | A-003-r2、B-005、C-005、J-003 |
