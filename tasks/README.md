@@ -34,7 +34,7 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 # 最新 D-05 提案與合成備份再刪除（2026-10-05）
 
-D-05 官方資料研究、營運方案與固定候選全文已提供 Jerry 審閱；本人核准尚未取得，版本保持 DRAFT。兩項合成應用快照還原及重套刪除測試新增至本機整合，共 40／40 LOCAL 通過，不能填入 49 項部署 E2E。正式獨立刪除紀錄保存、權利工具、排程實跑與部署仍待完成。見 `docs/acceptance/D05-2026-10-05-owner-review.md`；Gemini 分工提示詞位於 `docs/handoffs/GEMINI-J003-UI-AND-DEPLOY-2026-10-05.md`。
+D-05 官方研究及同類告知比較完成，Jerry 2026-10-05 授權後營運方案有條件核准；正式工程條件未完成，版本保持 DRAFT。兩項合成應用快照還原及重套刪除測試新增至本機整合，共 40／40 LOCAL 通過，不能填入 49 項部署 E2E。正式獨立刪除紀錄保存、權利工具、排程實跑與部署仍待完成。見 `docs/acceptance/D05-2026-10-05-owner-review.md`；Gemini 分工提示詞位於 `docs/handoffs/GEMINI-J003-UI-AND-DEPLOY-2026-10-05.md`。
 
 # 最新本機 HTTP 整合（2026-10-05；J-003-r14）
 
@@ -229,3 +229,5 @@ Engineer C：Frontend / UX
 所有跨模組 Integration 由 Jerry 在 `staging` 完成。Feature PR Merge 到 staging 只能稱為 Module Complete。只有通過 A＋B＋C＋Supabase＋Netlify＋Integration／E2E（release 模式）後，才能稱為 Integrated。
 
 「MVP 完成」必須同時有：正式知識（PUBLISHED）與每日 00:10 自動更新（B-009）、真實評估（含可能適用的制度與補助說明）、可追溯 Provider 資料、依位置精度的確定性推薦（精確位置、行政區、無位置）、可保存並由負責人接件的 Lead、隱私／權限驗收、部署後 E2E、可操作的回復方案。
+
+2026-10-05 本輪補充：J-002-r15 已完成候選全文下載、指紋防竄改及 LOCAL-41；本機 41／41 PASS，非 49 項部署驗收。營運方案已依本人授權有條件核准，D-05 工程條件與正式啟用尚未完成。

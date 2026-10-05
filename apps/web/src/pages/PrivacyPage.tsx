@@ -5,6 +5,7 @@ export function PrivacyPage() {
     <p className="eyebrow">隱私與資料使用</p>
     <h1>Kareo 隱私告知</h1>
     <p className="notice">草案版本：2026-10-03-r2-draft。正式評估與媒合尚未開放；以下是預定資料處理方式，保存、撤回與刪除流程須完成驗證後才能啟用。</p>
+    <p><a href="/privacy/versions/2026-10-05-r1-proposed.txt" download>下載審閱用候選文案全文（2026-10-05-r1，尚未生效）</a>。這份候選文案不取代目前的草案或啟用正式資料蒐集。</p>
     <section className="panel">
       <h2>誰負責資料與聯絡方式</h2>
       <p>資料蒐集者／營運者：蘇子傑（Kareo）。客服與個人資料權利申請：<a href="mailto:viz963@gmail.com">viz963@gmail.com</a>。</p>

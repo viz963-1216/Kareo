@@ -33,7 +33,7 @@ export function ConsentPage({ onAccept }: Props) {
     <main id="main-content" className="content">
       <p className="eyebrow">開始前確認</p>
       <h1>服務說明與同意</h1>
-      {consentIsDraft && <p><DraftBadge>草案文案・尚未經法務確認，非正式核准版本</DraftBadge></p>}
+      {consentIsDraft && <p><DraftBadge>草案版本・正式啟用驗證尚未完成</DraftBadge></p>}
       <FormalAssessmentReminder />
       <section className="panel" aria-labelledby="disclaimer-heading">
         <h2 id="disclaimer-heading">免責聲明</h2>

@@ -65,6 +65,18 @@ export async function verifyLocalStack(stack) {
         assert.match(html, /<script[^>]*src="\/assets\//);
       }
     });
+    await test('LOCAL-41', 'Frontend proposal archive is retrievable byte-for-byte, explicitly non-active, with no private approval metadata', async () => {
+      const response = await fetch(baseUrl+'/privacy/versions/2026-10-05-r1-proposed.txt');
+      assert.equal(response.status,200);
+      const bytes = Buffer.from(await response.arrayBuffer());
+      const review = JSON.parse(readFileSync('contracts/legal/proposals/2026-10-05-r1.review.json','utf8'));
+      assert.equal(createHash('sha256').update(bytes).digest('hex'),review.fullTextSha256);
+      assert.deepEqual(bytes,readFileSync(review.fullTextPath));
+      const index = await (await fetch(baseUrl+'/privacy/versions/index.json')).json();
+      const entry = index.proposals.find(p=>p.version==='2026-10-05-r1');
+      assert.equal(entry.status,'PROPOSED_NOT_ACTIVE'); assert.equal(entry.fullTextSha256,review.fullTextSha256);
+      assert.ok(!JSON.stringify(index).includes('approvedBy') && !JSON.stringify(index).includes('approvalEvidence'));
+    });
     await test('LOCAL-04', 'Public resources are queryable without Session; five centers are not service providers', async () => {
       const list = success(await call('GET', '/api/v1/providers?pageSize=50')); assert.equal(list.totalCount, 35);
       const centers = success(await call('GET', '/api/v1/providers?resourceCategory=ASSISTIVE_DEVICE_CENTER'));
@@ -368,6 +380,6 @@ export async function verifyLocalStack(stack) {
   } catch { /* first failure is recorded; no false success or dependent-case cascade */ }
   return { schemaVersion:1, scope:'LOCAL-INTEGRATION-ONLY', releaseAcceptance:false, backend:stack.backend, baseUrl, startedAt, finishedAt:new Date().toISOString(),
     consent:'Synthetic LOCAL-TEST combo only in temporary bundles; production contract remains DRAFT', cloudWrites:0,
-    status:results.length===40 && results.every(r=>r.status==='PASS')?'PASS':'FAIL', results, restoreRehearsals,
+    status:results.length===41 && results.every(r=>r.status==='PASS')?'PASS':'FAIL', results, restoreRehearsals,
     limitations:['Not Netlify/deployed E2E; not counted toward the 49-case release gate','Browser/manual/operational cases require separate evidence','No actual daily scheduler trigger or formal D-05 approval'] };
 }

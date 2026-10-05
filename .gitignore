@@ -7,3 +7,6 @@ dist/
 .DS_Store
 *.log
 coverage/
+
+# Generated from fixed consent proposal text and verified SHA-256.
+apps/web/public/privacy/versions/
