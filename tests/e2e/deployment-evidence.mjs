@@ -10,10 +10,14 @@ export async function observeDeployment(env, fetchImpl = fetch) {
   try {
     const response = await fetchImpl(url, { headers: { Accept: 'application/json', 'Cache-Control': 'no-cache' }, signal: AbortSignal.timeout(15_000) });
     observation.httpStatus = response.status;
+    // A private preview can return an HTML login page, not a broken build.
+    // Check HTTP status first and never include the login body/token in evidence.
+    if (!response.ok) return { ...observation, commit: null, error: [401,403].includes(response.status)
+      ? `version marker HTTP ${response.status}: deployment access is protected; authorized access required`
+      : `version marker HTTP ${response.status}` };
     const text = await response.text();
     let marker;
     try { marker = JSON.parse(text); } catch { return { ...observation, commit: null, error: 'version marker is not JSON (not deployed with J-003-r3 build?)' }; }
-    if (!response.ok) return { ...observation, commit: null, error: `version marker HTTP ${response.status}` };
     if (!isFullSha(marker?.commit)) return { ...observation, commit: null, error: `version marker has no full commit (${JSON.stringify(marker?.commit ?? null)}; source ${marker?.commitSource ?? '?'})` };
     return { ...observation, commit: marker.commit, commitSource: marker.commitSource ?? null, context: marker.context ?? null, branch: marker.branch ?? null, deployId: marker.deployId ?? null, builtAt: marker.builtAt ?? null };
   } catch (e) {
