@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "status": "PROPOSED",
+  "intendedVersion": "2026-10-05-r1",
+  "fullTextPath": "contracts/legal/proposals/2026-10-05-r1.md",
+  "fullTextSha256": "5f28c3de07e260214bf7e6b12dd45642fceac619076858d253027d0920e6c1a2",
+  "sourceCommit": "fccd6d961c96c85b2c5827601ab2ffd8b9c83514",
+  "reviewType": "OFFICIAL_SOURCE_RESEARCH_AND_OWNER_DECISION",
+  "externalLegalOpinionObtained": false,
+  "approvedBy": null,
+  "approvedAt": null,
+  "activationAllowed": false,
+  "activationConditions": [
+    "Owner approves this exact full text and operational policy",
+    "Vendor account scope and retention confirmed",
+    "Consent display, retrieval, withdrawal, deletion and cleanup verified",
+    "No-token rights processing and backup deletion replay verified",
+    "Frontend/backend deployment regression verified"
+  ],
+  "sourcesCheckedOn": "2026-10-05"
+}

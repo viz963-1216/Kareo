@@ -32,6 +32,10 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新 D-05 提案與合成備份再刪除（2026-10-05）
+
+D-05 官方資料研究、營運方案與固定候選全文已提供 Jerry 審閱；本人核准尚未取得，版本保持 DRAFT。兩項合成應用快照還原及重套刪除測試新增至本機整合，共 40／40 LOCAL 通過，不能填入 49 項部署 E2E。正式獨立刪除紀錄保存、權利工具、排程實跑與部署仍待完成。見 `docs/acceptance/D05-2026-10-05-owner-review.md`；Gemini 分工提示詞位於 `docs/handoffs/GEMINI-J003-UI-AND-DEPLOY-2026-10-05.md`。
+
 # 最新本機 HTTP 整合（2026-10-05；J-003-r14）
 
 基底 staging `5edbd1e`（#77）；目前已提交 ABC 模組均已 MERGED。新增一次性 PostgreSQL 17＋官方 PostgREST＋正式 Functions／supabase-js HTTP 整合與 CI，驗證主流程、權限、管理知識與清理回滾；只使用隔離資料及暫存測試同意。38 項 LOCAL 檢查不計入 49 項部署 E2E，D-05 仍 DRAFT，Integrated 仍否。Jerry 暫緩付費正式上線，現階段可持續本機驗證、操作／資料權利與復原準備。證據見 `docs/acceptance/J003-2026-10-05-local-http.md`；以下為較早快照。
