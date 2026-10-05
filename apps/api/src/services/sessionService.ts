@@ -3,6 +3,8 @@ import type { CreatedSession } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
 import { nowTaipeiISOString } from "../lib/response.js";
 import { requireValidSession } from "./sessionSecurityService.js";
+import type { DeletionJournal } from "../privacy/deletionJournal.js";
+import { persistDeletionIntent } from "../privacy/persistDeletionIntent.js";
 
 export async function createSession(repo: SessionRepository): Promise<CreatedSession> {
   return repo.createSession();
@@ -14,10 +16,11 @@ export async function createSession(repo: SessionRepository): Promise<CreatedSes
 // 下一次呼叫 requireValidSession 會因 status !== ACTIVE 直接回 SESSION_INVALID）。
 export async function deleteSession(
   repo: SessionRepository,
-  sessionTokenHeader: unknown
+  sessionTokenHeader: unknown,
+  journal?: DeletionJournal
 ): Promise<{ sessionId: string; status: "DELETION_REQUESTED"; deletionScheduledBefore: string }> {
   const session = await requireValidSession(repo, sessionTokenHeader);
-  const now = nowTaipeiISOString();
+  const now = await persistDeletionIntent(journal,session.id,"USER_DELETED",nowTaipeiISOString());
   const { updated } = await repo.requestDeletion(session.id, now);
   if (!updated) {
     // requireValidSession 剛確認過是 ACTIVE，理論上不會落到這裡（除非極端的併發競態）；

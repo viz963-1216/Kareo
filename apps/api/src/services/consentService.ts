@@ -1,3 +1,5 @@
+import type { DeletionJournal } from "../privacy/deletionJournal.js";
+import { persistDeletionIntent } from "../privacy/persistDeletionIntent.js";
 import type { ConsentRepository, SessionRepository } from "../repositories/types.js";
 import type { Consent, CreateConsentInput } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
@@ -74,10 +76,11 @@ export async function createConsent(
 export async function withdrawConsent(
   sessionRepo: SessionRepository,
   consentRepo: ConsentRepository,
-  sessionTokenHeader: unknown
+  sessionTokenHeader: unknown,
+  journal?: DeletionJournal
 ): Promise<{ withdrawnAt: string; sessionStatus: "DELETION_REQUESTED" }> {
   const session = await requireValidSession(sessionRepo, sessionTokenHeader);
-  const now = nowTaipeiISOString();
+  const now = await persistDeletionIntent(journal,session.id,"CONSENT_WITHDRAWN",nowTaipeiISOString());
   const { updated } = await consentRepo.withdraw(session.id, now);
   if (!updated) {
     throw new AppError("SESSION_INVALID", "目前沒有可撤回的同意紀錄。");

@@ -1,3 +1,6 @@
+import { createDeletionJournal } from "../privacy/netlifyDeletionJournal.js";
+import type { DeletionJournal } from "../privacy/deletionJournal.js";
+import { SupabaseDeletionJournalRepository, type DeletionReplayRepository } from "../repositories/supabaseDeletionJournalRepository.js";
 // 受保護的內部指令，依 PRIVACY_AND_RETENTION §6.3：每日到期清理作業（需授權角色執行）。
 // 用法（需先 npm run build；需 SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY）：
 //   KAREO_OPERATOR_KEY=<key> node dist/scripts/cleanupExpiredData.js --dry-run|--commit --operator-id <InternalOperator ID>
@@ -11,7 +14,7 @@
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { runRetentionCleanup } from "../services/retentionService.js";
-import { requireOperator } from "../services/internalOperatorService.js";
+import { hashOperatorKey, requireOperator } from "../services/internalOperatorService.js";
 import { SupabaseSessionRepository } from "../repositories/supabaseSessionRepository.js";
 import { SupabaseLeadRepository } from "../repositories/supabaseLeadRepository.js";
 import { AppError } from "../errors/AppError.js";
@@ -44,6 +47,8 @@ function parseArgs(argv: string[]): CleanupArgs | null {
 }
 
 export interface CleanupCliDeps {
+  journal?: DeletionJournal;
+  replayRepo?: DeletionReplayRepository;
   sessionRepo: SessionRepository;
   operatorRepo: LeadRepository;
   log: (message: string) => void;
@@ -74,7 +79,20 @@ export async function runCleanupCli(
     throw err;
   }
 
-  const run = await runRetentionCleanup(deps.sessionRepo, { dryRun: args.dryRun, operatorId, now });
+  let cleanupRepo=deps.sessionRepo;
+  if (deps.journal) {
+    try {
+      const receipts=await deps.journal.readAll();
+      if (!deps.replayRepo) throw new Error('DELETION_REPLAY_CONFIG');
+      if (!args.dryRun) {
+        const input={projectRef:deps.journal.projectRef,receipts,operatorId,operatorKeyHash:hashOperatorKey(env.KAREO_OPERATOR_KEY!)};
+        cleanupRepo=Object.create(deps.sessionRepo) as SessionRepository;
+        cleanupRepo.runDeletionCleanupAndRecord=cleanup=>deps.replayRepo!.replayAndCleanup({...input,cleanup});
+        deps.log(`Independent deletion journal: ${receipts.length} validated; replay and cleanup share one database transaction`);
+      } else deps.log(`Independent deletion journal: ${receipts.length} validated; dry-run database counts exclude unapplied external intents`);
+    } catch { deps.error('Independent deletion journal/read failed; cleanup stopped.'); return 1; }
+  }
+  const run = await runRetentionCleanup(cleanupRepo, { dryRun: args.dryRun, operatorId, now });
 
   deps.log(`Mode: ${run.dryRun ? "dry-run" : "commit"}`);
   deps.log(`Operator: ${operatorId}`);
@@ -89,6 +107,7 @@ export async function runCleanupCli(
 // 只有直接執行本檔時才跑 CLI；被測試或其他模組 import 時不得自動連線 Supabase。
 if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {
   runCleanupCli(process.argv.slice(2), process.env, {
+    journal:createDeletionJournal(), replayRepo:new SupabaseDeletionJournalRepository(),
     sessionRepo: new SupabaseSessionRepository(),
     operatorRepo: new SupabaseLeadRepository(),
     log: (m) => console.log(m),
@@ -98,7 +117,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {
       process.exitCode = code;
     })
     .catch((err) => {
-      console.error("Cleanup failed:", err);
+      console.error("Cleanup failed. Check protected configuration and recorded status.");
       process.exitCode = 1;
     });
 }

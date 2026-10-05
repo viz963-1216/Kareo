@@ -1,3 +1,4 @@
+import { createDeletionJournal } from "../privacy/netlifyDeletionJournal.js";
 // No public endpoint. Only a verified DATA_STEWARD, a private request file and
 // an explicit private export file. Never print health/contact values or keys.
 import { lstatSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -48,7 +49,7 @@ export async function runPrivacyCli(argv:string[],env:Record<string,string|undef
 }
 if (process.argv[1] && import.meta.url===pathToFileURL(resolve(process.argv[1])).href) {
   runPrivacyCli(process.argv.slice(2),process.env,{
-    operatorRepo:new SupabaseLeadRepository(),privacyRepo:new SupabasePrivacyRepository(),
+    journal:createDeletionJournal(),operatorRepo:new SupabaseLeadRepository(),privacyRepo:new SupabasePrivacyRepository(),
     knowledgeResolver:new DatabaseKnowledgeResolver(new SupabaseKnowledgeRepository()),engine:new RuleBasedAssessmentEngine(),
     readRequest:readPrivateRequest,writeExport:writePrivateExport,log:console.log,error:console.error,
   }).then(code=>{process.exitCode=code;}).catch(()=>{console.error('Privacy operation failed.');process.exitCode=1;});
