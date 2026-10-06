@@ -259,7 +259,9 @@ export class InMemoryKnowledgeRepository implements KnowledgeRepository {
 
   async insertCrawlerRun(run: CrawlerRun): Promise<void> {
     this.throwIfSimulatedFailure();
-    this.crawlerRuns.push({ ...run });
+    const existing = this.crawlerRuns.findIndex((r) => r.id === run.id);
+    if (existing < 0) this.crawlerRuns.push({ ...run });
+    else this.crawlerRuns[existing] = { ...run };
   }
 
   async insertSnapshot(snapshot: CrawlerSnapshot): Promise<void> {

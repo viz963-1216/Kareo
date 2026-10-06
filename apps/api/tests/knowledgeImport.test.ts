@@ -58,6 +58,7 @@ describe("parseSourceRegistry", () => {
   it("parses active and inactive sources from a markdown table", () => {
     const registry = parseSourceRegistry(REGISTRY_MD);
     expect(registry.get("SRC-LAW-001")).toEqual({
+      name: "長照辦法",
       authority: "LAW",
       jurisdiction: "TAIWAN",
       url: "https://law.moj.gov.tw/x",
