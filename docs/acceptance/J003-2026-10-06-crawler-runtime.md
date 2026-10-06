@@ -30,3 +30,15 @@ Local backend typecheck and build: PASS. Full backend suite: 54 files, 753 tests
 The first failed run remains evidence. Post-fix cloud results will be recorded with their actual run URL, commit and database observations; they are not assumed here. A manual trigger is not a scheduled midnight trigger. E2E-26/38/39 and the complete 49-case release gate are not marked PASS by this repair. Integrated remains false.
 
 Scope: Jerry's central repair of B-009 runtime and J-003 workflow/evidence, under the instruction to complete ABCJ tasks. No frontend, assessment, recommendation or consent business rules changed.
+
+## Post-fix actual cloud trial
+
+PR #86 head `402333fabfd0cc58072a204ad9db6debe1116d64`: all eight CI jobs plus Local HTTP integration succeeded, then merged to staging `89439e8d639495f91da7f8568d0b6c715297e3d0`.
+
+Second manual run: https://github.com/viz963-1216/Kareo/actions/runs/37434827485, on that staging SHA. Actual crawl 2026-10-06 08:15:07–08:16:16 UTC. All 18 active official sources were attempted: 16 SUCCESS, 2 FAILED (`SRC-NTPC-CAREYOU-BRANCH` and `SRC-NTPC-CAREYOU-LTCTS`, both `fetch failed`). Actions correctly returned failure / overall PARTIAL. No source was skipped to turn the result green.
+
+Acceptance database: 19 registered sources; 16 snapshots; zero raw SHA-256 mismatches and zero snapshot/run/source link mismatches; 8 changes, all NEEDS_REVIEW. KnowledgeRecord count 21 and whole-row digests before/after matched (`0002eed3bb703be3c5ef63c31c717c92`); KnowledgeVersion whole-row digests matched (`f39ea4876fdcaeebd9fb81b817ca52f3`). Current published version is unchanged. Original 11 failed rows remain.
+
+Both failed URLs returned HTTP 200 using Node on Jerry's local computer. That does not prove they are reachable from the GitHub runner (second runner region: northcentralus), nor that a geographical firewall is the cause. Added a separate, manually triggered read-only network diagnostic: Node DNS/fetch causes and curl HTTPS verification from a GitHub runner, with no environment or credentials. It does not write any data or produce crawler/E2E PASS records.
+
+Automatic midnight trigger, external connectivity and complete E2E acceptance remain pending.
