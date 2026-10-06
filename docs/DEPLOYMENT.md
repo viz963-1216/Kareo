@@ -1,12 +1,12 @@
 # Kareo deployment — staging
 
-Submission Version: J-001-r1
+Submission Version: J-003-r16（2026-10-06，驗收入口修正；保留較早建置紀錄）
 
 ## Scope
 
 Jerry-authorized deployment setup for GitHub staging → Netlify → Supabase.
 Netlify project name: Kareo (URL slug may be lower-case). Supabase project name: Kareo.
-Use a new isolated Supabase project. Do not reuse Kareocar's database.
+Current acceptance uses the existing Kareo project `ojawadobnaxduxybqolk`; a paid production database is deferred by Jerry. Do not reuse Kareocar's database.
 
 ## Netlify
 
@@ -28,7 +28,9 @@ then publishes apps/web/dist. A failing frontend build fails deployment rather
 than silently replacing it with the placeholder. No frontend business logic
 or core API contracts are changed here.
 
-## Supabase
+## Supabase（最初建置紀錄；不是目前 migration 清單）
+
+The list below records J-001 setup only. For the current acceptance database, inspect applied migrations and the complete ordered `apps/api/supabase/migrations/` inventory before any authorized update; do not treat these first two files as the full schema.
 
 Enable Data API for the current supabase-js repository implementation.
 Disable automatic grants for new tables; enable automatic RLS if offered.
@@ -47,19 +49,17 @@ validation and future user authorization remain backend responsibilities.
 - npm run typecheck --prefix apps/api
 - npm test --prefix apps/api
 - node scripts/build-site.mjs
-- Run `node scripts/smoke-staging.mjs https://YOUR-STAGING-SITE` against this test
-  environment only. It creates one anonymous Session and one synthetic Consent
-  using version `deployment-smoke-test`, not an actual user's legal acceptance.
-- Verify those IDs exist in Supabase and rejected consent creates no extra row.
+- Run `node scripts/smoke-staging.mjs --base-url=https://YOUR-STAGING-SITE --commit=<full40SHA> --out=<diagnostic.json>` against the designated acceptance deployment. Default checks use GET only, verify the marker before and after, and create no Session, Consent, Assessment or Lead. A mismatch or access block stops before API cases.
+- Synthetic write E2E is explicit: add `--write-e2e --allow-writes` only after the checked-out registry contains a valid ACTIVE combination and the acceptance environment/cleanup are ready. The actual runner rechecks the marker before any POST. No placeholder consent is accepted.
+- API portions of UI cases remain PENDING; script exit 0 does not prove complete MVP acceptance.
 - Confirm anon/publishable access cannot read either table.
 - Missing API routes must return JSON 404, not the frontend index page.
 
-The smoke script intentionally leaves its clearly tagged test record for audit.
+Default smoke leaves no test records. Explicit API write E2E creates synthetic records and exercises withdrawal/deletion; track those records and verify cleanup separately, never use a time-window deletion against unrelated records.
 
 ## Later release
 
-A and C's remaining deliverables, Assessment/Recommendation/Lead endpoints and
-full end-to-end tests are still required. Use separate production Supabase
+Deployed end-to-end evidence, D-05 activation and the release gates are still required; merged module code alone is not acceptance. Use separate production Supabase
 credentials and a main release when ready. Remove the staging noindex header
 for the production configuration. Do not enable billing auto-recharge as part
 of this setup.
@@ -88,12 +88,12 @@ Record the date and operator in `docs/INTEGRATION_ACCEPTANCE.md` when applied.
 
 | Netlify context | `VITE_KAREO_API_MODE` | Behaviour |
 |---|---|---|
-| Deploy Preview | `mock` (set in netlify.toml) | UI review with fixtures |
+| Deploy Preview | `real` (current netlify.toml; r1 originally used mock) | Controlled acceptance API; missing backend settings block real data |
 | Branch / production (staging site) | unset → `real` | Calls `/api/v1`; never falls back to mock |
 | Any non-preview context with `mock` | — | **Build fails** (`scripts/lib/frontend-env.mjs`); at runtime `apps/web/src/api/mode.ts` would also ignore it and use the real API |
 | `main` branch (public release) | must be `real` | Build also requires `VITE_KAREO_REQUIRE_SESSION_TOKEN=true` and all three `VITE_CONSENT_*` versions |
 
-`VITE_KAREO_REQUIRE_SESSION_TOKEN=true` makes the adapter reject a session without `sessionToken` and refuse protected calls without one (API_CONTRACT §3.1). Leave it unset on staging until B-011a is deployed; the adapter then logs that requests are not session-protected (it never pretends they are).
+`VITE_KAREO_REQUIRE_SESSION_TOKEN=true` makes the adapter reject a session without `sessionToken` and refuse protected calls without one (API_CONTRACT §3.1). B-011a is merged; acceptance deployments must enable this setting. Missing tokens must block protected calls.
 
 Consent versions are build-time variables. Set them in the Netlify UI **per site/context**:
 
@@ -123,7 +123,7 @@ On 2026-09-23 the Netlify team had exhausted its credits: `kareo-tw` and `kareoc
   Tested in `tests/scripts/netlify-ignore.test.mjs` (docs-only commit → skip; imported contract → build).
 - Batch merges to `staging`; each deploy costs credits.
 - Staging smoke runs only via the manual `Staging smoke (manual)` workflow or locally:
-  `node scripts/smoke-staging.mjs https://<staging-site>` (add `--with-assessment` only when intended).
+  `node scripts/smoke-staging.mjs --base-url=https://<staging-site> --commit=<full40SHA> --out=<diagnostic.json>`. Default is read-only; explicit write mode needs `--write-e2e --allow-writes` and ACTIVE consent. The legacy `--with-assessment` flag also requires `--allow-writes` and invokes API E2E, not an assessment-only test.
 - Buying credits, cancelling the scheduled downgrade or enabling auto-recharge are Jerry's decisions.
 
 ## J-003-r3 additions (2026-09-23)

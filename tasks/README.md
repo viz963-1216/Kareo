@@ -32,6 +32,10 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新 J-003 驗收入口（2026-10-06；r16）
+
+基底 staging `891ed2b`（#84）。舊 smoke 預設建立 Session、寫死同意且未核對 SHA 的問題已修正：預設 GET；API 寫入需明確啟用、ACTIVE 及版本匹配。部分測試保留 PENDING，完整 49 部署 E2E、正式同意啟用、環境設定與排程仍待驗證。見 [r16](../docs/acceptance/J003-2026-10-06-safe-staging-smoke.md)。以下較早紀錄保留。
+
 # 最新 D-05 提案與合成備份再刪除（2026-10-05）
 
 D-05 官方研究及同類告知比較完成，Jerry 2026-10-05 授權後營運方案有條件核准；正式工程條件未完成，版本保持 DRAFT。兩項合成應用快照還原及重套刪除測試新增至本機整合，共 40／40 LOCAL 通過，不能填入 49 項部署 E2E。正式獨立刪除紀錄保存、權利工具、排程實跑與部署仍待完成。見 `docs/acceptance/D05-2026-10-05-owner-review.md`；Gemini 分工提示詞位於 `docs/handoffs/GEMINI-J003-UI-AND-DEPLOY-2026-10-05.md`。

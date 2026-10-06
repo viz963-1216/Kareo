@@ -1,54 +1,38 @@
-import assert from 'node:assert/strict';
-const base = new URL(process.argv[2] ?? '');
-assert.equal(base.protocol, 'https:', 'Use the HTTPS staging URL');
-async function post(path, body) {
-  const response = await fetch(new URL(path, base), {
-    method: 'POST', headers: {'Content-Type':'application/json'},
-    body: body === undefined ? undefined : JSON.stringify(body),
-  });
-  const result = await response.json();
-  return {response, result};
-}
-const {response: sr, result: session} = await post('/api/v1/session');
-assert.ok(sr.ok && session.success, 'Session creation failed');
-assert.equal(typeof session.data.sessionId, 'string');
-const body = {sessionId:session.data.sessionId,disclaimerVersion:'deployment-smoke-test',privacyVersion:'deployment-smoke-test',termsVersion:'deployment-smoke-test',accepted:false};
-const rejected = await post('/api/v1/consent', body);
-assert.equal(rejected.result.success, false);
-assert.equal(rejected.result.error.code, 'VALIDATION_ERROR');
-const accepted = await post('/api/v1/consent', {...body,accepted:true});
-assert.ok(accepted.response.ok && accepted.result.success, 'Consent creation failed');
-assert.equal(typeof accepted.result.data.consentId, 'string');
-const missing = await fetch(new URL('/api/v1/not-implemented', base));
-assert.equal(missing.status, 404);
-assert.equal((await missing.json()).error.code, 'NOT_FOUND');
+// J-003 staging entry point: read-only by default; synthetic writes are explicit.
+import { spawn } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { writeFileSync } from 'node:fs';
+import { resolveReleaseTarget } from './lib/release-target.mjs';
+import { runPublicApiE2e } from '../tests/e2e/run-public-api-e2e.mjs';
 
-// B-007 external link (J-003): must return the Kareocar URL and never embed it.
-const transport = await (await fetch(new URL('/api/v1/external-services/transportation', base))).json();
-assert.equal(transport.success, true, 'Transportation route failed');
-assert.equal(transport.data.url, 'https://kareocar.netlify.app/');
-assert.equal(transport.data.openMode, 'NEW_TAB');
-
-// Assessment is opt-in (--with-assessment): it writes a synthetic assessment record. MVP uses the rule engine (D-01), no paid AI.
-// This smoke is a deploy health check only; MVP acceptance is scripts/acceptance-gate.mjs --mode=release.
-let assessment = 'SKIPPED';
-if (process.argv.includes('--with-assessment')) {
-  const {response: ar, result: a} = await post('/api/v1/assessments', {
-    sessionId: session.data.sessionId, ageRange: '75_84',
-    location: {city: '新北市', district: '三重區', precision: 'DISTRICT', lat: null, lng: null},
-    livingSituation: 'WITH_FAMILY', caregiverSituation: 'FAMILY_LIMITED', mobilityLevel: 'NEEDS_ASSISTANCE',
-    dailyLivingLevel: 'PARTIAL_ASSISTANCE',
-    needs: {homeCare: 'YES', medicalNursing: 'UNKNOWN', assistiveDevice: 'YES', transportation: 'YES'},
-    freeText: 'deployment-smoke-test synthetic record',
+const args = process.argv.slice(2);
+// Preserve the old positional URL, but never accept it without an exact target SHA.
+const targetArgs = args[0] && !args[0].startsWith('--')
+  ? [`--base-url=${args[0]}`, ...args.slice(1)] : args;
+const target = resolveReleaseTarget(targetArgs, process.env, { allowInsecure: args.includes('--local') });
+const out = args.find(arg => arg.startsWith('--out='))?.slice(6);
+const writeMode = args.includes('--write-e2e') || args.includes('--with-assessment');
+const allowWrites = args.includes('--allow-writes');
+const problems = [...target.problems];
+if (!out) problems.push('missing --out=<JSON file>');
+if (writeMode && !allowWrites) problems.push('write E2E requires --allow-writes; it creates synthetic sessions/assessments and exercises withdrawal/deletion');
+if (allowWrites && !writeMode) problems.push('--allow-writes requires --write-e2e (or legacy --with-assessment)');
+if (problems.length) {
+  console.error('Usage: node scripts/smoke-staging.mjs --base-url=<https URL> --commit=<full SHA> --out=<file> [--write-e2e --allow-writes]');
+  for (const problem of problems) console.error(problem);
+  process.exitCode = 2;
+} else if (!writeMode) {
+  const { run, exitCode } = await runPublicApiE2e({ target });
+  writeFileSync(out, `${JSON.stringify(run, null, 2)}\n`);
+  process.exitCode = exitCode;
+} else {
+  // The actual runner rechecks the marker and ACTIVE registry before any POST.
+  const runner = fileURLToPath(new URL('../tests/e2e/run-api-e2e.mjs', import.meta.url));
+  const child = spawn(process.execPath, [runner, `--base-url=${target.env.key}`,
+    `--commit=${target.commit}`, `--out=${out}`, '--allow-writes',
+    ...(args.includes('--local') ? ['--local'] : [])], { stdio: 'inherit' });
+  process.exitCode = await new Promise(resolve => {
+    child.once('error', () => { console.error('API runner could not start'); resolve(1); });
+    child.once('close', code => resolve(code ?? 1));
   });
-  if (a.success) {
-    assert.ok(a.data.careNeedProfile.warnings.length > 0, 'Assessment warnings missing');
-    assert.ok(!/^KB-(MOCK|TEST)/.test(a.data.knowledgeVersion), 'Assessment used a mock/test knowledge version');
-    assessment = `PASS ${a.data.assessmentId} ${a.data.knowledgeVersion}`;
-  } else {
-    // Not a pass: the flow is blocked at this step. Report it explicitly.
-    assert.ok(['KNOWLEDGE_UNAVAILABLE', 'AI_UNAVAILABLE'].includes(a.error.code), `Unexpected assessment error ${ar.status} ${a.error.code}`);
-    assessment = `BLOCKED ${a.error.code}`;
-  }
 }
-console.log(JSON.stringify({sessionId:session.data.sessionId,consentId:accepted.result.data.consentId,transportation:'PASS',assessment,result:assessment.startsWith('PASS') ? 'PASS' : 'PARTIAL'},null,2));

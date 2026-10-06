@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 2,
+  "runId": "public-2026-10-06T01:38:57.711Z",
+  "apiMode": "real",
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "commit": "f55f01b2c24b6bd27138c75d1d4e0b4d53e35971",
+  "startedAt": "2026-10-06T01:38:57.711Z",
+  "finishedAt": "2026-10-06T01:38:58.690Z",
+  "operator": "tests/e2e/run-public-api-e2e.mjs",
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "f55f01b2c24b6bd27138c75d1d4e0b4d53e35971",
+    "before": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-06T01:38:57.718Z",
+      "httpStatus": 200,
+      "commit": "8f509c0567436392b9421bfb2e906d565c6f9438",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "staging",
+      "deployId": "6ac0d01145b99700084c2c48",
+      "builtAt": "2026-10-03T09:51:33.396Z"
+    },
+    "after": null,
+    "matches": false
+  },
+  "results": [],
+  "diagnostics": []
+}

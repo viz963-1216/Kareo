@@ -1,13 +1,15 @@
 # Kareo Integration Acceptance / 整合驗收紀錄
 
 Owner: Jerry（TASK-J-003）
-Submission Version: J-003-r14
+Submission Version: J-003-r16
 
 > 只有「部署環境中，以真實 API 與真實資料實際操作成功」才算通過。
 > Mock、單元測試、PR 合併都**不算**整合完成。平台額度或模組缺漏造成的阻擋一律記為 `PENDING`，必要項目 PENDING 時完整驗收判定為**失敗**。
 > 需求對應見 `docs/MVP_TRACEABILITY.md`（J-002-r4）；決策狀態見 `docs/MVP_DECISIONS.md`。
 
-> 最新快照：見 [2026-10-05 J-003-r14 本機 HTTP 整合](acceptance/J003-2026-10-05-local-http.md)。基底 staging `5edbd1e`（#77），已提交 ABC 模組皆已合併。本輪以正式 Functions、supabase-js、官方 PostgREST 與隔離 PostgreSQL 17 驗證 HTTP 流程；結果只屬 LOCAL，**不採計 49 項部署 E2E，Integrated 仍否**。同意測試版只在暫存建置內，正式 D-05 仍 DRAFT。舊部署及較早快照留作追溯，不代表最新 staging 的驗收。
+> 最新：見 [2026-10-06 J-003-r16 安全驗收入口](acceptance/J003-2026-10-06-safe-staging-smoke.md)。預設 GET、寫入需明確啟用及 ACTIVE，部分驗證不計整項 PASS；Integrated 仍否。下段 r14 留作追溯。
+
+> 較早快照：見 [2026-10-05 J-003-r14 本機 HTTP 整合](acceptance/J003-2026-10-05-local-http.md)。基底 staging `5edbd1e`（#77），已提交 ABC 模組皆已合併。本輪以正式 Functions、supabase-js、官方 PostgREST 與隔離 PostgreSQL 17 驗證 HTTP 流程；結果只屬 LOCAL，**不採計 49 項部署 E2E，Integrated 仍否**。同意測試版只在暫存建置內，正式 D-05 仍 DRAFT。舊部署及較早快照留作追溯，不代表最新 staging 的驗收。
 
 ---
 
@@ -71,17 +73,17 @@ E2E-44／48 是完整 UI 案例，即使 API 回列表也只記 PENDING；來源
 export KAREO_RELEASE_COMMIT=<待發布 commit 的完整 SHA>
 export KAREO_RELEASE_BASE_URL=https://kareo-tw.netlify.app
 curl -s "$KAREO_RELEASE_BASE_URL/kareo-version.json"
-node tests/e2e/run-api-e2e.mjs --out="tests/e2e/results/api-$(date -u +%Y%m%dT%H%M%SZ).json"
+node tests/e2e/run-api-e2e.mjs --allow-writes --out="tests/e2e/results/api-$(date -u +%Y%m%dT%H%M%SZ).json"
 node tests/e2e/record-manual.mjs --operator="<真實人員>" --case=E2E-16 --status=PASS --evidence="新分頁開啟 Kareocar，無 iframe" --out="tests/e2e/results/manual-$(date -u +%Y%m%dT%H%M%SZ).json"
 node scripts/acceptance-gate.mjs --mode=release
 ```
 
 1. 第 3 行確認 `commit` 就是目標 SHA。不是的話，先部署該 commit。
-2. 第 4 行跑 API 案例。
+2. 第 4 行需在驗收環境明確授權合成寫入、已具備清理及 ACTIVE 同意後才執行。無 --allow-writes 或無有效 ACTIVE 時只記前置 PENDING，不送 POST／DELETE。
 3. 第 5 行在每次人工（ui／ops）檢查後記錄，每個 case 各給一組 `--case`／`--status`／`--evidence`。
 4. 第 6 行驗收，exit 0 才算通過。
 
-也可以在 GitHub Actions 手動執行 `Release gate`，填入 `commit` 與 `base_url`。workflow 會先在 CI 跑 API runner（結果上傳為 artifact），再跑 gate。人工案例的結果檔需先經 PR 提交。
+也可以在 GitHub Actions 手動執行 `Release gate`，填入 `commit` 與 `base_url`。workflow 預設只跑公開 GET 診斷再跑嚴格 gate。只有手動勾選 run_api_e2e 才啟用合成寫入 runner；PR → main 不自動建立資料。結果上傳 artifact，人工案例結果需先經 PR 提交。
 
 C 的 Mock 模組驗收（C-003／C-004／C-005）只證明畫面與 contract 相容，不填入本文件的 E2E 結果。
 
