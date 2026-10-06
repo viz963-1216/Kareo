@@ -45,7 +45,7 @@ Status: DRAFT — 尚未演練
 node scripts/smoke-release.mjs --base-url=https://<production-site> --commit=<完整40位release SHA> --knowledge-version=<本次預期KB版號>
 ```
 
-此腳本只使用 GET，確認首頁、部署 commit、知識版號及 JSON 404，不建立任何 Session／Consent／Lead，也不代表完整 MVP E2E。舊 smoke-staging.mjs 使用 deployment-smoke-test 同意版本且沒有 session token，不可再作為正式發布 smoke。
+此腳本只使用 GET，確認首頁、部署 commit、知識版號及 JSON 404，不建立任何 Session／Consent／Lead，也不代表完整 MVP E2E。J-003-r16 已將 smoke-staging.mjs 改為指定 SHA 的驗收入口，預設僅 GET；可選寫入需明確授權及 ACTIVE。正式發布後仍使用本節 smoke-release.mjs，不以驗收入口代替發布演練。
 
 另外人工確認：
 

@@ -28,3 +28,15 @@ test('only successful full markers on both observations count as matching',async
  const html=await observeDeployment(target.env,async()=>new Response('<html>SPA</html>',{status:200}));
  assert.equal(html.commit,null);assert.equal(deploymentEvidence(html,html,target.commit).matches,false);
 });
+
+test('marker redirects and malformed marker values cannot leak login text or raw diagnostic data', async () => {
+ const r=await observeDeployment(target.env,async (_url,options)=>{
+  assert.equal(options.redirect,'error');
+  throw Error('private-token-in-network-error');
+ });
+ assert.equal(r.commit,null);
+ assert.doesNotMatch(r.error,/private-token/);
+ const invalid=await observeDeployment(target.env,async()=>new Response(JSON.stringify({commit:'private-token-in-marker',commitSource:'private-value'}),{status:200}));
+ assert.equal(invalid.commit,null);
+ assert.doesNotMatch(invalid.error,/private-token|private-value/);
+});

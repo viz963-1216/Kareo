@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r15 記錄 B-015／B-016（#81／#82）合併及雲端 0027／0028，49 LOCAL 與 CI 通過；受保護預覽可用 Chrome 看頁面，自動版本驗證 401，公開站仍舊版。Integrated：否；本機證據不採計 49 必要部署 E2E。（2026-10-05 核對）
+Status: 進行中。r16 修正 staging smoke／workflow：預設 GET，寫入需明確授權、ACTIVE 與目標 SHA；部分驗證維持 PENDING。環境設定、D-05 啟用、排程及 49 項部署 E2E 仍待完成；Integrated：否。（2026-10-06）
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -123,3 +123,8 @@ Submission Version 從 `J-003-r1` 起，退回後遞增。PR 必填 Added / Chan
 B-015 #81、B-016 #82 已合併；0027／0028 套用現有驗收專案。新增的 SDK、故障拒絕假成功、還原後重套刪除及清理稽核同交易，由本機 49 項及 exact-head CI 9 jobs 驗證。正式排程沒有實跑：預設分支 main、staging credentials／個人 DATA_STEWARD 尚未配置。僅有入口不等於每日更新／清理完成。
 
 預覽 #82 建置成功並可登入看 DRAFT 頁，但自動版本標記 HTTP 401；公開 URL 仍部署 8f509c0。新增工具診斷將受保護的 401／403 與非 JSON 建置問題分開，保留嚴格前後版本核對，不新增登入繞過。兩次實際 runner 均未執行案例，完整 49 項仍無本輪可採計結果。Gemini 提示詞已加入 exact-head preview 及限制。詳見 docs/acceptance/J003-2026-10-05-journal-and-deployment.md。
+
+
+## J-003-r16：安全的 staging 驗收入口（2026-10-06）
+
+基底 staging `891ed2b`（#84）。移除 smoke 寫死同意版本及預設建立 Session；預設委派公開 GET runner。指定完整 SHA／環境／輸出檔，寫入模式需 --write-e2e --allow-writes、有效 ACTIVE 組合及實際版本標記。API runner 不跟隨重新導向傳送自訂 token header，拒絕缺 expiresAt；E2E-02／04／17 的部分檢查不當作整項 PASS。手動 smoke 保存實際 artifact；Release gate 預設只做 GET，PR → main 不自動啟用寫入，49 必要項不變。見 [r16 證據](../docs/acceptance/J003-2026-10-06-safe-staging-smoke.md)。尚未部署、未改同意／帳號憑證或雲端資料。

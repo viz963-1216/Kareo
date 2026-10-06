@@ -1,15 +1,21 @@
-# Manual only: hits the deployed staging site with synthetic data.
-# Never runs on push/PR so it does not consume deploy or AI quota.
+# Manual, exact-target acceptance diagnostics. Default is GET only, with no secrets.
 name: Staging smoke (manual)
 
 on:
   workflow_dispatch:
     inputs:
       site_url:
-        description: HTTPS staging site URL (test environment only)
+        description: HTTPS URL of the designated acceptance deployment
         required: true
-      with_assessment:
-        description: Also call POST /api/v1/assessments (may use paid AI once B-010 is live)
+      commit:
+        description: Full 40-character lowercase SHA of the target deployment
+        required: true
+      run_write_e2e:
+        description: Run API E2E with synthetic sessions/assessments and withdrawal/deletion; requires ACTIVE consent
+        type: boolean
+        default: false
+      allow_writes:
+        description: Explicitly authorize the synthetic write E2E on this acceptance environment
         type: boolean
         default: false
 
@@ -19,18 +25,33 @@ permissions:
 jobs:
   smoke:
     runs-on: ubuntu-latest
+    environment: staging
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.commit }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Smoke test
+      - name: Verify checked-out target
         env:
-          SITE_URL: ${{ inputs.site_url }}
-          WITH_ASSESSMENT: ${{ inputs.with_assessment }}
+          TARGET_COMMIT: ${{ inputs.commit }}
+        run: test "$(git rev-parse HEAD)" = "$TARGET_COMMIT"
+      - name: Staging diagnostics (GET only unless explicitly authorized)
+        env:
+          KAREO_RELEASE_BASE_URL: ${{ inputs.site_url }}
+          KAREO_RELEASE_COMMIT: ${{ inputs.commit }}
+          WRITE_E2E: ${{ inputs.run_write_e2e }}
+          ALLOW_WRITES: ${{ inputs.allow_writes }}
         run: |
-          if [ "$WITH_ASSESSMENT" = "true" ]; then
-            node scripts/smoke-staging.mjs "$SITE_URL" --with-assessment
-          else
-            node scripts/smoke-staging.mjs "$SITE_URL"
-          fi
+          flags=()
+          if [ "$WRITE_E2E" = "true" ]; then flags+=(--write-e2e); fi
+          if [ "$ALLOW_WRITES" = "true" ]; then flags+=(--allow-writes); fi
+          node scripts/smoke-staging.mjs --out="$RUNNER_TEMP/staging-smoke.json" "${flags[@]}"
+      - name: Keep actual diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: staging-smoke-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/staging-smoke.json
+          if-no-files-found: ignore

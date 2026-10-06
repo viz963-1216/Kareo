@@ -22,7 +22,7 @@ on:
       run_api_e2e:
         description: Run the real-API E2E runner against base_url first (writes synthetic records)
         type: boolean
-        default: true
+        default: false
   pull_request:
     branches: [main]
 
@@ -49,11 +49,14 @@ jobs:
           test -n "$KAREO_RELEASE_COMMIT" || { echo "::error::No target commit"; exit 2; }
           test -n "$KAREO_RELEASE_BASE_URL" || { echo "::error::No target base URL (set inputs.base_url or repository variable KAREO_RELEASE_BASE_URL)"; exit 2; }
           test "$(git rev-parse HEAD)" = "$KAREO_RELEASE_COMMIT" || { echo "::error::Checkout is not the target commit"; exit 2; }
-      - name: Real-API E2E against the target deployment (records observed version)
-        if: github.event_name == 'pull_request' || inputs.run_api_e2e
+      - name: Public GET-only diagnostics against the target deployment
+        continue-on-error: true
+        run: node tests/e2e/run-public-api-e2e.mjs --out="tests/e2e/results/public-ci-${{ github.run_id }}-${{ github.run_attempt }}.json"
+      - name: Explicitly authorized API write E2E (ACTIVE consent required)
+        if: github.event_name == 'workflow_dispatch' && inputs.run_api_e2e
         # A failing runner must not skip the gate: the gate reports the recorded mismatch or FAIL.
         continue-on-error: true
-        run: node tests/e2e/run-api-e2e.mjs --out="tests/e2e/results/ci-${{ github.run_id }}-${{ github.run_attempt }}.json"
+        run: node tests/e2e/run-api-e2e.mjs --allow-writes --out="tests/e2e/results/ci-${{ github.run_id }}-${{ github.run_attempt }}.json"
       - name: API toolchain (esbuild for the built-functions check)
         run: npm ci --prefix apps/api
       - name: Release gate

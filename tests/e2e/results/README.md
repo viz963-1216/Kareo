@@ -2,7 +2,8 @@
 
 Result files (`*.json`, schemaVersion 2) are written by tools, not by hand:
 
-- API cases: `tests/e2e/run-api-e2e.mjs`
+- API write cases: `tests/e2e/run-api-e2e.mjs --allow-writes` (J-003-r16). A valid ACTIVE combination in the checked-out registry and a matching deployed SHA are required before any POST/DELETE. Without these, no write is attempted and the prerequisite stays PENDING. Synthetic records must be tracked and cleanup verified separately. E2E-02/04/17 remain PENDING while their additional contract scenarios have not been exercised.
+- Staging entry point: `scripts/smoke-staging.mjs --base-url=<url> --commit=<full SHA> --out=<file>` defaults to public GET checks. `--write-e2e --allow-writes` explicitly delegates to the API runner; legacy `--with-assessment` has the same full write-E2E scope and is not an assessment-only flag.
 - Session-free GET checks: `tests/e2e/run-public-api-e2e.mjs` (J-003-r10). E2E-44/48 remain PENDING even when their list API succeeds; a partial API probe is not full UI acceptance. Knowledge status is diagnostic, not E2E-25.
 - `ui`／`ops` cases: `tests/e2e/record-manual.mjs` (run right after the manual check)
 
