@@ -64,4 +64,3 @@ node scripts/smoke-staging.mjs --base-url=https://<acceptance-site> --commit=<fu
 ## Scope
 
 僅 scripts／tests／.github workflows／docs／tasks。前後端業務程式、API 契約、Provider 數量、推薦規則、同意狀態、帳號憑證與雲端資料不變。未購買服務、未執行部署／發布或雲端健康寫入。
-
