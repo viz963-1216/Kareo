@@ -183,6 +183,26 @@ else {
   else record('E2E-18', 'FAIL', `B token + A sessionId → ${r.status} ${code(r)} (expected 403 FORBIDDEN)`);
 }
 
+// E2E-33／34 API parts: optional D-17／D-17a fields (API_CONTRACT v0.3.1–0.3.2).
+// Invalid values must be VALIDATION_ERROR; each valid value must complete. Summary content against the
+// PUBLISHED records is an ops check, so a clean run here stays PENDING.
+if (!consented) {
+  for (const id of ['E2E-33', 'E2E-34']) record(id, 'PENDING', 'no consented session (E2E-02 not passing)');
+} else {
+  const probe = async (extra, location) => call('POST', '/api/v1/assessments', { token: a.token, body: { ...assessmentBody(a.id, location), ...extra } });
+  for (const [id, field, values] of [
+    ['E2E-33', 'disabilityCertificate', ['YES', 'NO', 'UNKNOWN']],
+    ['E2E-34', 'incomeCategory', ['LOW_INCOME', 'MIDDLE_LOW_INCOME', 'ALLOWANCE', 'GENERAL', 'UNKNOWN']],
+  ]) {
+    const bad = await probe({ [field]: 'E2E-INVALID' });
+    if (code(bad) === 'KNOWLEDGE_UNAVAILABLE') { record(id, 'PENDING', 'KNOWLEDGE_UNAVAILABLE: no PUBLISHED knowledge (E2E-25)'); continue; }
+    const outcomes = [];
+    for (const v of values) { const r = await probe({ [field]: v }); outcomes.push(`${v}→${r.status}${code(r) ? ` ${code(r)}` : ''}`); }
+    const ok = code(bad) === 'VALIDATION_ERROR' && outcomes.every((o) => /→200$/.test(o));
+    record(id, ok ? 'PENDING' : 'FAIL', `${field}: invalid→${bad.status} ${code(bad)}; ${outcomes.join(', ')}${ok ? '; summary vs PUBLISHED needs an ops record' : ''}`);
+  }
+}
+
 // E2E-19 withdraw consent (API_CONTRACT §7: no body; the session enters deletion and its token stops working).
 {
   const r = await call('POST', '/api/v1/consent/withdraw', { token: a.token });
@@ -209,26 +229,6 @@ record('E2E-20', 'PENDING', 'rate limiting and multi-instance enforcement not ex
       if (code(reuse) === 'SESSION_INVALID') record('E2E-37', 'PENDING', 'token invalid after DELETE; row deletion (incl. coordinates) needs an ops record');
       else record('E2E-37', 'FAIL', `token still accepted after DELETE /session: ${reuse.status} ${code(reuse)}`);
     }
-  }
-}
-
-// E2E-33／34 API parts: optional D-17／D-17a fields (API_CONTRACT v0.3.1–0.3.2).
-// Invalid values must be VALIDATION_ERROR; each valid value must complete. Summary content against the
-// PUBLISHED records is an ops check, so a clean run here stays PENDING.
-if (!consented) {
-  for (const id of ['E2E-33', 'E2E-34']) record(id, 'PENDING', 'no consented session (E2E-02 not passing)');
-} else {
-  const probe = async (extra, location) => call('POST', '/api/v1/assessments', { token: a.token, body: { ...assessmentBody(a.id, location), ...extra } });
-  for (const [id, field, values] of [
-    ['E2E-33', 'disabilityCertificate', ['YES', 'NO', 'UNKNOWN']],
-    ['E2E-34', 'incomeCategory', ['LOW_INCOME', 'MIDDLE_LOW_INCOME', 'ALLOWANCE', 'GENERAL', 'UNKNOWN']],
-  ]) {
-    const bad = await probe({ [field]: 'E2E-INVALID' });
-    if (code(bad) === 'KNOWLEDGE_UNAVAILABLE') { record(id, 'PENDING', 'KNOWLEDGE_UNAVAILABLE: no PUBLISHED knowledge (E2E-25)'); continue; }
-    const outcomes = [];
-    for (const v of values) { const r = await probe({ [field]: v }); outcomes.push(`${v}→${r.status}${code(r) ? ` ${code(r)}` : ''}`); }
-    const ok = code(bad) === 'VALIDATION_ERROR' && outcomes.every((o) => /→200$/.test(o));
-    record(id, ok ? 'PENDING' : 'FAIL', `${field}: invalid→${bad.status} ${code(bad)}; ${outcomes.join(', ')}${ok ? '; summary vs PUBLISHED needs an ops record' : ''}`);
   }
 }
 

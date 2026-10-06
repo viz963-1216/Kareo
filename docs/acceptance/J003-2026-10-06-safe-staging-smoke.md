@@ -17,6 +17,7 @@ Integrated：**否**；49 項必要部署 E2E 不變。
 - **Changed**：staging smoke 預設 GET；寫入由 `--write-e2e --allow-writes` 明確啟用。legacy `--with-assessment` 仍辨識，但也需 `--allow-writes`，其 scope 是完整 API runner，非單筆評估。
 - **Fixed**：不再使用寫死的假同意；API runner 在任何 POST／DELETE 前要求匹配 SHA、明確旗標及 checked-out registry 的合法 ACTIVE 組合。不自動修改 DRAFT。ACTIVE 只回傳三個契約版本欄位，不將核准 metadata 送給 API。
 - **Fixed**：不跟隨 HTTP 重新導向傳送自訂 Session header；網路錯誤、錯誤碼與不合法 marker 值不將任意原文寫入共享診斷。
+- **Fixed**：身障證明／經濟身分案例移到撤回之前，避免以已失效 token 產生假失敗；回歸使用真正撤回後不再接受 token 的本機 HTTP fixture。
 - **Fixed**：E2E-01 檢查 token 及有效未來 expiresAt；E2E-02／04／17 的部分驗證保留 PENDING，不能把未知版本拒絕、careNeeds 比較或單次偽造 token 拒絕當成整項通過。實際不符契約仍 FAIL。
 - **Changed**：staging workflow 固定 SHA、checkout 核對、兩個預設 false 的寫入選項及實際 JSON artifact。Release gate 預設公開 GET；只有手動明確勾選 `run_api_e2e` 才啟動寫入，PR → main 不自動建立測試資料。
 - **Known Issues**：D-05 仍 DRAFT；受控憑證、目標部署、存取、每日排程／清理及所有必要部署 E2E 仍需實際完成。自動 API runner 尚未涵蓋所有案例，PENDING 不因模組已合併而改成 PASS。
@@ -41,7 +42,7 @@ node scripts/smoke-staging.mjs --base-url=https://<acceptance-site> --commit=<fu
 
 | 檢查 | 結果與界線 |
 |---|---|
-| `node --experimental-strip-types --test 'tests/**/*.test.*'` | 79 PASS、0 FAIL；涵蓋現有 gate／adapter 與新安全回歸，不是部署 E2E |
+| `node --experimental-strip-types --test 'tests/**/*.test.*'` | 80 PASS、0 FAIL；涵蓋現有 gate／adapter 與新安全回歸，不是部署 E2E |
 | `node scripts/check-integration.mjs` | 25 PASS、0 FAIL；靜態路由與契約，不是 handler 或部署行為 |
 | 兩個 workflow YAML 解析 | 通過；實際 Actions job 另以 PR CI 核對 |
 | `node scripts/acceptance-gate.mjs --mode=dev` | 115 PASS、0 FAIL、49 PENDING；4 個舊結果檔未採計，不是 MVP 通過 |

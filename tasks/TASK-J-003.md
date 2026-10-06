@@ -127,4 +127,4 @@ B-015 #81、B-016 #82 已合併；0027／0028 套用現有驗收專案。新增�
 
 ## J-003-r16：安全的 staging 驗收入口（2026-10-06）
 
-基底 staging `891ed2b`（#84）。移除 smoke 寫死同意版本及預設建立 Session；預設委派公開 GET runner。指定完整 SHA／環境／輸出檔，寫入模式需 --write-e2e --allow-writes、有效 ACTIVE 組合及實際版本標記。API runner 不跟隨重新導向傳送自訂 token header，拒絕缺 expiresAt；E2E-02／04／17 的部分檢查不當作整項 PASS。手動 smoke 保存實際 artifact；Release gate 預設只做 GET，PR → main 不自動啟用寫入，49 必要項不變。見 [r16 證據](../docs/acceptance/J003-2026-10-06-safe-staging-smoke.md)。尚未部署、未改同意／帳號憑證或雲端資料。
+基底 staging `891ed2b`（#84）。移除 smoke 寫死同意版本及預設建立 Session；預設委派公開 GET runner。指定完整 SHA／環境／輸出檔，寫入模式需 --write-e2e --allow-writes、有效 ACTIVE 組合及實際版本標記。API runner 不跟隨重新導向傳送自訂 token header，拒絕缺 expiresAt；身障／經濟身分測試移到撤回前，避免失效 token 假失敗；E2E-02／04／17 的部分檢查不當作整項 PASS。手動 smoke 保存實際 artifact；Release gate 預設只做 GET，PR → main 不自動啟用寫入，49 必要項不變。見 [r16 證據](../docs/acceptance/J003-2026-10-06-safe-staging-smoke.md)。尚未部署、未改同意／帳號憑證或雲端資料。

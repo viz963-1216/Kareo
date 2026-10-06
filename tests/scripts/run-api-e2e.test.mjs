@@ -16,7 +16,7 @@ const OTHER = 'd'.repeat(40);
 // Minimal stand-in for the current staging behaviour, served under the /app sub-path.
 // tokens: 'none' (staging today), 'owned' (B-011a: token bound to its session), 'unchecked' (token issued but
 // ownership not enforced — a defect the runner must report as FAIL).
-function stub(markerFor, { tokens = 'none', expiresAt = '2099-10-14T01:00:00+08:00', acceptConsent = false, redirectAssessment = false, unsafeError = false } = {}) {
+function stub(markerFor, { tokens = 'none', expiresAt = '2099-10-14T01:00:00+08:00', acceptConsent = false, redirectAssessment = false, unsafeError = false, withdrawConsent = false } = {}) {
   let sessions = 0;
   const owner = new Map();
   const seen = [];
@@ -51,14 +51,24 @@ function stub(markerFor, { tokens = 'none', expiresAt = '2099-10-14T01:00:00+08:
         return json(200, { success: true, data: { consentId: 'C-1' } });
       });
     }
+    if (path === '/app/api/v1/consent/withdraw' && withdrawConsent) {
+      const token = req.headers['x-kareo-session-token'];
+      if (!owner.has(token)) return json(401, { success: false, error: { code: 'SESSION_INVALID' } });
+      accepted.delete(owner.get(token)); owner.delete(token);
+      return json(200, { success: true, data: { withdrawnAt: new Date().toISOString() } });
+    }
     if (path === '/app/api/v1/assessments') {
+      if (withdrawConsent && !owner.has(req.headers['x-kareo-session-token'])) return json(401, { success: false, error: { code: 'SESSION_INVALID' } });
+
       if (unsafeError) return json(500, { success: false, error: { code: 'private-token-error-code', message: 'SQL private-error-stack' } });
       if (redirectAssessment) { res.writeHead(302, { Location: '/app/redirect-collector' }); return res.end(); }
 
       let body = '';
       req.on('data', (d) => { body += d; });
       return req.on('end', () => {
-        const sessionId = JSON.parse(body || '{}').sessionId;
+        const value = JSON.parse(body || '{}');
+        const sessionId = value.sessionId;
+        if (value.disabilityCertificate === 'E2E-INVALID' || value.incomeCategory === 'E2E-INVALID') return json(400, { success: false, error: { code: 'VALIDATION_ERROR' } });
         if (tokens === 'owned' && owner.get(req.headers['x-kareo-session-token']) !== sessionId) return json(403, { success: false, error: { code: 'FORBIDDEN', message: '' } });
         if (accepted.has(sessionId)) return json(200, { success: true, data: { assessmentId: 'A-1', knowledgeVersion: 'KB-2026-09-24-001', careNeedProfile: { careNeeds: ['HOME_CARE'], warnings: ['synthetic warning'] } } });
         return json(403, { success: false, error: { code: 'CONSENT_REQUIRED', message: '' } });
@@ -195,4 +205,13 @@ test('unknown server error values are not copied into console or evidence', asyn
   assert.equal(r.status, 1);
   assert.doesNotMatch(r.stdout + JSON.stringify(r.file), /private-token|private-error-stack/);
   assert.match(result(r.file, 'E2E-03').evidence, /UNRECOGNIZED_ERROR/);
+});
+
+
+test('optional assessment scenarios run before withdrawal invalidates their token', async () => {
+  const r = await runner(matching, SHA, { tokens: 'owned', acceptConsent: true, withdrawConsent: true });
+  assert.equal(result(r.file, 'E2E-33').status, 'PENDING');
+  assert.equal(result(r.file, 'E2E-34').status, 'PENDING');
+  assert.match(result(r.file, 'E2E-19').evidence, /token refused for assessment/);
+  assert.ok(r.file.results.findIndex(item => item.caseId === 'E2E-34') < r.file.results.findIndex(item => item.caseId === 'E2E-19'));
 });
