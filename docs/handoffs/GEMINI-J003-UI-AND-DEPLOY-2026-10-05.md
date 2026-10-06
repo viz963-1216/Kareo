@@ -4,6 +4,15 @@
 
 任務：以最新 staging 完成前端實際操作，並核對最新版本的驗收部署。Codex 負責 D-05、每日 crawler/cleanup、API/DB/ops 與全體 49 項 E2E 彙整；你的 UI 證據供 Codex採計。不要重寫原始 MVP、不刪驗收項目、不替 Codex核准 D-05。
 
+## 2026-10-06 更新：先核對真正部署，不沿用舊操作回報
+
+- Gemini r2 已由 Codex 複核及補正為 r3，隨 #84 合併；見 [UI 回報與證據界線](../acceptance/GEMINI-2026-10-05-ui-acceptance.md)。缺少瀏覽器 artifact 的自述不當作已核對操作，17 項全部 PENDING。
+- J-003-r16 的 staging smoke 預設 GET，需完整 SHA／base URL／輸出檔；ACTIVE 仍未交付時不要使用寫入模式。先用 `node scripts/smoke-staging.mjs --base-url=<驗收網址> --commit=<完整SHA> --out=<診斷檔>` 核對。它不代替 UI 操作，詳見 [r16](../acceptance/J003-2026-10-06-safe-staging-smoke.md)。
+- 2026-10-06 09:38 台北時間公開 marker 仍為 `8f509c0567436392b9421bfb2e906d565c6f9438`；PR #82 永久預覽 marker 未登入仍 401。兩邊的 runner 均停止於 marker，沒有跑案例或送健康資料。
+- 查詢使用 GET `/api/v1/providers`、GET `/api/v1/knowledge/records`；同意是 POST `/api/v1/consent`。錯誤路徑的 404 或正確路徑錯誤方法的 400，不能當成正式端點不存在。
+- Node fixture／假 fetch／CSS 分析不代表本機瀏覽器 Mock 操作。若實際操作，在同一個已確認 SHA 的部署提供時間、步驟、去敏截圖或 artifact；沒有既有紀錄就填未取得，環境到位後再實作，不倒填。
+- 開始時重新 fetch staging、重新讀 marker 及 D-05；下面 10/05 是歷史快照，不是最新狀態。
+
 ## 2026-10-05 15:12 台北時間的實況（開始時再查新狀態）
 
 - B-015 #81、B-016 #82 已合併；staging 為 `afdf01bb24fdddd03d0eae834916d0171f7bcddc`。0027／0028 已套用 Kareo 驗收資料庫。後端 748 測試、9 CI jobs 與 49 LOCAL 通過；**不是部署 49 項通過**。

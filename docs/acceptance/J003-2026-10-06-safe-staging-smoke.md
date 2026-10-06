@@ -44,6 +44,7 @@ node scripts/smoke-staging.mjs --base-url=https://<acceptance-site> --commit=<fu
 | `node --experimental-strip-types --test 'tests/**/*.test.*'` | 79 PASS、0 FAIL；涵蓋現有 gate／adapter 與新安全回歸，不是部署 E2E |
 | `node scripts/check-integration.mjs` | 25 PASS、0 FAIL；靜態路由與契約，不是 handler 或部署行為 |
 | 兩個 workflow YAML 解析 | 通過；實際 Actions job 另以 PR CI 核對 |
+| `node scripts/acceptance-gate.mjs --mode=dev` | 115 PASS、0 FAIL、49 PENDING；4 個舊結果檔未採計，不是 MVP 通過 |
 | `git diff --check` | 通過 |
 | 本機 HTTP 安全回歸 | 實際子程序與 loopback server；無允許旗標、DRAFT、registry 無法讀取時，只讀 marker，無 POST／DELETE |
 | 本機重新導向回歸 | marker 登入重新導向停止；API 自訂 header 不跟隨重新導向；結果檔仍可記錄失敗 |
@@ -51,7 +52,14 @@ node scripts/smoke-staging.mjs --base-url=https://<acceptance-site> --commit=<fu
 
 ## 真實部署診斷
 
-程式碼提交後將以該完整 SHA，對公開站與 PR #82 永久預覽各跑一次預設 GET 入口；只保存工具實際產生的阻擋紀錄，另列下方補充。診斷不是部署成功宣告。
+已以程式碼 commit `f55f01b2c24b6bd27138c75d1d4e0b4d53e35971`，在 2026-10-06 09:38（Asia/Taipei）對兩個部署各執行一次預設 GET 入口：
+
+| 環境 | 真正觀察 | 結果 |
+|---|---|---|
+| `https://kareo-tw.netlify.app` | marker HTTP 200，commit `8f509c0567436392b9421bfb2e906d565c6f9438` | 目標不符，exit 1；results=[]，沒有 API 案例或資料寫入 |
+| `https://6ac34be1269dfa0008dc778c--kareo-tw.netlify.app` | marker HTTP 401 登入保護，commit=null | 存取受阻，exit 1；results=[]，不保存登入 HTML、不執行 API |
+
+原始輸出位於 [公開站診斷](evidence/J003-2026-10-06-public-smoke-blocked.json) 與 [預覽診斷](evidence/J003-2026-10-06-preview-smoke-blocked.json)。兩份由工具產生，未修改觀察欄位；存放 docs/acceptance/evidence，**不納入 tests/e2e/results 或 release gate**。沒有案例被執行，不能把顯示的 0 FAIL 當成驗收通過。後續證據文件提交不改 f55f01b 的程式碼；新部署仍須以該部署實際 marker 重新驗證。
 
 ## Scope
 
