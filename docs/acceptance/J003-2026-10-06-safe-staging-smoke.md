@@ -60,7 +60,7 @@ node scripts/smoke-staging.mjs --base-url=https://<acceptance-site> --commit=<fu
 | `https://kareo-tw.netlify.app` | marker HTTP 200，commit `8f509c0567436392b9421bfb2e906d565c6f9438` | 目標不符，exit 1；results=[]，沒有 API 案例或資料寫入 |
 | `https://6ac34be1269dfa0008dc778c--kareo-tw.netlify.app` | marker HTTP 401 登入保護，commit=null | 存取受阻，exit 1；results=[]，不保存登入 HTML、不執行 API |
 
-原始輸出位於 [公開站診斷](evidence/J003-2026-10-06-public-smoke-blocked.json) 與 [預覽診斷](evidence/J003-2026-10-06-preview-smoke-blocked.json)。兩份由工具產生，未修改觀察欄位；存放 docs/acceptance/evidence，**不納入 tests/e2e/results 或 release gate**。沒有案例被執行，不能把顯示的 0 FAIL 當成驗收通過。後續證據文件提交不改 f55f01b 的程式碼；新部署仍須以該部署實際 marker 重新驗證。
+原始輸出位於 [公開站診斷](evidence/J003-2026-10-06-public-smoke-blocked.json) 與 [預覽診斷](evidence/J003-2026-10-06-preview-smoke-blocked.json)。兩份由工具產生，未修改觀察欄位；存放 docs/acceptance/evidence，**不納入 tests/e2e/results 或 release gate**。沒有案例被執行，不能把顯示的 0 FAIL 當成驗收通過。這兩份診斷僅對應 f55f01b 當時的工具版本；後續修正及新部署仍須以實際 marker 重新驗證，不能搬用舊結果。
 
 ## Scope
 
