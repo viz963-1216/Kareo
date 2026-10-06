@@ -17,6 +17,7 @@ import { computePackFingerprint, computeRecordsFingerprint } from "./packFingerp
 // ===== 依 docs/knowledge/source-registry.md 解析白名單來源（Jerry 維護，B-008 只讀取，不修改）=====
 
 export interface RegistrySource {
+  name?: string;
   authority: string;
   jurisdiction: string;
   url: string;
@@ -36,7 +37,7 @@ export function parseSourceRegistry(markdown: string): Map<string, RegistrySourc
     const jurisdiction = cells[3].replace(/`/g, "");
     const url = cells[4];
     const active = cells[7].toLowerCase() === "true";
-    map.set(idMatch[1], { authority, jurisdiction, url, active });
+    map.set(idMatch[1], { name: cells[1], authority, jurisdiction, url, active });
   }
   return map;
 }

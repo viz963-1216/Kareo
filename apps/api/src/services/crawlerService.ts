@@ -144,108 +144,125 @@ export async function crawlSource(
   const startedAt = nowTaipeiISOString();
   const runId = generateId("CRUN");
 
-  const fetched = await fetcher(url);
+  // Snapshot.crawler_run_id 是立即檢查的外鍵；先建立 RUNNING，最後以同一 id 完成。
+  await repo.insertCrawlerRun({
+    id: runId, sourceId, startedAt, finishedAt: null, status: "RUNNING",
+    itemsChecked: 0, changesDetected: 0, contentHash: null, snapshotId: null, errorMessage: null,
+  });
+  let savedSnapshotId: string | null = null;
+  try {
 
-  if (!fetched.ok) {
-    const run = failedRun(runId, sourceId, startedAt, fetched.errorMessage ?? "抓取失敗");
-    await repo.insertCrawlerRun(run);
-    return { run, changeCreated: false };
-  }
+    const fetched = await fetcher(url);
 
-  // 原始位元組：優先用 Fetcher 提供的 rawBytes（正式 createHttpFetcher 一律提供）；
-  // 缺少時（例如既有測試以純文字構造 FetchResult）以 UTF-8 編碼 text 代入，維持既有文字來源行為不變。
-  const rawBytes = fetched.rawBytes ?? (fetched.text !== null ? new TextEncoder().encode(fetched.text) : null);
-  const isPdf = rawBytes !== null && looksLikePdf(rawBytes);
-
-  if (rawBytes === null) {
-    // 理論上不會發生（createHttpFetcher 對 ok:true 一律回傳 rawBytes 或 text 其中之一），
-    // 但自訂 Fetcher 若違反契約回傳兩者皆空，明確失敗，不假裝比對成功。
-    const run = failedRun(runId, sourceId, startedAt, "Fetcher 回傳內容為空（無 rawBytes 也無 text）");
-    await repo.insertCrawlerRun(run);
-    return { run, changeCreated: false };
-  }
-
-  const rawHash = computeBytesHash(rawBytes);
-  let normalizedHash: string | null = null;
-  let newContentForChange = "（PDF 來源：未抽取文字，請開啟 sourceUrl 查看原始內容）";
-
-  if (!isPdf && fetched.text !== null) {
-    const normalized = normalizeFetchedContent(fetched.text);
-    // 抓取成功但正規化後沒有任何內容 → 視為格式改變（無法擷取正文），不得誤判為「內容變成空白」。
-    // 這個情況連快照都不建立：拿到的原始位元組本身無法判斷是否只是版型調整，優先明確失敗、
-    // 促使人工檢查，比默默存一筆看不出問題的快照更安全。
-    if (normalized.length === 0) {
-      const run = failedRun(runId, sourceId, startedAt, "頁面格式改變，擷取不到正文內容");
+    if (!fetched.ok) {
+      const run = failedRun(runId, sourceId, startedAt, fetched.errorMessage ?? "抓取失敗");
       await repo.insertCrawlerRun(run);
       return { run, changeCreated: false };
     }
-    normalizedHash = computeContentHash(normalized);
-    newContentForChange = normalized;
-  }
 
-  // 持久保存原始快照（位元組本身），即使沒有 KnowledgeRecord 可比對也要存（見上方函式註解第 4 項）。
-  // 快照寫入本身若失敗，視為整次抓取失敗（不得把「未持久保存的內容」記為成功，第 6/F 項）。
-  const snapshot: CrawlerSnapshot = {
-    id: generateId("CSNAP"),
-    sourceId,
-    crawlerRunId: runId,
-    fetchedAt: startedAt,
-    contentType: fetched.contentType ?? null,
-    rawBytes,
-    rawHash,
-    normalizedHash,
-    extractionMethodVersion: isPdf ? "none" : HTML_NORMALIZE_VERSION,
-    createdAt: nowTaipeiISOString(),
-  };
-  await repo.insertSnapshot(snapshot);
+    // 原始位元組：優先用 Fetcher 提供的 rawBytes（正式 createHttpFetcher 一律提供）；
+    // 缺少時（例如既有測試以純文字構造 FetchResult）以 UTF-8 編碼 text 代入，維持既有文字來源行為不變。
+    const rawBytes = fetched.rawBytes ?? (fetched.text !== null ? new TextEncoder().encode(fetched.text) : null);
+    const isPdf = rawBytes !== null && looksLikePdf(rawBytes);
 
-  const baseline = await repo.findLatestRecordBySourceId(sourceId);
-
-  let changesDetected = 0;
-  let changeCreated = false;
-  if (baseline) {
-    // 不知道基準當初是用哪種表示法建立（docs/knowledge/source-registry.md 對不同來源不一致，
-    // 見檔頭說明），任一種相符就視為未變更，不得只試單一表示法。
-    const matchesBaseline = baseline.contentHash === rawHash || (normalizedHash !== null && baseline.contentHash === normalizedHash);
-    if (!matchesBaseline) {
-      // 記錄哪一種表示法當作「新內容雜湊」：PDF 用原始位元組雜湊，文字來源用正規化文字雜湊——
-      // 跟匯入時的慣例一致，供人工審核時可重現比對。
-      const newContentHash = isPdf ? rawHash : (normalizedHash as string);
-      // insertKnowledgeChange 本身具備冪等性（同一 knowledgeRecordId + newContentHash 若已有
-      // 未審核中的 NEEDS_REVIEW，不會重複建立，見 repositories 實作與 migration 的唯一索引）：
-      // 同一筆尚未審核的變更被重跑／重試／併發偵測到，不會產生第二筆 NEEDS_REVIEW（B-009-r2 修正）。
-      const { inserted } = await repo.insertKnowledgeChange({
-        id: generateId("KCHG"),
-        knowledgeRecordId: baseline.id,
-        oldContentHash: baseline.contentHash,
-        newContentHash,
-        oldContent: baseline.rawText,
-        newContent: newContentForChange,
-        aiSummary: null,
-        status: "NEEDS_REVIEW",
-        detectedAt: nowTaipeiISOString(),
-        reviewedAt: null,
-        reviewedBy: null,
-      });
-      changeCreated = inserted;
-      changesDetected = inserted ? 1 : 0;
+    if (rawBytes === null) {
+      // 理論上不會發生（createHttpFetcher 對 ok:true 一律回傳 rawBytes 或 text 其中之一），
+      // 但自訂 Fetcher 若違反契約回傳兩者皆空，明確失敗，不假裝比對成功。
+      const run = failedRun(runId, sourceId, startedAt, "Fetcher 回傳內容為空（無 rawBytes 也無 text）");
+      await repo.insertCrawlerRun(run);
+      return { run, changeCreated: false };
     }
-  }
 
-  const run: CrawlerRun = {
-    id: runId,
-    sourceId,
-    startedAt,
-    finishedAt: nowTaipeiISOString(),
-    status: "SUCCESS",
-    itemsChecked: 1,
-    changesDetected,
-    contentHash: isPdf ? rawHash : (normalizedHash ?? rawHash),
-    snapshotId: snapshot.id,
-    errorMessage: null,
-  };
-  await repo.insertCrawlerRun(run);
-  return { run, changeCreated };
+    const rawHash = computeBytesHash(rawBytes);
+    let normalizedHash: string | null = null;
+    let newContentForChange = "（PDF 來源：未抽取文字，請開啟 sourceUrl 查看原始內容）";
+
+    if (!isPdf && fetched.text !== null) {
+      const normalized = normalizeFetchedContent(fetched.text);
+      // 抓取成功但正規化後沒有任何內容 → 視為格式改變（無法擷取正文），不得誤判為「內容變成空白」。
+      // 這個情況連快照都不建立：拿到的原始位元組本身無法判斷是否只是版型調整，優先明確失敗、
+      // 促使人工檢查，比默默存一筆看不出問題的快照更安全。
+      if (normalized.length === 0) {
+        const run = failedRun(runId, sourceId, startedAt, "頁面格式改變，擷取不到正文內容");
+        await repo.insertCrawlerRun(run);
+        return { run, changeCreated: false };
+      }
+      normalizedHash = computeContentHash(normalized);
+      newContentForChange = normalized;
+    }
+
+    // 持久保存原始快照（位元組本身），即使沒有 KnowledgeRecord 可比對也要存（見上方函式註解第 4 項）。
+    // 快照寫入本身若失敗，視為整次抓取失敗（不得把「未持久保存的內容」記為成功，第 6/F 項）。
+    const snapshot: CrawlerSnapshot = {
+      id: generateId("CSNAP"),
+      sourceId,
+      crawlerRunId: runId,
+      fetchedAt: startedAt,
+      contentType: fetched.contentType ?? null,
+      rawBytes,
+      rawHash,
+      normalizedHash,
+      extractionMethodVersion: isPdf ? "none" : HTML_NORMALIZE_VERSION,
+      createdAt: nowTaipeiISOString(),
+    };
+    await repo.insertSnapshot(snapshot);
+    savedSnapshotId = snapshot.id;
+
+    const baseline = await repo.findLatestRecordBySourceId(sourceId);
+
+    let changesDetected = 0;
+    let changeCreated = false;
+    if (baseline) {
+      // 不知道基準當初是用哪種表示法建立（docs/knowledge/source-registry.md 對不同來源不一致，
+      // 見檔頭說明），任一種相符就視為未變更，不得只試單一表示法。
+      const matchesBaseline = baseline.contentHash === rawHash || (normalizedHash !== null && baseline.contentHash === normalizedHash);
+      if (!matchesBaseline) {
+        // 記錄哪一種表示法當作「新內容雜湊」：PDF 用原始位元組雜湊，文字來源用正規化文字雜湊——
+        // 跟匯入時的慣例一致，供人工審核時可重現比對。
+        const newContentHash = isPdf ? rawHash : (normalizedHash as string);
+        // insertKnowledgeChange 本身具備冪等性（同一 knowledgeRecordId + newContentHash 若已有
+        // 未審核中的 NEEDS_REVIEW，不會重複建立，見 repositories 實作與 migration 的唯一索引）：
+        // 同一筆尚未審核的變更被重跑／重試／併發偵測到，不會產生第二筆 NEEDS_REVIEW（B-009-r2 修正）。
+        const { inserted } = await repo.insertKnowledgeChange({
+          id: generateId("KCHG"),
+          knowledgeRecordId: baseline.id,
+          oldContentHash: baseline.contentHash,
+          newContentHash,
+          oldContent: baseline.rawText,
+          newContent: newContentForChange,
+          aiSummary: null,
+          status: "NEEDS_REVIEW",
+          detectedAt: nowTaipeiISOString(),
+          reviewedAt: null,
+          reviewedBy: null,
+        });
+        changeCreated = inserted;
+        changesDetected = inserted ? 1 : 0;
+      }
+    }
+
+    const run: CrawlerRun = {
+      id: runId,
+      sourceId,
+      startedAt,
+      finishedAt: nowTaipeiISOString(),
+      status: "SUCCESS",
+      itemsChecked: 1,
+      changesDetected,
+      contentHash: isPdf ? rawHash : (normalizedHash ?? rawHash),
+      snapshotId: snapshot.id,
+      errorMessage: null,
+    };
+    await repo.insertCrawlerRun(run);
+    return { run, changeCreated };
+  } catch (err) {
+    // 不另建一筆 FAILED 留下原 RUNNING；已持久保存的快照仍掛回同一筆失敗紀錄。
+    const message = err instanceof Error ? err.message : String(err);
+    const run = failedRun(runId, sourceId, startedAt, `Repository 呼叫失敗：${message}`);
+    run.snapshotId = savedSnapshotId;
+    await repo.insertCrawlerRun(run);
+    return { run, changeCreated: false };
+  }
 }
 
 export interface CrawlAllResult {

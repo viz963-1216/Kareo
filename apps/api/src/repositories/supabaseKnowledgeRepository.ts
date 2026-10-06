@@ -18,6 +18,7 @@ import type {
 import { AppError } from "../errors/AppError.js";
 import { nowTaipeiISOString } from "../lib/response.js";
 import type { KnowledgeSnapshotRecord } from "../assessment/knowledgeSnapshot.js";
+import type { RegistrySource } from "../services/knowledgeImportService.js";
 
 const NOTICE = "長照制度及補助可能隨時調整，實際資格仍請洽 1966 或所在地長期照顧管理中心。";
 
@@ -49,6 +50,26 @@ function toDbRecord(r: KnowledgeRecord) {
 }
 
 export class SupabaseKnowledgeRepository implements KnowledgeRepository {
+  // 排程首次抓取前補登錄已核准 Registry 中的官方來源；只新增缺漏，不覆寫既有來源或知識。
+  async ensureCrawlerSources(registry: Map<string, RegistrySource>): Promise<void> {
+    const now = nowTaipeiISOString();
+    const rows = [...registry].filter(([, s]) => s.active && s.authority !== "KAREO_DRIVE")
+      .map(([id, s]) => {
+        if (!/^SRC-[A-Z0-9-]+$/.test(id) ||
+            !["MOHW", "LAW", "TAIPEI_GOV", "NEW_TAIPEI_GOV"].includes(s.authority) ||
+            !["TAIWAN", "TAIPEI", "NEW_TAIPEI"].includes(s.jurisdiction) ||
+            !/^https:\/\/([a-z0-9-]+\.)*(gov\.tw|gov\.taipei)\//.test(s.url)) {
+          throw new AppError("INTERNAL_ERROR", "官方來源登錄格式不合法，停止抓取。");
+        }
+        return { id, name: s.name ?? id, authority: s.authority, jurisdiction: s.jurisdiction,
+          source_url: s.url, active: true, created_at: now, updated_at: now };
+      });
+    if (rows.length === 0) return;
+    const { error } = await getSupabaseClient().from("knowledge_sources")
+      .upsert(rows, { onConflict: "id", ignoreDuplicates: true });
+    if (error) throw new AppError("INTERNAL_ERROR", "無法登錄官方來源，停止抓取。", { cause: error });
+  }
+
   async findByPackRecordIds(packId: string, packRecordIds: string[]): Promise<Set<string>> {
     if (packRecordIds.length === 0) return new Set();
     const client = getSupabaseClient();
@@ -304,7 +325,7 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
 
   async insertCrawlerRun(run: CrawlerRun): Promise<void> {
     const client = getSupabaseClient();
-    const { error } = await client.from("crawler_runs").insert({
+    const { error } = await client.from("crawler_runs").upsert({
       id: run.id,
       source_id: run.sourceId,
       started_at: run.startedAt,
@@ -315,7 +336,7 @@ export class SupabaseKnowledgeRepository implements KnowledgeRepository {
       content_hash: run.contentHash,
       snapshot_id: run.snapshotId,
       error_message: run.errorMessage,
-    });
+    }, { onConflict: "id" });
     if (error) throw new AppError("INTERNAL_ERROR", "無法寫入 CrawlerRun，請稍後再試。", { cause: error });
   }
 
