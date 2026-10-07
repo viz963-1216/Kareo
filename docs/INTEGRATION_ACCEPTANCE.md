@@ -1,13 +1,15 @@
 # Kareo Integration Acceptance / 整合驗收紀錄
 
 Owner: Jerry（TASK-J-003）
-Submission Version: J-003-r16
+Submission Version: J-003-r21
 
 > 只有「部署環境中，以真實 API 與真實資料實際操作成功」才算通過。
 > Mock、單元測試、PR 合併都**不算**整合完成。平台額度或模組缺漏造成的阻擋一律記為 `PENDING`，必要項目 PENDING 時完整驗收判定為**失敗**。
 > 需求對應見 `docs/MVP_TRACEABILITY.md`（J-002-r4）；決策狀態見 `docs/MVP_DECISIONS.md`。
 
-> 最新：見 [2026-10-06 J-003-r16 安全驗收入口](acceptance/J003-2026-10-06-safe-staging-smoke.md)。預設 GET、寫入需明確啟用及 ACTIVE，部分驗證不計整項 PASS；Integrated 仍否。下段 r14 留作追溯。
+> 最新：見 [2026-10-07 J-003-r21 雲端操作證據](acceptance/J003-2026-10-07-cloud-retention.md#j-003-r21-actual-execution-update)。回填5包／21筆與13項真正Blobs／DB操作已通過；具部署版本的全49項E2E、D-05 ACTIVE／Integrated仍未完成。另新增只在既有私人驗收分支輸出的空白Session部署檢查頁；它不送同意、健康或媒合，不出現在production／PR／local建置。下列r16/r14為历史。
+
+> 較早：見 [2026-10-06 J-003-r16 安全驗收入口](acceptance/J003-2026-10-06-safe-staging-smoke.md)。預設 GET、健康寫入需明確啟用及 ACTIVE，部分驗證不計整項 PASS；Integrated 仍否。
 
 > 較早快照：見 [2026-10-05 J-003-r14 本機 HTTP 整合](acceptance/J003-2026-10-05-local-http.md)。基底 staging `5edbd1e`（#77），已提交 ABC 模組皆已合併。本輪以正式 Functions、supabase-js、官方 PostgREST 與隔離 PostgreSQL 17 驗證 HTTP 流程；結果只屬 LOCAL，**不採計 49 項部署 E2E，Integrated 仍否**。同意測試版只在暫存建置內，正式 D-05 仍 DRAFT。舊部署及較早快照留作追溯，不代表最新 staging 的驗收。
 

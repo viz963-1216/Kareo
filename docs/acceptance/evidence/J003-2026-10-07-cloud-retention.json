@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "scope": "REAL_CLOUD_OPERATIONS_FROM_ACTIONS_PROCESS_NOT_DEPLOYED_E2E",
+  "date": "2026-10-07",
+  "commit": "de9ded38a84c09d3a43f6b1b893eb61c26bfbb68",
+  "projectRef": "ojawadobnaxduxybqolk",
+  "siteId": "faeb21e1-94d1-4d42-bbbc-6f9692caaef9",
+  "operatorId": "OP-SU-ZIJIE-ACCEPTANCE",
+  "executedBy": "Codex under Jerry delegation",
+  "runUrl": "https://github.com/viz963-1216/Kareo/actions/runs/37567651498",
+  "artifactId": 11459382460,
+  "artifactSha256": "61018066eef97510b3477df53982f8796a7db5831172b73a12363eee802c4dd5",
+  "status": "PASS",
+  "checks": [
+    {
+      "observedAt": "2026-10-07T03:38:18.5638155Z",
+      "status": "PASS",
+      "name": "personal-authorization"
+    },
+    {
+      "observedAt": "2026-10-07T03:38:20.0767347Z",
+      "status": "PASS",
+      "name": "no-preexisting-cleanup-candidates",
+      "existingSessions": 8,
+      "healthRows": 0,
+      "leadRows": 0,
+      "consentRows": 0
+    },
+    {
+      "observedAt": "2026-10-07T03:38:20.5328400Z",
+      "status": "PASS",
+      "name": "bad-operator-before-journal-io"
+    },
+    {
+      "observedAt": "2026-10-07T03:38:21.0131389Z",
+      "status": "PASS",
+      "name": "create-disposable-no-health-session",
+      "created": 1
+    },
+    {
+      "observedAt": "2026-10-07T03:38:23.0393766Z",
+      "status": "PASS",
+      "name": "authenticated-delete-and-cloud-strong-read",
+      "receiptFields": [
+        "action",
+        "projectRef",
+        "requestedAt",
+        "schemaVersion",
+        "sessionId"
+      ],
+      "receipts": 1,
+      "originalDeadlinePreserved": true
+    },
+    {
+      "observedAt": "2026-10-07T03:38:23.2252853Z",
+      "status": "PASS",
+      "name": "deleted-token-rejected"
+    },
+    {
+      "observedAt": "2026-10-07T03:38:25.8288006Z",
+      "status": "PASS",
+      "name": "protected-cloud-dry-run",
+      "sessionsToClean": 1,
+      "noAuditWrite": true
+    },
+    {
+      "observedAt": "2026-10-07T03:38:27.9936564Z",
+      "status": "PASS",
+      "name": "journal-failure-stops-cleanup",
+      "fault": "LOCAL_INJECTED_READ_FAILURE_NOT_VENDOR_OUTAGE",
+      "noCleanup": true
+    },
+    {
+      "observedAt": "2026-10-07T03:38:30.9665382Z",
+      "status": "PASS",
+      "name": "protected-cloud-commit",
+      "syntheticSessionsCleaned": 1,
+      "preexistingSessionsUnchanged": true
+    },
+    {
+      "observedAt": "2026-10-07T03:38:31.1651105Z",
+      "status": "PASS",
+      "name": "synthetic-row-restore-only",
+      "restoredRows": 1,
+      "physicalBackupRestore": false
+    },
+    {
+      "observedAt": "2026-10-07T03:38:31.9414499Z",
+      "status": "PASS",
+      "name": "sql-replay-rechecks-operator"
+    },
+    {
+      "observedAt": "2026-10-07T03:38:34.9681546Z",
+      "status": "PASS",
+      "name": "cloud-replay-and-cleanup-after-synthetic-restore",
+      "syntheticSessionsCleaned": 1,
+      "successfulAudits": 2,
+      "preexistingDigest": "57d0153f690479a2b87826e2f4cc924d6a9f7ca94dd411fa185071851fe0e8dc"
+    },
+    {
+      "observedAt": "2026-10-07T03:38:36.5764882Z",
+      "status": "PASS",
+      "name": "final-privacy-baseline",
+      "healthRows": 0,
+      "leadRows": 0,
+      "consentRows": 0,
+      "finalSessionStatus": "DELETED"
+    }
+  ],
+  "independentSql": {
+    "sessions": {
+      "ACTIVE": 6,
+      "DELETED": 3
+    },
+    "successfulDeletionRuns": 2,
+    "assessments": 0,
+    "leads": 0,
+    "consents": 0
+  },
+  "retentionEntryDryRun": {
+    "runUrl": "https://github.com/viz963-1216/Kareo/actions/runs/37567995498",
+    "status": "SUCCESS",
+    "receiptsRead": 1,
+    "sessionsDeleted": 0,
+    "leadsContactCleared": 0,
+    "leadsDeleted": 0,
+    "consentsDeleted": 0
+  },
+  "limitations": [
+    "Named Function handler ran in Actions, not the deployed modern Netlify platform context",
+    "Only the owned no-health synthetic Session row was restored; not physical Supabase backup restore",
+    "Injected read failure is a local control, not a vendor outage",
+    "No health/contact/consent evidence was created",
+    "Nightly schedule not enabled or accepted",
+    "D-05 remains DRAFT; no separate 49 deployment E2E case marked PASS"
+  ]
+}
