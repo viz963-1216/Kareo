@@ -26,3 +26,36 @@ Initial public deployment succeeded: https://viz963-1216.github.io/Kareo/, artif
 Pre-deployment checks: frontend tests 81 PASS / 0 FAIL; API-mode/build guard tests 6 PASS / 0 FAIL. Demo and real frontend builds both passed; the real bundle contained no demo-only copy or mock fixture markers. git diff --check passed. Static deploy uses scripts/deploy-demo.mjs with a hard-coded independent site/account identity, clean artifact requirement and exact static-file allowlist; no paid upgrade, environment change or Function upload.
 
 Netlify attempted static upload returned HTTP 403: Account credit usage exceeded - new deploys are blocked until credits are added. No paid upgrade was performed. The independently created kareo-demo-tw site has not been published. To deliver the requested shareable URL, use GitHub Pages on the dedicated demo-pages artifact branch; source development still uses feature PR → staging, not direct staging/main push. GitHub Pages ignores Netlify _headers/_redirects; do not claim those response headers were enforced there.
+
+
+## Final published demonstration verification
+
+Public URL: **https://viz963-1216.github.io/Kareo/**. Published source is `5a4bc57d5e987cbbdc970dbcd52eed9674b8f921`, static artifact `a1df6058a88c68a4322c86e708d47e0e6dbc08b9`, Pages workflow [37646307670](https://github.com/viz963-1216/Kareo/actions/runs/37646307670). Actual public manifest was read after publication and matched that source with workingTreeDirty=false, realApi=false, realCases=false and formalConsentActivated=false. Browser loaded `/Kareo/assets/index-sAQjh-q8.js`. This report is a later documentation-only commit; its SHA is not substituted for the deployed application's SHA.
+
+Actual public browser operations (synthetic presentation evidence only):
+
+| Operation | Observed outcome |
+| --- | --- |
+| Consent screen | Unchecked presentation acknowledgement blocks start; checking it starts the mock assessment without a real Session error. |
+| Fictional assessment | New Taipei / Sanchong, default age 75–84, GENERAL income category, home care and assistive-device needs submit and display results. Real GPS is absent and free text is read-only. |
+| Result / summary | Institutional information, example knowledge version and 1966 reminder appear; clicking generate produces the structured needs summary with print/copy controls. Print dialog and clipboard writes were not exercised. |
+| Recommendation | Final source displays three existing fictional home-care providers. An earlier default-count override still supplied 1; this was detected in browser and corrected before the final artifact. No actual distance/data-source matching acceptance is claimed. |
+| Provider detail | Existing fictional detail renders, Maps href equals `https://www.google.com/maps/search/?api=1&query=PROV-MOCK-001`. No phone call, external contact or booking submitted. |
+| Mock matching | Contact fields are read-only; explicit mock acknowledgement plus submit shows “媒合流程展示完成”, “沒有送出真實案件” and illustrative LEAD-MOCK-001. No cloud write. |
+| Reset | Return to result → restart shows “展示資料已重設”, without promising a real database deletion. Refreshing a hash result route resets in-memory state and shows the no-result screen. |
+| Public resources | Without an assessment, filter assistive resource centers → search displays the existing fictional center; its detail contains no matching link. This does not validate live source completeness. |
+| Public knowledge / privacy | Knowledge information and versions render; demo privacy explicitly describes fictional data, browser memory, host logs, external services and the approved public contact. |
+| Mobile home | 375px viewport: document width=375 and scrollWidth=375, no horizontal overflow observed. Other mobile routes/full keyboard flow have not been accepted by this check. Temporary viewport override was reset. |
+| Static backend boundary | Actual GET `/Kareo/api/v1/leads` returns 404. Demo artifact contains no Functions or credentials. |
+
+Screenshots are kept locally in `work/j004-oct07-demo/` outside the repository (home, mobile and Top 3); only synthetic UI is shown. Final application source: frontend 81/81; mode/build guard 6/6; clean demo TypeScript/Vite build PASS. CI [37646240262](https://github.com/viz963-1216/Kareo/actions/runs/37646240262) and local HTTP [37646240034](https://github.com/viz963-1216/Kareo/actions/runs/37646240034) both completed successfully. The local HTTP artifact is preserved unchanged at [evidence/J004-2026-10-07-demo-local-http.json](evidence/J004-2026-10-07-demo-local-http.json): LOCAL-INTEGRATION-ONLY, 50 PASS, cloudWrites=0, releaseAcceptance=false. GitHub artifact 11494332993 ZIP SHA-256 `312e3978241bd69b272bfc4827c6b1297055f001711feed393b24967386103dd` matched the downloaded ZIP. The real-mode CI build and mock-fixture scan also passed. No outcome is added to the 49 deployed real E2E results.
+
+## 給 Jerry 的展示順序
+
+1. 分享 https://viz963-1216.github.io/Kareo/，首頁可直接查詢資源、制度資訊與交通外部平台。
+2. 選「開始免費長照評估」，勾選使用虛構個案；所在地選「新北市／三重區」，家庭經濟身分選「以上皆非」，其餘可保留示範預設值。
+3. 結果頁展示服務需求、制度與补助說明，再產生給個管師／1966 的需求摘要。
+4. 點居家照顧的「查看服務單位」，展示 Top 3、推薦原因與詳細資料；媒合表單採固定測試聯絡資料，勾選示範聲明後即可展示成功畫面。
+5. 返回初步結果 → 重新開始；每位觀眾在自己的分頁操作，重新整理會重設。展示資料不是最新正式資料庫匯入結果，媒合不會送出真實案件。
+
+正式工作仍保留：D-05 工程啟用條件、49 項同版本真實部署 E2E、實際備份還原／退役證據、每日 crawler/cleanup 排程首輪證據與兩個新北官方來源 timeout（#88）。這次展示版完成不會把這些狀態改成 PASS。
