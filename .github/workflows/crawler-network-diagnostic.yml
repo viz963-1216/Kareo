@@ -2,10 +2,19 @@
 name: Official source network diagnostic
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Read-only diagnostic scope
+        type: choice
+        default: matrix
+        options:
+          - matrix
+          - law-ipv4
 permissions:
   contents: read
 jobs:
   diagnose:
+    if: inputs.mode != 'law-ipv4'
     strategy:
       fail-fast: false
       matrix:
@@ -19,3 +28,14 @@ jobs:
           node-version: 22
       - name: Compare failed approved sources across standard hosted runners (no database access)
         run: node scripts/diagnose-crawler-network.mjs
+  law-ipv4:
+    if: inputs.mode == 'law-ipv4'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Compare direct IPv4 connection to the approved law source (no database access)
+        run: node --dns-result-order=ipv4first --no-network-family-autoselection scripts/diagnose-crawler-network.mjs --source=SRC-LAW-L0070059
