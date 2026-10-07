@@ -23,7 +23,8 @@ jobs:
     # protected staging environment contains that individual's credentials.
     # No pull_request trigger; untrusted PRs cannot request privileged cleanup.
     if: github.repository == 'viz963-1216/Kareo' && github.ref == 'refs/heads/staging' && (github.event_name == 'workflow_dispatch' || vars.KAREO_RETENTION_ENABLED == 'true')
-    runs-on: ubuntu-latest
+    # Keep the verified OS major stable through the 10/22 delivery; latest migrates from 10/19.
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     environment: staging
     env:
