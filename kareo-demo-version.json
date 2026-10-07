@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "scope": "STATIC-SYNTHETIC-DEMO",
+  "basePath": "/Kareo/",
+  "sourceCommit": "f0e72e5e86f004c1e795f2ef887f27c3ea4e5db8",
+  "workingTreeDirty": false,
+  "builtAt": "2026-10-07T15:28:57.803Z",
+  "realApi": false,
+  "realCases": false,
+  "formalConsentActivated": false
+}
