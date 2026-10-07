@@ -269,3 +269,5 @@ Engineer C：Frontend / UX
 2026-10-07 J-003-r27：私人部署 runtime 前後 marker 實跑一致；E2E-21 真正404 JSON PASS，該 SHA／網址完整49清單仍48 PENDING。原始 GET 證據已保存；公開站仍8f509c0，不把其他版本／本機測試混入。D-05 DRAFT，Integrated 否。
 
 2026-10-07 J-004-r7：新增個人 DATA_STEWARD 保護的唯讀刪除觀察工具；11項安全回歸通過。它不刪除雲端資料或紀錄、不替代真人核對與實體還原、不授權 D-05 ACTIVE。雲端執行結果另記 [r7報告](../docs/acceptance/J004-2026-10-07-erasure-readiness.md)。
+
+2026-10-07 J-004-r8：真實雲端唯讀觀察成功，2筆journal／2筆DELETED，健康／接洽／聯絡0；前後10筆Session內容摘要、清理4／權利0筆數相同。沒有purge、實體restore、ACTIVE或E2E新增。真人合成案例已準備，仍待本人演練；備份退役與完整發布未完成。

@@ -1,7 +1,7 @@
 # TASK-J-004 — Release + Lead Operations + Recovery Readiness
 
 Owner: Jerry  
-Status: r7 已補唯讀刪除檢查工具及安全回歸；每日清理已啟用、首次自動事件待驗。先前應用資料隔離還原與空白Session雲端操作已完成；release gate CLOSED，完整實體備份／副本退役／真人權利及接件／部署回滾仍待驗。
+Status: r8 真實雲端唯讀檢查完成：2筆刪除紀錄／2筆停用Session、健康／接洽／聯絡0，前後基準不變；備份退休不由此採計。每日清理已啟用、首次自動事件待驗。release gate CLOSED，完整實體備份／副本退役／真人權利及接件／部署回滾仍待驗。
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -77,3 +77,5 @@ LOCAL-39／40 已在 PGlite 應用資料還原後，重套真實本機 HTTP 產�
 ## 2026-10-07 J-004-r7：移除刪除紀錄前的唯讀檢查
 
 新增受保護既有 staging 環境入口，個人 DATA_STEWARD 驗證後讀獨立紀錄與真實 HEAD 筆數，前後改變或錯誤即停止。只觀察健康資料、Session 停用、接洽／聯絡清除，另列保留案件與同意證據；永不授權 purge／ACTIVE，備份退役六條件維持待驗。11 項新增安全測試通過，實際雲端執行另記；詳見 [r7 報告](../docs/acceptance/J004-2026-10-07-erasure-readiness.md)。
+
+2026-10-07 J-004-r8：#100 八項CI及Preview成功後合併；staging 52e28ee 的雲端唯讀流程37635755368成功，2筆紀錄／2筆DELETED、四健康表及對應Lead／同意0。獨立前後SQL的Session全列摘要及筆數相同，未執行清理／權利寫入或purge。實體還原／副本退役仍待驗；[真人權利演練案例](../docs/acceptance/D05-2026-10-07-human-rights-rehearsal.md)已備妥，尚未採計真人執行。

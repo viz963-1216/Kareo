@@ -1,0 +1,35 @@
+{
+  "scope": "INDEPENDENT_READ_ONLY_BEFORE_AFTER_COUNTS_NOT_TRANSACTIONAL_SNAPSHOT",
+  "projectRef": "ojawadobnaxduxybqolk",
+  "runId": 37635755368,
+  "before": {
+    "observed_at": "2026-10-07 14:18:06.414091+00",
+    "sessions": 10,
+    "assessments": 0,
+    "leads": 0,
+    "consents": 0,
+    "deletion_runs": 4,
+    "privacy_operations": 0,
+    "session_state_digest": "6585c265138cb4157a90fc53637a47e1"
+  },
+  "after": {
+    "observed_at": "2026-10-07 14:21:53.988677+00",
+    "sessions": 10,
+    "assessments": 0,
+    "leads": 0,
+    "consents": 0,
+    "deletion_runs": 4,
+    "privacy_operations": 0,
+    "session_state_digest": "6585c265138cb4157a90fc53637a47e1"
+  },
+  "matchedFields": [
+    "sessions",
+    "assessments",
+    "leads",
+    "consents",
+    "deletion_runs",
+    "privacy_operations",
+    "session_state_digest"
+  ],
+  "unchanged": true
+}
