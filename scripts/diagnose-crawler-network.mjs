@@ -2,15 +2,19 @@
 import { readFileSync } from 'node:fs';
 import { lookup } from 'node:dns/promises';
 import { execFileSync } from 'node:child_process';
+import { devNull } from 'node:os';
 
 const ids = new Set(['SRC-NTPC-CAREYOU-BRANCH', 'SRC-NTPC-CAREYOU-LTCTS', 'SRC-LAW-L0070059']);
-console.log('DIAGNOSTIC PLATFORM', process.platform, process.arch);
+const args = process.argv.slice(2);
+if (args.length > 1 || (args.length === 1 && args[0] !== '--source=SRC-LAW-L0070059')) throw new Error('Unexpected diagnostic arguments');
+const selectedIds = args.length ? new Set(['SRC-LAW-L0070059']) : ids;
+console.log('DIAGNOSTIC PLATFORM', process.platform, process.arch, JSON.stringify(process.execArgv));
 const observations=[];
 const rows = readFileSync(new URL('../docs/knowledge/source-registry.md', import.meta.url), 'utf8')
   .split(/\r?\n/).filter(l => l.trim().startsWith('|'))
   .map(l => l.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim()));
-const sources = rows.filter(c => ids.has(c[0].replace(/`/g, '')) && c[7] === 'true');
-if (sources.length !== ids.size) throw new Error('Approved diagnostic sources are missing or inactive');
+const sources = rows.filter(c => selectedIds.has(c[0].replace(/`/g, '')) && c[7] === 'true');
+if (sources.length !== selectedIds.size) throw new Error('Approved diagnostic sources are missing or inactive');
 for (const cells of sources) {
   const url = new URL(cells[4]);
   if (url.protocol !== 'https:' || !['www.careyou.ntpc.gov.tw','law.moj.gov.tw'].includes(url.hostname)) throw new Error('Unexpected source URL');
@@ -33,7 +37,7 @@ for (const cells of sources) {
   }
   try {
     const output = execFileSync('curl', ['--silent', '--show-error', '--location', '--max-time', '20',
-      '--proto', '=https', '--proto-redir', '=https', '--output', '/dev/null', '--write-out',
+      '--proto', '=https', '--proto-redir', '=https', '--output', devNull, '--write-out',
       'CURL status=%{http_code} address=%{remote_ip} verify=%{ssl_verify_result}\n', url.href],
       { encoding: 'utf8', timeout: 25000 });
     observation.curlStatus=Number(output.match(/status=(\d+)/)?.[1]??0);
