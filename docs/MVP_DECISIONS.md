@@ -1,5 +1,7 @@
 # Kareo MVP Decisions / MVP 決策紀錄
 
+> 2026-10-07 最新決定（J-004-r9）：Jerry 取消額外真人客服／權利演練 HPR-01～03，狀態為 CANCELLED_BY_OWNER，不再列為驗收阻擋。實際申請核對、刪除請求信箱及原 MVP Lead 接件責任保留；D-05 仍 DRAFT、完整 J-003／J-004 未完成。見 [決定紀錄](acceptance/D05-2026-10-07-owner-rehearsal-cancellation.md)。
+
 Submission Version: J-002-r13
 Owner: Jerry
 Last reviewed: 2026-10-03（staging `6c74dee`；本輪工程規格定案）

@@ -1,5 +1,7 @@
 # J-004-r7 — Read-only erasure evidence before receipt retirement
 
+> 2026-10-07 最新決定（J-004-r9）：Jerry 取消額外真人客服／權利演練 HPR-01～03，狀態為 CANCELLED_BY_OWNER，不再列為驗收阻擋。實際申請核對、刪除請求信箱及原 MVP Lead 接件責任保留；D-05 仍 DRAFT、完整 J-003／J-004 未完成。見 [決定紀錄](D05-2026-10-07-owner-rehearsal-cancellation.md)。
+
 Base: staging `6e4945d3b4c629742b97b6e00b28f5dc65ce22ec`. Jerry has authorized central completion of ABCJ. Scope: internal scripts, tests, workflow and operational documentation only; no business module, schema, visitor API, immutable consent text, paid resource or main release changes.
 
 ## What the tool actually checks

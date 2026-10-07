@@ -1,9 +1,13 @@
 # D-05／J-004 個人資料權利申請處理手冊
 
-Submission Version: J-004-r6 / B-015-r1（2026-10-05）
+> 2026-10-07 22:52（J-004-r9）：最新 staging `bb18992` 的 50 項隔離 HTTP/CLI 整合檢查全部 PASS、0 FAIL。僅採計 LOCAL 技術驗證；49 項部署 E2E 不變。見 [精確版本、時間與原始報告](acceptance/D05-2026-10-07-owner-rehearsal-cancellation.md#actual-technical-verification-after-cancellation)。
+
+Submission Version: J-004-r9 / B-015-r1（2026-10-07；驗收程序更新）
 Owner／處理者：Jerry（蘇子傑，沿用資料管理者職責）  
 管道：viz963@gmail.com  
-Status：受保護工具已實作、本機合成端到端通過；雲端部署、真人權利流程與 D-05 ACTIVE 尚待驗證。
+Status：受保護工具已實作、合成端到端通過；額外真人客服演練已由營運者取消。實際申請仍須核對本人／代理權限；完整部署、備份退役及 D-05 ACTIVE 尚待驗證。
+
+> 2026-10-07 營運者決定：不再要求另外寄信、電話或真人訓練報告作為驗收阻擋；見 [取消紀錄](acceptance/D05-2026-10-07-owner-rehearsal-cancellation.md)。下方操作步驟仍適用於實際權利請求；舊 P-02～P-08 狀態是當時紀錄，不能取代最新技術證據。
 
 ## 依據與已確認項目
 
@@ -78,7 +82,7 @@ CORRECT_CONTACT additionally supplies leadId and correction `{name,phone}`; it m
 
 Never automatically interpret a pasted verificationMethod as proof. The human DATA_STEWARD attests only after the original-channel/proxy check; code can enforce its presence and scope but cannot certify a call. Independent request/identity evidence stays in the restricted case record, not GitHub. Transmit any export only to the checked recipient with a suitable protected channel.
 
-Local evidence: 46/46 actual HTTP/CLI checks and protected SQL regression, see [verification](acceptance/D05-2026-10-05-privacy-rights.md). P-02/P-04/P-08 technical paths are now tested with synthetic attestations; actual human processing remains to rehearse. Earlier BLOCKED rows above are historical, not current module status. Independent deletion journal, physical-backup scope and deployed E2E remain pending.
+Earlier local evidence: 46/46 actual HTTP/CLI checks and protected SQL regression, see [verification](acceptance/D05-2026-10-05-privacy-rights.md). P-02/P-04/P-08 technical paths use synthetic attestations. The extra human rehearsal was cancelled by the owner on Oct 7; cancellation is not a human PASS. Earlier BLOCKED rows above are historical, not current module status. Independent journal cloud checks now have [Oct 7 read-only evidence](acceptance/J004-2026-10-07-erasure-readiness.md); physical-backup/copy retirement and full deployed E2E remain pending.
 
 ## B-016 update (2026-10-05)
 

@@ -1,7 +1,7 @@
 # Kareo MVP Release Checklist / 發布檢查表
 
 Owner: Jerry（TASK-J-004）
-Submission Version: J-004-r4
+Submission Version: J-004-r9
 Target: 2026-10-22（10/19 功能凍結、10/20–10/21 發布演練）
 Release gate status: **CLOSED**
 
@@ -59,7 +59,7 @@ Release gate status: **CLOSED**
 | G0-4 | Provider 資料通過 A-004 gate，並已匯入（列數、關聯核對） | | ⛔ |
 | G0-5 | 同意文件版本為 `ACTIVE`（非 DRAFT），法務待確認事項已處理 | | ⛔ |
 | G0-6 | 主要接件人已指定並完成實演（見 Gate 3）；**不設備援接件人**（Jerry 2026-09-24 決定） | 主要接件人：蘇子傑，週一至週五 09:00–21:00（LEAD_OPERATIONS §2） | ⛔（未實演） |
-| G0-7 | 刪除請求客服信箱已公布且有人處理 | viz963@gmail.com；Jerry 10/03 已確認收信與回覆；PRIVACY_REQUEST_RUNBOOK.md | ⛔（資料處理端到端待演練） |
+| G0-7 | 權利／刪除請求管道、責任人及受保護處理工具可用 | viz963@gmail.com；Jerry 10/03 已確認收信與回覆；B-015 合成 HTTP/CLI 驗證；[10/07 取消額外真人客服演練](acceptance/D05-2026-10-07-owner-rehearsal-cancellation.md) | 信箱／責任已確認、工具 LOCAL 通過；額外真人演練 CANCELLED_BY_OWNER；部署驗收另列，不冒稱已通過 |
 | G0-8 | 評估規則表 `RULES-*`（D-01 方案 B，不使用 AI）已由 Jerry 逐條確認 | | ⛔ |
 | G0-9 | Netlify 額度足以完成發布與發布後 smoke；Kareocar 已恢復 | Kareo 10/03 已恢復；發布前仍核對實際額度與 Kareocar 可用性 | ⛔（未完成本次發布核對） |
 | G0-10 | 每日 00:10（Asia/Taipei）知識更新（B-009）在部署環境有觸發紀錄，變更進 NEEDS_REVIEW、失敗保留 Last Published | | ⛔ |
