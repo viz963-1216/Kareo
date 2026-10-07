@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { api, isSessionProblem } from "../api";
+import { demoMode } from "../demo";
 import { DraftBadge } from "../components/DraftBadge";
 import { FormalAssessmentReminder } from "../components/FormalAssessmentReminder";
 import type { LeadSelection } from "../components/ProviderCard";
@@ -37,7 +38,7 @@ export function LeadPage({ sessionId, assessmentId }: Props) {
   const location = useLocation();
   const mockState = useMockState();
   const selection = isLeadSelection(location.state) ? location.state : null;
-  const [values, setValues] = useState<LeadFormValues>(emptyValues);
+  const [values, setValues] = useState<LeadFormValues>(demoMode ? { name: "展示測試者", phone: "0900000000", contactConsent: false } : emptyValues);
   const [errors, setErrors] = useState<LeadFormErrors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "error" | "success">("idle");
   const [failure, setFailure] = useState<unknown>(null);
@@ -109,20 +110,20 @@ export function LeadPage({ sessionId, assessmentId }: Props) {
     return (
       <main id="main-content" className="content">
         <p className="eyebrow">我要媒合</p>
-        <h1 tabIndex={-1} ref={(heading) => heading?.focus()}>需求已送出</h1>
+        <h1 tabIndex={-1} ref={(heading) => heading?.focus()}>{demoMode ? "媒合流程展示完成" : "需求已送出"}</h1>
         <section className="panel" role="status">
           <p>
-            {lead.duplicate
+            {demoMode ? "已完成示範操作；沒有送出真實案件，也不會有人聯絡。" : lead.duplicate
               ? "您先前已送出相同服務單位與服務的需求，本次沿用原本的案件，不會重複建立。"
               : "我們已收到您的媒合需求。"}
           </p>
           <p>案件編號：<strong>{lead.leadId}</strong>（需要查詢或刪除資料時可提供此編號）</p>
           <h2>接下來 <DraftBadge>後續處理說明為草案</DraftBadge></h2>
-          <ul>
+          {demoMode ? <p>可以返回結果，展示其他服務、需求摘要或刪除／重新開始流程。</p> : <ul>
             <li>Kareo 服務人員會以您留下的電話與您聯繫，確認需求。</li>
             <li>在您同意後，才會將需求轉告服務單位；服務單位不會自動取得您的資料。</li>
             <li>送出需求不代表服務單位已接案，也不代表媒合已完成。</li>
-          </ul>
+          </ul>}
         </section>
         <div className="button-row">
           <Link className="button secondary" to={current.from.startsWith("/recommendations/") ? current.from : "/result"}>返回推薦結果</Link>
@@ -156,7 +157,8 @@ export function LeadPage({ sessionId, assessmentId }: Props) {
           <input
             ref={nameRef}
             name="name"
-            autoComplete="name"
+            autoComplete={demoMode ? "off" : "name"}
+            readOnly={demoMode}
             maxLength={NAME_MAX_LENGTH + 10}
             value={values.name}
             disabled={status === "submitting"}
@@ -174,7 +176,8 @@ export function LeadPage({ sessionId, assessmentId }: Props) {
             name="phone"
             type="tel"
             inputMode="tel"
-            autoComplete="tel"
+            autoComplete={demoMode ? "off" : "tel"}
+            readOnly={demoMode}
             value={values.phone}
             disabled={status === "submitting"}
             onChange={(event) => update("phone", event.target.value)}
@@ -194,7 +197,7 @@ export function LeadPage({ sessionId, assessmentId }: Props) {
               aria-invalid={Boolean(errors.contactConsent)}
               aria-describedby={errors.contactConsent ? "lead-consent-error" : undefined}
             />
-            <span>{CONTACT_CONSENT_TEXT}</span>
+            <span>{demoMode ? "我了解按下送出只模擬媒合流程，不會保存聯絡資料或有人聯絡。" : CONTACT_CONSENT_TEXT}</span>
           </label>
           <DraftBadge />
           {errors.contactConsent && <p className="field-error" id="lead-consent-error">{errors.contactConsent}</p>}

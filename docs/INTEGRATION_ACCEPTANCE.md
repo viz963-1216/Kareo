@@ -1,5 +1,7 @@
 # Kareo Integration Acceptance / 整合驗收紀錄
 
+> 2026-10-07 J-004-r10：Jerry 核准獨立、可分享的虛構個案展示站（DEMO_APPROVED）。展示隱私提示不阻擋操作；正式 D-05／49 項部署 E2E 不冒稱完成。見 [展示範圍與操作](acceptance/J004-2026-10-07-shareable-demo.md)。
+
 > 2026-10-07 22:52（J-004-r9）：最新 staging `bb18992` 的 50 項隔離 HTTP/CLI 整合檢查全部 PASS、0 FAIL。僅採計 LOCAL 技術驗證；49 項部署 E2E 不變。見 [精確版本、時間與原始報告](acceptance/D05-2026-10-07-owner-rehearsal-cancellation.md#actual-technical-verification-after-cancellation)。
 
 > 2026-10-07 最新決定（J-004-r9）：Jerry 取消額外真人客服／權利演練 HPR-01～03，狀態為 CANCELLED_BY_OWNER，不再列為驗收阻擋。實際申請核對、刪除請求信箱及原 MVP Lead 接件責任保留；D-05 仍 DRAFT、完整 J-003／J-004 未完成。見 [決定紀錄](acceptance/D05-2026-10-07-owner-rehearsal-cancellation.md)。

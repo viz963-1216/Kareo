@@ -1,4 +1,5 @@
-// Marks copy that is still DRAFT (PRIVACY_AND_RETENTION §8, D-05/D-06). Never presented as approved.
+import { demoMode } from "../demo";
+// Formal DRAFT remains unchanged; the separate static demo explains its presentation scope.
 export function DraftBadge({ children = "草案版本・正式啟用驗證尚未完成" }: { children?: string }) {
-  return <span className="draft-badge">{children}</span>;
+  return <span className="draft-badge">{demoMode ? "展示說明・非正式服務" : children}</span>;
 }
