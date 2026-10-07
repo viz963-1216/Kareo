@@ -117,7 +117,7 @@ export function LeadPage({ sessionId, assessmentId }: Props) {
               ? "您先前已送出相同服務單位與服務的需求，本次沿用原本的案件，不會重複建立。"
               : "我們已收到您的媒合需求。"}
           </p>
-          <p>案件編號：<strong>{lead.leadId}</strong>（需要查詢或刪除資料時可提供此編號）</p>
+          <p>{demoMode ? "示範編號：" : "案件編號："}<strong>{lead.leadId}</strong>{demoMode ? "（僅供畫面展示）" : "（需要查詢或刪除資料時可提供此編號）"}</p>
           <h2>接下來 <DraftBadge>後續處理說明為草案</DraftBadge></h2>
           {demoMode ? <p>可以返回結果，展示其他服務、需求摘要或刪除／重新開始流程。</p> : <ul>
             <li>Kareo 服務人員會以您留下的電話與您聯繫，確認需求。</li>
