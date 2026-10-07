@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r25：5包／21筆歷史回補、13項真實雲端操作及5項私人部署空白Session檢查通過；正常清理入口dry-run／commit成功，每日清理已啟用（首次自動事件待驗）。三種標準執行環境診斷已實跑，新北兩來源皆逾時，法規網站Linux改IPv4選擇後已讀取成功，完整18來源手動執行16成功／2失敗，16快照及發布邊界核對通過，7新變更待審；完成6份實體備份清冊，但隔離還原尚待條件；crawler來源失敗、D-05 ACTIVE、49項部署E2E及Integrated尚未完成。（2026-10-07）
+Status: 進行中。r27：私人部署 01c267a 的公開 GET 驗收，E2E-21 PASS；指定版本其餘48項 PENDING，資源／知識 UI 部分觀察已記錄。此前 r25：5包／21筆歷史回補、13項真實雲端操作及5項私人部署空白Session檢查通過；正常清理入口dry-run／commit成功，每日清理已啟用（首次自動事件待驗）。三種標準執行環境診斷已實跑，新北兩來源皆逾時，法規網站Linux改IPv4選擇後已讀取成功，完整18來源手動執行16成功／2失敗，16快照及發布邊界核對通過，7新變更待審；完成6份實體備份清冊，但隔離還原尚待條件；crawler來源失敗、D-05 ACTIVE、49項部署E2E及Integrated尚未完成。（2026-10-07）
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -138,3 +138,7 @@ Jerry 已儲存 GitHub staging 的 SUPABASE_URL／SUPABASE_SERVICE_ROLE_KEY，�
 ## 2026-10-07 J-003-r26：私人公開查詢 GET 驗收
 
 受保護瀏覽器已實際操作公開資源與知識頁部分情境；命令列 marker 仍 401。新增限既有私人分支的同源 GET 檢查頁，前後 SHA／deployId 必須一致，列表成功仍不算完整 UI PASS。根目錄 91 項／新增安全回歸 4 項通過。實際新入口部署證據另補，不预先採計；D-05 與完整 49 項、Integrated 均未完成。見 [r26 報告](../docs/acceptance/J003-2026-10-07-public-browser.md)。
+
+## 2026-10-07 J-003-r27：指定私人部署真實 GET 證據
+
+#98 已合併；私人部署 `01c267aa38734d62b390fe90516543602e23d14c`／`6ac6310d25ad9673c016b966` 正常登入瀏覽器實跑。前後 runtime marker 一致，未知 API 404 JSON 通過 E2E-21；列表 200 僅部分證據。原始 JSON 交由 gate 讀取，指定 SHA／網址為1 PASS、0 FAIL、48 PENDING。公開網站仍舊版；D-05／完整案例未完成，不標記 Integrated。詳見 r26 報告的 r27 段落。

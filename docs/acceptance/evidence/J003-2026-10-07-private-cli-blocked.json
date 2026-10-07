@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 2,
+  "runId": "public-2026-10-07T08:51:52.011Z",
+  "apiMode": "real",
+  "baseUrl": "https://6ac6063f5d79aa53001770e6--kareo-tw.netlify.app",
+  "commit": "6258ac4a2dc591d9a24fae136cf6c0df899e2c12",
+  "startedAt": "2026-10-07T08:51:52.011Z",
+  "finishedAt": "2026-10-07T08:51:52.633Z",
+  "operator": "tests/e2e/run-public-api-e2e.mjs",
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "6258ac4a2dc591d9a24fae136cf6c0df899e2c12",
+    "before": {
+      "versionUrl": "https://6ac6063f5d79aa53001770e6--kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-07T08:51:52.020Z",
+      "httpStatus": 401,
+      "commit": null,
+      "error": "version marker HTTP 401: deployment access is protected; authorized access required"
+    },
+    "after": null,
+    "matches": false
+  },
+  "results": [],
+  "diagnostics": []
+}
