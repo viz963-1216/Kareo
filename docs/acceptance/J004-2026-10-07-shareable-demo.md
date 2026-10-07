@@ -1,4 +1,4 @@
-# J-004-r10 — Separate shareable presentation
+# J-004-r11 — Separate shareable presentation
 
 Owner decision, 2026-10-07 (Asia/Taipei): Jerry asked 「繼續執行未完成事項，另外隱私權警告問題先讓他通過，過幾天我要demo了」 and selected 「需要可分享的展示網址」 after being offered a complete fictional-case presentation environment. **DEMO_APPROVED** applies to that synthetic presentation, not formal consent activation or legal certification. The extra human customer-support rehearsal remains CANCELLED_BY_OWNER (#102).
 
@@ -18,10 +18,10 @@ Presentation/privacy-warning readiness is approved for the synthetic demo. Forma
 
 1. Use the approved feature/staging commit, npm ci --prefix apps/web, then node scripts/build-demo.mjs --github-pages locally.
 2. Inspect demo-dist/kareo-demo-version.json and verify sourceCommit plus workingTreeDirty=false before publishing. No environment file, Function bundle or key goes into the upload.
-3. Present a fictional person: age 65+, Taipei city / Wanhua district, needs home care and assistive devices. Follow consent → assessment → results → recommendation → detail/Maps → mock matching with fixed test contact. Show the needs summary and public resource/knowledge pages.
+3. Present a fictional person: age 65+, New Taipei city / Sanchong district, income category GENERAL, needs home care and assistive devices. Follow consent → assessment → results → recommendation → detail/Maps → mock matching with fixed test contact. Show the needs summary and public resource/knowledge pages.
 4. Refresh to reset the browser-memory example. It is not a saved real case. Never use the demo output as a benefits decision or a real referral.
 
-Deployment and actual verification results will be recorded after execution.
+Initial public deployment succeeded: https://viz963-1216.github.io/Kareo/, artifact branch demo-pages d89b5ab6f37eb2bd54f3ab492e667405413983a9, source f0e72e5e86f004c1e795f2ef887f27c3ea4e5db8. Homepage/version HTTP 200 and demo API HTTP 404 verified. Initial walkthrough found generic real-service reset text inherited by the demo; r11 replaces it with demo-only reset copy and defaults to the existing 3-provider fixtures. Final deployed walkthrough is recorded after rebuilding this revision.
 
 Pre-deployment checks: frontend tests 81 PASS / 0 FAIL; API-mode/build guard tests 6 PASS / 0 FAIL. Demo and real frontend builds both passed; the real bundle contained no demo-only copy or mock fixture markers. git diff --check passed. Static deploy uses scripts/deploy-demo.mjs with a hard-coded independent site/account identity, clean artifact requirement and exact static-file allowlist; no paid upgrade, environment change or Function upload.
 

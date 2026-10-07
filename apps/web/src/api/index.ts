@@ -148,7 +148,7 @@ export const api = {
 
   getRecommendation(request: RecommendationRequest, mockOptions: RecommendationMockOptions = {}): Promise<RecommendationResponse> {
     return apiMode === "mock"
-      ? loadMock().then((mock) => mock.getRecommendation(request, mockOptions))
+      ? loadMock().then((mock) => mock.getRecommendation(request, demoMode ? { ...mockOptions, providerCount: mockOptions.providerCount ?? 3 } : mockOptions))
       : realApi.getRecommendation(request);
   },
 
