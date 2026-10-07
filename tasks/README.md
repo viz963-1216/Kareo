@@ -32,6 +32,10 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新來源連線與備份清冊（2026-10-07；J-003-r25）
+
+#93／#94／#95 各八項 CI 通過並合併。三種標準環境均無法連到新北兩個careyou來源；Linux法規網站改IPv4連線選擇後，在受保護實際crawler成功。完整18來源手動執行結果：**16 SUCCESS／2 FAILED（PARTIAL，exit 1）**；16快照已保存且SHA-256重算一致，已發布21知識／1版本／21成員完整雜湊不變，7新變更只列NEEDS_REVIEW（目前合計25筆）。兩失敗來源仍列#88，不停用或自動核准。每日更新／清理固定Ubuntu24.04以維持已驗證OS；清理首次自動事件仍待驗。備份畫面已重新核對6份Physical，隔離還原／副本退休未執行，D-05 DRAFT、49部署E2E與Integrated仍未完成。[来源結果](../docs/acceptance/J003-2026-10-07-runner-network.md)、[備份清冊](../docs/acceptance/D05-2026-10-07-backup-inventory.md)。以下較早快照保留為歷史。
+
 # 最新私人部署與每日清理（2026-10-07；J-003-r22）
 
 #91 八項 CI 通過並合併；既有私人分支實際部署完成，**5/5 空白 Session 部署檢查 PASS**（版本前後一致、建立、DELETE、token 失效），真實平台 Blobs context 正常。兩筆雲端 receipt 經既有清理入口讀回；手動 dry-run／commit SUCCESS，僅清理此次自建無健康 Session。每日清理已啟用 KAREO_RETENTION_ENABLED=true，設定台灣00:30，**首次自動觸發仍待觀察，不能用手動成功代替排程驗收**。D-05 DRAFT／完整49 E2E／Integrated仍未完成；實體備份及真人權利／接件演練仍待處理；爬蟲來源失敗見 #88。詳見 [部署證據](../docs/acceptance/J003-2026-10-07-cloud-retention.md#j-003-r22-actual-deployed-checkpoint)。以下快照保留為歷史。

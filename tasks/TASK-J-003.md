@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r25：5包／21筆歷史回補、13項真實雲端操作及5項私人部署空白Session檢查通過；正常清理入口dry-run／commit成功，每日清理已啟用（首次自動事件待驗）。三種標準執行環境診斷已實跑，新北兩來源皆逾時，法規網站Linux改IPv4選擇後已讀取成功，設定已接入排程，完整來源執行待驗；完成6份實體備份清冊，但隔離還原尚待條件；crawler來源失敗、D-05 ACTIVE、49項部署E2E及Integrated尚未完成。（2026-10-07）
+Status: 進行中。r25：5包／21筆歷史回補、13項真實雲端操作及5項私人部署空白Session檢查通過；正常清理入口dry-run／commit成功，每日清理已啟用（首次自動事件待驗）。三種標準執行環境診斷已實跑，新北兩來源皆逾時，法規網站Linux改IPv4選擇後已讀取成功，完整18來源手動執行16成功／2失敗，16快照及發布邊界核對通過，7新變更待審；完成6份實體備份清冊，但隔離還原尚待條件；crawler來源失敗、D-05 ACTIVE、49項部署E2E及Integrated尚未完成。（2026-10-07）
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
