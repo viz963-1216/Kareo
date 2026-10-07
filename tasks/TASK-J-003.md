@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r16 修正 staging smoke／workflow：預設 GET，寫入需明確授權、ACTIVE 與目標 SHA；部分驗證維持 PENDING。環境設定、D-05 啟用、排程及 49 項部署 E2E 仍待完成；Integrated：否。（2026-10-06）
+Status: 進行中。r20：個人操作者與 key 交接完成，正式回填入口在驗收 DB 完成 5 包／21 筆歷史核准且不改發布資料；雲端刪除紀錄驗證入口已準備，待 Netlify 存取交接與實跑。每日 crawler 已 schedule 觸發但部分失敗／延遲；D-05 DRAFT，完整 49 項部署 E2E 與 Integrated 未完成。（2026-10-07）
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -128,3 +128,7 @@ B-015 #81、B-016 #82 已合併；0027／0028 套用現有驗收專案。新增�
 ## J-003-r16：安全的 staging 驗收入口（2026-10-06）
 
 基底 staging `891ed2b`（#84）。移除 smoke 寫死同意版本及預設建立 Session；預設委派公開 GET runner。指定完整 SHA／環境／輸出檔，寫入模式需 --write-e2e --allow-writes、有效 ACTIVE 組合及實際版本標記。API runner 不跟隨重新導向傳送自訂 token header，拒絕缺 expiresAt；身障／經濟身分測試移到撤回前，避免失效 token 假失敗；E2E-02／04／17 的部分檢查不當作整項 PASS。手動 smoke 保存實際 artifact；Release gate 預設只做 GET，PR → main 不自動啟用寫入，49 必要項不變。見 [r16 證據](../docs/acceptance/J003-2026-10-06-safe-staging-smoke.md)。尚未部署、未改同意／帳號憑證或雲端資料。
+
+## J-003-r17：每日更新首次實跑修正（2026-10-06）
+
+Jerry 已儲存 GitHub staging 的 SUPABASE_URL／SUPABASE_SERVICE_ROLE_KEY，並同意預設分支 staging 與 crawler 試跑。首次 Actions 執行建立 11 筆 FAILED，沒有快照；確認是 snapshot-before-run 與已啟用但尚無 KnowledgeRecord 的來源未登錄造成外鍵失敗。補 RUNNING → 同 id 完成、錯誤保留真實 FAILED、官方來源缺漏登錄；不覆寫既有来源與 PUBLISHED 知識。新增實際 SQL 外鍵及負向對照測試。詳見 [r17 證據](../docs/acceptance/J003-2026-10-06-crawler-runtime.md)。手動試跑不代表午夜排程或完整 E2E 已通過。

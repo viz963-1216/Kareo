@@ -43,6 +43,7 @@ async function main(): Promise<number> {
   const registry = parseSourceRegistry(registryMd);
 
   const repo = new SupabaseKnowledgeRepository();
+  await repo.ensureCrawlerSources(registry);
   const fetcher = createHttpFetcher();
 
   const { runs, overallStatus } = await crawlAllActiveSources(repo, registry, fetcher);

@@ -168,6 +168,7 @@ export interface KnowledgeRepository {
   // KnowledgeChange，不會重複建立（DB 層以 partial unique index 保障，見 migration 0013），
   // 回傳 inserted=false；呼叫端據此判斷這次是否為「真正的新變更」（B-009-r2，Jerry PR #37 第 3 項）。
   insertKnowledgeChange(change: KnowledgeChange): Promise<{ inserted: boolean }>;
+  // 同一 id 先存 RUNNING（供 Snapshot 外鍵），再更新為 SUCCESS／FAILED。
   insertCrawlerRun(run: CrawlerRun): Promise<void>;
 
   // Jerry 委託修正第二輪（2026-09-27）：保存原始快照本身（不是只有雜湊），掛在 source_id

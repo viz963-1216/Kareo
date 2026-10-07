@@ -4,7 +4,7 @@
 // B（HTML 比對使用一致表示法）、D（同一變更重跑／併發去重）已分別由
 // tests/b009-baseline.test.ts、tests/b009-hash-dedupe.test.ts 覆蓋。
 import { createHash } from "node:crypto";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { crawlSource, crawlAllActiveSources, computeBytesHash, type Fetcher } from "../src/services/crawlerService.js";
 import { InMemoryKnowledgeRepository } from "../src/repositories/inMemoryKnowledgeRepository.js";
 import { computeContentFingerprint } from "../src/services/contentFingerprint.js";
@@ -86,7 +86,7 @@ describe("B-009 traceable snapshot association even when unchanged (case E)", ()
 describe("B-009 snapshot write failure is a real FAILED run, not a fabricated success (case F)", () => {
   it("a source failing does not stop the others, and is recorded as FAILED (not silently dropped)", async () => {
     const repo = new InMemoryKnowledgeRepository();
-    repo.failNextCrawlerRepoCall = true; // 第一次呼叫 Repository（insertSnapshot）失敗，模擬快照寫入失敗。
+    vi.spyOn(repo, "insertSnapshot").mockRejectedValueOnce(new Error("snapshot unavailable"));
     const reg = new Map<string, RegistrySource>([
       ["SRC-BROKEN", { authority: "LAW", jurisdiction: "TAIWAN", url: "https://law.moj.gov.tw/broken", active: true }],
       ["SRC-GOOD", { authority: "LAW", jurisdiction: "TAIWAN", url: "https://law.moj.gov.tw/good", active: true }],

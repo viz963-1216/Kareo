@@ -6,8 +6,8 @@
 # 20-minute limit and does not consume Netlify deploy credits (MVP_DECISIONS D-09).
 #
 # Timing: 16:10 UTC = 00:10 Asia/Taipei (no DST). GitHub may start scheduled runs late under load and only
-# runs schedules from the default branch (main), so this fires after a release to main. Manual runs use
-# workflow_dispatch (also only listed once the file is on main).
+# runs schedules from the default branch (staging, confirmed by Jerry on 2026-10-06). Manual runs use
+# workflow_dispatch. main remains the production release branch.
 # Duplicate triggers: runs never overlap (concurrency group, queued, not cancelled). A second run on the
 # same day re-checks sources; it must not create duplicate KnowledgeChange rows (B-009 de-duplication,
 # acceptance case E2E-26／E2E-39).
