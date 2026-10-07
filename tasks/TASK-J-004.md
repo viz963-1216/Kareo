@@ -68,3 +68,6 @@ LOCAL-39／40 已在 PGlite 應用資料還原後，重套真實本機 HTTP 產�
 ## 2026-10-07 雲端操作更新
 
 受保護工具及真實 Supabase／Blobs 13項檢查通過；私人實際部署空白Session建立、DELETE及失效5項通過，既有清理workflow dry-run／commit實跑成功。每日清理開關已啟用；首次自動事件仍待觀察。單列合成還原不是實體備份演練，不勾選完整還原／發布。J-003 Integrated仍否，D-05 DRAFT；目前未正式發布。證據見 docs/acceptance/J003-2026-10-07-cloud-retention.md。
+
+
+2026-10-07 r25準備補充：[實際6份Physical清冊與隔離還原檢查點](../docs/acceptance/D05-2026-10-07-backup-inventory.md)已完成；沒有點Restore、覆寫共用驗收資料庫或新增付費專案。實體備份恢復／副本退休仍待核對，不勾選完整還原或正式發布。每日更新及清理已固定已驗證Ubuntu24.04；來源仍有2失敗，首次自動清理待驗。
