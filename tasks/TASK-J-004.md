@@ -87,4 +87,4 @@ HPR-01～03 標記 CANCELLED_BY_OWNER；不再要求額外真人訓練報告。�
 
 ## r10 獨立可分享 demo（2026-10-07）
 
-Jerry 核准虛構個案展示站：展示隱私說明與完整前端流程可先通過，正式 D-05 與部署 E2E 分開。使用獨立 kareo-demo-tw，禁止將 mock 展示部署到 kareo-tw／Kareocar；建置與部署腳本限定靜態檔案及既定站台，不送雲端個案。詳見 [展示報告](../docs/acceptance/J004-2026-10-07-shareable-demo.md)。
+Jerry 核准虛構個案展示站：展示隱私說明與完整前端流程可先通過，正式 D-05 與部署 E2E 分開。使用獨立 demo-pages／GitHub Pages（Netlify 額度阻擋時），禁止將 mock 展示部署到 kareo-tw／Kareocar；建置與部署腳本限定靜態檔案及既定站台，不送雲端個案。詳見 [展示報告](../docs/acceptance/J004-2026-10-07-shareable-demo.md)。

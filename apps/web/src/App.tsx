@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { BrowserRouter, Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, HashRouter, Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { api } from "./api";
 import { demoMode } from "./demo";
 import { startConsentedSession } from "./consent/startSession";
@@ -72,7 +72,7 @@ function AppRoutes() {
   return (
     <SessionContext.Provider value={session}>
       <ScrollToTop />
-      <a className="skip-link" href="#main-content">跳到主要內容</a>
+      <a className="skip-link" href="#main-content" onClick={demoMode ? event => { event.preventDefault(); const main = document.getElementById("main-content"); if (main) { main.tabIndex = -1; main.focus(); } } : undefined}>跳到主要內容</a>
       <header className="site-header">
         <Link to="/" className="brand" aria-label="Kareo 長照一點通首頁">
           Kareo <span>長照一點通</span>
@@ -116,9 +116,10 @@ function AppRoutes() {
 }
 
 export default function App() {
+  const Router = demoMode ? HashRouter : BrowserRouter;
   return (
-    <BrowserRouter>
+    <Router>
       <AppRoutes />
-    </BrowserRouter>
+    </Router>
   );
 }

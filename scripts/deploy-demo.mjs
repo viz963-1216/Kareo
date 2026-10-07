@@ -9,10 +9,10 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const out = path.join(root, 'demo-dist');
 const siteId = '8c1f7f95-4f25-4d3f-aa7d-b46016108462';
 const manifest = JSON.parse(await readFile(path.join(out, 'kareo-demo-version.json'), 'utf8'));
-if (manifest.scope !== 'STATIC-SYNTHETIC-DEMO' || manifest.workingTreeDirty !== false
+if (manifest.scope !== 'STATIC-SYNTHETIC-DEMO' || manifest.basePath !== '/' || manifest.workingTreeDirty !== false
     || !/^[a-f0-9]{40}$/.test(manifest.sourceCommit ?? '') || manifest.realApi !== false
     || manifest.realCases !== false || manifest.formalConsentActivated !== false) throw new Error('Rebuild a clean, synthetic demo artifact before publishing.');
-const expected = new Set(['index.html', '_headers', '_redirects', 'demo-api-disabled.txt', 'kareo-demo-version.json', 'assets']);
+const expected = new Set(['index.html', '.nojekyll', '_headers', '_redirects', 'demo-api-disabled.txt', 'kareo-demo-version.json', 'assets']);
 for (const entry of await readdir(out, { withFileTypes: true })) {
   if (!expected.has(entry.name) || entry.isSymbolicLink()) throw new Error('Unexpected file in demo artifact.');
 }
