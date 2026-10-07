@@ -1,0 +1,44 @@
+name: Acceptance read-only erasure readiness
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kareo-staging-retention-cleanup
+  cancel-in-progress: false
+
+jobs:
+  inspect:
+    if: github.repository == 'viz963-1216/Kareo' && github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment: staging
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      KAREO_OPERATOR_KEY: ${{ secrets.KAREO_OPERATOR_KEY }}
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      KAREO_OPERATOR_ID: OP-SU-ZIJIE-ACCEPTANCE
+      NETLIFY_SITE_ID: faeb21e1-94d1-4d42-bbbc-6f9692caaef9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/api/package-lock.json
+      - run: npm ci --prefix apps/api
+      - run: npm run build --prefix apps/api
+      - name: Observe counts and journal without mutation or purge
+        run: node scripts/check-erasure-readiness.mjs
+      - name: Preserve sanitized observations (not an E2E or retirement approval)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: acceptance-erasure-readiness
+          path: work/erasure-readiness.json
+          if-no-files-found: warn
+          retention-days: 7
