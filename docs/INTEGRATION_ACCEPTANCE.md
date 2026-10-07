@@ -1,7 +1,7 @@
 # Kareo Integration Acceptance / 整合驗收紀錄
 
 Owner: Jerry（TASK-J-003）
-Submission Version: J-003-r21
+Submission Version: J-003-r22
 
 > 只有「部署環境中，以真實 API 與真實資料實際操作成功」才算通過。
 > Mock、單元測試、PR 合併都**不算**整合完成。平台額度或模組缺漏造成的阻擋一律記為 `PENDING`，必要項目 PENDING 時完整驗收判定為**失敗**。
@@ -662,3 +662,5 @@ C-006 缺陷重現步驟（試驗組合，`apps/web`）：`sessionStorage` 放�
 Jerry 的直接授權已記為 OWNER_APPROVED_CONDITIONAL；不是外部法律意見或正式同意啟用。候選固定全文可從 `/privacy/versions/2026-10-05-r1-proposed.txt` 保存與取出，SHA-256 固定為 `5f28c3de07e260214bf7e6b12dd45642fceac619076858d253027d0920e6c1a2`。LOCAL-41 實際 HTTP 驗證通過，本機整合 41／41 PASS。報告 `docs/acceptance/evidence/D05-2026-10-05-conditional-review.json` 的 sourceCommit 是提交前基底，workingTreeDirty=true；不是部署驗收。所有實際同意版本仍為 DRAFT、activationAllowed=false；無 token 權利工具、正式獨立刪除紀錄、供應商副本範圍、排程及一致版本部署仍待補齊。Integrated 維持否。
 
 PR #80 乾淨 CI 首次檢查發現測試工具直接呼叫 Vite、未執行 npm prebuild；LOCAL-41 下載取得 SPA HTML，依指紋正確失敗。已修正本機隔離建置以同一個正式全文輸出函式產生暫存下載檔；刪除全部已產生 public 文案後重跑，41／41 PASS。更新報告基底為 `d33160252b06c14595ef74b9502fc168f2d9dd79`、workingTreeDirty=true。先前本機成功依賴已產生檔案，不能替代這次乾淨驗證；合併仍待修正 head CI 通過。
+
+2026-10-07 r22：實際部署平台5項空白Session檢查與後續雲端清理PASS；每日清理已啟用，首次自動事件仍PENDING。這不是完整E2E-19/20/37，49案例不新增PASS。參見 docs/acceptance/J003-2026-10-07-cloud-retention.md。

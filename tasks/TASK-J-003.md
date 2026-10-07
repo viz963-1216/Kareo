@@ -132,3 +132,5 @@ B-015 #81、B-016 #82 已合併；0027／0028 套用現有驗收專案。新增�
 ## J-003-r17：每日更新首次實跑修正（2026-10-06）
 
 Jerry 已儲存 GitHub staging 的 SUPABASE_URL／SUPABASE_SERVICE_ROLE_KEY，並同意預設分支 staging 與 crawler 試跑。首次 Actions 執行建立 11 筆 FAILED，沒有快照；確認是 snapshot-before-run 與已啟用但尚無 KnowledgeRecord 的來源未登錄造成外鍵失敗。補 RUNNING → 同 id 完成、錯誤保留真實 FAILED、官方來源缺漏登錄；不覆寫既有来源與 PUBLISHED 知識。新增實際 SQL 外鍵及負向對照測試。詳見 [r17 證據](../docs/acceptance/J003-2026-10-06-crawler-runtime.md)。手動試跑不代表午夜排程或完整 E2E 已通過。
+
+2026-10-07 r22：實際私人部署空白 Session 建立／刪除／失效及版本前後檢查5/5通過；受保護清理實跑SUCCESS。每日清理設定已啟用，首次自動執行待觀察；完整49部署E2E仍待驗，不以部分操作通過標記 Integrated。
