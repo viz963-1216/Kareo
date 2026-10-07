@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { BrowserRouter, Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { api } from "./api";
+import { startConsentedSession } from "./consent/startSession";
 import { defaultAssessmentForm } from "./assessment/assessmentRequest";
 import { FormalAssessmentReminder } from "./components/FormalAssessmentReminder";
 import { ScrollToTop } from "./components/ScrollToTop";
@@ -47,8 +48,7 @@ function AppRoutes() {
   }), [clearState, navigate]);
 
   async function acceptConsent() {
-    const created = await api.createSession();
-    await api.acceptConsent(created.sessionId);
+    const created = await startConsentedSession(api);
     setSessionId(created.sessionId);
     setHasConsent(true);
   }

@@ -63,6 +63,7 @@ Status: **DRAFT — 營運方案有條件核准，工程啟用未完成；沒有
 - 後端只接受 `contracts/legal/consent-versions.json` 中 `status = ACTIVE` 的版本組合（由 Jerry 維護；目前只有 DRAFT）。帶有 `-draft` 的版本在 production 一律拒絕。
 - 文件內容變更 → 新版本。已同意舊版本的 session，在新版本 ACTIVE 後進行**新的** Assessment 或 Lead 前必須重新同意；既有資料不受影響。
 - 目前前端送出的版本值必須改為讀取上述清單，不得寫死（C 後續任務）。
+- D-05 工程接線：ACTIVE 組合須綁定不可變的全文與審閱指紋；建置、前端載入及建立 Session 前檢查均拒絕缺漏或不符。格式見 [正式全文封存規則](../contracts/legal/versions/README.md)。目前真實清單仍只有 DRAFT，這項接線不代表正式啟用條件已全部完成。
 
 ### 3.3 撤回同意
 

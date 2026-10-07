@@ -77,6 +77,22 @@ export async function verifyLocalStack(stack) {
       assert.equal(entry.status,'PROPOSED_NOT_ACTIVE'); assert.equal(entry.fullTextSha256,review.fullTextSha256);
       assert.ok(!JSON.stringify(index).includes('approvedBy') && !JSON.stringify(index).includes('approvalEvidence'));
     });
+    await test('LOCAL-50', 'Synthetic formal archive binds all three frontend versions and exact downloadable bytes without changing real DRAFT approval', async () => {
+      const index = await (await fetch(baseUrl+'/privacy/versions/formal-index.json')).json();
+      assert.equal(index.archives.length, 1);
+      const archive = index.archives[0];
+      for (const key of ['disclaimerVersion','privacyVersion','termsVersion']) assert.equal(archive[key], TEST_CONSENT[key]);
+      assert.equal(archive.active, true);
+      const response = await fetch(baseUrl+archive.fullTextUrl);
+      assert.equal(response.status, 200);
+      assert.match(response.headers.get('content-type'), /^text\/plain(?:;|$)/);
+      const bytes = Buffer.from(await response.arrayBuffer());
+      assert.equal(createHash('sha256').update(bytes).digest('hex'), archive.fullTextSha256);
+      assert.ok(bytes.toString('utf8').includes(archive.assessmentConsentText));
+      assert.ok(bytes.toString('utf8').includes('本機合成測試，不是正式文案。'));
+      assert.ok(!JSON.stringify(index).includes('approvedBy') && !JSON.stringify(index).includes('approvalEvidence'));
+      assert.equal(createHash('sha256').update(readFileSync('contracts/legal/consent-versions.json')).digest('hex'), legalBefore);
+    });
     await test('LOCAL-04', 'Public resources are queryable without Session; five centers are not service providers', async () => {
       const list = success(await call('GET', '/api/v1/providers?pageSize=50')); assert.equal(list.totalCount, 35);
       const centers = success(await call('GET', '/api/v1/providers?resourceCategory=ASSISTIVE_DEVICE_CENTER'));
@@ -450,8 +466,11 @@ export async function verifyLocalStack(stack) {
       restoreRehearsals.push(await restoreAndReplaySyntheticDeletion(deletionSnapshot,deletionReceipt,LOCAL_OPERATOR,stack.journal,stack.operatorKey));
     });
   } catch { /* first failure is recorded; no false success or dependent-case cascade */ }
+  const expectedIds = Array.from({length:50}, (_, index) => `LOCAL-${String(index+1).padStart(2,'0')}`);
+  const ids = new Set(results.map(result => result.id));
+  const complete = results.length === expectedIds.length && ids.size === expectedIds.length && expectedIds.every(id => ids.has(id));
   return { schemaVersion:1, scope:'LOCAL-INTEGRATION-ONLY', releaseAcceptance:false, backend:stack.backend, baseUrl, startedAt, finishedAt:new Date().toISOString(),
     consent:'Synthetic LOCAL-TEST combo only in temporary bundles; production contract remains DRAFT', cloudWrites:0,
-    status:results.length===49 && results.every(r=>r.status==='PASS')?'PASS':'FAIL', results, restoreRehearsals,
+    status:complete && results.every(r=>r.status==='PASS')?'PASS':'FAIL', results, restoreRehearsals,
     limitations:['Not Netlify/deployed E2E; not counted toward the 49-case release gate','Browser/manual/operational cases require separate evidence','No actual daily scheduler trigger or formal D-05 approval'] };
 }

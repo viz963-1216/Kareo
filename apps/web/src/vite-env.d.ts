@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 
+declare const __KAREO_CONSENT_DOCUMENTS__: import("./consent/documents").ConsentManifest;
+
 interface ImportMetaEnv {
   readonly VITE_KAREO_API_MODE?: string;
   readonly VITE_KAREO_DEPLOY_CONTEXT?: string;
