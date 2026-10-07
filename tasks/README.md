@@ -32,6 +32,10 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新雲端刪除紀錄與清理實跑（2026-10-07；J-003-r21）
+
+#90 已合併；本人交接 Netlify key 後，受保護入口使用真實 Blobs／Supabase 完成 **13/13 雲端操作檢查**。單筆無健康資料測試 Session 刪除、清理、單列恢復後重套清理通過，兩筆 SUCCESS 紀錄；原有8筆雜湊不變，健康／媒合／同意仍0。排程既有入口另做手動 dry-run SUCCESS（0 待清理）。每日清理尚未啟用；部署平台 context、實體備份恢復、權利／接件人工演練、D-05 ACTIVE 與49項部署E2E仍待驗。見 [實跑紀錄](../docs/acceptance/J003-2026-10-07-cloud-retention.md#j-003-r21-actual-execution-update)。以下 r20/r19 的「待key／待實跑」保留為歷史，不代表目前狀態。
+
 # 最新雲端回填完成與刪除紀錄驗證準備（2026-10-07；J-003-r20）
 
 個人 key 已由 Jerry 儲存，#89 已合併，正式回填入口在真實驗收 DB 完成 **5 個內容包／21 筆歷史核准**，重跑不重複，知識／版本／成員完整雜湊不變。新增預設關閉、僅 staging 的雲端刪除紀錄驗證入口，尚待本人交接 Netlify 存取與實跑；未把準備工作列為通過。它使用真實雲端 SDK／DB，但 named handler 在工作執行器中執行，不採計部署 E2E 或實體備份恢復。D-05 DRAFT、Integrated 否；詳見 [r20 證據與界線](../docs/acceptance/J003-2026-10-07-cloud-retention.md)。下方 r19 為歷史快照，回填待 key 的敘述已由實跑結果取代。

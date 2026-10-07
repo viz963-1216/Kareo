@@ -47,6 +47,8 @@ Jerry 要求依網路上的官方資料整理方案，再由本人同意。這�
 
 ## 工程證據目前能支持的範圍
 
+2026-10-07 補充（J-003-r21）：個人操作者與雲端追溯回填已完成；真正 Netlify Blobs／Supabase 的刪除紀錄、清理及單筆無健康測試 Session 的恢復重套，13/13 操作檢查 PASS；既有清理入口手動 dry-run SUCCESS。詳見 [雲端證據](J003-2026-10-07-cloud-retention.md#j-003-r21-actual-execution-update)。這解除「尚未做任何雲端 journal／清理」的舊狀態，但不解除部署平台 context、實體備份／副本退休、資料權利本人核對、正式電子同意及完整部署回歸的條件。activationAllowed 與 approvalConditionsSatisfied 仍 false；以下 10/5 紀錄為歷史，不能把當时 operator/deletion run 的0筆當目前狀態。
+
 - #78 已合併至本文件基準：38 項本機真實 HTTP／PostgreSQL／PostgREST 整合通過，包括撤回、Session 刪除、聯絡欄位清空、清理失敗回滾及重試。這些不是部署 E2E。
 - 2026-10-05 唯讀核對：現有 Kareo 驗收 DB migration 到 0026；assessment、lead、consent、operator、crawler run、deletion run 彙總均為 0。未讀取真人內容或憑證，也未寫入雲端資料。
 - 本輪新增 LOCAL-39／40：兩份較早的合成應用快照逐表還原至 PGlite，再套用實際 HTTP 撤回／刪除產生的合成請求紀錄及正式 SQL 清理，通過；40／40 LOCAL 檢查通過。證據：[本機報告](evidence/D05-2026-10-05-local-restore.json)。這不是 Supabase 實體備份演練，正式獨立的刪除請求保存與還原後重套流程仍未完成。
