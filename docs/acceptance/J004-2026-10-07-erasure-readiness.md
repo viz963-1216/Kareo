@@ -25,3 +25,19 @@ Local safety regressions: 11 PASS, covering actual receipt validation, wrong tar
 Documentation sources checked October 7: [Supabase exact counts](https://supabase.com/docs/reference/javascript/select), [backup coverage/restore](https://supabase.com/docs/guides/platform/backups), [Netlify Blobs consistency](https://docs.netlify.com/build/data-and-storage/netlify-blobs/). Changelog checked before implementation; no new tables, grants, library upgrade, ltree indexes or legacy-cipher changes are required for these read-only existing-table queries.
 
 D-05 remains OWNER_APPROVED_CONDITIONAL, registry DRAFT; J-003 Integrated and J-004 release remain incomplete.
+
+## Actual cloud execution, J-004-r8
+
+The implementation PR [#100](https://github.com/viz963-1216/Kareo/pull/100) head `2765e6f3bb7fada6ce3dfaf48fda28dfd7a8918a` passed all eight CI jobs ([run 37635458790](https://github.com/viz963-1216/Kareo/actions/runs/37635458790)) and Netlify Preview. It was squash merged as `52e28ee9a8aa9a7ae2e384d957ceeeaa157ffa25`.
+
+The new manual workflow was actually dispatched on that staging commit: [run 37635755368](https://github.com/viz963-1216/Kareo/actions/runs/37635755368), job `112841421543`, SUCCESS. Its real observation ran **2026-10-07 14:20:02.294–14:20:13.335 UTC** (22:20 Asia/Taipei). The [raw sanitized report](evidence/J004-2026-10-07-cloud-erasure-readiness.json) is extracted from its actual JSON log line without altering values. Artifact `11488941190` is acceptance-erasure-readiness, 957 bytes, ZIP SHA-256 `cac958db16c4ff16a3518572e25e17d5ff334b4771be0e0b2f71a3ac8bdfa31a`; original retention expires October 14.
+
+- Complete project-bound journal: **2 receipts / 2 distinct Sessions**, both existing Sessions DELETED.
+- Assessments / profiles / recommendation runs / items: **0 / 0 / 0 / 0**.
+- Receipt-linked open Lead / non-null contact / retained case / retained consent: **0 / 0 / 0 / 0**.
+- Repeated journal and count observations: unchanged. Outcome `OBSERVED_HEALTH_AND_OUTREACH_ERASURE`; this is limited to current erasure observations.
+- All six backup requirements remain PENDING; purge, ACTIVE and physical-restore verification remain false.
+
+An [independent SQL observation](evidence/J004-2026-10-07-cloud-erasure-no-write.json) at UTC 14:18:06.414091 and 14:21:53.988677 matched: all 10 Session rows' aggregate digest, assessments/leads/consents 0, deletion_runs 4, privacy_operations 0. This corroborates no observed Session change or new cleanup/rights audit. It is not proof against every possible intervening transaction, and it does not attribute all four DELETED Sessions to these two receipts.
+
+No Session created/deleted, health/contact data written, receipt purged, backup restored, permission expanded, owner decision forged or E2E result added. The green workflow means successful observation only. Current D-05 and release conditions remain unchanged.
