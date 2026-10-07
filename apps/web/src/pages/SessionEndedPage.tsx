@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { demoMode } from "../demo";
 
 type EndedState =
   | { kind: "restarted" }
@@ -23,6 +24,7 @@ function formatDate(value: string) {
 
 export function SessionEndedPage() {
   const state = readState(useLocation().state);
+  if (demoMode) return <main id="main-content" className="content"><p className="eyebrow">專題展示</p><h1>展示資料已重設</h1><p role="status">已結束本次虛構個案操作。展示站沒有向資料庫送出評估或建立真實媒合案件，也沒有安排實際客服或刪除請求。</p><Link className="button primary" to="/consent">開始新的展示評估</Link></main>;
   return (
     <main id="main-content" className="content">
       <p className="eyebrow">使用階段</p>

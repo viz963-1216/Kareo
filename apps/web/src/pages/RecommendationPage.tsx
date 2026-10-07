@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { demoMode } from "../demo";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { api, apiMode, isSessionProblem } from "../api";
 import { RECOMMENDATION_MOCK_RANKINGS, type RecommendationMockCount } from "../api/mockScenarios";
@@ -76,7 +77,7 @@ export function RecommendationPage({ assessmentId, locationPrecision }: Props) {
 
     api.getRecommendation(
       { assessmentId, serviceType },
-      apiMode === "mock" ? { providerCount: readMockCount(mockCount), ranking: mockRanking, state: mockState } : {},
+      apiMode === "mock" ? { providerCount: demoMode && !mockCount ? 3 : readMockCount(mockCount), ranking: mockRanking, state: mockState } : {},
     ).then((response) => {
       if (!active) return;
       setRecommendation(response);

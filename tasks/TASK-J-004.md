@@ -84,3 +84,10 @@ LOCAL-39／40 已在 PGlite 應用資料還原後，重套真實本機 HTTP 產�
 ## r9 營運者取消額外客服演練（2026-10-07）
 
 HPR-01～03 標記 CANCELLED_BY_OWNER；不再要求額外真人訓練報告。同步權利操作手冊、Gate 0、決策與驗收看板；保留實際申請核對及原 MVP 接件、實體備份、副本退役與部署條件。取消不是 PASS；新合成整合執行另附精確 commit 與結果，不填入 49 項部署 E2E。
+
+## r10 獨立可分享 demo（2026-10-07）
+
+Jerry 核准虛構個案展示站：展示隱私說明與完整前端流程可先通過，正式 D-05 與部署 E2E 分開。使用獨立 demo-pages／GitHub Pages（Netlify 額度阻擋時），禁止將 mock 展示部署到 kareo-tw／Kareocar；建置與部署腳本限定靜態檔案及既定站台，不送雲端個案。詳見 [展示報告](../docs/acceptance/J004-2026-10-07-shareable-demo.md)。
+
+
+2026-10-07 r11：可分享的虛構個案展示站已發布 https://viz963-1216.github.io/Kareo/；實際公開瀏覽器已完成評估→結果→Top 3→媒合示範與重設。驗證及展示操作見 docs/acceptance/J004-2026-10-07-shareable-demo.md。DEMO_APPROVED 只限展示，正式 release 維持原閘門。

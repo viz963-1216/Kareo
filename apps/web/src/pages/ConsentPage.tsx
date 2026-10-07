@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { apiMode, consentArchive, consentIsDraft, consentVersions, getConsentDocument } from "../api";
 import { DraftBadge } from "../components/DraftBadge";
 import { FormalAssessmentReminder } from "../components/FormalAssessmentReminder";
+import { demoMode } from "../demo";
 
 interface Props {
   onAccept: () => Promise<void>;
@@ -37,6 +38,19 @@ export function ConsentPage({ onAccept }: Props) {
     try { await onAccept(); navigate("/assessment"); }
     catch (reason) { setStatus("error"); setError(reason instanceof Error ? reason.message : "目前無法完成同意程序，請稍後再試。"); }
   }
+
+  if (demoMode) return <main id="main-content" className="content">
+    <p className="eyebrow">專題展示</p><h1>開始體驗 Kareo</h1>
+    <section className="panel"><h2>使用虛構個案體驗完整流程</h2>
+      <p>你可以操作初評、服務建議、示範補助資訊、推薦與媒合畫面。這個展示站不向 Kareo 資料庫送出資料，也不會有人聯絡或接案。</p>
+      <p>請勿輸入真實健康、身分或聯絡資料。稱呼與電話使用固定測試值，真實定位已停用。<Link to="/privacy">查看展示版資料說明</Link>。</p>
+    </section>
+    <form className="stack" onSubmit={handleSubmit} aria-busy={status === "loading"}>
+      <label className="checkbox"><input type="checkbox" checked={accepted} onChange={event => setAccepted(event.target.checked)} disabled={status === "loading"}/><span>我了解這是展示版，會使用虛構個案操作。</span></label>
+      {status === "error" && <div ref={errorRef} tabIndex={-1} role="alert" className="error">{error}</div>}
+      <button className="button primary" disabled={!accepted || status === "loading"}>{status === "loading" ? "正在開始…" : "開始展示評估"}</button>
+    </form>
+  </main>;
 
   return (
     <main id="main-content" className="content">

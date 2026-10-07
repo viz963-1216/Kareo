@@ -58,3 +58,10 @@ test("main branch requires real mode, session tokens and consent versions", () =
   // staging is the kareo-tw production branch: it may run while B-011a is pending.
   assert.deepEqual(frontendEnvProblems({ CONTEXT: "production", BRANCH: "staging" }), []);
 });
+
+test("standard builds reject the separate static demo flag even with otherwise valid settings", () => {
+  for (const CONTEXT of [undefined, "deploy-preview", "branch-deploy", "production"]) {
+    const problems = frontendEnvProblems({ CONTEXT, VITE_KAREO_API_MODE: "real", VITE_KAREO_DEMO: "true" });
+    assert.ok(problems.some(p => p.includes('build-demo.mjs')));
+  }
+});

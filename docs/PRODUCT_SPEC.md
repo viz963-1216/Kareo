@@ -816,3 +816,7 @@ Explainable Recommendation
 Central Integration
 Jerry 中心整合
 ```
+
+# 獨立專題展示（Jerry 2026-10-07 核准，J-004-r10）
+
+為近日 demo 提供獨立可分享的靜態展示站，使用既有 mock fixtures、明確展示標示及虛構個案；不部署正式後端、不寫入驗收或正式資料庫、不建立實際媒合案件。展示的隱私提示採 DEMO_APPROVED，不阻擋流程，正式同意版本與原 MVP 的真實資料／發布驗收要求不變。此為營運者明確核准的獨立展示例外，不把 mock 部署當作正式或驗收站。詳見 [展示決定與驗證](acceptance/J004-2026-10-07-shareable-demo.md)。

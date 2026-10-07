@@ -20,6 +20,7 @@ import type { KnowledgeMockScenario, MockState } from "./mockScenarios";
 import type { AdminMockScenario } from "./mockScenarios";
 import type { ResourceLookupMockScenario } from "./mockScenarios";
 import { resolveApiMode, type ApiMode } from "./mode";
+import { demoMode } from "../demo";
 import { ApiError, configureRealApi, realApi } from "./realAdapter";
 import { retrieveConsentDocument, selectConsentArchive } from "../consent/documents";
 
@@ -81,7 +82,7 @@ export function getConsentDocument(refresh = false): Promise<string> {
 
 // D-13g: 「使用目前位置」 stays hidden in real deployments until the consent version covering location is
 // ACTIVE and J-003 turns on VITE_KAREO_ENABLE_PRECISE_LOCATION. Mock mode shows it for acceptance.
-export const preciseLocationEnabled = apiMode === "mock" || import.meta.env.VITE_KAREO_ENABLE_PRECISE_LOCATION === "true";
+export const preciseLocationEnabled = !demoMode && (apiMode === "mock" || import.meta.env.VITE_KAREO_ENABLE_PRECISE_LOCATION === "true");
 
 const SESSION_PROBLEM_CODES = ["SESSION_INVALID", "SESSION_TOKEN_MISSING", "FORBIDDEN", "CONSENT_REQUIRED"];
 
@@ -147,7 +148,7 @@ export const api = {
 
   getRecommendation(request: RecommendationRequest, mockOptions: RecommendationMockOptions = {}): Promise<RecommendationResponse> {
     return apiMode === "mock"
-      ? loadMock().then((mock) => mock.getRecommendation(request, mockOptions))
+      ? loadMock().then((mock) => mock.getRecommendation(request, demoMode ? { ...mockOptions, providerCount: mockOptions.providerCount ?? 3 } : mockOptions))
       : realApi.getRecommendation(request);
   },
 

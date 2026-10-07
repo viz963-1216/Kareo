@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { isSessionProblem, preciseLocationEnabled } from "../api";
+import { demoMode } from "../demo";
 import type { MockState } from "../api/mockScenarios";
 import { buildAssessmentRequest } from "../assessment/assessmentRequest";
 import { DraftBadge } from "../components/DraftBadge";
@@ -263,8 +264,8 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
         </fieldset>
         <label>
           其他想補充的情況（選填，最多 {FREE_TEXT_MAX} 字）
-          <textarea value={form.freeText} maxLength={FREE_TEXT_MAX} onChange={(event) => set("freeText", event.target.value)} rows={4} aria-describedby="free-text-hint" />
-          <span className="field-hint" id="free-text-hint">請勿填寫身分證字號、病歷或金融資料。</span>
+          <textarea value={form.freeText} readOnly={demoMode} maxLength={FREE_TEXT_MAX} onChange={(event) => set("freeText", event.target.value)} rows={4} aria-describedby="free-text-hint" />
+          <span className="field-hint" id="free-text-hint">{demoMode ? "展示版停用自由文字，請使用上方選項操作虛構個案。" : "請勿填寫身分證字號、病歷或金融資料。"}</span>
         </label>
         {status === "error" && (isSessionProblem(error)
           ? <SessionProblem message={errorMessage} />

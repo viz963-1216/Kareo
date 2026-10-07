@@ -70,6 +70,7 @@
 .resource-card { min-width: 0; padding: 1.25rem; background: #fff; border: 1px solid #d8e1d8; border-radius: .75rem; box-shadow: 0 .25rem .9rem rgba(23, 96, 61, .07); }
 .resource-card h3 { margin: .1rem 0 0; overflow-wrap: anywhere; }
 .resource-card dd, .resource-card li { overflow-wrap: anywhere; }
+.demo-notice { padding: .8rem max(1rem, calc((100% - 72rem) / 2)); background: #fff4c2; color: #493800; border-bottom: 1px solid #d8af28; line-height: 1.6; }
 .area-status { padding: .65rem .75rem; font-weight: 700; border-radius: .5rem; }
 .area-status.unconfirmed { color: #684c00; background: #fff4c2; border: 1px solid #d8af28; }
 .contract-region-list { padding-left: 1.25rem; }

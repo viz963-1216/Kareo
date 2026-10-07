@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
-import { BrowserRouter, Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, HashRouter, Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { api } from "./api";
+import { demoMode } from "./demo";
 import { startConsentedSession } from "./consent/startSession";
 import { defaultAssessmentForm } from "./assessment/assessmentRequest";
 import { FormalAssessmentReminder } from "./components/FormalAssessmentReminder";
@@ -71,7 +72,7 @@ function AppRoutes() {
   return (
     <SessionContext.Provider value={session}>
       <ScrollToTop />
-      <a className="skip-link" href="#main-content">跳到主要內容</a>
+      <a className="skip-link" href="#main-content" onClick={demoMode ? event => { event.preventDefault(); const main = document.getElementById("main-content"); if (main) { main.tabIndex = -1; main.focus(); } } : undefined}>跳到主要內容</a>
       <header className="site-header">
         <Link to="/" className="brand" aria-label="Kareo 長照一點通首頁">
           Kareo <span>長照一點通</span>
@@ -83,8 +84,9 @@ function AppRoutes() {
           </a>
         </nav>
       </header>
+      {demoMode && <aside className="demo-notice" aria-label="展示版說明"><strong>專題展示版</strong>｜請使用虛構個案；結果與機構為示範資料，不建立真實媒合案件。重新整理可重新開始。</aside>}
       <Routes>
-        <Route path="/admin/knowledge" element={<AdminKnowledgePage />} />
+        <Route path="/admin/knowledge" element={demoMode ? <Navigate to="/" replace /> : <AdminKnowledgePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/info" element={<KnowledgeInfoPage />} />
@@ -114,9 +116,10 @@ function AppRoutes() {
 }
 
 export default function App() {
+  const Router = demoMode ? HashRouter : BrowserRouter;
   return (
-    <BrowserRouter>
+    <Router>
       <AppRoutes />
-    </BrowserRouter>
+    </Router>
   );
 }
