@@ -267,3 +267,5 @@ Engineer C：Frontend / UX
 2026-10-07 J-003-r26：私人部署已操作資源／制度資訊的部分 UI；新增受保護同源 GET 驗收入口，不建立 Session。完整案例仍待驗證，詳見 docs/acceptance/J003-2026-10-07-public-browser.md。
 
 2026-10-07 J-003-r27：私人部署 runtime 前後 marker 實跑一致；E2E-21 真正404 JSON PASS，該 SHA／網址完整49清單仍48 PENDING。原始 GET 證據已保存；公開站仍8f509c0，不把其他版本／本機測試混入。D-05 DRAFT，Integrated 否。
+
+2026-10-07 J-004-r7：新增個人 DATA_STEWARD 保護的唯讀刪除觀察工具；11項安全回歸通過。它不刪除雲端資料或紀錄、不替代真人核對與實體還原、不授權 D-05 ACTIVE。雲端執行結果另記 [r7報告](../docs/acceptance/J004-2026-10-07-erasure-readiness.md)。

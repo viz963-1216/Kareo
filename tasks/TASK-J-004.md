@@ -1,7 +1,7 @@
 # TASK-J-004 — Release + Lead Operations + Recovery Readiness
 
 Owner: Jerry  
-Status: r4 已執行驗收 DB migration／資源匯入與應用資料隔離還原；每日清理 workflow 已準備但未啟用。release gate CLOSED；完整備份／真人接件／部署回滾仍待驗。
+Status: r7 已補唯讀刪除檢查工具及安全回歸；每日清理已啟用、首次自動事件待驗。先前應用資料隔離還原與空白Session雲端操作已完成；release gate CLOSED，完整實體備份／副本退役／真人權利及接件／部署回滾仍待驗。
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -24,6 +24,8 @@ Plan revision: 2026-09-19 / 10-22 MVP
 
 Allowed: `/docs/**`、`/tasks/**`、`/.github/**`、`/scripts/**`、root 部署設定
 Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更改其他模組業務邏輯。
+
+2026-10-07 r7 中心驗收補充：Jerry 既有委託範圍包含 `/tests/scripts/erasure-readiness.test.mjs`；僅測內部工具安全，不修改 A/B/C 業務邏輯。
 
 ## Deliverables / 驗收
 
@@ -71,3 +73,7 @@ LOCAL-39／40 已在 PGlite 應用資料還原後，重套真實本機 HTTP 產�
 
 
 2026-10-07 r25準備補充：[實際6份Physical清冊與隔離還原檢查點](../docs/acceptance/D05-2026-10-07-backup-inventory.md)已完成；沒有點Restore、覆寫共用驗收資料庫或新增付費專案。實體備份恢復／副本退休仍待核對，不勾選完整還原或正式發布。每日更新及清理已固定已驗證Ubuntu24.04；來源仍有2失敗，首次自動清理待驗。
+
+## 2026-10-07 J-004-r7：移除刪除紀錄前的唯讀檢查
+
+新增受保護既有 staging 環境入口，個人 DATA_STEWARD 驗證後讀獨立紀錄與真實 HEAD 筆數，前後改變或錯誤即停止。只觀察健康資料、Session 停用、接洽／聯絡清除，另列保留案件與同意證據；永不授權 purge／ACTIVE，備份退役六條件維持待驗。11 項新增安全測試通過，實際雲端執行另記；詳見 [r7 報告](../docs/acceptance/J004-2026-10-07-erasure-readiness.md)。
