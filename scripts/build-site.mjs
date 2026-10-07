@@ -3,6 +3,7 @@ import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { frontendEnvProblems } from './lib/frontend-env.mjs';
 import { isFullSha, VERSION_MARKER } from './lib/release-target.mjs';
+import {acceptanceProbeHtml} from './lib/acceptance-session-probe.mjs';
 
 await rm('dist', { recursive: true, force: true });
 if (existsSync('apps/web/package.json')) {
@@ -29,6 +30,11 @@ if (existsSync('apps/web/package.json')) {
 await mkdir('dist', { recursive: true });
 await writeFile('dist/api-not-found.json', JSON.stringify({success:false,error:{code:'NOT_FOUND',message:'此 API 尚未提供。'}}));
 await writeFile(`dist/${VERSION_MARKER}`, `${JSON.stringify(versionMarker(), null, 2)}\n`);
+const probe=acceptanceProbeHtml(process.env);
+if(probe){
+  await writeFile('dist/__acceptance-session-check.html',probe);
+  await cp('scripts/lib/acceptance-probe-client.mjs','dist/__acceptance-session-probe.mjs');
+}
 console.log('Kareo site built successfully.');
 
 // Deployed version marker (J-003). Netlify sets COMMIT_REF (full SHA), BRANCH, CONTEXT and DEPLOY_ID
