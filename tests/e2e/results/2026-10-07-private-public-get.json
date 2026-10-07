@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 2,
+  "runId": "browser-public-2026-10-07T11:48:19.959Z",
+  "apiMode": "real",
+  "baseUrl": "https://6ac6310d25ad9673c016b966--kareo-tw.netlify.app",
+  "commit": "01c267aa38734d62b390fe90516543602e23d14c",
+  "startedAt": "2026-10-07T11:48:19.959Z",
+  "operator": "Kareo private browser public GET probe",
+  "results": [
+    {
+      "caseId": "E2E-21",
+      "status": "PASS",
+      "evidence": "Unknown API HTTP 404; JSON NOT_FOUND present"
+    },
+    {
+      "caseId": "E2E-44",
+      "status": "PENDING",
+      "evidence": "/api/v1/providers: HTTP 200; list envelope valid; full UI/filter/error/no-session acceptance pending"
+    },
+    {
+      "caseId": "E2E-48",
+      "status": "PENDING",
+      "evidence": "/api/v1/knowledge/records: HTTP 200; list envelope valid; full UI/filter/error/no-session acceptance pending"
+    }
+  ],
+  "diagnostics": [
+    {
+      "path": "/api/v1/providers",
+      "items": 20,
+      "total": null
+    },
+    {
+      "path": "/api/v1/knowledge/records",
+      "items": 20,
+      "total": null,
+      "knowledgeVersion": "KB-2026-09-24-001"
+    }
+  ],
+  "status": "PASS_PARTIAL_GET_ONLY",
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "01c267aa38734d62b390fe90516543602e23d14c",
+    "before": {
+      "versionUrl": "https://6ac6310d25ad9673c016b966--kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-07T11:48:21.302Z",
+      "httpStatus": 200,
+      "commit": "01c267aa38734d62b390fe90516543602e23d14c",
+      "context": "branch-deploy",
+      "branch": "fix/j-003-staging-smoke-safety-oct06",
+      "deployId": "6ac6310d25ad9673c016b966",
+      "commitSource": "netlify:COMMIT_REF",
+      "builtAt": "2026-10-07T11:47:21.861Z"
+    },
+    "after": {
+      "versionUrl": "https://6ac6310d25ad9673c016b966--kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-07T11:48:30.594Z",
+      "httpStatus": 200,
+      "commit": "01c267aa38734d62b390fe90516543602e23d14c",
+      "context": "branch-deploy",
+      "branch": "fix/j-003-staging-smoke-safety-oct06",
+      "deployId": "6ac6310d25ad9673c016b966",
+      "commitSource": "netlify:COMMIT_REF",
+      "builtAt": "2026-10-07T11:47:21.861Z"
+    },
+    "matches": true
+  },
+  "finishedAt": "2026-10-07T11:48:30.594Z"
+}

@@ -664,3 +664,7 @@ Jerry 的直接授權已記為 OWNER_APPROVED_CONDITIONAL；不是外部法律�
 PR #80 乾淨 CI 首次檢查發現測試工具直接呼叫 Vite、未執行 npm prebuild；LOCAL-41 下載取得 SPA HTML，依指紋正確失敗。已修正本機隔離建置以同一個正式全文輸出函式產生暫存下載檔；刪除全部已產生 public 文案後重跑，41／41 PASS。更新報告基底為 `d33160252b06c14595ef74b9502fc168f2d9dd79`、workingTreeDirty=true。先前本機成功依賴已產生檔案，不能替代這次乾淨驗證；合併仍待修正 head CI 通過。
 
 2026-10-07 r22：實際部署平台5項空白Session檢查與後續雲端清理PASS；每日清理已啟用，首次自動事件仍PENDING。這不是完整E2E-19/20/37，49案例不新增PASS。參見 docs/acceptance/J003-2026-10-07-cloud-retention.md。
+
+## 2026-10-07 J-003-r27：私人部署公開 GET 與 UI 部分觀察
+
+#98 已合併，私人分支 `01c267aa38734d62b390fe90516543602e23d14c`、部署 `6ac6310d25ad9673c016b966` 實際在登入瀏覽器執行純 GET，前後 `/kareo-version.json` 相同 SHA／deployId。E2E-21 PASS；E2E-44／48 列表成功仍 PENDING。指定 SHA／網址的 E2E 聚合1 PASS、0 FAIL、48 PENDING；不得混合舊版本結果。資源35／分頁20+15、五所中心、雙北與行政區／名稱篩選、公開知識兩市各2筆申請方式等是另一個6258ac4部署的部分UI觀察，不冒充新版本完整案例。公開站仍舊版、D-05仍DRAFT、未寫雲端健康／聯絡資料。Integrated：否。詳見 docs/acceptance/J003-2026-10-07-public-browser.md 與原始結果 tests/e2e/results/2026-10-07-private-public-get.json。
