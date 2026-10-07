@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r17：GitHub staging 兩項資料庫設定已儲存、預設分支改 staging；首次 crawler 試跑失敗，修正執行紀錄／快照外鍵顺序與官方來源登錄。實際排程、D-05 啟用與完整 49 項部署 E2E 仍待驗收；Integrated：否。（2026-10-06）
+Status: 進行中。r20：個人操作者與 key 交接完成，正式回填入口在驗收 DB 完成 5 包／21 筆歷史核准且不改發布資料；雲端刪除紀錄驗證入口已準備，待 Netlify 存取交接與實跑。每日 crawler 已 schedule 觸發但部分失敗／延遲；D-05 DRAFT，完整 49 項部署 E2E 與 Integrated 未完成。（2026-10-07）
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
