@@ -263,3 +263,5 @@ Engineer C：Frontend / UX
 2026-10-05 J-003-r15：#82 九項 CI 通過並合併 afdf01b，雲端 0028 已套用。PR #82 Private Preview 已建立，登入 Chrome 可看到 DRAFT 同意頁，但自動 marker HTTP 401，公開站仍 8f509c0。兩次 runner 均沒執行案例，本輪部署驗收採計 0／49；預設分支／Secrets／個人 DATA_STEWARD 及每日實跑仍待完成。詳見 docs/acceptance/J003-2026-10-05-journal-and-deployment.md，Gemini 提示詞已更新。
 
 2026-10-07 J-002-r16：新增七筆官方來源差異核對，未修改雲端審核狀態；正式同意全文／ACTIVE 三版本接線與前端阻擋已實作。本機合成 Chrome 可進入評估，50／50 HTTP 檢查 PASS；真實 D-05 仍 DRAFT、49 項部署 E2E 不新增 PASS。證據：[D-05 接線](../docs/acceptance/D05-2026-10-07-consent-binding.md)、[七筆來源核對](../docs/acceptance/J002-2026-10-07-seven-source-comparisons.md)。
+
+2026-10-07 J-003-r26：私人部署已操作資源／制度資訊的部分 UI；新增受保護同源 GET 驗收入口，不建立 Session。完整案例仍待驗證，詳見 docs/acceptance/J003-2026-10-07-public-browser.md。

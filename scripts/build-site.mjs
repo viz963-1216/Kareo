@@ -4,6 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { frontendEnvProblems } from './lib/frontend-env.mjs';
 import { isFullSha, VERSION_MARKER } from './lib/release-target.mjs';
 import {acceptanceProbeHtml} from './lib/acceptance-session-probe.mjs';
+import {acceptancePublicProbeHtml} from './lib/acceptance-public-probe.mjs';
 
 await rm('dist', { recursive: true, force: true });
 if (existsSync('apps/web/package.json')) {
@@ -34,6 +35,8 @@ const probe=acceptanceProbeHtml(process.env);
 if(probe){
   await writeFile('dist/__acceptance-session-check.html',probe);
   await cp('scripts/lib/acceptance-probe-client.mjs','dist/__acceptance-session-probe.mjs');
+  await writeFile('dist/__acceptance-public-check.html',acceptancePublicProbeHtml(process.env));
+  await cp('scripts/lib/acceptance-public-probe-client.mjs','dist/__acceptance-public-probe.mjs');
 }
 console.log('Kareo site built successfully.');
 
