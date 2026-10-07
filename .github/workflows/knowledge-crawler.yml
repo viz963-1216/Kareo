@@ -32,6 +32,7 @@ concurrency:
 jobs:
   crawl:
     name: Daily official-source check (00:10 Asia/Taipei)
+    if: github.ref == 'refs/heads/staging'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment: staging
@@ -52,4 +53,7 @@ jobs:
       - run: npm ci --prefix apps/api
       - run: npm run build --prefix apps/api
       - name: Crawl (exit 1 when any source failed; failures are recorded as CrawlerRun FAILED)
-        run: node apps/api/dist/scripts/runCrawler.js
+        # Node's short family-selection attempt can abandon the reachable law.moj.gov.tw IPv4
+        # address before connecting. Actual Ubuntu diagnostic 37570726462 confirmed these
+        # documented flags give HTTP 200 with normal TLS. They do not solve careyou routing.
+        run: node --dns-result-order=ipv4first --no-network-family-autoselection apps/api/dist/scripts/runCrawler.js
