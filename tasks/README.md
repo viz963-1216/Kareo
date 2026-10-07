@@ -32,6 +32,10 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新私人部署與每日清理（2026-10-07；J-003-r22）
+
+#91 八項 CI 通過並合併；既有私人分支實際部署完成，**5/5 空白 Session 部署檢查 PASS**（版本前後一致、建立、DELETE、token 失效），真實平台 Blobs context 正常。兩筆雲端 receipt 經既有清理入口讀回；手動 dry-run／commit SUCCESS，僅清理此次自建無健康 Session。每日清理已啟用 KAREO_RETENTION_ENABLED=true，設定台灣00:30，**首次自動觸發仍待觀察，不能用手動成功代替排程驗收**。D-05 DRAFT／完整49 E2E／Integrated仍未完成；實體備份及真人權利／接件演練仍待處理；爬蟲來源失敗見 #88。詳見 [部署證據](../docs/acceptance/J003-2026-10-07-cloud-retention.md#j-003-r22-actual-deployed-checkpoint)。以下快照保留為歷史。
+
 # 最新雲端刪除紀錄與清理實跑（2026-10-07；J-003-r21）
 
 #90 已合併；本人交接 Netlify key 後，受保護入口使用真實 Blobs／Supabase 完成 **13/13 雲端操作檢查**。單筆無健康資料測試 Session 刪除、清理、單列恢復後重套清理通過，兩筆 SUCCESS 紀錄；原有8筆雜湊不變，健康／媒合／同意仍0。排程既有入口另做手動 dry-run SUCCESS（0 待清理）。每日清理尚未啟用；部署平台 context、實體備份恢復、權利／接件人工演練、D-05 ACTIVE 與49項部署E2E仍待驗。見 [實跑紀錄](../docs/acceptance/J003-2026-10-07-cloud-retention.md#j-003-r21-actual-execution-update)。以下 r20/r19 的「待key／待實跑」保留為歷史，不代表目前狀態。
