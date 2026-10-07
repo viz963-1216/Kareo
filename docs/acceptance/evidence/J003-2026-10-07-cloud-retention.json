@@ -133,5 +133,16 @@
     "No health/contact/consent evidence was created",
     "Nightly schedule not enabled or accepted",
     "D-05 remains DRAFT; no separate 49 deployment E2E case marked PASS"
-  ]
+  ],
+  "retentionEntryCommit": {
+    "runUrl": "https://github.com/viz963-1216/Kareo/actions/runs/37568448057",
+    "status": "SUCCESS",
+    "receiptsRead": 1,
+    "sessionsDeleted": 0,
+    "leadsContactCleared": 0,
+    "leadsDeleted": 0,
+    "consentsDeleted": 0,
+    "auditStartedAt": "2026-10-07T03:48:36Z",
+    "independentSqlConfirmed": true
+  }
 }
