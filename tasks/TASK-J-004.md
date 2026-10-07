@@ -1,7 +1,7 @@
 # TASK-J-004 — Release + Lead Operations + Recovery Readiness
 
 Owner: Jerry  
-Status: r8 真實雲端唯讀檢查完成：2筆刪除紀錄／2筆停用Session、健康／接洽／聯絡0，前後基準不變；備份退休不由此採計。每日清理已啟用、首次自動事件待驗。release gate CLOSED，完整實體備份／副本退役／真人權利及接件／部署回滾仍待驗。
+Status: r9 營運者取消額外真人客服／權利演練，技術流程採合成整合驗證；實際申請的身分／代理權限核對仍適用。r8 雲端唯讀觀察：2筆刪除紀錄／2筆停用Session、健康／接洽／聯絡0，前後基準不變。每日清理首次自動事件、完整實體備份／副本退役、原 MVP Lead 接件及部署回滾仍待驗；release gate CLOSED。
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -14,6 +14,7 @@ Plan revision: 2026-09-19 / 10-22 MVP
 - D-05 同意版本 ACTIVE（含位置告知）；D-06 主要接件人為蘇子傑，週一至週五 09:00–21:00；不設備援接件人，以暫停媒合入口處理無法接件情形。回覆時限尚待核准，不得自行承諾。
 - B-009 每日知識更新在部署環境有觸發紀錄（原始 MVP 必要項，無替代方案）。
 - 可提前準備 checklist 與 runbook。
+- 2026-10-07 [營運者取消額外真人客服演練](../docs/acceptance/D05-2026-10-07-owner-rehearsal-cancellation.md)：HPR-01～03 不再是前置／阻擋；以既有合成 HTTP/CLI/SQL 驗證工具。實際申請身分核對與 D-06 Lead 接件責任保留。
 
 ## 開始前必讀
 
@@ -79,3 +80,7 @@ LOCAL-39／40 已在 PGlite 應用資料還原後，重套真實本機 HTTP 產�
 新增受保護既有 staging 環境入口，個人 DATA_STEWARD 驗證後讀獨立紀錄與真實 HEAD 筆數，前後改變或錯誤即停止。只觀察健康資料、Session 停用、接洽／聯絡清除，另列保留案件與同意證據；永不授權 purge／ACTIVE，備份退役六條件維持待驗。11 項新增安全測試通過，實際雲端執行另記；詳見 [r7 報告](../docs/acceptance/J004-2026-10-07-erasure-readiness.md)。
 
 2026-10-07 J-004-r8：#100 八項CI及Preview成功後合併；staging 52e28ee 的雲端唯讀流程37635755368成功，2筆紀錄／2筆DELETED、四健康表及對應Lead／同意0。獨立前後SQL的Session全列摘要及筆數相同，未執行清理／權利寫入或purge。實體還原／副本退役仍待驗；[真人權利演練案例](../docs/acceptance/D05-2026-10-07-human-rights-rehearsal.md)已備妥，尚未採計真人執行。
+
+## r9 營運者取消額外客服演練（2026-10-07）
+
+HPR-01～03 標記 CANCELLED_BY_OWNER；不再要求額外真人訓練報告。同步權利操作手冊、Gate 0、決策與驗收看板；保留實際申請核對及原 MVP 接件、實體備份、副本退役與部署條件。取消不是 PASS；新合成整合執行另附精確 commit 與結果，不填入 49 項部署 E2E。

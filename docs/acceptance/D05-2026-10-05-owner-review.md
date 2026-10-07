@@ -1,5 +1,7 @@
 # D-05 營運者審閱提案
 
+> 2026-10-07 最新決定（J-004-r9）：Jerry 取消額外真人客服／權利演練 HPR-01～03，狀態為 CANCELLED_BY_OWNER，不再列為驗收阻擋。實際申請核對、刪除請求信箱及原 MVP Lead 接件責任保留；D-05 仍 DRAFT、完整 J-003／J-004 未完成。見 [決定紀錄](D05-2026-10-07-owner-rehearsal-cancellation.md)。
+
 日期：2026-10-05（Asia/Taipei）
 
 基準：Kareo staging `fccd6d961c96c85b2c5827601ab2ffd8b9c83514`
