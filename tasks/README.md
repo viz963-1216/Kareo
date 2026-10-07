@@ -32,6 +32,10 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新個人操作者與實際排程（2026-10-07；J-003-r19）
+
+Kareo 驗收 DB 已建立蘇子傑個人操作者 `OP-SU-ZIJIE-ACCEPTANCE`，三項既定角色與雜湊核對成功；個人 key 儲存由本人在準備好的 GitHub 表單交接。新增只允許 staging、預設不執行的歷史包回填入口，實際雲端回填仍待 key。每日更新已觀察到 schedule 觸發（04:57，設定00:10），但15成功／3失敗；清理排程被跳過，未啟用。公開站仍舊SHA；D-05 DRAFT、49項部署E2E／Integrated仍未完成。詳見 [本輪證據](../docs/acceptance/J003-2026-10-07-operator-and-backfill.md)。以下舊快照保留，不能用舊「尚未觸發」或「操作者0」代替本次結果。
+
 # 最新 J-003 驗收入口（2026-10-06；r16）
 
 基底 staging `891ed2b`（#84）。舊 smoke 預設建立 Session、寫死同意且未核對 SHA 的問題已修正：預設 GET；API 寫入需明確啟用、ACTIVE 及版本匹配。部分測試保留 PENDING，完整 49 部署 E2E、正式同意啟用、環境設定與排程仍待驗證。見 [r16](../docs/acceptance/J003-2026-10-06-safe-staging-smoke.md)。以下較早紀錄保留。

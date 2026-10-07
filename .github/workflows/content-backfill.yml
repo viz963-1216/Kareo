@@ -1,0 +1,35 @@
+name: Acceptance historical knowledge backfill
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Register the five already-approved packs and historical review evidence in Kareo acceptance only'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: kareo-staging-knowledge-maintenance
+  cancel-in-progress: false
+jobs:
+  backfill:
+    if: github.repository == 'viz963-1216/Kareo' && github.ref == 'refs/heads/staging' && inputs.confirm
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: staging
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      KAREO_OPERATOR_ID: OP-SU-ZIJIE-ACCEPTANCE
+      KAREO_OPERATOR_KEY: ${{ secrets.KAREO_OPERATOR_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/api/package-lock.json
+      - run: npm ci --prefix apps/api
+      - run: npm run build --prefix apps/api
+      - name: Protected CLI, unchanged published rows, and idempotent retry
+        run: node scripts/backfill-acceptance.mjs
