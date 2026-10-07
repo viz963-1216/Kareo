@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r21：正式回填 5 包／21 筆歷史核准完成；13/13真實雲端刪除紀錄、清理、單列恢復重套檢查通過，既有清理入口手動 dry-run SUCCESS。每日清理尚未啟用；crawler schedule 已觸發但部分失敗／延遲；部署平台 context、D-05 ACTIVE、49項部署E2E與Integrated仍未完成。（2026-10-07）
+Status: 進行中。r25：5包／21筆歷史回補、13項真實雲端操作及5項私人部署空白Session檢查通過；正常清理入口dry-run／commit成功，每日清理已啟用（首次自動事件待驗）。三種標準執行環境診斷已實跑，新北兩來源皆逾時，法規網站Linux改IPv4選擇後已讀取成功，完整18來源手動執行16成功／2失敗，16快照及發布邊界核對通過，7新變更待審；完成6份實體備份清冊，但隔離還原尚待條件；crawler來源失敗、D-05 ACTIVE、49項部署E2E及Integrated尚未完成。（2026-10-07）
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -132,3 +132,5 @@ B-015 #81、B-016 #82 已合併；0027／0028 套用現有驗收專案。新增�
 ## J-003-r17：每日更新首次實跑修正（2026-10-06）
 
 Jerry 已儲存 GitHub staging 的 SUPABASE_URL／SUPABASE_SERVICE_ROLE_KEY，並同意預設分支 staging 與 crawler 試跑。首次 Actions 執行建立 11 筆 FAILED，沒有快照；確認是 snapshot-before-run 與已啟用但尚無 KnowledgeRecord 的來源未登錄造成外鍵失敗。補 RUNNING → 同 id 完成、錯誤保留真實 FAILED、官方來源缺漏登錄；不覆寫既有来源與 PUBLISHED 知識。新增實際 SQL 外鍵及負向對照測試。詳見 [r17 證據](../docs/acceptance/J003-2026-10-06-crawler-runtime.md)。手動試跑不代表午夜排程或完整 E2E 已通過。
+
+2026-10-07 r22：實際私人部署空白 Session 建立／刪除／失效及版本前後檢查5/5通過；受保護清理實跑SUCCESS。每日清理設定已啟用，首次自動執行待觀察；完整49部署E2E仍待驗，不以部分操作通過標記 Integrated。

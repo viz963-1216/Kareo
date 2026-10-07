@@ -12,6 +12,7 @@ import { spawn } from 'node:child_process';
 import { setTimeout as delay } from 'node:timers/promises';
 import { parseRedirects, firstRedirect, functionName } from '../../scripts/lib/netlify-routes.mjs';
 import { publishConsentProposals } from '../../scripts/lib/consent-proposal-archive.mjs';
+import { publishConsentDocuments } from '../../scripts/lib/consent-document-archive.mjs';
 
 export const TEST_CONSENT = { disclaimerVersion: 'LOCAL-TEST-2026-10-05', privacyVersion: 'LOCAL-TEST-2026-10-05', termsVersion: 'LOCAL-TEST-2026-10-05' };
 export const LOCAL_OPERATOR = 'LOCAL-SYNTHETIC-OPERATOR';
@@ -165,7 +166,7 @@ export async function startLocalStack({ databaseUrl, postgrestBinary, disposable
         if (asset !== staticRoot && !asset.startsWith(staticRoot + sep)) return send(404, { error: 'NOT_FOUND' });
         const path = existsSync(asset) && extname(asset) ? asset : join(staticRoot, 'index.html');
         if (!existsSync(path)) return send(404, { error: 'Frontend not built' });
-        const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml' };
+        const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.txt': 'text/plain; charset=utf-8', '.json': 'application/json' };
         const raw = readFileSync(path);
         res.writeHead(200, { 'content-type': types[extname(path)] || 'application/octet-stream', 'cache-control': 'no-store' });
         res.end(extname(path) === '.html' ? raw.toString().replace('<body>', '<body><div style="padding:8px;background:#fff3cd;text-align:center">本機隔離測試・合成資料・測試同意版本，非正式上線</div>') : raw);
@@ -191,13 +192,32 @@ export async function startLocalStack({ databaseUrl, postgrestBinary, disposable
     }
     await cli('publishKnowledgeVersion', [LOCAL_OPERATOR, 'Existing approved pack reviewers (local rehearsal)', '--', ...packs]);
     if (frontend) {
-      await childRun(process.execPath, [join(root, 'apps/web/node_modules/vite/bin/vite.js'), 'build', '--outDir', staticRoot, '--emptyOutDir'], {
+      // Formal UI is exercised with an isolated synthetic archive. The real registry and
+      // proposal bytes are never activated or edited. No deployment accepts this fixture.
+      const version = '2099-01-01-r1';
+      const legalRoot = join(temp, 'synthetic-consent');
+      const legalDirectory = join(legalRoot, 'contracts/legal/versions');
+      const { mkdirSync } = await import('node:fs'); mkdirSync(legalDirectory, { recursive: true });
+      const text = `# Kareo 同意文案 — ${version}\n\n本機合成測試，不是正式文案。\n\n## 免責聲明\n合成測試免責。\n\n## 隱私告知\n僅用虛構資料測試。\n\n## 服務條款\n本機合成測試，不對外營運。\n\n## 評估同意文字\n我同意以本機虛構資料測試，不是正式同意。\n`;
+      const fullTextPath = `contracts/legal/versions/${version}.md`;
+      const fullTextSha256 = createHash('sha256').update(text).digest('hex');
+      writeFileSync(join(legalDirectory, `${version}.md`), text);
+      writeFileSync(join(legalDirectory, `${version}.review.json`), JSON.stringify({ intendedVersion: version, consentVersions: TEST_CONSENT,
+        fullTextPath, fullTextSha256, status: 'OWNER_APPROVED', activationAllowed: true, approvalConditionsSatisfied: true,
+        approvedBy: 'LOCAL-SYNTHETIC-OPERATOR', approvedAt: '2099-01-01', approvalEvidence: 'LOCAL-SYNTHETIC-ONLY' }));
+      writeFileSync(join(legalRoot, 'contracts/legal/consent-versions.json'), JSON.stringify({ versions: [{ ...TEST_CONSENT, status: 'ACTIVE', textRef: fullTextPath, fullTextSha256 }] }));
+      const manifest = await publishConsentDocuments(legalRoot, join(temp, 'synthetic-assets'));
+      const buildScript = `import {build} from 'vite'; import react from '@vitejs/plugin-react';
+        await build({configFile:false,plugins:[react()],define:{__KAREO_CONSENT_DOCUMENTS__:${JSON.stringify(JSON.stringify(manifest))}},
+          build:{outDir:${JSON.stringify(staticRoot)},emptyOutDir:true}});`;
+      await childRun(process.execPath, ['--input-type=module', '-e', buildScript], {
         ...process.env, VITE_KAREO_API_MODE: 'real', VITE_KAREO_DEPLOY_CONTEXT: 'local', VITE_KAREO_REQUIRE_SESSION_TOKEN: 'true', VITE_KAREO_ENABLE_PRECISE_LOCATION: 'true',
         VITE_CONSENT_DISCLAIMER_VERSION: TEST_CONSENT.disclaimerVersion, VITE_CONSENT_PRIVACY_VERSION: TEST_CONSENT.privacyVersion, VITE_CONSENT_TERMS_VERSION: TEST_CONSENT.termsVersion,
       }, join(root, 'apps/web'));
       // This disposable build calls Vite directly, so npm's prebuild hook does
       // not run. Generate its archive explicitly from canonical source bytes.
       await publishConsentProposals(root, staticRoot);
+      await publishConsentDocuments(legalRoot, staticRoot);
     }
     const prepareAdminFixture = async () => {
       const pack = JSON.parse(readFileSync(packs[0], 'utf8'));

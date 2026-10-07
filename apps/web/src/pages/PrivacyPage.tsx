@@ -1,6 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { consentArchive, consentArchives } from "../api";
+import { ConsentDocument } from "../consent/ConsentDocument";
 
 export function PrivacyPage() {
+  const [parameters] = useSearchParams();
+  const requestedVersion = parameters.get("version");
+  const archive = requestedVersion ? consentArchives.find(entry => entry.version === requestedVersion) : consentArchive;
+  if (archive) return <ConsentDocument key={archive.version} archive={archive} />;
+  if (requestedVersion) return <main id="main-content" className="content"><h1>找不到指定的服務說明版本</h1><p role="alert">此版本不在可查閱的正式文件清單內。</p><p><Link to="/privacy">返回隱私告知</Link></p></main>;
   return <main id="main-content" className="content">
     <p className="eyebrow">隱私與資料使用</p>
     <h1>Kareo 隱私告知</h1>

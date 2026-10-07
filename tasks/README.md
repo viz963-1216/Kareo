@@ -32,6 +32,14 @@ A / B / C 不直接 Push `staging` 或 `main`。
 
 ---
 
+# 最新來源連線與備份清冊（2026-10-07；J-003-r25）
+
+#93／#94／#95 各八項 CI 通過並合併。三種標準環境均無法連到新北兩個careyou來源；Linux法規網站改IPv4連線選擇後，在受保護實際crawler成功。完整18來源手動執行結果：**16 SUCCESS／2 FAILED（PARTIAL，exit 1）**；16快照已保存且SHA-256重算一致，已發布21知識／1版本／21成員完整雜湊不變，7新變更只列NEEDS_REVIEW（目前合計25筆）。兩失敗來源仍列#88，不停用或自動核准。每日更新／清理固定Ubuntu24.04以維持已驗證OS；清理首次自動事件仍待驗。備份畫面已重新核對6份Physical，隔離還原／副本退休未執行，D-05 DRAFT、49部署E2E與Integrated仍未完成。[来源結果](../docs/acceptance/J003-2026-10-07-runner-network.md)、[備份清冊](../docs/acceptance/D05-2026-10-07-backup-inventory.md)。以下較早快照保留為歷史。
+
+# 最新私人部署與每日清理（2026-10-07；J-003-r22）
+
+#91 八項 CI 通過並合併；既有私人分支實際部署完成，**5/5 空白 Session 部署檢查 PASS**（版本前後一致、建立、DELETE、token 失效），真實平台 Blobs context 正常。兩筆雲端 receipt 經既有清理入口讀回；手動 dry-run／commit SUCCESS，僅清理此次自建無健康 Session。每日清理已啟用 KAREO_RETENTION_ENABLED=true，設定台灣00:30，**首次自動觸發仍待觀察，不能用手動成功代替排程驗收**。D-05 DRAFT／完整49 E2E／Integrated仍未完成；實體備份及真人權利／接件演練仍待處理；爬蟲來源失敗見 #88。詳見 [部署證據](../docs/acceptance/J003-2026-10-07-cloud-retention.md#j-003-r22-actual-deployed-checkpoint)。以下快照保留為歷史。
+
 # 最新雲端刪除紀錄與清理實跑（2026-10-07；J-003-r21）
 
 #90 已合併；本人交接 Netlify key 後，受保護入口使用真實 Blobs／Supabase 完成 **13/13 雲端操作檢查**。單筆無健康資料測試 Session 刪除、清理、單列恢復後重套清理通過，兩筆 SUCCESS 紀錄；原有8筆雜湊不變，健康／媒合／同意仍0。排程既有入口另做手動 dry-run SUCCESS（0 待清理）。每日清理尚未啟用；部署平台 context、實體備份恢復、權利／接件人工演練、D-05 ACTIVE 與49項部署E2E仍待驗。見 [實跑紀錄](../docs/acceptance/J003-2026-10-07-cloud-retention.md#j-003-r21-actual-execution-update)。以下 r20/r19 的「待key／待實跑」保留為歷史，不代表目前狀態。
@@ -253,3 +261,5 @@ Engineer C：Frontend / UX
 2026-10-05 B-015 更新：PR #81 九項 CI 通過、已合併 staging e5c13c9，0027 已套用現有 Kareo 驗收 DB；沒有執行真實個案權利操作。B-016-r1 補獨立 Netlify Blobs 刪除紀錄、故障拒絕假成功、受保護重套刪除與清理稽核同交易；49／49 LOCAL、後端 748 測試通過。尚須本次 PR CI／雲端部署、排程帳號設定、備份汰換核對與實際回復演練；D-05 DRAFT、Integrated 否。參考 docs/acceptance/D05-2026-10-05-deletion-journal.md，勿把本機 49 項當成部署 49 項。
 
 2026-10-05 J-003-r15：#82 九項 CI 通過並合併 afdf01b，雲端 0028 已套用。PR #82 Private Preview 已建立，登入 Chrome 可看到 DRAFT 同意頁，但自動 marker HTTP 401，公開站仍 8f509c0。兩次 runner 均沒執行案例，本輪部署驗收採計 0／49；預設分支／Secrets／個人 DATA_STEWARD 及每日實跑仍待完成。詳見 docs/acceptance/J003-2026-10-05-journal-and-deployment.md，Gemini 提示詞已更新。
+
+2026-10-07 J-002-r16：新增七筆官方來源差異核對，未修改雲端審核狀態；正式同意全文／ACTIVE 三版本接線與前端阻擋已實作。本機合成 Chrome 可進入評估，50／50 HTTP 檢查 PASS；真實 D-05 仍 DRAFT、49 項部署 E2E 不新增 PASS。證據：[D-05 接線](../docs/acceptance/D05-2026-10-07-consent-binding.md)、[七筆來源核對](../docs/acceptance/J002-2026-10-07-seven-source-comparisons.md)。

@@ -1,0 +1,67 @@
+{
+  "kind": "actual-protected-crawler-and-read-only-db-verification",
+  "workflowRun": 37571162928,
+  "workflowJob": 112629888567,
+  "targetCommit": "dbdbe3ca903d2a6eeb0818fb668924d062a9d9d3",
+  "event": "workflow_dispatch",
+  "projectRef": "ojawadobnaxduxybqolk",
+  "overallStatus": "PARTIAL",
+  "successfulSources": 16,
+  "failedSources": [
+    "SRC-NTPC-CAREYOU-BRANCH",
+    "SRC-NTPC-CAREYOU-LTCTS"
+  ],
+  "startedAt": "2026-10-07T04:23:00Z",
+  "finishedAt": "2026-10-07T04:24:16Z",
+  "snapshots": {
+    "linked": 16,
+    "rawSha256Verified": 16,
+    "sourceAndRunLinksVerified": 16,
+    "bytes": 1966180,
+    "runHashUses": "normalized_hash when present, otherwise raw_hash; stored hashes include sha256: prefix"
+  },
+  "databaseCounts": {
+    "runs": {
+      "before": 65,
+      "after": 83
+    },
+    "snapshots": {
+      "before": 47,
+      "after": 63
+    },
+    "needsReview": {
+      "before": 18,
+      "after": 25
+    }
+  },
+  "publicationBoundary": [
+    {
+      "table": "knowledge_records",
+      "rows": 21,
+      "beforeMd5": "4448bc51b0f3fab6b165c748d6fbaf32",
+      "afterMd5": "4448bc51b0f3fab6b165c748d6fbaf32"
+    },
+    {
+      "table": "knowledge_versions",
+      "rows": 1,
+      "beforeMd5": "94967b1a0661e2125feb2ddcf8d491b4",
+      "afterMd5": "94967b1a0661e2125feb2ddcf8d491b4"
+    },
+    {
+      "table": "knowledge_version_records",
+      "rows": 21,
+      "beforeMd5": "fe0b8fcf1ff0978cc14e9f362bad67d9",
+      "afterMd5": "fe0b8fcf1ff0978cc14e9f362bad67d9"
+    }
+  ],
+  "digestMethod": "md5 of jsonb_agg(to_jsonb(row), ordered by primary key); all columns included; equality observation only",
+  "duplicateHashGroups": 0,
+  "limits": [
+    "Two sources still unreachable",
+    "Manual run does not replace automatic schedule evidence",
+    "New changes not reviewed or published",
+    "No deployment E2E PASS recorded",
+    "D-05 DRAFT and Integrated false"
+  ],
+  "generatedAt": "2026-10-07T04:25:52.232086+00:00"
+}

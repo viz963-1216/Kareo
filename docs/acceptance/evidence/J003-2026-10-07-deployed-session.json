@@ -1,0 +1,62 @@
+{
+  "scope": "DEPLOYED_NO_HEALTH_SESSION_CHECK_NOT_FULL_49_E2E",
+  "expectedCommit": "2e9dd447bd5fed7374ccc82f9301b190b9f95db2",
+  "startedAt": "2026-10-07T03:58:56.196Z",
+  "status": "PASS",
+  "checks": [
+    "EXACT_DEPLOYMENT_BEFORE_WRITES",
+    "REAL_SESSION_CREATED_TOKEN_SHAPE_AND_EXPIRY",
+    "REAL_DEPLOYED_DELETE_ACCEPTED_WITH_DEADLINE",
+    "DELETED_TOKEN_REJECTED",
+    "EXACT_DEPLOYMENT_AFTER_WRITES"
+  ],
+  "markerBefore": {
+    "schemaVersion": 1,
+    "commit": "2e9dd447bd5fed7374ccc82f9301b190b9f95db2",
+    "commitSource": "netlify:COMMIT_REF",
+    "branch": "fix/j-003-staging-smoke-safety-oct06",
+    "context": "branch-deploy",
+    "deployId": "6ac5c31bbbcc20475ca0b945",
+    "builtAt": "2026-10-07T03:58:14.889Z"
+  },
+  "syntheticSessionId": "SES-MUXKVRX7T9OMALOR",
+  "createdAt": "2026-10-07T11:58:58+08:00",
+  "expiresAt": "2026-10-14T03:58:58.842Z",
+  "deletionScheduledBefore": "2026-10-14T03:59:01.000Z",
+  "markerAfter": {
+    "schemaVersion": 1,
+    "commit": "2e9dd447bd5fed7374ccc82f9301b190b9f95db2",
+    "commitSource": "netlify:COMMIT_REF",
+    "branch": "fix/j-003-staging-smoke-safety-oct06",
+    "context": "branch-deploy",
+    "deployId": "6ac5c31bbbcc20475ca0b945",
+    "builtAt": "2026-10-07T03:58:14.889Z"
+  },
+  "finishedAt": "2026-10-07T03:59:03.128Z",
+  "normalCleanup": {
+    "dryRun": "https://github.com/viz963-1216/Kareo/actions/runs/37569346768",
+    "commitRun": "https://github.com/viz963-1216/Kareo/actions/runs/37569456248",
+    "commit": "4bbf629ecc6f530662c165b47e4df5dd0047a7d6",
+    "validatedCloudReceipts": 2,
+    "sessionsDeleted": 1,
+    "otherCleanupCounts": 0,
+    "status": "SUCCESS",
+    "auditStartedAt": "2026-10-07T04:01:38Z",
+    "independentSqlConfirmed": true
+  },
+  "independentSqlAfterCleanup": {
+    "syntheticSessionStatus": "DELETED",
+    "ACTIVE": 6,
+    "DELETED": 4,
+    "assessments": 0,
+    "leads": 0,
+    "consents": 0
+  },
+  "nightlyConfiguration": {
+    "repositoryVariable": "KAREO_RETENTION_ENABLED",
+    "value": "true",
+    "observedDate": "2026-10-07",
+    "configuredTaipeiTime": "00:30",
+    "scheduledExecutionAccepted": false
+  }
+}

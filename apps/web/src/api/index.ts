@@ -21,6 +21,7 @@ import type { AdminMockScenario } from "./mockScenarios";
 import type { ResourceLookupMockScenario } from "./mockScenarios";
 import { resolveApiMode, type ApiMode } from "./mode";
 import { ApiError, configureRealApi, realApi } from "./realAdapter";
+import { retrieveConsentDocument, selectConsentArchive } from "../consent/documents";
 
 // TASK-J-003 integration switch. Mock is only for local development and deploy previews (see ./mode.ts);
 // every other build uses the real API even if VITE_KAREO_API_MODE=mock was set by mistake.
@@ -60,9 +61,23 @@ export const consentVersions: ConsentVersions | null =
     ? { disclaimerVersion: "MOCK-1.0", privacyVersion: "MOCK-1.0", termsVersion: "MOCK-1.0" }
     : realConsentVersions();
 
-// Consent copy is DRAFT until Jerry and legal approve an ACTIVE version (PRIVACY_AND_RETENTION §3.2, D-05).
-export const consentIsDraft = !consentVersions || apiMode === "mock"
-  || [consentVersions.disclaimerVersion, consentVersions.privacyVersion, consentVersions.termsVersion].some((v) => v.endsWith("-draft"));
+export const consentArchive = apiMode === "real" ? selectConsentArchive(__KAREO_CONSENT_DOCUMENTS__, consentVersions) : null;
+export const consentArchives = __KAREO_CONSENT_DOCUMENTS__.archives;
+export const consentIsDraft = apiMode === "mock" || !consentArchive;
+
+let verifiedDocument: Promise<string> | null = null;
+export function getConsentDocument(refresh = false): Promise<string> {
+  if (!consentArchive) return Promise.reject(new ApiError("CONSENT_VERSION_UNAVAILABLE",
+    "服務說明文件尚在確認中，暫時無法開始評估。您仍可查詢公開資訊。", 0));
+  if (refresh || !verifiedDocument) {
+    const request = retrieveConsentDocument(consentArchive).catch(() => {
+      if (verifiedDocument === request) verifiedDocument = null;
+      throw new ApiError("CONSENT_VERSION_UNAVAILABLE", "無法載入完整服務說明，暫時無法開始評估。請稍後重試或查詢公開資訊。", 0);
+    });
+    verifiedDocument = request;
+  }
+  return verifiedDocument;
+}
 
 // D-13g: 「使用目前位置」 stays hidden in real deployments until the consent version covering location is
 // ACTIVE and J-003 turns on VITE_KAREO_ENABLE_PRECISE_LOCATION. Mock mode shows it for acceptance.
@@ -80,6 +95,9 @@ export { ApiError };
 const leadIdempotency = createLeadIdempotency();
 
 export const api = {
+  async assertConsentReady() {
+    if (apiMode === "real") await getConsentDocument(true);
+  },
   getKnowledgeRecords(filters: KnowledgeRecordsRequest, scenario?: KnowledgeMockScenario): Promise<KnowledgeRecordsResponse> {
     return apiMode === "mock"
       ? loadMock().then((mock) => mock.getKnowledgeRecords(filters, scenario))
@@ -90,6 +108,7 @@ export const api = {
   },
 
   async acceptConsent(sessionId: string) {
+    if (apiMode === "real") await getConsentDocument();
     if (!consentVersions) {
       throw new ApiError("CONSENT_VERSION_UNAVAILABLE", "服務說明文件尚在確認中，暫時無法開始評估。請直接聯絡 1966。", 0);
     }

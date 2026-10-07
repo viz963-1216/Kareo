@@ -1,8 +1,8 @@
 # TASK-J-002 — MVP Decisions + Knowledge + Privacy / Lead / Location Specifications
 
 Owner: Jerry  
-Status: J-002-r15 營運方案有條件核准；候選全文下載與指紋檢查完成；D-05 工程啟用與 J-003／J-004 實測仍待完成
-Plan revision: 2026-10-05 / J-002-r15
+Status: J-002-r16 正式同意全文／版本接線與新增七筆知識差異核對；D-05 仍 DRAFT，工程啟用及 J-003／J-004 部署驗收待完成
+Plan revision: 2026-10-07 / J-002-r16
 
 ## Goal / 目標
 
@@ -96,3 +96,10 @@ Jerry 授權依適用法規與同類平台做法通過審閱，記錄營運方�
 本輪驗證：前端 78 PASS；全文輸出負向測試 1 PASS；根目錄正式建置 PASS；真實 PostgreSQL／PostgREST 本機整合 41／41 PASS（新增 LOCAL-41 取回全文的位元組及指紋）。報告 `docs/acceptance/evidence/D05-2026-10-05-conditional-review.json` 記錄基底 commit 與 dirty 工作樹，非部署 E2E；PR CI 將驗證提交後的實際 head。
 
 PR #80 乾淨 CI 首次檢查發現測試工具直接呼叫 Vite、未執行 npm prebuild；LOCAL-41 下載取得 SPA HTML，依指紋正確失敗。已修正本機隔離建置以同一個正式全文輸出函式產生暫存下載檔；刪除全部已產生 public 文案後重跑，41／41 PASS。更新報告基底為 `d33160252b06c14595ef74b9502fc168f2d9dd79`、workingTreeDirty=true。先前本機成功依賴已產生檔案，不能替代這次乾淨驗證；合併仍待修正 head CI 通過。
+## J-002-r16：正式全文接線與七筆新來源差異（2026-10-07）
+
+依 Jerry「持續完成 ABCJ、繼續執行」的中心整合授權，延續 r15 跨模組範圍：apps/web（同意頁／隱私頁／送出前檢查及 Vite 公開文案 manifest）、scripts（封存驗證）、tests（本機合成 HTTP 整合）、contracts/legal/versions 的格式說明與驗收文件。未修改其他模組業務規則、依賴、API／DB schema 或真實 ACTIVE 狀態。
+
+真實同意送出必須綁定 ACTIVE 清單與核准全文位元組；無文件或不符時，在建立 Session 前拒絕。前端 81／81、根測試 87／87、本機 HTTP 50／50 PASS；本機合成 Chrome 操作可進入評估表單。見 [D-05 接線驗證](../docs/acceptance/D05-2026-10-07-consent-binding.md)。這不是 D-05 正式啟用、法律認證或 49 項部署驗收。
+
+crawler 新增七筆差異的既有選取行仍出現在整頁擷取中；交通頁的乘號差異是 HTML entity。逐筆 ID／雜湊／方法／限制見 [七筆核對](../docs/acceptance/J002-2026-10-07-seven-source-comparisons.md)。未在雲端 dismiss 或批准新全文，不把片段包含當成整頁政策未變。
