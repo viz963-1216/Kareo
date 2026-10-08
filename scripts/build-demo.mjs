@@ -8,8 +8,8 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const args = process.argv.slice(2);
 if (args.length > 1 || (args.length === 1 && args[0] !== '--github-pages')) throw new Error('Only the explicit --github-pages target is supported.');
 const basePath = args[0] === '--github-pages' ? '/Kareo/' : '/';
-if (process.env.NETLIFY || process.env.CONTEXT || process.env.BRANCH === 'main') {
-  throw new Error('Build the separate presentation artifact locally; never in the standard Netlify/main pipeline.');
+if (process.env.NETLIFY || process.env.CONTEXT || ['release', 'main'].includes(process.env.BRANCH)) {
+  throw new Error('Build the separate presentation artifact locally; never in the standard Netlify/release pipeline.');
 }
 const clean = !execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim();
 const commit = clean ? execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim() : null;

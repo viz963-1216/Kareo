@@ -10,6 +10,13 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# D-09-v3: only public resources are being published; D-05 remains unactivated.
+# Full personal-flow activation requires a separate reviewed change and release-gate evidence.
+[context.production.environment]
+  KAREO_RELEASE_SCOPE = "public-resources"
+  VITE_KAREO_API_MODE = "real"
+  VITE_KAREO_REQUIRE_SESSION_TOKEN = "true"
+
 [functions]
   node_bundler = "esbuild"
   # Files read at runtime (not import-bundled) must ship with the functions. B-011a reads the consent

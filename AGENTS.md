@@ -84,7 +84,7 @@ PR → staging
         ↓
 Jerry Review + Integration Test
         ↓
-staging → main
+staging → release
         ↓
 Production
 ```
@@ -95,11 +95,15 @@ A / B / C 不直接整合彼此程式。所有跨模組整合由 Jerry 在 `stag
 
 # 5. Branch Roles / 分支角色
 
-## main
+## main（歷史分支）
+
+保留既有歷史，不再作為 Netlify 正式部署來源；A／B／C 不直接 Push 或 Merge。
+
+## release
 
 正式穩定分支，代表可部署 Production 的版本。
 
-A / B / C 禁止直接 Push 或 Merge `main`。
+A / B / C 禁止直接 Push 或 Merge `release`。
 
 ## staging
 
@@ -144,7 +148,7 @@ feat/c-004-provider-result-ui
 - Task 分配
 - PR Review
 - staging Integration
-- staging → main Release
+- staging → release Release
 - Deploy
 
 ## Engineer A
@@ -327,7 +331,7 @@ Secret 只能放 Environment Variables，Frontend 不得包含 AI API Key。
 禁止直接 Push：
 
 ```text
-main
+release
 staging
 ```
 
@@ -356,7 +360,7 @@ Jerry Integration / E2E Test
 ```text
 staging
 ↓
-Release PR → main
+Release PR → release
 ↓
 Jerry Review
 ↓
@@ -455,4 +459,4 @@ Feature PR 合併到 `staging` 只代表模組通過初步驗收，不代表 Pro
 - Feature PR 一律進 `staging`。
 - 每次 PR 必須填 Submission Version 與 Changelog。
 - 全站 Release Version 只由 Jerry 管理。
-- `main` 只由 Jerry 發布。
+- `release` 只由 Jerry 發布。

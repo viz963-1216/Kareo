@@ -11,14 +11,19 @@ export function frontendEnvProblems(env) {
   if (mode === 'mock' && context !== 'deploy-preview' && context !== 'local') {
     problems.push(`VITE_KAREO_API_MODE=mock is only allowed for deploy previews; this is a "${context}" build.`);
   }
-  // main is the public release branch (kareo-tw production branch is staging, so CONTEXT alone is not enough).
-  if (env.BRANCH === 'main') {
-    if (mode === 'mock') problems.push('The main branch can never be built in mock mode.');
+  // release is the deployment branch; main retains its legacy strict checks.
+  if (env.BRANCH === 'release' || env.BRANCH === 'main') {
+    const branch = env.BRANCH;
+    const publicOnly = env.KAREO_RELEASE_SCOPE === 'public-resources';
+    if (mode === 'mock') problems.push(`The ${branch} branch can never be built in mock mode.`);
     if (env.VITE_KAREO_REQUIRE_SESSION_TOKEN !== 'true') {
-      problems.push('The main branch requires VITE_KAREO_REQUIRE_SESSION_TOKEN=true (API_CONTRACT §3.1, B-011a).');
+      problems.push(`The ${branch} branch requires VITE_KAREO_REQUIRE_SESSION_TOKEN=true (API_CONTRACT §3.1, B-011a).`);
     }
     for (const key of ['VITE_CONSENT_DISCLAIMER_VERSION', 'VITE_CONSENT_PRIVACY_VERSION', 'VITE_CONSENT_TERMS_VERSION']) {
-      if (!env[key]) problems.push(`The main branch requires ${key} (an ACTIVE version, PRIVACY_AND_RETENTION §3.2).`);
+      // Explicit public-only publication keeps consent unconfigured, so the existing frontend
+      // cannot begin a personal assessment. Full activation still needs D-05 and the strict gate.
+      if (publicOnly && env[key]) problems.push(`Public-only publication must leave ${key} unset.`);
+      if (!publicOnly && !env[key]) problems.push(`The ${branch} branch requires ${key} (an ACTIVE version, PRIVACY_AND_RETENTION §3.2).`);
     }
   }
   return problems;

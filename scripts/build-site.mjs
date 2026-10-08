@@ -23,7 +23,7 @@ if (existsSync('apps/web/package.json')) {
   }
   await cp('apps/web/dist', 'dist', { recursive: true });
 } else {
-  if (process.env.BRANCH === 'main') {
+  if (['release', 'main'].includes(process.env.BRANCH)) {
     throw new Error('Production requires the completed frontend; staging placeholder is not a release.');
   }
   await cp('deploy/staging', 'dist', { recursive: true });

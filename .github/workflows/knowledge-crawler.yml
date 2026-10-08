@@ -7,7 +7,7 @@
 #
 # Timing: 16:10 UTC = 00:10 Asia/Taipei (no DST). GitHub may start scheduled runs late under load and only
 # runs schedules from the default branch (staging, confirmed by Jerry on 2026-10-06). Manual runs use
-# workflow_dispatch. main remains the production release branch.
+# workflow_dispatch. release is the public deployment branch; the default branch remains staging.
 # Duplicate triggers: runs never overlap (concurrency group, queued, not cancelled). A second run on the
 # same day re-checks sources; it must not create duplicate KnowledgeChange rows (B-009 de-duplication,
 # acceptance case E2E-26／E2E-39).

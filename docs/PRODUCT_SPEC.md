@@ -4,6 +4,10 @@ Version: v0.8（J-002-r8，2026-10-01：D-19 一站式功能定案——§13 Kar
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
+## 2026-10-08 D-09-v3：部署來源
+
+Jerry 決定以 `release` 為 Netlify `kareo-tw` 正式部署來源；`staging` 保持整合及 GitHub 預設分支，A／B／C 的 PR 仍進 staging。停用 Netlify 自動 PR 預覽與其他分支部署，保留 GitHub CI。現階段發布範圍是公開資源／長照資訊查詢，使用既有 Kareo 驗收資料庫，不代表完整 MVP 正式營運。D-05 DRAFT、正式個案流程與完整 release gate 維持既有條件。
+
 ---
 
 # 1. 產品定位

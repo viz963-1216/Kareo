@@ -1,16 +1,21 @@
-# Kareo deployment — staging
+# Kareo deployment — release（公開查詢／現有驗收資料庫）
 
 Submission Version: J-003-r16（2026-10-06，驗收入口修正；保留較早建置紀錄）
 
 ## Scope
 
-Jerry-authorized deployment setup for GitHub staging → Netlify → Supabase.
+Jerry-authorized deployment setup for GitHub staging → reviewed release promotion → Netlify → Supabase.
 Netlify project name: Kareo (URL slug may be lower-case). Supabase project name: Kareo.
 Current acceptance uses the existing Kareo project `ojawadobnaxduxybqolk`; a paid production database is deferred by Jerry. Do not reuse Kareocar's database.
 
 ## Netlify
 
-Connect viz963-1216/Kareo, deployment branch `staging`, repository base directory `.`.
+2026-10-08 D-09-v3：production branch=`release`、branch deploys=None、Deploy Previews=None、builds=Active。GitHub CI 不停用；GitHub 預設分支／排程與 staging secrets 保持原範圍。現有 production-context Supabase 憑證沿用，不新增／複製密鑰、不購買正式DB。
+
+`netlify.toml` 的 `KAREO_RELEASE_SCOPE=public-resources` 明確限制這次發布：real API、session token 防護，三個 VITE_CONSENT 版本不得配置；前端無法啟動同意／個案流程。完整啟用必須另經 D-05 與 release gate，移除公開限定範圍並設定 ACTIVE 版本，不能只換分支名宣稱完成。
+
+
+Connect viz963-1216/Kareo, deployment branch `release`, repository base directory `.`.
 The committed netlify.toml defines build command, publish directory `dist`, and
 Functions directory `apps/api/src/functions`. Runtime: Node 22.
 The Netlify site's primary deploy is the application's staging environment;
@@ -60,7 +65,7 @@ Default smoke leaves no test records. Explicit API write E2E creates synthetic r
 ## Later release
 
 Deployed end-to-end evidence, D-05 activation and the release gates are still required; merged module code alone is not acceptance. Use separate production Supabase
-credentials and a main release when ready. Remove the staging noindex header
+credentials and a fully accepted release when ready. Remove the staging noindex header
 for the production configuration. Do not enable billing auto-recharge as part
 of this setup.
 
@@ -91,7 +96,7 @@ Record the date and operator in `docs/INTEGRATION_ACCEPTANCE.md` when applied.
 | Deploy Preview | `real` (current netlify.toml; r1 originally used mock) | Controlled acceptance API; missing backend settings block real data |
 | Branch / production (staging site) | unset → `real` | Calls `/api/v1`; never falls back to mock |
 | Any non-preview context with `mock` | — | **Build fails** (`scripts/lib/frontend-env.mjs`); at runtime `apps/web/src/api/mode.ts` would also ignore it and use the real API |
-| `main` branch (public release) | must be `real` | Build also requires `VITE_KAREO_REQUIRE_SESSION_TOKEN=true` and all three `VITE_CONSENT_*` versions |
+| `release` branch (public release) | must be `real` | Requires session tokens; explicit public-only publication leaves consent versions unset; full personal-flow activation requires all three ACTIVE versions and the strict gate |
 
 `VITE_KAREO_REQUIRE_SESSION_TOKEN=true` makes the adapter reject a session without `sessionToken` and refuse protected calls without one (API_CONTRACT §3.1). B-011a is merged; acceptance deployments must enable this setting. Missing tokens must block protected calls.
 
@@ -121,7 +126,7 @@ On 2026-09-23 the Netlify team had exhausted its credits: `kareo-tw` and `kareoc
   Example: `apps/web` imports `contracts/mock/…json`, so any change under `contracts/mock/` builds;
   `docs/*.md`, `tasks/**` and `contracts/knowledge/**` changes are skipped. Missing refs or errors always build.
   Tested in `tests/scripts/netlify-ignore.test.mjs` (docs-only commit → skip; imported contract → build).
-- Batch merges to `staging`; each deploy costs credits.
+- Current policy: staging merges do not create automatic Netlify deployments; promote tested changes to release in batches. Traffic and Functions still consume usage.
 - Staging smoke runs only via the manual `Staging smoke (manual)` workflow or locally:
   `node scripts/smoke-staging.mjs --base-url=https://<staging-site> --commit=<full40SHA> --out=<diagnostic.json>`. Default is read-only; explicit write mode needs `--write-e2e --allow-writes` and ACTIVE consent. The legacy `--with-assessment` flag also requires `--allow-writes` and invokes API E2E, not an assessment-only test.
 - Buying credits, cancelling the scheduled downgrade or enabling auto-recharge are Jerry's decisions.
