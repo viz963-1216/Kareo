@@ -9,6 +9,12 @@
 .summary-lines p { margin: 0 0 .75rem; } .knowledge-version { font-weight: 700; color: #17603d; } .warnings { padding-left: 1.2rem; } .no-location { border-left: .35rem solid #e6a700; } .lead-form { max-width: 32rem; } .lead-form .checkbox { font-weight: 500; } footer p { margin: .35rem 0; }
 .case-manager-summary h3 { margin-top: 1.5rem; }
 .case-manager-summary li { margin-bottom: .45rem; }
+.assessment-overview { line-height: 1.9; }
+.assessment-details { margin-top: 1rem; }
+.assessment-details > summary { cursor: pointer; color: #17603d; font-weight: 700; padding: .5rem 0; }
+.assessment-details > summary:focus-visible { outline: 3px solid #e6a700; outline-offset: 2px; }
+.summary-points { padding-left: 1.4rem; line-height: 1.85; overflow-wrap: anywhere; }
+.summary-points li, .case-manager-summary .summary-points li { margin-bottom: 1rem; padding-left: .2rem; }
 .summary-reminder { margin: 1rem 0; padding: 1rem; border: 1px solid #e3cf7a; border-radius: .6rem; background: #fffbea; }
 .summary-reminder p { margin: .35rem 0; }
 .success { margin-top: 1rem; padding: .75rem; color: #17603d; background: #edf5ef; border-left: .3rem solid #17603d; }

@@ -9,6 +9,7 @@ import { KAREOCAR_URL } from "../externalServices";
 import { useSession } from "../session/SessionContext";
 import { useMockState } from "../session/useMockState";
 import type { AssessmentLocation, AssessmentResponse, CareNeed } from "../types/api";
+import { assessmentOverview } from "../summary/assessmentOverview";
 import {
   buildCaseManagerSummary,
   caseManagerSummaryText,
@@ -26,7 +27,7 @@ interface Props {
 
 /**
  * API_CONTRACT v0.2.2 §8: `summary` is one string whose sentences are separated by "\n". Each line is shown
- * as its own paragraph exactly as received — the frontend never parses, computes or adds policy text.
+ * verbatim as a list item — the frontend never parses, computes or adds policy text.
  */
 export function summaryLines(summary: string) {
   return summary.split("\n").map((line) => line.trim()).filter(Boolean);
@@ -78,16 +79,19 @@ export function ResultPage({ result, location, onSessionClosed }: Props) {
       <FormalAssessmentReminder />
 
       <section className="panel" aria-labelledby="summary-heading">
-        <h2 id="summary-heading">初步評估說明與可能適用的制度、補助</h2>
-        <div className="summary-lines">
-          {summaryLines(profile.summary).map((line, index) => <p key={index}>{line}</p>)}
-        </div>
+        <h2 id="summary-heading">初步評估重點</h2>
+        <p className="assessment-overview">{assessmentOverview(result)}</p>
+        <details className="assessment-details">
+          <summary>查看完整制度、補助與來源說明</summary>
+          <ul className="summary-points">
+            {summaryLines(profile.summary).map((line, index) => <li key={index}>{line}</li>)}
+          </ul>
+          <p className="field-hint">
+            以上內容由平台依已發布的官方資料版本整理，金額與比率是官方規則與上限，不是您的核定結果。若沒有列出補助或地方資訊，代表平台目前沒有可引用的已發布資料，不代表您不符合，請洽 1966 確認。
+          </p>
+        </details>
         <p className="knowledge-version">資料版本：{result.knowledgeVersion}</p>
-        <p className="field-hint">
-          以上內容由平台依已發布的官方資料版本整理，金額與比率是官方規則與上限，不是您的核定結果。若沒有列出補助或地方資訊，代表平台目前沒有可引用的已發布資料，不代表您不符合，請洽 1966 確認。
-        </p>
         <ul className="warnings">{profile.warnings.map((warning) => <li key={warning}>{warning}</li>)}</ul>
-        <FormalAssessmentReminder compact />
       </section>
 
       {profile.careNeeds.length ? (
@@ -150,7 +154,7 @@ export function ResultPage({ result, location, onSessionClosed }: Props) {
             ? <ol>{summary.priority.map((need) => <li key={need}>{need}</li>)}</ol>
             : <p>無</p>}
           <h3>初步照護建議與補助說明</h3>
-          <div className="summary-lines">{summary.summaryLines.map((line, index) => <p key={index}>{line}</p>)}</div>
+          <ul className="summary-points">{summary.summaryLines.map((line, index) => <li key={index}>{line}</li>)}</ul>
           <p className="knowledge-version">知識版本：{summary.knowledgeVersion}</p>
           <p>產生日期：{summary.generatedDate}</p>
           <h3>建議詢問 1966／照管專員的問題</h3>
