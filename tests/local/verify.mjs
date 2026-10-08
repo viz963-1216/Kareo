@@ -101,7 +101,11 @@ export async function verifyLocalStack(stack) {
       const list = success(await call('GET', '/api/v1/providers?pageSize=50')); assert.equal(list.totalCount, catalogCounts.providers);
       const smart = success(await call('GET','/api/v1/providers?assistiveProgram=SMART_TECH&pageSize=50'));
       assert.equal(smart.totalCount,4); assert.ok(smart.items.every(p=>p.publicInfo.assistivePrograms.includes('SMART_TECH')));
-      assert.equal(smart.items.find(p=>p.name==='益康儀器有限公司').address,'臺北市中正區開封街一段60號');
+      const yikang=smart.items.find(p=>p.name==='益康儀器有限公司');
+      assert.equal(yikang.address,'臺北市中正區開封街1段60號');
+      assert.deepEqual(yikang.publicInfo.assistivePrograms,['PURCHASE','SMART_TECH']);
+      const purchase=success(await call('GET','/api/v1/providers?assistiveProgram=PURCHASE&keyword='+encodeURIComponent('益康')+'&pageSize=50'));
+      assert.ok(purchase.items.some(p=>p.id===yikang.id));
       assert.ok(smart.items.every(p=>p.serviceAreaStatus==='UNCONFIRMED'));
       error(await call('GET','/api/v1/providers?assistiveProgram=SMART_TECH&serviceType=HOME_CARE'),400,'VALIDATION_ERROR');
       // Compare full source service coverage after PostgREST's first 1000 rows, not just the first page.
