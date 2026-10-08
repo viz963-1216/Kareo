@@ -10,6 +10,15 @@ export function inspectCatalog(providers, services, areas, infoRows, manifest, s
   const info = new Map(infoRows.map(x => [x.providerId, x.publicInfo]));
   if (info.size !== infoRows.length) errors.push('Duplicate public metadata');
   const normalize = x => x.normalize('NFKC').replace(/\s/g, '').replace(/台/g, '臺').replace(/⾧/g, '長');
+  const segmentNumbers = {一:'1',二:'2',三:'3',四:'4',五:'5',六:'6',七:'7',八:'8',九:'9',十:'10'};
+  const addressKey = x => normalize(x).replace(/([一二三四五六七八九十])段/g, (_, number) => `${segmentNumbers[number]}段`);
+  const locations = new Set();
+  const phoneChecked = new Set();
+  for (const p of providers.filter(p => p.type === 'ASSISTIVE_DEVICE')) {
+    const key = `${normalize(p.name)}|${addressKey(p.address)}`;
+    if (locations.has(key)) errors.push(`Duplicate merchant location: ${p.id}`);
+    locations.add(key);
+  }
   if (sourceRows.homeCare.length !== 198 || manifest.homeCare.length !== 198 || manifest.homeCare.some((x, i) => x.serial !== i + 1)) errors.push('198-row source reconciliation is incomplete');
   for (const group of ['homeCare', 'assistive', 'branches']) {
     for (const item of manifest[group]) {
@@ -25,6 +34,14 @@ export function inspectCatalog(providers, services, areas, infoRows, manifest, s
         const program = item.source === 'smart' ? 'SMART_TECH' : 'PURCHASE';
         if (p.type !== 'ASSISTIVE_DEVICE' || !info.get(p.id).assistivePrograms.includes(program)) errors.push(`Wrong official classification: ${p.id}`);
         if (item.status === 'ADDED_OR_MERGED' && areas.some(a => a.providerId === p.id && a.active)) errors.push(`Official directory cannot invent delivery areas: ${p.id}`);
+      }
+      // Do not accidentally find "02" inside a mobile or toll-free number.
+      // Original immutable providers are preserved; new records must retain the first source number.
+      if ((item.status === 'ADDED' || item.status === 'ADDED_OR_MERGED') && group !== 'branches' && !phoneChecked.has(p.id)) {
+        phoneChecked.add(p.id);
+        const source = group === 'homeCare' ? sourceRows.homeCare[item.serial - 1] : sourceRows[item.source].find(s => Number(s.serial) === item.serial);
+        const first = source?.phone?.normalize('NFKC').match(/^\s*(09(?:[\s-]*\d){8}|0800(?:[\s-]*\d){6})/);
+        if (first && p.phone.replace(/[\s-]/g, '').split('#')[0] !== first[1].replace(/[\s-]/g, '')) errors.push(`First source phone corrupted: ${p.id}`);
       }
       if (group === 'branches' && (p.type !== 'OTHER' || services.some(s => s.providerId === p.id))) errors.push(`Branch entered recommendation: ${p.id}`);
     }

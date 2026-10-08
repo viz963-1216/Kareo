@@ -9176,7 +9176,7 @@
       "sourceName": "麥尼克有限公司",
       "sourceAddress": "臺北市松山區八德路2段374號3樓之7",
       "sourceUrl": "https://dosw.gov.taipei/News_Content.aspx?n=4D051AF0E1FF3B72&sms=BE9D598A6E448581&s=ABFBCA29479773B0",
-      "providerId": "CAT-AD-497F95344D1E",
+      "providerId": "CAT-AD-82F1881B5C7F",
       "status": "ADDED_OR_MERGED"
     },
     {
@@ -13113,7 +13113,7 @@
       "sourceName": "輔聚企業股份有限公司",
       "sourceAddress": "臺北市士林區重慶北路4段136號2樓",
       "sourceUrl": "https://dosw.gov.taipei/News_Content.aspx?n=4D051AF0E1FF3B72&sms=BE9D598A6E448581&s=3E5D86564B06D95E",
-      "providerId": "CAT-AD-1579323B85FE",
+      "providerId": "CAT-AD-847A66159B0A",
       "status": "ADDED_OR_MERGED"
     },
     {
@@ -14538,7 +14538,7 @@
       "sourceName": "益康儀器有限公司",
       "sourceAddress": "臺北市中正區開封街一段60號",
       "sourceUrl": "https://dosw.gov.taipei/News_Content.aspx?n=06B482D5784555B8&sms=F74A93791FE8674A&s=B9CE034B523E5931",
-      "providerId": "CAT-AD-D205235044B0",
+      "providerId": "CAT-AD-144384E4A5AF",
       "status": "ADDED_OR_MERGED"
     },
     {
@@ -14684,6 +14684,23 @@
       "retrievedAt": "2026-10-08",
       "sourceKind": "OFFICIAL",
       "use": "官方分類／名稱地址電話；特約名單不推定到府服務範圍"
+    }
+  ],
+  "addressAliases": [
+    {
+      "retiredId": "CAT-AD-497F95344D1E",
+      "providerId": "CAT-AD-82F1881B5C7F",
+      "reason": "同名同門牌、路段中文／阿拉伯數字寫法不同；合併分類及全部原始來源，不合併不同門牌。"
+    },
+    {
+      "retiredId": "CAT-AD-1579323B85FE",
+      "providerId": "CAT-AD-847A66159B0A",
+      "reason": "同名同門牌、路段中文／阿拉伯數字寫法不同；合併分類及全部原始來源，不合併不同門牌。"
+    },
+    {
+      "retiredId": "CAT-AD-D205235044B0",
+      "providerId": "CAT-AD-144384E4A5AF",
+      "reason": "同名同門牌、路段中文／阿拉伯數字寫法不同；合併分類及全部原始來源，不合併不同門牌。"
     }
   ]
 }

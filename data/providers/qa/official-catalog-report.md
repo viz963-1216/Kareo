@@ -1,6 +1,6 @@
 # 官方資源名冊擴充 — 2026-10-08
 
-Submission Version: A-008-r2 / J-004-r13
+Submission Version: A-008-r3 / J-004-r14
 Scope: public directory and acceptance data; not formal release acceptance.
 
 ## Source reconciliation
@@ -18,15 +18,18 @@ Scope: public directory and acceptance data; not formal release acceptance.
 |---|---:|
 | HOME_CARE | 199 |
 | HOME_MEDICAL_NURSING | 3 |
-| ASSISTIVE_DEVICE | 584 |
+| ASSISTIVE_DEVICE | 581 |
 | OTHER | 17 |
-| TOTAL | 803 |
-| ProviderService rows | 786 |
+| TOTAL | 800 |
+| ProviderService rows | 783 |
 | Active ProviderServiceArea rows | 1123 |
-| ProviderContractRegion rows | 591 |
-| publicInfo rows | 794 |
+| ProviderContractRegion rows | 588 |
+| publicInfo rows | 791 |
 
 ## Meaning and limits
+
+- r14 公開頁回查發現三組同門牌路段文字差異，已合併麥尼克（二段／2段）、輔聚（四段／4段）、益康（一段／1段）；原始來源列完整保留並映射到同一 ID，分類合併。不同門牌分店仍獨立。初次 r13 匯入 803 筆；去除這三組重複後 800 筆，輔具購置 575 筆、智慧科技 4 筆，可重疊。
+- 另修正 9 筆公開主電話：6 筆手機／0800 被錯取內部「02」片段，3 筆改採來源列最前面的完整手機（原第二支市話仍留在 raw extract）。新增 gate 防止相同門牌重複與手機／免付費截斷；不改原 36 筆不可變資料。
 
 - 198不等於所有單位能承接任何區域；官方空白／未特約不補服務區域。到宅沐浴車的全市範圍不推定成一般居服；評鑑不合格保留原文且推薦卡補提醒。
 - 輔具PURCHASE涵蓋長照／身障目錄；SMART_TECH四家採目前官方HTML，分別在雙北。特約標示不是配送或到府範圍，未知區域不進Top3。

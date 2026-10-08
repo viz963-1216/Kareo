@@ -3936,12 +3936,6 @@
     "active": true
   },
   {
-    "id": "PSV-CAT-AD-497F95344D1E-ASSISTIVE_DEVICE",
-    "providerId": "CAT-AD-497F95344D1E",
-    "serviceType": "ASSISTIVE_DEVICE",
-    "active": true
-  },
-  {
     "id": "PSV-CAT-AD-4777E5DFACB2-ASSISTIVE_DEVICE",
     "providerId": "CAT-AD-4777E5DFACB2",
     "serviceType": "ASSISTIVE_DEVICE",
@@ -4422,12 +4416,6 @@
     "active": true
   },
   {
-    "id": "PSV-CAT-AD-1579323B85FE-ASSISTIVE_DEVICE",
-    "providerId": "CAT-AD-1579323B85FE",
-    "serviceType": "ASSISTIVE_DEVICE",
-    "active": true
-  },
-  {
     "id": "PSV-CAT-AD-57C706A74822-ASSISTIVE_DEVICE",
     "providerId": "CAT-AD-57C706A74822",
     "serviceType": "ASSISTIVE_DEVICE",
@@ -4700,12 +4688,6 @@
   {
     "id": "PSV-CAT-AD-9423128F8A31-ASSISTIVE_DEVICE",
     "providerId": "CAT-AD-9423128F8A31",
-    "serviceType": "ASSISTIVE_DEVICE",
-    "active": true
-  },
-  {
-    "id": "PSV-CAT-AD-D205235044B0-ASSISTIVE_DEVICE",
-    "providerId": "CAT-AD-D205235044B0",
     "serviceType": "ASSISTIVE_DEVICE",
     "active": true
   },

@@ -12430,6 +12430,11 @@
           "sourceId": "SRC-CATALOG-LTC-20261008",
           "checkedAt": "2026-10-08",
           "result": "核對公開機構資料，未驗證精確座標"
+        },
+        {
+          "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+          "checkedAt": "2026-10-08",
+          "result": "核對公開機構資料，未驗證精確座標"
         }
       ],
       "reason": "精確座標未經官方門牌點驗證；缺少服務範圍者不推定可服務所在地。",
@@ -12684,6 +12689,11 @@
       "sourcesChecked": [
         {
           "sourceId": "SRC-CATALOG-LTC-20261008",
+          "checkedAt": "2026-10-08",
+          "result": "核對公開機構資料，未驗證精確座標"
+        },
+        {
+          "sourceId": "SRC-CATALOG-DISABILITY-20261008",
           "checkedAt": "2026-10-08",
           "result": "核對公開機構資料，未驗證精確座標"
         }
@@ -12988,6 +12998,11 @@
       "sourcesChecked": [
         {
           "sourceId": "SRC-CATALOG-LTC-20261008",
+          "checkedAt": "2026-10-08",
+          "result": "核對公開機構資料，未驗證精確座標"
+        },
+        {
+          "sourceId": "SRC-CATALOG-SMART-20261008",
           "checkedAt": "2026-10-08",
           "result": "核對公開機構資料，未驗證精確座標"
         }
@@ -14436,22 +14451,6 @@
       "nextStep": "核對官方座標；需要行政區服務範圍者補查直接公開證據。"
     },
     {
-      "providerId": "CAT-AD-497F95344D1E",
-      "missing": [
-        "coordinate",
-        "serviceArea"
-      ],
-      "sourcesChecked": [
-        {
-          "sourceId": "SRC-CATALOG-DISABILITY-20261008",
-          "checkedAt": "2026-10-08",
-          "result": "核對公開機構資料，未驗證精確座標"
-        }
-      ],
-      "reason": "精確座標未經官方門牌點驗證；缺少服務範圍者不推定可服務所在地。",
-      "nextStep": "核對官方座標；需要行政區服務範圍者補查直接公開證據。"
-    },
-    {
       "providerId": "CAT-AD-4777E5DFACB2",
       "missing": [
         "coordinate",
@@ -15732,22 +15731,6 @@
       "nextStep": "核對官方座標；需要行政區服務範圍者補查直接公開證據。"
     },
     {
-      "providerId": "CAT-AD-1579323B85FE",
-      "missing": [
-        "coordinate",
-        "serviceArea"
-      ],
-      "sourcesChecked": [
-        {
-          "sourceId": "SRC-CATALOG-DISABILITY-20261008",
-          "checkedAt": "2026-10-08",
-          "result": "核對公開機構資料，未驗證精確座標"
-        }
-      ],
-      "reason": "精確座標未經官方門牌點驗證；缺少服務範圍者不推定可服務所在地。",
-      "nextStep": "核對官方座標；需要行政區服務範圍者補查直接公開證據。"
-    },
-    {
       "providerId": "CAT-AD-57C706A74822",
       "missing": [
         "coordinate",
@@ -16469,22 +16452,6 @@
     },
     {
       "providerId": "CAT-AD-9423128F8A31",
-      "missing": [
-        "coordinate",
-        "serviceArea"
-      ],
-      "sourcesChecked": [
-        {
-          "sourceId": "SRC-CATALOG-SMART-20261008",
-          "checkedAt": "2026-10-08",
-          "result": "核對公開機構資料，未驗證精確座標"
-        }
-      ],
-      "reason": "精確座標未經官方門牌點驗證；缺少服務範圍者不推定可服務所在地。",
-      "nextStep": "核對官方座標；需要行政區服務範圍者補查直接公開證據。"
-    },
-    {
-      "providerId": "CAT-AD-D205235044B0",
       "missing": [
         "coordinate",
         "serviceArea"
@@ -25578,6 +25545,11 @@
           "sourceId": "SRC-CATALOG-LTC-20261008",
           "checkedAt": "2026-10-08",
           "result": "核對官方名稱／地址／電話及制度分類；不含到府範圍"
+        },
+        {
+          "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+          "checkedAt": "2026-10-08",
+          "result": "核對官方名稱／地址／電話及制度分類；不含到府範圍"
         }
       ],
       "reason": "官方特約只證實名冊分類，未提供行政區配送或到府服務證據。",
@@ -25978,6 +25950,11 @@
       "sourcesChecked": [
         {
           "sourceId": "SRC-CATALOG-LTC-20261008",
+          "checkedAt": "2026-10-08",
+          "result": "核對官方名稱／地址／電話及制度分類；不含到府範圍"
+        },
+        {
+          "sourceId": "SRC-CATALOG-DISABILITY-20261008",
           "checkedAt": "2026-10-08",
           "result": "核對官方名稱／地址／電話及制度分類；不含到府範圍"
         }
@@ -26461,6 +26438,11 @@
         },
         {
           "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+          "checkedAt": "2026-10-08",
+          "result": "核對官方名稱／地址／電話及制度分類；不含到府範圍"
+        },
+        {
+          "sourceId": "SRC-CATALOG-SMART-20261008",
           "checkedAt": "2026-10-08",
           "result": "核對官方名稱／地址／電話及制度分類；不含到府範圍"
         }
@@ -28629,28 +28611,6 @@
       "nextStep": "取得業者可引用的行政區範圍後再新增 ProviderServiceArea。"
     },
     {
-      "providerId": "CAT-AD-497F95344D1E",
-      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
-      "allowedCities": [
-        {
-          "city": "臺北市",
-          "sourceId": "SRC-CATALOG-DISABILITY-20261008",
-          "document": "官方名冊 disability 序號 164",
-          "sourceText": "臺北市特約門市",
-          "checkedAt": "2026-10-08"
-        }
-      ],
-      "sourcesChecked": [
-        {
-          "sourceId": "SRC-CATALOG-DISABILITY-20261008",
-          "checkedAt": "2026-10-08",
-          "result": "核對官方名稱／地址／電話及制度分類；不含到府範圍"
-        }
-      ],
-      "reason": "官方特約只證實名冊分類，未提供行政區配送或到府服務證據。",
-      "nextStep": "取得業者可引用的行政區範圍後再新增 ProviderServiceArea。"
-    },
-    {
       "providerId": "CAT-AD-4777E5DFACB2",
       "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
       "allowedCities": [
@@ -30411,28 +30371,6 @@
       "nextStep": "取得業者可引用的行政區範圍後再新增 ProviderServiceArea。"
     },
     {
-      "providerId": "CAT-AD-1579323B85FE",
-      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
-      "allowedCities": [
-        {
-          "city": "臺北市",
-          "sourceId": "SRC-CATALOG-DISABILITY-20261008",
-          "document": "官方名冊 disability 序號 586",
-          "sourceText": "臺北市特約門市",
-          "checkedAt": "2026-10-08"
-        }
-      ],
-      "sourcesChecked": [
-        {
-          "sourceId": "SRC-CATALOG-DISABILITY-20261008",
-          "checkedAt": "2026-10-08",
-          "result": "核對官方名稱／地址／電話及制度分類；不含到府範圍"
-        }
-      ],
-      "reason": "官方特約只證實名冊分類，未提供行政區配送或到府服務證據。",
-      "nextStep": "取得業者可引用的行政區範圍後再新增 ProviderServiceArea。"
-    },
-    {
       "providerId": "CAT-AD-57C706A74822",
       "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
       "allowedCities": [
@@ -31430,28 +31368,6 @@
           "city": "臺北市",
           "sourceId": "SRC-CATALOG-SMART-20261008",
           "document": "官方名冊 smart 序號 1",
-          "sourceText": "臺北市特約門市",
-          "checkedAt": "2026-10-08"
-        }
-      ],
-      "sourcesChecked": [
-        {
-          "sourceId": "SRC-CATALOG-SMART-20261008",
-          "checkedAt": "2026-10-08",
-          "result": "核對官方名稱／地址／電話及制度分類；不含到府範圍"
-        }
-      ],
-      "reason": "官方特約只證實名冊分類，未提供行政區配送或到府服務證據。",
-      "nextStep": "取得業者可引用的行政區範圍後再新增 ProviderServiceArea。"
-    },
-    {
-      "providerId": "CAT-AD-D205235044B0",
-      "status": "BOUNDARY_CONFIRMED_DISTRICTS_UNVERIFIED",
-      "allowedCities": [
-        {
-          "city": "臺北市",
-          "sourceId": "SRC-CATALOG-SMART-20261008",
-          "document": "官方名冊 smart 序號 2",
           "sourceText": "臺北市特約門市",
           "checkedAt": "2026-10-08"
         }

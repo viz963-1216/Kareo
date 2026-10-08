@@ -15,3 +15,16 @@ test('198 is the input source count, not an invented in-scope total', () => {
   assert.deepEqual(excluded.map(x => x.serial), [142]);
   d[4].homeCare.pop(); assert.match(inspectCatalog(...d).join('\n'), /198-row/);
 });
+test('same name and doorplate with equivalent road segment spelling cannot inflate inventory', () => {
+  const d = loadCatalog(); const p = d[0].find(p => p.name === '益康儀器有限公司' && p.address.includes('60號'));
+  d[0].push({...p, id:'duplicate-address', address:p.address.replace('1段','一段')});
+  assert.match(inspectCatalog(...d).join('\n'), /Duplicate merchant location/);
+  const different = loadCatalog(); different[0].push({...p, id:'different-shop', address:p.address.replace('60號','61號')});
+  assert.deepEqual(inspectCatalog(...different), []);
+});
+test('mobile and toll-free first numbers cannot be replaced by an internal 02 substring', () => {
+  for (const id of ['TP-HC-012','TP-HC-044','TP-HC-110','TP-HC-185','CAT-AD-6C8091588860','CAT-AD-5BC25E34DC80']) {
+    const d = loadCatalog(); d[0].find(p => p.id === id).phone='02-581';
+    assert.match(inspectCatalog(...d).join('\n'), /First source phone corrupted/);
+  }
+});
