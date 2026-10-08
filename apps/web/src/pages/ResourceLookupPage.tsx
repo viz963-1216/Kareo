@@ -1,3 +1,4 @@
+import { demoMode } from "../demo";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { api, ApiError, apiMode } from "../api";
@@ -140,7 +141,7 @@ export function ResourceLookupPage() {
       <p className="eyebrow">公開資訊查詢</p>
       <h1>查詢長照資源</h1>
       <p className="lead">不需先做評估，即可查詢 Kareo 收錄的雙北服務單位與公共資源。</p>
-      <p className="field-hint">查詢結果僅供聯絡與資訊參考，不代表能到府服務。若要提出媒合需求，請先完成免費評估。</p>
+      <p className="field-hint">{demoMode ? "查詢結果僅供聯絡與資訊參考，不代表能到府服務。此版本不建立媒合案件，請直接洽詢單位或 1966。" : "查詢結果僅供聯絡與資訊參考，不代表能到府服務。若要提出媒合需求，請先完成免費評估。"}</p>
 
       <form className="resource-filter-form" onSubmit={submit}>
         <fieldset>
