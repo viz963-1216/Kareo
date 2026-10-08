@@ -2,7 +2,7 @@
 
 Owner: Engineer A；本輪由 Jerry 授權 Codex 中心整合執行。
 Submission Version: A-008-r4
-Status: r1～r3 MERGED (#104/#107/#108)；r4 新北官方居服完整名冊交付中，匯入與網站驗證由 J-004-r15 接續。尚有居護／輔具範圍待補，不宣稱全類別全量完成。
+Status: r1～r4 MERGED (#104/#107/#108/#109)；r4 新北官方居服全名冊已差額匯入 Supabase 並驗證公開查詢。尚有居護全名冊／輔具未知範圍待補，不宣稱全類別全量完成。
 
 ## Goal
 
@@ -49,3 +49,5 @@ PR → staging；Title `[A-008] Import official New Taipei home-care catalogue`�
 ## r3 — 同門牌別名與主電話回查
 
 合併三組同名同電話同門牌、路段中文／數字差異的重複 ID，保留各來源列及分類。修正新資料的手機／0800 第一主號；新增可重現負向檢查。r13 初匯入 803，r3 canonical 為 800 筆。居服199／居護3／輔具581／中心17，知識與健康資料不改。
+
+2026-10-08 r4 執行收尾：#109 已合併；雲端逐欄核對318新增／48補充／1394範圍一致，原800及原子表不變。公開頁新北365、板橋159與DB一致。八項CI、50項實際LOCAL HTTP、71項資料QA通過。參見 [J-004-r15實際執行證據](../docs/acceptance/J004-2026-10-08-ntpc-home-care.md#executed-closeout--2026-10-08)。
