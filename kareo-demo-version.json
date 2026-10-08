@@ -1,10 +1,14 @@
 {
   "schemaVersion": 1,
-  "scope": "STATIC-SYNTHETIC-DEMO",
+  "scope": "STATIC-PUBLIC-DATA-PREVIEW",
   "basePath": "/Kareo/",
-  "sourceCommit": "5a4bc57d5e987cbbdc970dbcd52eed9674b8f921",
+  "sourceCommit": "dcabcf217ca43729a37487efcd935ea8c7423333",
   "workingTreeDirty": false,
-  "builtAt": "2026-10-07T15:43:19.329Z",
+  "builtAt": "2026-10-08T01:33:31.768Z",
+  "publicProviderData": true,
+  "providerCount": 36,
+  "knowledgeVersion": "KB-2026-09-24-001",
+  "publicDataExportedAt": "2026-10-08",
   "realApi": false,
   "realCases": false,
   "formalConsentActivated": false
