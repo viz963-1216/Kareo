@@ -9,6 +9,7 @@ import { SessionProblem } from "../components/SessionProblem";
 import { useMockState } from "../session/useMockState";
 import type {
   AsyncStatus,
+  AssessmentLocation,
   LocationPrecision,
   RecommendationResponse,
   RecommendationServiceType,
@@ -26,6 +27,7 @@ const recommendationServices = Object.keys(serviceLabels) as RecommendationServi
 interface Props {
   assessmentId: string | null;
   locationPrecision: LocationPrecision | null;
+  location?: AssessmentLocation | null;
 }
 
 function readMockCount(value: string | null): RecommendationMockCount {
@@ -53,7 +55,7 @@ function rankingExplanation({ rankingType, locationPrecision }: RecommendationRe
   }
 }
 
-export function RecommendationPage({ assessmentId, locationPrecision }: Props) {
+export function RecommendationPage({ assessmentId, locationPrecision, location }: Props) {
   const { serviceType: routeServiceType } = useParams();
   const [searchParams] = useSearchParams();
   const mockState = useMockState();
@@ -77,7 +79,7 @@ export function RecommendationPage({ assessmentId, locationPrecision }: Props) {
 
     api.getRecommendation(
       { assessmentId, serviceType },
-      apiMode === "mock" ? { providerCount: demoMode && !mockCount ? 3 : readMockCount(mockCount), ranking: mockRanking, state: mockState } : {},
+      apiMode === "mock" ? { providerCount: readMockCount(mockCount), ranking: mockRanking, state: mockState } : {},
     ).then((response) => {
       if (!active) return;
       setRecommendation(response);
@@ -117,6 +119,8 @@ export function RecommendationPage({ assessmentId, locationPrecision }: Props) {
 
   const errorMessage = error instanceof Error ? error.message : "目前無法取得推薦，請稍後再試或聯絡 1966。";
   const shown = recommendation?.providers.slice(0, 3) ?? [];
+  const lookupQuery = new URLSearchParams({ serviceType: serviceType });
+  if (location?.city) lookupQuery.set("city", location.city);
 
   return (
     <main id="main-content" className="content recommendation-page" aria-busy={status === "loading"}>
@@ -159,6 +163,8 @@ export function RecommendationPage({ assessmentId, locationPrecision }: Props) {
             <section className="panel empty-state" role="status">
               <h2>您提供的地區目前沒有符合條件的服務單位</h2>
               <p>這不代表沒有服務需求。建議稍後再試、查看更多官方資源，或聯絡 1966 與所在地長期照顧管理中心。</p>
+              {demoMode && <p><Link className="button primary" to={`/resources?${lookupQuery}`}>查詢真實{serviceLabels[serviceType]}單位（依所在地）</Link></p>}
+              {demoMode && serviceType === "ASSISTIVE_DEVICE" && <p><Link to="/resources?resourceCategory=ASSISTIVE_DEVICE_CENTER">查詢輔具資源中心</Link></p>}
               <Link className="button secondary" to="/result">返回初步結果</Link>
             </section>
           ) : (

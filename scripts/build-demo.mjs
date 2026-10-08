@@ -34,5 +34,5 @@ await writeFile(path.join(out, '_headers'), `/*
   X-Content-Type-Options: nosniff
   X-Robots-Tag: noindex, nofollow
 `);
-await writeFile(path.join(out, 'kareo-demo-version.json'), JSON.stringify({ schemaVersion: 1, scope: 'STATIC-SYNTHETIC-DEMO', basePath, sourceCommit: commit, workingTreeDirty: !clean, builtAt: new Date().toISOString(), realApi: false, realCases: false, formalConsentActivated: false }, null, 2)+'\n');
-console.log('Built demo-dist: static synthetic presentation only, no Functions or database deployment.');
+await writeFile(path.join(out, 'kareo-demo-version.json'), JSON.stringify({ schemaVersion: 1, scope: 'STATIC-PUBLIC-DATA-PREVIEW', basePath, sourceCommit: commit, workingTreeDirty: !clean, builtAt: new Date().toISOString(), publicProviderData: true, providerCount: JSON.parse(await readFile(path.join(root, 'data/providers/staging/providers.json'), 'utf8')).length, knowledgeVersion: 'KB-2026-09-24-001', publicDataExportedAt: '2026-10-08', realApi: false, realCases: false, formalConsentActivated: false }, null, 2)+'\n');
+console.log('Built demo-dist: static real public records and local rule-based assessment, no Functions or database deployment.');

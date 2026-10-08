@@ -91,3 +91,7 @@ Jerry 核准虛構個案展示站：展示隱私說明與完整前端流程可�
 
 
 2026-10-07 r11：可分享的虛構個案展示站已發布 https://viz963-1216.github.io/Kareo/；實際公開瀏覽器已完成評估→結果→Top 3→媒合示範與重設。驗證及展示操作見 docs/acceptance/J004-2026-10-07-shareable-demo.md。DEMO_APPROVED 只限展示，正式 release 維持原閘門。
+
+## 2026-10-08 J-004-r12／A-008-r1
+
+Jerry 要求公開網址改用真實機構及依輸入條件計算，不再固定 demo 回應。新增 [A-008](TASK-A-008.md)：真實資料與可追溯範圍；本輪重用正式規則引擎／資源 filter，保留原 35 筆並補一筆真實輔具商家。公開資料版不送雲端個案、不建立 Lead、不代替完整 J-003／D-05。詳見 [r12 報告](../docs/acceptance/J004-2026-10-08-real-public-data.md)。

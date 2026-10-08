@@ -528,5 +528,21 @@
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=新北市新店區北新路一段281號",
     "status": "ACTIVE",
     "verified": true
+  },
+  {
+    "id": "NTPC-AD-010",
+    "name": "亞德醫材生活館",
+    "type": "ASSISTIVE_DEVICE",
+    "resourceCategory": "SERVICE_PROVIDER",
+    "address": "新北市板橋區懷德街181巷7號1樓",
+    "city": "新北市",
+    "district": "板橋區",
+    "lat": null,
+    "lng": null,
+    "phone": "02-8257-0353",
+    "website": "https://www.uryard.com.tw/pages/ntpc-assistive-device-contract",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%9D%BF%E6%A9%8B%E5%8D%80%E6%87%B7%E5%BE%B7%E8%A1%97181%E5%B7%B77%E8%99%9F1%E6%A8%93",
+    "status": "ACTIVE",
+    "verified": true
   }
 ]

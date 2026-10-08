@@ -39,12 +39,12 @@ export async function verifyLocalStack(stack) {
   let main, mainAssessment, mainRecommendation, lead, adminToken, stalePreview, adminRecords, deletionTargets, deletionAssessments, deletionRuns, healthBefore;
   const legalBefore = createHash('sha256').update(readFileSync('contracts/legal/consent-versions.json')).digest('hex');
   try {
-    await test('LOCAL-01', '28 migrations, imported 35 resources / 30 services / 98 areas / 19 contract regions; 5 approved packs / 21 published records', async () => {
+    await test('LOCAL-01', '28 migrations, imported 36 resources / 31 services / 119 areas / 19 contract regions; 5 approved packs / 21 published records', async () => {
       assert.equal(stack.migrations.length, 28);
       const counts = (await db.query(`select (select count(*)::int from providers) providers, (select count(*)::int from provider_services) services,
         (select count(*)::int from provider_service_areas where active) areas, (select count(*)::int from provider_contract_regions) contracts,
         (select count(*)::int from content_packs) packs, (select count(*)::int from knowledge_version_records) records`)).rows[0];
-      assert.deepEqual(counts, { providers: 35, services: 30, areas: 98, contracts: 19, packs: 5, records: 21 });
+      assert.deepEqual(counts, { providers: 36, services: 31, areas: 119, contracts: 19, packs: 5, records: 21 });
       assert.equal(success(await call('GET', '/api/v1/knowledge/status')).version, 'KB-2026-09-24-001');
     });
     await test('LOCAL-02', 'Official PostgREST JWT role switch denies anon/authenticated table reads and internal RPC', async () => {
@@ -94,7 +94,7 @@ export async function verifyLocalStack(stack) {
       assert.equal(createHash('sha256').update(readFileSync('contracts/legal/consent-versions.json')).digest('hex'), legalBefore);
     });
     await test('LOCAL-04', 'Public resources are queryable without Session; five centers are not service providers', async () => {
-      const list = success(await call('GET', '/api/v1/providers?pageSize=50')); assert.equal(list.totalCount, 35);
+      const list = success(await call('GET', '/api/v1/providers?pageSize=50')); assert.equal(list.totalCount, 36);
       const centers = success(await call('GET', '/api/v1/providers?resourceCategory=ASSISTIVE_DEVICE_CENTER'));
       assert.equal(centers.totalCount, 5); assert.ok(centers.items.every(p => p.resourceCategory === 'ASSISTIVE_DEVICE_CENTER'));
       const bad = await call('GET', '/api/v1/providers?city=' + encodeURIComponent('臺中市')); error(bad, 400, 'VALIDATION_ERROR');
@@ -344,7 +344,7 @@ export async function verifyLocalStack(stack) {
         const r=await call('GET','/api/v1/providers'); error(r,500,'INTERNAL_ERROR');
         assert.ok(!/PGRST|postgres|relation|SUPABASE_/i.test(JSON.stringify(r.json)));
       } finally { await db.query('alter table local_test_unavailable_providers rename to providers'); }
-      assert.equal(success(await call('GET','/api/v1/providers?pageSize=50')).totalCount,35);
+      assert.equal(success(await call('GET','/api/v1/providers?pageSize=50')).totalCount,36);
     });
     await test('LOCAL-22', 'Admin authentication rejects forged tokens; actual operator key creates a separate admin Session', async () => {
       error(await call('GET','/api/v1/admin/knowledge/status',{admin:'forged-admin-token'}),401,'SESSION_INVALID');

@@ -1,3 +1,4 @@
+import { demoMode } from "../demo";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
 import { api } from "../api";
@@ -112,14 +113,14 @@ export function ProviderDetailPage() {
               : <p>尚未提供服務範圍資料，請洽機構確認。</p>}
         </section>
         <section className="panel"><h2>Google Maps</h2>{mapsUrl ? <a className="button secondary" href={mapsUrl} target="_blank" rel="noopener noreferrer">在 Google Maps 查看（開啟新分頁）</a> : <p>地圖連結暫時無法使用，請洽服務單位確認。</p>}</section>
-        {!fromResourceLookup && provider.resourceCategory !== "ASSISTIVE_DEVICE_CENTER" && leadSelection && leadSelection.providerId === provider.id && (
+        {!demoMode && !fromResourceLookup && provider.resourceCategory !== "ASSISTIVE_DEVICE_CENTER" && leadSelection && leadSelection.providerId === provider.id && (
           <section className="panel lead-cta">
             <h2>需要協助聯繫？</h2>
             <p>您可以留下稱呼與電話，提出這個服務單位的媒合需求。</p>
             <Link className="button primary" to="/match" state={leadSelection}>我要媒合</Link>
           </section>
         )}
-        {fromResourceLookup && provider.resourceCategory !== "ASSISTIVE_DEVICE_CENTER" && (
+        {!demoMode && fromResourceLookup && provider.resourceCategory !== "ASSISTIVE_DEVICE_CENTER" && (
           <section className="panel assessment-cta">
             <h2>如需媒合，請先完成免費評估</h2>
             <p>資源查詢僅提供公開資訊；完成免費初步評估後，再依需求查看服務單位。</p>

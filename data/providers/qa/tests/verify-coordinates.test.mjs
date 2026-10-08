@@ -264,7 +264,7 @@ test("an unofficial coordinate counts for coverage but never as verified", () =>
   assert.ok(!verifiedIds.has("NTPC-AD-004"));
   const coverage = computeCoverage(dataset, verifiedIds, settingAreaKeys, unofficialIds);
   const devices = coverage.byType.find((type) => type.serviceType === "ASSISTIVE_DEVICE");
-  assert.equal(devices.groups, 0);
+  assert.ok(coverage.groups.filter(g => g.serviceType === 'ASSISTIVE_DEVICE').every(g => !g.candidates.includes('NTPC-AD-004')));
   assert.equal(devices.ready, 0);
   assert.ok(devices.unknownArea.includes("NTPC-AD-004"));
 });
@@ -336,7 +336,7 @@ test("a conditional service-region must reference a recorded decision", () => {
 test("a wrong service-area-basis count in the report fails", () => {
   const { status, output } = runGate(({ readText, writeText }) => {
     const text = readText(REPORT);
-    const changed = text.replace("| HOME_CARE | 23 | 61 | 0 | 84 |", "| HOME_CARE | 24 | 60 | 0 | 84 |");
+    const changed = text.replace("| HOME_CARE | 23 | 61 | 0 | 0 | 84 |", "| HOME_CARE | 24 | 60 | 0 | 0 | 84 |");
     assert.notEqual(changed, text);
     writeText(REPORT, changed);
   });
@@ -350,6 +350,22 @@ test("conditional service-regions never generate recommendation candidates", () 
   const { groups, byType } = computeCoverage(dataset, verifiedIds, settingAreaKeys);
   const nursing = groups.filter((g) => g.serviceType === "HOME_MEDICAL_NURSING");
   assert.ok(nursing.every((group) => group.status === "BLOCKED_UNKNOWN_SERVICE_AREA"));
-  assert.equal(groups.filter((group) => group.serviceType === "ASSISTIVE_DEVICE").length, 0);
+  const conditionalIds = new Set(dataset.evidence.conditionalServiceRegions.map(e=>e.providerId));
+  assert.ok(groups.every(g=>g.candidates.every(id=>!conditionalIds.has(id))));
   assert.equal(byType.find((type) => type.serviceType === "ASSISTIVE_DEVICE").ready, 0);
+});
+
+
+test('first-party delivery evidence cannot be relabeled as government evidence or another store', () => {
+ const dataset = loadRealDataset();
+ const source = dataset.evidence.sources.find(s => s.sourceKind === 'FIRST_PARTY');
+ assert.ok(source);
+ source.url = 'https://another-store.example/delivery';
+ assert.match(checkEvidence(dataset).errors.join('\n'), /FIRST_PARTY requires matching provider website/);
+});
+
+test('merchant statement cannot become OFFICIAL government proof', () => {
+ const dataset=loadRealDataset();
+ dataset.evidence.serviceAreas.find(e=>e.basis==='FIRST_PARTY').basis='OFFICIAL';
+ assert.match(checkEvidence(dataset).errors.join('\n'), /merchant evidence must remain FIRST_PARTY/);
 });

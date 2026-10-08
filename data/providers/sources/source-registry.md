@@ -72,3 +72,7 @@ Sources that have not yet been verified should be recorded here before being inc
 - `SRC-COORD-TPE-003`: [Taipei official complete address CSV](https://data.taipei/api/dataset/b7c8e724-1e98-45ee-a0bd-f3840623ed97/resource/ce76ca0c-7f94-4935-ab47-1d2a41ca2abb/download), retrieved 2026-10-04; SHA-256 in `qa/a-003-evidence.json`.
 - `SRC-COORD-NTPC-002/003`: official address API exact-number queries, then exact district/street/lane/alley matching. Query URLs and response SHA-256 are in `qa/a-003-evidence.json`; [official API guide](https://data.ntpc.gov.tw/applications).
 - These sources support building coordinates only. Service coverage still requires its own official evidence; the existing 30 providers and all original service-area records are unchanged.
+
+## A-008-r1（2026-10-08）
+
+- `SRC-FIRST-PARTY-URYARD-001`：[亞德醫材生活館官網](https://www.uryard.com.tw/pages/ntpc-assistive-device-contract)，SHA-256 `93032429c6dfc025fff368952479b097fce10286017365c72304075e09aa8e88`。核對商家名称／地址／電話及明示配送範圍。來源為商家自己，**不是政府證實**；不新增特約資格，不推算座標。細節見 `qa/a-008-real-provider-data.md`。
