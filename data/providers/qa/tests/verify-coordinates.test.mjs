@@ -223,6 +223,15 @@ test("a non-null coordinate without evidence never makes a group READY", () => {
 
 test("a Provider with unknown service areas blocks READY for its service type", () => {
   const dataset = loadRealDataset();
+  // Isolate the three verified original New Taipei providers to test this specific
+  // UNKNOWN-area blocker; catalogue additions with null coordinates test a different blocker.
+  const selected = new Set(['NTPC-HC-003', 'NTPC-HC-004', 'NTPC-HC-005']);
+  dataset.providers = dataset.providers.filter(p => selected.has(p.id));
+  dataset.services = dataset.services.filter(s => selected.has(s.providerId));
+  dataset.areas = dataset.areas.filter(a => selected.has(a.providerId));
+  for (const key of ['coordinates', 'unofficialCoordinates', 'serviceAreas', 'pending', 'conditionalServiceRegions']) {
+    dataset.evidence[key] = (dataset.evidence[key] ?? []).filter(x => selected.has(x.providerId));
+  }
   const priorUnknown = computeCoverage(dataset, checkEvidence(dataset).verifiedIds).byType.find(t => t.serviceType === "HOME_CARE").unknownArea;
   // NTPC-HC-003 has a verified coordinate; without its areas it is a possible hidden candidate.
   dataset.areas = dataset.areas.filter((area) => area.providerId !== "NTPC-HC-003");

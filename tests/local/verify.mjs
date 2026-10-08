@@ -40,6 +40,16 @@ export async function verifyLocalStack(stack) {
   };
   const assess = async (s, location = district, overrides = {}) => success(await call('POST', '/api/v1/assessments', { token: s.sessionToken, body: { ...assessmentBody(s.sessionId, location), ...overrides } }));
   const recommend = async (s, assessment, serviceType = 'HOME_CARE') => success(await call('POST', '/api/v1/recommendations', { token: s.sessionToken, body: { assessmentId: assessment.assessmentId, serviceType } }));
+  const withVerifiedHomeCareCandidates = async operation => {
+    // Controlled LOCAL-only fixture: existing official coordinates, never invented points.
+    const ids=['NTPC-HC-003','NTPC-HC-004','NTPC-HC-005'];
+    assert.ok(ids.every(id=>sourceData('providers').some(p=>p.id===id&&typeof p.lat==='number'&&typeof p.lng==='number')));
+    const original=(await db.query("select id,active from provider_services where service_type='HOME_CARE'")).rows;
+    try {
+      await db.query("update provider_services set active=(provider_id=any($1::text[])) where service_type='HOME_CARE'",[ids]);
+      return await operation(ids);
+    } finally { for(const row of original)await db.query('update provider_services set active=$2 where id=$1',[row.id,row.active]); }
+  };
   let main, mainAssessment, mainRecommendation, lead, adminToken, stalePreview, adminRecords, deletionTargets, deletionAssessments, deletionRuns, healthBefore;
   const legalBefore = createHash('sha256').update(readFileSync('contracts/legal/consent-versions.json')).digest('hex');
   try {
@@ -98,7 +108,12 @@ export async function verifyLocalStack(stack) {
       assert.equal(createHash('sha256').update(readFileSync('contracts/legal/consent-versions.json')).digest('hex'), legalBefore);
     });
     await test('LOCAL-04', 'Public resources and official assistive filters are queryable without Session; all centers remain query-only', async () => {
-      const list = success(await call('GET', '/api/v1/providers?pageSize=50')); assert.equal(list.totalCount, catalogCounts.providers);
+      const activeProviderIds = new Set(sourceData('providers').filter(p=>p.status==='ACTIVE').map(p=>p.id));
+      const list = success(await call('GET', '/api/v1/providers?pageSize=50')); assert.equal(list.totalCount, activeProviderIds.size);
+      // A-008-r4 crosses the 1,000-Provider boundary, not only the ServiceArea boundary.
+      let allIds=[];let allPage=1;
+      do {const rows=success(await call('GET',`/api/v1/providers?pageSize=50&page=${allPage++}`));allIds.push(...rows.items.map(p=>p.id));if(allIds.length>=rows.totalCount)break;}while(allPage<=30);
+      assert.equal(allIds.length,activeProviderIds.size);assert.deepEqual(new Set(allIds),activeProviderIds);
       const smart = success(await call('GET','/api/v1/providers?assistiveProgram=SMART_TECH&pageSize=50'));
       assert.equal(smart.totalCount,4); assert.ok(smart.items.every(p=>p.publicInfo.assistivePrograms.includes('SMART_TECH')));
       const yikang=smart.items.find(p=>p.name==='益康儀器有限公司');
@@ -114,6 +129,17 @@ export async function verifyLocalStack(stack) {
       let observed=[]; let page=1;
       do {const rows=success(await call('GET',`/api/v1/providers?serviceType=HOME_CARE&city=${encodeURIComponent('臺北市')}&district=${encodeURIComponent(target)}&areaFilter=SERVICE_AREA&pageSize=50&page=${page++}`));observed.push(...rows.items.map(p=>p.id));if(observed.length>=rows.totalCount)break;}while(page<20);
       assert.deepEqual(new Set(observed),expected);
+      const ntpcManifest=JSON.parse(readFileSync('data/providers/qa/ntpc-home-care-manifest.json','utf8'));
+      const ntpcExpected=new Set(ntpcManifest.rows.filter(x=>!x.suspended).map(x=>x.providerId));
+      const ntpcObserved=[];let ntpcPage=1;
+      do {const rows=success(await call('GET',`/api/v1/providers?serviceType=HOME_CARE&city=${encodeURIComponent('新北市')}&areaFilter=SERVICE_AREA&pageSize=50&page=${ntpcPage++}`));ntpcObserved.push(...rows.items.map(p=>p.id));if(ntpcObserved.length>=rows.totalCount)break;}while(ntpcPage<=30);
+      for(const id of ntpcExpected)assert.ok(ntpcObserved.includes(id),`Official NTPC source provider missing: ${id}`);
+      for(const x of ntpcManifest.rows.filter(x=>x.suspended)) {
+        assert.ok(!ntpcObserved.includes(x.providerId));error(await call('GET',`/api/v1/providers/${x.providerId}`),404,'NOT_FOUND');
+      }
+      const ntpcAreas=new Map(sourceData('provider-service-areas').filter(a=>a.active&&a.city==='新北市'&&services.has(a.providerId)&&activeProviderIds.has(a.providerId)).map(a=>[a.providerId,true]));
+      assert.deepEqual(new Set(ntpcObserved),new Set(ntpcAreas.keys()));
+      for(const x of ntpcManifest.rows.filter(x=>x.outsideLocatedCity))assert.ok(ntpcObserved.includes(x.providerId));
       const centers = success(await call('GET', '/api/v1/providers?resourceCategory=ASSISTIVE_DEVICE_CENTER'));
       assert.equal(centers.totalCount, sourceData('providers').filter(p => p.resourceCategory === 'ASSISTIVE_DEVICE_CENTER').length); assert.ok(centers.items.every(p => p.resourceCategory === 'ASSISTIVE_DEVICE_CENTER'));
       const bad = await call('GET', '/api/v1/providers?city=' + encodeURIComponent('臺中市')); error(bad, 400, 'VALIDATION_ERROR');
@@ -196,13 +222,18 @@ export async function verifyLocalStack(stack) {
       const row = (await db.query('select city,district,lat,lng from assessments where id=$1', [a.assessmentId])).rows[0];
       assert.deepEqual(row, { city: null, district: null, lat: null, lng: null });
     });
-    await test('LOCAL-15', 'City-only and GPS assessments choose CITY_ROTATION and DISTANCE respectively', async () => {
+    await test('LOCAL-15', 'City rotation, full-catalogue GPS downgrade, and controlled verified-coordinate DISTANCE ordering', async () => {
       const s = await session(); const a = await assess(s, { ...district, district: null, precision: 'CITY' }); const r = await recommend(s, a);
       assert.equal(r.rankingType, 'CITY_ROTATION'); assert.ok(r.providers.every(p => p.distanceKm === null));
       const gps = await assess(s, { ...district, precision: 'GPS', lat: 25.061, lng: 121.488 }); const ranked = await recommend(s, gps);
-      assert.equal(ranked.rankingType, 'DISTANCE');
-      assert.ok(ranked.providers.every(p => typeof p.distanceKm === 'number'));
-      assert.deepEqual(ranked.providers.map(p => p.distanceKm), ranked.providers.map(p => p.distanceKm).sort((a,b) => a-b));
+      assert.equal(ranked.rankingType, 'DISTRICT_ROTATION');
+      assert.ok(ranked.providers.every(p => p.distanceKm === null));
+      assert.ok(ranked.notice.includes('尚無已確認的位置資料'));
+      await withVerifiedHomeCareCandidates(async ids => {
+        const exact=await recommend(s,gps);assert.equal(exact.rankingType,'DISTANCE');
+        assert.equal(exact.providers.length,3);assert.ok(exact.providers.every(p=>ids.includes(p.id)&&typeof p.distanceKm==='number'));
+        assert.deepEqual(exact.providers.map(p=>p.distanceKm),exact.providers.map(p=>p.distanceKm).sort((a,b)=>a-b));
+      });
     });
     await test('LOCAL-16', 'Taipei/New Taipei assessments use only their own local summary', async () => {
       const s = await session(); const taipei = await assess(s, { ...district, city: '臺北市', district: '中山區' }); const newTaipei = await assess(s);
@@ -338,13 +369,15 @@ export async function verifyLocalStack(stack) {
     });
     await test('LOCAL-28', 'One eligible provider missing coordinates downgrades the entire GPS result and explains it', async () => {
       const s=await session(); const a=await assess(s,{...district,precision:'GPS',lat:25.061,lng:121.488});
-      const id=mainRecommendation.providers[0].id;
-      const original=(await db.query('select lat,lng from providers where id=$1',[id])).rows[0];
-      try {
-        await db.query('update providers set lat=null,lng=null where id=$1',[id]);
-        const r=await recommend(s,a); assert.equal(r.rankingType,'DISTRICT_ROTATION'); assert.equal(r.locationPrecision,'GPS');
-        assert.ok(r.providers.every(p=>p.distanceKm===null)); assert.ok(r.notice.includes('尚無已確認的位置資料'));
-      } finally { await db.query('update providers set lat=$2,lng=$3 where id=$1',[id,original.lat,original.lng]); }
+      await withVerifiedHomeCareCandidates(async ids => {
+        assert.equal((await recommend(s,a)).rankingType,'DISTANCE');
+        const id=ids[0];const original=(await db.query('select lat,lng from providers where id=$1',[id])).rows[0];
+        try {
+          await db.query('update providers set lat=null,lng=null where id=$1',[id]);
+          const r=await recommend(s,a); assert.equal(r.rankingType,'DISTRICT_ROTATION'); assert.equal(r.locationPrecision,'GPS');
+          assert.ok(r.providers.every(p=>p.distanceKm===null)); assert.ok(r.notice.includes('尚無已確認的位置資料'));
+        } finally { await db.query('update providers set lat=$2,lng=$3 where id=$1',[id,original.lat,original.lng]); }
+      });
     });
     await test('LOCAL-29', 'Actual HTTP assessment failure rolls back Assessment and Profile; safe error and retry succeed', async () => {
       const s=await session();
@@ -363,7 +396,7 @@ export async function verifyLocalStack(stack) {
         const r=await call('GET','/api/v1/providers'); error(r,500,'INTERNAL_ERROR');
         assert.ok(!/PGRST|postgres|relation|SUPABASE_/i.test(JSON.stringify(r.json)));
       } finally { await db.query('alter table local_test_unavailable_providers rename to providers'); }
-      assert.equal(success(await call('GET','/api/v1/providers?pageSize=50')).totalCount,catalogCounts.providers);
+      assert.equal(success(await call('GET','/api/v1/providers?pageSize=50')).totalCount,sourceData('providers').filter(p=>p.status==='ACTIVE').length);
     });
     await test('LOCAL-22', 'Admin authentication rejects forged tokens; actual operator key creates a separate admin Session', async () => {
       error(await call('GET','/api/v1/admin/knowledge/status',{admin:'forged-admin-token'}),401,'SESSION_INVALID');

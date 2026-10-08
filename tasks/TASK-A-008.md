@@ -1,8 +1,8 @@
 # TASK-A-008 — Real Provider Data and Traceable Service Coverage
 
 Owner: Engineer A；本輪由 Jerry 授權 Codex 中心整合執行。
-Submission Version: A-008-r2
-Status: r1 MERGED (#104)；首筆新增商家已差額匯入驗收 DB、既有名單已公開接線。尚有資料覆蓋待補，不宣稱全量範圍完成。
+Submission Version: A-008-r4
+Status: r1～r3 MERGED (#104/#107/#108)；r4 新北官方居服完整名冊交付中，匯入與網站驗證由 J-004-r15 接續。尚有居護／輔具範圍待補，不宣稱全類別全量完成。
 
 ## Goal
 
@@ -36,7 +36,11 @@ Output：可匯入的 Provider／Service／ServiceArea／ContractRegion JSON、�
 已補亞德醫材生活館一筆、輔具服務一筆、明示配送行政區 21 筆；官方特約欄位不新增，座標保留 null。來源／證據見 `data/providers/qa/a-008-real-provider-data.md`。
 仍待後續研究：原 12 家輔具商家的到府服務範圍、2 家居家護理所的行政區範圍、新商家座標與特約資格。找不到直接證據就保留待確認，不填假資料。
 
-PR → staging；Title `[A-008] Real provider data and traceable service coverage`。本輪與 J-004-r12 在同一中心 PR 交付。
+PR → staging；Title `[A-008] Import official New Taipei home-care catalogue`。本輪與 J-004-r15 在同一中心 PR 交付。
+
+## r4 — 新北衛生局轉介的最新居家服務特約全名冊（2026-10-08）
+
+依衛生局官方轉介至高齡長期照顧處，取1151007、24頁、序號1～366全名冊。318新增、48沿用既有ID；原800及全部子表列保持原值，新增1394筆明示新北行政區範圍。四間位於桃園／基隆但官方證實服务新北者納入，僅建立新北範圍。三木暫停派案至11/5，保留但停用；不自動按日期解除。喘息／短照各依自己的勾選欄位顯示。合計1118資源、517居服（516 ACTIVE），1101服務、2517範圍、588輔具特約、1111公開補充。來源快照、366筆處置、SHA、原800 baseline及負向測試見 `qa/ntpc-home-care-*`。
 
 ## r2 — 官方名冊與分類擴充（2026-10-08，中央整合，Issue #106）
 

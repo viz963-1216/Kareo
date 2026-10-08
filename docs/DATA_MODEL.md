@@ -439,6 +439,8 @@ Provider 地址與服務範圍必須分開。
 
 - 只有**可追溯證據**（官方名單的特約服務區域、服務單位本身的正式書面範圍等）證實的行政區，才能建立 active ProviderServiceArea；證據來源與查核日期記錄於 `data/providers/qa/`。
 - **不得推定**：不得以地址所在行政區、簽約／特約縣市、母機構（例如醫院本體）的範圍，推定服務單位服務某行政區；不得為了補足推薦家數新增範圍。曾被撤下的推定範圍不得直接恢復，須依最新證據重新查核。
+
+2026-10-08 官方名冊補充：Provider 的 `city`／`district` 仍是實際所在地；跨縣市機構只能依名冊明示的新北行政區建立 ProviderServiceArea，不擴大 MVP 服務城市。既有範圍與各自來源不改寫；QA evidence 的 `additionalSources` 可逐份保存後來官方文件的 sourceId、document、districts、sourceText、checkedAt，對應範圍採有證據的聯集。這是來源證據格式，並非新增 API／DB 欄位。暫停派案機構保留 Provider，但 `status=INACTIVE`、ProviderService `active=false`，須新官方解除證據才啟用。
 - 輔具服務只限臺北市、新北市（DEC-A003-01）；居家護理須確認服務單位本身提供居家護理才收錄為 `HOME_MEDICAL_NURSING`（DEC-A003-02）。
 
 `serviceAreaStatus`（v0.2.4，推導值，不另存欄位）：

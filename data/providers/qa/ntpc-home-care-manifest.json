@@ -1,0 +1,6978 @@
+{
+  "checkedAt": "2026-10-08",
+  "sourceDate": "2026-10-07",
+  "sourceId": "SRC-NTPC-HOME-20261007",
+  "healthBureauUrl": "https://www.health.ntpc.gov.tw/article/新北市長照特約通過單位名單",
+  "officialDirectoryUrl": "https://www.careyou.ntpc.gov.tw/w/agecare/unit",
+  "pdfUrl": "https://www.careyou.ntpc.gov.tw/WebUPD/agecare/unit/114~116年新北市長照特約單位名單1151007(居家服務、居家喘息、短照服務).pdf",
+  "sources": [
+    {
+      "document": "raw/ntpc-home-care-1151007.pdf",
+      "sha256": "dcb780dfe853f176849b366436c8cc3ac742b289759c0a8ec68106854e64cdef"
+    },
+    {
+      "document": "raw/ntpc-home-care-directory-2026-10-08.html",
+      "sha256": "68f0141e10719eb0615bbb388c48d84d4eef69d02cd100b4f8b079d2bf0a6479"
+    },
+    {
+      "document": "raw/ntpc-health-home-care-2026-10-08.html",
+      "sha256": "82d1c5bb6ad3f170813a9e24d1267824f81371a91dec9c6fe8b80e86a3fdecfe"
+    },
+    {
+      "document": "raw/ntpc-home-care-366-public-extract.json",
+      "sha256": "526ce81bb3ffb4c4aaf3257810ad820bddaa4e8dacd5847e011a1dd5405ca208"
+    }
+  ],
+  "rows": [
+    {
+      "serial": 1,
+      "page": 1,
+      "sourceName": "台灣居護股份有限公司附設新北\n市私立聯承居家式服務類長期照\n顧服務機構",
+      "sourceAddress": "新北市板橋區永安里萬板路182\n號",
+      "sourcePhone": "02-6604-5036\n02-6604-3989",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、蘆洲、新店、\n三峽、土城、鶯歌、泰山、\n五股",
+      "providerId": "CAT-HC-NTPC-096045937B32",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 2,
+      "page": 1,
+      "sourceName": "台灣居護股份有限公司附設新北\n市私立聯和居家長照機構",
+      "sourceAddress": "新北市中和區泰安里042鄰景安\n路65號2樓",
+      "sourcePhone": "02-6604-3885",
+      "sourceServiceAreas": "中和、永和、新店",
+      "providerId": "CAT-HC-NTPC-C02059E0E81E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 3,
+      "page": 1,
+      "sourceName": "台灣居護股份有限公司附設新北\n市私立聯宜居家長照機構",
+      "sourceAddress": "新北市樹林區樹興里017鄰啟智\n街80巷5號1樓",
+      "sourcePhone": "02-6604-4372\n02-6604-1312",
+      "sourceServiceAreas": "樹林、三峽、土城、鶯歌、\n平溪、雙溪、瑞芳、貢寮",
+      "providerId": "CAT-HC-NTPC-6C9ED523692D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "平溪區",
+        "雙溪區",
+        "瑞芳區",
+        "貢寮區"
+      ]
+    },
+    {
+      "serial": 4,
+      "page": 1,
+      "sourceName": "承源資業股份有限公司附設新北\n市私立聯恩居家長照機構",
+      "sourceAddress": "新北市三重區幸福里030鄰重陽\n路三段115號2樓",
+      "sourcePhone": "02-2989-9935\n#305",
+      "sourceServiceAreas": "三重、蘆洲、淡水",
+      "providerId": "CAT-HC-NTPC-783033AFAD85",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 5,
+      "page": 1,
+      "sourceName": "新北市私立寶喜悅居家長照機構",
+      "sourceAddress": "新北市永和區得和里011鄰中正\n路428巷3號1樓",
+      "sourcePhone": "02-2920-0060",
+      "sourceServiceAreas": "板橋、中和、永和、新店、\n林口",
+      "providerId": "CAT-HC-NTPC-33D48688D76D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "新店區",
+        "林口區"
+      ]
+    },
+    {
+      "serial": 6,
+      "page": 1,
+      "sourceName": "新北市私立全家居家長照機構",
+      "sourceAddress": "新北市板橋區華德里四川路二段\n237號6樓之2",
+      "sourcePhone": "02-8966-8228",
+      "sourceServiceAreas": "板橋、樹林、土城",
+      "providerId": "CAT-HC-NTPC-720CB05F3CE2",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 7,
+      "page": 1,
+      "sourceName": "新北市私立惠眾居家長照機構",
+      "sourceAddress": "新北市淡水區新市里005鄰中山\n北路二段225號4樓",
+      "sourcePhone": "0966-912-860",
+      "sourceServiceAreas": "五股、淡水、八里",
+      "providerId": "CAT-HC-NTPC-007BB3B72B56",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "五股區",
+        "淡水區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 8,
+      "page": 1,
+      "sourceName": "新北市私立溫馨居家長照機構",
+      "sourceAddress": "新北市樹林區和平里中華路61\n號1樓",
+      "sourcePhone": "02-8686-6101",
+      "sourceServiceAreas": "樹林、土城",
+      "providerId": "CAT-HC-NTPC-C4D0BBAA5AA1",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 9,
+      "page": 1,
+      "sourceName": "臺北市私立跑居家長照機構",
+      "sourceAddress": "台北市士林區重慶北路四段250\n號3樓313室",
+      "sourcePhone": "02-2816-1255",
+      "sourceServiceAreas": "新莊、三重、蘆洲、五股",
+      "providerId": "TP-HC-113",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 10,
+      "page": 1,
+      "sourceName": "築燭有限公司附設新北市私立心\n地居家長照機構",
+      "sourceAddress": "新北市中和區平河里建康路89\n號3樓11室",
+      "sourcePhone": "02-7752-2588\n#101",
+      "sourceServiceAreas": "中和",
+      "providerId": "CAT-HC-NTPC-4CC99F248111",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區"
+      ]
+    },
+    {
+      "serial": 11,
+      "page": 1,
+      "sourceName": "新北市私立陽光居家長照機構",
+      "sourceAddress": "新北市中和區景平里安樂路18\n之1號7樓",
+      "sourcePhone": "02-2942-0135",
+      "sourceServiceAreas": "板橋、中和、永和",
+      "providerId": "CAT-HC-NTPC-837BC0D87404",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 12,
+      "page": 1,
+      "sourceName": "三木居家長照有限公司附設新北\n市私立三木居家長照機構\n(暫停派案至11/5)",
+      "sourceAddress": "新北市永和區信義里中山路一段\n24號2樓(A05室)",
+      "sourcePhone": "02-8660-4365",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、蘆洲、新店",
+      "providerId": "CAT-HC-NTPC-78959D434442",
+      "status": "ADDED_SUSPENDED",
+      "outsideLocatedCity": false,
+      "suspended": true,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 13,
+      "page": 1,
+      "sourceName": "家心照服庭院股份有限公司附設\n新北市私立家心居家長照機構",
+      "sourceAddress": "新北市永和區豫溪里中正路666\n巷27號1樓",
+      "sourcePhone": "02-2950-9009",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、蘆洲、新店、\n三峽、土城、鶯歌、林口、\n五股、淡水",
+      "providerId": "CAT-HC-NTPC-66605360C0AA",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "林口區",
+        "五股區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 14,
+      "page": 1,
+      "sourceName": "熊大心有限公司附設新北市私立\n熊大心居家長照機構",
+      "sourceAddress": "新北市汐止區中興里006鄰福德\n一路262號3樓",
+      "sourcePhone": "02-2695-0103",
+      "sourceServiceAreas": "汐止、深坑、石碇",
+      "providerId": "CAT-HC-NTPC-045A02DE5B03",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "汐止區",
+        "深坑區",
+        "石碇區"
+      ]
+    },
+    {
+      "serial": 15,
+      "page": 1,
+      "sourceName": "台灣頤樂園有限公司附設新北市\n私立熊大心居家長照機構",
+      "sourceAddress": "新北市新莊區中原里新北大道四\n段171號2樓(YS206室)",
+      "sourcePhone": "0987-132-111",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n土城、泰山",
+      "providerId": "CAT-HC-NTPC-C1956A56B4EC",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "土城區",
+        "泰山區"
+      ]
+    },
+    {
+      "serial": 16,
+      "page": 2,
+      "sourceName": "財團法人台灣省私立健順養護中\n心附設新北市私立健順居家式服\n務類長期照顧服務機構",
+      "sourceAddress": "新北市中和區秀仁里大勇街96\n號2樓",
+      "sourcePhone": "02-8942-3255\n#10",
+      "sourceServiceAreas": "板橋、中和、永和、新店",
+      "providerId": "TP-HC-136",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 17,
+      "page": 2,
+      "sourceName": "財團法人台灣省私立健順養護中\n心附設新北市私立新店柴埕社區\n長照機構",
+      "sourceAddress": "新北市新店區柴埕里安民街79\n號4、5樓",
+      "sourcePhone": "02-2212-1753",
+      "sourceServiceAreas": "中和、永和、新店",
+      "providerId": "CAT-HC-NTPC-20CEB454D673",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 18,
+      "page": 2,
+      "sourceName": "順心居家長照有限公司附設新北\n市私立順心居家長照機構",
+      "sourceAddress": "新北市板橋區和平里016鄰和平\n路安樂巷53號1樓",
+      "sourcePhone": "02-2265-1155",
+      "sourceServiceAreas": "板橋、樹林、中和、土城",
+      "providerId": "CAT-HC-NTPC-9DD4A4F8626A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "中和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 19,
+      "page": 2,
+      "sourceName": "新北市私立嘉豐居家長照機構",
+      "sourceAddress": "新北市板橋區崑崙里沙崙街29-7\n號1樓",
+      "sourcePhone": "02-8687-2227",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n三峽、土城",
+      "providerId": "CAT-HC-NTPC-BF4B6EAE5D56",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "三峽區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 20,
+      "page": 2,
+      "sourceName": "清佳居家服務股份有限公司附設\n新北市私立清佳居家長照機構",
+      "sourceAddress": "新北市板橋區新民里文化路一段\n188巷16號3樓",
+      "sourcePhone": "0973-260-118",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n土城",
+      "providerId": "CAT-HC-NTPC-D1D50F726A3E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 21,
+      "page": 2,
+      "sourceName": "品佳居家有限公司附設新北市私\n立品佳居家長照機構",
+      "sourceAddress": "新北市淡水區竹圍里001鄰民權\n路111號3樓B04室",
+      "sourcePhone": "0911-233-198",
+      "sourceServiceAreas": "淡水、八里、三芝",
+      "providerId": "CAT-HC-NTPC-47876CB7326C",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "八里區",
+        "三芝區"
+      ]
+    },
+    {
+      "serial": 22,
+      "page": 2,
+      "sourceName": "新北市私立寸草心居家長照機構",
+      "sourceAddress": "新北市新店區大豐里005鄰建國\n路198巷25號1樓",
+      "sourcePhone": "02-7713-6966",
+      "sourceServiceAreas": "中和、永和、新店、烏來",
+      "providerId": "CAT-HC-NTPC-0510F2655E06",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區",
+        "烏來區"
+      ]
+    },
+    {
+      "serial": 23,
+      "page": 2,
+      "sourceName": "思暮長期照護有限公司附設新北\n市私立思暮居家長照機構",
+      "sourceAddress": "新北市新店區寶興里001鄰北新\n路二段262號3樓之3(B室)",
+      "sourcePhone": "02-6604-1780",
+      "sourceServiceAreas": "新店",
+      "providerId": "CAT-HC-NTPC-C014A381F100",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新店區"
+      ]
+    },
+    {
+      "serial": 24,
+      "page": 2,
+      "sourceName": "象心力股份有限公司附設新北市\n私立象心力居家長照機構",
+      "sourceAddress": "新北市新店區寶興里018鄰寶元\n路二段72號1樓",
+      "sourcePhone": "02-2218-8655",
+      "sourceServiceAreas": "中和、新店",
+      "providerId": "CAT-HC-NTPC-B63B99F05002",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 25,
+      "page": 2,
+      "sourceName": "新北市私立立新居家長照機構",
+      "sourceAddress": "新北市新莊區中原里新北大道四\n段179號16樓之5",
+      "sourcePhone": "02-8522-9153\n0975-824-913",
+      "sourceServiceAreas": "新莊",
+      "providerId": "CAT-HC-NTPC-570E266ABB4F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區"
+      ]
+    },
+    {
+      "serial": 26,
+      "page": 2,
+      "sourceName": "橙松有限公司附設新北市私立橙\n松居家長照機構",
+      "sourceAddress": "新北市中和區中山里中正路515\n號2樓之2室",
+      "sourcePhone": "02-2228-6567",
+      "sourceServiceAreas": "中和、永和",
+      "providerId": "CAT-HC-NTPC-E8094894430C",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 27,
+      "page": 2,
+      "sourceName": "允馨居家長照有限公司附設新北\n市私立允馨居家長照機構",
+      "sourceAddress": "新北市淡水區學府里英專路226\n號",
+      "sourcePhone": "02-2620-0640\n#10",
+      "sourceServiceAreas": "淡水",
+      "providerId": "CAT-HC-NTPC-164F007A58D4",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 28,
+      "page": 2,
+      "sourceName": "普眾股份有限公司附設臺北市私\n立普眾居家長照機構",
+      "sourceAddress": "台北市南港區新光里昆陽街152\n巷39號1樓",
+      "sourcePhone": "02-2788-7966",
+      "sourceServiceAreas": "中和、永和、新店、汐止",
+      "providerId": "TP-HC-011",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區",
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 29,
+      "page": 2,
+      "sourceName": "桃園市私立旭登居家式服務類長\n期照顧服務機構",
+      "sourceAddress": "桃園市桃園區大林里樹仁三街\n96號2樓",
+      "sourcePhone": "03-218-1190\n#6221",
+      "sourceServiceAreas": "鶯歌、林口",
+      "providerId": "CAT-HC-NTPC-01BE98307148",
+      "status": "ADDED",
+      "outsideLocatedCity": true,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "鶯歌區",
+        "林口區"
+      ]
+    },
+    {
+      "serial": 30,
+      "page": 2,
+      "sourceName": "新北市私立佳嘉居家長照機構",
+      "sourceAddress": "新北市八里區荖阡里訊塘路3號\n3樓",
+      "sourcePhone": "02-2619-5676",
+      "sourceServiceAreas": "八里",
+      "providerId": "CAT-HC-NTPC-92C19898A72A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "八里區"
+      ]
+    },
+    {
+      "serial": 31,
+      "page": 2,
+      "sourceName": "新北市私立全心居家長照機構",
+      "sourceAddress": "新北市三重區正安里015鄰長壽\n西街107號",
+      "sourcePhone": "02-7705-9298\n#301",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、蘆洲、三峽、土城、\n鶯歌、泰山、五股、淡水、\n八里",
+      "providerId": "CAT-HC-NTPC-8D160023B805",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "泰山區",
+        "五股區",
+        "淡水區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 32,
+      "page": 3,
+      "sourceName": "全醫好健康有限公司附設新北市\n私立十全居家長照機構",
+      "sourceAddress": "新北市三重區正安里015鄰長壽\n西街109號2樓",
+      "sourcePhone": "0966-422-754",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-5D2CCB1B163E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 33,
+      "page": 3,
+      "sourceName": "社團法人新北市照顧服務協會附\n設新北市私立金禾心居家長照機\n構",
+      "sourceAddress": "新北市中和區中原里014鄰中正\n路901號2樓之1(208室)",
+      "sourcePhone": "0966-226-086",
+      "sourceServiceAreas": "板橋、中和、永和",
+      "providerId": "CAT-HC-NTPC-030F79E587E7",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 34,
+      "page": 3,
+      "sourceName": "新北市私立禾心居家長照機構",
+      "sourceAddress": "新北市板橋區新民里007鄰文化\n路一段178號3樓",
+      "sourcePhone": "0986-790-084",
+      "sourceServiceAreas": "板橋、永和、土城",
+      "providerId": "CAT-HC-NTPC-582EE27135C3",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "永和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 35,
+      "page": 3,
+      "sourceName": "湖水綠簡單生活有限公司附設新\n北市私立連城居家長照機構",
+      "sourceAddress": "新北市中和區平河里067鄰中正\n路689號2樓206室",
+      "sourcePhone": "02-2308-1211",
+      "sourceServiceAreas": "板橋、樹林、中和、永和、\n新店、三峽、土城、鶯歌",
+      "providerId": "CAT-HC-NTPC-DE067446CEE2",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "中和區",
+        "永和區",
+        "新店區",
+        "三峽區",
+        "土城區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 36,
+      "page": 3,
+      "sourceName": "湖水綠簡單生活有限公司附設新\n北市私立佑明居家長照機構",
+      "sourceAddress": "新北市三峽區鳶山里013鄰復興\n路365號5樓",
+      "sourcePhone": "02-2308-1286",
+      "sourceServiceAreas": "樹林、三峽、鶯歌",
+      "providerId": "CAT-HC-NTPC-AA170AB74692",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "三峽區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 37,
+      "page": 3,
+      "sourceName": "新北市私立家興居家長照機構",
+      "sourceAddress": "新北市板橋區大豐里重慶路278\n巷6號1樓",
+      "sourcePhone": "02-8966-0206\n#11",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n土城",
+      "providerId": "CAT-HC-NTPC-03BDAE90B166",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 38,
+      "page": 3,
+      "sourceName": "新北市私立文華居家長照機構",
+      "sourceAddress": "新北市板橋區文翠里014鄰民治\n街8巷2號2樓",
+      "sourcePhone": "0905-325-837",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、蘆洲、新店、\n三峽、土城、鶯歌、泰山、\n五股",
+      "providerId": "CAT-HC-NTPC-8B6E6C50F329",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 39,
+      "page": 3,
+      "sourceName": "寶安健康有限公司附設臺北市私\n立鑫安居家長照機構",
+      "sourceAddress": "台北市文山區興隆路三段206巷\n10弄1號1樓",
+      "sourcePhone": "02-2230-3056",
+      "sourceServiceAreas": "中和、永和、新店",
+      "providerId": "TP-HC-040",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 40,
+      "page": 3,
+      "sourceName": "新北市私立永安居家長照機構",
+      "sourceAddress": "新北市新店區福德里中正路399\n巷13號1樓",
+      "sourcePhone": "02-8665-6656",
+      "sourceServiceAreas": "中和、永和、新店、淡水",
+      "providerId": "TP-HC-121",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 41,
+      "page": 3,
+      "sourceName": "宇婕居家長照有限公司附設新北\n市私立宇婕居家長照機構",
+      "sourceAddress": "新北市瑞芳區龍潭里中山路5號\n3樓",
+      "sourcePhone": "0987-414-919",
+      "sourceServiceAreas": "瑞芳",
+      "providerId": "CAT-HC-NTPC-9B1D4824BA14",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "瑞芳區"
+      ]
+    },
+    {
+      "serial": 42,
+      "page": 3,
+      "sourceName": "美事居家長照有限公司附設新北\n市私立美事居家長照機構",
+      "sourceAddress": "新北市蘆洲區永康里永安南路二\n段328巷17弄8號",
+      "sourcePhone": "02-8286-0162",
+      "sourceServiceAreas": "新莊、三重、蘆洲、泰山、\n五股",
+      "providerId": "CAT-HC-NTPC-F05AFD7B4809",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 43,
+      "page": 3,
+      "sourceName": "新北市私立宜家居家長照機構",
+      "sourceAddress": "新北市三重區福德里集美街75\n巷27號1樓",
+      "sourcePhone": "02-8773-3752",
+      "sourceServiceAreas": "新莊、三重、林口",
+      "providerId": "CAT-HC-NTPC-8C908DCBA0A0",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "林口區"
+      ]
+    },
+    {
+      "serial": 44,
+      "page": 3,
+      "sourceName": "康杏銀髮事業股份有限公司附設\n新北市私立康杏銀髮居家長照機\n構",
+      "sourceAddress": "新北市中和區福真里中山路二段\n296號14樓之4",
+      "sourcePhone": "02-8228-2599",
+      "sourceServiceAreas": "板橋、中和、永和",
+      "providerId": "CAT-HC-NTPC-C1CA95E47B81",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 45,
+      "page": 3,
+      "sourceName": "新北市私立安豐居家長照機構",
+      "sourceAddress": "新北市永和區協和里永和路一段\n69號3樓(AL02)",
+      "sourcePhone": "0983-316-327",
+      "sourceServiceAreas": "板橋、中和、永和、三重",
+      "providerId": "CAT-HC-NTPC-ABE03FACCFD4",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "三重區"
+      ]
+    },
+    {
+      "serial": 46,
+      "page": 3,
+      "sourceName": "新北市私立佐臨服務居家長照機\n構",
+      "sourceAddress": "新北市板橋區富貴里010鄰三民\n路二段37號23樓之1",
+      "sourcePhone": "02-2964-3698",
+      "sourceServiceAreas": "板橋、中和、永和",
+      "providerId": "CAT-HC-NTPC-B9E7AAF18822",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 47,
+      "page": 3,
+      "sourceName": "新北市私立禾康居家長照機構",
+      "sourceAddress": "新北市板橋區後埔里004鄰重慶\n路89巷53號5樓",
+      "sourcePhone": "02-2952-4000",
+      "sourceServiceAreas": "板橋、樹林、中和、三峽、\n土城",
+      "providerId": "CAT-HC-NTPC-3A64769317C1",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "中和區",
+        "三峽區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 48,
+      "page": 4,
+      "sourceName": "新北市私立一芯居家長照機構",
+      "sourceAddress": "新北市深坑區埔新里埔新街58\n巷38號",
+      "sourcePhone": "02-2662-1688",
+      "sourceServiceAreas": "淡水、金山、萬里、深坑、\n石碇",
+      "providerId": "CAT-HC-NTPC-57CE11061DF0",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "金山區",
+        "萬里區",
+        "深坑區",
+        "石碇區"
+      ]
+    },
+    {
+      "serial": 49,
+      "page": 4,
+      "sourceName": "聯安長照股份有限公司附設新北\n市私立聯安居家長照機構",
+      "sourceAddress": "新北市新莊區中美里022鄰中港\n路240號2樓",
+      "sourcePhone": "02-2996-0123",
+      "sourceServiceAreas": "新莊",
+      "providerId": "CAT-HC-NTPC-1791B3B7E03E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區"
+      ]
+    },
+    {
+      "serial": 50,
+      "page": 4,
+      "sourceName": "全能居家長照有限公司附設新北\n市私立全能居家長照機構",
+      "sourceAddress": "新北市新莊區民安里民安西路\n38巷19號",
+      "sourcePhone": "02-2202-9025",
+      "sourceServiceAreas": "板橋、樹林、新莊、三重、\n土城、泰山、五股",
+      "providerId": "CAT-HC-NTPC-FD3EE228D5AD",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "三重區",
+        "土城區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 51,
+      "page": 4,
+      "sourceName": "安泰居家有限公司附設新北市私\n立安泰居家長照機構",
+      "sourceAddress": "新北市新莊區昌平里001鄰思源\n路601號5樓A9",
+      "sourcePhone": "02-7729-1855",
+      "sourceServiceAreas": "新莊、五股",
+      "providerId": "CAT-HC-NTPC-3FFFA2BB02CF",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 52,
+      "page": 4,
+      "sourceName": "財團法人新北市私立雙連社會福\n利慈善事業基金會附設新北市私\n立雙連居家長照機構",
+      "sourceAddress": "新北市新莊區昌平里中央路51\n號3樓\n辦公：新北市淡水區中正路二段\n18號3樓",
+      "sourcePhone": "02-8521-7872\n#320",
+      "sourceServiceAreas": "淡水、三芝、石門",
+      "providerId": "CAT-HC-NTPC-ECDE4912064A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "三芝區",
+        "石門區"
+      ]
+    },
+    {
+      "serial": 53,
+      "page": 4,
+      "sourceName": "新北市私立幸福居家長照機構",
+      "sourceAddress": "新北市板橋區新翠里互助街17\n號1樓",
+      "sourcePhone": "02-8258-1317\n0916-379-517",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、土城",
+      "providerId": "CAT-HC-NTPC-EB5DBC0F293A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 54,
+      "page": 4,
+      "sourceName": "顧佳居家長照事業附設新北市私\n立顧佳居家長照機構",
+      "sourceAddress": "新北市淡水區新民里5鄰新民街\n120巷21號2樓",
+      "sourcePhone": "02-7730-1733",
+      "sourceServiceAreas": "淡水、八里、三芝",
+      "providerId": "CAT-HC-NTPC-A917706E7F9D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "八里區",
+        "三芝區"
+      ]
+    },
+    {
+      "serial": 55,
+      "page": 4,
+      "sourceName": "顧佳股份有限公司附設新北市私\n立顧好佳居家長照機構",
+      "sourceAddress": "新北市三重區溪美里005鄰仁政\n街82號2樓",
+      "sourcePhone": "02-8988-3011",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-81501772FC7E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 56,
+      "page": 4,
+      "sourceName": "新北市私立佳護居家長照機構",
+      "sourceAddress": "新北市三重區永清里永福街47\n號4樓",
+      "sourcePhone": "0908-198-293",
+      "sourceServiceAreas": "新莊、三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-4D387B90C978",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 57,
+      "page": 4,
+      "sourceName": "新北市私立上好居家長照機構",
+      "sourceAddress": "新北市土城區員林里中央路二段\n191號8樓之6",
+      "sourcePhone": "0900-196-602",
+      "sourceServiceAreas": "板橋、中和、土城",
+      "providerId": "CAT-HC-NTPC-0F65B0A59305",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 58,
+      "page": 4,
+      "sourceName": "天天關懷健康生活股份有限公司\n附設新北市私立真承居家長照機\n構",
+      "sourceAddress": "新北市土城區頂埔里中央路四段\n76之9號2樓",
+      "sourcePhone": "02-2268-0166",
+      "sourceServiceAreas": "板橋、樹林、中和、三峽、\n土城",
+      "providerId": "CAT-HC-NTPC-1DCD01BB444A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "中和區",
+        "三峽區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 59,
+      "page": 4,
+      "sourceName": "新北市私立佳恩居家長照機構",
+      "sourceAddress": "新北市中和區中山里中正路500\n號2樓",
+      "sourcePhone": "02-8663-8758",
+      "sourceServiceAreas": "中和、永和、新店",
+      "providerId": "CAT-HC-NTPC-167A494AD4A6",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 60,
+      "page": 4,
+      "sourceName": "新北市私立金安心居家長照機構",
+      "sourceAddress": "新北市永和區協和里005鄰保平\n路93巷2弄6號\n遷址：新北市中和區中原里014\n鄰中正路901號2樓之1(222室)",
+      "sourcePhone": "02-2226-1858",
+      "sourceServiceAreas": "板橋、中和、永和、土城",
+      "providerId": "CAT-HC-NTPC-0FC26291FBFC",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 61,
+      "page": 4,
+      "sourceName": "承羲有限公司附設新北市私立承\n羲居家長照機構",
+      "sourceAddress": "新北市板橋區文化里006鄰光武\n街50巷3號3樓",
+      "sourcePhone": "0931-067-253",
+      "sourceServiceAreas": "板橋、永和",
+      "providerId": "CAT-HC-NTPC-FA1D0420E119",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 62,
+      "page": 4,
+      "sourceName": "有限責任新北市愛齡照護服務勞\n動合作社附設新北市私立到咖手\n居家長照機構",
+      "sourceAddress": "新北市板橋區忠翠里020鄰雙十\n路二段153號4樓",
+      "sourcePhone": "02-2272-6233",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、新店、土城",
+      "providerId": "TP-HC-126",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "新店區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 63,
+      "page": 5,
+      "sourceName": "澄和有限公司附設新北市私立宜\n和居家長照機構",
+      "sourceAddress": "新北市板橋區新民里002鄰漢生\n東路21號9樓",
+      "sourcePhone": "0910-992-312",
+      "sourceServiceAreas": "板橋、新莊、中和、永和",
+      "providerId": "CAT-HC-NTPC-E78448F01BF6",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 64,
+      "page": 5,
+      "sourceName": "明倉健康事業股份有限公司附設\n新北市私立明倉居家長照機構",
+      "sourceAddress": "新北市林口區麗林里忠孝路376\n巷53號1樓",
+      "sourcePhone": "02-2609-6468",
+      "sourceServiceAreas": "板橋、樹林、新莊、泰山、\n林口、五股",
+      "providerId": "CAT-HC-NTPC-E9E8EE3A9956",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "泰山區",
+        "林口區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 65,
+      "page": 5,
+      "sourceName": "樂田健康生活有限公司附設新北\n市私立樂田居家長照機構",
+      "sourceAddress": "新北市樹林區柑園里學林路13\n號2樓",
+      "sourcePhone": "02-2680-8000",
+      "sourceServiceAreas": "板橋、樹林、三峽、土城、\n鶯歌",
+      "providerId": "CAT-HC-NTPC-64B31157CDC1",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "三峽區",
+        "土城區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 66,
+      "page": 5,
+      "sourceName": "抵家長期照顧股份有限公司附設\n新北市私立抵家居家長照機構",
+      "sourceAddress": "新北市三重區大有里001鄰三民\n街317巷1號",
+      "sourcePhone": "02-2989-0001",
+      "sourceServiceAreas": "板橋、新莊、三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-C41825444C4B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 67,
+      "page": 5,
+      "sourceName": "奇恩健康有限公司附設新北市私\n立奇恩居家長照機構",
+      "sourceAddress": "新北市三重區成功里成功路68\n之3號1樓",
+      "sourcePhone": "02-2974-0666",
+      "sourceServiceAreas": "新莊、三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-93B933834486",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 68,
+      "page": 5,
+      "sourceName": "奇恩健康有限公司附設新北市私\n立育富居家長照機構",
+      "sourceAddress": "新北市五股區五股里007鄰民義\n路一段46之1號1樓",
+      "sourcePhone": "02-2295-2100\n0986-221-778",
+      "sourceServiceAreas": "泰山、五股",
+      "providerId": "CAT-HC-NTPC-1A4C3759499A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 69,
+      "page": 5,
+      "sourceName": "長樂健康事業有限公司附設新北\n市私立長樂居家長照機構",
+      "sourceAddress": "新北市樹林區南園里大有路63\n號1樓",
+      "sourcePhone": "02-7752-7659",
+      "sourceServiceAreas": "樹林、三峽、土城、鶯歌",
+      "providerId": "CAT-HC-NTPC-50CCE14540E3",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "三峽區",
+        "土城區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 70,
+      "page": 5,
+      "sourceName": "社團法人中華民國照顧服務員專\n業發展協會附設新北市私立照顧\n服務員居家式服務類長期照顧服\n務機構",
+      "sourceAddress": "新北市土城區清水里青仁路22\n號1樓",
+      "sourcePhone": "02-2265-1680",
+      "sourceServiceAreas": "土城、貢寮",
+      "providerId": "CAT-HC-NTPC-7D1F2A2EECFC",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "土城區",
+        "貢寮區"
+      ]
+    },
+    {
+      "serial": 71,
+      "page": 5,
+      "sourceName": "豐悠活有限公司附設新北市私立\n豐悠活居家長照機構",
+      "sourceAddress": "新北市中和區中原里中正路920\n號3樓308室",
+      "sourcePhone": "0932-397-787",
+      "sourceServiceAreas": "中和",
+      "providerId": "CAT-HC-NTPC-2236CA9FF088",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區"
+      ]
+    },
+    {
+      "serial": 72,
+      "page": 5,
+      "sourceName": "邦鄰居家服務有限公司附設新北\n市私立邦鄰居家長照機構",
+      "sourceAddress": "新北市中和區平河里建康路89\n號3樓9室",
+      "sourcePhone": "02-8228-1850",
+      "sourceServiceAreas": "板橋、中和、永和、新店",
+      "providerId": "CAT-HC-NTPC-10E5754D0002",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 73,
+      "page": 5,
+      "sourceName": "新北市私立康圓居家長照機構",
+      "sourceAddress": "新北市中和區福善里中山路二段\n228號12樓之15",
+      "sourcePhone": "02-2246-6289",
+      "sourceServiceAreas": "中和、永和",
+      "providerId": "CAT-HC-NTPC-B9AFF20954EC",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 74,
+      "page": 5,
+      "sourceName": "微笑關懷健康有限公司附設新北\n市私立馨悅居家長照機構",
+      "sourceAddress": "新北市永和區店街里福和路309\n巷20弄9號1樓",
+      "sourcePhone": "02-7755-1299",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、新店",
+      "providerId": "CAT-HC-NTPC-B02253B9AB58",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 75,
+      "page": 5,
+      "sourceName": "微笑長照整合服務股份有限公司\n附設新北市私立微笑居家長照機\n構",
+      "sourceAddress": "新北市泰山區新明里民國街48\n號",
+      "sourcePhone": "02-2994-0060",
+      "sourceServiceAreas": "樹林、新莊、三重、泰山",
+      "providerId": "CAT-HC-NTPC-E15C984BF016",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "新莊區",
+        "三重區",
+        "泰山區"
+      ]
+    },
+    {
+      "serial": 76,
+      "page": 5,
+      "sourceName": "龍騰長期照護有限公司附設新北\n市私立童馨園居家長照機構",
+      "sourceAddress": "新北市板橋區流芳里東門街32\n號3樓",
+      "sourcePhone": "0919-319-207",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n三重、三峽、土城、鶯歌、\n林口",
+      "providerId": "TP-HC-125",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "三重區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "林口區"
+      ]
+    },
+    {
+      "serial": 77,
+      "page": 5,
+      "sourceName": "惠生活事業股份有限公司附設新\n北市私立惠生活居家長照機構",
+      "sourceAddress": "新北市板橋區景星里011鄰中山\n路一段10號11樓1150室",
+      "sourcePhone": "02-2955-7698",
+      "sourceServiceAreas": "板橋、樹林",
+      "providerId": "CAT-HC-NTPC-4011883D80E8",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 78,
+      "page": 5,
+      "sourceName": "新北市私立百禾居家長照機構",
+      "sourceAddress": "新北市板橋區鄉雲里010鄰四川\n路二段16巷10號9樓",
+      "sourcePhone": "02-2951-1228",
+      "sourceServiceAreas": "板橋、樹林、中和、永和、\n土城",
+      "providerId": "CAT-HC-NTPC-F960FED7E39B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "中和區",
+        "永和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 79,
+      "page": 6,
+      "sourceName": "新北市私立佳耀居家長照機構",
+      "sourceAddress": "新北市淡水區幸福里學府路75\n號",
+      "sourcePhone": "02-2625-7846\n02-7728-7275\n0978-943-348",
+      "sourceServiceAreas": "板橋、中和、永和、三重、\n蘆洲、新店、淡水、八里",
+      "providerId": "CAT-HC-NTPC-39FBC5FBC0FD",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "淡水區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 80,
+      "page": 6,
+      "sourceName": "利鎮物業管理顧問有限公司附設\n新北市私立淡水義山綜合長照機\n構",
+      "sourceAddress": "新北市淡水區義山里奎柔山路3\n號1樓",
+      "sourcePhone": "02-2625-0102",
+      "sourceServiceAreas": "淡水",
+      "providerId": "CAT-HC-NTPC-4D86810CB543",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 81,
+      "page": 6,
+      "sourceName": "利鎮物業管理顧問有限公司附設\n新北市私立利鎮居家長照機構",
+      "sourceAddress": "新北市汐止區福安里仁愛路193\n號1樓",
+      "sourcePhone": "0963-328-933",
+      "sourceServiceAreas": "汐止",
+      "providerId": "CAT-HC-NTPC-C4045318B7A8",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 82,
+      "page": 6,
+      "sourceName": "福鷺社會企業股份有限公司附設\n新北市私立福鷺居家長照機構",
+      "sourceAddress": "新北市蘆洲區光華里004鄰光華\n路41巷7號",
+      "sourcePhone": "02-8285-8300",
+      "sourceServiceAreas": "三重、蘆洲、五股",
+      "providerId": "CAT-HC-NTPC-0C0CBC1533BD",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 83,
+      "page": 6,
+      "sourceName": "明智銀髮股份有限公司附設新北\n市私立明志居家長照機構",
+      "sourceAddress": "新北市三重區中山里中正北路\n15號4樓",
+      "sourcePhone": "02-2308-0323",
+      "sourceServiceAreas": "新莊、三重、蘆洲、泰山",
+      "providerId": "CAT-HC-NTPC-94161AB2E89B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區"
+      ]
+    },
+    {
+      "serial": 84,
+      "page": 6,
+      "sourceName": "順享有限公司附設新北市私立順\n享居家長照機構",
+      "sourceAddress": "新北市三重區過田里三寧街31\n號1樓",
+      "sourcePhone": "02-2988-9968",
+      "sourceServiceAreas": "板橋、新莊、三重",
+      "providerId": "CAT-HC-NTPC-75E93AEC2CB3",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "三重區"
+      ]
+    },
+    {
+      "serial": 85,
+      "page": 6,
+      "sourceName": "恆愛實業有限公司附設新北市私\n立恆愛居家長照機構",
+      "sourceAddress": "新北市三重區福祉里019鄰重新\n路四段89號10樓A室",
+      "sourcePhone": "02-2977-5001\n0938-928-283",
+      "sourceServiceAreas": "新莊、三重、蘆洲、泰山、\n五股",
+      "providerId": "CAT-HC-NTPC-F6BA3E3484CA",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 86,
+      "page": 6,
+      "sourceName": "達特窩可事業有限公司附設新北\n市私立賴夫居家長照機構",
+      "sourceAddress": "新北市新莊區思源里自立街250\n號2樓",
+      "sourcePhone": "02-2996-5776\n0918-237-138",
+      "sourceServiceAreas": "三峽",
+      "providerId": "CAT-HC-NTPC-FF1F41ADD408",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三峽區"
+      ]
+    },
+    {
+      "serial": 87,
+      "page": 6,
+      "sourceName": "社團法人台灣立享長照服務教育\n發展協會附設新北市私立立享居\n家長照機構",
+      "sourceAddress": "新北市中和區中原里011鄰橋安\n街9號7樓\n辦公：新北市三重區重新路二段\n64號4樓",
+      "sourcePhone": "02-2248-0061\n#236",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、蘆洲、新店、土城、\n五股",
+      "providerId": "TP-HC-135",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "土城區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 88,
+      "page": 6,
+      "sourceName": "新北市私立立穎居家長照機構",
+      "sourceAddress": "新北市中和區中原里立德街204\n號3樓",
+      "sourcePhone": "02-8668-6651",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n土城、淡水、三芝、石門、\n烏來",
+      "providerId": "TP-HC-134",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "土城區",
+        "淡水區",
+        "三芝區",
+        "石門區",
+        "烏來區"
+      ]
+    },
+    {
+      "serial": 89,
+      "page": 6,
+      "sourceName": "碩穎健康股份有限公司附設新北\n市私立宜佳居家長照機構",
+      "sourceAddress": "新北市新店區新生里008鄰北新\n路一段157之2號1樓5室",
+      "sourcePhone": "02-8919-3118\n0968-212-286",
+      "sourceServiceAreas": "新店、烏來",
+      "providerId": "CAT-HC-NTPC-866028163A1B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新店區",
+        "烏來區"
+      ]
+    },
+    {
+      "serial": 90,
+      "page": 6,
+      "sourceName": "欣亞長期照顧事業有限公司附設\n新北市私立中和圓通居家長照機\n構",
+      "sourceAddress": "新北市中和區正行里014鄰圓通\n路231號1~2樓",
+      "sourcePhone": "02-2245-5133",
+      "sourceServiceAreas": "中和",
+      "providerId": "CAT-HC-NTPC-63C3E0815F1C",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區"
+      ]
+    },
+    {
+      "serial": 91,
+      "page": 6,
+      "sourceName": "健康啟動管理顧問有限公司附設\n新北市私立穩健居家長照機構",
+      "sourceAddress": "新北市五股區福德里007鄰登林\n路96號6樓",
+      "sourcePhone": "02-2292-9155",
+      "sourceServiceAreas": "五股",
+      "providerId": "CAT-HC-NTPC-A3552BBE0FFD",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "五股區"
+      ]
+    },
+    {
+      "serial": 92,
+      "page": 6,
+      "sourceName": "吉雅健康股份有限公司附設新北\n市私立樂心居家長照機構",
+      "sourceAddress": "新北市永和區永貞里福和路159\n號3樓",
+      "sourcePhone": "02-8921-3138",
+      "sourceServiceAreas": "中和、永和、新店",
+      "providerId": "CAT-HC-NTPC-706C23F2667C",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 93,
+      "page": 6,
+      "sourceName": "皓仁健康照護事業有限公司附設\n新北市私立皓仁居家式服務類長\n期照顧服務機構",
+      "sourceAddress": "新北市汐止區大同里大同路二段\n240號11樓",
+      "sourcePhone": "02-2648-0680",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、汐止、瑞芳",
+      "providerId": "CAT-HC-NTPC-B33CD7E611FD",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "汐止區",
+        "瑞芳區"
+      ]
+    },
+    {
+      "serial": 94,
+      "page": 7,
+      "sourceName": "同佳有限公司附設新北市私立同\n佳居家長照機構",
+      "sourceAddress": "新北市板橋區公舘里007鄰文化\n路一段285巷69號1樓",
+      "sourcePhone": "02-2956-8616",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n土城",
+      "providerId": "CAT-HC-NTPC-9CE70E0A774D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 95,
+      "page": 7,
+      "sourceName": "仁合健康事業有限公司附設新北\n市私立仁合居家長照機構",
+      "sourceAddress": "新北市板橋區長安里長安街331\n巷30號1樓",
+      "sourcePhone": "02-2951-5789",
+      "sourceServiceAreas": "板橋、中和、永和、三重、\n土城、五股",
+      "providerId": "CAT-HC-NTPC-9467727CA6B3",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "土城區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 96,
+      "page": 7,
+      "sourceName": "暖和有限公司附設新北市私立昌\n泰居家長照機構",
+      "sourceAddress": "新北市板橋區鄉雲里003鄰中山\n路一段1號23樓(A03)",
+      "sourcePhone": "0937-944-291",
+      "sourceServiceAreas": "板橋、中和、永和",
+      "providerId": "CAT-HC-NTPC-FA61EABC0844",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 97,
+      "page": 7,
+      "sourceName": "新北市私立定緯居家長照機構",
+      "sourceAddress": "新北市板橋區崑崙里篤行路二段\n9號1樓",
+      "sourcePhone": "0902-443-313",
+      "sourceServiceAreas": "板橋、樹林、新莊",
+      "providerId": "CAT-HC-NTPC-4F2B8F597352",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區"
+      ]
+    },
+    {
+      "serial": 98,
+      "page": 7,
+      "sourceName": "醫療財團法人徐元智先生醫藥基\n金會附設新北市私立亞東居家長\n照機構",
+      "sourceAddress": "新北市板橋區華東里南雅南路二\n段144巷6號2樓",
+      "sourcePhone": "02-8966-1189",
+      "sourceServiceAreas": "板橋、樹林、中和、土城",
+      "providerId": "CAT-HC-NTPC-69AB4F2ACEC0",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "中和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 99,
+      "page": 7,
+      "sourceName": "新北市私立禾安居家長照機構",
+      "sourceAddress": "新北市板橋區溪頭里012鄰華江\n一路578號8樓",
+      "sourcePhone": "02-2950-6287",
+      "sourceServiceAreas": "板橋、中和、永和、土城",
+      "providerId": "CAT-HC-NTPC-33D99D4F667B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 100,
+      "page": 7,
+      "sourceName": "新北市私立御安居家長照機構",
+      "sourceAddress": "新北市板橋區龍翠里014鄰雙十\n路二段10之1號7樓",
+      "sourcePhone": "0979-074-619",
+      "sourceServiceAreas": "板橋",
+      "providerId": "CAT-HC-NTPC-591C4105BD27",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區"
+      ]
+    },
+    {
+      "serial": 101,
+      "page": 7,
+      "sourceName": "財團法人新北市大樹社會福利基\n金會附設新北市私立林口仁愛綜\n合長照機構",
+      "sourceAddress": "新北市林口區仁愛里文化一路一\n段137號1樓",
+      "sourcePhone": "02-2606-8117",
+      "sourceServiceAreas": "林口",
+      "providerId": "CAT-HC-NTPC-4806490B8136",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "林口區"
+      ]
+    },
+    {
+      "serial": 102,
+      "page": 7,
+      "sourceName": "天使居長照財團法人附設新北市\n私立天使居居家長照機構",
+      "sourceAddress": "新北市林口區東勢里文化一路一\n段150之2號",
+      "sourcePhone": "02-2600-6088\n#58",
+      "sourceServiceAreas": "泰山、林口",
+      "providerId": "CAT-HC-NTPC-6B51F83CCEBC",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "泰山區",
+        "林口區"
+      ]
+    },
+    {
+      "serial": 103,
+      "page": 7,
+      "sourceName": "財團法人天主教主顧修女會附設\n新北市私立泰山奇蹟之家綜合長\n照機構",
+      "sourceAddress": "新北市泰山區泰友里014鄰新生\n路4號",
+      "sourcePhone": "02-2906-2242\n#310",
+      "sourceServiceAreas": "泰山",
+      "providerId": "CAT-HC-NTPC-21D50BA1204B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "泰山區"
+      ]
+    },
+    {
+      "serial": 104,
+      "page": 7,
+      "sourceName": "新北市私立晨曦居家長照機構",
+      "sourceAddress": "新北市淡水區沙崙里008鄰濱海\n路三段146號2樓",
+      "sourcePhone": "0933-120-917",
+      "sourceServiceAreas": "淡水",
+      "providerId": "CAT-HC-NTPC-DEBEE3FAB877",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 105,
+      "page": 7,
+      "sourceName": "璟宇股份有限公司附設新北市私\n立不老居家長照機構",
+      "sourceAddress": "新北市新店區仁愛里001鄰北新\n路二段21號3樓",
+      "sourcePhone": "02-6604-0095",
+      "sourceServiceAreas": "新店",
+      "providerId": "CAT-HC-NTPC-95CC62F5320D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新店區"
+      ]
+    },
+    {
+      "serial": 106,
+      "page": 7,
+      "sourceName": "財團法人私立廣恩老人養護中心",
+      "sourceAddress": "新北市新店區員潭里北宜路二段\n579巷45號",
+      "sourcePhone": "02-2217-3517\n#636",
+      "sourceServiceAreas": "新莊、三重、蘆洲、新店、\n土城、五股、瑞芳",
+      "providerId": "TP-HC-120",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "土城區",
+        "五股區",
+        "瑞芳區"
+      ]
+    },
+    {
+      "serial": 107,
+      "page": 7,
+      "sourceName": "中化銀髮事業股份有限公司附設\n新北市私立中化銀髮居家長照機\n構",
+      "sourceAddress": "新北市中和區安和里安平路89\n之1號1~2樓",
+      "sourcePhone": "02-8668-0026",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、新店、土城",
+      "providerId": "CAT-HC-NTPC-5CBD8D746520",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "新店區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 108,
+      "page": 7,
+      "sourceName": "日馨居服實業有限公司附設新北\n市私立日馨居家長照機構",
+      "sourceAddress": "新北市中和區安樂里009鄰安平\n路178號2樓",
+      "sourcePhone": "02-2943-0133",
+      "sourceServiceAreas": "板橋、中和、三重",
+      "providerId": "CAT-HC-NTPC-67FC884549BE",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "三重區"
+      ]
+    },
+    {
+      "serial": 109,
+      "page": 7,
+      "sourceName": "美馨股份有限公司附設新北市私\n立美樺居家長照機構",
+      "sourceAddress": "新北市三重區過田里025鄰重新\n路四段53號11樓",
+      "sourcePhone": "0906-190-188",
+      "sourceServiceAreas": "新莊、三重",
+      "providerId": "CAT-HC-NTPC-2FB4419F0E05",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區"
+      ]
+    },
+    {
+      "serial": 110,
+      "page": 8,
+      "sourceName": "台灣受恩整合服務股份有限公司\n附設新北市私立受恩居家長照機\n構",
+      "sourceAddress": "新北市永和區得和里得和路103\n號3樓",
+      "sourcePhone": "02-8660-5972",
+      "sourceServiceAreas": "中和、永和",
+      "providerId": "CAT-HC-NTPC-ECE17541BEA5",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 111,
+      "page": 8,
+      "sourceName": "百恩居家長照有限公司附設新北\n市私立百恩居家長照機構",
+      "sourceAddress": "新北市汐止區城中里028鄰建成\n路59巷89號1樓",
+      "sourcePhone": "02-8691-0376",
+      "sourceServiceAreas": "汐止",
+      "providerId": "CAT-HC-NTPC-646EAC5EB9AD",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 112,
+      "page": 8,
+      "sourceName": "欣庭有限公司附設新北市私立欣\n庭居家長照機構",
+      "sourceAddress": "新北市林口區湖南里仁愛路二段\n502號13樓1305C室",
+      "sourcePhone": "02-7752-2509",
+      "sourceServiceAreas": "林口",
+      "providerId": "CAT-HC-NTPC-C48595F25678",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "林口區"
+      ]
+    },
+    {
+      "serial": 113,
+      "page": 8,
+      "sourceName": "新北市私立悠樂活居家長照機構",
+      "sourceAddress": "新北市林口區麗園里麗園一街6\n巷7號1樓之2",
+      "sourcePhone": "02-2608-5670\n0932-394-383",
+      "sourceServiceAreas": "新莊、泰山、林口",
+      "providerId": "CAT-HC-NTPC-B2B41BE90951",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "泰山區",
+        "林口區"
+      ]
+    },
+    {
+      "serial": 114,
+      "page": 8,
+      "sourceName": "新北市私立永康居家長照機構",
+      "sourceAddress": "新北市淡水區協元里006鄰重建\n街186號1樓",
+      "sourcePhone": "0955-007-006",
+      "sourceServiceAreas": "樹林、新莊、三重、蘆洲、\n淡水",
+      "providerId": "CAT-HC-NTPC-FD8A0A74EA78",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 115,
+      "page": 8,
+      "sourceName": "資深國明股份有限公司附設新北\n市私立國明居家長照機構",
+      "sourceAddress": "新北市新莊區中華里004鄰中華\n路二段7號5樓(YS-5401室)",
+      "sourcePhone": "0970-292-590",
+      "sourceServiceAreas": "板橋、新莊、三重",
+      "providerId": "CAT-HC-NTPC-544BF4D51061",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "三重區"
+      ]
+    },
+    {
+      "serial": 116,
+      "page": 8,
+      "sourceName": "明曜長期照護有限公司附設新北\n市私立明曜居家長照機構",
+      "sourceAddress": "新北市新莊區信義里006鄰思源\n路331號8樓之2\n遷址：新北市新莊區中安街27\n號2樓之2",
+      "sourcePhone": "0953-629-139",
+      "sourceServiceAreas": "板橋、新莊、中和、三重、\n蘆洲、泰山、五股",
+      "providerId": "CAT-HC-NTPC-4E4B4F7B61F3",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 117,
+      "page": 8,
+      "sourceName": "優福國際股份有限公司附設臺北\n市私立優福居家長照機構",
+      "sourceAddress": "台北市大同區景星里延平北路三\n段4號5樓(508室)",
+      "sourcePhone": "0919-866-187",
+      "sourceServiceAreas": "三重",
+      "providerId": "TP-HC-106",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "三重區"
+      ]
+    },
+    {
+      "serial": 118,
+      "page": 8,
+      "sourceName": "優居家長照有限公司附設新北市\n私立優居家長照機構",
+      "sourceAddress": "新北市中和區嘉慶里員山路109\n號13樓",
+      "sourcePhone": "0926-787-216",
+      "sourceServiceAreas": "板橋、中和",
+      "providerId": "CAT-HC-NTPC-CF6410D69399",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區"
+      ]
+    },
+    {
+      "serial": 119,
+      "page": 8,
+      "sourceName": "愛護家健康事業股份有限公司附\n設臺北市私立愛護家居家長照機\n構",
+      "sourceAddress": "台北市中山區晴光里中山北路三\n段31號7樓之1",
+      "sourcePhone": "02-2599-5665",
+      "sourceServiceAreas": "板橋、三重、蘆洲、淡水",
+      "providerId": "TP-HC-083",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "三重區",
+        "蘆洲區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 120,
+      "page": 8,
+      "sourceName": "居達健康事業有限公司附設基隆\n市私立居達居家長照機構",
+      "sourceAddress": "基隆市仁愛區仁一路133號12樓",
+      "sourcePhone": "0975-017-676",
+      "sourceServiceAreas": "汐止、深坑",
+      "providerId": "CAT-HC-NTPC-04385EAD5DB0",
+      "status": "ADDED",
+      "outsideLocatedCity": true,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "汐止區",
+        "深坑區"
+      ]
+    },
+    {
+      "serial": 121,
+      "page": 8,
+      "sourceName": "新北市私立親齡居家長照機構",
+      "sourceAddress": "新北市三芝區埔頭里長安街53\n巷6號",
+      "sourcePhone": "0926-556-297",
+      "sourceServiceAreas": "淡水、八里、三芝、石門、\n金山",
+      "providerId": "CAT-HC-NTPC-36B6F700895E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "八里區",
+        "三芝區",
+        "石門區",
+        "金山區"
+      ]
+    },
+    {
+      "serial": 122,
+      "page": 8,
+      "sourceName": "守歲健康股份有限公司附設新北\n市私立守歲居家長照機構",
+      "sourceAddress": "新北市三重區光田里011鄰重陽\n路一段120巷6號2樓",
+      "sourcePhone": "02-2984-9511",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-7B2B99B3E248",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 123,
+      "page": 8,
+      "sourceName": "聖光長照有限公司附設新北市私\n立聖光居家長照機構",
+      "sourceAddress": "新北市三重區永福里006鄰力行\n路二段176號2樓1室",
+      "sourcePhone": "02-7729-6488",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-B0E4D719DC16",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 124,
+      "page": 8,
+      "sourceName": "有限責任新北市全人長照服務勞\n動合作社附設新北市私立全人居\n家長照機構",
+      "sourceAddress": "新北市三重區光明里集美街112\n巷51號",
+      "sourcePhone": "02-2975-7512",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、蘆洲、五股",
+      "providerId": "TP-HC-138",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 125,
+      "page": 9,
+      "sourceName": "嘉陞健康事業股份有限公司附設\n新北市私立嘉陞居家長照機構",
+      "sourceAddress": "新北市三重區三民里011鄰重陽\n路二段46號1樓",
+      "sourcePhone": "02-2974-6671",
+      "sourceServiceAreas": "板橋、樹林、新莊、三重、\n蘆洲、泰山、林口、五股、\n八里",
+      "providerId": "CAT-HC-NTPC-3937121469B8",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "林口區",
+        "五股區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 126,
+      "page": 9,
+      "sourceName": "博森健康有限公司附設新北市私\n立博森居家長照機構",
+      "sourceAddress": "新北市新店區百忍里008鄰三民\n路84巷2號1樓",
+      "sourcePhone": "02-8911-2777",
+      "sourceServiceAreas": "板橋、中和、永和、新店、\n深坑、石碇",
+      "providerId": "CAT-HC-NTPC-A047C390A466",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "新店區",
+        "深坑區",
+        "石碇區"
+      ]
+    },
+    {
+      "serial": 127,
+      "page": 9,
+      "sourceName": "肯康樂活股份有限公司附設新北\n市私立肯康居家長照機構",
+      "sourceAddress": "新北市三峽區永舘里009鄰民生\n街106之2號3樓\n遷址：新北市三峽區民生街106\n之3號2樓F3室",
+      "sourcePhone": "0919-501-223",
+      "sourceServiceAreas": "三峽、鶯歌",
+      "providerId": "CAT-HC-NTPC-14AF81DF5D71",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三峽區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 128,
+      "page": 9,
+      "sourceName": "社團法人中華利仁社會福利協會\n附設新北市私立利仁居家長照機\n構",
+      "sourceAddress": "新北市土城區員林里中正路1號\n6樓之1",
+      "sourcePhone": "0955-010-078",
+      "sourceServiceAreas": "板橋、新莊、中和、三重、\n土城",
+      "providerId": "CAT-HC-NTPC-15EE389E813A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "三重區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 129,
+      "page": 9,
+      "sourceName": "新北市私立五棵松居家長照機構",
+      "sourceAddress": "新北市新店區中正里中正路125\n號3樓",
+      "sourcePhone": "02-2913-6700",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、新店、土城",
+      "providerId": "CAT-HC-NTPC-7E5C8CE7473F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "新店區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 130,
+      "page": 9,
+      "sourceName": "新北市私立十方倉居家長照機構",
+      "sourceAddress": "新北市中和區景安里006鄰景安\n路167巷30號1樓",
+      "sourcePhone": "02-2200-2007",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n新店",
+      "providerId": "CAT-HC-NTPC-04C4FF7F1F27",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 131,
+      "page": 9,
+      "sourceName": "善誠健康事業股份有限公司附設\n新北市私立善誠居家長照機構",
+      "sourceAddress": "新北市板橋區純翠里長江路二段\n142號1樓",
+      "sourcePhone": "02-2250-3520",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三峽、土城、林口、\n汐止",
+      "providerId": "CAT-HC-NTPC-C4F6408A3F7E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三峽區",
+        "土城區",
+        "林口區",
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 132,
+      "page": 9,
+      "sourceName": "善誠健康事業股份有限公司附設\n新北市私立三重善誠居家長照機\n構",
+      "sourceAddress": "新北市三重區崇德里仁愛街99\n號1樓",
+      "sourcePhone": "02-2970-2389\n0972-278-829",
+      "sourceServiceAreas": "新莊、三重、蘆洲、金山、\n萬里",
+      "providerId": "CAT-HC-NTPC-25C698B1B198",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "金山區",
+        "萬里區"
+      ]
+    },
+    {
+      "serial": 133,
+      "page": 9,
+      "sourceName": "善誠健康事業股份有限公司附設\n新北市私立林口善誠居家長照機\n構",
+      "sourceAddress": "新北市林口區湖南里021鄰文化\n三路二段77巷29號1樓\n遷址：新北市林口區吉祥路40\n號4樓(A1)",
+      "sourcePhone": "02-2600-1970\n0975-823-137",
+      "sourceServiceAreas": "泰山、林口、五股",
+      "providerId": "CAT-HC-NTPC-48F8189B058B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "泰山區",
+        "林口區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 134,
+      "page": 9,
+      "sourceName": "新北市私立秝達居家長照機構",
+      "sourceAddress": "新北市板橋區新翠里022鄰新海\n路330號2樓",
+      "sourcePhone": "0966-383-908",
+      "sourceServiceAreas": "板橋",
+      "providerId": "CAT-HC-NTPC-D785D9F17938",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區"
+      ]
+    },
+    {
+      "serial": 135,
+      "page": 9,
+      "sourceName": "浩盛國際人力顧問股份有限公司\n附設新北市私立浩盛居家長照機\n構",
+      "sourceAddress": "新北市新莊區立廷里034鄰立信\n三街25之9號",
+      "sourcePhone": "02-8522-9135",
+      "sourceServiceAreas": "新莊、三重、泰山",
+      "providerId": "CAT-HC-NTPC-809CDDFE3C36",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "泰山區"
+      ]
+    },
+    {
+      "serial": 136,
+      "page": 9,
+      "sourceName": "新北市私立諭安居家長照機構",
+      "sourceAddress": "新北市新莊區中原里中信街176\n號12樓之7",
+      "sourcePhone": "02-8521-2781",
+      "sourceServiceAreas": "樹林、新莊、三重",
+      "providerId": "CAT-HC-NTPC-A205ECF26C99",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "新莊區",
+        "三重區"
+      ]
+    },
+    {
+      "serial": 137,
+      "page": 9,
+      "sourceName": "博樂健康股份有限公司附設新北\n市私立博樂居家長照機構",
+      "sourceAddress": "新北市新莊區思源里011鄰思源\n路169號7樓",
+      "sourcePhone": "02-2279-6667",
+      "sourceServiceAreas": "板橋、新莊、三重、泰山、\n淡水",
+      "providerId": "CAT-HC-NTPC-DE6D54D47628",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "三重區",
+        "泰山區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 138,
+      "page": 9,
+      "sourceName": "新北市私立新頤居家長照機構",
+      "sourceAddress": "新北市蘆洲區水河里仁愛街116\n號1樓",
+      "sourcePhone": "02-2848-0021\n#22",
+      "sourceServiceAreas": "新莊、三重、蘆洲、泰山、\n五股、八里",
+      "providerId": "CAT-HC-NTPC-C061F878F274",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "五股區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 139,
+      "page": 10,
+      "sourceName": "熊樂心有限公司附設新北市私立\n熊樂心居家長照機構",
+      "sourceAddress": "新北市蘆洲區溪墘里014鄰中山\n一路161號3樓R03室",
+      "sourcePhone": "0900-644-846",
+      "sourceServiceAreas": "新莊、三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-11F04F05C845",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 140,
+      "page": 10,
+      "sourceName": "好日居家長照有限公司附設新北\n市私立好日居家長照機構",
+      "sourceAddress": "新北市蘆洲區永安里013鄰九芎\n街111號",
+      "sourcePhone": "02-8286-7492",
+      "sourceServiceAreas": "三重、蘆洲、五股",
+      "providerId": "CAT-HC-NTPC-A0CC53119D79",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 141,
+      "page": 10,
+      "sourceName": "財團法人伊甸社會福利基金會附\n設新北市私立居家式服務類長期\n照顧服務機構",
+      "sourceAddress": "新北市三峽區介壽里大同路64\n號2樓",
+      "sourcePhone": "02-8674-1338",
+      "sourceServiceAreas": "樹林、三峽、鶯歌、坪林",
+      "providerId": "CAT-HC-NTPC-A12276FB67D2",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "三峽區",
+        "鶯歌區",
+        "坪林區"
+      ]
+    },
+    {
+      "serial": 142,
+      "page": 10,
+      "sourceName": "財團法人伊甸社會福利基金會附\n設新北市私立樹林居家長照機構",
+      "sourceAddress": "新北市樹林區樹福里005鄰日新\n街30號1樓",
+      "sourcePhone": "02-2681-2021",
+      "sourceServiceAreas": "樹林",
+      "providerId": "CAT-HC-NTPC-354B1D658D78",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 143,
+      "page": 10,
+      "sourceName": "財團法人伊甸社會福利基金會附\n設新北市私立坪林居家長照機構",
+      "sourceAddress": "新北市坪林區坪林里006鄰北宜\n路八段186號1樓",
+      "sourcePhone": "02-2665-6032",
+      "sourceServiceAreas": "坪林",
+      "providerId": "CAT-HC-NTPC-FB3540B3C56F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "坪林區"
+      ]
+    },
+    {
+      "serial": 144,
+      "page": 10,
+      "sourceName": "新北市私立馨中居家長照機構",
+      "sourceAddress": "新北市鶯歌區中鶯里信義街54\n號1樓",
+      "sourcePhone": "02-2678-6069",
+      "sourceServiceAreas": "樹林、三峽、鶯歌",
+      "providerId": "CAT-HC-NTPC-69FCDE6A6456",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "三峽區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 145,
+      "page": 10,
+      "sourceName": "和鄰長照股份有限公司附設新北\n市私立和鄰居家長照機構",
+      "sourceAddress": "新北市鶯歌區南鶯里009鄰國慶\n街172號2樓",
+      "sourcePhone": "02-7709-2111",
+      "sourceServiceAreas": "樹林、新店、三峽、土城、\n鶯歌",
+      "providerId": "CAT-HC-NTPC-363183AF5765",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "新店區",
+        "三峽區",
+        "土城區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 146,
+      "page": 10,
+      "sourceName": "新北市私立友達居家長照機構",
+      "sourceAddress": "新北市三重區中央里017鄰正義\n北路123號2樓之3",
+      "sourcePhone": "02-2981-0556",
+      "sourceServiceAreas": "新莊、三重、蘆洲、五股",
+      "providerId": "CAT-HC-NTPC-6CE47624D04A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 147,
+      "page": 10,
+      "sourceName": "新北市私立萬眾居家長照機構",
+      "sourceAddress": "新北市三重區清和里015鄰福德\n南路41號7樓",
+      "sourcePhone": "02-2857-6792",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-701133842E68",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 148,
+      "page": 10,
+      "sourceName": "好家人健康長期照護事業有限公\n司附設新北市私立延吉居家長照\n機構",
+      "sourceAddress": "新北市土城區廷寮里延吉街253\n巷20號1樓",
+      "sourcePhone": "02-2260-5685",
+      "sourceServiceAreas": "板橋、中和、土城",
+      "providerId": "CAT-HC-NTPC-D0E00883103A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 149,
+      "page": 10,
+      "sourceName": "大心管理顧問股份有限公司附設\n新北市私立誠心居家長照機構",
+      "sourceAddress": "新北市永和區保安里015鄰保生\n路46號2樓",
+      "sourcePhone": "02-8921-3833",
+      "sourceServiceAreas": "中和、永和、新店",
+      "providerId": "CAT-HC-NTPC-7B29C57CFCB6",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 150,
+      "page": 10,
+      "sourceName": "永愛居家長照有限公司附設新北\n市私立永愛居家長照機構",
+      "sourceAddress": "新北市汐止區復興里新台五路一\n段159號14樓",
+      "sourcePhone": "02-2643-0199",
+      "sourceServiceAreas": "汐止",
+      "providerId": "TP-HC-129",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 151,
+      "page": 10,
+      "sourceName": "社團法人台灣罕病蝴蝶寶貝醫護\n促進會附設新北市私立迦美居家\n長照機構",
+      "sourceAddress": "新北市板橋區大豐里重慶路274\n巷7之3號4樓",
+      "sourcePhone": "0966-711-556",
+      "sourceServiceAreas": "板橋、樹林、中和、永和、\n土城",
+      "providerId": "CAT-HC-NTPC-D91F887FDCBA",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "中和區",
+        "永和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 152,
+      "page": 10,
+      "sourceName": "新北市私立吉家居家長照機構",
+      "sourceAddress": "新北市板橋區仁翠里013鄰四維\n路291巷4弄12號1樓",
+      "sourcePhone": "02-2258-3776",
+      "sourceServiceAreas": "板橋、三重",
+      "providerId": "CAT-HC-NTPC-E0046B4DD6BF",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "三重區"
+      ]
+    },
+    {
+      "serial": 153,
+      "page": 10,
+      "sourceName": "一斗長期照護股份有限公司附設\n新北市私立一斗居家長照機構",
+      "sourceAddress": "新北市瑞芳區東和里006鄰中山\n路246巷13號1樓(A01室)",
+      "sourcePhone": "0930-365-022",
+      "sourceServiceAreas": "板橋、雙溪、瑞芳",
+      "providerId": "CAT-HC-NTPC-038FE35618C8",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "雙溪區",
+        "瑞芳區"
+      ]
+    },
+    {
+      "serial": 154,
+      "page": 10,
+      "sourceName": "長耘股份有限公司附設新北市私\n立協樂居家長照機構",
+      "sourceAddress": "新北市新莊區昌平里001鄰思源\n路601號13樓A7",
+      "sourcePhone": "02-7728-8848\n#0",
+      "sourceServiceAreas": "板橋、新莊",
+      "providerId": "CAT-HC-NTPC-CBE2034B78ED",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區"
+      ]
+    },
+    {
+      "serial": 155,
+      "page": 11,
+      "sourceName": "新北市私立馨樂居家長照機構",
+      "sourceAddress": "新北市鶯歌區南靖里001鄰重慶\n街38號2樓\n辦公：新北市鶯歌區南靖里001\n鄰重慶街40號2樓",
+      "sourcePhone": "0976-583-143",
+      "sourceServiceAreas": "樹林、三峽、鶯歌",
+      "providerId": "CAT-HC-NTPC-955EFB3A502D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "三峽區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 156,
+      "page": 11,
+      "sourceName": "康恬長照事業有限公司附設新北\n市私立康恬居家長照機構",
+      "sourceAddress": "新北市三重區仁義里016鄰同安\n東街76號1樓",
+      "sourcePhone": "02-7755-7073",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-64CAEDC23413",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 157,
+      "page": 11,
+      "sourceName": "家和生活健康事業有限公司附設\n新北市私立家和居家長照機構",
+      "sourceAddress": "新北市三重區福隆里006鄰福隆\n路9號2樓",
+      "sourcePhone": "02-8287-8608",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-59E4DB5D2BBB",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 158,
+      "page": 11,
+      "sourceName": "新北市私立愷立居家長照機構",
+      "sourceAddress": "新北市永和區保平里019鄰保平\n路292巷13弄2號1樓",
+      "sourcePhone": "02-2921-8643",
+      "sourceServiceAreas": "板橋、中和、永和",
+      "providerId": "CAT-HC-NTPC-A635B91FC95B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 159,
+      "page": 11,
+      "sourceName": "大天使長照有限公司附設新北市\n私立大天使居家長照機構",
+      "sourceAddress": "新北市新店區中興里001鄰北新\n路一段10號16樓",
+      "sourcePhone": "0980-150-550",
+      "sourceServiceAreas": "中和、永和、新店",
+      "providerId": "CAT-HC-NTPC-256F8055510B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 160,
+      "page": 11,
+      "sourceName": "新北市私立天晴居家長照機構",
+      "sourceAddress": "新北市新店區安昌里安德街85\n號2樓",
+      "sourcePhone": "02-8666-1396",
+      "sourceServiceAreas": "新店",
+      "providerId": "CAT-HC-NTPC-BFFE6DAE7A10",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新店區"
+      ]
+    },
+    {
+      "serial": 161,
+      "page": 11,
+      "sourceName": "護老福祉股份有限公司附設新北\n市私立護老樂活居家長照機構",
+      "sourceAddress": "新北市三重區幸福里003鄰安慶\n街234號1樓",
+      "sourcePhone": "02-8282-0511",
+      "sourceServiceAreas": "新莊、三重、蘆洲、泰山、\n五股、八里",
+      "providerId": "CAT-HC-NTPC-7691D96411DE",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "五股區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 162,
+      "page": 11,
+      "sourceName": "新北市私立禾順居家長照機構",
+      "sourceAddress": "新北市蘆洲區正義里三民路581\n之1號3樓",
+      "sourcePhone": "0921-767-987",
+      "sourceServiceAreas": "蘆洲、瑞芳",
+      "providerId": "CAT-HC-NTPC-2F661579DEC1",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "蘆洲區",
+        "瑞芳區"
+      ]
+    },
+    {
+      "serial": 163,
+      "page": 11,
+      "sourceName": "臺北市私立安家居家長照機構",
+      "sourceAddress": "台北市文山區景文街42號3樓\n302室",
+      "sourcePhone": "02-2933-3468",
+      "sourceServiceAreas": "新莊",
+      "providerId": "TP-HC-045",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "新莊區"
+      ]
+    },
+    {
+      "serial": 164,
+      "page": 11,
+      "sourceName": "財團法人一粒麥子社會福利慈善\n事業基金會附設新北市私立有福\n居家式服務類長期照顧服務機構",
+      "sourceAddress": "新北市新店區江陵里007鄰民權\n路103號3樓",
+      "sourcePhone": "02-8911-7897",
+      "sourceServiceAreas": "新店、平溪、雙溪",
+      "providerId": "CAT-HC-NTPC-D8A7F8570DC7",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新店區",
+        "平溪區",
+        "雙溪區"
+      ]
+    },
+    {
+      "serial": 165,
+      "page": 11,
+      "sourceName": "和芸居家有限公司附設新北市私\n立和芸居家長照機構",
+      "sourceAddress": "新北市汐止區復興里014鄰新台\n五路一段97號27樓之7",
+      "sourcePhone": "02-2697-4255",
+      "sourceServiceAreas": "汐止",
+      "providerId": "CAT-HC-NTPC-203245555C3F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 166,
+      "page": 11,
+      "sourceName": "聯心健康顧問有限公司附設新北\n市私立聯心居家長照機構",
+      "sourceAddress": "新北市板橋區海山里民生路一段\n3號13樓之6",
+      "sourcePhone": "02-2964-2985",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、蘆洲、新店、土城",
+      "providerId": "CAT-HC-NTPC-37C5A5D27FFE",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 167,
+      "page": 11,
+      "sourceName": "新北市私立秝豐居家長照機構",
+      "sourceAddress": "新北市板橋區溪北里014鄰溪崑\n二街73巷11號1樓",
+      "sourcePhone": "0907-600-676",
+      "sourceServiceAreas": "板橋、樹林、新莊、三峽、\n土城",
+      "providerId": "CAT-HC-NTPC-2146E1466BF2",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "三峽區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 168,
+      "page": 11,
+      "sourceName": "新北市私立恩勤居家長照機構",
+      "sourceAddress": "新北市板橋區漢生里文化路一段\n189號7樓",
+      "sourcePhone": "02-8953-5988",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、土城、汐止",
+      "providerId": "TP-HC-128",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "土城區",
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 169,
+      "page": 11,
+      "sourceName": "天勤健康生活事業有限公司附設\n新北市私立天勤居家長照機構",
+      "sourceAddress": "新北市板橋區漢生里文化路一段\n189號7樓之1",
+      "sourcePhone": "02-2968-9810",
+      "sourceServiceAreas": "板橋、新莊、中和、三重、\n蘆洲、新店、土城、汐止",
+      "providerId": "CAT-HC-NTPC-790BB33CCD3A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "土城區",
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 170,
+      "page": 11,
+      "sourceName": "大允有限公司附設新北市私立大\n允居家長照機構",
+      "sourceAddress": "新北市板橋區福祿里民族路276\n巷1弄13號1、2樓",
+      "sourcePhone": "02-2272-0040",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、土城",
+      "providerId": "CAT-HC-NTPC-A79AED6D446B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 171,
+      "page": 11,
+      "sourceName": "禾倉健康事業有限公司附設新北\n市私立禾倉居家長照機構",
+      "sourceAddress": "新北市林口區東勢里忠孝路605\n號1樓",
+      "sourcePhone": "02-2601-7928",
+      "sourceServiceAreas": "新莊、泰山、林口",
+      "providerId": "CAT-HC-NTPC-E3197E87C12F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "泰山區",
+        "林口區"
+      ]
+    },
+    {
+      "serial": 172,
+      "page": 12,
+      "sourceName": "真祐居家有限公司附設新北市私\n立真祐居家長照機構",
+      "sourceAddress": "新北市林口區湖南里045鄰仁愛\n路二段502號3樓(301E室)",
+      "sourcePhone": "0930-165-423",
+      "sourceServiceAreas": "林口",
+      "providerId": "CAT-HC-NTPC-30B2CC42D85E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "林口區"
+      ]
+    },
+    {
+      "serial": 173,
+      "page": 12,
+      "sourceName": "瑞齡日照股份有限公司附設新北\n市私立惠承居家長照機構",
+      "sourceAddress": "新北市新店區新生里008鄰北新\n路一段157之2號1樓3室",
+      "sourcePhone": "0927-680-006",
+      "sourceServiceAreas": "新店",
+      "providerId": "CAT-HC-NTPC-2EFA4D456801",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新店區"
+      ]
+    },
+    {
+      "serial": 174,
+      "page": 12,
+      "sourceName": "寓安有限公司附設新北市私立愛\n瑞家居家長照機構",
+      "sourceAddress": "新北市新莊區思源里011鄰思源\n路171號7樓",
+      "sourcePhone": "02-2990-0503",
+      "sourceServiceAreas": "板橋、樹林、新莊、三重、\n蘆洲、五股",
+      "providerId": "CAT-HC-NTPC-F182444F1961",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 175,
+      "page": 12,
+      "sourceName": "新北市私立昕悅居家長照機構",
+      "sourceAddress": "新北市新莊區龍鳳里017鄰中正\n路新建巷41號1樓",
+      "sourcePhone": "02-2902-5885\n0961-307-007",
+      "sourceServiceAreas": "樹林、新莊、泰山、林口",
+      "providerId": "CAT-HC-NTPC-7149718549FF",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "新莊區",
+        "泰山區",
+        "林口區"
+      ]
+    },
+    {
+      "serial": 176,
+      "page": 12,
+      "sourceName": "合力旺健康事業股份有限公司附\n設新北市私立合力旺居家長照機\n構",
+      "sourceAddress": "新北市瑞芳區龍鎮里岳王路10\n之4號",
+      "sourcePhone": "02-2496-0098",
+      "sourceServiceAreas": "汐止、萬里、瑞芳",
+      "providerId": "CAT-HC-NTPC-6A4F2A20D886",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "汐止區",
+        "萬里區",
+        "瑞芳區"
+      ]
+    },
+    {
+      "serial": 177,
+      "page": 12,
+      "sourceName": "金大心股份有限公司附設新北市\n私立金大心居家長照機構",
+      "sourceAddress": "新北市新莊區西盛里新樹路515\n之36號1樓至4樓",
+      "sourcePhone": "02-2203-7168\n#313",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和",
+      "providerId": "CAT-HC-NTPC-CFC1BAEDAC24",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 178,
+      "page": 12,
+      "sourceName": "金大心股份有限公司附設新北市\n私立金大心綜合長照機構",
+      "sourceAddress": "新北市樹林區東昇里025鄰大安\n路577號1~2樓",
+      "sourcePhone": "02-2687-0857",
+      "sourceServiceAreas": "樹林、三峽、土城、鶯歌",
+      "providerId": "CAT-HC-NTPC-0AA62598F0B1",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "三峽區",
+        "土城區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 179,
+      "page": 12,
+      "sourceName": "新北市私立家安居家長照機構",
+      "sourceAddress": "新北市蘆洲區正義里光榮路101\n巷52之1號1樓",
+      "sourcePhone": "0977-071-204",
+      "sourceServiceAreas": "板橋、新莊、三重、蘆洲、\n泰山、林口、五股、淡水、\n八里、三芝、石門、金山、\n萬里、深坑、烏來、平溪、\n雙溪、瑞芳、貢寮",
+      "providerId": "CAT-HC-NTPC-75336E755D00",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "林口區",
+        "五股區",
+        "淡水區",
+        "八里區",
+        "三芝區",
+        "石門區",
+        "金山區",
+        "萬里區",
+        "深坑區",
+        "烏來區",
+        "平溪區",
+        "雙溪區",
+        "瑞芳區",
+        "貢寮區"
+      ]
+    },
+    {
+      "serial": 180,
+      "page": 12,
+      "sourceName": "新北市私立好家在居家長照機構",
+      "sourceAddress": "新北市鶯歌區西鶯里光復街74\n巷10號1樓",
+      "sourcePhone": "02-2678-9186",
+      "sourceServiceAreas": "樹林、三峽、土城、鶯歌",
+      "providerId": "CAT-HC-NTPC-88FC785FAB23",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "三峽區",
+        "土城區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 181,
+      "page": 12,
+      "sourceName": "泉益居家有限公司附設臺北市私\n立泉益居家長照機構",
+      "sourceAddress": "台北市文山區保儀路38號1、2\n樓",
+      "sourcePhone": "02-8661-8880",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、蘆洲、新店、土城、\n深坑",
+      "providerId": "TP-HC-046",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "土城區",
+        "深坑區"
+      ]
+    },
+    {
+      "serial": 182,
+      "page": 12,
+      "sourceName": "泉益居家有限公司附設新北市私\n立鑫益居家長照機構",
+      "sourceAddress": "新北市土城區柑林里015鄰清水\n路47之1號1樓",
+      "sourcePhone": "02-8273-1630",
+      "sourceServiceAreas": "三峽、土城",
+      "providerId": "CAT-HC-NTPC-21D2B50C6DE3",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三峽區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 183,
+      "page": 12,
+      "sourceName": "上心居家長照服務有限公司附設\n新北市私立上心居家長照機構",
+      "sourceAddress": "新北市三重區長江里長元街100\n號2樓",
+      "sourcePhone": "02-2910-0120",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、蘆洲、新店、土城、\n深坑",
+      "providerId": "CAT-HC-NTPC-63C0A8AB9CB4",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "土城區",
+        "深坑區"
+      ]
+    },
+    {
+      "serial": 184,
+      "page": 12,
+      "sourceName": "財團法人台北市立心慈善基金會\n附設新北市私立居家式服務類長\n期照顧服務機構",
+      "sourceAddress": "新北市淡水區草東里中正路55\n號6樓",
+      "sourcePhone": "02-2629-1556",
+      "sourceServiceAreas": "淡水、金山、萬里",
+      "providerId": "CAT-HC-NTPC-A21535621400",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "金山區",
+        "萬里區"
+      ]
+    },
+    {
+      "serial": 185,
+      "page": 12,
+      "sourceName": "財團法人台北市立心慈善基金會\n附設新北市私立立心居家長照機\n構",
+      "sourceAddress": "新北市三重區光陽里中華路22\n號1樓",
+      "sourcePhone": "02-2971-1997",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-E13617072FD6",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 186,
+      "page": 13,
+      "sourceName": "新北市私立全曜居家式服務類長\n期照顧服務機構",
+      "sourceAddress": "新北市三重區長江里長元街100\n之2號1~2樓\n辦公：新北市三重區長元街100\n之3號1樓",
+      "sourcePhone": "02-2972-2060",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、蘆洲、新店、\n土城、泰山、五股",
+      "providerId": "NTPC-HC-005",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "土城區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 187,
+      "page": 13,
+      "sourceName": "新北市私立旺福居家長照機構",
+      "sourceAddress": "新北市三重區溪美里福隆路48\n號1樓",
+      "sourcePhone": "02-8985-7453",
+      "sourceServiceAreas": "板橋、新莊、中和、三重、\n蘆洲",
+      "providerId": "NTPC-HC-004",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 188,
+      "page": 13,
+      "sourceName": "新北市私立旺福綜合長照機構",
+      "sourceAddress": "新北市貢寮區貢寮里朝陽街70\n巷10號1~2樓",
+      "sourcePhone": "02-2494-1880",
+      "sourceServiceAreas": "雙溪、貢寮",
+      "providerId": "CAT-HC-NTPC-C13EDE233B7E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "雙溪區",
+        "貢寮區"
+      ]
+    },
+    {
+      "serial": 189,
+      "page": 13,
+      "sourceName": "新北市私立友福居家長照機構",
+      "sourceAddress": "新北市淡水區竿蓁里淡金路38\n巷104號1樓",
+      "sourcePhone": "02-8626-1313",
+      "sourceServiceAreas": "板橋、中和、淡水、八里、\n三芝",
+      "providerId": "CAT-HC-NTPC-D15C0C2F646D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "淡水區",
+        "八里區",
+        "三芝區"
+      ]
+    },
+    {
+      "serial": 190,
+      "page": 13,
+      "sourceName": "新北市私立信福居家長照機構",
+      "sourceAddress": "新北市淡水區竿蓁里020鄰淡金\n路38巷96號1樓",
+      "sourcePhone": "0908-318-856",
+      "sourceServiceAreas": "淡水、八里、三芝",
+      "providerId": "CAT-HC-NTPC-0995D62453D3",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "八里區",
+        "三芝區"
+      ]
+    },
+    {
+      "serial": 191,
+      "page": 13,
+      "sourceName": "新北市私立樂舒活居家長照機構",
+      "sourceAddress": "新北市淡水區崁頂里新市二路一\n段106號1樓",
+      "sourcePhone": "02-2805-9636\n0936-090-463",
+      "sourceServiceAreas": "淡水、八里、三芝、石門、\n金山、萬里",
+      "providerId": "CAT-HC-NTPC-F7B7010365B0",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "八里區",
+        "三芝區",
+        "石門區",
+        "金山區",
+        "萬里區"
+      ]
+    },
+    {
+      "serial": 192,
+      "page": 13,
+      "sourceName": "樂意健康生活有限公司附設新北\n市私立樂意居家長照機構",
+      "sourceAddress": "新北市新莊區中原里新北大道四\n段179號10樓之2",
+      "sourcePhone": "02-8521-3306",
+      "sourceServiceAreas": "板橋、新莊、土城、泰山、\n五股",
+      "providerId": "CAT-HC-NTPC-BD4A47B5BD3B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "土城區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 193,
+      "page": 13,
+      "sourceName": "福雲添健康事業企業社附設新北\n市私立福雲添居家長照機構",
+      "sourceAddress": "新北市新莊區西盛里新樹路613\n之11號1樓",
+      "sourcePhone": "02-7753-2885\n#100",
+      "sourceServiceAreas": "樹林、新莊、三峽",
+      "providerId": "CAT-HC-NTPC-52AFA9139213",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "新莊區",
+        "三峽區"
+      ]
+    },
+    {
+      "serial": 194,
+      "page": 13,
+      "sourceName": "樂銓管理顧問股份有限公司附設\n新北市私立樂銓居家長照機構",
+      "sourceAddress": "新北市三重區正安里正義北路\n210號9樓",
+      "sourcePhone": "02-2986-6262",
+      "sourceServiceAreas": "板橋、新莊、三重、蘆洲",
+      "providerId": "TP-HC-140",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 195,
+      "page": 13,
+      "sourceName": "格霖有限公司附設新北市私立格\n霖居家長照機構",
+      "sourceAddress": "新北市三重區仁華里005鄰永安\n北路二段5巷7號2樓",
+      "sourcePhone": "02-2972-0159",
+      "sourceServiceAreas": "新莊、三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-707B0428752D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 196,
+      "page": 13,
+      "sourceName": "和敬健康股份有限公司附設新北\n市私立和敬居家長照機構",
+      "sourceAddress": "新北市板橋區和平里009鄰廣和\n街43號1樓",
+      "sourcePhone": "0988-597-939",
+      "sourceServiceAreas": "板橋、新莊",
+      "providerId": "CAT-HC-NTPC-5B8D363624C8",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區"
+      ]
+    },
+    {
+      "serial": 197,
+      "page": 13,
+      "sourceName": "家佳健康股份有限公司附設新北\n市私立品綸居家長照機構",
+      "sourceAddress": "新北市蘆洲區樓厝里集賢路209\n號4樓",
+      "sourcePhone": "02-8286-1851",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-FF87CE0B723F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 198,
+      "page": 13,
+      "sourceName": "青悠事業有限公司附設新北市私\n立青悠居家長照機構",
+      "sourceAddress": "新北市泰山區貴賢里023鄰明志\n路三段145巷8弄2號1樓",
+      "sourcePhone": "02-6604-3960",
+      "sourceServiceAreas": "樹林、新莊、三重、蘆洲、\n泰山",
+      "providerId": "CAT-HC-NTPC-93D9E0D939C4",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區"
+      ]
+    },
+    {
+      "serial": 199,
+      "page": 13,
+      "sourceName": "居芮股份有限公司附設新北市私\n立和芮居家長照機構",
+      "sourceAddress": "新北市新店區寶興里中興路三段\n138號9樓之1\n辦公：新北市新店區中正路114\n號5樓",
+      "sourcePhone": "02-2912-1860\n#101",
+      "sourceServiceAreas": "中和、永和、新店、深坑",
+      "providerId": "CAT-HC-NTPC-147FD05E37BA",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區",
+        "深坑區"
+      ]
+    },
+    {
+      "serial": 200,
+      "page": 13,
+      "sourceName": "財團法人弘道老人福利基金會附\n設新北市私立弘道居家式服務類\n長期照顧服務機構",
+      "sourceAddress": "新北市新莊區思源里思源路38\n號8、9樓",
+      "sourcePhone": "02-8991-3925\n#234",
+      "sourceServiceAreas": "新莊、金山",
+      "providerId": "CAT-HC-NTPC-F96A2A44675F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "金山區"
+      ]
+    },
+    {
+      "serial": 201,
+      "page": 13,
+      "sourceName": "新北市私立芸安居家長照機構",
+      "sourceAddress": "新北市樹林區山佳里021鄰八德\n街652號1樓(含夾層)",
+      "sourcePhone": "02-8687-1413",
+      "sourceServiceAreas": "樹林、三峽、土城",
+      "providerId": "CAT-HC-NTPC-C3E07B61EE8C",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "三峽區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 202,
+      "page": 14,
+      "sourceName": "鴻源長期照顧股份有限公司附設\n臺北市私立旭樂居家長照機構",
+      "sourceAddress": "台北市士林區承德里承德路四段\n80巷2號3樓",
+      "sourcePhone": "02-2885-8000",
+      "sourceServiceAreas": "板橋、新莊、中和、三重、\n蘆洲、五股、淡水",
+      "providerId": "TP-HC-114",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "三重區",
+        "蘆洲區",
+        "五股區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 203,
+      "page": 14,
+      "sourceName": "新北市私立美心居家長照機構",
+      "sourceAddress": "新北市新莊區頭前里中原東路\n141號1、2樓",
+      "sourcePhone": "0968-381-966",
+      "sourceServiceAreas": "板橋、樹林、新莊、三重、\n土城",
+      "providerId": "CAT-HC-NTPC-78C530878183",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "三重區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 204,
+      "page": 14,
+      "sourceName": "宗展股份有限公司附設臺北市私\n立辰心居家長照機構",
+      "sourceAddress": "台北市大同區永樂里020鄰西寧\n北路112號4樓之1",
+      "sourcePhone": "02-2550-1966",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、蘆洲、新店、\n三峽、土城、林口、五股、\n汐止、淡水",
+      "providerId": "TP-HC-104",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "三峽區",
+        "土城區",
+        "林口區",
+        "五股區",
+        "汐止區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 205,
+      "page": 14,
+      "sourceName": "芊潁顧問有限公司附設臺北市私\n立芊潁居家長照機構",
+      "sourceAddress": "台北市中山區行政里建國北路三\n段94號2樓(D210室)",
+      "sourcePhone": "02-2508-0383",
+      "sourceServiceAreas": "板橋、新莊、三重、淡水",
+      "providerId": "TP-HC-071",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "三重區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 206,
+      "page": 14,
+      "sourceName": "有限責任臺灣第二照顧服務勞動\n合作社附設臺北市私立二顧居家\n長照機構",
+      "sourceAddress": "台北市中正區南福里028鄰羅斯\n福路一段102號8樓",
+      "sourcePhone": "02-2552-7608",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、蘆洲、泰山、五股",
+      "providerId": "TP-HC-052",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 207,
+      "page": 14,
+      "sourceName": "恩揚有限公司附設臺北市私立恩\n揚居家長照機構",
+      "sourceAddress": "台北市文山區羅斯福路五段225\n之1號",
+      "sourcePhone": "02-2930-1999",
+      "sourceServiceAreas": "新莊、三重、蘆洲、新店、\n土城、五股",
+      "providerId": "TP-HC-038",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "土城區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 208,
+      "page": 14,
+      "sourceName": "職物語長照事業有限公司附設桃\n園市私立樂職心綜合長照機構",
+      "sourceAddress": "桃園市桃園區春日里002鄰春日\n路1038號3樓",
+      "sourcePhone": "03-357-5608\n#9",
+      "sourceServiceAreas": "三峽、鶯歌",
+      "providerId": "CAT-HC-NTPC-91AA27D72925",
+      "status": "ADDED",
+      "outsideLocatedCity": true,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三峽區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 209,
+      "page": 14,
+      "sourceName": "安心好生活股份有限公司附設新\n北市私立佳醫居家長照機構",
+      "sourceAddress": "新北市三重區永福里006鄰永福\n街46巷22弄5號",
+      "sourcePhone": "02-2977-6001",
+      "sourceServiceAreas": "新莊、三重、淡水、八里",
+      "providerId": "CAT-HC-NTPC-31995DDBC5F5",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "淡水區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 210,
+      "page": 14,
+      "sourceName": "新北市私立健宜居居家長照機構",
+      "sourceAddress": "新北市中和區秀福里010鄰自立\n路113號",
+      "sourcePhone": "02-2946-1105",
+      "sourceServiceAreas": "中和、永和",
+      "providerId": "CAT-HC-NTPC-73E3C0B19117",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 211,
+      "page": 14,
+      "sourceName": "賀康居家有限公司附設新北市私\n立賀康居家長照機構",
+      "sourceAddress": "新北市永和區忠義里016鄰保福\n路三段1之3號",
+      "sourcePhone": "0986-360-980",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重",
+      "providerId": "CAT-HC-NTPC-0DCBAEF477E6",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區"
+      ]
+    },
+    {
+      "serial": 212,
+      "page": 14,
+      "sourceName": "賀芯居家有限公司附設新北市私\n立賀芯居家長照機構",
+      "sourceAddress": "新北市五股區成功里014鄰新城\n六路251號1樓(含夾層)",
+      "sourcePhone": "02-8295-8208",
+      "sourceServiceAreas": "新莊、中和、永和、泰山、\n林口、五股",
+      "providerId": "CAT-HC-NTPC-87BC9716A678",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "中和區",
+        "永和區",
+        "泰山區",
+        "林口區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 213,
+      "page": 14,
+      "sourceName": "新北市私立常春藤居家長照機構",
+      "sourceAddress": "新北市汐止區中興里032鄰福德\n二路215號5樓之2",
+      "sourcePhone": "02-2642-1938\n#21",
+      "sourceServiceAreas": "汐止、淡水、八里、三芝、\n石門、深坑、石碇、瑞芳",
+      "providerId": "CAT-HC-NTPC-11E1E42F091B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "汐止區",
+        "淡水區",
+        "八里區",
+        "三芝區",
+        "石門區",
+        "深坑區",
+        "石碇區",
+        "瑞芳區"
+      ]
+    },
+    {
+      "serial": 214,
+      "page": 14,
+      "sourceName": "新北市私立常錦居家長照機構",
+      "sourceAddress": "新北市板橋區福星里015鄰忠孝\n路52號3樓",
+      "sourcePhone": "02-8952-0607",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、新店、土城",
+      "providerId": "TP-HC-123",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "新店區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 215,
+      "page": 14,
+      "sourceName": "沃恩有限公司附設新北市私立耆\n樂居家長照機構",
+      "sourceAddress": "新北市汐止區復興里14鄰新台\n五路一段79號7樓B室",
+      "sourcePhone": "02-8698-3677\n#52",
+      "sourceServiceAreas": "汐止",
+      "providerId": "CAT-HC-NTPC-CC23CDF9D30F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 216,
+      "page": 14,
+      "sourceName": "安忻顧問股份有限公司附設新北\n市私立安忻居家長照機構",
+      "sourceAddress": "新北市板橋區埔墘里中山路二段\n361號8樓2室\n遷址：新北市板橋區中正路41\n號3樓7室",
+      "sourcePhone": "0987-380-859",
+      "sourceServiceAreas": "板橋",
+      "providerId": "CAT-HC-NTPC-D7DAABD74E05",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區"
+      ]
+    },
+    {
+      "serial": 217,
+      "page": 14,
+      "sourceName": "恩耆股份有限公司附設新北市私\n立惠澤居家長照機構",
+      "sourceAddress": "新北市板橋區新興里南雅南路一\n段3巷4號2樓",
+      "sourcePhone": "02-2272-0885",
+      "sourceServiceAreas": "板橋、中和",
+      "providerId": "CAT-HC-NTPC-641D954A993C",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區"
+      ]
+    },
+    {
+      "serial": 218,
+      "page": 15,
+      "sourceName": "新北市私立金田居家長照機構",
+      "sourceAddress": "新北市深坑區埔新里埔新街95\n巷5號1樓",
+      "sourcePhone": "02-2662-7788",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、蘆洲、新店、\n三峽、土城、鶯歌、泰山、\n五股、汐止、八里、深坑、\n石碇、坪林、平溪、雙溪、\n瑞芳、貢寮",
+      "providerId": "CAT-HC-NTPC-1F888EA69BA0",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "泰山區",
+        "五股區",
+        "汐止區",
+        "八里區",
+        "深坑區",
+        "石碇區",
+        "坪林區",
+        "平溪區",
+        "雙溪區",
+        "瑞芳區",
+        "貢寮區"
+      ]
+    },
+    {
+      "serial": 219,
+      "page": 15,
+      "sourceName": "愛無限整合服務有限公司附設新\n北市私立愛無限居家長照機構",
+      "sourceAddress": "新北市新店區張北里006鄰中興\n路二段67巷11號1樓",
+      "sourcePhone": "02-2915-1899",
+      "sourceServiceAreas": "中和、永和、新店",
+      "providerId": "CAT-HC-NTPC-E5A4861CF764",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 220,
+      "page": 15,
+      "sourceName": "縉澄居家長照有限公司附設新北\n市私立合禧居家長照機構",
+      "sourceAddress": "新北市樹林區育英里中山路一段\n217號3樓之3",
+      "sourcePhone": "02-2681-1182",
+      "sourceServiceAreas": "板橋、樹林、三峽、土城、\n鶯歌",
+      "providerId": "CAT-HC-NTPC-8BD02AB3CD70",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "三峽區",
+        "土城區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 221,
+      "page": 15,
+      "sourceName": "新北市私立禾九居家長照機構",
+      "sourceAddress": "新北市蘆洲區水湳里013鄰民族\n路345巷15號",
+      "sourcePhone": "02-8285-7032",
+      "sourceServiceAreas": "新莊、三重、蘆洲、泰山、\n五股、八里",
+      "providerId": "CAT-HC-NTPC-168D224C4D58",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "五股區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 222,
+      "page": 15,
+      "sourceName": "寶護企業社附設新北市私立寶護\n居家長照機構",
+      "sourceAddress": "新北市蘆洲區恆德里中山二路\n12號2樓",
+      "sourcePhone": "02-7752-2022",
+      "sourceServiceAreas": "蘆洲、五股",
+      "providerId": "CAT-HC-NTPC-BBE91A3B7ADE",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "蘆洲區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 223,
+      "page": 15,
+      "sourceName": "新北市私立均安居家長照機構",
+      "sourceAddress": "新北市鶯歌區二橋里二甲路30\n號1樓",
+      "sourcePhone": "02-2678-9992",
+      "sourceServiceAreas": "板橋、樹林、中和、永和、\n三峽、土城、鶯歌",
+      "providerId": "CAT-HC-NTPC-C20FD0B9D1B4",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "中和區",
+        "永和區",
+        "三峽區",
+        "土城區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 224,
+      "page": 15,
+      "sourceName": "中華民國紅十字會台灣省分會附\n設臺北市私立紅十字居家式服務\n類長期照顧服務機構",
+      "sourceAddress": "台北市大安區龍坡里新生南路三\n段20之1號2樓",
+      "sourcePhone": "02-2363-7794",
+      "sourceServiceAreas": "中和、土城、林口",
+      "providerId": "TP-HC-085",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "中和區",
+        "土城區",
+        "林口區"
+      ]
+    },
+    {
+      "serial": 225,
+      "page": 15,
+      "sourceName": "新北市私立愛迪樂居家長照機構",
+      "sourceAddress": "新北市林口區西林里文化一路\n190巷6之2號",
+      "sourcePhone": "02-26012377",
+      "sourceServiceAreas": "三重、泰山、林口、五股、\n八里",
+      "providerId": "CAT-HC-NTPC-AD57E00CC333",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "泰山區",
+        "林口區",
+        "五股區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 226,
+      "page": 15,
+      "sourceName": "悠康事業有限公司附設新北市私\n立悠康居家長照機構",
+      "sourceAddress": "新北市三重區永德里034鄰自強\n路三段61號2樓",
+      "sourcePhone": "02-6604-5120",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-55F06C36FD36",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 227,
+      "page": 15,
+      "sourceName": "新北市私立璟濰居家長照機構",
+      "sourceAddress": "新北市中和區安順里安平路40\n號1樓",
+      "sourcePhone": "02-8245-8585",
+      "sourceServiceAreas": "板橋、中和、永和、新店、\n土城",
+      "providerId": "CAT-HC-NTPC-0D8AB2603BCF",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "新店區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 228,
+      "page": 15,
+      "sourceName": "新北市私立康悅居家長照機構",
+      "sourceAddress": "新北市五股區成功里003鄰新城\n八路336號1樓",
+      "sourcePhone": "02-2291-7700",
+      "sourceServiceAreas": "新莊、泰山、五股",
+      "providerId": "CAT-HC-NTPC-51C4F7180A5E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 229,
+      "page": 15,
+      "sourceName": "新北市私立棠菓居家長照機構",
+      "sourceAddress": "新北市板橋區香丘里中山路一段\n293之1號10樓之1(A09室)",
+      "sourcePhone": "0952-814-036",
+      "sourceServiceAreas": "板橋、中和、土城",
+      "providerId": "CAT-HC-NTPC-763FF0FCCFDB",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 230,
+      "page": 15,
+      "sourceName": "久安事業有限公司附設新北市私\n立久安居家長照機構",
+      "sourceAddress": "新北市板橋區德翠里007鄰龍泉\n街108巷48號1樓",
+      "sourcePhone": "0928-196-219",
+      "sourceServiceAreas": "板橋、新莊、中和",
+      "providerId": "CAT-HC-NTPC-DC20EA78F2E5",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區"
+      ]
+    },
+    {
+      "serial": 231,
+      "page": 15,
+      "sourceName": "互照有限公司附設新北市私立春\n天居家長照機構",
+      "sourceAddress": "新北市板橋區挹秀里008鄰縣民\n大道一段271號4樓\n遷址：新北市板橋區文化路一段\n32巷25號1樓",
+      "sourcePhone": "0920-920-889",
+      "sourceServiceAreas": "板橋",
+      "providerId": "CAT-HC-NTPC-68176EBC12CB",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區"
+      ]
+    },
+    {
+      "serial": 232,
+      "page": 15,
+      "sourceName": "拾光健康事業有限公司附設新北\n市私立拾光居家長照機構",
+      "sourceAddress": "新北市新莊區中華里004鄰中華\n路二段7號6樓",
+      "sourcePhone": "02-2990-8931",
+      "sourceServiceAreas": "板橋、新莊、三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-24D8D58D7C6A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 233,
+      "page": 16,
+      "sourceName": "樺屋長照有限公司附設新北市私\n立樺屋居家長照機構",
+      "sourceAddress": "新北市中和區廟美里040景平路\n666號3樓(306室)",
+      "sourcePhone": "0912-151-586",
+      "sourceServiceAreas": "新莊、中和、永和",
+      "providerId": "CAT-HC-NTPC-1FC724FBD202",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 234,
+      "page": 16,
+      "sourceName": "財團法人天下為公社會福利慈善\n事業基金會附設新北市私立天下\n為公居家式服務類長期照顧服務\n機構",
+      "sourceAddress": "新北市汐止區保安里大同路三段\n423號",
+      "sourcePhone": "02-8648-8388\n#135",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、蘆洲、新店、土城、\n汐止、金山、萬里、平溪、\n雙溪、瑞芳、貢寮",
+      "providerId": "TP-HC-130",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "土城區",
+        "汐止區",
+        "金山區",
+        "萬里區",
+        "平溪區",
+        "雙溪區",
+        "瑞芳區",
+        "貢寮區"
+      ]
+    },
+    {
+      "serial": 235,
+      "page": 16,
+      "sourceName": "財團法人恆安社會福利慈善事業\n基金會附設新北市私立恆安居家\n長照機構",
+      "sourceAddress": "新北市板橋區民生里民生路一段\n57、59號12樓",
+      "sourcePhone": "02-2959-5855",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、新店、土城、\n林口、深坑",
+      "providerId": "CAT-HC-NTPC-35BE69CA8552",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "新店區",
+        "土城區",
+        "林口區",
+        "深坑區"
+      ]
+    },
+    {
+      "serial": 236,
+      "page": 16,
+      "sourceName": "立安健康事業有限公司附設新北\n市私立立安居家長照機構",
+      "sourceAddress": "新北市蘆洲區溪墘里014鄰中山\n一路161號3樓R09室",
+      "sourcePhone": "0937-908-239",
+      "sourceServiceAreas": "三重、蘆洲、泰山、五股",
+      "providerId": "CAT-HC-NTPC-0C0083D5F96B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 237,
+      "page": 16,
+      "sourceName": "安德利互聯網股份有限公司附設\n臺北市私立安德利居家長照機構",
+      "sourceAddress": "台北市中山區行仁里五常街51\n號2樓",
+      "sourcePhone": "02-2511-9069",
+      "sourceServiceAreas": "板橋、中和、永和、土城、\n汐止",
+      "providerId": "TP-HC-074",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "土城區",
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 238,
+      "page": 16,
+      "sourceName": "有限責任新北市溫馨照顧服務勞\n動合作社附設新北市私立達漾好\n居家長照機構",
+      "sourceAddress": "新北市中和區景平里景新街347\n號9樓之8",
+      "sourcePhone": "02-2916-1887",
+      "sourceServiceAreas": "中和、永和、新店、烏來",
+      "providerId": "CAT-HC-NTPC-6DF3F4044008",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區",
+        "烏來區"
+      ]
+    },
+    {
+      "serial": 239,
+      "page": 16,
+      "sourceName": "天主教耕莘醫療財團法人附設新\n北市私立永和耕莘居家式服務類\n長期照顧服務機構",
+      "sourceAddress": "新北市永和區永興里中興街52\n巷1弄12號",
+      "sourcePhone": "02-2928-6060\n#16017",
+      "sourceServiceAreas": "永和",
+      "providerId": "TP-HC-132",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "永和區"
+      ]
+    },
+    {
+      "serial": 240,
+      "page": 16,
+      "sourceName": "天主教耕莘醫療財團法人附設新\n北市私立新店耕莘居家式服務類\n長期照顧服務機構",
+      "sourceAddress": "新北市新店區百和里民族路160\n巷4號",
+      "sourcePhone": "02-2219-3391\n#67151",
+      "sourceServiceAreas": "新店、烏來",
+      "providerId": "CAT-HC-NTPC-C0DCAC76BBD1",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新店區",
+        "烏來區"
+      ]
+    },
+    {
+      "serial": 241,
+      "page": 16,
+      "sourceName": "財團法人天主教失智老人社會福\n利基金會附設新北市私立聖若瑟\n居家長照機構",
+      "sourceAddress": "新北市永和區得和里中正路354\n號3樓",
+      "sourcePhone": "02-2233-1099",
+      "sourceServiceAreas": "中和、永和",
+      "providerId": "CAT-HC-NTPC-828C8C7C5357",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 242,
+      "page": 16,
+      "sourceName": "齡活股份有限公司附設新北市私\n立齡活居家長照機構",
+      "sourceAddress": "新北市板橋區景星里013鄰四川\n路一段97號11樓",
+      "sourcePhone": "02-7751-8056",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、蘆洲、新店、\n土城",
+      "providerId": "TP-HC-124",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 243,
+      "page": 16,
+      "sourceName": "臺北市私立大心居家長照機構",
+      "sourceAddress": "台北市萬華區富福里康定路348\n號2樓之1",
+      "sourcePhone": "02-2339-0179",
+      "sourceServiceAreas": "中和、永和、新店",
+      "providerId": "TP-HC-006",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 244,
+      "page": 16,
+      "sourceName": "新北市私立大心居家長照機構",
+      "sourceAddress": "新北市樹林區柑園里大義路238\n號\n辦公：新北市三峽區學成路327",
+      "sourcePhone": "02-8672-6009\n#11",
+      "sourceServiceAreas": "板橋、樹林、中和、永和、\n三峽、土城、鶯歌",
+      "providerId": "CAT-HC-NTPC-C1B78F57A180",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "中和區",
+        "永和區",
+        "三峽區",
+        "土城區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 245,
+      "page": 16,
+      "sourceName": "億家人股份有限公司附設新北市\n私立億家人居家長照機構",
+      "sourceAddress": "新北市新莊區立德里中華路一段\n63巷26號1樓",
+      "sourcePhone": "02-2276-0087",
+      "sourceServiceAreas": "板橋、樹林、新莊、五股",
+      "providerId": "CAT-HC-NTPC-4422C27D805F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 246,
+      "page": 17,
+      "sourceName": "愛佳生活股份有限公司附設新北\n市私立樹林愛佳生活社區長照機\n構",
+      "sourceAddress": "新北市樹林區三龍里中正路632\n巷1號3樓",
+      "sourcePhone": "02-2688-9991",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n三峽、土城、鶯歌、泰山、\n林口",
+      "providerId": "CAT-HC-NTPC-224C23BB56C0",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "泰山區",
+        "林口區"
+      ]
+    },
+    {
+      "serial": 247,
+      "page": 17,
+      "sourceName": "馨瀅股份有限公司附設私立馨瀅\n居家長照機構",
+      "sourceAddress": "台北市大同區大有里迪化街一段\n149號3樓",
+      "sourcePhone": "0928-552-066",
+      "sourceServiceAreas": "板橋、樹林、新莊、三重、\n蘆洲、泰山、五股",
+      "providerId": "TP-HC-108",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 248,
+      "page": 17,
+      "sourceName": "喜樂園長照股份有限公司附設臺\n北市私立喜樂園居家長照機構",
+      "sourceAddress": "台北市松山區吉祥里八德路四段\n123號2樓之4",
+      "sourcePhone": "02-2760-2270\n#103",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、蘆洲、新店、\n三峽、土城、鶯歌、泰山、\n林口、汐止、淡水",
+      "providerId": "TP-HC-029",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "泰山區",
+        "林口區",
+        "汐止區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 249,
+      "page": 17,
+      "sourceName": "知恩長期照護有限公司附設新北\n市私立知恩居家長照機構",
+      "sourceAddress": "新北市三峽區永舘里009鄰民生\n街106之2號3樓(E18)",
+      "sourcePhone": "0968-703-953",
+      "sourceServiceAreas": "板橋、三峽",
+      "providerId": "CAT-HC-NTPC-8584E96DD083",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "三峽區"
+      ]
+    },
+    {
+      "serial": 250,
+      "page": 17,
+      "sourceName": "北醫大管理顧問股份有限公司附\n設新北市私立萂禾居家長照機構",
+      "sourceAddress": "新北市中和區景平里景新街347\n號4樓之5",
+      "sourcePhone": "02-8668-0981",
+      "sourceServiceAreas": "中和、永和",
+      "providerId": "CAT-HC-NTPC-0D8F5FAA8BB6",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 251,
+      "page": 17,
+      "sourceName": "社團法人中華長照協會附設新北\n市私立永樂居家式服務類長期照\n顧服務機構",
+      "sourceAddress": "新北市永和區文化里文化路155\n號",
+      "sourcePhone": "02-2921-2212",
+      "sourceServiceAreas": "板橋、中和、永和",
+      "providerId": "NTPC-HC-002",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 252,
+      "page": 17,
+      "sourceName": "社團法人中華長照協會附設新北\n市私立永恩居家長照機構",
+      "sourceAddress": "新北市中和區南山里南山路127\n巷21號",
+      "sourcePhone": "02-2242-2919",
+      "sourceServiceAreas": "中和、永和",
+      "providerId": "CAT-HC-NTPC-BB68E63C2C63",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 253,
+      "page": 17,
+      "sourceName": "沐松有限公司附設新北市私立沐\n松居家長照機構",
+      "sourceAddress": "新北市福樂里003鄰三重區三和\n路四段117巷18號",
+      "sourcePhone": "0961-199-163",
+      "sourceServiceAreas": "板橋、三重",
+      "providerId": "CAT-HC-NTPC-63D131A7FD1D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "三重區"
+      ]
+    },
+    {
+      "serial": 254,
+      "page": 17,
+      "sourceName": "福善有限公司附設新北市私立福\n善居家長照機構",
+      "sourceAddress": "新北市金山區金美里029鄰中華\n路96號1樓",
+      "sourcePhone": "02-2498-0360",
+      "sourceServiceAreas": "三芝、石門、金山、萬里",
+      "providerId": "CAT-HC-NTPC-A8B2EF82AAE6",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三芝區",
+        "石門區",
+        "金山區",
+        "萬里區"
+      ]
+    },
+    {
+      "serial": 255,
+      "page": 17,
+      "sourceName": "珍玉長照有限公司附設新北市私\n立珍玉居家長照機構",
+      "sourceAddress": "新北市新莊區頭前里015鄰思源\n路502號3樓",
+      "sourcePhone": "02-8521-3236",
+      "sourceServiceAreas": "新莊",
+      "providerId": "CAT-HC-NTPC-E908B1DCD7C7",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區"
+      ]
+    },
+    {
+      "serial": 256,
+      "page": 17,
+      "sourceName": "樂福健康事業有限公司附設臺北\n市私立樂福居家長照機構",
+      "sourceAddress": "台北市大同區永樂里西寧北路\n81號5樓之2",
+      "sourcePhone": "02-2559-8079",
+      "sourceServiceAreas": "板橋、中和、永和、三重",
+      "providerId": "TP-HC-105",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "三重區"
+      ]
+    },
+    {
+      "serial": 257,
+      "page": 17,
+      "sourceName": "元愷有限公司附設臺北市私立安\n愷居家長照機構",
+      "sourceAddress": "台北市中山區長安東路一段21\n號3樓",
+      "sourcePhone": "02-2522-1993",
+      "sourceServiceAreas": "板橋、中和、永和、三重、\n蘆洲、新店、淡水",
+      "providerId": "TP-HC-065",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 258,
+      "page": 17,
+      "sourceName": "立詒長照有限公司附設新北市私\n立宥典居家長照機構",
+      "sourceAddress": "新北市板橋區吉翠里015鄰裕民\n街151號2樓",
+      "sourcePhone": "02-2258-8867",
+      "sourceServiceAreas": "板橋、樹林、鶯歌",
+      "providerId": "CAT-HC-NTPC-1999F1EAB7C7",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 259,
+      "page": 17,
+      "sourceName": "新北市私立慷德居家長照機構",
+      "sourceAddress": "新北市三重區中興里重新路五段\n525號9樓之1",
+      "sourcePhone": "02-2278-1719",
+      "sourceServiceAreas": "樹林、新莊、中和、三重、\n蘆洲、五股、八里",
+      "providerId": "CAT-HC-NTPC-2596B61DBBCB",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "三重區",
+        "蘆洲區",
+        "五股區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 260,
+      "page": 17,
+      "sourceName": "新北市私立宥馨居家長照機構",
+      "sourceAddress": "新北市三重區重陽里中正北路\n71巷5號1樓",
+      "sourcePhone": "02-2983-5599",
+      "sourceServiceAreas": "板橋、樹林、新莊、三重、\n蘆洲",
+      "providerId": "CAT-HC-NTPC-191FB0FEA582",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 261,
+      "page": 17,
+      "sourceName": "潤康長期照護有限公司附設新北\n市私立潤康居家長照機構",
+      "sourceAddress": "新北市中和區新南里景平路431\n巷68號1樓",
+      "sourcePhone": "02-7751-9133",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重",
+      "providerId": "TP-HC-133",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區"
+      ]
+    },
+    {
+      "serial": 262,
+      "page": 18,
+      "sourceName": "眾心企業股份有限公司附設新北\n市私立樂安居家長照機構",
+      "sourceAddress": "新北市中和區福和里011鄰廣福\n路12之3號1樓",
+      "sourcePhone": "0975-849-570",
+      "sourceServiceAreas": "板橋、中和",
+      "providerId": "CAT-HC-NTPC-DF0D73D55938",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區"
+      ]
+    },
+    {
+      "serial": 263,
+      "page": 18,
+      "sourceName": "佛教慈濟醫療財團法人附設新北\n市私立台北慈濟居家式服務類長\n期照顧服務機構",
+      "sourceAddress": "新北市新店區復興里建國路289\n號1樓",
+      "sourcePhone": "0906-008-060",
+      "sourceServiceAreas": "板橋、中和、永和、新店",
+      "providerId": "CAT-HC-NTPC-412762ED6292",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 264,
+      "page": 18,
+      "sourceName": "財團法人中華民國佛教慈濟慈善\n事業基金會新北市私立慈濟蘆洲\n綜合長照機構",
+      "sourceAddress": "新北市蘆洲區正義里長樂路125\n號1樓",
+      "sourcePhone": "02-2281-6988",
+      "sourceServiceAreas": "新莊、三重、蘆洲、泰山、\n五股",
+      "providerId": "CAT-HC-NTPC-C5D0E65DD72E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 265,
+      "page": 18,
+      "sourceName": "社團法人愛福家協會附設新北市\n私立愛福家居家式服務類長期照\n顧服務機構",
+      "sourceAddress": "新北市板橋區福丘里007鄰民權\n路7號4樓(A室)",
+      "sourcePhone": "02-2250-0177",
+      "sourceServiceAreas": "板橋、新莊、瑞芳",
+      "providerId": "TP-HC-122",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "瑞芳區"
+      ]
+    },
+    {
+      "serial": 266,
+      "page": 18,
+      "sourceName": "明新幫老人服務事業股份有限公\n司附設新北市私立明新幫居家長\n照機構",
+      "sourceAddress": "新北市新莊區中原里中信街176\n號24樓之3",
+      "sourcePhone": "02-8522-7699",
+      "sourceServiceAreas": "新莊、泰山、五股、淡水、\n八里",
+      "providerId": "CAT-HC-NTPC-C4DF85C78B3A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "泰山區",
+        "五股區",
+        "淡水區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 267,
+      "page": 18,
+      "sourceName": "宏庭長照有限公司附設新北市私\n立宏庭居家長照機構",
+      "sourceAddress": "新北市新莊區文聖里001鄰中正\n路234號3樓303室",
+      "sourcePhone": "02-2277-6978",
+      "sourceServiceAreas": "新莊",
+      "providerId": "CAT-HC-NTPC-40196EF2487B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區"
+      ]
+    },
+    {
+      "serial": 268,
+      "page": 18,
+      "sourceName": "知心居家長照有限公司附設新北\n市私立知心居家長照機構",
+      "sourceAddress": "新北市樹林區金寮里023鄰保安\n街二段31巷3號1樓",
+      "sourcePhone": "02-2675-7565",
+      "sourceServiceAreas": "板橋、樹林、中和、永和、\n土城",
+      "providerId": "CAT-HC-NTPC-7FBE1D6A7F8D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "中和區",
+        "永和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 269,
+      "page": 18,
+      "sourceName": "有限責任臺南市第一照顧服務勞\n動合作社附設新北市私立第一居\n家長照機構",
+      "sourceAddress": "新北市樹林區樹南里中山路一段\n306巷1號1樓",
+      "sourcePhone": "0927-858-093",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、新店、三峽、\n土城、鶯歌、泰山",
+      "providerId": "CAT-HC-NTPC-10EA15D9DB1E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "新店區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "泰山區"
+      ]
+    },
+    {
+      "serial": 270,
+      "page": 18,
+      "sourceName": "翎果有限公司附設新北市私立翎\n果居家長照機構",
+      "sourceAddress": "新北市蘆洲區溪墘里014鄰中山\n一路161號3樓R10室",
+      "sourcePhone": "02-2767-4056",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-DFA4960BD4C2",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 271,
+      "page": 18,
+      "sourceName": "新北市私立康善居家長照機構",
+      "sourceAddress": "新北市中和區廟美里038鄰景平\n路634之9號7樓之7",
+      "sourcePhone": "02-2246-5160",
+      "sourceServiceAreas": "板橋、樹林、中和、永和、\n新店、土城",
+      "providerId": "CAT-HC-NTPC-3963E191B523",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "中和區",
+        "永和區",
+        "新店區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 272,
+      "page": 18,
+      "sourceName": "喜臨國際有限公司附設新北市私\n立惜鄰居家長照機構",
+      "sourceAddress": "新北市板橋區廣福里008鄰和平\n路安樂巷6弄6號1樓",
+      "sourcePhone": "02-2951-8898",
+      "sourceServiceAreas": "板橋",
+      "providerId": "CAT-HC-NTPC-0925B1A80660",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區"
+      ]
+    },
+    {
+      "serial": 273,
+      "page": 18,
+      "sourceName": "煦橙股份有限公司附設新北市私\n立新店煦橙綜合長照機構",
+      "sourceAddress": "新北市新店區廣明里光明街98\n之1號4樓",
+      "sourcePhone": "02-8919-3656",
+      "sourceServiceAreas": "新店",
+      "providerId": "CAT-HC-NTPC-2E1135C004B0",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新店區"
+      ]
+    },
+    {
+      "serial": 274,
+      "page": 18,
+      "sourceName": "牧羊人居家服務整合有限公司附\n設新北市私立牧羊人居家長照機\n構",
+      "sourceAddress": "新北市新莊區昌平里中央路287\n號3樓",
+      "sourcePhone": "02-8521-5750",
+      "sourceServiceAreas": "板橋、樹林、新莊、三重、\n蘆洲、泰山",
+      "providerId": "CAT-HC-NTPC-7B5F0C0C1D46",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區"
+      ]
+    },
+    {
+      "serial": 275,
+      "page": 18,
+      "sourceName": "新北市私立蕙心居家式服務類長\n期照顧服務機構",
+      "sourceAddress": "新北市蘆洲區水湳里民權路174\n巷14號3樓",
+      "sourcePhone": "0908-737-970",
+      "sourceServiceAreas": "三重、蘆洲、泰山、五股",
+      "providerId": "CAT-HC-NTPC-C78B27D03A1F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 276,
+      "page": 18,
+      "sourceName": "新北市私立樂齡居家長照機構",
+      "sourceAddress": "新北市三重區中山里重新路三段\n105號3樓",
+      "sourcePhone": "02-2675-0575",
+      "sourceServiceAreas": "板橋、新莊、三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-B378A180D208",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 277,
+      "page": 19,
+      "sourceName": "新北市私立達霖居家長照機構",
+      "sourceAddress": "新北市板橋區溪福里篤行路三段\n18號2樓",
+      "sourcePhone": "02-2685-5992",
+      "sourceServiceAreas": "板橋、樹林、土城",
+      "providerId": "CAT-HC-NTPC-A7087F291F1E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 278,
+      "page": 19,
+      "sourceName": "樂齡智慧有限公司附設新北市私\n立里好綜合式長照機構",
+      "sourceAddress": "新北市三重區長生里三和路二段\n30號5樓",
+      "sourcePhone": "02-2976-6060",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-AAB6FF9A0BB2",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 279,
+      "page": 19,
+      "sourceName": "全人健康管理顧問有限公司附設\n新北市私立維愛居家長照機構",
+      "sourceAddress": "新北市土城區清溪里青雲路163\n號8樓",
+      "sourcePhone": "02-8260-1290",
+      "sourceServiceAreas": "板橋、中和、永和、土城",
+      "providerId": "CAT-HC-NTPC-778A4712049F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 280,
+      "page": 19,
+      "sourceName": "青華家鏈照股份有限公司附設新\n北市私立青華樂活居家長照機構",
+      "sourceAddress": "新北市三重區中山里020鄰中正\n北路15號4樓E室",
+      "sourcePhone": "02-2233-1052",
+      "sourceServiceAreas": "新莊、中和、永和、三重、\n蘆洲",
+      "providerId": "CAT-HC-NTPC-F3A5EDA31ED7",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 281,
+      "page": 19,
+      "sourceName": "晴天長照服務股份有限公司附設\n新北市私立晴天居家長照機構",
+      "sourceAddress": "新北市汐止區復興里014鄰新台\n五路一段95號24樓A室",
+      "sourcePhone": "02-2697-6016",
+      "sourceServiceAreas": "汐止",
+      "providerId": "CAT-HC-NTPC-6FB8C9904211",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 282,
+      "page": 19,
+      "sourceName": "喜苑健康股份有限公司附設新北\n市私立喜苑居家長照機構",
+      "sourceAddress": "新北市板橋區溪福里037鄰溪城\n路71號8樓(A室)",
+      "sourcePhone": "0921-965-036",
+      "sourceServiceAreas": "板橋、樹林",
+      "providerId": "CAT-HC-NTPC-A98116A2E1BD",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 283,
+      "page": 19,
+      "sourceName": "新北市私立安毅居家長照機構",
+      "sourceAddress": "新北市板橋區溪福里金門街372\n巷13號1樓",
+      "sourcePhone": "02-8675-5001\n0905-586-552",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、三峽、土城、\n鶯歌、泰山",
+      "providerId": "CAT-HC-NTPC-0423794F442D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "泰山區"
+      ]
+    },
+    {
+      "serial": 284,
+      "page": 19,
+      "sourceName": "裕康健康有限公司附設新北市私\n立仁叡居家長照機構",
+      "sourceAddress": "新北市新店區寶興里001鄰北新\n路二段262號3樓之3(306室)",
+      "sourcePhone": "0939-365-286",
+      "sourceServiceAreas": "新店",
+      "providerId": "CAT-HC-NTPC-EAF796263A7B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新店區"
+      ]
+    },
+    {
+      "serial": 285,
+      "page": 19,
+      "sourceName": "慈馨健康有限公司附設新北市私\n立康乃馨居家長照機構",
+      "sourceAddress": "新北市蘆洲區永樂里022鄰環堤\n大道174號4樓",
+      "sourcePhone": "02-8282-0382",
+      "sourceServiceAreas": "三重、蘆洲、五股",
+      "providerId": "CAT-HC-NTPC-D5FB05CBFC34",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 286,
+      "page": 19,
+      "sourceName": "社團法人中華民國士林靈糧堂社\n會福利協會附設新北市私立三重\n興穀社區長照機構",
+      "sourceAddress": "新北市三重區五谷里五谷王北街\n48巷18號1樓",
+      "sourcePhone": "02-2278-9015",
+      "sourceServiceAreas": "板橋、新莊、三重、蘆洲、\n泰山、五股",
+      "providerId": "CAT-HC-NTPC-F42C32B003F6",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 287,
+      "page": 19,
+      "sourceName": "社團法人中華民國士林靈糧堂社\n會福利協會附設新北市私立三芝\n綜合長照機構",
+      "sourceAddress": "新北市三芝區埔坪里民生街31\n號1樓",
+      "sourcePhone": "02-2636-5750",
+      "sourceServiceAreas": "淡水、三芝、石門",
+      "providerId": "CAT-HC-NTPC-69E1684E27E6",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "三芝區",
+        "石門區"
+      ]
+    },
+    {
+      "serial": 288,
+      "page": 19,
+      "sourceName": "良田健康照護社附設新北市私立\n良田健康照護居家長照機構",
+      "sourceAddress": "新北市中和區嘉慶里013鄰連城\n路446之2號2樓",
+      "sourcePhone": "0922-614-059",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、新店、土城",
+      "providerId": "CAT-HC-NTPC-371BA69359D0",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "新店區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 289,
+      "page": 19,
+      "sourceName": "財團法人老五老基金會附設新北\n市私立老五老居家式服務類長期\n照顧服務機構",
+      "sourceAddress": "新北市汐止區福安里015鄰仁愛\n路153號1樓(含夾層)",
+      "sourcePhone": "02-8642-2321",
+      "sourceServiceAreas": "汐止、深坑、石碇",
+      "providerId": "CAT-HC-NTPC-E70097A8EE9F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "汐止區",
+        "深坑區",
+        "石碇區"
+      ]
+    },
+    {
+      "serial": 290,
+      "page": 19,
+      "sourceName": "新北市私立清水居家長照機構",
+      "sourceAddress": "新北市淡水區北新里北新路184\n巷124-1號1樓",
+      "sourcePhone": "02-2620-0129",
+      "sourceServiceAreas": "淡水、八里、三芝、石門",
+      "providerId": "CAT-HC-NTPC-98C63FF24AF1",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "八里區",
+        "三芝區",
+        "石門區"
+      ]
+    },
+    {
+      "serial": 291,
+      "page": 19,
+      "sourceName": "台灣全齡長照股份有限公司附設\n新北市私立禾薪居家長照機構",
+      "sourceAddress": "新北市新莊區文明里新莊路16\n之2號1樓",
+      "sourcePhone": "02-2990-2007",
+      "sourceServiceAreas": "新莊、三重、林口",
+      "providerId": "NTPC-HC-003",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "新莊區",
+        "三重區",
+        "林口區"
+      ]
+    },
+    {
+      "serial": 292,
+      "page": 19,
+      "sourceName": "美而美居家長照股份有限公司附\n設臺北市私立美而美居家長照機\n構",
+      "sourceAddress": "台北市中山區錦州街46號12樓\n之3(R06室)",
+      "sourcePhone": "02-2821-2412",
+      "sourceServiceAreas": "板橋、樹林、新莊、三重、\n蘆洲、新店、三峽、土城、\n五股、淡水",
+      "providerId": "TP-HC-078",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "三峽區",
+        "土城區",
+        "五股區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 293,
+      "page": 20,
+      "sourceName": "有限責任臺北市樂見在照顧服務\n勞動合作社附設私立樂見在居家\n長照機構",
+      "sourceAddress": "台北市松山區中正里002鄰八德\n路二段447號7樓",
+      "sourcePhone": "02-2731-8649",
+      "sourceServiceAreas": "板橋、淡水",
+      "providerId": "TP-HC-028",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 294,
+      "page": 20,
+      "sourceName": "新北市私立金順居家長照機構",
+      "sourceAddress": "新北市三重區安慶里004鄰安慶\n街120號",
+      "sourcePhone": "02-8988-3298",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、蘆洲、三峽、\n土城、鶯歌、泰山、林口、\n五股、淡水、八里",
+      "providerId": "CAT-HC-NTPC-9456104BFE7F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "泰山區",
+        "林口區",
+        "五股區",
+        "淡水區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 295,
+      "page": 20,
+      "sourceName": "善興緣長期照護有限公司附設新\n北市私立善興緣居家長照機構",
+      "sourceAddress": "新北市永和區秀和里001鄰國中\n路30號1樓",
+      "sourcePhone": "0925-285-395",
+      "sourceServiceAreas": "永和",
+      "providerId": "CAT-HC-NTPC-B77D7FCD0103",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "永和區"
+      ]
+    },
+    {
+      "serial": 296,
+      "page": 20,
+      "sourceName": "心悅居家長照有限公司附設新北\n市私立心悅居家長照機構",
+      "sourceAddress": "新北市汐止區復興里023鄰新台\n五路一段159號5樓之3",
+      "sourcePhone": "02-8691-0047",
+      "sourceServiceAreas": "汐止",
+      "providerId": "CAT-HC-NTPC-AF503DEAFB1E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 297,
+      "page": 20,
+      "sourceName": "善和居家長照有限公司附設新北\n市私立善和居家長照機構",
+      "sourceAddress": "新北市板橋區松翠里002鄰雙十\n路二段176號4樓",
+      "sourcePhone": "02-2255-6700",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、土城",
+      "providerId": "CAT-HC-NTPC-7B7DB5FC4FB5",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 298,
+      "page": 20,
+      "sourceName": "安星居服股份有限公司附設新北\n市私立安星居家長照機構",
+      "sourceAddress": "新北市淡水區新生里文化路63\n號8樓",
+      "sourcePhone": "02-2625-0053\n#10",
+      "sourceServiceAreas": "淡水、八里、三芝",
+      "providerId": "CAT-HC-NTPC-B5053FB8E73D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "八里區",
+        "三芝區"
+      ]
+    },
+    {
+      "serial": 299,
+      "page": 20,
+      "sourceName": "新北市私立恩典居家長照機構",
+      "sourceAddress": "新北市板橋區柏翠里文化路二段\n451號4樓之1",
+      "sourcePhone": "02-2255-2916",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、三重、蘆洲、新店、\n三峽、土城、鶯歌、泰山、\n林口、五股、汐止、淡水、\n深坑、石碇、烏來、平溪",
+      "providerId": "TP-HC-127",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "三峽區",
+        "土城區",
+        "鶯歌區",
+        "泰山區",
+        "林口區",
+        "五股區",
+        "汐止區",
+        "淡水區",
+        "深坑區",
+        "石碇區",
+        "烏來區",
+        "平溪區"
+      ]
+    },
+    {
+      "serial": 300,
+      "page": 20,
+      "sourceName": "新北市私立秀心居家長照機構",
+      "sourceAddress": "新北市樹林區金寮里保安街二段\n24號3樓",
+      "sourcePhone": "0975-839-225",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n三峽、土城、鶯歌",
+      "providerId": "CAT-HC-NTPC-7331F4E18BAF",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "三峽區",
+        "土城區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 301,
+      "page": 20,
+      "sourceName": "社團法人中華民國紅心字會附設\n新北市私立存德居家式服務類長\n期照顧服務機構",
+      "sourceAddress": "新北市板橋區崑崙里存德街29\n號2樓",
+      "sourcePhone": "02-2681-5518",
+      "sourceServiceAreas": "板橋、樹林、新莊、中和、\n永和、新店、三峽、土城、\n泰山、烏來",
+      "providerId": "CAT-HC-NTPC-BB96DCD4ECF2",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "新店區",
+        "三峽區",
+        "土城區",
+        "泰山區",
+        "烏來區"
+      ]
+    },
+    {
+      "serial": 302,
+      "page": 20,
+      "sourceName": "新北市私立幸心綜合長照機構",
+      "sourceAddress": "新北市新莊區文明里中正路55\n之1號1樓",
+      "sourcePhone": "02-2996-6290",
+      "sourceServiceAreas": "板橋、新莊、三重",
+      "providerId": "CAT-HC-NTPC-DAF973CE7D50",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "三重區"
+      ]
+    },
+    {
+      "serial": 303,
+      "page": 20,
+      "sourceName": "福田居家有限公司私立福田居家\n長照機構",
+      "sourceAddress": "台北市信義區忠孝東路五段492\n巷2號2樓",
+      "sourcePhone": "02-2727-0065",
+      "sourceServiceAreas": "板橋、新莊、中和、永和、\n三重、蘆洲、新店、土城、\n汐止",
+      "providerId": "TP-HC-014",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "板橋區",
+        "新莊區",
+        "中和區",
+        "永和區",
+        "三重區",
+        "蘆洲區",
+        "新店區",
+        "土城區",
+        "汐止區"
+      ]
+    },
+    {
+      "serial": 304,
+      "page": 20,
+      "sourceName": "京安居家照護有限公司附設新北\n市私立京安居家長照機構",
+      "sourceAddress": "新北市三峽區永舘里民生街152\n之2號2樓",
+      "sourcePhone": "0952-368-861",
+      "sourceServiceAreas": "三峽、鶯歌",
+      "providerId": "CAT-HC-NTPC-27E12D98485A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三峽區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 305,
+      "page": 20,
+      "sourceName": "新北市私立璟馨居家長照機構",
+      "sourceAddress": "新北市土城區峯廷里延峯街24\n巷5號1樓",
+      "sourcePhone": "02-7723-0968",
+      "sourceServiceAreas": "土城",
+      "providerId": "CAT-HC-NTPC-A50049DD9058",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "土城區"
+      ]
+    },
+    {
+      "serial": 306,
+      "page": 20,
+      "sourceName": "四季長期照顧股份有限公司附設\n新北市私立芊芊居家長照機構",
+      "sourceAddress": "新北市板橋區幸福里018鄰新海\n路63號2樓",
+      "sourcePhone": "0903-417-519",
+      "sourceServiceAreas": "板橋",
+      "providerId": "CAT-HC-NTPC-E3D3ED041EED",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區"
+      ]
+    },
+    {
+      "serial": 307,
+      "page": 21,
+      "sourceName": "柏愛健康產業股份有限公司附設\n新北市私立柏愛居家長照機構",
+      "sourceAddress": "新北市坪林區坪林里006鄰北宜\n路八段176號3樓\n辦公：新北市永和區博愛街30",
+      "sourcePhone": "0963-653-027",
+      "sourceServiceAreas": "中和、永和、石碇、坪林",
+      "providerId": "CAT-HC-NTPC-CE6913BA6198",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區",
+        "石碇區",
+        "坪林區"
+      ]
+    },
+    {
+      "serial": 308,
+      "page": 21,
+      "sourceName": "智慧長照有限公司附設臺北市私\n立愛關懷居家長照機構",
+      "sourceAddress": "台北市信義區忠孝東路五段1號\n2樓207室",
+      "sourcePhone": "02-2933-1966",
+      "sourceServiceAreas": "新莊、中和、永和、新店",
+      "providerId": "TP-HC-015",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "新莊區",
+        "中和區",
+        "永和區",
+        "新店區"
+      ]
+    },
+    {
+      "serial": 309,
+      "page": 21,
+      "sourceName": "玥亮有限公司附設新北市私立玥\n亮居家長照機構",
+      "sourceAddress": "新北市中和區廟美里040鄰景平\n路666號3樓313室",
+      "sourcePhone": "0917-500-935",
+      "sourceServiceAreas": "中和、永和",
+      "providerId": "CAT-HC-NTPC-979F71F0E4CF",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 310,
+      "page": 21,
+      "sourceName": "樂源企業股份有限公司附設新北\n市私立康廷居家長照機構",
+      "sourceAddress": "新北市板橋區九如里003鄰三民\n路二段28號11樓(A室)",
+      "sourcePhone": "0921-435-387",
+      "sourceServiceAreas": "板橋",
+      "providerId": "CAT-HC-NTPC-69B081E6F311",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區"
+      ]
+    },
+    {
+      "serial": 311,
+      "page": 21,
+      "sourceName": "新北市私立潔翎居家長照機構",
+      "sourceAddress": "新北市新店區江陵里020鄰民權\n路153號4樓E室",
+      "sourcePhone": "02-2218-3033",
+      "sourceServiceAreas": "新店、烏來",
+      "providerId": "CAT-HC-NTPC-A9451107DD1D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新店區",
+        "烏來區"
+      ]
+    },
+    {
+      "serial": 312,
+      "page": 21,
+      "sourceName": "滴勤有限公司附設新北市私立榮\n芳居家長照機構",
+      "sourceAddress": "新北市永和區店街里017鄰福和\n路309巷1號2樓",
+      "sourcePhone": "02-2921-2335",
+      "sourceServiceAreas": "中和、永和",
+      "providerId": "CAT-HC-NTPC-57F4D526198A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 313,
+      "page": 21,
+      "sourceName": "萓品管理顧問有限公司附設新北\n市私立禾善居家長照機構",
+      "sourceAddress": "新北市樹林區和平里仁愛街3號\n1樓",
+      "sourcePhone": "02-8686-1187",
+      "sourceServiceAreas": "樹林",
+      "providerId": "NTPC-HC-001",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 314,
+      "page": 21,
+      "sourceName": "好芝芯股份有限公司附設新北市\n私立好芝芯居家長照機構",
+      "sourceAddress": "新北市三重區光華里003鄰三民\n街102號2樓",
+      "sourcePhone": "02-2984-9570\n#880或#886",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-92D77004E210",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 315,
+      "page": 21,
+      "sourceName": "享享健康有限公司附設新北市私\n立享享居家長照機構",
+      "sourceAddress": "新北市板橋區九如里三民路二段\n28號11樓(D室)",
+      "sourcePhone": "02-8952-0789",
+      "sourceServiceAreas": "板橋、樹林",
+      "providerId": "CAT-HC-NTPC-660FAFC8F524",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 316,
+      "page": 21,
+      "sourceName": "宏康健康事業股份有限公司附設\n新北市私立宏康健康居家長照機\n構",
+      "sourceAddress": "新北市新莊區瓊林里003鄰瓊泰\n路12號",
+      "sourcePhone": "02-2202-7768",
+      "sourceServiceAreas": "新莊",
+      "providerId": "CAT-HC-NTPC-F1959FEE81C6",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區"
+      ]
+    },
+    {
+      "serial": 317,
+      "page": 21,
+      "sourceName": "有限責任臺灣愛力照顧服務勞動\n合作社附設基隆市私立愛力居家\n長照機構",
+      "sourceAddress": "基隆市仁愛區仁一路133號8樓\n之3",
+      "sourcePhone": "0910-070-078",
+      "sourceServiceAreas": "新店、深坑、石碇、平溪",
+      "providerId": "CAT-HC-NTPC-0C8F0716258D",
+      "status": "ADDED",
+      "outsideLocatedCity": true,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新店區",
+        "深坑區",
+        "石碇區",
+        "平溪區"
+      ]
+    },
+    {
+      "serial": 318,
+      "page": 21,
+      "sourceName": "有限責任臺灣愛力照顧服務勞動\n合作社附設新北市私立愛力居家\n長照機構",
+      "sourceAddress": "新北市新店區中央里017鄰中央\n七街85號1樓",
+      "sourcePhone": "02-2912-2989\n0910-070-078",
+      "sourceServiceAreas": "新店、深坑、石碇",
+      "providerId": "CAT-HC-NTPC-ACF47F2A0F38",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新店區",
+        "深坑區",
+        "石碇區"
+      ]
+    },
+    {
+      "serial": 319,
+      "page": 21,
+      "sourceName": "臺北市私立和美居家長照機構",
+      "sourceAddress": "臺北市北投區八仙里北投路一段\n59號2樓",
+      "sourcePhone": "02-2891-8131",
+      "sourceServiceAreas": "淡水",
+      "providerId": "TP-HC-033",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 320,
+      "page": 21,
+      "sourceName": "大新健康有限公司附設新北市私\n立大新居家長照機構",
+      "sourceAddress": "新北市三重區中山里020鄰中正\n北路15號4樓A室",
+      "sourcePhone": "0916-337-609",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-C08E28EBB100",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 321,
+      "page": 21,
+      "sourceName": "搭把手股份有限公司附設新北市\n私立搭把手居家長照機構",
+      "sourceAddress": "新北市板橋區香社里021鄰中正\n路341巷24號A01室",
+      "sourcePhone": "02-6604-1289",
+      "sourceServiceAreas": "板橋、樹林",
+      "providerId": "CAT-HC-NTPC-E385665463E6",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 322,
+      "page": 21,
+      "sourceName": "銀鈴初綻有限公司附設新北市私\n立繪幸福居家長照機構",
+      "sourceAddress": "新北市板橋區成和里021鄰金門\n街67巷11號",
+      "sourcePhone": "02-2681-6120",
+      "sourceServiceAreas": "板橋",
+      "providerId": "CAT-HC-NTPC-F61C822B031A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區"
+      ]
+    },
+    {
+      "serial": 323,
+      "page": 22,
+      "sourceName": "親和有限公司附設新北市私立親\n和力居家長照機構",
+      "sourceAddress": "新北市中和區廟美里040鄰景平\n路666號2樓(208室)",
+      "sourcePhone": "0901-170-553",
+      "sourceServiceAreas": "中和、永和、八里",
+      "providerId": "CAT-HC-NTPC-11BF6314ABB7",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 324,
+      "page": 22,
+      "sourceName": "庭立有限公司附設新北市私立心\n福居家長照機構",
+      "sourceAddress": "新北市板橋區香社里021鄰中正\n路341巷24號B02室",
+      "sourcePhone": "0909-923-119",
+      "sourceServiceAreas": "板橋",
+      "providerId": "CAT-HC-NTPC-7963D8CA9A7A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區"
+      ]
+    },
+    {
+      "serial": 325,
+      "page": 22,
+      "sourceName": "萬季有限公司附設新北市私立四\n季居家長照機構",
+      "sourceAddress": "新北市板橋區九如里003鄰三民\n路二段28號11樓C室",
+      "sourcePhone": "02-2959-9319",
+      "sourceServiceAreas": "板橋、樹林",
+      "providerId": "CAT-HC-NTPC-0AB2023125F6",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 326,
+      "page": 22,
+      "sourceName": "享樂榕健康事業有限公司附設新\n北市私立享樂榕居家長照機構",
+      "sourceAddress": "新北市中和區興南里001鄰景新\n街338號12樓(GR07)",
+      "sourcePhone": "02-2943-8984",
+      "sourceServiceAreas": "中和",
+      "providerId": "CAT-HC-NTPC-B51CFEABC581",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區"
+      ]
+    },
+    {
+      "serial": 327,
+      "page": 22,
+      "sourceName": "富元長期照護股份有限公司附設\n新北市私立鑫康好居家長照機構",
+      "sourceAddress": "新北市板橋區香丘里006鄰漢生\n東路117巷2號5樓",
+      "sourcePhone": "02-7755-7801\n0910-430-682",
+      "sourceServiceAreas": "板橋",
+      "providerId": "CAT-HC-NTPC-EC85B9C5EC51",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區"
+      ]
+    },
+    {
+      "serial": 328,
+      "page": 22,
+      "sourceName": "方舟長照股份有限公司附設新北\n市私立方舟居家長照機構",
+      "sourceAddress": "新北市中和區枋寮里033鄰中和\n路179號",
+      "sourcePhone": "02-2246-7077",
+      "sourceServiceAreas": "中和、永和",
+      "providerId": "CAT-HC-NTPC-CE6F6D322C04",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 329,
+      "page": 22,
+      "sourceName": "松婷有限公司附設新北市私立松\n婷居家長照機構",
+      "sourceAddress": "新北市中和區興南里001鄰景新\n街338號12樓(GR003)",
+      "sourcePhone": "0988-115-060",
+      "sourceServiceAreas": "中和、永和",
+      "providerId": "CAT-HC-NTPC-CD87E50A960A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 330,
+      "page": 22,
+      "sourceName": "普拉斯健康管理顧問有限公司附\n設新北市私立尚杰居家長照機構",
+      "sourceAddress": "新北市土城區員林里024鄰中央\n路二段191號9樓之1(D室)",
+      "sourcePhone": "02-2273-0582",
+      "sourceServiceAreas": "土城、鶯歌",
+      "providerId": "CAT-HC-NTPC-3BC35298A6DA",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "土城區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 331,
+      "page": 22,
+      "sourceName": "潤田健康有限公司附設臺北市私\n立潤田居家長照機構",
+      "sourceAddress": "台北市中正區龍福里009鄰湖口\n街1之3號",
+      "sourcePhone": "02-2343-5882",
+      "sourceServiceAreas": "永和",
+      "providerId": "TP-HC-055",
+      "status": "MERGED_EXISTING",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "完整機構名稱一致，沿用原ID；原核心值保留，地址差異在publicInfo告知",
+      "districts": [
+        "永和區"
+      ]
+    },
+    {
+      "serial": 332,
+      "page": 22,
+      "sourceName": "潤田健康有限公司附設新北市私\n立潤田居家長照機構",
+      "sourceAddress": "新北市淡水區崁頂里010鄰沙崙\n路二段813號16樓",
+      "sourcePhone": "02-2805-7533",
+      "sourceServiceAreas": "淡水",
+      "providerId": "CAT-HC-NTPC-17746B996C1E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 333,
+      "page": 22,
+      "sourceName": "愛民有限公司附設新北市私立愛\n民居家長照機構",
+      "sourceAddress": "新北市板橋區富貴里009鄰三民\n路二段33號14樓(A06)",
+      "sourcePhone": "0933-768-413",
+      "sourceServiceAreas": "板橋、樹林",
+      "providerId": "CAT-HC-NTPC-E9BE3A080D11",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 334,
+      "page": 22,
+      "sourceName": "全家福居家長照有限公司附設新\n北市私立全家福居家長照機構",
+      "sourceAddress": "新北市三重區光華里003鄰福德\n北路12號5樓(空間編號：",
+      "sourcePhone": "02-2978-3838\n0922-473-717",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-041E328A4ABF",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 335,
+      "page": 22,
+      "sourceName": "月安有限公司附設新北市私立月\n安居家長照機構",
+      "sourceAddress": "新北市板橋區景星里008鄰四川\n路一段23號",
+      "sourcePhone": "0966-008-262",
+      "sourceServiceAreas": "板橋、樹林",
+      "providerId": "CAT-HC-NTPC-4FABC3692071",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 336,
+      "page": 22,
+      "sourceName": "耀焺有限公司附設新北市私立耀\n焺居家長照機構",
+      "sourceAddress": "新北市中和區廟美里040鄰景平\n路666號(309室)",
+      "sourcePhone": "0902-172-772",
+      "sourceServiceAreas": "中和",
+      "providerId": "CAT-HC-NTPC-A00DB0B958E7",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區"
+      ]
+    },
+    {
+      "serial": 337,
+      "page": 22,
+      "sourceName": "樂晟健康有限公司附設新北市私\n立樂晟居家長照機構",
+      "sourceAddress": "新北市土城區柑林里019鄰明德\n路二段41號9樓",
+      "sourcePhone": "02-8273-3737",
+      "sourceServiceAreas": "土城",
+      "providerId": "CAT-HC-NTPC-DEE1D616CFFF",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "土城區"
+      ]
+    },
+    {
+      "serial": 338,
+      "page": 22,
+      "sourceName": "長仁健康事業有限公司附設新北\n市私立長泰居家長照機構",
+      "sourceAddress": "新北市泰山區義仁里022鄰文程\n路4號3樓",
+      "sourcePhone": "02-6609-0015",
+      "sourceServiceAreas": "泰山、林口、八里",
+      "providerId": "CAT-HC-NTPC-69591AA803E5",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "泰山區",
+        "林口區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 339,
+      "page": 22,
+      "sourceName": "長仁健康事業有限公司附設新北\n市私立長信居家長照機構",
+      "sourceAddress": "新北市新莊區思源里011鄰思源\n路173號4樓",
+      "sourcePhone": "02-6605-7805",
+      "sourceServiceAreas": "新莊、八里",
+      "providerId": "CAT-HC-NTPC-673A821848F4",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 340,
+      "page": 22,
+      "sourceName": "銓和股份有限公司附設新北市私\n立銓和居家長照機構",
+      "sourceAddress": "新北市三重區正安里008鄰長壽\n西街123號1樓",
+      "sourcePhone": "0983-531-393",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-3C9CC1549658",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 341,
+      "page": 23,
+      "sourceName": "春暉健康事業股份有限公司附設\n新北市私立三重暮光居家長照機\n構",
+      "sourceAddress": "新北市三重區重明里004鄰重陽\n路一段60巷4號1樓",
+      "sourcePhone": "02-2980-0063\n0970-333-598",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-F770D48FEABE",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 342,
+      "page": 23,
+      "sourceName": "創實創意有限公司附設新北市私\n立善水居家長照機構",
+      "sourceAddress": "新北市淡水區中興里002鄰英專\n路79巷13號1樓晨光室",
+      "sourcePhone": "02-2622-6638",
+      "sourceServiceAreas": "淡水、八里",
+      "providerId": "CAT-HC-NTPC-4DF4F165B2D4",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 343,
+      "page": 23,
+      "sourceName": "台灣真善美居服股份有限公司附\n設新北市私立真善美居家長照機\n構",
+      "sourceAddress": "新北市板橋區海山里016鄰民生\n路一段3號16樓之3(H室)",
+      "sourcePhone": "02-8969-8032",
+      "sourceServiceAreas": "板橋、樹林",
+      "providerId": "CAT-HC-NTPC-0C5F997CBA1D",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 344,
+      "page": 23,
+      "sourceName": "福瑆股份有限公司附設新北市私\n立福瑆居家長照機構",
+      "sourceAddress": "新北市板橋區新翠里021鄰英士\n路53號2樓之1",
+      "sourcePhone": "0909-299-825",
+      "sourceServiceAreas": "板橋、樹林",
+      "providerId": "CAT-HC-NTPC-5303BA43AAC1",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 345,
+      "page": 23,
+      "sourceName": "岑玥有限公司附設新北市私立岑\n玥居家長照機構",
+      "sourceAddress": "新北市土城區頂埔里002鄰頂埔\n街19巷1弄14號1樓",
+      "sourcePhone": "0977-366-015",
+      "sourceServiceAreas": "土城",
+      "providerId": "CAT-HC-NTPC-5617E8AC41EF",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "土城區"
+      ]
+    },
+    {
+      "serial": 346,
+      "page": 23,
+      "sourceName": "向陽居家有限公司附設新北市私\n立向陽居家長照機構",
+      "sourceAddress": "新北市板橋區鄉雲里003鄰中山\n路一段1號13樓之26",
+      "sourcePhone": "0909-012-268",
+      "sourceServiceAreas": "板橋、樹林",
+      "providerId": "CAT-HC-NTPC-F7202FAF5216",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 347,
+      "page": 23,
+      "sourceName": "顧德國際股份有限公司附設新北\n市私立顧德好居家長照機構",
+      "sourceAddress": "新北市板橋區華翠里004鄰萬板\n路107號8樓(A室)",
+      "sourcePhone": "02-2958-8599",
+      "sourceServiceAreas": "板橋、樹林",
+      "providerId": "CAT-HC-NTPC-5D5340526426",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 348,
+      "page": 23,
+      "sourceName": "暖新居家有限公司附設新北市私\n立順意居家長照機構",
+      "sourceAddress": "新北市中和區福真里021鄰中山\n路二段296號5樓之3(502室)",
+      "sourcePhone": "0965-543-732",
+      "sourceServiceAreas": "中和",
+      "providerId": "CAT-HC-NTPC-087E53C33838",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區"
+      ]
+    },
+    {
+      "serial": 349,
+      "page": 23,
+      "sourceName": "裕濰長照有限公司附設新北市私\n立裕濰居家長照機構",
+      "sourceAddress": "新北市中和區員富里004鄰中正\n路1224號3樓",
+      "sourcePhone": "0981-870-839",
+      "sourceServiceAreas": "中和",
+      "providerId": "CAT-HC-NTPC-DCB6C0F5C8D0",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區"
+      ]
+    },
+    {
+      "serial": 350,
+      "page": 23,
+      "sourceName": "宜安健康事業有限公司附設新北\n市私立宜安居家長照機構",
+      "sourceAddress": "新北市林口區湖南里045鄰仁愛\n路二段502號13樓之1(1306B室)",
+      "sourcePhone": "0955-917-345",
+      "sourceServiceAreas": "林口",
+      "providerId": "CAT-HC-NTPC-E3DAA74FB87E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "林口區"
+      ]
+    },
+    {
+      "serial": 351,
+      "page": 23,
+      "sourceName": "德康居家長照股份有限公司附設\n新北市私立德康居家長照機構",
+      "sourceAddress": "新北市中和區中山里019鄰中正\n路515號3樓",
+      "sourcePhone": "02-2226-3785",
+      "sourceServiceAreas": "中和",
+      "providerId": "CAT-HC-NTPC-C82C00E2EA42",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區"
+      ]
+    },
+    {
+      "serial": 352,
+      "page": 23,
+      "sourceName": "馨中健康事業股份有限公司附設\n新北市私立沐馨居家長照機構",
+      "sourceAddress": "新北市土城區峯廷里019鄰金城\n路三段130號2樓\n遷址：新北市土城區延和里032\n鄰延和路18巷6號1樓",
+      "sourcePhone": "02-2265-5321",
+      "sourceServiceAreas": "土城",
+      "providerId": "CAT-HC-NTPC-6831E2B48D7B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "土城區"
+      ]
+    },
+    {
+      "serial": 353,
+      "page": 23,
+      "sourceName": "冠福有限公司附設新北市私立護\n力康居家長照機構",
+      "sourceAddress": "新北市三重區仁德里001鄰重新\n路二段78號15樓之8",
+      "sourcePhone": "0972-145-635",
+      "sourceServiceAreas": "三重、蘆洲",
+      "providerId": "CAT-HC-NTPC-D7EE0D407116",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三重區",
+        "蘆洲區"
+      ]
+    },
+    {
+      "serial": 354,
+      "page": 23,
+      "sourceName": "慶餘年有限公司附設新北市私立\n安家天下居家長照機構",
+      "sourceAddress": "新北市中和區南山里008鄰南山\n路237號6樓",
+      "sourcePhone": "0905-216-812",
+      "sourceServiceAreas": "中和",
+      "providerId": "CAT-HC-NTPC-4BB0F9C1643F",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區"
+      ]
+    },
+    {
+      "serial": 355,
+      "page": 23,
+      "sourceName": "宸安居家有限公司附設新北市私\n立宸安居家長照機構",
+      "sourceAddress": "新北市板橋區華東里002鄰南雅\n南路二段34巷6號",
+      "sourcePhone": "02-2950-6039",
+      "sourceServiceAreas": "板橋、樹林",
+      "providerId": "CAT-HC-NTPC-C0510AB53D53",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "板橋區",
+        "樹林區"
+      ]
+    },
+    {
+      "serial": 356,
+      "page": 23,
+      "sourceName": "新北市私立溫叨居家長照機構",
+      "sourceAddress": "新北市鶯歌區建國里001鄰中山\n路143號1樓",
+      "sourcePhone": "02-2679-8800",
+      "sourceServiceAreas": "鶯歌",
+      "providerId": "CAT-HC-NTPC-2316F0CAE821",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 357,
+      "page": 24,
+      "sourceName": "睦恩健康事業有限公司附設新北\n市私立睦恩居家長照機構",
+      "sourceAddress": "新北市三峽區永舘里020鄰復興\n路167號1樓",
+      "sourcePhone": "0908-327-888",
+      "sourceServiceAreas": "三峽、土城",
+      "providerId": "CAT-HC-NTPC-8955700DED79",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三峽區",
+        "土城區"
+      ]
+    },
+    {
+      "serial": 358,
+      "page": 24,
+      "sourceName": "立吉成有限公司附設新北市私立\n吉誠居家長照機構",
+      "sourceAddress": "新北市八里區大崁里003鄰忠孝\n路303號1樓",
+      "sourcePhone": "02-2619-1449",
+      "sourceServiceAreas": "八里、三芝",
+      "providerId": "CAT-HC-NTPC-626901FCB29E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "八里區",
+        "三芝區"
+      ]
+    },
+    {
+      "serial": 359,
+      "page": 24,
+      "sourceName": "舒逸康護事業有限公司附設新北\n市私立舒逸居家長照機構",
+      "sourceAddress": "新北市汐止區復興里023鄰新台\n五路一段159號12樓",
+      "sourcePhone": "02-2641-9480",
+      "sourceServiceAreas": "汐止、萬里",
+      "providerId": "CAT-HC-NTPC-F0833B75D739",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "汐止區",
+        "萬里區"
+      ]
+    },
+    {
+      "serial": 360,
+      "page": 24,
+      "sourceName": "好晨欣銀髮事業股份有限公司附\n設新北市私立好晨欣居家長照機\n構",
+      "sourceAddress": "新北市淡水區學府里011鄰學府\n路130號2樓之3",
+      "sourcePhone": "0921-937-229",
+      "sourceServiceAreas": "淡水、八里",
+      "providerId": "CAT-HC-NTPC-1B3A611D4CAB",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區",
+        "八里區"
+      ]
+    },
+    {
+      "serial": 361,
+      "page": 24,
+      "sourceName": "新北市私立全家康居家長照機構",
+      "sourceAddress": "新北市淡水區竹圍里001鄰民權\n路111號3樓C05室",
+      "sourcePhone": "0911-408-253",
+      "sourceServiceAreas": "淡水",
+      "providerId": "CAT-HC-NTPC-15AFA403D21E",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "淡水區"
+      ]
+    },
+    {
+      "serial": 362,
+      "page": 24,
+      "sourceName": "楦盛有限公司附設新北市私立德\n旺居家長照機構",
+      "sourceAddress": "新北市鶯歌區永昌里020鄰陽明\n街16號4樓",
+      "sourcePhone": "0906-603-459",
+      "sourceServiceAreas": "三峽、鶯歌",
+      "providerId": "CAT-HC-NTPC-F35DED545B0B",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "三峽區",
+        "鶯歌區"
+      ]
+    },
+    {
+      "serial": 363,
+      "page": 24,
+      "sourceName": "禾沐健康事業有限公司附設新北\n市私立禾沐居家長照機構",
+      "sourceAddress": "新北市泰山區貴子里005鄰明志\n路三段168號3樓",
+      "sourcePhone": "02-2908-8817",
+      "sourceServiceAreas": "泰山、五股",
+      "providerId": "CAT-HC-NTPC-6805BF3F1FEE",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "泰山區",
+        "五股區"
+      ]
+    },
+    {
+      "serial": 364,
+      "page": 24,
+      "sourceName": "沅藺康健股份有限公司附設新北\n市私立沅藺居家長照機構",
+      "sourceAddress": "新北市中和區福善里039鄰中山\n路二段228號10樓之3",
+      "sourcePhone": "02-8953-5567",
+      "sourceServiceAreas": "中和、永和",
+      "providerId": "CAT-HC-NTPC-B92125810E6A",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "中和區",
+        "永和區"
+      ]
+    },
+    {
+      "serial": 365,
+      "page": 24,
+      "sourceName": "靜安健康股份有限公司附設新北\n市私立智安居家長照機構",
+      "sourceAddress": "新北市新莊區中華里004鄰中華\n路二段7號10樓1203室",
+      "sourcePhone": "0975-250-820",
+      "sourceServiceAreas": "新莊",
+      "providerId": "CAT-HC-NTPC-508F77E5E4D5",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區"
+      ]
+    },
+    {
+      "serial": 366,
+      "page": 24,
+      "sourceName": "淘米事業股份有限公司附設新北\n市私立淘米居家長照機構",
+      "sourceAddress": "新北市新莊區思源里011鄰思源\n路171號10樓E辦公室",
+      "sourcePhone": "02-2984-9511",
+      "sourceServiceAreas": "新莊",
+      "providerId": "CAT-HC-NTPC-76BBE1DEA636",
+      "status": "ADDED",
+      "outsideLocatedCity": false,
+      "suspended": false,
+      "identityBasis": "官方獨立機構完整名稱＋主要地址；不同母機構分支不合併",
+      "districts": [
+        "新莊區"
+      ]
+    }
+  ],
+  "totals": {
+    "sourceRows": 366,
+    "newProviders": 318,
+    "mergedExisting": 48,
+    "suspendedProviders": 1,
+    "outsideLocatedCity": 4,
+    "providers": 1118,
+    "homeCare": 517,
+    "activeHomeCare": 516,
+    "providerServices": 1101,
+    "providerServiceAreas": 2517,
+    "newServiceAreas": 1394,
+    "providerContractRegions": 588,
+    "publicMetadata": 1111
+  },
+  "existingSourceAddressDifferences": [
+    "TP-HC-113",
+    "TP-HC-040",
+    "TP-HC-126",
+    "TP-HC-120",
+    "TP-HC-083",
+    "TP-HC-128",
+    "TP-HC-114",
+    "TP-HC-071",
+    "TP-HC-038",
+    "TP-HC-123",
+    "TP-HC-085",
+    "TP-HC-130",
+    "TP-HC-132",
+    "TP-HC-124",
+    "TP-HC-029",
+    "TP-HC-065",
+    "TP-HC-028",
+    "TP-HC-014",
+    "TP-HC-015",
+    "TP-HC-055"
+  ],
+  "resolvedUnknownServiceArea": [
+    "TP-HC-125",
+    "TP-HC-134",
+    "TP-HC-123",
+    "TP-HC-127"
+  ]
+}

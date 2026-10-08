@@ -1,4 +1,5 @@
 import providerRows from '../../../data/providers/staging/providers.json';
+import ntpcManifest from '../../../data/providers/qa/ntpc-home-care-manifest.json';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { publicProviderApi as api, previewRotationHash } from '../../web/src/publicData/providerPreview';
 import { stableRotationHash } from '../src/services/recommendationService';
@@ -26,16 +27,25 @@ describe('public real records and actual rule engine; no contract mock fixtures'
   it('district changes select the actual service area, never a fixed scenario', async () => {
     let a = await assess();
     let r = await api.getRecommendation({assessmentId:a.assessmentId,serviceType:'HOME_CARE'});
-    expect(r.providers.map(p=>p.id).sort()).toEqual(['NTPC-HC-003','NTPC-HC-004','NTPC-HC-005']);
+    const sourceCandidates = (district: string) => new Set(ntpcManifest.rows.filter(x=>!x.suspended && x.districts.includes(district)).map(x=>x.providerId));
+    const sanchong = sourceCandidates('三重區');
+    expect(r.providers).toHaveLength(3);
+    expect(new Set(r.providers.map(p=>p.id)).size).toBe(3);
+    expect(r.providers.every(p=>sanchong.has(p.id))).toBe(true);
+    expect(r.rankingType).toBe('DISTRICT_ROTATION');
+    expect(r.providers.every(p=>p.distanceKm===null)).toBe(true);
     const again = await api.getRecommendation({assessmentId:a.assessmentId,serviceType:'HOME_CARE'});
     expect(again.providers).toEqual(r.providers);
     a = await assess({location:{precision:'DISTRICT',city:'新北市',district:'土城區',lat:null,lng:null}});
     r = await api.getRecommendation({assessmentId:a.assessmentId,serviceType:'HOME_CARE'});
-    expect(r.providers).toHaveLength(1);
-    expect(r.providers[0].id).toBe('NTPC-HC-005');
+    expect(r.providers).toHaveLength(3);
+    expect(r.providers.every(p=>sourceCandidates('土城區').has(p.id))).toBe(true);
     a = await assess({location:{precision:'DISTRICT',city:'新北市',district:'坪林區',lat:null,lng:null}});
     r = await api.getRecommendation({assessmentId:a.assessmentId,serviceType:'HOME_CARE'});
-    expect(r.providers).toEqual([]);
+    // The full official list now has real 坪林 coverage. Validate against the
+    // official source rather than retaining the obsolete "no providers" fixture.
+    expect(r.providers).toHaveLength(3);
+    expect(r.providers.every(p=>sourceCandidates('坪林區').has(p.id))).toBe(true);
   });
   it('only an explicitly sourced vendor is eligible for device delivery; unknown areas stay queryable', async () => {
     const a = await assess();
@@ -51,7 +61,7 @@ describe('public real records and actual rule engine; no contract mock fixtures'
   });
   it('all real resources are listed and centres never enter recommendation', async () => {
     const resources = await api.getProviders({page:1,pageSize:50});
-    expect(resources.totalCount).toBe(providerRows.length);
+    expect(resources.totalCount).toBe(providerRows.filter(p=>p.status==='ACTIVE').length);
     expect(resources.items.some(p=>/MOCK|示範機構|測試單位/.test(p.id+' '+p.name))).toBe(false);
     const centers = await api.getProviders({resourceCategory:'ASSISTIVE_DEVICE_CENTER',page:1,pageSize:20});
     expect(centers.totalCount).toBe(providerRows.filter(p=>p.resourceCategory==='ASSISTIVE_DEVICE_CENTER').length);
@@ -60,6 +70,16 @@ describe('public real records and actual rule engine; no contract mock fixtures'
     expect(detail?.name).toContain('長照');
     expect(detail?.googleMapsUrl).toMatch(/^https:\/\/www.google.com\/maps\//);
     expect(await api.getProvider('PROV-MOCK-001')).toBeNull();
+  });
+  it('official New Taipei cross-city institutions remain readable and a suspended institution is unavailable', async () => {
+    const rows=await api.getProviders({serviceType:'HOME_CARE',city:'新北市',areaFilter:'SERVICE_AREA',pageSize:50});
+    expect(rows.totalCount).toBe(365);
+    for(const row of ntpcManifest.rows.filter(x=>x.outsideLocatedCity)) {
+      const p=await api.getProvider(row.providerId);
+      expect(p).not.toBeNull();expect(['桃園市','基隆市']).toContain(p?.city);
+      expect(p?.serviceAreas.every(a=>a.city==='新北市')).toBe(true);
+    }
+    for(const row of ntpcManifest.rows.filter(x=>x.suspended))expect(await api.getProvider(row.providerId)).toBeNull();
   });
   it('published knowledge filters do not leak another jurisdiction', async () => {
     const records = await api.getKnowledgeRecords({jurisdiction:'NEW_TAIPEI',page:1,pageSize:20});
