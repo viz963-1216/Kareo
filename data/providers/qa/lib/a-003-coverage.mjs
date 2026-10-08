@@ -265,6 +265,9 @@ export function checkEvidence({ providers, services, areas, evidence }) {
       errors.push(`${item.providerId}: service-area evidence references a missing Provider.`);
       continue;
     }
+    if (evidence.sources.find(s => s.sourceId === item.sourceId)?.sourceKind === 'FIRST_PARTY' && item.basis !== 'FIRST_PARTY') {
+      errors.push(`${item.providerId}: merchant evidence must remain FIRST_PARTY, never government proof.`);
+    }
     const decisionType = decisionsById.get(item.decisionId)?.settingType;
     if (item.basis === "PLATFORM_SETTING") {
       if (decisionType !== "PLATFORM_SETTING") {
@@ -273,8 +276,16 @@ export function checkEvidence({ providers, services, areas, evidence }) {
       for (const district of item.districts) {
         settingAreaKeys.add(`${item.providerId}|${item.city}|${district}`);
       }
+    } else if (item.basis === "FIRST_PARTY") {
+      const source = evidence.sources.find(s => s.sourceId === item.sourceId);
+      const provider = providersById.get(item.providerId);
+      let sameHost = false;
+      try { sameHost = new URL(source?.url).protocol === 'https:' && new URL(source?.url).hostname === new URL(provider.website).hostname; } catch {}
+      if (source?.sourceKind !== 'FIRST_PARTY' || !sameHost || !/^[a-f0-9]{64}$/.test(source?.sha256 ?? '') || !/^\d{4}-\d{2}-\d{2}$/.test(item.checkedAt ?? '') || !item.sourceText?.trim()) {
+        errors.push(`${item.providerId}: FIRST_PARTY requires matching provider website, source kind, hash, date and explicit service text.`);
+      }
     } else if (item.basis !== "OFFICIAL" || decisionType === "PLATFORM_SETTING") {
-      errors.push(`${item.providerId}: service-area basis must be OFFICIAL or match its decision type.`);
+      errors.push(`${item.providerId}: service-area basis must be OFFICIAL, FIRST_PARTY or match its decision type.`);
     }
     if (!sourceIds.has(item.sourceId)) {
       errors.push(`${item.providerId}: service-area source ${item.sourceId} is not registered.`);
@@ -529,22 +540,24 @@ export function renderSections(
   const settingKeys = new Set(
     settingEvidence.flatMap((item) => item.districts.map((d) => `${item.providerId}|${item.city}|${d}`)),
   );
+  const firstPartyKeys = new Set(evidence.serviceAreas.filter(item => item.basis === 'FIRST_PARTY').flatMap(item => item.districts.map(d => `${item.providerId}|${item.city}|${d}`)));
   const typeOf = new Map(providers.map((provider) => [provider.id, provider.type]));
   const basisRows = new Map();
   for (const area of areas.filter((item) => item.active)) {
     const type = typeOf.get(area.providerId);
-    const row = basisRows.get(type) ?? { official: 0, setting: 0, other: 0 };
+    const row = basisRows.get(type) ?? { official: 0, firstParty: 0, setting: 0, other: 0 };
     if (settingKeys.has(areaKey(area))) row.setting += 1;
     else if (officialKeys.has(areaKey(area))) row.official += 1;
+    else if (firstPartyKeys.has(areaKey(area))) row.firstParty += 1;
     else row.other += 1;
     basisRows.set(type, row);
   }
   const serviceAreaBasis = [
-    "| Provider 類型 | 官方來源直接證實（本檔證據） | 官方來源（A-003-r1 人工核對 SRC-001，未列入本檔證據） | 依指示建立的平台設定（非官方證實） | 合計 |",
-    "| --- | --- | --- | --- | --- |",
+    "| Provider 類型 | 官方來源直接證實（本檔證據） | 官方來源（A-003-r1 人工核對 SRC-001，未列入本檔證據） | 商家第一手明示（非政府證實） | 依指示建立的平台設定（非官方證實） | 合計 |",
+    "| --- | --- | --- | --- | --- | --- |",
     ...[...basisRows.entries()].map(
       ([type, row]) =>
-        `| ${type} | ${row.official} | ${row.other} | ${row.setting} | ${row.official + row.other + row.setting} |`,
+        `| ${type} | ${row.official} | ${row.other} | ${row.firstParty} | ${row.setting} | ${row.official + row.other + row.firstParty + row.setting} |`,
     ),
     "",
     ...(evidence.decisions ?? [])

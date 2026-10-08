@@ -49,17 +49,17 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 ## 摘要
 
 <!-- A003:BEGIN summary -->
-- Provider 總數：35
-- ProviderServiceArea 筆數：98
+- Provider 總數：36
+- ProviderServiceArea 筆數：119
 - lat/lng 非 null：35
 - 有完整驗證證據的座標：34（名稱／地址核對＋官方門牌點＋可重現轉換，見 `qa/a-003-evidence.json`）
 - 依指示採用的非官方座標（非官方門牌點，不計入已驗證）：1（NTPC-AD-004，DEC-A003-07）
 - 非 null 但缺任何證據：0
-- 仍無座標：0
+- 仍無座標：1
 - 缺 ProviderServiceArea 的 ACTIVE Provider：14
 - 依指示建立的平台設定服務範圍（非官方證實）：0 筆（—）
 - 條件式服務地域（未有行政區級證據，未建立 ProviderServiceArea）：14 家（NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003、TP-HMN-001、TP-HMN-003）
-- 服務類型 × 行政區組合：26；DISTANCE READY：24（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區）
+- 服務類型 × 行政區組合：47；DISTANCE READY：24（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區）
 <!-- A003:END summary -->
 
 ## 座標驗證方法（可重現）
@@ -93,17 +93,18 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | HOME_CARE | 15 | 15 | 0 | 100% | 15 | 24 | 24 | — |
 | HOME_MEDICAL_NURSING | 3 | 3 | 0 | 100% | 1 | 2 | 0 | 服務範圍未知：TP-HMN-001、TP-HMN-003；不得由地址推測，也因此沒有可推薦組合 |
-| ASSISTIVE_DEVICE | 12 | 11 | 1 | 100% | 0 | 0 | 0 | 服務範圍未知：TP-AD-001、TP-AD-002、TP-AD-003、NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009；不得由地址推測，也因此沒有可推薦組合 |
+| ASSISTIVE_DEVICE | 13 | 11 | 1 | 92% | 1 | 21 | 0 | 服務範圍未知：TP-AD-001、TP-AD-002、TP-AD-003、NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009；不得由地址推測，也因此沒有可推薦組合 |
 <!-- A003:END by-service-type -->
 
 ## 服務範圍依據
 
 <!-- A003:BEGIN service-area-basis -->
-| Provider 類型 | 官方來源直接證實（本檔證據） | 官方來源（A-003-r1 人工核對 SRC-001，未列入本檔證據） | 依指示建立的平台設定（非官方證實） | 合計 |
-| --- | --- | --- | --- | --- |
-| HOME_CARE | 23 | 61 | 0 | 84 |
-| HOME_MEDICAL_NURSING | 2 | 0 | 0 | 2 |
-| OTHER | 12 | 0 | 0 | 12 |
+| Provider 類型 | 官方來源直接證實（本檔證據） | 官方來源（A-003-r1 人工核對 SRC-001，未列入本檔證據） | 商家第一手明示（非政府證實） | 依指示建立的平台設定（非官方證實） | 合計 |
+| --- | --- | --- | --- | --- | --- |
+| HOME_CARE | 23 | 61 | 0 | 0 | 84 |
+| HOME_MEDICAL_NURSING | 2 | 0 | 0 | 0 | 2 |
+| OTHER | 12 | 0 | 0 | 0 | 12 |
+| ASSISTIVE_DEVICE | 0 | 0 | 21 | 0 | 21 |
 
 <!-- A003:END service-area-basis -->
 
@@ -142,6 +143,27 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 | HOME_CARE | 臺北市 | 萬華區 | 10 | 10 | 100% | READY | — | — | — |
 | HOME_MEDICAL_NURSING | 臺北市 | 士林區 | 1 | 1 | 100% | BLOCKED（同類型有 Provider 服務範圍未知） | — | — | — |
 | HOME_MEDICAL_NURSING | 臺北市 | 北投區 | 1 | 1 | 100% | BLOCKED（同類型有 Provider 服務範圍未知） | — | — | — |
+| ASSISTIVE_DEVICE | 新北市 | 三重區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 新北市 | 三峽區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 新北市 | 土城區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 新北市 | 中和區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 新北市 | 永和區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 新北市 | 板橋區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 新北市 | 新莊區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 新北市 | 樹林區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 新北市 | 鶯歌區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 臺北市 | 士林區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 臺北市 | 大同區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 臺北市 | 大安區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 臺北市 | 中山區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 臺北市 | 中正區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 臺北市 | 內湖區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 臺北市 | 文山區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 臺北市 | 北投區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 臺北市 | 松山區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 臺北市 | 信義區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 臺北市 | 南港區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
+| ASSISTIVE_DEVICE | 臺北市 | 萬華區 | 1 | 0 | 0% | BLOCKED（缺座標） | NTPC-AD-010 | — | — |
 <!-- A003:END coverage -->
 
 注意事項：
@@ -192,6 +214,7 @@ Evidence: `data/providers/qa/a-003-evidence.json`（機器可讀；座標、服�
 | TP-ARC-003 | 臺北市南區輔具中心（財團法人第一社會福利基金會承辦） | OTHER | 25.03899775 | 121.58300488 | VERIFIED | SRC-011 名稱／地址；SRC-COORD-TPE-003 `大道路１１６號`（EPSG:3826 → WGS84） | 2026-10-04 | 4 | — |
 | NTPC-ARC-001 | 新北市輔具資源中心（蘆洲） | OTHER | 25.08482988 | 121.48162219 | VERIFIED | SRC-012 名稱／地址；SRC-COORD-NTPC-002 `集賢路２４５號`（EPSG:3826 → WGS84） | 2026-10-04 | 0 | — |
 | NTPC-ARC-002 | 新北市輔具資源中心（新店） | OTHER | 24.9669087 | 121.54102965 | VERIFIED | SRC-012 名稱／地址；SRC-COORD-NTPC-003 `北新路一段２８１號`（EPSG:3826 → WGS84） | 2026-10-04 | 0 | — |
+| NTPC-AD-010 | 亞德醫材生活館 | ASSISTIVE_DEVICE | null | null | PENDING | — | — | 21 | 座標 |
 <!-- A003:END providers -->
 
 ## 驗收狀態

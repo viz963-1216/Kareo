@@ -84,7 +84,7 @@ function AppRoutes() {
           </a>
         </nav>
       </header>
-      {demoMode && <aside className="demo-notice" aria-label="展示版說明"><strong>專題展示版</strong>｜請使用虛構個案；結果與機構為示範資料，不建立真實媒合案件。重新整理可重新開始。</aside>}
+      {demoMode && <aside className="demo-notice" aria-label="公開資料版說明"><strong>公開資料版</strong>｜依輸入條件分析需求、查詢真實機構。回答只在本分頁使用，不建立媒合案件。機構資料核對：2026/09/29–10/08；知識快照：2026/10/08。</aside>}
       <Routes>
         <Route path="/admin/knowledge" element={demoMode ? <Navigate to="/" replace /> : <AdminKnowledgePage />} />
         <Route path="/" element={<HomePage />} />
@@ -100,9 +100,9 @@ function AppRoutes() {
         <Route path="/providers/:providerId" element={<ProviderDetailPage />} />
         <Route
           path="/recommendations/:serviceType"
-          element={<RecommendationPage assessmentId={result?.assessmentId ?? null} locationPrecision={location?.precision ?? null} />}
+          element={<RecommendationPage assessmentId={result?.assessmentId ?? null} locationPrecision={location?.precision ?? null} location={location} />}
         />
-        <Route path="/match" element={<LeadPage sessionId={sessionId} assessmentId={result?.assessmentId ?? null} />} />
+        <Route path="/match" element={demoMode ? <main id="main-content" className="content"><h1>公開資料版不建立媒合案件</h1><p>請使用單位公開電話、官方網站或 1966 洽詢服務。</p><Link to="/resources">查詢真實服務單位</Link></main> : <LeadPage sessionId={sessionId} assessmentId={result?.assessmentId ?? null} />} />
         <Route path="/session-ended" element={<SessionEndedPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

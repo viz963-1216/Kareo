@@ -24,7 +24,7 @@ function formatDate(value: string) {
 
 export function SessionEndedPage() {
   const state = readState(useLocation().state);
-  if (demoMode) return <main id="main-content" className="content"><p className="eyebrow">專題展示</p><h1>展示資料已重設</h1><p role="status">已結束本次虛構個案操作。展示站沒有向資料庫送出評估或建立真實媒合案件，也沒有安排實際客服或刪除請求。</p><Link className="button primary" to="/consent">開始新的展示評估</Link></main>;
+  if (demoMode) return <main id="main-content" className="content"><p className="eyebrow">本機需求分析</p><h1>本機需求分析已重設</h1><p role="status">已清除這個分頁的回答與結果。此版本未向資料庫送出評估，也沒有建立媒合案件。</p><Link className="button primary" to="/consent">開始新的需求分析</Link></main>;
   return (
     <main id="main-content" className="content">
       <p className="eyebrow">使用階段</p>

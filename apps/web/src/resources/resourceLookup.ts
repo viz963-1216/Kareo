@@ -82,3 +82,15 @@ export function buildResourceLookupRequest(form: LookupForm, page = 1): Resource
     pageSize: 20,
   };
 }
+
+/** Public links carry only resource filters, never assessment answers or coordinates. */
+export function lookupFormFromParams(params: URLSearchParams): LookupForm {
+  let form = { ...initialLookupForm };
+  const city = params.get("city");
+  if (city === "臺北市" || city === "新北市") form = changeLookupCity(form, city);
+  const serviceType = params.get("serviceType");
+  if (serviceType === "HOME_CARE" || serviceType === "HOME_MEDICAL_NURSING" || serviceType === "ASSISTIVE_DEVICE") form.serviceType = serviceType;
+  const category = params.get("resourceCategory");
+  if (category === "SERVICE_PROVIDER" || category === "ASSISTIVE_DEVICE_CENTER") form = changeResourceCategory(form, category);
+  return form;
+}

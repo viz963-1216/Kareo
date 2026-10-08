@@ -237,10 +237,10 @@ function DataControls({ onClosed }: { onClosed: (closure: SessionClosure) => voi
   return (
     <section className="panel" aria-labelledby="data-heading">
       <h2 id="data-heading">您的資料 <DraftBadge>依隱私告知草案</DraftBadge></h2>
-      {demoMode ? <p>展示資料只在本分頁記憶體中；下方操作用來示範重新開始、刪除與撤回畫面，不會送出真實資料請求。</p> : <p>「重新開始」只清除這個瀏覽器分頁上的畫面資料，<strong>不會刪除</strong>已送到平台的評估資料。如需刪除，請使用「刪除我的評估資料」或「撤回同意」。</p>}
+      {demoMode ? <p>回答與結果只在本分頁記憶體中，重新開始會清除本機需求分析。沒有雲端評估或正式同意紀錄。</p> : <p>「重新開始」只清除這個瀏覽器分頁上的畫面資料，<strong>不會刪除</strong>已送到平台的評估資料。如需刪除，請使用「刪除我的評估資料」或「撤回同意」。</p>}
       <div className="button-row">
         <button type="button" className="button secondary" onClick={() => restart()}>重新開始</button>
-        {(Object.keys(closeActions) as (keyof typeof closeActions)[]).map((key) => (
+        {!demoMode && (Object.keys(closeActions) as (keyof typeof closeActions)[]).map((key) => (
           <button
             key={key}
             type="button"

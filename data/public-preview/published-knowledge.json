@@ -1,0 +1,1330 @@
+{
+  "records": [
+    {
+      "id": "KREC-MURI6V2ROK9EFL3F",
+      "title": "可申請長照服務的資格",
+      "source": {
+        "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0070059",
+        "title": "長期照顧服務申請及給付辦法（條文）",
+        "publisher": "LAW"
+      },
+      "summary": "因身心失能，且符合 65 歲以上（原住民 55 歲以上）、領有身心障礙證明、失智症，或符合急性後期整合照護計畫收案對象其中之一者，可向照管中心或地方主管機關申請；是否符合給付仍以照管專員評估核定為準。",
+      "category": "ELIGIBILITY",
+      "ruleData": {
+        "type": "ELIGIBILITY_ANY_OF",
+        "criteria": [
+          {
+            "code": "AGE_65_PLUS"
+          },
+          {
+            "code": "INDIGENOUS_AGE_55_PLUS"
+          },
+          {
+            "code": "DISABILITY_CERTIFICATE"
+          },
+          {
+            "code": "DEMENTIA",
+            "effectiveFrom": "2026-01-01"
+          },
+          {
+            "code": "PAC_PROGRAM",
+            "effectiveFrom": "2026-01-01"
+          }
+        ],
+        "excludes": [
+          "FULL_RESIDENTIAL_SERVICE",
+          "GROUP_HOME"
+        ],
+        "requiresDisability": true
+      },
+      "authority": "LAW",
+      "effectiveTo": null,
+      "jurisdiction": "TAIWAN",
+      "packRecordId": "KR-2026-001",
+      "effectiveFrom": "2026-01-01",
+      "lastVerifiedAt": "2026-09-23T02:40:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2RYH0OWTM8",
+      "title": "長照需要等級",
+      "source": {
+        "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0070059",
+        "title": "長期照顧服務申請及給付辦法（條文）",
+        "publisher": "LAW"
+      },
+      "summary": "長照需要等級分為第 1 級至第 8 級；第 1 級為未失能，不在給付範圍。等級由照管中心評估核定，本平台只能提供初步預估，不能判定等級。",
+      "category": "ELIGIBILITY",
+      "ruleData": {
+        "max": 8,
+        "min": 1,
+        "type": "LEVEL_RANGE",
+        "benefitEligibleMin": 2
+      },
+      "authority": "LAW",
+      "effectiveTo": null,
+      "jurisdiction": "TAIWAN",
+      "packRecordId": "KR-2026-002",
+      "effectiveFrom": "2025-09-01",
+      "lastVerifiedAt": "2026-09-23T02:40:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2RU1RXKNEN",
+      "title": "長照給付項目與交通接送用途",
+      "source": {
+        "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0070059",
+        "title": "長期照顧服務申請及給付辦法（條文）",
+        "publisher": "LAW"
+      },
+      "summary": "第 2–8 級可使用：照顧及專業服務、交通接送服務、輔具及居家無障礙環境改善服務，以及家庭照顧者的喘息服務。交通接送僅限就醫、復健或透析治療。",
+      "category": "BENEFIT",
+      "ruleData": {
+        "type": "BENEFIT_ITEMS",
+        "items": [
+          "CARE_AND_PROFESSIONAL",
+          "TRANSPORTATION",
+          "ASSISTIVE_DEVICE_AND_HOME_MODIFICATION",
+          "RESPITE"
+        ],
+        "noCrossUseBetween": [
+          [
+            "CARE_AND_PROFESSIONAL",
+            "TRANSPORTATION",
+            "ASSISTIVE_DEVICE_AND_HOME_MODIFICATION"
+          ]
+        ],
+        "transportationPurposes": [
+          "MEDICAL",
+          "REHABILITATION",
+          "DIALYSIS"
+        ]
+      },
+      "authority": "LAW",
+      "effectiveTo": null,
+      "jurisdiction": "TAIWAN",
+      "packRecordId": "KR-2026-003",
+      "effectiveFrom": "2025-09-01",
+      "lastVerifiedAt": "2026-09-23T02:40:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2RIF6EIGMK",
+      "title": "各長照需要等級的給付額度",
+      "source": {
+        "url": "https://law.moj.gov.tw/LawClass/LawGetFile.ashx?FileId=0000398330&lan=C",
+        "title": "同上 附表二 長照需要等級及長照服務給付項目之額度",
+        "publisher": "LAW"
+      },
+      "summary": "給付額度依核定等級而不同，例如照顧及專業服務每月約 10,020 元（第 2 級）至 36,180 元（第 8 級）。實際額度需經評估核定後才確定。",
+      "category": "BENEFIT",
+      "ruleData": {
+        "type": "BENEFIT_AMOUNTS",
+        "currency": "TWD",
+        "respiteYearly": {
+          "2": 32340,
+          "3": 32340,
+          "4": 32340,
+          "5": 32340,
+          "6": 32340,
+          "7": 48510,
+          "8": 48510
+        },
+        "assistiveDevice3Years": {
+          "GROUP_1": 40000,
+          "GROUP_2": {
+            "amount": 60000,
+            "effectiveFrom": "2026-07-01",
+            "homeModificationCap": 20000
+          }
+        },
+        "careAndProfessionalMonthly": {
+          "2": 10020,
+          "3": 15460,
+          "4": 18580,
+          "5": 24100,
+          "6": 28070,
+          "7": 32090,
+          "8": 36180
+        },
+        "transportationMonthlyByZone": {
+          "1": 1680,
+          "2": 1840,
+          "3": 2000,
+          "4": 2400
+        }
+      },
+      "authority": "LAW",
+      "effectiveTo": null,
+      "jurisdiction": "TAIWAN",
+      "packRecordId": "KR-2026-004",
+      "effectiveFrom": "2025-09-01",
+      "lastVerifiedAt": "2026-09-23T02:40:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2RJRQ6BN53",
+      "title": "交通接送服務分區（臺北市、新北市）",
+      "source": {
+        "url": "https://law.moj.gov.tw/LawClass/LawGetFile.ashx?FileId=0000398334&lan=C",
+        "title": "同上 附表三 交通接送服務給付分區表",
+        "publisher": "LAW"
+      },
+      "summary": "臺北市屬交通接送第一區；新北市屬第二區，但烏來、石碇、坪林、平溪、雙溪、貢寮區屬第四區（偏遠地區）。",
+      "category": "TRANSPORTATION",
+      "ruleData": {
+        "type": "TRANSPORT_ZONE",
+        "zones": {
+          "新北市": {
+            "default": 2,
+            "overrides": {
+              "坪林區": 4,
+              "平溪區": 4,
+              "烏來區": 4,
+              "石碇區": 4,
+              "貢寮區": 4,
+              "雙溪區": 4
+            }
+          },
+          "臺北市": {
+            "default": 1
+          }
+        }
+      },
+      "authority": "LAW",
+      "effectiveTo": null,
+      "jurisdiction": "TAIWAN",
+      "packRecordId": "KR-2026-005",
+      "effectiveFrom": "2025-09-01",
+      "lastVerifiedAt": "2026-09-23T02:40:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2RM2HG19KN",
+      "title": "長照身分別與部分負擔比率",
+      "source": {
+        "url": "https://law.moj.gov.tw/LawClass/LawGetFile.ashx?FileId=0000398333&lan=C",
+        "title": "同上 附表五 部分負擔比率",
+        "publisher": "LAW"
+      },
+      "summary": "使用長照服務需依身分別自付一定比率：低收／中低收入等第一類 0%；第二類與一般戶（第三類）依服務項目不同，例如照顧及專業服務分別為 5% 與 16%。身分別以主管機關認定為準。",
+      "category": "COPAY",
+      "ruleData": {
+        "type": "COPAY_RATES",
+        "unit": "PERCENT",
+        "rates": {
+          "RESPITE": {
+            "1": 0,
+            "2": 5,
+            "3": 16
+          },
+          "TRANSPORTATION": {
+            "ZONE_1": {
+              "1": 0,
+              "2": 10,
+              "3": 30
+            },
+            "ZONE_2": {
+              "1": 0,
+              "2": 9,
+              "3": 27
+            },
+            "ZONE_3": {
+              "1": 0,
+              "2": 8,
+              "3": 25
+            },
+            "ZONE_4": {
+              "1": 0,
+              "2": 7,
+              "3": 21
+            }
+          },
+          "CARE_AND_PROFESSIONAL": {
+            "1": 0,
+            "2": 5,
+            "3": 16
+          },
+          "ASSISTIVE_DEVICE_AND_HOME_MODIFICATION": {
+            "1": 0,
+            "2": 10,
+            "3": 30
+          }
+        },
+        "rounding": "FLOOR",
+        "categories": {
+          "1": "LOW_OR_MIDDLE_LOW_INCOME",
+          "2": "ELDERLY_OR_DISABILITY_ALLOWANCE",
+          "3": "GENERAL"
+        }
+      },
+      "authority": "LAW",
+      "effectiveTo": null,
+      "jurisdiction": "TAIWAN",
+      "packRecordId": "KR-2026-006",
+      "effectiveFrom": "2025-09-01",
+      "lastVerifiedAt": "2026-09-23T02:40:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2RLZU45QK7",
+      "title": "給付額度的週期",
+      "source": {
+        "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0070059",
+        "title": "長期照顧服務申請及給付辦法（條文）",
+        "publisher": "LAW"
+      },
+      "summary": "照顧及專業服務與交通接送按月給付、以 6 個月為一期；輔具及居家無障礙每 3 年給付一次；喘息服務每年給付一次。",
+      "category": "BENEFIT",
+      "ruleData": {
+        "type": "BENEFIT_PERIODS",
+        "RESPITE": "YEARLY",
+        "TRANSPORTATION": "MONTHLY_6M_POOL",
+        "CARE_AND_PROFESSIONAL": "MONTHLY_6M_POOL",
+        "ASSISTIVE_DEVICE_AND_HOME_MODIFICATION": "EVERY_3_YEARS"
+      },
+      "authority": "LAW",
+      "effectiveTo": null,
+      "jurisdiction": "TAIWAN",
+      "packRecordId": "KR-2026-007",
+      "effectiveFrom": "2025-09-01",
+      "lastVerifiedAt": "2026-09-23T02:40:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2RM6HO3L0A",
+      "title": "申請長照服務的管道與流程",
+      "source": {
+        "url": "https://1966.gov.tw/LTC/cp-6533-70777-207.html",
+        "title": "衛福部長照專區「申請長照服務」",
+        "publisher": "MOHW"
+      },
+      "summary": "可撥長照專線 1966、聯絡當地長期照顧管理中心、住院時洽出院準備小組，或線上申請；照管專員到府評估後核定等級與額度。1966 服務時間為週一至週五 8:30–12:00、13:30–17:30。",
+      "category": "APPLICATION",
+      "ruleData": {
+        "type": "APPLICATION_CHANNELS",
+        "hotline": {
+          "hours": "Mon-Fri 08:30-12:00,13:30-17:30",
+          "number": "1966"
+        },
+        "channels": [
+          "HOTLINE_1966",
+          "LOCAL_LTC_CENTER",
+          "HOSPITAL_DISCHARGE_PLANNING",
+          "ONLINE"
+        ]
+      },
+      "authority": "MOHW",
+      "effectiveTo": null,
+      "jurisdiction": "TAIWAN",
+      "packRecordId": "KR-2026-008",
+      "effectiveFrom": "2026-09-23",
+      "lastVerifiedAt": "2026-09-23T02:40:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2RIK5LRHWR",
+      "title": "臺北市長期照顧管理中心聯絡資訊",
+      "source": {
+        "url": "https://health.gov.taipei/News_Content.aspx?n=4244BB51FC46A03C&sms=72730260368A9FA4&s=718465B2053B7E77",
+        "title": "臺北市政府衛生局「如何申請長照服務」",
+        "publisher": "TAIPEI_GOV"
+      },
+      "summary": "臺北市長期照顧管理中心位於中山區錦州街 233 號，申請請撥 1966。",
+      "category": "APPLICATION",
+      "ruleData": {
+        "fax": "02-2537-6533",
+        "city": "臺北市",
+        "type": "LOCAL_CENTER",
+        "phone": "1966",
+        "address": "臺北市中山區錦州街233號"
+      },
+      "authority": "TAIPEI_GOV",
+      "effectiveTo": null,
+      "jurisdiction": "TAIPEI",
+      "packRecordId": "KR-2026-009",
+      "effectiveFrom": "2026-09-04",
+      "lastVerifiedAt": "2026-09-23T02:40:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2TQN2MFJ9V",
+      "title": "臺北市長照交通接送服務使用規則",
+      "source": {
+        "url": "https://dosw.gov.taipei/cp.aspx?n=1847C5A001C1DC3C",
+        "title": "臺北市政府社會局「長期照顧交通接送服務-申請說明」",
+        "publisher": "TAIPEI_GOV"
+      },
+      "summary": "臺北市長照交通接送限往返居所與醫院或診所（就醫、定期復健或透析），服務範圍為臺北市與新北市，每日 6:00 首班、20:30 末班；至遲於使用前一日預約，最多可預約 14 日後車班。以計程車日間費率 1.2 倍計價、共乘打 66 折；每月額度最高 1,680 元，低收入戶自付 0%、中低收入戶 10%、一般戶 30%，超出額度自費。長照等級 7 級以上或未滿 18 歲須有陪伴者。",
+      "category": "TRANSPORTATION",
+      "ruleData": {
+        "city": "臺北市",
+        "type": "LOCAL_TRANSPORT_RULES",
+        "purposes": [
+          "MEDICAL",
+          "REHABILITATION",
+          "DIALYSIS"
+        ],
+        "fareBasis": "TAXI_DAY_RATE_X1.2",
+        "bookingUrl": "https://tpeltct.dosw.gov.taipei/",
+        "monthlyCap": 1680,
+        "serviceArea": [
+          "臺北市",
+          "新北市"
+        ],
+        "serviceHours": "06:00-20:30",
+        "companionRequired": {
+          "ageUnder": 18,
+          "levelMin": 7
+        },
+        "bookingLeadDaysMin": 1,
+        "bookingWindowDaysMax": 14,
+        "sharedRideMultiplier": 0.66,
+        "copayPercentByCategory": {
+          "1": 0,
+          "2": 10,
+          "3": 30
+        }
+      },
+      "authority": "TAIPEI_GOV",
+      "effectiveTo": null,
+      "jurisdiction": "TAIPEI",
+      "packRecordId": "KR-2026-010",
+      "effectiveFrom": "2026-09-04",
+      "lastVerifiedAt": "2026-09-24T02:00:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2TJXFAMBY3",
+      "title": "臺北市申請長照服務的管道",
+      "source": {
+        "url": "https://dosw.gov.taipei/cp.aspx?n=F07637F92E4E85A0",
+        "title": "臺北市政府社會局「居家服務-洽辦資訊」",
+        "publisher": "TAIPEI_GOV"
+      },
+      "summary": "臺北市可透過「臺北市長期照顧資訊網」線上申請，或撥長照專線 1966 向臺北市長期照顧管理中心申請；受理時間為週一至週五 8:30–12:00、13:30–17:30。",
+      "category": "APPLICATION",
+      "ruleData": {
+        "city": "臺北市",
+        "type": "LOCAL_APPLICATION",
+        "channels": [
+          {
+            "url": "https://ltc.health.gov.taipei/tplcPublic/",
+            "code": "ONLINE"
+          },
+          {
+            "code": "HOTLINE_1966",
+            "hours": "Mon-Fri 08:30-12:00,13:30-17:30"
+          }
+        ]
+      },
+      "authority": "TAIPEI_GOV",
+      "effectiveTo": null,
+      "jurisdiction": "TAIPEI",
+      "packRecordId": "KR-2026-011",
+      "effectiveFrom": "2026-06-05",
+      "lastVerifiedAt": "2026-09-24T02:00:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2TJRVIBCRQ",
+      "title": "新北市申請長照服務的管道",
+      "source": {
+        "url": "https://service.ntpc.gov.tw/eservice/CaseData.action?itemId=124014",
+        "title": "新北市政府雲端櫃檯「長期照顧服務」案件說明",
+        "publisher": "NEW_TAIPEI_GOV"
+      },
+      "summary": "新北市可撥長照專線 1966、將申請書傳真到轄區長期照顧管理中心分站、使用新北市政府雲端櫃檯線上申辦，或親洽區公所、衛生所、照管中心分站及醫院出院準備服務單位；處理期限 10 天。承辦為新北市政府衛生局高齡長期照顧處（02-2257-7155）。",
+      "category": "APPLICATION",
+      "ruleData": {
+        "city": "新北市",
+        "type": "LOCAL_APPLICATION",
+        "office": {
+          "name": "新北市政府衛生局高齡長期照顧處",
+          "phone": "02-2257-7155"
+        },
+        "channels": [
+          {
+            "code": "HOTLINE_1966"
+          },
+          {
+            "code": "FAX_TO_BRANCH"
+          },
+          {
+            "url": "https://service.ntpc.gov.tw/eservice/CaseData.action?itemId=124014",
+            "code": "ONLINE"
+          },
+          {
+            "code": "IN_PERSON",
+            "places": [
+              "區公所",
+              "衛生所",
+              "長期照顧管理中心分站",
+              "醫院出院準備服務單位"
+            ]
+          }
+        ],
+        "processingDays": 10
+      },
+      "authority": "NEW_TAIPEI_GOV",
+      "effectiveTo": null,
+      "jurisdiction": "NEW_TAIPEI",
+      "packRecordId": "KR-2026-012",
+      "effectiveFrom": "2026-09-24",
+      "lastVerifiedAt": "2026-09-24T02:00:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2TDCEP3N7B",
+      "title": "新北市長期照顧管理中心與各分站聯絡資訊",
+      "source": {
+        "url": "https://www.careyou.ntpc.gov.tw/w/agecare/care-branch",
+        "title": "新北市政府高齡長期照顧處「長照服務管理中心」",
+        "publisher": "NEW_TAIPEI_GOV"
+      },
+      "summary": "新北市長期照顧管理中心（高齡長期照顧處）位於板橋區英士路 192-1 號，總機 02-2257-7155，服務時間週一至週五 8:30–12:30、13:30–17:30（國定假日除外）；申請長照請撥 1966。各行政區另有照管中心分站或衛生所受理。",
+      "category": "APPLICATION",
+      "ruleData": {
+        "city": "新北市",
+        "type": "LOCAL_CENTER",
+        "hours": "Mon-Fri 08:30-12:30,13:30-17:30",
+        "phone": "1966",
+        "address": "新北市板橋區英士路192-1號",
+        "branches": [
+          {
+            "fax": "02-2968-3510",
+            "name": "板橋分站",
+            "phone": "02-2968-3331",
+            "address": "新北市板橋區中正路10號5樓",
+            "districts": [
+              "板橋區"
+            ]
+          },
+          {
+            "fax": "02-2254-7177",
+            "name": "板樹分站",
+            "phone": "02-2254-7900",
+            "address": "新北市板橋區英士路192號5樓",
+            "districts": [
+              "板橋區",
+              "樹林區"
+            ]
+          },
+          {
+            "fax": "02-2247-5651",
+            "name": "中和分站",
+            "phone": "02-2246-4570",
+            "address": "新北市中和區南山路4巷3號2樓",
+            "districts": [
+              "中和區"
+            ]
+          },
+          {
+            "fax": "02-2247-5651",
+            "name": "永和分站",
+            "phone": "02-2246-4570",
+            "address": "新北市中和區南山路4巷3號2樓",
+            "districts": [
+              "永和區"
+            ]
+          },
+          {
+            "fax": "02-2983-3481",
+            "name": "三重分站",
+            "phone": "02-2984-3246",
+            "address": "新北市三重區重新路一段87號1樓",
+            "districts": [
+              "三重區"
+            ]
+          },
+          {
+            "fax": "02-2983-3481",
+            "name": "三蘆分站",
+            "phone": "02-2984-3246",
+            "address": "新北市三重區重新路一段87號1樓",
+            "districts": [
+              "三重區",
+              "蘆洲區"
+            ]
+          },
+          {
+            "fax": "02-2911-0665",
+            "name": "新店分站",
+            "phone": "02-2911-7079",
+            "address": "新北市新店區北新路1段88巷11號4樓",
+            "districts": [
+              "新店區"
+            ]
+          },
+          {
+            "fax": "02-8674-1927",
+            "name": "三峽分站",
+            "phone": "02-2674-2858",
+            "address": "新北市三峽區光明路71號3樓",
+            "districts": [
+              "三峽區",
+              "土城區",
+              "鶯歌區"
+            ]
+          },
+          {
+            "fax": "02-2629-8330",
+            "name": "淡水分站",
+            "phone": "02-2629-7761",
+            "address": "新北市淡水區中山路158號2樓",
+            "districts": [
+              "淡水區"
+            ]
+          },
+          {
+            "fax": "02-8521-9810",
+            "name": "新莊分站",
+            "phone": "02-8521-9801",
+            "address": "新北市新莊區富貴路156號1樓",
+            "districts": [
+              "新莊區"
+            ]
+          },
+          {
+            "fax": "02-2690-7369",
+            "name": "汐止分站",
+            "phone": "02-2690-3966",
+            "address": "新北市汐止區新台五路一段266號3樓",
+            "districts": [
+              "汐止區"
+            ]
+          },
+          {
+            "fax": "02-2900-3632",
+            "name": "泰山分站",
+            "phone": "02-2900-3616",
+            "address": "新北市泰山區全興路212號3樓",
+            "districts": [
+              "泰山區",
+              "五股區",
+              "林口區"
+            ]
+          },
+          {
+            "fax": "02-2497-8320",
+            "name": "瑞芳區衛生所",
+            "phone": "02-2497-2132",
+            "address": "新北市瑞芳區明燈路三段1號",
+            "districts": [
+              "瑞芳區"
+            ]
+          },
+          {
+            "fax": "02-2662-4380",
+            "name": "深坑區衛生所",
+            "phone": "02-2662-1567",
+            "address": "新北市深坑區深坑街165號",
+            "districts": [
+              "深坑區"
+            ]
+          },
+          {
+            "fax": "02-2663-1064",
+            "name": "石碇區衛生所",
+            "phone": "02-2663-1325",
+            "address": "新北勢石碇區碇坪路一段82號",
+            "districts": [
+              "石碇區"
+            ]
+          },
+          {
+            "fax": "02-2492-1939",
+            "name": "萬里區衛生所",
+            "phone": "02-2492-1117",
+            "address": "新北市萬里區馬鋉路157號",
+            "districts": [
+              "萬里區"
+            ]
+          },
+          {
+            "fax": "02-2610-1471",
+            "name": "八里區衛生所",
+            "phone": "02-2610-2137",
+            "address": "新北市八里區舊城里舊城路16號",
+            "districts": [
+              "八里區"
+            ]
+          },
+          {
+            "fax": "02-2665-6561",
+            "name": "坪林區衛生所",
+            "phone": "02-2665-6272",
+            "address": "新北市坪林區坪林街104號",
+            "districts": [
+              "坪林區"
+            ]
+          },
+          {
+            "fax": "02-2636-0004",
+            "name": "三芝區衛生所",
+            "phone": "02-2636-2007",
+            "address": "新北市三芝區中山路一段12號",
+            "districts": [
+              "三芝區"
+            ]
+          },
+          {
+            "fax": "02-2638-2137",
+            "name": "石門區衛生所",
+            "phone": "02-2638-1007",
+            "address": "新北市石門區石門里中山路28-1號",
+            "districts": [
+              "石門區"
+            ]
+          },
+          {
+            "fax": "02-2490-2431",
+            "name": "貢寮區衛生所",
+            "phone": "02-2490-1431",
+            "address": "新北市貢寮區仁愛路128號",
+            "districts": [
+              "貢寮區"
+            ]
+          },
+          {
+            "fax": "02-2493-3069",
+            "name": "雙溪區衛生所",
+            "phone": "02-2493-1210",
+            "address": "新北市雙溪區新基里新基南街18號",
+            "districts": [
+              "雙溪區"
+            ]
+          },
+          {
+            "fax": "02-2498-6416",
+            "name": "金山區衛生所",
+            "phone": "02-2498-2778",
+            "address": "新北市金山區大同里民生路59號",
+            "districts": [
+              "金山區"
+            ]
+          },
+          {
+            "fax": "02-2495-1194",
+            "name": "平溪區衛生所",
+            "phone": "02-2495-1015",
+            "address": "新北市平溪區公園街17號",
+            "districts": [
+              "平溪區"
+            ]
+          },
+          {
+            "fax": "02-2661-6476",
+            "name": "烏來區衛生所",
+            "phone": "02-2661-7200",
+            "address": "新北市烏來區新烏路五段109號",
+            "districts": [
+              "烏來區"
+            ]
+          }
+        ],
+        "mainPhone": "02-2257-7155"
+      },
+      "authority": "NEW_TAIPEI_GOV",
+      "effectiveTo": null,
+      "jurisdiction": "NEW_TAIPEI",
+      "packRecordId": "KR-2026-013",
+      "effectiveFrom": "2026-09-24",
+      "lastVerifiedAt": "2026-09-24T02:00:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2TB8OD911Y",
+      "title": "新北市長照交通接送服務使用規則",
+      "source": {
+        "url": "https://www.careyou.ntpc.gov.tw/w/agecare/ltcts",
+        "title": "新北市政府高齡長期照顧處「民眾交通使用須知」",
+        "publisher": "NEW_TAIPEI_GOV"
+      },
+      "summary": "新北市長照交通接送限往返居家與醫療院所就醫或復健（洗腎），服務區域以北北基桃為限；須於乘車前 3–14 日預約，預約時間週一至週五 8:30–17:30。以計程車費率 1.2 倍計價、共乘打 66 折。一般區每月 1,840 元（一般戶自付 27%、中低收入戶 9%、低收入戶 0%）；烏來、石碇、坪林、平溪、雙溪、貢寮每月 2,400 元（21%／7%／0%）。陪同者以 1 名為原則，第 2 位加收 50 元、第 3 位起每位加收 200 元。",
+      "category": "TRANSPORTATION",
+      "ruleData": {
+        "city": "新北市",
+        "type": "LOCAL_TRANSPORT_RULES",
+        "zones": {
+          "2": {
+            "monthlyCap": 1840,
+            "copayPercentByCategory": {
+              "1": 0,
+              "2": 9,
+              "3": 27
+            }
+          },
+          "4": {
+            "districts": [
+              "貢寮區",
+              "烏來區",
+              "石碇區",
+              "坪林區",
+              "平溪區",
+              "雙溪區"
+            ],
+            "monthlyCap": 2400,
+            "copayPercentByCategory": {
+              "1": 0,
+              "2": 7,
+              "3": 21
+            }
+          }
+        },
+        "purposes": [
+          "MEDICAL",
+          "REHABILITATION",
+          "DIALYSIS"
+        ],
+        "companion": {
+          "secondFee": 50,
+          "includedCount": 1,
+          "eachFromThirdFee": 200
+        },
+        "fareBasis": "TAXI_RATE_X1.2",
+        "bookingUrl": "https://www.ntpc.ltc-car.org/",
+        "serviceArea": [
+          "臺北市",
+          "新北市",
+          "基隆市",
+          "桃園市"
+        ],
+        "bookingHours": "Mon-Fri 08:30-17:30",
+        "bookingLeadDaysMin": 3,
+        "bookingWindowDaysMax": 14,
+        "sharedRideMultiplier": 0.66
+      },
+      "authority": "NEW_TAIPEI_GOV",
+      "effectiveTo": null,
+      "jurisdiction": "NEW_TAIPEI",
+      "packRecordId": "KR-2026-014",
+      "effectiveFrom": "2026-09-24",
+      "lastVerifiedAt": "2026-09-24T02:00:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2TO3ECNAAB",
+      "title": "新北市長照輔具及居家無障礙補助申請流程",
+      "source": {
+        "url": "https://service.ntpc.gov.tw/eservice/CaseData.action?itemId=110105",
+        "title": "新北市政府雲端櫃檯「長期照顧輔具服務及居家無障礙環境改善服務補助」",
+        "publisher": "NEW_TAIPEI_GOV"
+      },
+      "summary": "新北市長照輔具及居家無障礙改善補助須先經核定才能購置或租賃，未經核定不予補助；部分輔具需附三個月內的輔具評估報告。取得核定通知後 6 個月內，向特約廠商購置或租賃並檢附請款文件，處理期限 40 天。承辦為新北市輔具資源中心（蘆洲區集賢路 245 號 9 樓，02-8286-7045）。",
+      "category": "ASSISTIVE_DEVICE",
+      "ruleData": {
+        "city": "新北市",
+        "type": "LOCAL_ASSISTIVE_DEVICE_PROCESS",
+        "center": {
+          "fax": "02-8286-7245",
+          "name": "新北市輔具資源中心",
+          "phone": "02-8286-7045",
+          "address": "新北市蘆洲區集賢路245號9樓"
+        },
+        "processingDays": 40,
+        "claimDeadlineMonths": 6,
+        "assessmentReportValidMonths": 3,
+        "approvalRequiredBeforePurchase": true
+      },
+      "authority": "NEW_TAIPEI_GOV",
+      "effectiveTo": null,
+      "jurisdiction": "NEW_TAIPEI",
+      "packRecordId": "KR-2026-015",
+      "effectiveFrom": "2026-09-24",
+      "lastVerifiedAt": "2026-09-24T02:00:00+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2UEX6QJ6Y1",
+      "title": "新北市身心障礙者輔具費用補助（新北市加碼項目）",
+      "source": {
+        "url": "https://drive.google.com/file/d/1V_dZRAeeUGYLKR_JrFFUg2g0un4nFmh5/view",
+        "title": "新北市政府身心障礙者輔具費用補助基準（新北市加碼）",
+        "publisher": "KAREO_DRIVE"
+      },
+      "summary": "新北市身心障礙者另有地方加碼的輔具補助項目，例如人工電子耳耗材最高 5,000 元、義肢護套 3,000 元、特製手搖三輪車 10,000 元、汽車升降機改裝 40,000 元、非動力樓梯滑椅 20,000 元（腦性麻痺者另有特製滑板、治療球、滾筒）。多數項目需新北市輔具資源中心評估或醫師診斷證明；補助依實際購買金額、以上限為準。此為身心障礙福利，須領有身心障礙證明，與長照輔具給付分開申請。",
+      "category": "ASSISTIVE_DEVICE",
+      "ruleData": {
+        "city": "新北市",
+        "type": "LOCAL_DISABILITY_AD_TOPUP",
+        "items": [
+          {
+            "name": "人工電子耳耗材",
+            "maxAmount": 5000,
+            "minUseYears": 2,
+            "fullAmountAllIncome": true
+          },
+          {
+            "name": "義肢護套",
+            "maxAmount": 3000,
+            "minUseYears": 1,
+            "fullAmountAllIncome": true
+          },
+          {
+            "name": "特製手搖三輪車",
+            "maxAmount": 10000,
+            "minUseYears": 2,
+            "fullAmountAllIncome": true
+          },
+          {
+            "name": "特製滑板",
+            "maxAmount": 2000,
+            "eligibility": "腦性麻痺",
+            "minUseYears": 1,
+            "fullAmountAllIncome": true
+          },
+          {
+            "name": "治療球",
+            "maxAmount": 1000,
+            "eligibility": "腦性麻痺",
+            "minUseYears": 5,
+            "fullAmountAllIncome": true
+          },
+          {
+            "name": "滾筒",
+            "maxAmount": 1000,
+            "eligibility": "腦性麻痺",
+            "minUseYears": 5,
+            "fullAmountAllIncome": true
+          },
+          {
+            "name": "汽車升降機改裝",
+            "maxAmount": 40000,
+            "minUseYears": 5,
+            "fullAmountAllIncome": true
+          },
+          {
+            "name": "非動力樓梯滑椅",
+            "maxAmount": 20000,
+            "minUseYears": 10,
+            "fullAmountAllIncome": false
+          }
+        ],
+        "issuer": "新北市政府社會局",
+        "assessmentCenter": "新北市輔具資源中心",
+        "incomeShareOfMax": {
+          "GENERAL": 0.5,
+          "LOW_INCOME": 1,
+          "MIDDLE_LOW_INCOME": 0.75
+        },
+        "requiresDisabilityCertificate": true
+      },
+      "authority": "KAREO_DRIVE",
+      "effectiveTo": null,
+      "jurisdiction": "NEW_TAIPEI",
+      "packRecordId": "KR-2026-016",
+      "effectiveFrom": "2026-09-24",
+      "lastVerifiedAt": "2026-09-24T04:05:27+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2U40JG92J2",
+      "title": "身心障礙者醫療輔具補助標準（呼吸類）",
+      "source": {
+        "url": "https://law.moj.gov.tw/LawClass/LawGetFile.ashx?FileId=0000293764&lan=C",
+        "title": "身心障礙者醫療復健費用及醫療輔具補助辦法 附表 醫療復健費用及醫療輔具補助標準",
+        "publisher": "LAW"
+      },
+      "summary": "領有身心障礙證明、居家需長期使用呼吸類醫療輔具者，可申請補助，每項上限依身分別（低收入戶／中低收入戶／一般戶）不同，例如電動拍痰器 15,000／11,300／7,500 元、氧氣製造機 25,000／18,800／12,500 元、雙相陽壓呼吸器 140,000／105,000／70,000 元。需三個月內專科醫師診斷證明；與生活輔具合併每人每二年以補助四項為原則；已領其他同性質補助者不得重複申請。",
+      "category": "HOME_MEDICAL_NURSING",
+      "ruleData": {
+        "type": "DISABILITY_MEDICAL_DEVICE_SUBSIDY",
+        "items": [
+          {
+            "max": [
+              15000,
+              11300,
+              7500
+            ],
+            "code": 1,
+            "name": "電動拍痰器",
+            "minUseYears": 3
+          },
+          {
+            "max": [
+              5000,
+              3800,
+              2500
+            ],
+            "code": 2,
+            "name": "非蓄電式抽痰機",
+            "minUseYears": 3
+          },
+          {
+            "max": [
+              10000,
+              7500,
+              5000
+            ],
+            "code": 3,
+            "name": "蓄電式（交直流兩用）抽痰機",
+            "minUseYears": 3
+          },
+          {
+            "max": [
+              5000,
+              3800,
+              2500
+            ],
+            "code": 4,
+            "name": "化痰機（噴霧器）",
+            "minUseYears": 3
+          },
+          {
+            "max": [
+              6000,
+              4500,
+              3000
+            ],
+            "code": 5,
+            "name": "血氧偵測儀（血氧機）",
+            "minUseYears": 3
+          },
+          {
+            "max": [
+              25000,
+              18800,
+              12500
+            ],
+            "code": 6,
+            "name": "氧氣製造機",
+            "minUseYears": 5
+          },
+          {
+            "max": [
+              120000,
+              90000,
+              60000
+            ],
+            "code": 7,
+            "name": "咳嗽（痰）機",
+            "minUseYears": 5
+          },
+          {
+            "max": [
+              40000,
+              30000,
+              20000
+            ],
+            "code": 8,
+            "name": "單相陽壓呼吸器（C-PAP）",
+            "minUseYears": 5
+          },
+          {
+            "max": [
+              140000,
+              105000,
+              70000
+            ],
+            "code": 9,
+            "name": "雙相陽壓呼吸器（Bi-PAP）",
+            "minUseYears": 5
+          },
+          {
+            "max": [
+              2500,
+              1900,
+              1300
+            ],
+            "code": 10,
+            "name": "UPS 不斷電系統",
+            "minUseYears": 3
+          }
+        ],
+        "incomeOrder": [
+          "LOW_INCOME",
+          "MIDDLE_LOW_INCOME",
+          "GENERAL"
+        ],
+        "maxItemsPerTwoYears": 4,
+        "diagnosisValidMonths": 3,
+        "requiresDisabilityCertificate": true
+      },
+      "authority": "LAW",
+      "effectiveTo": null,
+      "jurisdiction": "TAIWAN",
+      "packRecordId": "KR-2026-018",
+      "effectiveFrom": "2022-01-01",
+      "lastVerifiedAt": "2026-09-24T08:05:40+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2V2ZF9I3BX",
+      "title": "臺北市失能者生活輔助器具自辦補助計畫（資格與請款）",
+      "source": {
+        "url": "https://www-ws.gov.taipei/Download.ashx?u=LzAwMS9VcGxvYWQvMzU4L3JlbGZpbGUvMTY0OTUvMTE1ODI3L2I0MDUyODJjLTU2NTgtNDMwZS05NzZjLWVjOTY0Zjk4MGQ4MC5wZGY%3d&n=6Ie65YyX5biC5pS%2f5bqc56S%2b5pyD5bGA6L6m55CG5aSx6IO96ICF55Sf5rS76LyU5Yqp5Zmo5YW36Ieq6L6m6KOc5Yqp6KiI55WrLnBkZg%3d%3d&icon=..pdf",
+        "title": "臺北市政府社會局辦理失能者生活輔助器具自辦補助計畫（附件）",
+        "publisher": "TAIPEI_GOV"
+      },
+      "summary": "臺北市社會局另有自辦的失能者生活輔助器具補助，與身心障礙者輔具費用補助或其他政府機關相同性質補助不得重複申請。個人衛星定位器（GPS）：設籍且居住臺北市、經地區型以上醫院診斷為失智症者，須先向社會局申請核定才能購買，核定後 6 個月內請款。其他品項：設籍且居住臺北市、經照管中心評估長照需要等級第 2 級以上，且為 65 歲以上、領有身心障礙證明、55 歲以上原住民、失智症或急性後期照護收案者；於發票開立後 6 個月內請款，須輔具評估的品項應於評估報告開立後 6 個月內依建議購買；也可先取得核可編號，於 6 個月內向特約廠商購置並由廠商代償墊付。",
+      "category": "ASSISTIVE_DEVICE",
+      "ruleData": {
+        "city": "臺北市",
+        "type": "LOCAL_AD_TOPUP_PLAN",
+        "claim": {
+          "gpsItem": {
+            "basis": "計畫伍、一、(一)",
+            "deadlineFrom": "APPROVAL_DATE",
+            "deadlineMonths": 6,
+            "approvalRequiredBeforePurchase": true
+          },
+          "otherItems": {
+            "basis": "計畫伍、一、(二)",
+            "deadlineFrom": "INVOICE_DATE",
+            "deadlineMonths": 6,
+            "assessedItemsPurchaseFrom": "ASSESSMENT_REPORT_DATE",
+            "approvalRequiredBeforePurchase": false,
+            "assessedItemsPurchaseWithinMonths": 6
+          },
+          "contractedVendorPrepay": {
+            "basis": "計畫伍、二",
+            "requires": [
+              "核可編號",
+              "輔具評估報告書"
+            ],
+            "available": true,
+            "deadlineMonths": 6
+          }
+        },
+        "residency": "設籍且居住臺北市",
+        "eligibility": {
+          "gpsItem": {
+            "basis": "計畫肆、一",
+            "requires": "地區型以上醫院失智症診斷",
+            "ltcLevelMin": null
+          },
+          "otherItems": {
+            "anyOf": [
+              "AGE_65_PLUS",
+              "DISABILITY_CERTIFICATE",
+              "INDIGENOUS_AGE_55_PLUS",
+              "DEMENTIA",
+              "PAC_PROGRAM"
+            ],
+            "basis": "計畫肆、二",
+            "ltcLevelMin": 2
+          }
+        },
+        "noDuplicateWith": [
+          "身心障礙者輔具費用補助",
+          "其他政府機關相同性質補助"
+        ],
+        "itemsAndCapsPublishedYearly": true
+      },
+      "authority": "TAIPEI_GOV",
+      "effectiveTo": null,
+      "jurisdiction": "TAIPEI",
+      "packRecordId": "KR-2026-019",
+      "effectiveFrom": "2026-09-24",
+      "lastVerifiedAt": "2026-09-24T08:25:01+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2VU0LYQBCI",
+      "title": "臺北市失能者生活輔助器具自辦補助：115 年補助項目與最高額度",
+      "source": {
+        "url": "https://www-ws.gov.taipei/Download.ashx?u=LzAwMS9VcGxvYWQvMzU4L3JlbGZpbGUvMTY0OTUvMTE1ODI3L2QzMWM5M2RiLTYyMTEtNGYzMi1iOWY2LWE1YzA2ZDI2MzMxOS5wZGY%3d&n=MTE15bm06Ie65YyX5biC5pS%2f5bqc56S%2b5pyD5bGA6L6m55CG5aSx6IO96ICF55Sf5rS76LyU5Yqp5Zmo5YW36Ieq6L6m6KOc5Yqp6KiI55Wr5LmL6KOc5Yqp6aCF55uu44CB6KOc5Yqp5pyA6auY6aGN5bqm5Y%2bK6KOc5Yqp55u46Zec6KaP5a6aLnBkZg%3d%3d&icon=..pdf",
+        "title": "115年臺北市政府社會局失能者生活輔助器具自辦補助計畫之補助項目、額度及規定（附件）",
+        "publisher": "TAIPEI_GOV"
+      },
+      "summary": "臺北市 115 年自辦輔具補助共 18 項，各項訂有補助最高額度與最低使用年限，例如個人衛星定位器 10,000 元、爬梯機 80,000 元、防摔墊 4,000 元、離床警示器 3,000 元，皆為上限，不是固定可領金額。購置金額低於最高額度時，依實際支出按長照身分別的部分負擔比率核算補助：第一類（列冊低收入戶、中低收入戶等）0%、第二類 10%、第三類 30%。爬梯機、防摔墊、沐浴椅或便盆椅類、馬桶扶手須輔具評估；個人衛星定位器須失智症診斷；感應式照明等 5 項限居家使用。",
+      "category": "ASSISTIVE_DEVICE",
+      "ruleData": {
+        "city": "臺北市",
+        "type": "LOCAL_AD_TOPUP",
+        "year": 115,
+        "items": [
+          {
+            "name": "個人衛星定位器",
+            "itemNo": 1,
+            "maxAmount": 10000,
+            "minUseYears": 2,
+            "requiresDementiaDiagnosis": true
+          },
+          {
+            "name": "輪椅附件（如安全帶、桌板等）",
+            "itemNo": 2,
+            "maxAmount": 850,
+            "minUseYears": 2
+          },
+          {
+            "name": "輪椅防滑墊",
+            "itemNo": 3,
+            "maxAmount": 2500,
+            "minUseYears": 2
+          },
+          {
+            "name": "爬梯機",
+            "itemNo": 4,
+            "maxAmount": 80000,
+            "minUseYears": 10,
+            "onePerHousehold": true,
+            "requiresAssessment": true
+          },
+          {
+            "name": "翻身帶",
+            "itemNo": 5,
+            "maxAmount": 3000,
+            "minUseYears": 2
+          },
+          {
+            "name": "保潔墊",
+            "itemNo": 6,
+            "maxAmount": 1000,
+            "minUseYears": 2,
+            "perBatchCap": true
+          },
+          {
+            "name": "防摔墊",
+            "itemNo": 7,
+            "maxAmount": 4000,
+            "minUseYears": 5,
+            "perBatchCap": true,
+            "requiresAssessment": true
+          },
+          {
+            "name": "感應式照明燈具",
+            "itemNo": 8,
+            "maxAmount": 500,
+            "homeUseOnly": true,
+            "minUseYears": 2
+          },
+          {
+            "name": "廚房自動關火裝置",
+            "itemNo": 9,
+            "maxAmount": 500,
+            "homeUseOnly": true,
+            "minUseYears": 2
+          },
+          {
+            "name": "門禁感測器（紅外線感測器等）",
+            "itemNo": 10,
+            "maxAmount": 500,
+            "homeUseOnly": true,
+            "minUseYears": 2
+          },
+          {
+            "name": "無線叫人鈴",
+            "itemNo": 11,
+            "maxAmount": 500,
+            "homeUseOnly": true,
+            "minUseYears": 2
+          },
+          {
+            "name": "床邊桌",
+            "itemNo": 12,
+            "maxAmount": 500,
+            "homeUseOnly": true,
+            "minUseYears": 2
+          },
+          {
+            "name": "離床警示器",
+            "itemNo": 13,
+            "maxAmount": 3000,
+            "minUseYears": 5
+          },
+          {
+            "name": "沐浴椅或便盆椅（附輪型）",
+            "itemNo": 14,
+            "maxAmount": 2200,
+            "minUseYears": 3,
+            "requiresAssessment": true,
+            "mustApplyWithAddOns": true
+          },
+          {
+            "name": "沐浴椅或便盆椅附加功能-具利於移位之扶手",
+            "itemNo": 15,
+            "maxAmount": 1000,
+            "minUseYears": 3,
+            "requiresAssessment": true
+          },
+          {
+            "name": "沐浴椅或便盆椅附加功能-具仰躺功能",
+            "itemNo": 16,
+            "maxAmount": 1500,
+            "minUseYears": 3,
+            "requiresAssessment": true
+          },
+          {
+            "name": "沐浴椅或便盆椅附加功能-具空中傾倒功能",
+            "itemNo": 17,
+            "maxAmount": 3500,
+            "minUseYears": 3,
+            "requiresAssessment": true
+          },
+          {
+            "name": "馬桶扶手",
+            "itemNo": 18,
+            "maxAmount": 900,
+            "minUseYears": 10,
+            "requiresAssessment": true,
+            "homeVisitAssessment": true
+          }
+        ],
+        "categoryBasis": "長期照顧服務申請及給付辦法第14條第1項",
+        "maxAmountIsCap": true,
+        "copayAppliesWhen": "PURCHASE_BELOW_MAX",
+        "copayAtOrAboveMax": "UNSPECIFIED",
+        "copayPercentByCategory": {
+          "1": 0,
+          "2": 10,
+          "3": 30
+        }
+      },
+      "authority": "TAIPEI_GOV",
+      "effectiveTo": null,
+      "jurisdiction": "TAIPEI",
+      "packRecordId": "KR-2026-020",
+      "effectiveFrom": "2026-09-24",
+      "lastVerifiedAt": "2026-09-24T08:25:01+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2VMOMWZ5PW",
+      "title": "臺北市居家無障礙環境改善申請與施工流程",
+      "source": {
+        "url": "https://www-ws.gov.taipei/Download.ashx?u=LzAwMS9VcGxvYWQvMzU4L3JlbGZpbGUvMTY0OTUvMTE1ODI3L2UxMTk4NzNkLTAzNzgtNDczMi05ZDE2LTA4MjUwZmY1NzgwZC5wZGY%3d&n=5bGF5a6254Sh6Zqc56SZ55Kw5aKD5pS55ZaE6KOc5Yqp5rOo5oSP5LqL6aCFLnBkZg%3d%3d&icon=..pdf",
+        "title": "臺北市居家無障礙環境改善補助注意事項（附件）",
+        "publisher": "TAIPEI_GOV"
+      },
+      "summary": "臺北市長照居家無障礙環境改善（長照需要等級第 2 級以上）須先核定：照管專員擬定照顧計畫並照會輔具中心，輔具評估人員到府評估後開立評估報告與核定結果通知；申請人於核定日起 6 個月內依核定項目找本市特約廠商施工，項目或內容要變更須先與輔具中心確認，完工後到場驗收，只需支付自付額，由廠商代償墊付。身心障礙者輔具另依身障規定申請（設籍並實際居住臺北市等條件），可找非特約廠商。",
+      "category": "ASSISTIVE_DEVICE",
+      "ruleData": {
+        "city": "臺北市",
+        "type": "LOCAL_ASSISTIVE_DEVICE_PROCESS",
+        "steps": [
+          "照管專員擬定照顧計畫並照會輔具中心",
+          "到府評估並開立評估報告與核定結果通知",
+          "核定日起6個月內洽本市特約廠商依核定項目施工",
+          "項目或內容變更須先與輔具中心確認",
+          "到場驗收",
+          "廠商代償墊付，申請人付自付額"
+        ],
+        "ltcLevelMin": 2,
+        "deadlineFrom": "APPROVAL_DATE",
+        "deadlineMonths": 6,
+        "ltcContractedVendorOnly": true,
+        "approvalRequiredBeforeWork": true
+      },
+      "authority": "TAIPEI_GOV",
+      "effectiveTo": null,
+      "jurisdiction": "TAIPEI",
+      "packRecordId": "KR-2026-021",
+      "effectiveFrom": "2026-09-24",
+      "lastVerifiedAt": "2026-09-24T08:25:01+00:00"
+    },
+    {
+      "id": "KREC-MURI6V2VA2IH4WIO",
+      "title": "臺北市喘息服務的三種方式",
+      "source": {
+        "url": "https://health.gov.taipei/News_Content.aspx?n=4F01EBDF8F61F315&sms=72544237BBE4C5F6&s=B50D5370D99E02DC",
+        "title": "臺北市政府衛生局新聞稿「北市長照喘息服務，減輕照顧者壓力」",
+        "publisher": "TAIPEI_GOV"
+      },
+      "summary": "臺北市長照需要等級第 2 級以上者可申請喘息服務，讓家庭照顧者休息，可依需求選擇或混合使用：居家喘息（照顧服務員到家協助）、機構喘息（短期入住長照機構 24 小時照顧）、社區喘息（白天到日間照顧中心或巷弄長照站，或夜間到小規模多機能中心）。可撥 1966 或上臺北市長期照顧資訊網申請。",
+      "category": "RESPITE",
+      "ruleData": {
+        "city": "臺北市",
+        "type": "LOCAL_RESPITE_OPTIONS",
+        "modes": [
+          "HOME",
+          "INSTITUTION",
+          "COMMUNITY"
+        ],
+        "ltcLevelMin": 2
+      },
+      "authority": "TAIPEI_GOV",
+      "effectiveTo": null,
+      "jurisdiction": "TAIPEI",
+      "packRecordId": "KR-2026-022",
+      "effectiveFrom": "2025-04-18",
+      "lastVerifiedAt": "2026-09-24T08:25:01+00:00"
+    }
+  ],
+  "version": "KB-2026-09-24-001",
+  "publishedAt": "2026-10-02T21:57:38.819773+00:00",
+  "exportedAt": "2026-10-08",
+  "origin": "Kareo acceptance database; read-only public fields"
+}

@@ -178,5 +178,11 @@
     "providerId": "NTPC-AD-009",
     "serviceType": "ASSISTIVE_DEVICE",
     "active": true
+  },
+  {
+    "id": "PSV-NTPC-AD-010-ASSISTIVE_DEVICE",
+    "providerId": "NTPC-AD-010",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
   }
 ]

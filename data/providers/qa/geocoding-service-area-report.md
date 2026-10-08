@@ -13,17 +13,17 @@
 ## Current Figures (generated)
 
 <!-- A003:BEGIN summary -->
-- Provider 總數：35
-- ProviderServiceArea 筆數：98
+- Provider 總數：36
+- ProviderServiceArea 筆數：119
 - lat/lng 非 null：35
 - 有完整驗證證據的座標：34（名稱／地址核對＋官方門牌點＋可重現轉換，見 `qa/a-003-evidence.json`）
 - 依指示採用的非官方座標（非官方門牌點，不計入已驗證）：1（NTPC-AD-004，DEC-A003-07）
 - 非 null 但缺任何證據：0
-- 仍無座標：0
+- 仍無座標：1
 - 缺 ProviderServiceArea 的 ACTIVE Provider：14
 - 依指示建立的平台設定服務範圍（非官方證實）：0 筆（—）
 - 條件式服務地域（未有行政區級證據，未建立 ProviderServiceArea）：14 家（NTPC-AD-001、NTPC-AD-002、NTPC-AD-003、NTPC-AD-004、NTPC-AD-005、NTPC-AD-006、NTPC-AD-007、NTPC-AD-008、NTPC-AD-009、TP-AD-001、TP-AD-002、TP-AD-003、TP-HMN-001、TP-HMN-003）
-- 服務類型 × 行政區組合：26；DISTANCE READY：24（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區）
+- 服務類型 × 行政區組合：47；DISTANCE READY：24（HOME_CARE × 新北市三重區、HOME_CARE × 新北市土城區、HOME_CARE × 新北市中和區、HOME_CARE × 新北市五股區、HOME_CARE × 新北市永和區、HOME_CARE × 新北市板橋區、HOME_CARE × 新北市林口區、HOME_CARE × 新北市泰山區、HOME_CARE × 新北市新店區、HOME_CARE × 新北市新莊區、HOME_CARE × 新北市樹林區、HOME_CARE × 新北市蘆洲區、HOME_CARE × 臺北市士林區、HOME_CARE × 臺北市大同區、HOME_CARE × 臺北市大安區、HOME_CARE × 臺北市中山區、HOME_CARE × 臺北市中正區、HOME_CARE × 臺北市內湖區、HOME_CARE × 臺北市文山區、HOME_CARE × 臺北市北投區、HOME_CARE × 臺北市松山區、HOME_CARE × 臺北市信義區、HOME_CARE × 臺北市南港區、HOME_CARE × 臺北市萬華區）
 <!-- A003:END summary -->
 
 ## Overview
@@ -104,11 +104,12 @@ Every instruction is recorded in `qa/a-003-evidence.json` (`decisions`), with th
 ### Service-area basis (generated)
 
 <!-- A003:BEGIN service-area-basis -->
-| Provider 類型 | 官方來源直接證實（本檔證據） | 官方來源（A-003-r1 人工核對 SRC-001，未列入本檔證據） | 依指示建立的平台設定（非官方證實） | 合計 |
-| --- | --- | --- | --- | --- |
-| HOME_CARE | 23 | 61 | 0 | 84 |
-| HOME_MEDICAL_NURSING | 2 | 0 | 0 | 2 |
-| OTHER | 12 | 0 | 0 | 12 |
+| Provider 類型 | 官方來源直接證實（本檔證據） | 官方來源（A-003-r1 人工核對 SRC-001，未列入本檔證據） | 商家第一手明示（非政府證實） | 依指示建立的平台設定（非官方證實） | 合計 |
+| --- | --- | --- | --- | --- | --- |
+| HOME_CARE | 23 | 61 | 0 | 0 | 84 |
+| HOME_MEDICAL_NURSING | 2 | 0 | 0 | 0 | 2 |
+| OTHER | 12 | 0 | 0 | 0 | 12 |
+| ASSISTIVE_DEVICE | 0 | 0 | 21 | 0 | 21 |
 
 <!-- A003:END service-area-basis -->
 

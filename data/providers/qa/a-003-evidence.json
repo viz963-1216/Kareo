@@ -172,6 +172,15 @@
       "sha256": "c5e7becfb873f80b1d39feb2270638341abbf33ab835e73d89d4ae01c458fd12",
       "retrievedAt": "2026-10-04",
       "use": "A-007 新北中心精確門牌點；x_3826／y_3826 表示 EPSG:3826"
+    },
+    {
+      "sourceId": "SRC-FIRST-PARTY-URYARD-001",
+      "name": "亞德醫材生活館官網：配送服務範圍",
+      "url": "https://www.uryard.com.tw/pages/ntpc-assistive-device-contract",
+      "sha256": "93032429c6dfc025fff368952479b097fce10286017365c72304075e09aa8e88",
+      "retrievedAt": "2026-10-08",
+      "sourceKind": "FIRST_PARTY",
+      "use": "商家基本資料及明示配送範圍；不能證明政府特約或座標"
     }
   ],
   "coordinates": [
@@ -1300,6 +1309,49 @@
       "document": "臺北市政府社會局官方輔具中心頁面",
       "checkedAt": "2026-10-03",
       "basis": "OFFICIAL"
+    },
+    {
+      "providerId": "NTPC-AD-010",
+      "city": "新北市",
+      "districts": [
+        "板橋區",
+        "中和區",
+        "永和區",
+        "土城區",
+        "樹林區",
+        "新莊區",
+        "三重區",
+        "三峽區",
+        "鶯歌區"
+      ],
+      "sourceId": "SRC-FIRST-PARTY-URYARD-001",
+      "sourceText": "商家頁面明示配送／安裝與九個新北行政區、台北市各區",
+      "document": "https://www.uryard.com.tw/pages/ntpc-assistive-device-contract",
+      "checkedAt": "2026-10-08",
+      "basis": "FIRST_PARTY"
+    },
+    {
+      "providerId": "NTPC-AD-010",
+      "city": "臺北市",
+      "districts": [
+        "中正區",
+        "大同區",
+        "中山區",
+        "松山區",
+        "大安區",
+        "萬華區",
+        "信義區",
+        "士林區",
+        "北投區",
+        "內湖區",
+        "南港區",
+        "文山區"
+      ],
+      "sourceId": "SRC-FIRST-PARTY-URYARD-001",
+      "sourceText": "商家頁面明示配送／安裝與九個新北行政區、台北市各區",
+      "document": "https://www.uryard.com.tw/pages/ntpc-assistive-device-contract",
+      "checkedAt": "2026-10-08",
+      "basis": "FIRST_PARTY"
     }
   ],
   "pending": [
@@ -1581,6 +1633,21 @@
       ],
       "reason": "已證實附設居家護理所提供 HOME_MEDICAL_NURSING；但醫院本體的行政區名單不能自動轉用到附設居家護理所。",
       "nextStep": "取得該居家護理所本身的服務行政區或正式書面範圍後，再建立 ProviderServiceArea；目前不得作為行政區推薦候選。"
+    },
+    {
+      "providerId": "NTPC-AD-010",
+      "missing": [
+        "coordinate"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-FIRST-PARTY-URYARD-001",
+          "checkedAt": "2026-10-08",
+          "result": "官網核對名稱、公開電話、地址與配送範圍；沒有經驗證座標"
+        }
+      ],
+      "reason": "尚未核對官方精確門牌座標；特約資格未由政府名單交叉確認，因此不建特約欄位。",
+      "nextStep": "以官方門牌點核對座標，另與主管機關特約名單比對統編／地址／電話；不可用網站行銷聲明新增特約資格。"
     }
   ],
   "decisions": [

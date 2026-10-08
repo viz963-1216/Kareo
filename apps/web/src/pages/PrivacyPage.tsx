@@ -5,11 +5,12 @@ import { demoMode } from "../demo";
 
 export function PrivacyPage() {
   const [parameters] = useSearchParams();
-  if (demoMode) return <main id="main-content" className="content"><p className="eyebrow">專題展示</p><h1>展示版資料說明</h1>
-    <section className="panel"><h2>只使用虛構個案</h2><p>此站使用瀏覽器內的示範資料，呈現 Kareo 的操作流程。評估回答與測試媒合僅保留在本頁記憶體，不送至 Kareo API、Supabase、真人客服或機構；重新整理即可重設。</p>
-    <p>請勿填寫真實健康或身分資料。聯絡欄位固定使用測試值，真實定位與管理登入已停用。推薦與補助內容為示範，不是個人資格核定或已建立的案件。</p>
-    <h2>網站與外部服務</h2><p>展示站的靜態託管服務（GitHub Pages 或 Netlify）仍可能處理正常的網路連線與安全日誌。Google Maps、官方來源及 Kareocar 連結會開啟外部服務；連結不附帶評估回答或聯絡資料，請不要在外部服務提交展示個案。</p>
-    <h2>聯絡</h2><p>展示站負責人：蘇子傑（Kareo）。問題或資料權利申請：<a href="mailto:viz963@gmail.com">viz963@gmail.com</a>。</p></section><p><Link to="/">返回首頁</Link></p>
+  if (demoMode) return <main id="main-content" className="content"><p className="eyebrow">公開資料</p><h1>公開資料版的資料使用說明</h1>
+    <section className="panel"><h2>真實資源與本機需求分析</h2><p>服務單位、商家與輔具中心來自已核對的雙北機構名單（2026/09/29–10/08），知識使用已發布版本 KB-2026-09-24-001 的公開快照（2026/10/08）。這是建置時的資料快照，不是即時查詢資料庫；資料異動會在重新核對並發布後更新。</p>
+    <p>評估回答與結果只保留在本分頁記憶體，依既有固定規則計算，不送至 Kareo API、Supabase、AI 服務或機構。重新開始或重新整理即可清除。本版本停用自由文字、GPS、聯絡表單與管理登入，不建立媒合案件。</p>
+    <p>只有具備已確認服務範圍的單位才列入地區推薦。所在地與特約縣市不等於到府服務範圍。補助資訊不是個人資格核定，實際資格與服務請洽 1966 或照管中心。</p>
+    <h2>網站與外部服務</h2><p>GitHub Pages 或 Netlify 靜態託管仍可能處理正常的網路連線與安全日誌。Google Maps、官方來源及 Kareocar 連結會開啟外部服務；連結不附帶評估回答或聯絡資料。</p>
+    <h2>聯絡</h2><p>負責人：蘇子傑（Kareo）。問題或資料權利申請：<a href="mailto:viz963@gmail.com">viz963@gmail.com</a>。</p></section><p><Link to="/">返回首頁</Link></p>
   </main>;
   const requestedVersion = parameters.get("version");
   const archive = requestedVersion ? consentArchives.find(entry => entry.version === requestedVersion) : consentArchive;

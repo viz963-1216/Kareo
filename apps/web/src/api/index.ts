@@ -41,6 +41,7 @@ export const apiMode: ApiMode = MOCK_BUILD && resolvedMode.mode === "mock" ? "mo
 
 configureRealApi({ requireSessionToken: import.meta.env.VITE_KAREO_REQUIRE_SESSION_TOKEN === "true" });
 
+const loadPublic = () => import("../publicData/providerPreview").then(module => module.publicProviderApi);
 const loadMock = () => import("./mockAdapter").then((module) => module.mockApi);
 const loadAdminMock = () => import("./adminMockAdapter").then((module) => module.adminMockApi);
 const loadAdminReal = () => import("./adminRealAdapter").then((module) => module.adminRealApi);
@@ -100,12 +101,12 @@ export const api = {
     if (apiMode === "real") await getConsentDocument(true);
   },
   getKnowledgeRecords(filters: KnowledgeRecordsRequest, scenario?: KnowledgeMockScenario): Promise<KnowledgeRecordsResponse> {
-    return apiMode === "mock"
+    return demoMode ? loadPublic().then(publicApi => publicApi.getKnowledgeRecords(filters)) : apiMode === "mock"
       ? loadMock().then((mock) => mock.getKnowledgeRecords(filters, scenario))
       : realApi.getKnowledgeRecords(filters);
   },
   createSession() {
-    return apiMode === "mock" ? loadMock().then((mock) => mock.createSession()) : realApi.createSession();
+    return demoMode ? loadPublic().then(publicApi => publicApi.createSession()) : apiMode === "mock" ? loadMock().then((mock) => mock.createSession()) : realApi.createSession();
   },
 
   async acceptConsent(sessionId: string) {
@@ -114,15 +115,16 @@ export const api = {
       throw new ApiError("CONSENT_VERSION_UNAVAILABLE", "服務說明文件尚在確認中，暫時無法開始評估。請直接聯絡 1966。", 0);
     }
     const body: ConsentRequest = { sessionId, ...consentVersions, accepted: true };
-    return apiMode === "mock" ? loadMock().then((mock) => mock.acceptConsent(body)) : realApi.acceptConsent(body);
+    return demoMode ? loadPublic().then(publicApi => publicApi.acceptConsent(sessionId)) : apiMode === "mock" ? loadMock().then((mock) => mock.acceptConsent(body)) : realApi.acceptConsent(body);
   },
 
   submitAssessment(request: AssessmentRequest, mockState?: MockState): Promise<AssessmentResponse> {
-    return apiMode === "mock" ? loadMock().then((mock) => mock.submitAssessment(request, mockState)) : realApi.submitAssessment(request);
+    return demoMode ? loadPublic().then(publicApi => publicApi.submitAssessment(request)) : apiMode === "mock" ? loadMock().then((mock) => mock.submitAssessment(request, mockState)) : realApi.submitAssessment(request);
   },
 
   /** Idempotency-Key handling lives here so every UI path gets the same retry behavior (API_CONTRACT §3.3). */
   async createLead(request: LeadRequest, mockState?: MockState): Promise<LeadResponse> {
+    if (demoMode) throw new ApiError("SERVICE_UNAVAILABLE", "公開資料版不建立媒合案件；請直接洽詢單位或 1966。", 0);
     const key = leadIdempotency.keyFor(request);
     const response = apiMode === "mock"
       ? await loadMock().then((mock) => mock.createLead(request, key, mockState))
@@ -133,31 +135,34 @@ export const api = {
 
   /** Asks the backend to delete this session's data (API_CONTRACT §6, PRIVACY_AND_RETENTION §6.1). */
   deleteSession(mockState?: MockState): Promise<SessionDeletionResponse> {
+    if (demoMode) return Promise.reject(new Error("公開資料版沒有雲端評估資料，請使用重新開始。"));
     return apiMode === "mock" ? loadMock().then((mock) => mock.deleteSession(mockState)) : realApi.deleteSession();
   },
 
   /** Withdraws consent (API_CONTRACT §7, PRIVACY_AND_RETENTION §3.3); the session then enters deletion. */
   withdrawConsent(mockState?: MockState): Promise<ConsentWithdrawalResponse> {
+    if (demoMode) return Promise.reject(new Error("公開資料版沒有正式同意紀錄，請使用重新開始。"));
     return apiMode === "mock" ? loadMock().then((mock) => mock.withdrawConsent(mockState)) : realApi.withdrawConsent();
   },
 
   /** Drops this tab's session credential only; server-side data is not deleted. */
   forgetLocalSession() {
+    if (demoMode) void loadPublic().then(publicApi => publicApi.reset());
     if (apiMode === "real") realApi.forgetLocalSession();
   },
 
   getRecommendation(request: RecommendationRequest, mockOptions: RecommendationMockOptions = {}): Promise<RecommendationResponse> {
-    return apiMode === "mock"
-      ? loadMock().then((mock) => mock.getRecommendation(request, demoMode ? { ...mockOptions, providerCount: mockOptions.providerCount ?? 3 } : mockOptions))
+    return demoMode ? loadPublic().then(publicApi => publicApi.getRecommendation(request)) : apiMode === "mock"
+      ? loadMock().then((mock) => mock.getRecommendation(request, mockOptions))
       : realApi.getRecommendation(request);
   },
 
   getProvider(providerId: string, simulateMockError = false): Promise<ProviderDetail | null> {
-    return apiMode === "mock" ? loadMock().then((mock) => mock.getProvider(providerId, simulateMockError)) : realApi.getProvider(providerId);
+    return demoMode ? loadPublic().then(publicApi => publicApi.getProvider(providerId)) : apiMode === "mock" ? loadMock().then((mock) => mock.getProvider(providerId, simulateMockError)) : realApi.getProvider(providerId);
   },
 
   getProviders(request: ResourceLookupRequest, mockScenario?: ResourceLookupMockScenario): Promise<ResourceLookupResponse> {
-    return apiMode === "mock" ? loadMock().then((mock) => mock.getProviders(request, mockScenario)) : realApi.getProviders(request);
+    return demoMode ? loadPublic().then(publicApi => publicApi.getProviders(request)) : apiMode === "mock" ? loadMock().then((mock) => mock.getProviders(request, mockScenario)) : realApi.getProviders(request);
   },
 };
 

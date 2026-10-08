@@ -8,6 +8,7 @@ import {
   changeAreaFilter,
   changeLookupCity,
   changeResourceCategory,
+  lookupFormFromParams,
   initialLookupForm,
   previousLookupPage,
   withIncludeUnconfirmed,
@@ -87,8 +88,8 @@ function ResourceCard({ item, from }: { item: ResourceLookupItem; from: string }
 export function ResourceLookupPage() {
   const [searchParams] = useSearchParams();
   const location = useLocation();
-  const [form, setForm] = useState<LookupForm>(initialLookupForm);
-  const [submittedForm, setSubmittedForm] = useState<LookupForm>(initialLookupForm);
+  const [form, setForm] = useState<LookupForm>(() => lookupFormFromParams(searchParams));
+  const [submittedForm, setSubmittedForm] = useState<LookupForm>(() => lookupFormFromParams(searchParams));
   const [page, setPage] = useState(1);
   const [state, setState] = useState<LookupState>({ status: "idle" });
   const [attempt, setAttempt] = useState(0);

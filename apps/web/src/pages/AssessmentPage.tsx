@@ -265,7 +265,7 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
         <label>
           其他想補充的情況（選填，最多 {FREE_TEXT_MAX} 字）
           <textarea value={form.freeText} readOnly={demoMode} maxLength={FREE_TEXT_MAX} onChange={(event) => set("freeText", event.target.value)} rows={4} aria-describedby="free-text-hint" />
-          <span className="field-hint" id="free-text-hint">{demoMode ? "展示版停用自由文字，請使用上方選項操作虛構個案。" : "請勿填寫身分證字號、病歷或金融資料。"}</span>
+          <span className="field-hint" id="free-text-hint">{demoMode ? "此版本只使用上方選項分析需求，不蒐集自由文字。" : "請勿填寫身分證字號、病歷或金融資料。"}</span>
         </label>
         {status === "error" && (isSessionProblem(error)
           ? <SessionProblem message={errorMessage} />

@@ -1,8 +1,8 @@
 # Kareo Provider Data
 
-本目錄存放 Kareo MVP 使用的 Provider 測試資料與資料整理格式。
+本目錄存放 Kareo MVP 使用的 真實 Provider 名單、來源證據與匯入格式。
 
-目前資料僅供開發、測試與後續匯入使用，不代表正式長照服務單位名單，也不代表政府認證或推薦。
+`staging/` 是核對來源後的真實機構資料；測試 fixtures 位於 contracts/mock，兩者不得混用。verified 代表基本資料核對，不代表政府認證、可接案或補助資格。新資料經 PR 檢查後由中心整合匯入驗收資料庫。
 
 ---
 
