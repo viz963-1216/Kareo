@@ -7140,7 +7140,8 @@
         "PURCHASE"
       ],
       "publicServices": [
-        "輔具購置－長照輔具"
+        "輔具購置－長照輔具",
+        "輔具購置－身障輔具"
       ],
       "notice": "臺北市政府特約名冊分類；實際品項、購置／租賃與補助資格請先洽詢。特約不代表到府服務。",
       "sourceUrl": "https://dosw.gov.taipei/News_Content.aspx?n=6854E6E5034F6BCD&sms=5020D35947A0ED8D&s=2112456B7F9FA626",
@@ -7374,7 +7375,8 @@
         "PURCHASE"
       ],
       "publicServices": [
-        "輔具購置－長照輔具"
+        "輔具購置－長照輔具",
+        "輔具購置－身障輔具"
       ],
       "notice": "臺北市政府特約名冊分類；實際品項、購置／租賃與補助資格請先洽詢。特約不代表到府服務。",
       "sourceUrl": "https://dosw.gov.taipei/News_Content.aspx?n=6854E6E5034F6BCD&sms=5020D35947A0ED8D&s=B3CF0C5D92567D71",
@@ -7649,11 +7651,13 @@
     "providerId": "CAT-AD-144384E4A5AF",
     "publicInfo": {
       "assistivePrograms": [
-        "PURCHASE"
+        "PURCHASE",
+        "SMART_TECH"
       ],
       "publicServices": [
         "輔具購置－長照輔具",
-        "輔具購置－身障輔具"
+        "輔具購置－身障輔具",
+        "智慧科技輔具（依核定品項購置／租賃）"
       ],
       "notice": "臺北市政府特約名冊分類；實際品項、購置／租賃與補助資格請先洽詢。特約不代表到府服務。",
       "sourceUrl": "https://dosw.gov.taipei/News_Content.aspx?n=6854E6E5034F6BCD&sms=5020D35947A0ED8D&s=69A2AE683D6BAA9C",
@@ -8972,20 +8976,6 @@
     }
   },
   {
-    "providerId": "CAT-AD-497F95344D1E",
-    "publicInfo": {
-      "assistivePrograms": [
-        "PURCHASE"
-      ],
-      "publicServices": [
-        "輔具購置－身障輔具"
-      ],
-      "notice": "臺北市政府特約名冊分類；實際品項、購置／租賃與補助資格請先洽詢。特約不代表到府服務。",
-      "sourceUrl": "https://dosw.gov.taipei/News_Content.aspx?n=4D051AF0E1FF3B72&sms=BE9D598A6E448581&s=ABFBCA29479773B0",
-      "checkedAt": "2026-10-08"
-    }
-  },
-  {
     "providerId": "CAT-AD-4777E5DFACB2",
     "publicInfo": {
       "assistivePrograms": [
@@ -10120,20 +10110,6 @@
     }
   },
   {
-    "providerId": "CAT-AD-1579323B85FE",
-    "publicInfo": {
-      "assistivePrograms": [
-        "PURCHASE"
-      ],
-      "publicServices": [
-        "輔具購置－身障輔具"
-      ],
-      "notice": "臺北市政府特約名冊分類；實際品項、購置／租賃與補助資格請先洽詢。特約不代表到府服務。",
-      "sourceUrl": "https://dosw.gov.taipei/News_Content.aspx?n=4D051AF0E1FF3B72&sms=BE9D598A6E448581&s=3E5D86564B06D95E",
-      "checkedAt": "2026-10-08"
-    }
-  },
-  {
     "providerId": "CAT-AD-57C706A74822",
     "publicInfo": {
       "assistivePrograms": [
@@ -10774,20 +10750,6 @@
       ],
       "notice": "臺北市政府特約名冊分類；實際品項、購置／租賃與補助資格請先洽詢。特約不代表到府服務。",
       "sourceUrl": "https://dosw.gov.taipei/News_Content.aspx?n=06B482D5784555B8&sms=F74A93791FE8674A&s=A4ADA3F1B00DEB55",
-      "checkedAt": "2026-10-08"
-    }
-  },
-  {
-    "providerId": "CAT-AD-D205235044B0",
-    "publicInfo": {
-      "assistivePrograms": [
-        "SMART_TECH"
-      ],
-      "publicServices": [
-        "智慧科技輔具（依核定品項購置／租賃）"
-      ],
-      "notice": "臺北市政府特約名冊分類；實際品項、購置／租賃與補助資格請先洽詢。特約不代表到府服務。",
-      "sourceUrl": "https://dosw.gov.taipei/News_Content.aspx?n=06B482D5784555B8&sms=F74A93791FE8674A&s=B9CE034B523E5931",
       "checkedAt": "2026-10-08"
     }
   },

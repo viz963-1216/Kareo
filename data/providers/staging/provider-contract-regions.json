@@ -297,15 +297,6 @@
     "active": true
   },
   {
-    "id": "PCR-CAT-AD-1579323B85FE-TPE",
-    "providerId": "CAT-AD-1579323B85FE",
-    "city": "臺北市",
-    "serviceType": "ASSISTIVE_DEVICE",
-    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
-    "checkedAt": "2026-10-08",
-    "active": true
-  },
-  {
     "id": "PCR-CAT-AD-15CE2155EB0B-TPE",
     "providerId": "CAT-AD-15CE2155EB0B",
     "city": "臺北市",
@@ -1280,15 +1271,6 @@
   {
     "id": "PCR-CAT-AD-492CFA8A93A4-TPE",
     "providerId": "CAT-AD-492CFA8A93A4",
-    "city": "臺北市",
-    "serviceType": "ASSISTIVE_DEVICE",
-    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
-    "checkedAt": "2026-10-08",
-    "active": true
-  },
-  {
-    "id": "PCR-CAT-AD-497F95344D1E-TPE",
-    "providerId": "CAT-AD-497F95344D1E",
     "city": "臺北市",
     "serviceType": "ASSISTIVE_DEVICE",
     "sourceId": "SRC-CATALOG-DISABILITY-20261008",
@@ -4082,15 +4064,6 @@
     "city": "臺北市",
     "serviceType": "ASSISTIVE_DEVICE",
     "sourceId": "SRC-CATALOG-DISABILITY-20261008",
-    "checkedAt": "2026-10-08",
-    "active": true
-  },
-  {
-    "id": "PCR-CAT-AD-D205235044B0-TPE",
-    "providerId": "CAT-AD-D205235044B0",
-    "city": "臺北市",
-    "serviceType": "ASSISTIVE_DEVICE",
-    "sourceId": "SRC-CATALOG-SMART-20261008",
     "checkedAt": "2026-10-08",
     "active": true
   },
