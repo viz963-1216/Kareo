@@ -55,7 +55,7 @@ test("main branch requires real mode, session tokens and consent versions", () =
     }),
     [],
   );
-  // staging is the kareo-tw production branch: it may run while B-011a is pending.
+  // staging remains the integration branch.
   assert.deepEqual(frontendEnvProblems({ CONTEXT: "production", BRANCH: "staging" }), []);
 });
 
@@ -64,4 +64,16 @@ test("standard builds reject the separate static demo flag even with otherwise v
     const problems = frontendEnvProblems({ CONTEXT, VITE_KAREO_API_MODE: "real", VITE_KAREO_DEMO: "true" });
     assert.ok(problems.some(p => p.includes('build-demo.mjs')));
   }
+});
+
+// Changing the deploy branch must not silently drop the production build protections.
+test("release enforces token protection and explicit public-only consent closure", () => {
+  const valid = { BRANCH: "release", CONTEXT: "production", KAREO_RELEASE_SCOPE: "public-resources", VITE_KAREO_REQUIRE_SESSION_TOKEN: "true", VITE_KAREO_API_MODE: "real" };
+  assert.deepEqual(frontendEnvProblems(valid), []);
+  assert.ok(frontendEnvProblems({ ...valid, VITE_KAREO_REQUIRE_SESSION_TOKEN: undefined }).some(p => p.includes("REQUIRE_SESSION_TOKEN")));
+  assert.ok(frontendEnvProblems({ ...valid, VITE_KAREO_API_MODE: "mock" }).some(p => p.includes("mock")));
+  for (const key of ["VITE_CONSENT_DISCLAIMER_VERSION", "VITE_CONSENT_PRIVACY_VERSION", "VITE_CONSENT_TERMS_VERSION"]) {
+    assert.ok(frontendEnvProblems({ ...valid, [key]: "draft" }).some(p => p.includes("must leave")));
+  }
+  assert.ok(frontendEnvProblems({ ...valid, KAREO_RELEASE_SCOPE: undefined }).some(p => p.includes("VITE_CONSENT_PRIVACY_VERSION")));
 });

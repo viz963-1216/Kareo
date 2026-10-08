@@ -10,21 +10,25 @@ Release gate status: **CLOSED**
 > Gate 0–6 是正式合併與部署前置；可先建立草稿 Release PR 整理證據。Gate 7 在發布後執行，不能作為建立 PR 的前置，避免循環依賴。正式媒合須等發布後 smoke 與接件演練通過才開放。
 > 未通過時，正式站維持「整合中」狀態並在本文件記錄原因。
 
+## 2026-10-08 公開查詢恢復（不勾選完整營運 Gate）
+
+Jerry 指定 release 為 Netlify 正式部署来源，自動PR預覽與其他分支部署停用；現有驗收資料庫、D-05 DRAFT 與個案流程封閉保留。此為公開資源發布，不採計完整MVP完成，不以分支名取代獨立正式DB、49項E2E或ACTIVE同意。部署記錄見 `acceptance/J004-2026-10-08-release-deployment.md`。
+
 ## 2026-10-03 準備快照
 
 以下是已確認的整合環境，不是正式 production 清單；舊 Gate 項目逐項核對後才勾選。
 
 | 項目 | 已確認／仍需完成 |
 |---|---|
-| GitHub | staging `d12992b`（#63 合併）；正式 main 尚未接收完整 MVP |
-| Netlify | `kareo-tw` 從 staging 部署；已恢復，不能因 Netlify context 名叫 production 就當作 J-004 完成 |
+| GitHub | staging `d12992b`（#63 合併）；當時正式 main 尚未接收完整 MVP |
+| Netlify（10/03歷史） | `kareo-tw` 當時從 staging 部署；已恢復，不能因 Netlify context 名叫 production 就當作 J-004 完成 |
 | Supabase | Kareo `ojawadobnaxduxybqolk`，Tokyo；目前供整合使用，獨立正式目標尚未指定，禁止重用 Kareocar |
 | Provider | 30 家／30 服務／86 已確認範圍，整合匯入及原子回滾已有 J-003 證據 |
 | Knowledge | `KB-2026-09-24-001`：18 來源／21 紀錄／21 成員；lastVerifiedAt 保留來源原核對日 |
 | 同意 | 全 DRAFT，正式版啟用及回歸未完成 |
 | 信箱 | viz963@gmail.com 已公布；Jerry 確認能收信及回覆，權利端到端演練未完成 |
 | E2E | 完整 49 必要案例；376f3ef 的 4 項 PASS 不能移植成新 release SHA 的證據 |
-| Crawler | staging 有 workflow，main 尚無；GitHub staging environment 無 secrets，未定時實跑 |
+| Crawler | staging 有 workflow，release 尚無；GitHub staging environment 無 secrets，未定時實跑 |
 | 備份 | 10/03 查到 7 份 physical；當時最新早於 migration／資料匯入，不可作本次完整恢復證據；PITR 未啟用 |
 
 證據：[J-003 首次發布](acceptance/J003-2026-10-03-first-knowledge-publication.md)、[D-05 實況](acceptance/D05-2026-10-03-privacy-review.md)、[權利處理手冊](PRIVACY_REQUEST_RUNBOOK.md)。
@@ -36,8 +40,8 @@ Release gate status: **CLOSED**
 | 欄位 | 正式發布值／證據 |
 |---|---|
 | 版本標籤／待發布 staging 完整 SHA／Release PR head SHA | 待指定；head 改變需重驗 |
-| 正式 main merge SHA／實際部署 marker／deploy ID | 部署後記錄；不得假定與 Release PR head 相同 |
-| 整合與正式 Netlify site、branch、base URL | 待 Jerry 決定；正式 branch=main |
+| 正式 release merge SHA／實際部署 marker／deploy ID | 部署後記錄；不得假定與 Release PR head 相同 |
+| 整合與正式 Netlify site、branch、base URL | 待 Jerry 決定；正式 branch=release |
 | 整合與正式 Supabase project ref、region | 分開記錄，必須確認隔離 |
 | Migration 清單／雜湊／已套用狀態／schema 相容性 | 待本次版本核對；不能只看檔名順序 |
 | Provider 資料來源 commit／核對列數／關聯／未知範圍 | 待固定正式匯入目標；不任意補造服務範圍 |
@@ -71,8 +75,8 @@ Release gate status: **CLOSED**
 - [ ] **Production 使用獨立 Supabase 專案**，不與 staging 共用資料庫；不重用 Kareocar 資料庫。
 - [ ] Production 與 staging 的 Netlify 環境變數完全分開：`SUPABASE_URL`、`SUPABASE_SERVICE_ROLE_KEY` 各自一組。MVP 不使用 AI，不應設定任何 AI API key。
 - [ ] 決定 production 前端的部署方式（**需要 Jerry 決定**）：
-  - 方案 1：另建一個 Netlify site，production branch = `main`（staging site 維持 `staging`）。
-  - 方案 2：同一 site 把 production branch 改為 `main`，`staging` 改為 branch deploy。
+  - 方案 1：另建一個 Netlify site，production branch = `release`（staging site 維持 `staging`）。
+  - 方案 2：同一 site 把 production branch 改為 `release`，`staging` 改為 branch deploy。
   - 兩者都會影響額度；以 D-09 額度決策為準。
 - [ ] Production 移除 `X-Robots-Tag: noindex`（僅 production 設定）。
 - [ ] 前端 production 建置：`VITE_KAREO_API_MODE` 未設定或為 `real`；`VITE_CONSENT_*` 為 ACTIVE 版本。
@@ -123,7 +127,7 @@ Release gate status: **CLOSED**
 
 ## Gate 7 — Release PR 與發布後
 
-- [ ] 建立 `staging → main` Release PR，固定 release commit 與版本號（例如 `v0.1.0`）。
+- [ ] 建立 `staging → release` Release PR，固定 release commit 與版本號（例如 `v0.1.0`）。
 - [ ] PR 附本檢查表所有證據連結。
 - [ ] 發布後以合成資料執行 smoke（不含真實個資），逐項記錄。
 - [ ] smoke 全通過後才開放正式媒合入口；未通過立即回滾並記錄原因。

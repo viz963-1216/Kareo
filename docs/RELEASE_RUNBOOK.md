@@ -13,7 +13,7 @@ Status: DRAFT — 尚未演練
 
 | 職責 | 主要 | 備援 | 需要的權限 |
 |---|---|---|---|
-| 發布（Release PR、合併 main） | Jerry | （待指定） | GitHub admin |
+| 發布（Release PR、合併 release） | Jerry | （待指定） | GitHub admin |
 | Netlify 部署／回滾 | Jerry | （待指定） | Netlify team member |
 | 資料庫 migration／備份／還原 | Jerry | （待指定） | Supabase project owner |
 | 媒合接件 | 蘇子傑（週一至週五 09:00–21:00） | 不設；無法接件時暫停入口 | InternalOperator 個人密鑰 |
@@ -22,18 +22,22 @@ Status: DRAFT — 尚未演練
 
 交接時確認每個人**實際登入並執行過一次**自己的操作，不以口頭承諾代替。
 
+## 2026-10-08 公開查詢發布
+
+已由 Jerry 授權 release 公開查詢恢復，完整營運步驟仍待驗。日常feature→staging審查與CI；集中建立staging→release PR，公開限定範圍保留。完整 Release gate 仍會檢查49項E2E及D-05，不隱藏失敗；只有公開查詢更新可以依營運者限定授權發布，不能據此啟用個案流程。
+
 ## 2. 發布步驟
 
-先填 RELEASE_CHECKLIST 的固定目標表。整合／正式資料庫未隔離時不執行正式 migration；目前 kareo-tw 是 staging 部署，不能當成隔離的 production。
+先填 RELEASE_CHECKLIST 的固定目標表。整合／正式資料庫未隔離時不執行正式 migration；目前 kareo-tw 的 Netlify production context 從 release 部署，但仍使用驗收資料庫，不能當成隔離的 production。
 
-下列先固定待發布版本，發布後改以實際 main merge SHA 與 marker 驗證；兩者 SHA 可不同，不能填舊 E2E 當成新版本證據。
+下列先固定待發布版本，發布後改以實際 release merge SHA 與 marker 驗證；兩者 SHA 可不同，不能填舊 E2E 當成新版本證據。
 
 
 1. 確認 `docs/RELEASE_CHECKLIST.md` Gate 0–6 全部勾選並附證據。
 2. 在 staging 固定 release commit，執行完整 CI（綠燈）。
 3. 備份 production 資料庫（Gate 6）。
 4. 依序對 production 套用新 migration，每支之後跑權限測試。
-5. 建立 `staging → main` Release PR，標題含版本號；Jerry review 後合併。
+5. 建立 `staging → release` Release PR，標題含版本號；Jerry review 後合併。
 6. 等 Netlify production deploy 完成，記錄 deploy ID。
 7. 執行發布後 smoke（§3）。
 8. 全數通過 → 開放正式媒合入口；任一失敗 → §4 回滾。

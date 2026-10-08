@@ -2,7 +2,7 @@ name: Local HTTP integration
 
 on:
   pull_request:
-    branches: [staging, main]
+    branches: [staging, release, main]
     paths:
       - 'apps/**'
       - 'contracts/**'
