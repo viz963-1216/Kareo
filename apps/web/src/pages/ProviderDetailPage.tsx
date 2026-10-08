@@ -1,3 +1,4 @@
+import { assistiveProgramLabels, resourceServices } from "../resources/publicInfo";
 import { demoMode } from "../demo";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
@@ -103,11 +104,11 @@ export function ProviderDetailPage() {
             </>
           )}
         </section>
-        <section className="panel"><h2>服務項目</h2>{provider.services.length ? <ul>{provider.services.map((service, index) => <li key={`${service}-${index}`}>{labels[service]}</li>)}</ul> : <p>尚未提供服務項目資料。</p>}</section>
+        <section className="panel"><h2>{provider.resourceCategory === "ASSISTIVE_DEVICE_CENTER" ? "公共服務項目" : "服務項目"}</h2><p>{resourceServices(provider.resourceCategory, provider.services.map(s => labels[s]), provider.publicInfo)}</p>{provider.publicInfo && <><p>{provider.publicInfo.assistivePrograms.map(p => assistiveProgramLabels[p]).join("／")}</p>{provider.publicInfo.notice && <p className="field-hint">{provider.publicInfo.notice}</p>}<p>查核：{provider.publicInfo.checkedAt} · <a href={safeWebUrl(provider.publicInfo.sourceUrl)} target="_blank" rel="noopener noreferrer">官方名冊來源（開啟新分頁）</a></p></>}</section>
         <section className="panel">
           <h2>服務範圍</h2>
           {provider.serviceAreaStatus === "UNCONFIRMED"
-            ? <p className="area-status unconfirmed">服務範圍待確認，請洽機構</p>
+            ? <p className="area-status unconfirmed">{provider.resourceCategory === "ASSISTIVE_DEVICE_CENTER" ? "受理項目與到宅評估請先洽中心／分站確認。" : "服務範圍待確認，請洽機構"}</p>
             : provider.serviceAreas.length
               ? <ul>{provider.serviceAreas.map((area, index) => <li key={`${area.city}-${area.district}-${index}`}>{area.city} {area.district}</li>)}</ul>
               : <p>尚未提供服務範圍資料，請洽機構確認。</p>}

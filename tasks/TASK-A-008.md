@@ -1,7 +1,7 @@
 # TASK-A-008 — Real Provider Data and Traceable Service Coverage
 
 Owner: Engineer A；本輪由 Jerry 授權 Codex 中心整合執行。
-Submission Version: A-008-r1
+Submission Version: A-008-r2
 Status: r1 MERGED (#104)；首筆新增商家已差額匯入驗收 DB、既有名單已公開接線。尚有資料覆蓋待補，不宣稱全量範圍完成。
 
 ## Goal
@@ -37,3 +37,7 @@ Output：可匯入的 Provider／Service／ServiceArea／ContractRegion JSON、�
 仍待後續研究：原 12 家輔具商家的到府服務範圍、2 家居家護理所的行政區範圍、新商家座標與特約資格。找不到直接證據就保留待確認，不填假資料。
 
 PR → staging；Title `[A-008] Real provider data and traceable service coverage`。本輪與 J-004-r12 在同一中心 PR 交付。
+
+## r2 — 官方名冊與分類擴充（2026-10-08，中央整合，Issue #106）
+
+本輪逐筆處理 198 筆居服（197 筆雙北保留／合併，基隆未特約 1 筆記錄排除）；與既有資料合併後 199 家居服。臺北市政府輔具購置（長照／身障）、智慧科技輔具官方目錄依所在地過濾，分別保留不同地址門市；共 584 筆輔具資料。17 個中心／分站維持查詢用途，原始 36 筆及其既有範圍不刪除。來源、電話／行政區文字正規化、原地址不一致警示、每筆處理清冊見 `data/providers/qa/official-catalog-report.md`。未特約、區域空白不建推薦範圍，原 12 商家及 2 居護未知區域仍待直接證據；本輪不宣稱這些覆蓋已完成。

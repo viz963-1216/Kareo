@@ -165,12 +165,12 @@ describe("Provider Import (TASK-B-004)", () => {
 
     const report = await importProviderDataset(repo, dataset, { mode: "commit" });
 
-    expect(dataset.providers.filter((p) => (p as { resourceCategory?: string }).resourceCategory !== "ASSISTIVE_DEVICE_CENTER")).toHaveLength(31);
+    expect(dataset.providers.filter((p) => (p as { resourceCategory?: string }).resourceCategory !== "ASSISTIVE_DEVICE_CENTER")).toHaveLength(dataset.providerServices.length);
     expect(report.providersValid).toBe(dataset.providers.length);
     expect(report.providersRejected).toHaveLength(0);
 
-    expect(dataset.providerServices.length).toBe(31);
-    expect(report.servicesValid).toBe(31);
+    expect(dataset.providerServices.length).toBeGreaterThan(30);
+    expect(report.servicesValid).toBe(dataset.providerServices.length);
     expect(report.servicesRejected).toHaveLength(0);
 
     expect(report.serviceAreasRejected).toHaveLength(0);
@@ -179,7 +179,7 @@ describe("Provider Import (TASK-B-004)", () => {
     expect(report.written).toBe(true);
     expect(repo.atomicWriteCalls).toBe(1);
     expect(repo.providers).toHaveLength(dataset.providers.length);
-    expect(repo.services).toHaveLength(31);
+    expect(repo.services).toHaveLength(dataset.providerServices.length);
     expect(repo.serviceAreas).toHaveLength(dataset.providerServiceAreas.length);
   });
 });

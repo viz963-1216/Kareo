@@ -51,3 +51,7 @@ PR Title：`[A-007] Assistive device resource centers data`
 ## A-007-r2 中央收尾（2026-10-04）
 
 5／5 官方精確門牌點已驗證，報告由 `qa/resource-center-report.mjs` 產生／檢查；原 A-006 基準逐筆全欄位 SHA-256 保護，缺資料／數量漂移／中心誤入服務推薦均有反例。中央整合已獲 Jerry 跨模組授權；合併後仍需 B-013/C-007 真實公開查詢驗收，不以模組勾選代替 INTEGRATED。
+
+## r2 — 移除固定家數上限（2026-10-08，D-20，Issue #106）
+
+原五個中心 ID 必須保留，合法且有官方來源的雙北中心／分站可以追加，不限制等於 5。type=OTHER、無 ProviderService，仍禁止推薦／Lead；實際諮詢、評估、維修、回收、租借等資訊走 publicInfo，不把空 ProviderService 顯示成沒有公共服務。新增的第六中心正例與原中心被刪反例都必須通過。

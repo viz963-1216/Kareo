@@ -177,7 +177,17 @@ export interface RecommendationEnvelope {
   data: RecommendationResponse;
 }
 
+export type AssistiveProgram = "PURCHASE" | "SMART_TECH";
+export interface ProviderPublicInfo {
+  assistivePrograms: AssistiveProgram[];
+  publicServices: string[];
+  notice: string | null;
+  sourceUrl: string;
+  checkedAt: string;
+}
+
 export interface ProviderDetail {
+  publicInfo?: ProviderPublicInfo;
   id: string;
   name: string;
   type: RecommendationServiceType | "OTHER";
@@ -196,6 +206,7 @@ export interface ProviderDetail {
 }
 
 export interface ResourceLookupRequest {
+  assistiveProgram?: AssistiveProgram;
   resourceCategory?: ResourceCategory;
   serviceType?: RecommendationServiceType;
   city?: "臺北市" | "新北市";
@@ -209,6 +220,7 @@ export interface ResourceLookupRequest {
 }
 
 export interface ResourceLookupItem {
+  publicInfo?: ProviderPublicInfo;
   id: string;
   name: string;
   type: RecommendationServiceType | "OTHER";
@@ -227,6 +239,7 @@ export interface ResourceLookupItem {
 }
 
 export interface ResourceLookupAppliedFilters {
+  assistiveProgram?: AssistiveProgram;
   resourceCategory: ResourceCategory | null;
   serviceType: RecommendationServiceType | null;
   city: "臺北市" | "新北市" | null;

@@ -170,6 +170,7 @@ export async function createRecommendation(
     if (rankingType === "DISTANCE" && distanceKm !== null) {
       reasons.push(`距離約 ${distanceKm} 公里`);
     }
+    if (provider.publicInfo?.notice?.includes("評鑑不合格")) reasons.push("官方名冊列評鑑不合格，請向 1966 確認目前服務資格。");
     return {
       id: generateId("RECI"),
       recommendationRunId: recommendationId,

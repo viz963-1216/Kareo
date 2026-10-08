@@ -155,7 +155,17 @@ export type ProviderStatus = "ACTIVE" | "INACTIVE" | "UNKNOWN";
 // 沒有 ProviderService，推薦（§20）永遠不會選到。既有資料未提供者視為 SERVICE_PROVIDER。
 export type ProviderResourceCategory = "SERVICE_PROVIDER" | "ASSISTIVE_DEVICE_CENTER";
 
+export type AssistiveProgram = "PURCHASE" | "SMART_TECH";
+export interface ProviderPublicInfo {
+  assistivePrograms: AssistiveProgram[];
+  publicServices: string[];
+  notice: string | null;
+  sourceUrl: string;
+  checkedAt: string;
+}
+
 export interface Provider {
+  publicInfo?: ProviderPublicInfo;
   id: string;
   name: string;
   type: ProviderType;
@@ -213,6 +223,7 @@ export type ServiceAreaStatus = "VERIFIED" | "UNCONFIRMED";
 
 // 依 docs/API_CONTRACT.md 第 10 節 GET /api/v1/providers/{providerId} Response。
 export interface ProviderDetailResponse {
+  publicInfo?: ProviderPublicInfo;
   id: string;
   name: string;
   type: ProviderType;
@@ -236,6 +247,7 @@ export type AreaFilter = "LOCATED_IN" | "SERVICE_AREA";
 
 // 一律回傳 10 個鍵，值為後端實際套用、補上預設值後的條件（§10a）。
 export interface ProviderLookupAppliedFilters {
+  assistiveProgram?: AssistiveProgram;
   resourceCategory: ProviderResourceCategory | null;
   serviceType: ProviderServiceType | null;
   city: string | null;
@@ -251,6 +263,7 @@ export interface ProviderLookupAppliedFilters {
 // 欄位只有這 15 個（v0.6 加入 resourceCategory、contractRegions），與 §10 同名欄位值相同；
 // 不得回傳 lat/lng/status/createdAt/updatedAt/rank/distanceKm/reasons。
 export interface ProviderLookupItem {
+  publicInfo?: ProviderPublicInfo;
   id: string;
   name: string;
   type: ProviderType;
@@ -334,6 +347,7 @@ export interface RecommendationResult {
 // 欄位刻意設為寬鬆 unknown/optional，因為來源資料可能缺欄位（例如 provider-services
 // 目前缺 id/active），必須先驗證才能決定是否匯入，不得自行猜值。
 export interface RawProviderRecord {
+  publicInfo?: unknown;
   id?: unknown;
   name?: unknown;
   type?: unknown;

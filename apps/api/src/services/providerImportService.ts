@@ -15,6 +15,7 @@ import type {
   RawProviderServiceAreaRecord,
   RawProviderServiceRecord,
 } from "../types/index.js";
+import { isProviderPublicInfo } from "./providerPublicInfo.js";
 import { nowTaipeiISOString } from "../lib/response.js";
 
 const PROVIDER_TYPES: ProviderType[] = ["HOME_CARE", "HOME_MEDICAL_NURSING", "ASSISTIVE_DEVICE", "OTHER"];
@@ -66,6 +67,7 @@ function validateProvider(record: RawProviderRecord): ValidationResult<Provider>
   if (!isOneOf(record.status, PROVIDER_STATUSES)) reasons.push("status 不合法");
   if (typeof record.verified !== "boolean") reasons.push("verified 必須是 boolean");
 
+  if (record.publicInfo !== undefined && !isProviderPublicInfo(record.publicInfo)) reasons.push("publicInfo 格式不合法");
   if (reasons.length > 0) return { ok: false, reasons };
 
   const now = nowTaipeiISOString();
@@ -73,6 +75,7 @@ function validateProvider(record: RawProviderRecord): ValidationResult<Provider>
     ok: true,
     reasons: [],
     value: {
+      ...(record.publicInfo !== undefined ? { publicInfo: record.publicInfo as import("../types/index.js").ProviderPublicInfo } : {}),
       id: record.id as string,
       name: record.name as string,
       type: record.type as ProviderType,

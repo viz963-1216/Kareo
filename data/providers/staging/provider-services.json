@@ -184,5 +184,4535 @@
     "providerId": "NTPC-AD-010",
     "serviceType": "ASSISTIVE_DEVICE",
     "active": true
+  },
+  {
+    "id": "PSV-TP-HC-011-HOME_CARE",
+    "providerId": "TP-HC-011",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-012-HOME_CARE",
+    "providerId": "TP-HC-012",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-013-HOME_CARE",
+    "providerId": "TP-HC-013",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-014-HOME_CARE",
+    "providerId": "TP-HC-014",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-015-HOME_CARE",
+    "providerId": "TP-HC-015",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-016-HOME_CARE",
+    "providerId": "TP-HC-016",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-017-HOME_CARE",
+    "providerId": "TP-HC-017",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-018-HOME_CARE",
+    "providerId": "TP-HC-018",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-019-HOME_CARE",
+    "providerId": "TP-HC-019",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-020-HOME_CARE",
+    "providerId": "TP-HC-020",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-021-HOME_CARE",
+    "providerId": "TP-HC-021",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-022-HOME_CARE",
+    "providerId": "TP-HC-022",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-023-HOME_CARE",
+    "providerId": "TP-HC-023",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-024-HOME_CARE",
+    "providerId": "TP-HC-024",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-025-HOME_CARE",
+    "providerId": "TP-HC-025",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-026-HOME_CARE",
+    "providerId": "TP-HC-026",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-027-HOME_CARE",
+    "providerId": "TP-HC-027",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-028-HOME_CARE",
+    "providerId": "TP-HC-028",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-029-HOME_CARE",
+    "providerId": "TP-HC-029",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-030-HOME_CARE",
+    "providerId": "TP-HC-030",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-031-HOME_CARE",
+    "providerId": "TP-HC-031",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-032-HOME_CARE",
+    "providerId": "TP-HC-032",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-033-HOME_CARE",
+    "providerId": "TP-HC-033",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-034-HOME_CARE",
+    "providerId": "TP-HC-034",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-035-HOME_CARE",
+    "providerId": "TP-HC-035",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-036-HOME_CARE",
+    "providerId": "TP-HC-036",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-037-HOME_CARE",
+    "providerId": "TP-HC-037",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-038-HOME_CARE",
+    "providerId": "TP-HC-038",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-039-HOME_CARE",
+    "providerId": "TP-HC-039",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-040-HOME_CARE",
+    "providerId": "TP-HC-040",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-041-HOME_CARE",
+    "providerId": "TP-HC-041",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-042-HOME_CARE",
+    "providerId": "TP-HC-042",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-043-HOME_CARE",
+    "providerId": "TP-HC-043",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-044-HOME_CARE",
+    "providerId": "TP-HC-044",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-045-HOME_CARE",
+    "providerId": "TP-HC-045",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-046-HOME_CARE",
+    "providerId": "TP-HC-046",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-047-HOME_CARE",
+    "providerId": "TP-HC-047",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-048-HOME_CARE",
+    "providerId": "TP-HC-048",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-049-HOME_CARE",
+    "providerId": "TP-HC-049",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-050-HOME_CARE",
+    "providerId": "TP-HC-050",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-051-HOME_CARE",
+    "providerId": "TP-HC-051",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-052-HOME_CARE",
+    "providerId": "TP-HC-052",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-053-HOME_CARE",
+    "providerId": "TP-HC-053",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-054-HOME_CARE",
+    "providerId": "TP-HC-054",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-055-HOME_CARE",
+    "providerId": "TP-HC-055",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-056-HOME_CARE",
+    "providerId": "TP-HC-056",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-057-HOME_CARE",
+    "providerId": "TP-HC-057",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-058-HOME_CARE",
+    "providerId": "TP-HC-058",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-059-HOME_CARE",
+    "providerId": "TP-HC-059",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-060-HOME_CARE",
+    "providerId": "TP-HC-060",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-061-HOME_CARE",
+    "providerId": "TP-HC-061",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-062-HOME_CARE",
+    "providerId": "TP-HC-062",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-063-HOME_CARE",
+    "providerId": "TP-HC-063",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-064-HOME_CARE",
+    "providerId": "TP-HC-064",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-065-HOME_CARE",
+    "providerId": "TP-HC-065",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-066-HOME_CARE",
+    "providerId": "TP-HC-066",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-067-HOME_CARE",
+    "providerId": "TP-HC-067",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-068-HOME_CARE",
+    "providerId": "TP-HC-068",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-069-HOME_CARE",
+    "providerId": "TP-HC-069",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-070-HOME_CARE",
+    "providerId": "TP-HC-070",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-071-HOME_CARE",
+    "providerId": "TP-HC-071",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-072-HOME_CARE",
+    "providerId": "TP-HC-072",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-073-HOME_CARE",
+    "providerId": "TP-HC-073",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-074-HOME_CARE",
+    "providerId": "TP-HC-074",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-075-HOME_CARE",
+    "providerId": "TP-HC-075",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-076-HOME_CARE",
+    "providerId": "TP-HC-076",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-077-HOME_CARE",
+    "providerId": "TP-HC-077",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-078-HOME_CARE",
+    "providerId": "TP-HC-078",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-079-HOME_CARE",
+    "providerId": "TP-HC-079",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-080-HOME_CARE",
+    "providerId": "TP-HC-080",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-081-HOME_CARE",
+    "providerId": "TP-HC-081",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-082-HOME_CARE",
+    "providerId": "TP-HC-082",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-083-HOME_CARE",
+    "providerId": "TP-HC-083",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-084-HOME_CARE",
+    "providerId": "TP-HC-084",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-085-HOME_CARE",
+    "providerId": "TP-HC-085",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-086-HOME_CARE",
+    "providerId": "TP-HC-086",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-087-HOME_CARE",
+    "providerId": "TP-HC-087",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-088-HOME_CARE",
+    "providerId": "TP-HC-088",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-089-HOME_CARE",
+    "providerId": "TP-HC-089",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-090-HOME_CARE",
+    "providerId": "TP-HC-090",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-091-HOME_CARE",
+    "providerId": "TP-HC-091",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-092-HOME_CARE",
+    "providerId": "TP-HC-092",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-093-HOME_CARE",
+    "providerId": "TP-HC-093",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-094-HOME_CARE",
+    "providerId": "TP-HC-094",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-095-HOME_CARE",
+    "providerId": "TP-HC-095",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-096-HOME_CARE",
+    "providerId": "TP-HC-096",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-097-HOME_CARE",
+    "providerId": "TP-HC-097",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-098-HOME_CARE",
+    "providerId": "TP-HC-098",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-099-HOME_CARE",
+    "providerId": "TP-HC-099",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-100-HOME_CARE",
+    "providerId": "TP-HC-100",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-101-HOME_CARE",
+    "providerId": "TP-HC-101",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-102-HOME_CARE",
+    "providerId": "TP-HC-102",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-103-HOME_CARE",
+    "providerId": "TP-HC-103",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-104-HOME_CARE",
+    "providerId": "TP-HC-104",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-105-HOME_CARE",
+    "providerId": "TP-HC-105",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-106-HOME_CARE",
+    "providerId": "TP-HC-106",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-107-HOME_CARE",
+    "providerId": "TP-HC-107",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-108-HOME_CARE",
+    "providerId": "TP-HC-108",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-109-HOME_CARE",
+    "providerId": "TP-HC-109",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-110-HOME_CARE",
+    "providerId": "TP-HC-110",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-111-HOME_CARE",
+    "providerId": "TP-HC-111",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-112-HOME_CARE",
+    "providerId": "TP-HC-112",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-113-HOME_CARE",
+    "providerId": "TP-HC-113",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-114-HOME_CARE",
+    "providerId": "TP-HC-114",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-115-HOME_CARE",
+    "providerId": "TP-HC-115",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-116-HOME_CARE",
+    "providerId": "TP-HC-116",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-117-HOME_CARE",
+    "providerId": "TP-HC-117",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-118-HOME_CARE",
+    "providerId": "TP-HC-118",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-119-HOME_CARE",
+    "providerId": "TP-HC-119",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-120-HOME_CARE",
+    "providerId": "TP-HC-120",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-121-HOME_CARE",
+    "providerId": "TP-HC-121",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-122-HOME_CARE",
+    "providerId": "TP-HC-122",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-123-HOME_CARE",
+    "providerId": "TP-HC-123",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-124-HOME_CARE",
+    "providerId": "TP-HC-124",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-125-HOME_CARE",
+    "providerId": "TP-HC-125",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-126-HOME_CARE",
+    "providerId": "TP-HC-126",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-127-HOME_CARE",
+    "providerId": "TP-HC-127",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-128-HOME_CARE",
+    "providerId": "TP-HC-128",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-129-HOME_CARE",
+    "providerId": "TP-HC-129",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-130-HOME_CARE",
+    "providerId": "TP-HC-130",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-132-HOME_CARE",
+    "providerId": "TP-HC-132",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-133-HOME_CARE",
+    "providerId": "TP-HC-133",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-134-HOME_CARE",
+    "providerId": "TP-HC-134",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-135-HOME_CARE",
+    "providerId": "TP-HC-135",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-136-HOME_CARE",
+    "providerId": "TP-HC-136",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-138-HOME_CARE",
+    "providerId": "TP-HC-138",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-140-HOME_CARE",
+    "providerId": "TP-HC-140",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-141-HOME_CARE",
+    "providerId": "TP-HC-141",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-143-HOME_CARE",
+    "providerId": "TP-HC-143",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-144-HOME_CARE",
+    "providerId": "TP-HC-144",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-145-HOME_CARE",
+    "providerId": "TP-HC-145",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-146-HOME_CARE",
+    "providerId": "TP-HC-146",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-147-HOME_CARE",
+    "providerId": "TP-HC-147",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-148-HOME_CARE",
+    "providerId": "TP-HC-148",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-149-HOME_CARE",
+    "providerId": "TP-HC-149",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-150-HOME_CARE",
+    "providerId": "TP-HC-150",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-151-HOME_CARE",
+    "providerId": "TP-HC-151",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-152-HOME_CARE",
+    "providerId": "TP-HC-152",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-153-HOME_CARE",
+    "providerId": "TP-HC-153",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-154-HOME_CARE",
+    "providerId": "TP-HC-154",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-155-HOME_CARE",
+    "providerId": "TP-HC-155",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-156-HOME_CARE",
+    "providerId": "TP-HC-156",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-157-HOME_CARE",
+    "providerId": "TP-HC-157",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-158-HOME_CARE",
+    "providerId": "TP-HC-158",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-159-HOME_CARE",
+    "providerId": "TP-HC-159",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-160-HOME_CARE",
+    "providerId": "TP-HC-160",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-161-HOME_CARE",
+    "providerId": "TP-HC-161",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-162-HOME_CARE",
+    "providerId": "TP-HC-162",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-163-HOME_CARE",
+    "providerId": "TP-HC-163",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-164-HOME_CARE",
+    "providerId": "TP-HC-164",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-165-HOME_CARE",
+    "providerId": "TP-HC-165",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-166-HOME_CARE",
+    "providerId": "TP-HC-166",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-167-HOME_CARE",
+    "providerId": "TP-HC-167",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-168-HOME_CARE",
+    "providerId": "TP-HC-168",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-169-HOME_CARE",
+    "providerId": "TP-HC-169",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-170-HOME_CARE",
+    "providerId": "TP-HC-170",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-171-HOME_CARE",
+    "providerId": "TP-HC-171",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-172-HOME_CARE",
+    "providerId": "TP-HC-172",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-173-HOME_CARE",
+    "providerId": "TP-HC-173",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-174-HOME_CARE",
+    "providerId": "TP-HC-174",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-175-HOME_CARE",
+    "providerId": "TP-HC-175",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-176-HOME_CARE",
+    "providerId": "TP-HC-176",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-177-HOME_CARE",
+    "providerId": "TP-HC-177",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-178-HOME_CARE",
+    "providerId": "TP-HC-178",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-179-HOME_CARE",
+    "providerId": "TP-HC-179",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-180-HOME_CARE",
+    "providerId": "TP-HC-180",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-181-HOME_CARE",
+    "providerId": "TP-HC-181",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-182-HOME_CARE",
+    "providerId": "TP-HC-182",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-183-HOME_CARE",
+    "providerId": "TP-HC-183",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-184-HOME_CARE",
+    "providerId": "TP-HC-184",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-185-HOME_CARE",
+    "providerId": "TP-HC-185",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-186-HOME_CARE",
+    "providerId": "TP-HC-186",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-187-HOME_CARE",
+    "providerId": "TP-HC-187",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-188-HOME_CARE",
+    "providerId": "TP-HC-188",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-189-HOME_CARE",
+    "providerId": "TP-HC-189",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-190-HOME_CARE",
+    "providerId": "TP-HC-190",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-191-HOME_CARE",
+    "providerId": "TP-HC-191",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-192-HOME_CARE",
+    "providerId": "TP-HC-192",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-193-HOME_CARE",
+    "providerId": "TP-HC-193",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-194-HOME_CARE",
+    "providerId": "TP-HC-194",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-195-HOME_CARE",
+    "providerId": "TP-HC-195",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-196-HOME_CARE",
+    "providerId": "TP-HC-196",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-197-HOME_CARE",
+    "providerId": "TP-HC-197",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-TP-HC-198-HOME_CARE",
+    "providerId": "TP-HC-198",
+    "serviceType": "HOME_CARE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5EAFCD3563B2-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5EAFCD3563B2",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-43032DE889C4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-43032DE889C4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7B93D6608269-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7B93D6608269",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-15CE2155EB0B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-15CE2155EB0B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C41C378592C7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C41C378592C7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9CA448D671ED-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9CA448D671ED",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7BEA878BFCA8-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7BEA878BFCA8",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4CD9EF68463D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4CD9EF68463D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-16F4F8E6F85E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-16F4F8E6F85E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-23533146967F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-23533146967F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2E12F02B79A1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2E12F02B79A1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-09CA324A9A77-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-09CA324A9A77",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A355522560C2-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A355522560C2",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5D6F79E8B610-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5D6F79E8B610",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B1AE2F5208B8-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B1AE2F5208B8",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A457C44AD5F6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A457C44AD5F6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-76A201A9BE8E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-76A201A9BE8E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-73C9C6E9FD97-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-73C9C6E9FD97",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A3A533C39112-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A3A533C39112",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4385BC76596A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4385BC76596A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-76AE78884CDD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-76AE78884CDD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3825B4B291E3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3825B4B291E3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E446DBE14C9C-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E446DBE14C9C",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B006E08ECAC9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B006E08ECAC9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-034EA210009D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-034EA210009D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5286AD31FEDA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5286AD31FEDA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2CE9CA52548D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2CE9CA52548D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C934A56849C3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C934A56849C3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-42553225C537-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-42553225C537",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1F5300E789B8-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1F5300E789B8",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2228D966B5EF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2228D966B5EF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E264616AF22C-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E264616AF22C",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2EDB84FF6719-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2EDB84FF6719",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-BA9D0D363872-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-BA9D0D363872",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-31C1C7803CE3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-31C1C7803CE3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9AF028C689C9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9AF028C689C9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DD900738CE4D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DD900738CE4D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6068CB32CB0B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6068CB32CB0B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FBE2D4DE104D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FBE2D4DE104D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1DF6D1254CD1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1DF6D1254CD1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1CB07C67893D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1CB07C67893D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1B0F7A346938-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1B0F7A346938",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2539EC2E4AF4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2539EC2E4AF4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8D4B7BFF32AA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8D4B7BFF32AA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-59663DFFA43D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-59663DFFA43D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6FAA0421009A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6FAA0421009A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B212024A0B65-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B212024A0B65",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C410F15F618B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C410F15F618B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C7D7310E208B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C7D7310E208B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3E0E11ACB37F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3E0E11ACB37F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4B4A39E2A067-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4B4A39E2A067",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-155179765FEE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-155179765FEE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-66D77BBDE8A9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-66D77BBDE8A9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E96BB6A0B676-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E96BB6A0B676",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5A5034F20DFB-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5A5034F20DFB",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9E973C9C6B32-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9E973C9C6B32",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8057F7E1FB65-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8057F7E1FB65",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-835F61778C45-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-835F61778C45",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3E1C0EEAAC9A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3E1C0EEAAC9A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-224CEE5A5FB7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-224CEE5A5FB7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-324091BDF1DD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-324091BDF1DD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-06C31DAE2774-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-06C31DAE2774",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-13BCF75850E3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-13BCF75850E3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C0FCB677AD6B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C0FCB677AD6B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9599206D3087-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9599206D3087",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3D9B1A1EC14B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3D9B1A1EC14B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-844252DFC320-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-844252DFC320",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-43A00DE65FFA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-43A00DE65FFA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-09DEAC771B5A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-09DEAC771B5A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EBA634C35B9E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EBA634C35B9E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D4E3D191DEE9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D4E3D191DEE9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FF703F7E05B1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FF703F7E05B1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8A4AAD03654B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8A4AAD03654B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-356854044B03-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-356854044B03",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-60A271A4E3E4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-60A271A4E3E4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C09F6DB119D6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C09F6DB119D6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F21A423C9E87-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F21A423C9E87",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-74D5EF48C785-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-74D5EF48C785",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-91491F5EF975-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-91491F5EF975",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3035332E070B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3035332E070B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6C8091588860-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6C8091588860",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-AEDFEB1C9946-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-AEDFEB1C9946",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C16FCAB9E713-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C16FCAB9E713",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-04499AC9A0B6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-04499AC9A0B6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7F0D2D115F5B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7F0D2D115F5B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2BBF3CE79FAF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2BBF3CE79FAF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F4B5555098C7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F4B5555098C7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4F05A2D66299-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4F05A2D66299",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9B177F7A3564-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9B177F7A3564",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-53B044444EED-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-53B044444EED",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3B7E2013A1E4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3B7E2013A1E4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8CB3D690ADB4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8CB3D690ADB4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B1DC81E8FC32-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B1DC81E8FC32",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-95308168D682-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-95308168D682",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7EC6962A812E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7EC6962A812E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-128CDE814AE3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-128CDE814AE3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E25D9F9C2131-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E25D9F9C2131",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CD1968739D90-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CD1968739D90",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D207F6548A37-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D207F6548A37",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DAD51A84DDAC-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DAD51A84DDAC",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-162E9F492813-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-162E9F492813",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-02EB66FE434E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-02EB66FE434E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-127A79743AEB-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-127A79743AEB",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1CBB1625FF78-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1CBB1625FF78",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7461E740E9A7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7461E740E9A7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7E6F86DA9CE4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7E6F86DA9CE4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9A3168CBECF2-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9A3168CBECF2",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-80274CEE1BB0-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-80274CEE1BB0",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-85DE71874EC3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-85DE71874EC3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-178E2097A422-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-178E2097A422",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A0CB562C9457-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A0CB562C9457",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E12B68DD8D6B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E12B68DD8D6B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8A613EA806AE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8A613EA806AE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-54F5186C7386-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-54F5186C7386",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9D7B659832B2-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9D7B659832B2",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-10E5C377DF53-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-10E5C377DF53",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CE5EA642DBEB-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CE5EA642DBEB",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-80B6FEAA37F9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-80B6FEAA37F9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5F637AD130C5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5F637AD130C5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-ED38E6CF6742-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-ED38E6CF6742",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-BAF7159FC157-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-BAF7159FC157",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-49C29C397C08-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-49C29C397C08",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E5E9A9F5DE9F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E5E9A9F5DE9F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-30F9C41D9F62-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-30F9C41D9F62",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A86F73098555-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A86F73098555",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-0A6105C117B3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-0A6105C117B3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A08E18F3A140-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A08E18F3A140",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C8FA260DD10E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C8FA260DD10E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EF77FC1854E6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EF77FC1854E6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A54373503D96-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A54373503D96",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1BC1B9A75384-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1BC1B9A75384",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-030F76EDF237-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-030F76EDF237",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EFE1154B1FE1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EFE1154B1FE1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-393B1E146A3B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-393B1E146A3B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CB6435F79D64-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CB6435F79D64",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-80CDDB171A98-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-80CDDB171A98",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D89DC7843085-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D89DC7843085",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-382D2D77B271-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-382D2D77B271",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-ED16A8E5C6E3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-ED16A8E5C6E3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-57D92D085A57-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-57D92D085A57",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-13D752056D13-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-13D752056D13",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CE567E3BAFF5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CE567E3BAFF5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-54DAF1499981-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-54DAF1499981",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B1415F33A0E9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B1415F33A0E9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5105418A2282-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5105418A2282",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-0A94B028D37A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-0A94B028D37A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E3392F0747BD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E3392F0747BD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-004BAD39621A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-004BAD39621A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-BBF86E7B9395-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-BBF86E7B9395",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E2AD01632CCF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E2AD01632CCF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F0B32F51AA8A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F0B32F51AA8A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EF1A8B3177BE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EF1A8B3177BE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4126895B9600-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4126895B9600",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F2D494377EE5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F2D494377EE5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-721732D00269-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-721732D00269",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-671D2CF4E7A4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-671D2CF4E7A4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C3F2CFE72293-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C3F2CFE72293",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B72980B8DAC4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B72980B8DAC4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F9D1C84BD3A1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F9D1C84BD3A1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-22A2D511DA5C-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-22A2D511DA5C",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-213EC0FB8415-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-213EC0FB8415",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-73B2DA8864E6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-73B2DA8864E6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1E96F5AD6678-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1E96F5AD6678",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-AF6C5FEB0790-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-AF6C5FEB0790",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-05034CC6B098-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-05034CC6B098",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-04CE80685D23-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-04CE80685D23",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-24B9B29E39D7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-24B9B29E39D7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8F5CC32F2001-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8F5CC32F2001",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9AE2FE9EB56D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9AE2FE9EB56D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-61022FEECBD6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-61022FEECBD6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-BB9BDCF0129D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-BB9BDCF0129D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7E1133845ECA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7E1133845ECA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C2B0DC3644D0-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C2B0DC3644D0",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1E0C2E02958A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1E0C2E02958A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4F4B5730DF29-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4F4B5730DF29",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-48C64C70CB4E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-48C64C70CB4E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2F8043A71C95-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2F8043A71C95",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7447BF6A86F6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7447BF6A86F6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F23AC40EB209-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F23AC40EB209",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-90A8A6BDFEA1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-90A8A6BDFEA1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D7D0162AC320-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D7D0162AC320",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E4B7AEE6FC76-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E4B7AEE6FC76",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1EF2AC03DF6D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1EF2AC03DF6D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-94947993B5EA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-94947993B5EA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-05E91CCE1361-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-05E91CCE1361",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-0480BD813ACA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-0480BD813ACA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4FBBA7A19ECA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4FBBA7A19ECA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-62DE926E9BD6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-62DE926E9BD6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5A9A5CF35F10-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5A9A5CF35F10",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-64E582F3D2D4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-64E582F3D2D4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9C8654853346-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9C8654853346",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-AB405D8C4510-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-AB405D8C4510",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3BC4C66E3978-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3BC4C66E3978",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-300746C16DAC-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-300746C16DAC",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EA3FFA6BEAD1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EA3FFA6BEAD1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7D6CD6B8AC6B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7D6CD6B8AC6B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-AC96AF1406E8-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-AC96AF1406E8",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DF96359F388A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DF96359F388A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2FE0975A426B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2FE0975A426B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FB6A82831914-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FB6A82831914",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-76596463A516-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-76596463A516",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-18B72CDEAA03-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-18B72CDEAA03",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-44E6F9733DBD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-44E6F9733DBD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-83AA52DD0A53-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-83AA52DD0A53",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3DFDED847AD8-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3DFDED847AD8",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3C0364199026-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3C0364199026",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-241A8F6E51CF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-241A8F6E51CF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-48E7FA6C2275-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-48E7FA6C2275",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-AB86BF9CD50D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-AB86BF9CD50D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-96593256BC2D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-96593256BC2D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D935A0EF8B24-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D935A0EF8B24",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4653FAD14DA3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4653FAD14DA3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E1A86B3605F5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E1A86B3605F5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E5F90E992E34-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E5F90E992E34",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-291B8D11BA25-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-291B8D11BA25",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FA48D534005F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FA48D534005F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-50A1AA7CCF9B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-50A1AA7CCF9B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EE32B1ACA3DD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EE32B1ACA3DD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EE4BF9B2CAAC-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EE4BF9B2CAAC",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D8FF09270717-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D8FF09270717",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8138FC69F03E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8138FC69F03E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EFE812B18B96-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EFE812B18B96",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B34DB1508880-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B34DB1508880",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B588797632E9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B588797632E9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-933325B47652-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-933325B47652",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B5B5D1F7459E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B5B5D1F7459E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-66123F89953A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-66123F89953A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B114F4FCBBA3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B114F4FCBBA3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-71F82BD41A46-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-71F82BD41A46",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E1DBAB5DCE5E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E1DBAB5DCE5E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-54A18E6025C1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-54A18E6025C1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CAD511F9BF35-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CAD511F9BF35",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5C88FA638EBB-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5C88FA638EBB",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E5CBFBD8720E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E5CBFBD8720E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DBCAD639B234-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DBCAD639B234",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A70B39EFB2F7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A70B39EFB2F7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4C823A2ECFC9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4C823A2ECFC9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-352101C0CE95-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-352101C0CE95",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D061A9E54BD5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D061A9E54BD5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1FFC137D2588-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1FFC137D2588",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3730F279CDDE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3730F279CDDE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E1471485E1F3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E1471485E1F3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F1C9C7659160-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F1C9C7659160",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-777D530BAED3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-777D530BAED3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A264F7483C41-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A264F7483C41",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9DEE6B927FE8-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9DEE6B927FE8",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EA315CE0DC45-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EA315CE0DC45",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B10D19AADADD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B10D19AADADD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6DA99994941D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6DA99994941D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5268DBD51A4D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5268DBD51A4D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-407AC26B2182-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-407AC26B2182",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-AE5A6C4187E3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-AE5A6C4187E3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-36B3843D7B8C-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-36B3843D7B8C",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-67BD76FCD0B4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-67BD76FCD0B4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7792D4792883-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7792D4792883",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9B600E8F0641-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9B600E8F0641",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E40D6392E89B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E40D6392E89B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CD2A6E4A14D3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CD2A6E4A14D3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4F8B8DC5B828-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4F8B8DC5B828",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8ABF00F4D85E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8ABF00F4D85E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-555253A3FDF6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-555253A3FDF6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C603D88D2762-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C603D88D2762",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A215B4325B4D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A215B4325B4D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-74008400E450-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-74008400E450",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-96038C363504-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-96038C363504",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-59D15E61F512-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-59D15E61F512",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B7B25F371FFD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B7B25F371FFD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FCE99C695F73-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FCE99C695F73",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FA4A68C4491D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FA4A68C4491D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-62FBF3CFCC19-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-62FBF3CFCC19",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C3908BCB3DF9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C3908BCB3DF9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F3197C5545D9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F3197C5545D9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-579B9F5BA8A7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-579B9F5BA8A7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C64BE8E76BAD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C64BE8E76BAD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4A55DBBFA299-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4A55DBBFA299",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5A9419B95BDF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5A9419B95BDF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B85A8B1932E0-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B85A8B1932E0",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EE4F4DD2DAA4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EE4F4DD2DAA4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6AF2B3CAC652-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6AF2B3CAC652",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D15483A9B5A1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D15483A9B5A1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-84D2843E6823-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-84D2843E6823",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E863ABB36B22-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E863ABB36B22",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DDD2A2DD758F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DDD2A2DD758F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D0C1CC47D5DA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D0C1CC47D5DA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D99B0BE28754-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D99B0BE28754",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DA55138DD801-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DA55138DD801",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-36A52324B521-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-36A52324B521",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B20271806F59-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B20271806F59",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F9CFF1286583-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F9CFF1286583",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FB0491138294-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FB0491138294",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-209865452C83-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-209865452C83",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CCC9577AB333-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CCC9577AB333",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6442BE8507E9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6442BE8507E9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4A311961EB7E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4A311961EB7E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-18E7DB960D48-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-18E7DB960D48",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6A47F31C80AD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6A47F31C80AD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-71818FA08A2B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-71818FA08A2B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3E6FA683F7B6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3E6FA683F7B6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3FA443F08C7E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3FA443F08C7E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-79A0C2D74A91-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-79A0C2D74A91",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D5E7B929859E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D5E7B929859E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-17D09F858B95-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-17D09F858B95",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5FFC91944C15-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5FFC91944C15",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DE9EAD1791CD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DE9EAD1791CD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-103213C5F526-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-103213C5F526",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7464465701E4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7464465701E4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C155F017C0D7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C155F017C0D7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CC017CDDA185-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CC017CDDA185",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9824BFF7A33F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9824BFF7A33F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B7DBC7A3E31C-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B7DBC7A3E31C",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8531217AFB3B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8531217AFB3B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-69175E3366F4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-69175E3366F4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9B40D2060D51-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9B40D2060D51",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7A8E490C34B0-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7A8E490C34B0",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3E13DD505699-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3E13DD505699",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-82F1881B5C7F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-82F1881B5C7F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1ABD1DF570D4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1ABD1DF570D4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F44590E0BF66-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F44590E0BF66",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D01AEFA8A9C6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D01AEFA8A9C6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E02A040F1EF9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E02A040F1EF9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-934BAD4C86FF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-934BAD4C86FF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A29B33FE7C21-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A29B33FE7C21",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F7219F7B2CFC-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F7219F7B2CFC",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8259FBF18BAD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8259FBF18BAD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-910CE48BC282-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-910CE48BC282",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6D495D6F0907-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6D495D6F0907",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-87323F72861A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-87323F72861A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-869D4BECE14E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-869D4BECE14E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FAB6050ACF41-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FAB6050ACF41",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E47404DB9DFE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E47404DB9DFE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-04E5C3BB647D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-04E5C3BB647D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-847A66159B0A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-847A66159B0A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7153445DD9D8-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7153445DD9D8",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FE8D55E922FA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FE8D55E922FA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-84FB02CD4953-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-84FB02CD4953",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1AB5FB4C0B17-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1AB5FB4C0B17",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5C45EBA55C9F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5C45EBA55C9F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-72E861CCEC1A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-72E861CCEC1A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2F1772267314-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2F1772267314",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C975E0A5E203-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C975E0A5E203",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F5B831FA9C5D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F5B831FA9C5D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C91E942F09AF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C91E942F09AF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DACBB1402006-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DACBB1402006",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-16545EE2CBD7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-16545EE2CBD7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9A942E07A7DA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9A942E07A7DA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-440379436376-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-440379436376",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A9C58BE7E9D5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A9C58BE7E9D5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CDD23A1E0EC2-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CDD23A1E0EC2",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-0A38059324FA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-0A38059324FA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-715F14C557D3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-715F14C557D3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-144384E4A5AF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-144384E4A5AF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F70D7679CB7B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F70D7679CB7B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C1DCDC174BBF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C1DCDC174BBF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-85769CE49C9B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-85769CE49C9B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A25C909ECE36-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A25C909ECE36",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CB3F52DC18EB-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CB3F52DC18EB",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-498E5E8E3793-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-498E5E8E3793",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-803DBFBBAF52-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-803DBFBBAF52",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-196F6A9B1659-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-196F6A9B1659",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7E7F271B9B1A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7E7F271B9B1A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-86349D71CB68-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-86349D71CB68",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-BD55FF44064F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-BD55FF44064F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9CBB5FF9CF1E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9CBB5FF9CF1E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2D3B66C94580-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2D3B66C94580",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E872BF6D2EC9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E872BF6D2EC9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DF593A0FA814-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DF593A0FA814",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8B794649A76A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8B794649A76A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3A503E9094E0-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3A503E9094E0",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-94DD226D5761-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-94DD226D5761",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F4F72BAD4586-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F4F72BAD4586",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8A719EB586A6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8A719EB586A6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5E29606CB008-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5E29606CB008",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-36005D4BA151-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-36005D4BA151",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-75F6658F6CC3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-75F6658F6CC3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-379927B00A88-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-379927B00A88",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EFA94AAE570C-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EFA94AAE570C",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-77C5F4579DA5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-77C5F4579DA5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9AF975866A4F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9AF975866A4F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1742E39CC299-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1742E39CC299",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-78F430892B7A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-78F430892B7A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4CAB3195AAA9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4CAB3195AAA9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CE3FE491CB20-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CE3FE491CB20",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EBECADB8C08F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EBECADB8C08F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CD3E9C67E5FF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CD3E9C67E5FF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A07A42F85ABF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A07A42F85ABF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FC43CD9C3C37-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FC43CD9C3C37",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A27E54DD789E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A27E54DD789E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CE0618F40DD3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CE0618F40DD3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4C7E0B478A4D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4C7E0B478A4D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-10EF5D23F282-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-10EF5D23F282",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F69E60C079DA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F69E60C079DA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B13500108C79-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B13500108C79",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EA06996ABF0B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EA06996ABF0B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2315154AFE2C-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2315154AFE2C",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6492A8E411A5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6492A8E411A5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-88E43CE2C9F7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-88E43CE2C9F7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-283C10E5048B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-283C10E5048B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-80AA91A89235-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-80AA91A89235",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-41BDE2C4227F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-41BDE2C4227F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-58130F52118A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-58130F52118A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D583B8D2F331-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D583B8D2F331",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2B3D48FDDD7A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2B3D48FDDD7A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E2E59A526A5D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E2E59A526A5D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CD367BD9463A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CD367BD9463A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-143CF05ED7A3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-143CF05ED7A3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-45B71014ACF0-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-45B71014ACF0",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5BC25E34DC80-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5BC25E34DC80",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8A61D7AA3170-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8A61D7AA3170",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6ACCE668B422-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6ACCE668B422",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7325C197D980-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7325C197D980",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-0399B0BBB591-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-0399B0BBB591",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-BDC9DC67295B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-BDC9DC67295B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2C4B747035AC-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2C4B747035AC",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-108FEC22C31E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-108FEC22C31E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-37A551AF898C-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-37A551AF898C",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-844B17B6C75C-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-844B17B6C75C",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1903D510578E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1903D510578E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CC425B0676D3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CC425B0676D3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-57E3F81D4488-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-57E3F81D4488",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D0B05782B0C9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D0B05782B0C9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D8ECEB999125-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D8ECEB999125",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-492CFA8A93A4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-492CFA8A93A4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-59D2D7E9E5D4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-59D2D7E9E5D4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6A65E2950D5E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6A65E2950D5E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F9F5E584E3B2-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F9F5E584E3B2",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D22445F03409-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D22445F03409",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8ACB0D76AEF1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8ACB0D76AEF1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7C71583B8BBE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7C71583B8BBE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F70803A2357F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F70803A2357F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-AD0386B7E972-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-AD0386B7E972",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-71E05442D8B0-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-71E05442D8B0",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CB11EED89DFA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CB11EED89DFA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-208C59D3C825-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-208C59D3C825",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F4341B424C7C-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F4341B424C7C",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CA9F7852E605-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CA9F7852E605",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A6A36428814B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A6A36428814B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C52FDBE3E807-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C52FDBE3E807",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7369F7F296F9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7369F7F296F9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-BF6B140BDCD8-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-BF6B140BDCD8",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6D0D5EDF0E1D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6D0D5EDF0E1D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4C034C84D2B9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4C034C84D2B9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-497F95344D1E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-497F95344D1E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4777E5DFACB2-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4777E5DFACB2",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6364BABB4BDD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6364BABB4BDD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3FB9EBD334A7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3FB9EBD334A7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DE3AED2B4025-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DE3AED2B4025",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-092B8F60C001-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-092B8F60C001",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-702F927F3DE5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-702F927F3DE5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-650B75ADCE09-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-650B75ADCE09",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6BB8972998A1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6BB8972998A1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-BC35BE453A91-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-BC35BE453A91",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6CBAF282F8D3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6CBAF282F8D3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FCAEE8CAD908-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FCAEE8CAD908",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9FCC36DE71AC-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9FCC36DE71AC",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C9446A702BE7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C9446A702BE7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-59CF899A855A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-59CF899A855A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FB9AB1FBDE8F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FB9AB1FBDE8F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EC00CC0B9BCB-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EC00CC0B9BCB",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1432D8FC9B56-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1432D8FC9B56",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-0CEC6409D67E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-0CEC6409D67E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-31E1D4CAAA3E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-31E1D4CAAA3E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E55D0282EE6D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E55D0282EE6D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E889D634BD0F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E889D634BD0F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CB14C78BA11F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CB14C78BA11F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-41A08D8EE30F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-41A08D8EE30F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F5F6C8FB28F6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F5F6C8FB28F6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4D7473260E4C-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4D7473260E4C",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3214873635D5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3214873635D5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E40FF596EB45-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E40FF596EB45",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5FA7215F08E9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5FA7215F08E9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2E49C9463307-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2E49C9463307",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DCD1D3AD1B19-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DCD1D3AD1B19",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DD62E9512052-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DD62E9512052",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6C4B8D172C22-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6C4B8D172C22",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-5AE715201BD2-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-5AE715201BD2",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D6687EEBB226-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D6687EEBB226",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FD84FA8A73B3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FD84FA8A73B3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-94A68BE7A1DC-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-94A68BE7A1DC",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DB2B11901ED3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DB2B11901ED3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-410D88A135CD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-410D88A135CD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-8BA6574AEDB2-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-8BA6574AEDB2",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2E8C174468AE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2E8C174468AE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1DA818A7F48E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1DA818A7F48E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B4425F2DA726-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B4425F2DA726",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-508913CDF674-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-508913CDF674",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F666EC73650D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F666EC73650D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CFEACAE50DB5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CFEACAE50DB5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-80ECF7B30293-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-80ECF7B30293",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D9E56A42B8E0-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D9E56A42B8E0",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4782F7364DB5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4782F7364DB5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B1D0928892BE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B1D0928892BE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-16BC7E70639D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-16BC7E70639D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B20AB7131501-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B20AB7131501",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-445C0B4CEF8E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-445C0B4CEF8E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-755CFD9D9ECA-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-755CFD9D9ECA",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CC7BB410AAA6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CC7BB410AAA6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F1C93EE279DD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F1C93EE279DD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-A86E77DDF4A7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-A86E77DDF4A7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E19D23BBD4CF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E19D23BBD4CF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F1CD91AF616B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F1CD91AF616B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-319A97426C5B-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-319A97426C5B",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-55B6679D3AA3-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-55B6679D3AA3",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D1DA7753EFED-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D1DA7753EFED",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D63F14AC2D45-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D63F14AC2D45",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D07D07A56B0A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D07D07A56B0A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-95C6AA70833E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-95C6AA70833E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E4F7D7E64AD4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E4F7D7E64AD4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-97C002A882BE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-97C002A882BE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E00FDB623BAE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E00FDB623BAE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-AF9EFADAFE25-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-AF9EFADAFE25",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-67CFC0ABDE29-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-67CFC0ABDE29",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7DE6AE0C81B9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7DE6AE0C81B9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C76299F0035F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C76299F0035F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-15D79F91BBF1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-15D79F91BBF1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CA98C9F741D7-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CA98C9F741D7",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6A081DD33ED5-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6A081DD33ED5",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C1D82884EEE2-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C1D82884EEE2",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-BA518444D580-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-BA518444D580",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6D371257218D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6D371257218D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9B06A4FEDCB4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9B06A4FEDCB4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9B36B0B422E9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9B36B0B422E9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7BF28D77F706-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7BF28D77F706",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-1579323B85FE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-1579323B85FE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-57C706A74822-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-57C706A74822",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9044FF68EBB4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9044FF68EBB4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B30F025E0F0D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B30F025E0F0D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E2FCE0240246-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E2FCE0240246",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-0C7A1479C20A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-0C7A1479C20A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-61D294A52015-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-61D294A52015",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-C31B02E90607-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-C31B02E90607",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-6A663D49BAE0-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-6A663D49BAE0",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4DC758948713-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4DC758948713",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B24EC8E1099F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B24EC8E1099F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9FFDCFCAB562-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9FFDCFCAB562",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CC4389A94477-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CC4389A94477",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-45DF5424689E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-45DF5424689E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D58F5F855F28-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D58F5F855F28",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B2165289C886-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B2165289C886",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-0F97C7923A42-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-0F97C7923A42",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-F73ED7F4B53F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-F73ED7F4B53F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DD77500723C4-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DD77500723C4",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-298B67CD2D02-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-298B67CD2D02",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-FC3464CFECF6-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-FC3464CFECF6",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-2856ECC26DB2-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-2856ECC26DB2",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3B87FC2E60EE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3B87FC2E60EE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7FB17E1D4FC0-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7FB17E1D4FC0",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D8E6890DFCFF-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D8E6890DFCFF",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-768DBA3218E9-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-768DBA3218E9",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-27A541890F2E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-27A541890F2E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E07CDFD4F7D1-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E07CDFD4F7D1",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-75F4A80D9773-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-75F4A80D9773",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-4BBD2DB484BD-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-4BBD2DB484BD",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DE360E4EE84A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DE360E4EE84A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B7F7C6A84C86-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B7F7C6A84C86",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-56D566CF9CFE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-56D566CF9CFE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-B53F9E3C2E2D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-B53F9E3C2E2D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-7669AEB1AE2A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-7669AEB1AE2A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-EDEBB3070F3F-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-EDEBB3070F3F",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-3BC134C24EF8-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-3BC134C24EF8",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9451A2185E8E-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9451A2185E8E",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-40E83D3B17FE-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-40E83D3B17FE",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-663D78D94C54-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-663D78D94C54",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E1025562627A-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E1025562627A",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-E2E585E86755-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-E2E585E86755",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-650DFEA82A62-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-650DFEA82A62",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CD3AEB3ABA63-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CD3AEB3ABA63",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-DD59810F104D-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-DD59810F104D",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-CF305072F035-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-CF305072F035",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-9423128F8A31-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-9423128F8A31",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-D205235044B0-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-D205235044B0",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
+  },
+  {
+    "id": "PSV-CAT-AD-44931BDCADEB-ASSISTIVE_DEVICE",
+    "providerId": "CAT-AD-44931BDCADEB",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "active": true
   }
 ]

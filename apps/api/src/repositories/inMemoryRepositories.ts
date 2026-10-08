@@ -332,6 +332,7 @@ export class InMemoryProviderRepository implements ProviderRepository {
       .map((a) => ({ city: a.city, district: a.district }));
 
     return {
+      ...(provider.publicInfo ? { publicInfo: provider.publicInfo } : {}),
       id: provider.id,
       name: provider.name,
       type: provider.type,

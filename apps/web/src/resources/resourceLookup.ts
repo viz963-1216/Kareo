@@ -8,6 +8,7 @@ import type {
 export type LookupCity = "" | "臺北市" | "新北市" | "OTHER";
 
 export interface LookupForm {
+  assistiveProgram: "" | "PURCHASE" | "SMART_TECH";
   resourceCategory: "" | ResourceCategory;
   serviceType: "" | RecommendationServiceType;
   city: LookupCity;
@@ -19,6 +20,7 @@ export interface LookupForm {
 }
 
 export const initialLookupForm: LookupForm = {
+  assistiveProgram: "",
   resourceCategory: "",
   serviceType: "",
   city: "",
@@ -35,6 +37,7 @@ export function changeResourceCategory(form: LookupForm, resourceCategory: Looku
   return {
     ...form,
     resourceCategory,
+    assistiveProgram: resourceCategory === "ASSISTIVE_DEVICE_CENTER" ? "" : form.assistiveProgram,
     serviceType: resourceCategory === "ASSISTIVE_DEVICE_CENTER" ? "" : form.serviceType,
   };
 }
@@ -70,6 +73,7 @@ export function buildResourceLookupRequest(form: LookupForm, page = 1): Resource
   if (form.city === "OTHER") return null;
   const q = form.q.trim();
   return {
+    ...(form.assistiveProgram ? { assistiveProgram: form.assistiveProgram } : {}),
     ...(form.resourceCategory ? { resourceCategory: form.resourceCategory } : {}),
     ...(form.serviceType ? { serviceType: form.serviceType } : {}),
     ...(isLookupServiceCity(form.city) ? { city: form.city } : {}),
@@ -92,5 +96,7 @@ export function lookupFormFromParams(params: URLSearchParams): LookupForm {
   if (serviceType === "HOME_CARE" || serviceType === "HOME_MEDICAL_NURSING" || serviceType === "ASSISTIVE_DEVICE") form.serviceType = serviceType;
   const category = params.get("resourceCategory");
   if (category === "SERVICE_PROVIDER" || category === "ASSISTIVE_DEVICE_CENTER") form = changeResourceCategory(form, category);
+  const program = params.get("assistiveProgram");
+  if ((program === "PURCHASE" || program === "SMART_TECH") && form.resourceCategory !== "ASSISTIVE_DEVICE_CENTER" && (!form.serviceType || form.serviceType === "ASSISTIVE_DEVICE")) form.assistiveProgram = program;
   return form;
 }

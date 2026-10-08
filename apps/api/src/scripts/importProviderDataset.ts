@@ -48,8 +48,11 @@ async function main(): Promise<number> {
     return 2;
   }
 
+  const info = readJsonOrEmpty(path.join(args.datasetDir, "provider-public-info.json")) as Array<{ providerId: string; publicInfo: unknown }>;
+  const sourceProviders = readJson(path.join(args.datasetDir, "providers.json")) as ProviderImportDataset["providers"];
+  if (new Set(info.map(x => x.providerId)).size !== info.length || info.some(x => !sourceProviders.some(p => p.id === x.providerId))) throw new Error("重複或孤立的公開資料補充");
   const dataset: ProviderImportDataset = {
-    providers: readJson(path.join(args.datasetDir, "providers.json")) as ProviderImportDataset["providers"],
+    providers: sourceProviders.map(p => { const x = info.find(x => x.providerId === p.id); return x ? { ...p, publicInfo: x.publicInfo } : p; }),
     providerServices: readJson(
       path.join(args.datasetDir, "provider-services.json")
     ) as ProviderImportDataset["providerServices"],

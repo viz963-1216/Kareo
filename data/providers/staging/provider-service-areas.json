@@ -831,5 +831,7033 @@
     "city": "臺北市",
     "district": "文山區",
     "active": true
+  },
+  {
+    "id": "PSA-TP-HC-011-TPE-中正區",
+    "providerId": "TP-HC-011",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-011-TPE-大同區",
+    "providerId": "TP-HC-011",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-011-TPE-中山區",
+    "providerId": "TP-HC-011",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-011-TPE-松山區",
+    "providerId": "TP-HC-011",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-011-TPE-大安區",
+    "providerId": "TP-HC-011",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-011-TPE-萬華區",
+    "providerId": "TP-HC-011",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-011-TPE-信義區",
+    "providerId": "TP-HC-011",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-011-TPE-士林區",
+    "providerId": "TP-HC-011",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-011-TPE-北投區",
+    "providerId": "TP-HC-011",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-011-TPE-內湖區",
+    "providerId": "TP-HC-011",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-011-TPE-南港區",
+    "providerId": "TP-HC-011",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-011-TPE-文山區",
+    "providerId": "TP-HC-011",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-012-TPE-信義區",
+    "providerId": "TP-HC-012",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-012-TPE-大安區",
+    "providerId": "TP-HC-012",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-012-TPE-中正區",
+    "providerId": "TP-HC-012",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-012-TPE-中山區",
+    "providerId": "TP-HC-012",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-012-TPE-南港區",
+    "providerId": "TP-HC-012",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-013-TPE-信義區",
+    "providerId": "TP-HC-013",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-013-TPE-大安區",
+    "providerId": "TP-HC-013",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-014-TPE-中正區",
+    "providerId": "TP-HC-014",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-014-TPE-大同區",
+    "providerId": "TP-HC-014",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-014-TPE-中山區",
+    "providerId": "TP-HC-014",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-014-TPE-松山區",
+    "providerId": "TP-HC-014",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-014-TPE-大安區",
+    "providerId": "TP-HC-014",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-014-TPE-萬華區",
+    "providerId": "TP-HC-014",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-014-TPE-信義區",
+    "providerId": "TP-HC-014",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-014-TPE-士林區",
+    "providerId": "TP-HC-014",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-014-TPE-北投區",
+    "providerId": "TP-HC-014",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-014-TPE-內湖區",
+    "providerId": "TP-HC-014",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-014-TPE-南港區",
+    "providerId": "TP-HC-014",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-014-TPE-文山區",
+    "providerId": "TP-HC-014",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-015-TPE-松山區",
+    "providerId": "TP-HC-015",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-015-TPE-大安區",
+    "providerId": "TP-HC-015",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-015-TPE-信義區",
+    "providerId": "TP-HC-015",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-015-TPE-文山區",
+    "providerId": "TP-HC-015",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-015-TPE-士林區",
+    "providerId": "TP-HC-015",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-015-TPE-內湖區",
+    "providerId": "TP-HC-015",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-015-TPE-南港區",
+    "providerId": "TP-HC-015",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-017-TPE-信義區",
+    "providerId": "TP-HC-017",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-017-TPE-松山區",
+    "providerId": "TP-HC-017",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-017-TPE-大安區",
+    "providerId": "TP-HC-017",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-018-TPE-內湖區",
+    "providerId": "TP-HC-018",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-018-TPE-南港區",
+    "providerId": "TP-HC-018",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-018-TPE-松山區",
+    "providerId": "TP-HC-018",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-019-TPE-松山區",
+    "providerId": "TP-HC-019",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-020-TPE-中正區",
+    "providerId": "TP-HC-020",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-020-TPE-大同區",
+    "providerId": "TP-HC-020",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-020-TPE-中山區",
+    "providerId": "TP-HC-020",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-020-TPE-松山區",
+    "providerId": "TP-HC-020",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-020-TPE-大安區",
+    "providerId": "TP-HC-020",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-020-TPE-萬華區",
+    "providerId": "TP-HC-020",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-020-TPE-信義區",
+    "providerId": "TP-HC-020",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-020-TPE-士林區",
+    "providerId": "TP-HC-020",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-020-TPE-北投區",
+    "providerId": "TP-HC-020",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-020-TPE-內湖區",
+    "providerId": "TP-HC-020",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-020-TPE-南港區",
+    "providerId": "TP-HC-020",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-020-TPE-文山區",
+    "providerId": "TP-HC-020",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-021-TPE-中正區",
+    "providerId": "TP-HC-021",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-021-TPE-大同區",
+    "providerId": "TP-HC-021",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-021-TPE-中山區",
+    "providerId": "TP-HC-021",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-021-TPE-松山區",
+    "providerId": "TP-HC-021",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-021-TPE-大安區",
+    "providerId": "TP-HC-021",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-021-TPE-萬華區",
+    "providerId": "TP-HC-021",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-021-TPE-信義區",
+    "providerId": "TP-HC-021",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-021-TPE-士林區",
+    "providerId": "TP-HC-021",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-021-TPE-北投區",
+    "providerId": "TP-HC-021",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-021-TPE-內湖區",
+    "providerId": "TP-HC-021",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-021-TPE-南港區",
+    "providerId": "TP-HC-021",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-021-TPE-文山區",
+    "providerId": "TP-HC-021",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-022-TPE-信義區",
+    "providerId": "TP-HC-022",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-022-TPE-松山區",
+    "providerId": "TP-HC-022",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-022-TPE-大安區",
+    "providerId": "TP-HC-022",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-022-TPE-文山區",
+    "providerId": "TP-HC-022",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-022-TPE-中正區",
+    "providerId": "TP-HC-022",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-022-TPE-萬華區",
+    "providerId": "TP-HC-022",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-022-TPE-內湖區",
+    "providerId": "TP-HC-022",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-022-TPE-南港區",
+    "providerId": "TP-HC-022",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-023-TPE-松山區",
+    "providerId": "TP-HC-023",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-023-TPE-信義區",
+    "providerId": "TP-HC-023",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-023-TPE-大安區",
+    "providerId": "TP-HC-023",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-023-TPE-中山區",
+    "providerId": "TP-HC-023",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-023-TPE-中正區",
+    "providerId": "TP-HC-023",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-023-TPE-大同區",
+    "providerId": "TP-HC-023",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-023-TPE-南港區",
+    "providerId": "TP-HC-023",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-023-TPE-內湖區",
+    "providerId": "TP-HC-023",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-023-TPE-北投區",
+    "providerId": "TP-HC-023",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-023-TPE-萬華區",
+    "providerId": "TP-HC-023",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-023-TPE-士林區",
+    "providerId": "TP-HC-023",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-024-TPE-松山區",
+    "providerId": "TP-HC-024",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-024-TPE-信義區",
+    "providerId": "TP-HC-024",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-024-TPE-大安區",
+    "providerId": "TP-HC-024",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-024-TPE-中山區",
+    "providerId": "TP-HC-024",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-024-TPE-中正區",
+    "providerId": "TP-HC-024",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-024-TPE-大同區",
+    "providerId": "TP-HC-024",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-024-TPE-南港區",
+    "providerId": "TP-HC-024",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-024-TPE-內湖區",
+    "providerId": "TP-HC-024",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-024-TPE-北投區",
+    "providerId": "TP-HC-024",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-024-TPE-萬華區",
+    "providerId": "TP-HC-024",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-024-TPE-士林區",
+    "providerId": "TP-HC-024",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-025-TPE-士林區",
+    "providerId": "TP-HC-025",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-025-TPE-中正區",
+    "providerId": "TP-HC-025",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-025-TPE-萬華區",
+    "providerId": "TP-HC-025",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-025-TPE-大同區",
+    "providerId": "TP-HC-025",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-026-TPE-中正區",
+    "providerId": "TP-HC-026",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-026-TPE-大同區",
+    "providerId": "TP-HC-026",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-026-TPE-中山區",
+    "providerId": "TP-HC-026",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-026-TPE-松山區",
+    "providerId": "TP-HC-026",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-026-TPE-大安區",
+    "providerId": "TP-HC-026",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-026-TPE-萬華區",
+    "providerId": "TP-HC-026",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-026-TPE-信義區",
+    "providerId": "TP-HC-026",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-026-TPE-士林區",
+    "providerId": "TP-HC-026",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-026-TPE-北投區",
+    "providerId": "TP-HC-026",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-026-TPE-內湖區",
+    "providerId": "TP-HC-026",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-026-TPE-南港區",
+    "providerId": "TP-HC-026",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-026-TPE-文山區",
+    "providerId": "TP-HC-026",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-027-TPE-中正區",
+    "providerId": "TP-HC-027",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-027-TPE-大同區",
+    "providerId": "TP-HC-027",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-027-TPE-中山區",
+    "providerId": "TP-HC-027",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-027-TPE-松山區",
+    "providerId": "TP-HC-027",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-027-TPE-大安區",
+    "providerId": "TP-HC-027",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-027-TPE-萬華區",
+    "providerId": "TP-HC-027",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-027-TPE-信義區",
+    "providerId": "TP-HC-027",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-027-TPE-士林區",
+    "providerId": "TP-HC-027",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-027-TPE-北投區",
+    "providerId": "TP-HC-027",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-027-TPE-內湖區",
+    "providerId": "TP-HC-027",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-027-TPE-南港區",
+    "providerId": "TP-HC-027",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-027-TPE-文山區",
+    "providerId": "TP-HC-027",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-028-TPE-中正區",
+    "providerId": "TP-HC-028",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-028-TPE-大同區",
+    "providerId": "TP-HC-028",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-028-TPE-中山區",
+    "providerId": "TP-HC-028",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-028-TPE-松山區",
+    "providerId": "TP-HC-028",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-028-TPE-大安區",
+    "providerId": "TP-HC-028",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-028-TPE-萬華區",
+    "providerId": "TP-HC-028",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-028-TPE-信義區",
+    "providerId": "TP-HC-028",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-028-TPE-士林區",
+    "providerId": "TP-HC-028",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-028-TPE-北投區",
+    "providerId": "TP-HC-028",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-028-TPE-內湖區",
+    "providerId": "TP-HC-028",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-028-TPE-南港區",
+    "providerId": "TP-HC-028",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-028-TPE-文山區",
+    "providerId": "TP-HC-028",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-029-TPE-中正區",
+    "providerId": "TP-HC-029",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-029-TPE-大同區",
+    "providerId": "TP-HC-029",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-029-TPE-中山區",
+    "providerId": "TP-HC-029",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-029-TPE-松山區",
+    "providerId": "TP-HC-029",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-029-TPE-大安區",
+    "providerId": "TP-HC-029",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-029-TPE-萬華區",
+    "providerId": "TP-HC-029",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-029-TPE-信義區",
+    "providerId": "TP-HC-029",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-029-TPE-士林區",
+    "providerId": "TP-HC-029",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-029-TPE-北投區",
+    "providerId": "TP-HC-029",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-029-TPE-內湖區",
+    "providerId": "TP-HC-029",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-029-TPE-南港區",
+    "providerId": "TP-HC-029",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-029-TPE-文山區",
+    "providerId": "TP-HC-029",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-030-TPE-士林區",
+    "providerId": "TP-HC-030",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-030-TPE-北投區",
+    "providerId": "TP-HC-030",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-030-TPE-松山區",
+    "providerId": "TP-HC-030",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-030-TPE-文山區",
+    "providerId": "TP-HC-030",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-031-TPE-中正區",
+    "providerId": "TP-HC-031",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-031-TPE-大同區",
+    "providerId": "TP-HC-031",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-031-TPE-中山區",
+    "providerId": "TP-HC-031",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-031-TPE-松山區",
+    "providerId": "TP-HC-031",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-031-TPE-大安區",
+    "providerId": "TP-HC-031",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-031-TPE-萬華區",
+    "providerId": "TP-HC-031",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-031-TPE-信義區",
+    "providerId": "TP-HC-031",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-031-TPE-士林區",
+    "providerId": "TP-HC-031",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-031-TPE-北投區",
+    "providerId": "TP-HC-031",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-031-TPE-內湖區",
+    "providerId": "TP-HC-031",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-031-TPE-南港區",
+    "providerId": "TP-HC-031",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-031-TPE-文山區",
+    "providerId": "TP-HC-031",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-032-TPE-北投區",
+    "providerId": "TP-HC-032",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-032-TPE-士林區",
+    "providerId": "TP-HC-032",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-033-TPE-士林區",
+    "providerId": "TP-HC-033",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-033-TPE-北投區",
+    "providerId": "TP-HC-033",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-034-TPE-中正區",
+    "providerId": "TP-HC-034",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-034-TPE-大同區",
+    "providerId": "TP-HC-034",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-034-TPE-中山區",
+    "providerId": "TP-HC-034",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-034-TPE-松山區",
+    "providerId": "TP-HC-034",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-034-TPE-大安區",
+    "providerId": "TP-HC-034",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-034-TPE-萬華區",
+    "providerId": "TP-HC-034",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-034-TPE-信義區",
+    "providerId": "TP-HC-034",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-034-TPE-士林區",
+    "providerId": "TP-HC-034",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-034-TPE-北投區",
+    "providerId": "TP-HC-034",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-034-TPE-內湖區",
+    "providerId": "TP-HC-034",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-034-TPE-南港區",
+    "providerId": "TP-HC-034",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-034-TPE-文山區",
+    "providerId": "TP-HC-034",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-035-TPE-士林區",
+    "providerId": "TP-HC-035",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-035-TPE-北投區",
+    "providerId": "TP-HC-035",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-035-TPE-中正區",
+    "providerId": "TP-HC-035",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-035-TPE-萬華區",
+    "providerId": "TP-HC-035",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-035-TPE-大同區",
+    "providerId": "TP-HC-035",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-035-TPE-中山區",
+    "providerId": "TP-HC-035",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-035-TPE-南港區",
+    "providerId": "TP-HC-035",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-035-TPE-內湖區",
+    "providerId": "TP-HC-035",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-036-TPE-士林區",
+    "providerId": "TP-HC-036",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-036-TPE-北投區",
+    "providerId": "TP-HC-036",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-036-TPE-大同區",
+    "providerId": "TP-HC-036",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-036-TPE-中山區",
+    "providerId": "TP-HC-036",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-037-TPE-士林區",
+    "providerId": "TP-HC-037",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-037-TPE-北投區",
+    "providerId": "TP-HC-037",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-037-TPE-大同區",
+    "providerId": "TP-HC-037",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-038-TPE-松山區",
+    "providerId": "TP-HC-038",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-038-TPE-大安區",
+    "providerId": "TP-HC-038",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-038-TPE-文山區",
+    "providerId": "TP-HC-038",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-038-TPE-中正區",
+    "providerId": "TP-HC-038",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-039-TPE-中正區",
+    "providerId": "TP-HC-039",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-039-TPE-大安區",
+    "providerId": "TP-HC-039",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-039-TPE-文山區",
+    "providerId": "TP-HC-039",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-040-TPE-文山區",
+    "providerId": "TP-HC-040",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-041-TPE-文山區",
+    "providerId": "TP-HC-041",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-041-TPE-大安區",
+    "providerId": "TP-HC-041",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-042-TPE-文山區",
+    "providerId": "TP-HC-042",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-042-TPE-信義區",
+    "providerId": "TP-HC-042",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-042-TPE-大安區",
+    "providerId": "TP-HC-042",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-043-TPE-文山區",
+    "providerId": "TP-HC-043",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-044-TPE-大安區",
+    "providerId": "TP-HC-044",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-044-TPE-中正區",
+    "providerId": "TP-HC-044",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-044-TPE-文山區",
+    "providerId": "TP-HC-044",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-044-TPE-內湖區",
+    "providerId": "TP-HC-044",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-044-TPE-南港區",
+    "providerId": "TP-HC-044",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-045-TPE-信義區",
+    "providerId": "TP-HC-045",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-045-TPE-松山區",
+    "providerId": "TP-HC-045",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-045-TPE-大安區",
+    "providerId": "TP-HC-045",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-045-TPE-文山區",
+    "providerId": "TP-HC-045",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-045-TPE-中正區",
+    "providerId": "TP-HC-045",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-045-TPE-萬華區",
+    "providerId": "TP-HC-045",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-045-TPE-大同區",
+    "providerId": "TP-HC-045",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-045-TPE-中山區",
+    "providerId": "TP-HC-045",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-046-TPE-中正區",
+    "providerId": "TP-HC-046",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-046-TPE-大同區",
+    "providerId": "TP-HC-046",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-046-TPE-中山區",
+    "providerId": "TP-HC-046",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-046-TPE-松山區",
+    "providerId": "TP-HC-046",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-046-TPE-大安區",
+    "providerId": "TP-HC-046",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-046-TPE-萬華區",
+    "providerId": "TP-HC-046",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-046-TPE-信義區",
+    "providerId": "TP-HC-046",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-046-TPE-士林區",
+    "providerId": "TP-HC-046",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-046-TPE-北投區",
+    "providerId": "TP-HC-046",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-046-TPE-內湖區",
+    "providerId": "TP-HC-046",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-046-TPE-南港區",
+    "providerId": "TP-HC-046",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-046-TPE-文山區",
+    "providerId": "TP-HC-046",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-047-TPE-信義區",
+    "providerId": "TP-HC-047",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-047-TPE-大安區",
+    "providerId": "TP-HC-047",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-047-TPE-文山區",
+    "providerId": "TP-HC-047",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-048-TPE-中正區",
+    "providerId": "TP-HC-048",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-048-TPE-大同區",
+    "providerId": "TP-HC-048",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-048-TPE-中山區",
+    "providerId": "TP-HC-048",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-048-TPE-松山區",
+    "providerId": "TP-HC-048",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-048-TPE-大安區",
+    "providerId": "TP-HC-048",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-048-TPE-萬華區",
+    "providerId": "TP-HC-048",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-048-TPE-信義區",
+    "providerId": "TP-HC-048",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-048-TPE-士林區",
+    "providerId": "TP-HC-048",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-048-TPE-北投區",
+    "providerId": "TP-HC-048",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-048-TPE-內湖區",
+    "providerId": "TP-HC-048",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-048-TPE-南港區",
+    "providerId": "TP-HC-048",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-048-TPE-文山區",
+    "providerId": "TP-HC-048",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-049-TPE-內湖區",
+    "providerId": "TP-HC-049",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-049-TPE-南港區",
+    "providerId": "TP-HC-049",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-049-TPE-士林區",
+    "providerId": "TP-HC-049",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-050-TPE-內湖區",
+    "providerId": "TP-HC-050",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-050-TPE-南港區",
+    "providerId": "TP-HC-050",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-050-TPE-中山區",
+    "providerId": "TP-HC-050",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-050-TPE-松山區",
+    "providerId": "TP-HC-050",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-050-TPE-信義區",
+    "providerId": "TP-HC-050",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-051-TPE-內湖區",
+    "providerId": "TP-HC-051",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-051-TPE-松山區",
+    "providerId": "TP-HC-051",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-051-TPE-信義區",
+    "providerId": "TP-HC-051",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-052-TPE-中正區",
+    "providerId": "TP-HC-052",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-052-TPE-大同區",
+    "providerId": "TP-HC-052",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-052-TPE-中山區",
+    "providerId": "TP-HC-052",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-052-TPE-松山區",
+    "providerId": "TP-HC-052",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-052-TPE-大安區",
+    "providerId": "TP-HC-052",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-052-TPE-萬華區",
+    "providerId": "TP-HC-052",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-052-TPE-信義區",
+    "providerId": "TP-HC-052",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-052-TPE-士林區",
+    "providerId": "TP-HC-052",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-052-TPE-北投區",
+    "providerId": "TP-HC-052",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-052-TPE-內湖區",
+    "providerId": "TP-HC-052",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-052-TPE-南港區",
+    "providerId": "TP-HC-052",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-052-TPE-文山區",
+    "providerId": "TP-HC-052",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-053-TPE-文山區",
+    "providerId": "TP-HC-053",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-053-TPE-中正區",
+    "providerId": "TP-HC-053",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-053-TPE-中山區",
+    "providerId": "TP-HC-053",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-054-TPE-大安區",
+    "providerId": "TP-HC-054",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-054-TPE-中正區",
+    "providerId": "TP-HC-054",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-054-TPE-大同區",
+    "providerId": "TP-HC-054",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-054-TPE-中山區",
+    "providerId": "TP-HC-054",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-055-TPE-大安區",
+    "providerId": "TP-HC-055",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-055-TPE-中正區",
+    "providerId": "TP-HC-055",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-055-TPE-大同區",
+    "providerId": "TP-HC-055",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-055-TPE-信義區",
+    "providerId": "TP-HC-055",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-055-TPE-松山區",
+    "providerId": "TP-HC-055",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-055-TPE-文山區",
+    "providerId": "TP-HC-055",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-055-TPE-萬華區",
+    "providerId": "TP-HC-055",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-056-TPE-松山區",
+    "providerId": "TP-HC-056",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-056-TPE-大安區",
+    "providerId": "TP-HC-056",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-056-TPE-萬華區",
+    "providerId": "TP-HC-056",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-056-TPE-中正區",
+    "providerId": "TP-HC-056",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-056-TPE-大同區",
+    "providerId": "TP-HC-056",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-056-TPE-中山區",
+    "providerId": "TP-HC-056",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-056-TPE-信義區",
+    "providerId": "TP-HC-056",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-056-TPE-士林區",
+    "providerId": "TP-HC-056",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-056-TPE-北投區",
+    "providerId": "TP-HC-056",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-056-TPE-內湖區",
+    "providerId": "TP-HC-056",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-056-TPE-南港區",
+    "providerId": "TP-HC-056",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-057-TPE-士林區",
+    "providerId": "TP-HC-057",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-057-TPE-北投區",
+    "providerId": "TP-HC-057",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-057-TPE-松山區",
+    "providerId": "TP-HC-057",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-057-TPE-中正區",
+    "providerId": "TP-HC-057",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-057-TPE-中山區",
+    "providerId": "TP-HC-057",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-058-TPE-信義區",
+    "providerId": "TP-HC-058",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-058-TPE-大安區",
+    "providerId": "TP-HC-058",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-058-TPE-文山區",
+    "providerId": "TP-HC-058",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-059-TPE-中正區",
+    "providerId": "TP-HC-059",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-059-TPE-大同區",
+    "providerId": "TP-HC-059",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-059-TPE-中山區",
+    "providerId": "TP-HC-059",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-059-TPE-松山區",
+    "providerId": "TP-HC-059",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-059-TPE-大安區",
+    "providerId": "TP-HC-059",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-059-TPE-萬華區",
+    "providerId": "TP-HC-059",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-059-TPE-信義區",
+    "providerId": "TP-HC-059",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-059-TPE-士林區",
+    "providerId": "TP-HC-059",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-059-TPE-北投區",
+    "providerId": "TP-HC-059",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-059-TPE-內湖區",
+    "providerId": "TP-HC-059",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-059-TPE-南港區",
+    "providerId": "TP-HC-059",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-059-TPE-文山區",
+    "providerId": "TP-HC-059",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-061-TPE-士林區",
+    "providerId": "TP-HC-061",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-061-TPE-內湖區",
+    "providerId": "TP-HC-061",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-061-TPE-南港區",
+    "providerId": "TP-HC-061",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-061-TPE-信義區",
+    "providerId": "TP-HC-061",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-061-TPE-松山區",
+    "providerId": "TP-HC-061",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-061-TPE-大安區",
+    "providerId": "TP-HC-061",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-061-TPE-文山區",
+    "providerId": "TP-HC-061",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-061-TPE-中正區",
+    "providerId": "TP-HC-061",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-061-TPE-萬華區",
+    "providerId": "TP-HC-061",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-061-TPE-大同區",
+    "providerId": "TP-HC-061",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-061-TPE-中山區",
+    "providerId": "TP-HC-061",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-062-TPE-松山區",
+    "providerId": "TP-HC-062",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-062-TPE-中正區",
+    "providerId": "TP-HC-062",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-062-TPE-萬華區",
+    "providerId": "TP-HC-062",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-062-TPE-大同區",
+    "providerId": "TP-HC-062",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-062-TPE-中山區",
+    "providerId": "TP-HC-062",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-062-TPE-南港區",
+    "providerId": "TP-HC-062",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-062-TPE-大安區",
+    "providerId": "TP-HC-062",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-062-TPE-士林區",
+    "providerId": "TP-HC-062",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-062-TPE-北投區",
+    "providerId": "TP-HC-062",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-062-TPE-信義區",
+    "providerId": "TP-HC-062",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-063-TPE-大安區",
+    "providerId": "TP-HC-063",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-063-TPE-中正區",
+    "providerId": "TP-HC-063",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-063-TPE-中山區",
+    "providerId": "TP-HC-063",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-064-TPE-中正區",
+    "providerId": "TP-HC-064",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-064-TPE-大安區",
+    "providerId": "TP-HC-064",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-064-TPE-信義區",
+    "providerId": "TP-HC-064",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-064-TPE-松山區",
+    "providerId": "TP-HC-064",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-064-TPE-中山區",
+    "providerId": "TP-HC-064",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-065-TPE-中正區",
+    "providerId": "TP-HC-065",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-065-TPE-大同區",
+    "providerId": "TP-HC-065",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-065-TPE-中山區",
+    "providerId": "TP-HC-065",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-065-TPE-松山區",
+    "providerId": "TP-HC-065",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-065-TPE-大安區",
+    "providerId": "TP-HC-065",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-065-TPE-萬華區",
+    "providerId": "TP-HC-065",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-065-TPE-信義區",
+    "providerId": "TP-HC-065",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-065-TPE-士林區",
+    "providerId": "TP-HC-065",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-065-TPE-北投區",
+    "providerId": "TP-HC-065",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-065-TPE-內湖區",
+    "providerId": "TP-HC-065",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-065-TPE-南港區",
+    "providerId": "TP-HC-065",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-065-TPE-文山區",
+    "providerId": "TP-HC-065",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-066-TPE-大安區",
+    "providerId": "TP-HC-066",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-066-TPE-中山區",
+    "providerId": "TP-HC-066",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-067-TPE-中正區",
+    "providerId": "TP-HC-067",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-067-TPE-大同區",
+    "providerId": "TP-HC-067",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-067-TPE-中山區",
+    "providerId": "TP-HC-067",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-067-TPE-松山區",
+    "providerId": "TP-HC-067",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-067-TPE-大安區",
+    "providerId": "TP-HC-067",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-067-TPE-萬華區",
+    "providerId": "TP-HC-067",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-067-TPE-信義區",
+    "providerId": "TP-HC-067",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-067-TPE-士林區",
+    "providerId": "TP-HC-067",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-067-TPE-北投區",
+    "providerId": "TP-HC-067",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-067-TPE-內湖區",
+    "providerId": "TP-HC-067",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-067-TPE-南港區",
+    "providerId": "TP-HC-067",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-067-TPE-文山區",
+    "providerId": "TP-HC-067",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-068-TPE-中正區",
+    "providerId": "TP-HC-068",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-068-TPE-大同區",
+    "providerId": "TP-HC-068",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-068-TPE-中山區",
+    "providerId": "TP-HC-068",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-068-TPE-松山區",
+    "providerId": "TP-HC-068",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-068-TPE-大安區",
+    "providerId": "TP-HC-068",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-068-TPE-萬華區",
+    "providerId": "TP-HC-068",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-068-TPE-信義區",
+    "providerId": "TP-HC-068",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-068-TPE-士林區",
+    "providerId": "TP-HC-068",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-068-TPE-北投區",
+    "providerId": "TP-HC-068",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-068-TPE-內湖區",
+    "providerId": "TP-HC-068",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-068-TPE-南港區",
+    "providerId": "TP-HC-068",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-068-TPE-文山區",
+    "providerId": "TP-HC-068",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-069-TPE-松山區",
+    "providerId": "TP-HC-069",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-069-TPE-中山區",
+    "providerId": "TP-HC-069",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-069-TPE-大同區",
+    "providerId": "TP-HC-069",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-070-TPE-中正區",
+    "providerId": "TP-HC-070",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-070-TPE-大同區",
+    "providerId": "TP-HC-070",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-070-TPE-中山區",
+    "providerId": "TP-HC-070",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-070-TPE-松山區",
+    "providerId": "TP-HC-070",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-070-TPE-大安區",
+    "providerId": "TP-HC-070",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-070-TPE-萬華區",
+    "providerId": "TP-HC-070",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-070-TPE-信義區",
+    "providerId": "TP-HC-070",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-070-TPE-士林區",
+    "providerId": "TP-HC-070",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-070-TPE-北投區",
+    "providerId": "TP-HC-070",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-070-TPE-內湖區",
+    "providerId": "TP-HC-070",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-070-TPE-南港區",
+    "providerId": "TP-HC-070",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-070-TPE-文山區",
+    "providerId": "TP-HC-070",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-071-TPE-中正區",
+    "providerId": "TP-HC-071",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-071-TPE-大同區",
+    "providerId": "TP-HC-071",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-071-TPE-中山區",
+    "providerId": "TP-HC-071",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-071-TPE-松山區",
+    "providerId": "TP-HC-071",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-071-TPE-大安區",
+    "providerId": "TP-HC-071",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-071-TPE-萬華區",
+    "providerId": "TP-HC-071",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-071-TPE-信義區",
+    "providerId": "TP-HC-071",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-071-TPE-士林區",
+    "providerId": "TP-HC-071",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-071-TPE-北投區",
+    "providerId": "TP-HC-071",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-071-TPE-內湖區",
+    "providerId": "TP-HC-071",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-071-TPE-南港區",
+    "providerId": "TP-HC-071",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-071-TPE-文山區",
+    "providerId": "TP-HC-071",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-072-TPE-中山區",
+    "providerId": "TP-HC-072",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-072-TPE-士林區",
+    "providerId": "TP-HC-072",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-072-TPE-內湖區",
+    "providerId": "TP-HC-072",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-073-TPE-大同區",
+    "providerId": "TP-HC-073",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-073-TPE-中山區",
+    "providerId": "TP-HC-073",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-073-TPE-松山區",
+    "providerId": "TP-HC-073",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-074-TPE-內湖區",
+    "providerId": "TP-HC-074",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-074-TPE-南港區",
+    "providerId": "TP-HC-074",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-074-TPE-松山區",
+    "providerId": "TP-HC-074",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-074-TPE-中山區",
+    "providerId": "TP-HC-074",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-074-TPE-萬華區",
+    "providerId": "TP-HC-074",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-074-TPE-士林區",
+    "providerId": "TP-HC-074",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-074-TPE-北投區",
+    "providerId": "TP-HC-074",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-074-TPE-大安區",
+    "providerId": "TP-HC-074",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-074-TPE-文山區",
+    "providerId": "TP-HC-074",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-074-TPE-信義區",
+    "providerId": "TP-HC-074",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-074-TPE-大同區",
+    "providerId": "TP-HC-074",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-075-TPE-信義區",
+    "providerId": "TP-HC-075",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-075-TPE-松山區",
+    "providerId": "TP-HC-075",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-075-TPE-大安區",
+    "providerId": "TP-HC-075",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-075-TPE-中山區",
+    "providerId": "TP-HC-075",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-076-TPE-中正區",
+    "providerId": "TP-HC-076",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-076-TPE-大同區",
+    "providerId": "TP-HC-076",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-076-TPE-中山區",
+    "providerId": "TP-HC-076",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-076-TPE-松山區",
+    "providerId": "TP-HC-076",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-076-TPE-大安區",
+    "providerId": "TP-HC-076",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-076-TPE-萬華區",
+    "providerId": "TP-HC-076",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-076-TPE-信義區",
+    "providerId": "TP-HC-076",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-076-TPE-士林區",
+    "providerId": "TP-HC-076",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-076-TPE-北投區",
+    "providerId": "TP-HC-076",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-076-TPE-內湖區",
+    "providerId": "TP-HC-076",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-076-TPE-南港區",
+    "providerId": "TP-HC-076",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-076-TPE-文山區",
+    "providerId": "TP-HC-076",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-077-TPE-中正區",
+    "providerId": "TP-HC-077",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-077-TPE-大同區",
+    "providerId": "TP-HC-077",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-077-TPE-中山區",
+    "providerId": "TP-HC-077",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-077-TPE-松山區",
+    "providerId": "TP-HC-077",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-077-TPE-大安區",
+    "providerId": "TP-HC-077",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-077-TPE-萬華區",
+    "providerId": "TP-HC-077",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-077-TPE-信義區",
+    "providerId": "TP-HC-077",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-077-TPE-士林區",
+    "providerId": "TP-HC-077",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-077-TPE-北投區",
+    "providerId": "TP-HC-077",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-077-TPE-內湖區",
+    "providerId": "TP-HC-077",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-077-TPE-南港區",
+    "providerId": "TP-HC-077",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-077-TPE-文山區",
+    "providerId": "TP-HC-077",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-078-TPE-中正區",
+    "providerId": "TP-HC-078",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-078-TPE-大同區",
+    "providerId": "TP-HC-078",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-078-TPE-中山區",
+    "providerId": "TP-HC-078",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-078-TPE-松山區",
+    "providerId": "TP-HC-078",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-078-TPE-大安區",
+    "providerId": "TP-HC-078",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-078-TPE-萬華區",
+    "providerId": "TP-HC-078",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-078-TPE-信義區",
+    "providerId": "TP-HC-078",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-078-TPE-士林區",
+    "providerId": "TP-HC-078",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-078-TPE-北投區",
+    "providerId": "TP-HC-078",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-078-TPE-內湖區",
+    "providerId": "TP-HC-078",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-078-TPE-南港區",
+    "providerId": "TP-HC-078",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-078-TPE-文山區",
+    "providerId": "TP-HC-078",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-079-TPE-松山區",
+    "providerId": "TP-HC-079",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-079-TPE-中山區",
+    "providerId": "TP-HC-079",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-079-TPE-大同區",
+    "providerId": "TP-HC-079",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-080-TPE-松山區",
+    "providerId": "TP-HC-080",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-080-TPE-大同區",
+    "providerId": "TP-HC-080",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-080-TPE-中山區",
+    "providerId": "TP-HC-080",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-082-TPE-中正區",
+    "providerId": "TP-HC-082",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-082-TPE-大同區",
+    "providerId": "TP-HC-082",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-082-TPE-中山區",
+    "providerId": "TP-HC-082",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-082-TPE-松山區",
+    "providerId": "TP-HC-082",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-082-TPE-大安區",
+    "providerId": "TP-HC-082",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-082-TPE-萬華區",
+    "providerId": "TP-HC-082",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-082-TPE-信義區",
+    "providerId": "TP-HC-082",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-082-TPE-士林區",
+    "providerId": "TP-HC-082",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-082-TPE-北投區",
+    "providerId": "TP-HC-082",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-082-TPE-內湖區",
+    "providerId": "TP-HC-082",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-082-TPE-南港區",
+    "providerId": "TP-HC-082",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-082-TPE-文山區",
+    "providerId": "TP-HC-082",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-083-TPE-中正區",
+    "providerId": "TP-HC-083",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-083-TPE-大同區",
+    "providerId": "TP-HC-083",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-083-TPE-中山區",
+    "providerId": "TP-HC-083",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-083-TPE-松山區",
+    "providerId": "TP-HC-083",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-083-TPE-大安區",
+    "providerId": "TP-HC-083",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-083-TPE-萬華區",
+    "providerId": "TP-HC-083",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-083-TPE-信義區",
+    "providerId": "TP-HC-083",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-083-TPE-士林區",
+    "providerId": "TP-HC-083",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-083-TPE-北投區",
+    "providerId": "TP-HC-083",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-083-TPE-內湖區",
+    "providerId": "TP-HC-083",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-083-TPE-南港區",
+    "providerId": "TP-HC-083",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-083-TPE-文山區",
+    "providerId": "TP-HC-083",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-084-TPE-士林區",
+    "providerId": "TP-HC-084",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-084-TPE-內湖區",
+    "providerId": "TP-HC-084",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-084-TPE-松山區",
+    "providerId": "TP-HC-084",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-084-TPE-大安區",
+    "providerId": "TP-HC-084",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-084-TPE-中山區",
+    "providerId": "TP-HC-084",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-085-TPE-內湖區",
+    "providerId": "TP-HC-085",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-085-TPE-南港區",
+    "providerId": "TP-HC-085",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-085-TPE-松山區",
+    "providerId": "TP-HC-085",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-085-TPE-大安區",
+    "providerId": "TP-HC-085",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-085-TPE-文山區",
+    "providerId": "TP-HC-085",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-085-TPE-中正區",
+    "providerId": "TP-HC-085",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-085-TPE-萬華區",
+    "providerId": "TP-HC-085",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-086-TPE-信義區",
+    "providerId": "TP-HC-086",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-086-TPE-松山區",
+    "providerId": "TP-HC-086",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-086-TPE-大安區",
+    "providerId": "TP-HC-086",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-086-TPE-文山區",
+    "providerId": "TP-HC-086",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-086-TPE-中正區",
+    "providerId": "TP-HC-086",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-086-TPE-大同區",
+    "providerId": "TP-HC-086",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-086-TPE-中山區",
+    "providerId": "TP-HC-086",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-088-TPE-士林區",
+    "providerId": "TP-HC-088",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-088-TPE-北投區",
+    "providerId": "TP-HC-088",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-088-TPE-大安區",
+    "providerId": "TP-HC-088",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-088-TPE-大同區",
+    "providerId": "TP-HC-088",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-089-TPE-信義區",
+    "providerId": "TP-HC-089",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-089-TPE-松山區",
+    "providerId": "TP-HC-089",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-089-TPE-大安區",
+    "providerId": "TP-HC-089",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-090-TPE-南港區",
+    "providerId": "TP-HC-090",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-090-TPE-信義區",
+    "providerId": "TP-HC-090",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-090-TPE-松山區",
+    "providerId": "TP-HC-090",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-090-TPE-大安區",
+    "providerId": "TP-HC-090",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-090-TPE-文山區",
+    "providerId": "TP-HC-090",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-090-TPE-中正區",
+    "providerId": "TP-HC-090",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-091-TPE-大安區",
+    "providerId": "TP-HC-091",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-091-TPE-文山區",
+    "providerId": "TP-HC-091",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-091-TPE-中正區",
+    "providerId": "TP-HC-091",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-091-TPE-南港區",
+    "providerId": "TP-HC-091",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-091-TPE-信義區",
+    "providerId": "TP-HC-091",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-091-TPE-松山區",
+    "providerId": "TP-HC-091",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-092-TPE-信義區",
+    "providerId": "TP-HC-092",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-092-TPE-松山區",
+    "providerId": "TP-HC-092",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-092-TPE-大安區",
+    "providerId": "TP-HC-092",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-093-TPE-中正區",
+    "providerId": "TP-HC-093",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-093-TPE-大同區",
+    "providerId": "TP-HC-093",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-093-TPE-中山區",
+    "providerId": "TP-HC-093",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-093-TPE-松山區",
+    "providerId": "TP-HC-093",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-093-TPE-大安區",
+    "providerId": "TP-HC-093",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-093-TPE-萬華區",
+    "providerId": "TP-HC-093",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-093-TPE-信義區",
+    "providerId": "TP-HC-093",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-093-TPE-士林區",
+    "providerId": "TP-HC-093",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-093-TPE-北投區",
+    "providerId": "TP-HC-093",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-093-TPE-內湖區",
+    "providerId": "TP-HC-093",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-093-TPE-南港區",
+    "providerId": "TP-HC-093",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-093-TPE-文山區",
+    "providerId": "TP-HC-093",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-094-TPE-南港區",
+    "providerId": "TP-HC-094",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-094-TPE-大安區",
+    "providerId": "TP-HC-094",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-094-TPE-文山區",
+    "providerId": "TP-HC-094",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-094-TPE-信義區",
+    "providerId": "TP-HC-094",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-095-TPE-大安區",
+    "providerId": "TP-HC-095",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-095-TPE-文山區",
+    "providerId": "TP-HC-095",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-096-TPE-信義區",
+    "providerId": "TP-HC-096",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-096-TPE-松山區",
+    "providerId": "TP-HC-096",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-096-TPE-大安區",
+    "providerId": "TP-HC-096",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-096-TPE-中正區",
+    "providerId": "TP-HC-096",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-096-TPE-中山區",
+    "providerId": "TP-HC-096",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-097-TPE-松山區",
+    "providerId": "TP-HC-097",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-097-TPE-大安區",
+    "providerId": "TP-HC-097",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-097-TPE-信義區",
+    "providerId": "TP-HC-097",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-098-TPE-大同區",
+    "providerId": "TP-HC-098",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-098-TPE-中山區",
+    "providerId": "TP-HC-098",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-098-TPE-萬華區",
+    "providerId": "TP-HC-098",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-098-TPE-中正區",
+    "providerId": "TP-HC-098",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-098-TPE-士林區",
+    "providerId": "TP-HC-098",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-099-TPE-松山區",
+    "providerId": "TP-HC-099",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-099-TPE-大同區",
+    "providerId": "TP-HC-099",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-099-TPE-中山區",
+    "providerId": "TP-HC-099",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-100-TPE-萬華區",
+    "providerId": "TP-HC-100",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-100-TPE-大同區",
+    "providerId": "TP-HC-100",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-100-TPE-中山區",
+    "providerId": "TP-HC-100",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-100-TPE-士林區",
+    "providerId": "TP-HC-100",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-100-TPE-北投區",
+    "providerId": "TP-HC-100",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-101-TPE-中正區",
+    "providerId": "TP-HC-101",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-101-TPE-大同區",
+    "providerId": "TP-HC-101",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-101-TPE-中山區",
+    "providerId": "TP-HC-101",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-101-TPE-松山區",
+    "providerId": "TP-HC-101",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-101-TPE-大安區",
+    "providerId": "TP-HC-101",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-101-TPE-萬華區",
+    "providerId": "TP-HC-101",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-101-TPE-信義區",
+    "providerId": "TP-HC-101",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-101-TPE-士林區",
+    "providerId": "TP-HC-101",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-101-TPE-北投區",
+    "providerId": "TP-HC-101",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-101-TPE-內湖區",
+    "providerId": "TP-HC-101",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-101-TPE-南港區",
+    "providerId": "TP-HC-101",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-101-TPE-文山區",
+    "providerId": "TP-HC-101",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-102-TPE-士林區",
+    "providerId": "TP-HC-102",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-102-TPE-中正區",
+    "providerId": "TP-HC-102",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-102-TPE-萬華區",
+    "providerId": "TP-HC-102",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-102-TPE-大同區",
+    "providerId": "TP-HC-102",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-102-TPE-中山區",
+    "providerId": "TP-HC-102",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-103-TPE-大同區",
+    "providerId": "TP-HC-103",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-103-TPE-萬華區",
+    "providerId": "TP-HC-103",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-103-TPE-中山區",
+    "providerId": "TP-HC-103",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-104-TPE-中正區",
+    "providerId": "TP-HC-104",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-104-TPE-大同區",
+    "providerId": "TP-HC-104",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-104-TPE-中山區",
+    "providerId": "TP-HC-104",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-104-TPE-松山區",
+    "providerId": "TP-HC-104",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-104-TPE-大安區",
+    "providerId": "TP-HC-104",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-104-TPE-萬華區",
+    "providerId": "TP-HC-104",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-104-TPE-信義區",
+    "providerId": "TP-HC-104",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-104-TPE-士林區",
+    "providerId": "TP-HC-104",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-104-TPE-北投區",
+    "providerId": "TP-HC-104",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-104-TPE-內湖區",
+    "providerId": "TP-HC-104",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-104-TPE-南港區",
+    "providerId": "TP-HC-104",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-104-TPE-文山區",
+    "providerId": "TP-HC-104",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-105-TPE-中正區",
+    "providerId": "TP-HC-105",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-105-TPE-大同區",
+    "providerId": "TP-HC-105",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-105-TPE-中山區",
+    "providerId": "TP-HC-105",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-105-TPE-松山區",
+    "providerId": "TP-HC-105",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-105-TPE-大安區",
+    "providerId": "TP-HC-105",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-105-TPE-萬華區",
+    "providerId": "TP-HC-105",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-105-TPE-信義區",
+    "providerId": "TP-HC-105",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-105-TPE-士林區",
+    "providerId": "TP-HC-105",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-105-TPE-北投區",
+    "providerId": "TP-HC-105",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-105-TPE-內湖區",
+    "providerId": "TP-HC-105",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-105-TPE-南港區",
+    "providerId": "TP-HC-105",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-105-TPE-文山區",
+    "providerId": "TP-HC-105",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-106-TPE-大安區",
+    "providerId": "TP-HC-106",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-106-TPE-大同區",
+    "providerId": "TP-HC-106",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-106-TPE-信義區",
+    "providerId": "TP-HC-106",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-106-TPE-萬華區",
+    "providerId": "TP-HC-106",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-107-TPE-中正區",
+    "providerId": "TP-HC-107",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-107-TPE-大同區",
+    "providerId": "TP-HC-107",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-107-TPE-中山區",
+    "providerId": "TP-HC-107",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-107-TPE-松山區",
+    "providerId": "TP-HC-107",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-107-TPE-大安區",
+    "providerId": "TP-HC-107",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-107-TPE-萬華區",
+    "providerId": "TP-HC-107",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-107-TPE-信義區",
+    "providerId": "TP-HC-107",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-107-TPE-士林區",
+    "providerId": "TP-HC-107",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-107-TPE-北投區",
+    "providerId": "TP-HC-107",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-107-TPE-內湖區",
+    "providerId": "TP-HC-107",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-107-TPE-南港區",
+    "providerId": "TP-HC-107",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-107-TPE-文山區",
+    "providerId": "TP-HC-107",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-108-TPE-中正區",
+    "providerId": "TP-HC-108",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-108-TPE-大同區",
+    "providerId": "TP-HC-108",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-108-TPE-中山區",
+    "providerId": "TP-HC-108",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-108-TPE-松山區",
+    "providerId": "TP-HC-108",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-108-TPE-大安區",
+    "providerId": "TP-HC-108",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-108-TPE-萬華區",
+    "providerId": "TP-HC-108",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-108-TPE-信義區",
+    "providerId": "TP-HC-108",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-108-TPE-士林區",
+    "providerId": "TP-HC-108",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-108-TPE-北投區",
+    "providerId": "TP-HC-108",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-108-TPE-內湖區",
+    "providerId": "TP-HC-108",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-108-TPE-南港區",
+    "providerId": "TP-HC-108",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-108-TPE-文山區",
+    "providerId": "TP-HC-108",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-109-TPE-信義區",
+    "providerId": "TP-HC-109",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-109-TPE-大安區",
+    "providerId": "TP-HC-109",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-109-TPE-大同區",
+    "providerId": "TP-HC-109",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-109-TPE-萬華區",
+    "providerId": "TP-HC-109",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-109-TPE-士林區",
+    "providerId": "TP-HC-109",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-109-TPE-松山區",
+    "providerId": "TP-HC-109",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-110-TPE-大安區",
+    "providerId": "TP-HC-110",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-110-TPE-中正區",
+    "providerId": "TP-HC-110",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-110-TPE-萬華區",
+    "providerId": "TP-HC-110",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-110-TPE-大同區",
+    "providerId": "TP-HC-110",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-110-TPE-中山區",
+    "providerId": "TP-HC-110",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-111-TPE-士林區",
+    "providerId": "TP-HC-111",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-111-TPE-北投區",
+    "providerId": "TP-HC-111",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-111-TPE-南港區",
+    "providerId": "TP-HC-111",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-111-TPE-信義區",
+    "providerId": "TP-HC-111",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-111-TPE-松山區",
+    "providerId": "TP-HC-111",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-111-TPE-大安區",
+    "providerId": "TP-HC-111",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-111-TPE-中正區",
+    "providerId": "TP-HC-111",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-111-TPE-萬華區",
+    "providerId": "TP-HC-111",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-111-TPE-大同區",
+    "providerId": "TP-HC-111",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-111-TPE-中山區",
+    "providerId": "TP-HC-111",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-112-TPE-萬華區",
+    "providerId": "TP-HC-112",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-112-TPE-大同區",
+    "providerId": "TP-HC-112",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-112-TPE-松山區",
+    "providerId": "TP-HC-112",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-112-TPE-大安區",
+    "providerId": "TP-HC-112",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-113-TPE-士林區",
+    "providerId": "TP-HC-113",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-113-TPE-北投區",
+    "providerId": "TP-HC-113",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-113-TPE-松山區",
+    "providerId": "TP-HC-113",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-113-TPE-中正區",
+    "providerId": "TP-HC-113",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-113-TPE-萬華區",
+    "providerId": "TP-HC-113",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-113-TPE-大同區",
+    "providerId": "TP-HC-113",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-113-TPE-中山區",
+    "providerId": "TP-HC-113",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-114-TPE-士林區",
+    "providerId": "TP-HC-114",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-114-TPE-北投區",
+    "providerId": "TP-HC-114",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-114-TPE-萬華區",
+    "providerId": "TP-HC-114",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-114-TPE-大同區",
+    "providerId": "TP-HC-114",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-114-TPE-松山區",
+    "providerId": "TP-HC-114",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-114-TPE-內湖區",
+    "providerId": "TP-HC-114",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-115-TPE-士林區",
+    "providerId": "TP-HC-115",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-115-TPE-北投區",
+    "providerId": "TP-HC-115",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-115-TPE-內湖區",
+    "providerId": "TP-HC-115",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-115-TPE-南港區",
+    "providerId": "TP-HC-115",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-115-TPE-松山區",
+    "providerId": "TP-HC-115",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-115-TPE-大同區",
+    "providerId": "TP-HC-115",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-115-TPE-中山區",
+    "providerId": "TP-HC-115",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-116-TPE-北投區",
+    "providerId": "TP-HC-116",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-116-TPE-士林區",
+    "providerId": "TP-HC-116",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-116-TPE-大同區",
+    "providerId": "TP-HC-116",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-117-TPE-士林區",
+    "providerId": "TP-HC-117",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-117-TPE-北投區",
+    "providerId": "TP-HC-117",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-118-TPE-中正區",
+    "providerId": "TP-HC-118",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-118-TPE-大同區",
+    "providerId": "TP-HC-118",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-118-TPE-中山區",
+    "providerId": "TP-HC-118",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-118-TPE-松山區",
+    "providerId": "TP-HC-118",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-118-TPE-大安區",
+    "providerId": "TP-HC-118",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-118-TPE-萬華區",
+    "providerId": "TP-HC-118",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-118-TPE-信義區",
+    "providerId": "TP-HC-118",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-118-TPE-士林區",
+    "providerId": "TP-HC-118",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-118-TPE-北投區",
+    "providerId": "TP-HC-118",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-118-TPE-內湖區",
+    "providerId": "TP-HC-118",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-118-TPE-南港區",
+    "providerId": "TP-HC-118",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-118-TPE-文山區",
+    "providerId": "TP-HC-118",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-119-TPE-士林區",
+    "providerId": "TP-HC-119",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-119-TPE-北投區",
+    "providerId": "TP-HC-119",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-119-TPE-大同區",
+    "providerId": "TP-HC-119",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-119-TPE-松山區",
+    "providerId": "TP-HC-119",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-119-TPE-萬華區",
+    "providerId": "TP-HC-119",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-119-TPE-信義區",
+    "providerId": "TP-HC-119",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-119-TPE-大安區",
+    "providerId": "TP-HC-119",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-119-TPE-文山區",
+    "providerId": "TP-HC-119",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-119-TPE-內湖區",
+    "providerId": "TP-HC-119",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-119-TPE-南港區",
+    "providerId": "TP-HC-119",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-120-TPE-信義區",
+    "providerId": "TP-HC-120",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-120-TPE-松山區",
+    "providerId": "TP-HC-120",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-120-TPE-大安區",
+    "providerId": "TP-HC-120",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-120-TPE-文山區",
+    "providerId": "TP-HC-120",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-120-TPE-中正區",
+    "providerId": "TP-HC-120",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-120-TPE-萬華區",
+    "providerId": "TP-HC-120",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-120-TPE-大同區",
+    "providerId": "TP-HC-120",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-120-TPE-中山區",
+    "providerId": "TP-HC-120",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-121-TPE-中正區",
+    "providerId": "TP-HC-121",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-121-TPE-大同區",
+    "providerId": "TP-HC-121",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-121-TPE-中山區",
+    "providerId": "TP-HC-121",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-121-TPE-松山區",
+    "providerId": "TP-HC-121",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-121-TPE-大安區",
+    "providerId": "TP-HC-121",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-121-TPE-萬華區",
+    "providerId": "TP-HC-121",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-121-TPE-信義區",
+    "providerId": "TP-HC-121",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-121-TPE-士林區",
+    "providerId": "TP-HC-121",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-121-TPE-北投區",
+    "providerId": "TP-HC-121",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-121-TPE-內湖區",
+    "providerId": "TP-HC-121",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-121-TPE-南港區",
+    "providerId": "TP-HC-121",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-121-TPE-文山區",
+    "providerId": "TP-HC-121",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-122-TPE-中正區",
+    "providerId": "TP-HC-122",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-122-TPE-萬華區",
+    "providerId": "TP-HC-122",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-122-TPE-大同區",
+    "providerId": "TP-HC-122",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-122-TPE-大安區",
+    "providerId": "TP-HC-122",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-122-TPE-中山區",
+    "providerId": "TP-HC-122",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-124-TPE-中正區",
+    "providerId": "TP-HC-124",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-124-TPE-大同區",
+    "providerId": "TP-HC-124",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-124-TPE-中山區",
+    "providerId": "TP-HC-124",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-124-TPE-松山區",
+    "providerId": "TP-HC-124",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-124-TPE-大安區",
+    "providerId": "TP-HC-124",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-124-TPE-萬華區",
+    "providerId": "TP-HC-124",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-124-TPE-信義區",
+    "providerId": "TP-HC-124",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-124-TPE-士林區",
+    "providerId": "TP-HC-124",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-124-TPE-北投區",
+    "providerId": "TP-HC-124",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-124-TPE-內湖區",
+    "providerId": "TP-HC-124",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-124-TPE-南港區",
+    "providerId": "TP-HC-124",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-124-TPE-文山區",
+    "providerId": "TP-HC-124",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-126-TPE-大同區",
+    "providerId": "TP-HC-126",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-126-TPE-中山區",
+    "providerId": "TP-HC-126",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-126-TPE-大安區",
+    "providerId": "TP-HC-126",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-126-TPE-中正區",
+    "providerId": "TP-HC-126",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-128-TPE-中正區",
+    "providerId": "TP-HC-128",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-128-TPE-大同區",
+    "providerId": "TP-HC-128",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-128-TPE-中山區",
+    "providerId": "TP-HC-128",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-128-TPE-松山區",
+    "providerId": "TP-HC-128",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-128-TPE-大安區",
+    "providerId": "TP-HC-128",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-128-TPE-萬華區",
+    "providerId": "TP-HC-128",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-128-TPE-信義區",
+    "providerId": "TP-HC-128",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-128-TPE-士林區",
+    "providerId": "TP-HC-128",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-128-TPE-北投區",
+    "providerId": "TP-HC-128",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-128-TPE-內湖區",
+    "providerId": "TP-HC-128",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-128-TPE-南港區",
+    "providerId": "TP-HC-128",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-128-TPE-文山區",
+    "providerId": "TP-HC-128",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-129-TPE-內湖區",
+    "providerId": "TP-HC-129",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-129-TPE-南港區",
+    "providerId": "TP-HC-129",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-129-TPE-松山區",
+    "providerId": "TP-HC-129",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-130-TPE-中正區",
+    "providerId": "TP-HC-130",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-130-TPE-大同區",
+    "providerId": "TP-HC-130",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-130-TPE-中山區",
+    "providerId": "TP-HC-130",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-130-TPE-松山區",
+    "providerId": "TP-HC-130",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-130-TPE-大安區",
+    "providerId": "TP-HC-130",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-130-TPE-萬華區",
+    "providerId": "TP-HC-130",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-130-TPE-信義區",
+    "providerId": "TP-HC-130",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-130-TPE-士林區",
+    "providerId": "TP-HC-130",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-130-TPE-北投區",
+    "providerId": "TP-HC-130",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-130-TPE-內湖區",
+    "providerId": "TP-HC-130",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-130-TPE-南港區",
+    "providerId": "TP-HC-130",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-130-TPE-文山區",
+    "providerId": "TP-HC-130",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-132-TPE-中山區",
+    "providerId": "TP-HC-132",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-132-TPE-大同區",
+    "providerId": "TP-HC-132",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-133-TPE-信義區",
+    "providerId": "TP-HC-133",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-133-TPE-松山區",
+    "providerId": "TP-HC-133",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-133-TPE-大安區",
+    "providerId": "TP-HC-133",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-133-TPE-中正區",
+    "providerId": "TP-HC-133",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-133-TPE-萬華區",
+    "providerId": "TP-HC-133",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-133-TPE-大同區",
+    "providerId": "TP-HC-133",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-133-TPE-中山區",
+    "providerId": "TP-HC-133",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-135-TPE-士林區",
+    "providerId": "TP-HC-135",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-135-TPE-松山區",
+    "providerId": "TP-HC-135",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-135-TPE-大安區",
+    "providerId": "TP-HC-135",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-135-TPE-中正區",
+    "providerId": "TP-HC-135",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-135-TPE-萬華區",
+    "providerId": "TP-HC-135",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-135-TPE-大同區",
+    "providerId": "TP-HC-135",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-135-TPE-中山區",
+    "providerId": "TP-HC-135",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-136-TPE-松山區",
+    "providerId": "TP-HC-136",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-136-TPE-中山區",
+    "providerId": "TP-HC-136",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-004-TPE-士林區",
+    "providerId": "NTPC-HC-004",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-004-TPE-北投區",
+    "providerId": "NTPC-HC-004",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-004-TPE-松山區",
+    "providerId": "NTPC-HC-004",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-004-TPE-大安區",
+    "providerId": "NTPC-HC-004",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-004-TPE-文山區",
+    "providerId": "NTPC-HC-004",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-004-TPE-中正區",
+    "providerId": "NTPC-HC-004",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-004-TPE-萬華區",
+    "providerId": "NTPC-HC-004",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-004-TPE-大同區",
+    "providerId": "NTPC-HC-004",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-004-TPE-中山區",
+    "providerId": "NTPC-HC-004",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-138-TPE-中正區",
+    "providerId": "TP-HC-138",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-138-TPE-大同區",
+    "providerId": "TP-HC-138",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-138-TPE-中山區",
+    "providerId": "TP-HC-138",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-138-TPE-松山區",
+    "providerId": "TP-HC-138",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-138-TPE-大安區",
+    "providerId": "TP-HC-138",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-138-TPE-萬華區",
+    "providerId": "TP-HC-138",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-138-TPE-信義區",
+    "providerId": "TP-HC-138",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-138-TPE-士林區",
+    "providerId": "TP-HC-138",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-138-TPE-北投區",
+    "providerId": "TP-HC-138",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-138-TPE-內湖區",
+    "providerId": "TP-HC-138",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-138-TPE-南港區",
+    "providerId": "TP-HC-138",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-138-TPE-文山區",
+    "providerId": "TP-HC-138",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-005-TPE-中正區",
+    "providerId": "NTPC-HC-005",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-005-TPE-大同區",
+    "providerId": "NTPC-HC-005",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-005-TPE-中山區",
+    "providerId": "NTPC-HC-005",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-005-TPE-松山區",
+    "providerId": "NTPC-HC-005",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-005-TPE-大安區",
+    "providerId": "NTPC-HC-005",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-005-TPE-萬華區",
+    "providerId": "NTPC-HC-005",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-005-TPE-信義區",
+    "providerId": "NTPC-HC-005",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-005-TPE-士林區",
+    "providerId": "NTPC-HC-005",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-005-TPE-北投區",
+    "providerId": "NTPC-HC-005",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-005-TPE-內湖區",
+    "providerId": "NTPC-HC-005",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-005-TPE-南港區",
+    "providerId": "NTPC-HC-005",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-NTPC-HC-005-TPE-文山區",
+    "providerId": "NTPC-HC-005",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-140-TPE-士林區",
+    "providerId": "TP-HC-140",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-140-TPE-內湖區",
+    "providerId": "TP-HC-140",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-140-TPE-信義區",
+    "providerId": "TP-HC-140",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-140-TPE-松山區",
+    "providerId": "TP-HC-140",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-140-TPE-大安區",
+    "providerId": "TP-HC-140",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-140-TPE-中正區",
+    "providerId": "TP-HC-140",
+    "city": "臺北市",
+    "district": "中正區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-140-TPE-萬華區",
+    "providerId": "TP-HC-140",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-140-TPE-大同區",
+    "providerId": "TP-HC-140",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-140-TPE-中山區",
+    "providerId": "TP-HC-140",
+    "city": "臺北市",
+    "district": "中山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-141-TPE-大安區",
+    "providerId": "TP-HC-141",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-141-TPE-信義區",
+    "providerId": "TP-HC-141",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-141-TPE-南港區",
+    "providerId": "TP-HC-141",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-143-TPE-大同區",
+    "providerId": "TP-HC-143",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-143-TPE-萬華區",
+    "providerId": "TP-HC-143",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-143-TPE-松山區",
+    "providerId": "TP-HC-143",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-143-TPE-士林區",
+    "providerId": "TP-HC-143",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-143-TPE-大安區",
+    "providerId": "TP-HC-143",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-144-TPE-大同區",
+    "providerId": "TP-HC-144",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-144-TPE-士林區",
+    "providerId": "TP-HC-144",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-145-TPE-萬華區",
+    "providerId": "TP-HC-145",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-146-TPE-大安區",
+    "providerId": "TP-HC-146",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-146-TPE-大同區",
+    "providerId": "TP-HC-146",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-146-TPE-萬華區",
+    "providerId": "TP-HC-146",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-146-TPE-松山區",
+    "providerId": "TP-HC-146",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-146-TPE-信義區",
+    "providerId": "TP-HC-146",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-147-TPE-大安區",
+    "providerId": "TP-HC-147",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-147-TPE-信義區",
+    "providerId": "TP-HC-147",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-147-TPE-文山區",
+    "providerId": "TP-HC-147",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-148-TPE-大同區",
+    "providerId": "TP-HC-148",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-148-TPE-士林區",
+    "providerId": "TP-HC-148",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-148-TPE-萬華區",
+    "providerId": "TP-HC-148",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-149-TPE-松山區",
+    "providerId": "TP-HC-149",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-149-TPE-大安區",
+    "providerId": "TP-HC-149",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-149-TPE-文山區",
+    "providerId": "TP-HC-149",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-149-TPE-南港區",
+    "providerId": "TP-HC-149",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-150-TPE-大同區",
+    "providerId": "TP-HC-150",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-151-TPE-內湖區",
+    "providerId": "TP-HC-151",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-151-TPE-信義區",
+    "providerId": "TP-HC-151",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-151-TPE-松山區",
+    "providerId": "TP-HC-151",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-152-TPE-信義區",
+    "providerId": "TP-HC-152",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-152-TPE-大安區",
+    "providerId": "TP-HC-152",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-153-TPE-信義區",
+    "providerId": "TP-HC-153",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-153-TPE-大安區",
+    "providerId": "TP-HC-153",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-153-TPE-松山區",
+    "providerId": "TP-HC-153",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-154-TPE-大安區",
+    "providerId": "TP-HC-154",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-154-TPE-信義區",
+    "providerId": "TP-HC-154",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-154-TPE-松山區",
+    "providerId": "TP-HC-154",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-155-TPE-大安區",
+    "providerId": "TP-HC-155",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-155-TPE-文山區",
+    "providerId": "TP-HC-155",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-155-TPE-松山區",
+    "providerId": "TP-HC-155",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-156-TPE-萬華區",
+    "providerId": "TP-HC-156",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-156-TPE-大安區",
+    "providerId": "TP-HC-156",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-156-TPE-大同區",
+    "providerId": "TP-HC-156",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-157-TPE-士林區",
+    "providerId": "TP-HC-157",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-157-TPE-北投區",
+    "providerId": "TP-HC-157",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-157-TPE-內湖區",
+    "providerId": "TP-HC-157",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-158-TPE-大安區",
+    "providerId": "TP-HC-158",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-158-TPE-信義區",
+    "providerId": "TP-HC-158",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-158-TPE-大同區",
+    "providerId": "TP-HC-158",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-158-TPE-松山區",
+    "providerId": "TP-HC-158",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-158-TPE-士林區",
+    "providerId": "TP-HC-158",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-159-TPE-大安區",
+    "providerId": "TP-HC-159",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-159-TPE-信義區",
+    "providerId": "TP-HC-159",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-159-TPE-松山區",
+    "providerId": "TP-HC-159",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-160-TPE-南港區",
+    "providerId": "TP-HC-160",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-160-TPE-內湖區",
+    "providerId": "TP-HC-160",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-161-TPE-大安區",
+    "providerId": "TP-HC-161",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-161-TPE-信義區",
+    "providerId": "TP-HC-161",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-161-TPE-南港區",
+    "providerId": "TP-HC-161",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-162-TPE-大安區",
+    "providerId": "TP-HC-162",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-162-TPE-松山區",
+    "providerId": "TP-HC-162",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-162-TPE-大同區",
+    "providerId": "TP-HC-162",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-163-TPE-士林區",
+    "providerId": "TP-HC-163",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-163-TPE-北投區",
+    "providerId": "TP-HC-163",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-164-TPE-大同區",
+    "providerId": "TP-HC-164",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-164-TPE-士林區",
+    "providerId": "TP-HC-164",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-164-TPE-松山區",
+    "providerId": "TP-HC-164",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-165-TPE-大安區",
+    "providerId": "TP-HC-165",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-165-TPE-萬華區",
+    "providerId": "TP-HC-165",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-165-TPE-大同區",
+    "providerId": "TP-HC-165",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-166-TPE-北投區",
+    "providerId": "TP-HC-166",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-166-TPE-士林區",
+    "providerId": "TP-HC-166",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-167-TPE-大安區",
+    "providerId": "TP-HC-167",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-167-TPE-松山區",
+    "providerId": "TP-HC-167",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-167-TPE-信義區",
+    "providerId": "TP-HC-167",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-167-TPE-士林區",
+    "providerId": "TP-HC-167",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-167-TPE-北投區",
+    "providerId": "TP-HC-167",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-167-TPE-南港區",
+    "providerId": "TP-HC-167",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-167-TPE-內湖區",
+    "providerId": "TP-HC-167",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-168-TPE-北投區",
+    "providerId": "TP-HC-168",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-168-TPE-士林區",
+    "providerId": "TP-HC-168",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-168-TPE-大同區",
+    "providerId": "TP-HC-168",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-169-TPE-大同區",
+    "providerId": "TP-HC-169",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-169-TPE-萬華區",
+    "providerId": "TP-HC-169",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-170-TPE-北投區",
+    "providerId": "TP-HC-170",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-170-TPE-士林區",
+    "providerId": "TP-HC-170",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-170-TPE-大安區",
+    "providerId": "TP-HC-170",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-171-TPE-信義區",
+    "providerId": "TP-HC-171",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-171-TPE-文山區",
+    "providerId": "TP-HC-171",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-171-TPE-大安區",
+    "providerId": "TP-HC-171",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-172-TPE-文山區",
+    "providerId": "TP-HC-172",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-172-TPE-大安區",
+    "providerId": "TP-HC-172",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-173-TPE-信義區",
+    "providerId": "TP-HC-173",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-173-TPE-松山區",
+    "providerId": "TP-HC-173",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-173-TPE-大安區",
+    "providerId": "TP-HC-173",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-174-TPE-文山區",
+    "providerId": "TP-HC-174",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-174-TPE-萬華區",
+    "providerId": "TP-HC-174",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-174-TPE-大同區",
+    "providerId": "TP-HC-174",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-175-TPE-士林區",
+    "providerId": "TP-HC-175",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-175-TPE-北投區",
+    "providerId": "TP-HC-175",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-175-TPE-大同區",
+    "providerId": "TP-HC-175",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-176-TPE-松山區",
+    "providerId": "TP-HC-176",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-176-TPE-大安區",
+    "providerId": "TP-HC-176",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-176-TPE-信義區",
+    "providerId": "TP-HC-176",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-177-TPE-松山區",
+    "providerId": "TP-HC-177",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-177-TPE-內湖區",
+    "providerId": "TP-HC-177",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-177-TPE-信義區",
+    "providerId": "TP-HC-177",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-178-TPE-內湖區",
+    "providerId": "TP-HC-178",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-178-TPE-松山區",
+    "providerId": "TP-HC-178",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-178-TPE-南港區",
+    "providerId": "TP-HC-178",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-179-TPE-士林區",
+    "providerId": "TP-HC-179",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-179-TPE-北投區",
+    "providerId": "TP-HC-179",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-180-TPE-松山區",
+    "providerId": "TP-HC-180",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-180-TPE-內湖區",
+    "providerId": "TP-HC-180",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-180-TPE-信義區",
+    "providerId": "TP-HC-180",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-182-TPE-大同區",
+    "providerId": "TP-HC-182",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-182-TPE-士林區",
+    "providerId": "TP-HC-182",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-183-TPE-信義區",
+    "providerId": "TP-HC-183",
+    "city": "臺北市",
+    "district": "信義區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-183-TPE-大安區",
+    "providerId": "TP-HC-183",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-183-TPE-文山區",
+    "providerId": "TP-HC-183",
+    "city": "臺北市",
+    "district": "文山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-184-TPE-士林區",
+    "providerId": "TP-HC-184",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-184-TPE-北投區",
+    "providerId": "TP-HC-184",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-185-TPE-士林區",
+    "providerId": "TP-HC-185",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-185-TPE-北投區",
+    "providerId": "TP-HC-185",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-185-TPE-內湖區",
+    "providerId": "TP-HC-185",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-186-TPE-士林區",
+    "providerId": "TP-HC-186",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-186-TPE-北投區",
+    "providerId": "TP-HC-186",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-186-TPE-內湖區",
+    "providerId": "TP-HC-186",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-187-TPE-大同區",
+    "providerId": "TP-HC-187",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-187-TPE-士林區",
+    "providerId": "TP-HC-187",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-187-TPE-大安區",
+    "providerId": "TP-HC-187",
+    "city": "臺北市",
+    "district": "大安區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-188-TPE-大同區",
+    "providerId": "TP-HC-188",
+    "city": "臺北市",
+    "district": "大同區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-188-TPE-士林區",
+    "providerId": "TP-HC-188",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-188-TPE-萬華區",
+    "providerId": "TP-HC-188",
+    "city": "臺北市",
+    "district": "萬華區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-189-TPE-松山區",
+    "providerId": "TP-HC-189",
+    "city": "臺北市",
+    "district": "松山區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-189-TPE-內湖區",
+    "providerId": "TP-HC-189",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-189-TPE-南港區",
+    "providerId": "TP-HC-189",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-190-TPE-士林區",
+    "providerId": "TP-HC-190",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-190-TPE-北投區",
+    "providerId": "TP-HC-190",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-190-TPE-南港區",
+    "providerId": "TP-HC-190",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-191-TPE-士林區",
+    "providerId": "TP-HC-191",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-191-TPE-北投區",
+    "providerId": "TP-HC-191",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-192-TPE-士林區",
+    "providerId": "TP-HC-192",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-192-TPE-北投區",
+    "providerId": "TP-HC-192",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-192-TPE-內湖區",
+    "providerId": "TP-HC-192",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-195-TPE-士林區",
+    "providerId": "TP-HC-195",
+    "city": "臺北市",
+    "district": "士林區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-195-TPE-北投區",
+    "providerId": "TP-HC-195",
+    "city": "臺北市",
+    "district": "北投區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-195-TPE-內湖區",
+    "providerId": "TP-HC-195",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-196-TPE-內湖區",
+    "providerId": "TP-HC-196",
+    "city": "臺北市",
+    "district": "內湖區",
+    "active": true
+  },
+  {
+    "id": "PSA-TP-HC-196-TPE-南港區",
+    "providerId": "TP-HC-196",
+    "city": "臺北市",
+    "district": "南港區",
+    "active": true
   }
 ]
