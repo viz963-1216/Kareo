@@ -40,6 +40,16 @@ export async function verifyLocalStack(stack) {
   };
   const assess = async (s, location = district, overrides = {}) => success(await call('POST', '/api/v1/assessments', { token: s.sessionToken, body: { ...assessmentBody(s.sessionId, location), ...overrides } }));
   const recommend = async (s, assessment, serviceType = 'HOME_CARE') => success(await call('POST', '/api/v1/recommendations', { token: s.sessionToken, body: { assessmentId: assessment.assessmentId, serviceType } }));
+  const withVerifiedHomeCareCandidates = async operation => {
+    // Controlled LOCAL-only fixture: existing official coordinates, never invented points.
+    const ids=['NTPC-HC-003','NTPC-HC-004','NTPC-HC-005'];
+    assert.ok(ids.every(id=>sourceData('providers').some(p=>p.id===id&&typeof p.lat==='number'&&typeof p.lng==='number')));
+    const original=(await db.query("select id,active from provider_services where service_type='HOME_CARE'")).rows;
+    try {
+      await db.query("update provider_services set active=(provider_id=any($1::text[])) where service_type='HOME_CARE'",[ids]);
+      return await operation(ids);
+    } finally { for(const row of original)await db.query('update provider_services set active=$2 where id=$1',[row.id,row.active]); }
+  };
   let main, mainAssessment, mainRecommendation, lead, adminToken, stalePreview, adminRecords, deletionTargets, deletionAssessments, deletionRuns, healthBefore;
   const legalBefore = createHash('sha256').update(readFileSync('contracts/legal/consent-versions.json')).digest('hex');
   try {
@@ -212,13 +222,18 @@ export async function verifyLocalStack(stack) {
       const row = (await db.query('select city,district,lat,lng from assessments where id=$1', [a.assessmentId])).rows[0];
       assert.deepEqual(row, { city: null, district: null, lat: null, lng: null });
     });
-    await test('LOCAL-15', 'City-only and GPS assessments choose CITY_ROTATION and DISTANCE respectively', async () => {
+    await test('LOCAL-15', 'City rotation, full-catalogue GPS downgrade, and controlled verified-coordinate DISTANCE ordering', async () => {
       const s = await session(); const a = await assess(s, { ...district, district: null, precision: 'CITY' }); const r = await recommend(s, a);
       assert.equal(r.rankingType, 'CITY_ROTATION'); assert.ok(r.providers.every(p => p.distanceKm === null));
       const gps = await assess(s, { ...district, precision: 'GPS', lat: 25.061, lng: 121.488 }); const ranked = await recommend(s, gps);
-      assert.equal(ranked.rankingType, 'DISTANCE');
-      assert.ok(ranked.providers.every(p => typeof p.distanceKm === 'number'));
-      assert.deepEqual(ranked.providers.map(p => p.distanceKm), ranked.providers.map(p => p.distanceKm).sort((a,b) => a-b));
+      assert.equal(ranked.rankingType, 'DISTRICT_ROTATION');
+      assert.ok(ranked.providers.every(p => p.distanceKm === null));
+      assert.ok(ranked.notice.includes('尚無已確認的位置資料'));
+      await withVerifiedHomeCareCandidates(async ids => {
+        const exact=await recommend(s,gps);assert.equal(exact.rankingType,'DISTANCE');
+        assert.equal(exact.providers.length,3);assert.ok(exact.providers.every(p=>ids.includes(p.id)&&typeof p.distanceKm==='number'));
+        assert.deepEqual(exact.providers.map(p=>p.distanceKm),exact.providers.map(p=>p.distanceKm).sort((a,b)=>a-b));
+      });
     });
     await test('LOCAL-16', 'Taipei/New Taipei assessments use only their own local summary', async () => {
       const s = await session(); const taipei = await assess(s, { ...district, city: '臺北市', district: '中山區' }); const newTaipei = await assess(s);
@@ -354,13 +369,15 @@ export async function verifyLocalStack(stack) {
     });
     await test('LOCAL-28', 'One eligible provider missing coordinates downgrades the entire GPS result and explains it', async () => {
       const s=await session(); const a=await assess(s,{...district,precision:'GPS',lat:25.061,lng:121.488});
-      const id=mainRecommendation.providers[0].id;
-      const original=(await db.query('select lat,lng from providers where id=$1',[id])).rows[0];
-      try {
-        await db.query('update providers set lat=null,lng=null where id=$1',[id]);
-        const r=await recommend(s,a); assert.equal(r.rankingType,'DISTRICT_ROTATION'); assert.equal(r.locationPrecision,'GPS');
-        assert.ok(r.providers.every(p=>p.distanceKm===null)); assert.ok(r.notice.includes('尚無已確認的位置資料'));
-      } finally { await db.query('update providers set lat=$2,lng=$3 where id=$1',[id,original.lat,original.lng]); }
+      await withVerifiedHomeCareCandidates(async ids => {
+        assert.equal((await recommend(s,a)).rankingType,'DISTANCE');
+        const id=ids[0];const original=(await db.query('select lat,lng from providers where id=$1',[id])).rows[0];
+        try {
+          await db.query('update providers set lat=null,lng=null where id=$1',[id]);
+          const r=await recommend(s,a); assert.equal(r.rankingType,'DISTRICT_ROTATION'); assert.equal(r.locationPrecision,'GPS');
+          assert.ok(r.providers.every(p=>p.distanceKm===null)); assert.ok(r.notice.includes('尚無已確認的位置資料'));
+        } finally { await db.query('update providers set lat=$2,lng=$3 where id=$1',[id,original.lat,original.lng]); }
+      });
     });
     await test('LOCAL-29', 'Actual HTTP assessment failure rolls back Assessment and Profile; safe error and retry succeed', async () => {
       const s=await session();
@@ -379,7 +396,7 @@ export async function verifyLocalStack(stack) {
         const r=await call('GET','/api/v1/providers'); error(r,500,'INTERNAL_ERROR');
         assert.ok(!/PGRST|postgres|relation|SUPABASE_/i.test(JSON.stringify(r.json)));
       } finally { await db.query('alter table local_test_unavailable_providers rename to providers'); }
-      assert.equal(success(await call('GET','/api/v1/providers?pageSize=50')).totalCount,catalogCounts.providers);
+      assert.equal(success(await call('GET','/api/v1/providers?pageSize=50')).totalCount,sourceData('providers').filter(p=>p.status==='ACTIVE').length);
     });
     await test('LOCAL-22', 'Admin authentication rejects forged tokens; actual operator key creates a separate admin Session', async () => {
       error(await call('GET','/api/v1/admin/knowledge/status',{admin:'forged-admin-token'}),401,'SESSION_INVALID');
