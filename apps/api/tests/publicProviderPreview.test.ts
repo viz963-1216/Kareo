@@ -90,7 +90,7 @@ describe('official catalogue filters and center services', () => {
     const yikang = r.items.find(p=>p.name==='益康儀器有限公司');
     expect(yikang?.address).toBe('臺北市中正區開封街1段60號');
     expect(yikang?.publicInfo?.assistivePrograms).toEqual(['PURCHASE','SMART_TECH']);
-    const purchase = await api.getProviders({assistiveProgram:'PURCHASE',keyword:'益康',pageSize:50});
+    const purchase = await api.getProviders({assistiveProgram:'PURCHASE',q:'益康',pageSize:50});
     expect(purchase.items.some(p=>p.id===yikang?.id)).toBe(true);
     expect(r.appliedFilters.assistiveProgram).toBe('SMART_TECH');
     expect(r.items.every(p=>p.publicInfo?.assistivePrograms.includes('SMART_TECH'))).toBe(true);

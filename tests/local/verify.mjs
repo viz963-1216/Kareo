@@ -104,7 +104,7 @@ export async function verifyLocalStack(stack) {
       const yikang=smart.items.find(p=>p.name==='益康儀器有限公司');
       assert.equal(yikang.address,'臺北市中正區開封街1段60號');
       assert.deepEqual(yikang.publicInfo.assistivePrograms,['PURCHASE','SMART_TECH']);
-      const purchase=success(await call('GET','/api/v1/providers?assistiveProgram=PURCHASE&keyword='+encodeURIComponent('益康')+'&pageSize=50'));
+      const purchase=success(await call('GET','/api/v1/providers?assistiveProgram=PURCHASE&q='+encodeURIComponent('益康')+'&pageSize=50'));
       assert.ok(purchase.items.some(p=>p.id===yikang.id));
       assert.ok(smart.items.every(p=>p.serviceAreaStatus==='UNCONFIRMED'));
       error(await call('GET','/api/v1/providers?assistiveProgram=SMART_TECH&serviceType=HOME_CARE'),400,'VALIDATION_ERROR');
