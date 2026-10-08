@@ -1,6 +1,6 @@
 # Kareo / 長照一點通 — API Contract
 
-Version: v0.6.1（J-002-r13，2026-10-03；§6–7 刪除完成期限及終態案件行為澄清，回應格式不變）
+Version: v0.7.1（J-002-r13，2026-10-03；§6–7 刪除完成期限及終態案件行為澄清，回應格式不變）
 Status: v0.6 §10／§10a 追加欄位與 §13a 依 D-19 **SPEC-APPROVED 2026-10-01**（[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）；v0.5 §10a／§10 新增欄位 **SPEC-APPROVED 2026-10-01**（D-18a–e，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）；§26.8 內容包規則依 D-16b **SPEC-APPROVED 2026-10-01**；v0.1 內容 LOCKED FOR MVP；v0.2 session／安全段落（D-04）**SPEC-APPROVED 2026-09-24**；v0.2.2 位置與補助整併（D-13a–g、D-14a–b）**SPEC-APPROVED 2026-09-24**；Lead 接件（D-06）與同意版本（D-05）仍為 PROPOSED；§26 v0.4（D-16a）**SPEC-APPROVED 2026-09-29**  
 Owner: Jerry
 
@@ -1512,3 +1512,9 @@ Success：
 | v0.4 | 2026-09-29 | §26 補齊（D-16a，Jerry 核准 [PR #34 comment 5883232266](https://github.com/viz963-1216/Kareo/pull/34#issuecomment-5883232266)）：新增 `GET …/publish-preview`、`GET …/restorable-versions`；decision／dismiss／publish／withdraw 完整 request／response（全部 `confirm: true`；decision／dismiss／withdraw 必填 `reason`）；publish 新增必填 `previewToken`、withdraw 新增必填 `withdrawVersionId` 且 `republishVersionId` 必須明確出現；records 新增 `contentFingerprint`、`effectiveTo`；新錯誤碼 `KNOWLEDGE_STATE_CHANGED`（409）；KnowledgeChange 新增 `DISMISSED`。v0.3 欄位與路徑不變 | B-012、C-006、B-009（`DISMISSED`）、J-003、contracts/mock/admin |
 | v0.5 | 2026-10-01 | 新增 §10a `GET /api/v1/providers` 公開資源查詢（D-18／D-18a–e，2026-10-01 核准：[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）；§10 新增 `serviceAreaStatus` 並明定詳細頁不是媒合入口；§3.1 公開端點清單；§26.8 候選紀錄與 `PACK_NOT_APPROVED` 改以資料庫登錄的內容包狀態為準、`previewToken` 涵蓋內容包狀態與指紋（D-16b，SPEC-APPROVED [PR #48 comment 5925628146](https://github.com/viz963-1216/Kareo/pull/48#issuecomment-5925628146)）。既有欄位與路徑不變 | B-013、C-007、B-012-r3、J-003、contracts/mock/providers |
 | v0.6 | 2026-10-01 | D-19（[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）：§10／§10a 新增 `resourceCategory`（輔具資源中心）、`contractRegions`（特約縣市）與 `resourceCategory`／`contractCity` 篩選；新增 §13a `GET /api/v1/knowledge/records`；§3.1 公開端點。既有欄位與路徑不變 | A-006、A-007、B-013、B-014、C-007、C-008、J-003、contracts/mock |
+
+## 10b. 公開名冊補充（v0.7，2026-10-08，Issue #106）
+
+§10 詳情及 §10a items 可追加選填 `publicInfo`，結構依 DATA_MODEL §19c；沒有資料則省略（不回 undefined／null）。原始鍵仍必須存在，不接受其他未知欄位。
+
+GET /api/v1/providers 可用 `assistiveProgram=PURCHASE|SMART_TECH` 篩選官方輔具制度分類；搭配服務類別時僅允許 ASSISTIVE_DEVICE，不允許中心。未給服務類別時篩選仍只取具有該分類的輔具商家。appliedFilters 只在 request 使用此參數時追加 `assistiveProgram`，既有無參數回應維持原 10 鍵，fixtures 無須虛造分類。未知值回 VALIDATION_ERROR。分類不影響 Top 3、Lead 與服務範圍。

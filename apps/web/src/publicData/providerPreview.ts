@@ -1,6 +1,7 @@
 // Public records only. These are the reviewed Provider import dataset and a read-only
 // export of the current PUBLISHED knowledge, not contract mock fixtures or live DB access.
 import serviceDistricts from '../../../../contracts/reference/service-districts.json';
+import infoRows from '../../../../data/providers/staging/provider-public-info.json';
 import providerRows from '../../../../data/providers/staging/providers.json';
 import serviceRows from '../../../../data/providers/staging/provider-services.json';
 import areaRows from '../../../../data/providers/staging/provider-service-areas.json';
@@ -16,7 +17,8 @@ import type { AssessmentRequest, AssessmentResponse, KnowledgeRecordsRequest, Kn
 
 type PublicProvider = Provider & { phone: string; googleMapsUrl: string };
 if (providerRows.some(p => !p.phone || !p.googleMapsUrl)) throw new Error('公開機構資料不完整。');
-const providers = providerRows as PublicProvider[];
+const infoById = new Map(infoRows.map(row => [row.providerId, row.publicInfo]));
+const providers = providerRows.map(p => ({ ...p, ...(infoById.has(p.id) ? { publicInfo: infoById.get(p.id) } : {}) })) as PublicProvider[];
 const publicKnowledge = knowledge as unknown as { version: string; publishedAt: string; records: Array<KnowledgeSnapshotRecord & { lastVerifiedAt: string; source: { title: string; publisher: string; url: string | null } }> };
 const snapshot = knowledge as unknown as KnowledgeSnapshot;
 const allowedCities = ['臺北市', '新北市'];
@@ -32,7 +34,7 @@ function detail(id: string): ProviderDetail | null {
   if (!row) return null;
   const { id: providerId, name, type, address, city, district, phone, website, googleMapsUrl, verified, resourceCategory } = row.provider;
   return structuredClone({ id: providerId, name, type, address, city, district, phone, website, googleMapsUrl, verified,
-    resourceCategory, services: row.services, serviceAreas: row.serviceAreas,
+    resourceCategory, ...(row.provider.publicInfo ? { publicInfo: row.provider.publicInfo } : {}), services: row.services, serviceAreas: row.serviceAreas,
     serviceAreaStatus: row.serviceAreas.length ? 'VERIFIED' : 'UNCONFIRMED', contractRegions: row.contractRegions }) as ProviderDetail;
 }
 function eligible(query: RecommendationCandidateQuery): PublicProvider[] {
@@ -97,7 +99,7 @@ export const publicProviderApi = {
     ranked.sort((a,b) => a.hash < b.hash ? -1 : a.hash > b.hash ? 1 : 0);
     return { recommendationId: `LOCAL-REC-${crypto.randomUUID()}`, serviceType: request.serviceType, rankingType, locationPrecision: loc.precision,
       providers: ranked.slice(0,3).map(({provider}, i) => ({ id: provider.id, name: provider.name, type: request.serviceType, address: provider.address, district: provider.district, phone: provider.phone, website: provider.website, googleMapsUrl: provider.googleMapsUrl, verified: provider.verified, rank: (i+1) as 1|2|3, distanceKm: null,
-        reasons: [loc.district ? `服務範圍包含${loc.district}` : `服務範圍包含${loc.city}部分行政區`, `提供您需要的${label[request.serviceType]}服務`] })),
+        reasons: [loc.district ? `服務範圍包含${loc.district}` : `服務範圍包含${loc.city}部分行政區`, `提供您需要的${label[request.serviceType]}服務`, ...(provider.publicInfo?.notice?.includes("評鑑不合格") ? ["官方名冊列評鑑不合格，請向 1966 確認目前服務資格。"] : [])] })),
       notice: candidates.length === 0 ? '目前未收錄已確認能服務這個地區的單位。仍可查詢所在地商家與官方資源；不以未知服務範圍補足家數。' : rankingType === 'CITY_ROTATION' ? '目前只依縣市比對已確認的部分服務行政區；請補充行政區，並非依距離排序。' : '依已確認服務範圍比對您選擇的行政區，同一天內順序固定，並非依距離排序。' };
   },
   async getKnowledgeRecords(filters: KnowledgeRecordsRequest): Promise<KnowledgeRecordsResponse> {

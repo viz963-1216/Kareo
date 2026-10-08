@@ -6,7 +6,7 @@ This is LOCAL evidence, not deployed E2E or release approval. It starts actual b
 
 50 checks cover public resources and knowledge, session tokens and consent, rule-based assessment, recommendation and location fallback, Lead idempotency and protected operator CLI, admin review/publish/withdraw, safe HTTP errors, privacy rights, the independent deletion journal, and protected retention cleanup with rollback/retry. The frontend is built in real API mode and its HTML is served; this does **not** verify browser interaction, keyboard navigation or RWD.
 
-Actual dataset imports use the existing protected CLIs: 35 resources, 30 services, 98 active service areas, 19 contract regions and 5 approved packs / 21 published knowledge records. Mutated candidate sets, failure triggers, additional knowledge and contact details are synthetic fixtures inside the disposable database. Original data files stay unchanged.
+Actual dataset imports use the existing protected CLIs: the full source catalogue (803 resources, 786 services, 1,123 active service areas; contract counts reconciled against source JSON) and 5 approved packs / 21 published knowledge records. Mutated candidate sets, failure triggers, additional knowledge and contact details are synthetic fixtures inside the disposable database. Original data files stay unchanged.
 
 The temporary Function bundles add an explicitly synthetic `LOCAL-TEST-2026-10-05` consent combination while retaining the original DRAFT combinations and testing that they are rejected. The repository consent contract is hashed before/after and must remain unchanged. This does not approve D-05. Local HTML displays a test banner.
 

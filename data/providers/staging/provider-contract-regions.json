@@ -1,5 +1,5144 @@
 [
   {
+    "id": "PCR-CAT-AD-004BAD39621A-TPE",
+    "providerId": "CAT-AD-004BAD39621A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-02EB66FE434E-TPE",
+    "providerId": "CAT-AD-02EB66FE434E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-030F76EDF237-TPE",
+    "providerId": "CAT-AD-030F76EDF237",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-034EA210009D-TPE",
+    "providerId": "CAT-AD-034EA210009D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-0399B0BBB591-TPE",
+    "providerId": "CAT-AD-0399B0BBB591",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-04499AC9A0B6-TPE",
+    "providerId": "CAT-AD-04499AC9A0B6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-0480BD813ACA-TPE",
+    "providerId": "CAT-AD-0480BD813ACA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-04CE80685D23-TPE",
+    "providerId": "CAT-AD-04CE80685D23",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-04E5C3BB647D-TPE",
+    "providerId": "CAT-AD-04E5C3BB647D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-05034CC6B098-TPE",
+    "providerId": "CAT-AD-05034CC6B098",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-05E91CCE1361-TPE",
+    "providerId": "CAT-AD-05E91CCE1361",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-06C31DAE2774-TPE",
+    "providerId": "CAT-AD-06C31DAE2774",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-092B8F60C001-TPE",
+    "providerId": "CAT-AD-092B8F60C001",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-09CA324A9A77-TPE",
+    "providerId": "CAT-AD-09CA324A9A77",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-09DEAC771B5A-TPE",
+    "providerId": "CAT-AD-09DEAC771B5A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-0A38059324FA-TPE",
+    "providerId": "CAT-AD-0A38059324FA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-0A6105C117B3-TPE",
+    "providerId": "CAT-AD-0A6105C117B3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-0A94B028D37A-TPE",
+    "providerId": "CAT-AD-0A94B028D37A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-0C7A1479C20A-TPE",
+    "providerId": "CAT-AD-0C7A1479C20A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-0CEC6409D67E-TPE",
+    "providerId": "CAT-AD-0CEC6409D67E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-0F97C7923A42-TPE",
+    "providerId": "CAT-AD-0F97C7923A42",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-103213C5F526-TPE",
+    "providerId": "CAT-AD-103213C5F526",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-108FEC22C31E-TPE",
+    "providerId": "CAT-AD-108FEC22C31E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-10E5C377DF53-TPE",
+    "providerId": "CAT-AD-10E5C377DF53",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-10EF5D23F282-TPE",
+    "providerId": "CAT-AD-10EF5D23F282",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-127A79743AEB-TPE",
+    "providerId": "CAT-AD-127A79743AEB",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-128CDE814AE3-TPE",
+    "providerId": "CAT-AD-128CDE814AE3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-13BCF75850E3-TPE",
+    "providerId": "CAT-AD-13BCF75850E3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-13D752056D13-TPE",
+    "providerId": "CAT-AD-13D752056D13",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1432D8FC9B56-TPE",
+    "providerId": "CAT-AD-1432D8FC9B56",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-143CF05ED7A3-TPE",
+    "providerId": "CAT-AD-143CF05ED7A3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-144384E4A5AF-TPE",
+    "providerId": "CAT-AD-144384E4A5AF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-155179765FEE-TPE",
+    "providerId": "CAT-AD-155179765FEE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1579323B85FE-TPE",
+    "providerId": "CAT-AD-1579323B85FE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-15CE2155EB0B-TPE",
+    "providerId": "CAT-AD-15CE2155EB0B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-15D79F91BBF1-TPE",
+    "providerId": "CAT-AD-15D79F91BBF1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-162E9F492813-TPE",
+    "providerId": "CAT-AD-162E9F492813",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-16545EE2CBD7-TPE",
+    "providerId": "CAT-AD-16545EE2CBD7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-16BC7E70639D-TPE",
+    "providerId": "CAT-AD-16BC7E70639D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-16F4F8E6F85E-TPE",
+    "providerId": "CAT-AD-16F4F8E6F85E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1742E39CC299-TPE",
+    "providerId": "CAT-AD-1742E39CC299",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-178E2097A422-TPE",
+    "providerId": "CAT-AD-178E2097A422",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-17D09F858B95-TPE",
+    "providerId": "CAT-AD-17D09F858B95",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-18B72CDEAA03-TPE",
+    "providerId": "CAT-AD-18B72CDEAA03",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-18E7DB960D48-TPE",
+    "providerId": "CAT-AD-18E7DB960D48",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1903D510578E-TPE",
+    "providerId": "CAT-AD-1903D510578E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-196F6A9B1659-TPE",
+    "providerId": "CAT-AD-196F6A9B1659",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1AB5FB4C0B17-TPE",
+    "providerId": "CAT-AD-1AB5FB4C0B17",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1ABD1DF570D4-TPE",
+    "providerId": "CAT-AD-1ABD1DF570D4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1B0F7A346938-TPE",
+    "providerId": "CAT-AD-1B0F7A346938",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1BC1B9A75384-TPE",
+    "providerId": "CAT-AD-1BC1B9A75384",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1CB07C67893D-TPE",
+    "providerId": "CAT-AD-1CB07C67893D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1CBB1625FF78-TPE",
+    "providerId": "CAT-AD-1CBB1625FF78",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1DA818A7F48E-TPE",
+    "providerId": "CAT-AD-1DA818A7F48E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1DF6D1254CD1-TPE",
+    "providerId": "CAT-AD-1DF6D1254CD1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1E0C2E02958A-TPE",
+    "providerId": "CAT-AD-1E0C2E02958A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1E96F5AD6678-TPE",
+    "providerId": "CAT-AD-1E96F5AD6678",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1EF2AC03DF6D-TPE",
+    "providerId": "CAT-AD-1EF2AC03DF6D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1F5300E789B8-TPE",
+    "providerId": "CAT-AD-1F5300E789B8",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-1FFC137D2588-TPE",
+    "providerId": "CAT-AD-1FFC137D2588",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-208C59D3C825-TPE",
+    "providerId": "CAT-AD-208C59D3C825",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-209865452C83-TPE",
+    "providerId": "CAT-AD-209865452C83",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-213EC0FB8415-TPE",
+    "providerId": "CAT-AD-213EC0FB8415",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2228D966B5EF-TPE",
+    "providerId": "CAT-AD-2228D966B5EF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-224CEE5A5FB7-TPE",
+    "providerId": "CAT-AD-224CEE5A5FB7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-22A2D511DA5C-TPE",
+    "providerId": "CAT-AD-22A2D511DA5C",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2315154AFE2C-TPE",
+    "providerId": "CAT-AD-2315154AFE2C",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-23533146967F-TPE",
+    "providerId": "CAT-AD-23533146967F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-241A8F6E51CF-TPE",
+    "providerId": "CAT-AD-241A8F6E51CF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-24B9B29E39D7-TPE",
+    "providerId": "CAT-AD-24B9B29E39D7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2539EC2E4AF4-TPE",
+    "providerId": "CAT-AD-2539EC2E4AF4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-27A541890F2E-TPE",
+    "providerId": "CAT-AD-27A541890F2E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-283C10E5048B-TPE",
+    "providerId": "CAT-AD-283C10E5048B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2856ECC26DB2-TPE",
+    "providerId": "CAT-AD-2856ECC26DB2",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-291B8D11BA25-TPE",
+    "providerId": "CAT-AD-291B8D11BA25",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-298B67CD2D02-TPE",
+    "providerId": "CAT-AD-298B67CD2D02",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2B3D48FDDD7A-TPE",
+    "providerId": "CAT-AD-2B3D48FDDD7A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2BBF3CE79FAF-TPE",
+    "providerId": "CAT-AD-2BBF3CE79FAF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2C4B747035AC-TPE",
+    "providerId": "CAT-AD-2C4B747035AC",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2CE9CA52548D-TPE",
+    "providerId": "CAT-AD-2CE9CA52548D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2D3B66C94580-TPE",
+    "providerId": "CAT-AD-2D3B66C94580",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2E12F02B79A1-TPE",
+    "providerId": "CAT-AD-2E12F02B79A1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2E49C9463307-TPE",
+    "providerId": "CAT-AD-2E49C9463307",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2E8C174468AE-TPE",
+    "providerId": "CAT-AD-2E8C174468AE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2EDB84FF6719-TPE",
+    "providerId": "CAT-AD-2EDB84FF6719",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2F1772267314-TPE",
+    "providerId": "CAT-AD-2F1772267314",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2F8043A71C95-TPE",
+    "providerId": "CAT-AD-2F8043A71C95",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-2FE0975A426B-TPE",
+    "providerId": "CAT-AD-2FE0975A426B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-300746C16DAC-TPE",
+    "providerId": "CAT-AD-300746C16DAC",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3035332E070B-TPE",
+    "providerId": "CAT-AD-3035332E070B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-30F9C41D9F62-TPE",
+    "providerId": "CAT-AD-30F9C41D9F62",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-319A97426C5B-TPE",
+    "providerId": "CAT-AD-319A97426C5B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-31C1C7803CE3-TPE",
+    "providerId": "CAT-AD-31C1C7803CE3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-31E1D4CAAA3E-TPE",
+    "providerId": "CAT-AD-31E1D4CAAA3E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3214873635D5-TPE",
+    "providerId": "CAT-AD-3214873635D5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-324091BDF1DD-TPE",
+    "providerId": "CAT-AD-324091BDF1DD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-352101C0CE95-TPE",
+    "providerId": "CAT-AD-352101C0CE95",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-356854044B03-TPE",
+    "providerId": "CAT-AD-356854044B03",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-36005D4BA151-TPE",
+    "providerId": "CAT-AD-36005D4BA151",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-36A52324B521-TPE",
+    "providerId": "CAT-AD-36A52324B521",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-36B3843D7B8C-TPE",
+    "providerId": "CAT-AD-36B3843D7B8C",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3730F279CDDE-TPE",
+    "providerId": "CAT-AD-3730F279CDDE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-379927B00A88-TPE",
+    "providerId": "CAT-AD-379927B00A88",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-37A551AF898C-TPE",
+    "providerId": "CAT-AD-37A551AF898C",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3825B4B291E3-TPE",
+    "providerId": "CAT-AD-3825B4B291E3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-382D2D77B271-TPE",
+    "providerId": "CAT-AD-382D2D77B271",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-393B1E146A3B-TPE",
+    "providerId": "CAT-AD-393B1E146A3B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3A503E9094E0-TPE",
+    "providerId": "CAT-AD-3A503E9094E0",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3B7E2013A1E4-TPE",
+    "providerId": "CAT-AD-3B7E2013A1E4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3B87FC2E60EE-TPE",
+    "providerId": "CAT-AD-3B87FC2E60EE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3BC134C24EF8-TPE",
+    "providerId": "CAT-AD-3BC134C24EF8",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3BC4C66E3978-TPE",
+    "providerId": "CAT-AD-3BC4C66E3978",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3C0364199026-TPE",
+    "providerId": "CAT-AD-3C0364199026",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3D9B1A1EC14B-TPE",
+    "providerId": "CAT-AD-3D9B1A1EC14B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3DFDED847AD8-TPE",
+    "providerId": "CAT-AD-3DFDED847AD8",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3E0E11ACB37F-TPE",
+    "providerId": "CAT-AD-3E0E11ACB37F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3E13DD505699-TPE",
+    "providerId": "CAT-AD-3E13DD505699",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3E1C0EEAAC9A-TPE",
+    "providerId": "CAT-AD-3E1C0EEAAC9A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3E6FA683F7B6-TPE",
+    "providerId": "CAT-AD-3E6FA683F7B6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3FA443F08C7E-TPE",
+    "providerId": "CAT-AD-3FA443F08C7E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-3FB9EBD334A7-TPE",
+    "providerId": "CAT-AD-3FB9EBD334A7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-407AC26B2182-TPE",
+    "providerId": "CAT-AD-407AC26B2182",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-40E83D3B17FE-TPE",
+    "providerId": "CAT-AD-40E83D3B17FE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-410D88A135CD-TPE",
+    "providerId": "CAT-AD-410D88A135CD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4126895B9600-TPE",
+    "providerId": "CAT-AD-4126895B9600",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-41A08D8EE30F-TPE",
+    "providerId": "CAT-AD-41A08D8EE30F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-41BDE2C4227F-TPE",
+    "providerId": "CAT-AD-41BDE2C4227F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-42553225C537-TPE",
+    "providerId": "CAT-AD-42553225C537",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-43032DE889C4-TPE",
+    "providerId": "CAT-AD-43032DE889C4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4385BC76596A-TPE",
+    "providerId": "CAT-AD-4385BC76596A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-43A00DE65FFA-TPE",
+    "providerId": "CAT-AD-43A00DE65FFA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-440379436376-TPE",
+    "providerId": "CAT-AD-440379436376",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-445C0B4CEF8E-TPE",
+    "providerId": "CAT-AD-445C0B4CEF8E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-44931BDCADEB-TPE",
+    "providerId": "CAT-AD-44931BDCADEB",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-SMART-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-44E6F9733DBD-TPE",
+    "providerId": "CAT-AD-44E6F9733DBD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-45B71014ACF0-TPE",
+    "providerId": "CAT-AD-45B71014ACF0",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-45DF5424689E-TPE",
+    "providerId": "CAT-AD-45DF5424689E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4653FAD14DA3-TPE",
+    "providerId": "CAT-AD-4653FAD14DA3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4777E5DFACB2-TPE",
+    "providerId": "CAT-AD-4777E5DFACB2",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4782F7364DB5-TPE",
+    "providerId": "CAT-AD-4782F7364DB5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-48C64C70CB4E-TPE",
+    "providerId": "CAT-AD-48C64C70CB4E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-48E7FA6C2275-TPE",
+    "providerId": "CAT-AD-48E7FA6C2275",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-492CFA8A93A4-TPE",
+    "providerId": "CAT-AD-492CFA8A93A4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-497F95344D1E-TPE",
+    "providerId": "CAT-AD-497F95344D1E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-498E5E8E3793-TPE",
+    "providerId": "CAT-AD-498E5E8E3793",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-49C29C397C08-TPE",
+    "providerId": "CAT-AD-49C29C397C08",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4A311961EB7E-TPE",
+    "providerId": "CAT-AD-4A311961EB7E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4A55DBBFA299-TPE",
+    "providerId": "CAT-AD-4A55DBBFA299",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4B4A39E2A067-TPE",
+    "providerId": "CAT-AD-4B4A39E2A067",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4BBD2DB484BD-TPE",
+    "providerId": "CAT-AD-4BBD2DB484BD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4C034C84D2B9-TPE",
+    "providerId": "CAT-AD-4C034C84D2B9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4C7E0B478A4D-TPE",
+    "providerId": "CAT-AD-4C7E0B478A4D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4C823A2ECFC9-TPE",
+    "providerId": "CAT-AD-4C823A2ECFC9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4CAB3195AAA9-TPE",
+    "providerId": "CAT-AD-4CAB3195AAA9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4CD9EF68463D-TPE",
+    "providerId": "CAT-AD-4CD9EF68463D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4D7473260E4C-TPE",
+    "providerId": "CAT-AD-4D7473260E4C",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4DC758948713-TPE",
+    "providerId": "CAT-AD-4DC758948713",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4F05A2D66299-TPE",
+    "providerId": "CAT-AD-4F05A2D66299",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4F4B5730DF29-TPE",
+    "providerId": "CAT-AD-4F4B5730DF29",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4F8B8DC5B828-TPE",
+    "providerId": "CAT-AD-4F8B8DC5B828",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-4FBBA7A19ECA-TPE",
+    "providerId": "CAT-AD-4FBBA7A19ECA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-508913CDF674-TPE",
+    "providerId": "CAT-AD-508913CDF674",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-50A1AA7CCF9B-TPE",
+    "providerId": "CAT-AD-50A1AA7CCF9B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5105418A2282-TPE",
+    "providerId": "CAT-AD-5105418A2282",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5268DBD51A4D-TPE",
+    "providerId": "CAT-AD-5268DBD51A4D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5286AD31FEDA-TPE",
+    "providerId": "CAT-AD-5286AD31FEDA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-53B044444EED-TPE",
+    "providerId": "CAT-AD-53B044444EED",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-54A18E6025C1-TPE",
+    "providerId": "CAT-AD-54A18E6025C1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-54DAF1499981-TPE",
+    "providerId": "CAT-AD-54DAF1499981",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-54F5186C7386-TPE",
+    "providerId": "CAT-AD-54F5186C7386",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-555253A3FDF6-TPE",
+    "providerId": "CAT-AD-555253A3FDF6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-55B6679D3AA3-TPE",
+    "providerId": "CAT-AD-55B6679D3AA3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-56D566CF9CFE-TPE",
+    "providerId": "CAT-AD-56D566CF9CFE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-579B9F5BA8A7-TPE",
+    "providerId": "CAT-AD-579B9F5BA8A7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-57C706A74822-TPE",
+    "providerId": "CAT-AD-57C706A74822",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-57D92D085A57-TPE",
+    "providerId": "CAT-AD-57D92D085A57",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-57E3F81D4488-TPE",
+    "providerId": "CAT-AD-57E3F81D4488",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-58130F52118A-TPE",
+    "providerId": "CAT-AD-58130F52118A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-59663DFFA43D-TPE",
+    "providerId": "CAT-AD-59663DFFA43D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-59CF899A855A-TPE",
+    "providerId": "CAT-AD-59CF899A855A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-59D15E61F512-TPE",
+    "providerId": "CAT-AD-59D15E61F512",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-59D2D7E9E5D4-TPE",
+    "providerId": "CAT-AD-59D2D7E9E5D4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5A5034F20DFB-TPE",
+    "providerId": "CAT-AD-5A5034F20DFB",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5A9419B95BDF-TPE",
+    "providerId": "CAT-AD-5A9419B95BDF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5A9A5CF35F10-TPE",
+    "providerId": "CAT-AD-5A9A5CF35F10",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5AE715201BD2-TPE",
+    "providerId": "CAT-AD-5AE715201BD2",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5BC25E34DC80-TPE",
+    "providerId": "CAT-AD-5BC25E34DC80",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5C45EBA55C9F-TPE",
+    "providerId": "CAT-AD-5C45EBA55C9F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5C88FA638EBB-TPE",
+    "providerId": "CAT-AD-5C88FA638EBB",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5D6F79E8B610-TPE",
+    "providerId": "CAT-AD-5D6F79E8B610",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5E29606CB008-TPE",
+    "providerId": "CAT-AD-5E29606CB008",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5EAFCD3563B2-TPE",
+    "providerId": "CAT-AD-5EAFCD3563B2",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5F637AD130C5-TPE",
+    "providerId": "CAT-AD-5F637AD130C5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5FA7215F08E9-TPE",
+    "providerId": "CAT-AD-5FA7215F08E9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-5FFC91944C15-TPE",
+    "providerId": "CAT-AD-5FFC91944C15",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6068CB32CB0B-TPE",
+    "providerId": "CAT-AD-6068CB32CB0B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-60A271A4E3E4-TPE",
+    "providerId": "CAT-AD-60A271A4E3E4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-61022FEECBD6-TPE",
+    "providerId": "CAT-AD-61022FEECBD6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-61D294A52015-TPE",
+    "providerId": "CAT-AD-61D294A52015",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-62DE926E9BD6-TPE",
+    "providerId": "CAT-AD-62DE926E9BD6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-62FBF3CFCC19-TPE",
+    "providerId": "CAT-AD-62FBF3CFCC19",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6364BABB4BDD-TPE",
+    "providerId": "CAT-AD-6364BABB4BDD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6442BE8507E9-TPE",
+    "providerId": "CAT-AD-6442BE8507E9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6492A8E411A5-TPE",
+    "providerId": "CAT-AD-6492A8E411A5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-64E582F3D2D4-TPE",
+    "providerId": "CAT-AD-64E582F3D2D4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-650B75ADCE09-TPE",
+    "providerId": "CAT-AD-650B75ADCE09",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-650DFEA82A62-TPE",
+    "providerId": "CAT-AD-650DFEA82A62",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-66123F89953A-TPE",
+    "providerId": "CAT-AD-66123F89953A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-663D78D94C54-TPE",
+    "providerId": "CAT-AD-663D78D94C54",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-66D77BBDE8A9-TPE",
+    "providerId": "CAT-AD-66D77BBDE8A9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-671D2CF4E7A4-TPE",
+    "providerId": "CAT-AD-671D2CF4E7A4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-67BD76FCD0B4-TPE",
+    "providerId": "CAT-AD-67BD76FCD0B4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-67CFC0ABDE29-TPE",
+    "providerId": "CAT-AD-67CFC0ABDE29",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-69175E3366F4-TPE",
+    "providerId": "CAT-AD-69175E3366F4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6A081DD33ED5-TPE",
+    "providerId": "CAT-AD-6A081DD33ED5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6A47F31C80AD-TPE",
+    "providerId": "CAT-AD-6A47F31C80AD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6A65E2950D5E-TPE",
+    "providerId": "CAT-AD-6A65E2950D5E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6A663D49BAE0-TPE",
+    "providerId": "CAT-AD-6A663D49BAE0",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6ACCE668B422-TPE",
+    "providerId": "CAT-AD-6ACCE668B422",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6AF2B3CAC652-TPE",
+    "providerId": "CAT-AD-6AF2B3CAC652",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6BB8972998A1-TPE",
+    "providerId": "CAT-AD-6BB8972998A1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6C4B8D172C22-TPE",
+    "providerId": "CAT-AD-6C4B8D172C22",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6C8091588860-TPE",
+    "providerId": "CAT-AD-6C8091588860",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6CBAF282F8D3-TPE",
+    "providerId": "CAT-AD-6CBAF282F8D3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6D0D5EDF0E1D-TPE",
+    "providerId": "CAT-AD-6D0D5EDF0E1D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6D371257218D-TPE",
+    "providerId": "CAT-AD-6D371257218D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6D495D6F0907-TPE",
+    "providerId": "CAT-AD-6D495D6F0907",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6DA99994941D-TPE",
+    "providerId": "CAT-AD-6DA99994941D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-6FAA0421009A-TPE",
+    "providerId": "CAT-AD-6FAA0421009A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-702F927F3DE5-TPE",
+    "providerId": "CAT-AD-702F927F3DE5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7153445DD9D8-TPE",
+    "providerId": "CAT-AD-7153445DD9D8",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-715F14C557D3-TPE",
+    "providerId": "CAT-AD-715F14C557D3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-71818FA08A2B-TPE",
+    "providerId": "CAT-AD-71818FA08A2B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-71E05442D8B0-TPE",
+    "providerId": "CAT-AD-71E05442D8B0",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-71F82BD41A46-TPE",
+    "providerId": "CAT-AD-71F82BD41A46",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-721732D00269-TPE",
+    "providerId": "CAT-AD-721732D00269",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-72E861CCEC1A-TPE",
+    "providerId": "CAT-AD-72E861CCEC1A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7325C197D980-TPE",
+    "providerId": "CAT-AD-7325C197D980",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7369F7F296F9-TPE",
+    "providerId": "CAT-AD-7369F7F296F9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-73B2DA8864E6-TPE",
+    "providerId": "CAT-AD-73B2DA8864E6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-73C9C6E9FD97-TPE",
+    "providerId": "CAT-AD-73C9C6E9FD97",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-74008400E450-TPE",
+    "providerId": "CAT-AD-74008400E450",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7447BF6A86F6-TPE",
+    "providerId": "CAT-AD-7447BF6A86F6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7461E740E9A7-TPE",
+    "providerId": "CAT-AD-7461E740E9A7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7464465701E4-TPE",
+    "providerId": "CAT-AD-7464465701E4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-74D5EF48C785-TPE",
+    "providerId": "CAT-AD-74D5EF48C785",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-755CFD9D9ECA-TPE",
+    "providerId": "CAT-AD-755CFD9D9ECA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-75F4A80D9773-TPE",
+    "providerId": "CAT-AD-75F4A80D9773",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-75F6658F6CC3-TPE",
+    "providerId": "CAT-AD-75F6658F6CC3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-76596463A516-TPE",
+    "providerId": "CAT-AD-76596463A516",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7669AEB1AE2A-TPE",
+    "providerId": "CAT-AD-7669AEB1AE2A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-768DBA3218E9-TPE",
+    "providerId": "CAT-AD-768DBA3218E9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-76A201A9BE8E-TPE",
+    "providerId": "CAT-AD-76A201A9BE8E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-76AE78884CDD-TPE",
+    "providerId": "CAT-AD-76AE78884CDD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-777D530BAED3-TPE",
+    "providerId": "CAT-AD-777D530BAED3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7792D4792883-TPE",
+    "providerId": "CAT-AD-7792D4792883",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-77C5F4579DA5-TPE",
+    "providerId": "CAT-AD-77C5F4579DA5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-78F430892B7A-TPE",
+    "providerId": "CAT-AD-78F430892B7A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-79A0C2D74A91-TPE",
+    "providerId": "CAT-AD-79A0C2D74A91",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7A8E490C34B0-TPE",
+    "providerId": "CAT-AD-7A8E490C34B0",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7B93D6608269-TPE",
+    "providerId": "CAT-AD-7B93D6608269",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7BEA878BFCA8-TPE",
+    "providerId": "CAT-AD-7BEA878BFCA8",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7BF28D77F706-TPE",
+    "providerId": "CAT-AD-7BF28D77F706",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7C71583B8BBE-TPE",
+    "providerId": "CAT-AD-7C71583B8BBE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7D6CD6B8AC6B-TPE",
+    "providerId": "CAT-AD-7D6CD6B8AC6B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7DE6AE0C81B9-TPE",
+    "providerId": "CAT-AD-7DE6AE0C81B9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7E1133845ECA-TPE",
+    "providerId": "CAT-AD-7E1133845ECA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7E6F86DA9CE4-TPE",
+    "providerId": "CAT-AD-7E6F86DA9CE4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7E7F271B9B1A-TPE",
+    "providerId": "CAT-AD-7E7F271B9B1A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7EC6962A812E-TPE",
+    "providerId": "CAT-AD-7EC6962A812E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7F0D2D115F5B-TPE",
+    "providerId": "CAT-AD-7F0D2D115F5B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-7FB17E1D4FC0-TPE",
+    "providerId": "CAT-AD-7FB17E1D4FC0",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-80274CEE1BB0-TPE",
+    "providerId": "CAT-AD-80274CEE1BB0",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-803DBFBBAF52-TPE",
+    "providerId": "CAT-AD-803DBFBBAF52",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8057F7E1FB65-TPE",
+    "providerId": "CAT-AD-8057F7E1FB65",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-80AA91A89235-TPE",
+    "providerId": "CAT-AD-80AA91A89235",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-80B6FEAA37F9-TPE",
+    "providerId": "CAT-AD-80B6FEAA37F9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-80CDDB171A98-TPE",
+    "providerId": "CAT-AD-80CDDB171A98",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-80ECF7B30293-TPE",
+    "providerId": "CAT-AD-80ECF7B30293",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8138FC69F03E-TPE",
+    "providerId": "CAT-AD-8138FC69F03E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8259FBF18BAD-TPE",
+    "providerId": "CAT-AD-8259FBF18BAD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-82F1881B5C7F-TPE",
+    "providerId": "CAT-AD-82F1881B5C7F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-835F61778C45-TPE",
+    "providerId": "CAT-AD-835F61778C45",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-83AA52DD0A53-TPE",
+    "providerId": "CAT-AD-83AA52DD0A53",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-844252DFC320-TPE",
+    "providerId": "CAT-AD-844252DFC320",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-844B17B6C75C-TPE",
+    "providerId": "CAT-AD-844B17B6C75C",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-847A66159B0A-TPE",
+    "providerId": "CAT-AD-847A66159B0A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-84D2843E6823-TPE",
+    "providerId": "CAT-AD-84D2843E6823",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-84FB02CD4953-TPE",
+    "providerId": "CAT-AD-84FB02CD4953",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8531217AFB3B-TPE",
+    "providerId": "CAT-AD-8531217AFB3B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-85769CE49C9B-TPE",
+    "providerId": "CAT-AD-85769CE49C9B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-85DE71874EC3-TPE",
+    "providerId": "CAT-AD-85DE71874EC3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-86349D71CB68-TPE",
+    "providerId": "CAT-AD-86349D71CB68",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-869D4BECE14E-TPE",
+    "providerId": "CAT-AD-869D4BECE14E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-87323F72861A-TPE",
+    "providerId": "CAT-AD-87323F72861A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-88E43CE2C9F7-TPE",
+    "providerId": "CAT-AD-88E43CE2C9F7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8A4AAD03654B-TPE",
+    "providerId": "CAT-AD-8A4AAD03654B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8A613EA806AE-TPE",
+    "providerId": "CAT-AD-8A613EA806AE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8A61D7AA3170-TPE",
+    "providerId": "CAT-AD-8A61D7AA3170",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8A719EB586A6-TPE",
+    "providerId": "CAT-AD-8A719EB586A6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8ABF00F4D85E-TPE",
+    "providerId": "CAT-AD-8ABF00F4D85E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8ACB0D76AEF1-TPE",
+    "providerId": "CAT-AD-8ACB0D76AEF1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8B794649A76A-TPE",
+    "providerId": "CAT-AD-8B794649A76A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8BA6574AEDB2-TPE",
+    "providerId": "CAT-AD-8BA6574AEDB2",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8CB3D690ADB4-TPE",
+    "providerId": "CAT-AD-8CB3D690ADB4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8D4B7BFF32AA-TPE",
+    "providerId": "CAT-AD-8D4B7BFF32AA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-8F5CC32F2001-TPE",
+    "providerId": "CAT-AD-8F5CC32F2001",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9044FF68EBB4-TPE",
+    "providerId": "CAT-AD-9044FF68EBB4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-90A8A6BDFEA1-TPE",
+    "providerId": "CAT-AD-90A8A6BDFEA1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-910CE48BC282-TPE",
+    "providerId": "CAT-AD-910CE48BC282",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-91491F5EF975-TPE",
+    "providerId": "CAT-AD-91491F5EF975",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-933325B47652-TPE",
+    "providerId": "CAT-AD-933325B47652",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-934BAD4C86FF-TPE",
+    "providerId": "CAT-AD-934BAD4C86FF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9423128F8A31-TPE",
+    "providerId": "CAT-AD-9423128F8A31",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-SMART-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9451A2185E8E-TPE",
+    "providerId": "CAT-AD-9451A2185E8E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-94947993B5EA-TPE",
+    "providerId": "CAT-AD-94947993B5EA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-94A68BE7A1DC-TPE",
+    "providerId": "CAT-AD-94A68BE7A1DC",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-94DD226D5761-TPE",
+    "providerId": "CAT-AD-94DD226D5761",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-95308168D682-TPE",
+    "providerId": "CAT-AD-95308168D682",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9599206D3087-TPE",
+    "providerId": "CAT-AD-9599206D3087",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-95C6AA70833E-TPE",
+    "providerId": "CAT-AD-95C6AA70833E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-96038C363504-TPE",
+    "providerId": "CAT-AD-96038C363504",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-96593256BC2D-TPE",
+    "providerId": "CAT-AD-96593256BC2D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-97C002A882BE-TPE",
+    "providerId": "CAT-AD-97C002A882BE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9824BFF7A33F-TPE",
+    "providerId": "CAT-AD-9824BFF7A33F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9A3168CBECF2-TPE",
+    "providerId": "CAT-AD-9A3168CBECF2",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9A942E07A7DA-TPE",
+    "providerId": "CAT-AD-9A942E07A7DA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9AE2FE9EB56D-TPE",
+    "providerId": "CAT-AD-9AE2FE9EB56D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9AF028C689C9-TPE",
+    "providerId": "CAT-AD-9AF028C689C9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9AF975866A4F-TPE",
+    "providerId": "CAT-AD-9AF975866A4F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9B06A4FEDCB4-TPE",
+    "providerId": "CAT-AD-9B06A4FEDCB4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9B177F7A3564-TPE",
+    "providerId": "CAT-AD-9B177F7A3564",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9B36B0B422E9-TPE",
+    "providerId": "CAT-AD-9B36B0B422E9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9B40D2060D51-TPE",
+    "providerId": "CAT-AD-9B40D2060D51",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9B600E8F0641-TPE",
+    "providerId": "CAT-AD-9B600E8F0641",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9C8654853346-TPE",
+    "providerId": "CAT-AD-9C8654853346",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9CA448D671ED-TPE",
+    "providerId": "CAT-AD-9CA448D671ED",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9CBB5FF9CF1E-TPE",
+    "providerId": "CAT-AD-9CBB5FF9CF1E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9D7B659832B2-TPE",
+    "providerId": "CAT-AD-9D7B659832B2",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9DEE6B927FE8-TPE",
+    "providerId": "CAT-AD-9DEE6B927FE8",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9E973C9C6B32-TPE",
+    "providerId": "CAT-AD-9E973C9C6B32",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9FCC36DE71AC-TPE",
+    "providerId": "CAT-AD-9FCC36DE71AC",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-9FFDCFCAB562-TPE",
+    "providerId": "CAT-AD-9FFDCFCAB562",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A07A42F85ABF-TPE",
+    "providerId": "CAT-AD-A07A42F85ABF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A08E18F3A140-TPE",
+    "providerId": "CAT-AD-A08E18F3A140",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A0CB562C9457-TPE",
+    "providerId": "CAT-AD-A0CB562C9457",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A215B4325B4D-TPE",
+    "providerId": "CAT-AD-A215B4325B4D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A25C909ECE36-TPE",
+    "providerId": "CAT-AD-A25C909ECE36",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A264F7483C41-TPE",
+    "providerId": "CAT-AD-A264F7483C41",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A27E54DD789E-TPE",
+    "providerId": "CAT-AD-A27E54DD789E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A29B33FE7C21-TPE",
+    "providerId": "CAT-AD-A29B33FE7C21",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A355522560C2-TPE",
+    "providerId": "CAT-AD-A355522560C2",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A3A533C39112-TPE",
+    "providerId": "CAT-AD-A3A533C39112",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A457C44AD5F6-TPE",
+    "providerId": "CAT-AD-A457C44AD5F6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A54373503D96-TPE",
+    "providerId": "CAT-AD-A54373503D96",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A6A36428814B-TPE",
+    "providerId": "CAT-AD-A6A36428814B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A70B39EFB2F7-TPE",
+    "providerId": "CAT-AD-A70B39EFB2F7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A86E77DDF4A7-TPE",
+    "providerId": "CAT-AD-A86E77DDF4A7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A86F73098555-TPE",
+    "providerId": "CAT-AD-A86F73098555",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-A9C58BE7E9D5-TPE",
+    "providerId": "CAT-AD-A9C58BE7E9D5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-AB405D8C4510-TPE",
+    "providerId": "CAT-AD-AB405D8C4510",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-AB86BF9CD50D-TPE",
+    "providerId": "CAT-AD-AB86BF9CD50D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-AC96AF1406E8-TPE",
+    "providerId": "CAT-AD-AC96AF1406E8",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-AD0386B7E972-TPE",
+    "providerId": "CAT-AD-AD0386B7E972",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-AE5A6C4187E3-TPE",
+    "providerId": "CAT-AD-AE5A6C4187E3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-AEDFEB1C9946-TPE",
+    "providerId": "CAT-AD-AEDFEB1C9946",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-AF6C5FEB0790-TPE",
+    "providerId": "CAT-AD-AF6C5FEB0790",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-AF9EFADAFE25-TPE",
+    "providerId": "CAT-AD-AF9EFADAFE25",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B006E08ECAC9-TPE",
+    "providerId": "CAT-AD-B006E08ECAC9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B10D19AADADD-TPE",
+    "providerId": "CAT-AD-B10D19AADADD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B114F4FCBBA3-TPE",
+    "providerId": "CAT-AD-B114F4FCBBA3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B13500108C79-TPE",
+    "providerId": "CAT-AD-B13500108C79",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B1415F33A0E9-TPE",
+    "providerId": "CAT-AD-B1415F33A0E9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B1AE2F5208B8-TPE",
+    "providerId": "CAT-AD-B1AE2F5208B8",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B1D0928892BE-TPE",
+    "providerId": "CAT-AD-B1D0928892BE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B1DC81E8FC32-TPE",
+    "providerId": "CAT-AD-B1DC81E8FC32",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B20271806F59-TPE",
+    "providerId": "CAT-AD-B20271806F59",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B20AB7131501-TPE",
+    "providerId": "CAT-AD-B20AB7131501",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B212024A0B65-TPE",
+    "providerId": "CAT-AD-B212024A0B65",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B2165289C886-TPE",
+    "providerId": "CAT-AD-B2165289C886",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B24EC8E1099F-TPE",
+    "providerId": "CAT-AD-B24EC8E1099F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B30F025E0F0D-TPE",
+    "providerId": "CAT-AD-B30F025E0F0D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B34DB1508880-TPE",
+    "providerId": "CAT-AD-B34DB1508880",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B4425F2DA726-TPE",
+    "providerId": "CAT-AD-B4425F2DA726",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B53F9E3C2E2D-TPE",
+    "providerId": "CAT-AD-B53F9E3C2E2D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B588797632E9-TPE",
+    "providerId": "CAT-AD-B588797632E9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B5B5D1F7459E-TPE",
+    "providerId": "CAT-AD-B5B5D1F7459E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B72980B8DAC4-TPE",
+    "providerId": "CAT-AD-B72980B8DAC4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B7B25F371FFD-TPE",
+    "providerId": "CAT-AD-B7B25F371FFD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B7DBC7A3E31C-TPE",
+    "providerId": "CAT-AD-B7DBC7A3E31C",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B7F7C6A84C86-TPE",
+    "providerId": "CAT-AD-B7F7C6A84C86",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-B85A8B1932E0-TPE",
+    "providerId": "CAT-AD-B85A8B1932E0",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-BA518444D580-TPE",
+    "providerId": "CAT-AD-BA518444D580",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-BA9D0D363872-TPE",
+    "providerId": "CAT-AD-BA9D0D363872",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-BAF7159FC157-TPE",
+    "providerId": "CAT-AD-BAF7159FC157",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-BB9BDCF0129D-TPE",
+    "providerId": "CAT-AD-BB9BDCF0129D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-BBF86E7B9395-TPE",
+    "providerId": "CAT-AD-BBF86E7B9395",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-BC35BE453A91-TPE",
+    "providerId": "CAT-AD-BC35BE453A91",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-BD55FF44064F-TPE",
+    "providerId": "CAT-AD-BD55FF44064F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-BDC9DC67295B-TPE",
+    "providerId": "CAT-AD-BDC9DC67295B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-BF6B140BDCD8-TPE",
+    "providerId": "CAT-AD-BF6B140BDCD8",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C09F6DB119D6-TPE",
+    "providerId": "CAT-AD-C09F6DB119D6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C0FCB677AD6B-TPE",
+    "providerId": "CAT-AD-C0FCB677AD6B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C155F017C0D7-TPE",
+    "providerId": "CAT-AD-C155F017C0D7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C16FCAB9E713-TPE",
+    "providerId": "CAT-AD-C16FCAB9E713",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C1D82884EEE2-TPE",
+    "providerId": "CAT-AD-C1D82884EEE2",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C1DCDC174BBF-TPE",
+    "providerId": "CAT-AD-C1DCDC174BBF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C2B0DC3644D0-TPE",
+    "providerId": "CAT-AD-C2B0DC3644D0",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C31B02E90607-TPE",
+    "providerId": "CAT-AD-C31B02E90607",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C3908BCB3DF9-TPE",
+    "providerId": "CAT-AD-C3908BCB3DF9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C3F2CFE72293-TPE",
+    "providerId": "CAT-AD-C3F2CFE72293",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C410F15F618B-TPE",
+    "providerId": "CAT-AD-C410F15F618B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C41C378592C7-TPE",
+    "providerId": "CAT-AD-C41C378592C7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C52FDBE3E807-TPE",
+    "providerId": "CAT-AD-C52FDBE3E807",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C603D88D2762-TPE",
+    "providerId": "CAT-AD-C603D88D2762",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C64BE8E76BAD-TPE",
+    "providerId": "CAT-AD-C64BE8E76BAD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C76299F0035F-TPE",
+    "providerId": "CAT-AD-C76299F0035F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C7D7310E208B-TPE",
+    "providerId": "CAT-AD-C7D7310E208B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C8FA260DD10E-TPE",
+    "providerId": "CAT-AD-C8FA260DD10E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C91E942F09AF-TPE",
+    "providerId": "CAT-AD-C91E942F09AF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C934A56849C3-TPE",
+    "providerId": "CAT-AD-C934A56849C3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C9446A702BE7-TPE",
+    "providerId": "CAT-AD-C9446A702BE7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-C975E0A5E203-TPE",
+    "providerId": "CAT-AD-C975E0A5E203",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CA98C9F741D7-TPE",
+    "providerId": "CAT-AD-CA98C9F741D7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CA9F7852E605-TPE",
+    "providerId": "CAT-AD-CA9F7852E605",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CAD511F9BF35-TPE",
+    "providerId": "CAT-AD-CAD511F9BF35",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CB11EED89DFA-TPE",
+    "providerId": "CAT-AD-CB11EED89DFA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CB14C78BA11F-TPE",
+    "providerId": "CAT-AD-CB14C78BA11F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CB3F52DC18EB-TPE",
+    "providerId": "CAT-AD-CB3F52DC18EB",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CB6435F79D64-TPE",
+    "providerId": "CAT-AD-CB6435F79D64",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CC017CDDA185-TPE",
+    "providerId": "CAT-AD-CC017CDDA185",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CC425B0676D3-TPE",
+    "providerId": "CAT-AD-CC425B0676D3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CC4389A94477-TPE",
+    "providerId": "CAT-AD-CC4389A94477",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CC7BB410AAA6-TPE",
+    "providerId": "CAT-AD-CC7BB410AAA6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CCC9577AB333-TPE",
+    "providerId": "CAT-AD-CCC9577AB333",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CD1968739D90-TPE",
+    "providerId": "CAT-AD-CD1968739D90",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CD2A6E4A14D3-TPE",
+    "providerId": "CAT-AD-CD2A6E4A14D3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CD367BD9463A-TPE",
+    "providerId": "CAT-AD-CD367BD9463A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CD3AEB3ABA63-TPE",
+    "providerId": "CAT-AD-CD3AEB3ABA63",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CD3E9C67E5FF-TPE",
+    "providerId": "CAT-AD-CD3E9C67E5FF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CDD23A1E0EC2-TPE",
+    "providerId": "CAT-AD-CDD23A1E0EC2",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CE0618F40DD3-TPE",
+    "providerId": "CAT-AD-CE0618F40DD3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CE3FE491CB20-TPE",
+    "providerId": "CAT-AD-CE3FE491CB20",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CE567E3BAFF5-TPE",
+    "providerId": "CAT-AD-CE567E3BAFF5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CE5EA642DBEB-TPE",
+    "providerId": "CAT-AD-CE5EA642DBEB",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CF305072F035-TPE",
+    "providerId": "CAT-AD-CF305072F035",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-CFEACAE50DB5-TPE",
+    "providerId": "CAT-AD-CFEACAE50DB5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D01AEFA8A9C6-TPE",
+    "providerId": "CAT-AD-D01AEFA8A9C6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D061A9E54BD5-TPE",
+    "providerId": "CAT-AD-D061A9E54BD5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D07D07A56B0A-TPE",
+    "providerId": "CAT-AD-D07D07A56B0A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D0B05782B0C9-TPE",
+    "providerId": "CAT-AD-D0B05782B0C9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D0C1CC47D5DA-TPE",
+    "providerId": "CAT-AD-D0C1CC47D5DA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D15483A9B5A1-TPE",
+    "providerId": "CAT-AD-D15483A9B5A1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D1DA7753EFED-TPE",
+    "providerId": "CAT-AD-D1DA7753EFED",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D205235044B0-TPE",
+    "providerId": "CAT-AD-D205235044B0",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-SMART-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D207F6548A37-TPE",
+    "providerId": "CAT-AD-D207F6548A37",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D22445F03409-TPE",
+    "providerId": "CAT-AD-D22445F03409",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D4E3D191DEE9-TPE",
+    "providerId": "CAT-AD-D4E3D191DEE9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D583B8D2F331-TPE",
+    "providerId": "CAT-AD-D583B8D2F331",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D58F5F855F28-TPE",
+    "providerId": "CAT-AD-D58F5F855F28",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D5E7B929859E-TPE",
+    "providerId": "CAT-AD-D5E7B929859E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D63F14AC2D45-TPE",
+    "providerId": "CAT-AD-D63F14AC2D45",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D6687EEBB226-TPE",
+    "providerId": "CAT-AD-D6687EEBB226",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D7D0162AC320-TPE",
+    "providerId": "CAT-AD-D7D0162AC320",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D89DC7843085-TPE",
+    "providerId": "CAT-AD-D89DC7843085",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D8E6890DFCFF-TPE",
+    "providerId": "CAT-AD-D8E6890DFCFF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D8ECEB999125-TPE",
+    "providerId": "CAT-AD-D8ECEB999125",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D8FF09270717-TPE",
+    "providerId": "CAT-AD-D8FF09270717",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D935A0EF8B24-TPE",
+    "providerId": "CAT-AD-D935A0EF8B24",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D99B0BE28754-TPE",
+    "providerId": "CAT-AD-D99B0BE28754",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-D9E56A42B8E0-TPE",
+    "providerId": "CAT-AD-D9E56A42B8E0",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DA55138DD801-TPE",
+    "providerId": "CAT-AD-DA55138DD801",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DACBB1402006-TPE",
+    "providerId": "CAT-AD-DACBB1402006",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DAD51A84DDAC-TPE",
+    "providerId": "CAT-AD-DAD51A84DDAC",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DB2B11901ED3-TPE",
+    "providerId": "CAT-AD-DB2B11901ED3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DBCAD639B234-TPE",
+    "providerId": "CAT-AD-DBCAD639B234",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DCD1D3AD1B19-TPE",
+    "providerId": "CAT-AD-DCD1D3AD1B19",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DD59810F104D-TPE",
+    "providerId": "CAT-AD-DD59810F104D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DD62E9512052-TPE",
+    "providerId": "CAT-AD-DD62E9512052",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DD77500723C4-TPE",
+    "providerId": "CAT-AD-DD77500723C4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DD900738CE4D-TPE",
+    "providerId": "CAT-AD-DD900738CE4D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DDD2A2DD758F-TPE",
+    "providerId": "CAT-AD-DDD2A2DD758F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DE360E4EE84A-TPE",
+    "providerId": "CAT-AD-DE360E4EE84A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DE3AED2B4025-TPE",
+    "providerId": "CAT-AD-DE3AED2B4025",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DE9EAD1791CD-TPE",
+    "providerId": "CAT-AD-DE9EAD1791CD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DF593A0FA814-TPE",
+    "providerId": "CAT-AD-DF593A0FA814",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-DF96359F388A-TPE",
+    "providerId": "CAT-AD-DF96359F388A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E00FDB623BAE-TPE",
+    "providerId": "CAT-AD-E00FDB623BAE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E02A040F1EF9-TPE",
+    "providerId": "CAT-AD-E02A040F1EF9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E07CDFD4F7D1-TPE",
+    "providerId": "CAT-AD-E07CDFD4F7D1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E1025562627A-TPE",
+    "providerId": "CAT-AD-E1025562627A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E12B68DD8D6B-TPE",
+    "providerId": "CAT-AD-E12B68DD8D6B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E1471485E1F3-TPE",
+    "providerId": "CAT-AD-E1471485E1F3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E19D23BBD4CF-TPE",
+    "providerId": "CAT-AD-E19D23BBD4CF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E1A86B3605F5-TPE",
+    "providerId": "CAT-AD-E1A86B3605F5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E1DBAB5DCE5E-TPE",
+    "providerId": "CAT-AD-E1DBAB5DCE5E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E25D9F9C2131-TPE",
+    "providerId": "CAT-AD-E25D9F9C2131",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E264616AF22C-TPE",
+    "providerId": "CAT-AD-E264616AF22C",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E2AD01632CCF-TPE",
+    "providerId": "CAT-AD-E2AD01632CCF",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E2E585E86755-TPE",
+    "providerId": "CAT-AD-E2E585E86755",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E2E59A526A5D-TPE",
+    "providerId": "CAT-AD-E2E59A526A5D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E2FCE0240246-TPE",
+    "providerId": "CAT-AD-E2FCE0240246",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E3392F0747BD-TPE",
+    "providerId": "CAT-AD-E3392F0747BD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E40D6392E89B-TPE",
+    "providerId": "CAT-AD-E40D6392E89B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E40FF596EB45-TPE",
+    "providerId": "CAT-AD-E40FF596EB45",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E446DBE14C9C-TPE",
+    "providerId": "CAT-AD-E446DBE14C9C",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E47404DB9DFE-TPE",
+    "providerId": "CAT-AD-E47404DB9DFE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E4B7AEE6FC76-TPE",
+    "providerId": "CAT-AD-E4B7AEE6FC76",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E4F7D7E64AD4-TPE",
+    "providerId": "CAT-AD-E4F7D7E64AD4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E55D0282EE6D-TPE",
+    "providerId": "CAT-AD-E55D0282EE6D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E5CBFBD8720E-TPE",
+    "providerId": "CAT-AD-E5CBFBD8720E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E5E9A9F5DE9F-TPE",
+    "providerId": "CAT-AD-E5E9A9F5DE9F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E5F90E992E34-TPE",
+    "providerId": "CAT-AD-E5F90E992E34",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E863ABB36B22-TPE",
+    "providerId": "CAT-AD-E863ABB36B22",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E872BF6D2EC9-TPE",
+    "providerId": "CAT-AD-E872BF6D2EC9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E889D634BD0F-TPE",
+    "providerId": "CAT-AD-E889D634BD0F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-E96BB6A0B676-TPE",
+    "providerId": "CAT-AD-E96BB6A0B676",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EA06996ABF0B-TPE",
+    "providerId": "CAT-AD-EA06996ABF0B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EA315CE0DC45-TPE",
+    "providerId": "CAT-AD-EA315CE0DC45",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EA3FFA6BEAD1-TPE",
+    "providerId": "CAT-AD-EA3FFA6BEAD1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EBA634C35B9E-TPE",
+    "providerId": "CAT-AD-EBA634C35B9E",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EBECADB8C08F-TPE",
+    "providerId": "CAT-AD-EBECADB8C08F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EC00CC0B9BCB-TPE",
+    "providerId": "CAT-AD-EC00CC0B9BCB",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-ED16A8E5C6E3-TPE",
+    "providerId": "CAT-AD-ED16A8E5C6E3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-ED38E6CF6742-TPE",
+    "providerId": "CAT-AD-ED38E6CF6742",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EDEBB3070F3F-TPE",
+    "providerId": "CAT-AD-EDEBB3070F3F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EE32B1ACA3DD-TPE",
+    "providerId": "CAT-AD-EE32B1ACA3DD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EE4BF9B2CAAC-TPE",
+    "providerId": "CAT-AD-EE4BF9B2CAAC",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EE4F4DD2DAA4-TPE",
+    "providerId": "CAT-AD-EE4F4DD2DAA4",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EF1A8B3177BE-TPE",
+    "providerId": "CAT-AD-EF1A8B3177BE",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EF77FC1854E6-TPE",
+    "providerId": "CAT-AD-EF77FC1854E6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EFA94AAE570C-TPE",
+    "providerId": "CAT-AD-EFA94AAE570C",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EFE1154B1FE1-TPE",
+    "providerId": "CAT-AD-EFE1154B1FE1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-EFE812B18B96-TPE",
+    "providerId": "CAT-AD-EFE812B18B96",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F0B32F51AA8A-TPE",
+    "providerId": "CAT-AD-F0B32F51AA8A",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F1C93EE279DD-TPE",
+    "providerId": "CAT-AD-F1C93EE279DD",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F1C9C7659160-TPE",
+    "providerId": "CAT-AD-F1C9C7659160",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F1CD91AF616B-TPE",
+    "providerId": "CAT-AD-F1CD91AF616B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F21A423C9E87-TPE",
+    "providerId": "CAT-AD-F21A423C9E87",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F23AC40EB209-TPE",
+    "providerId": "CAT-AD-F23AC40EB209",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F2D494377EE5-TPE",
+    "providerId": "CAT-AD-F2D494377EE5",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F3197C5545D9-TPE",
+    "providerId": "CAT-AD-F3197C5545D9",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F4341B424C7C-TPE",
+    "providerId": "CAT-AD-F4341B424C7C",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F44590E0BF66-TPE",
+    "providerId": "CAT-AD-F44590E0BF66",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F4B5555098C7-TPE",
+    "providerId": "CAT-AD-F4B5555098C7",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F4F72BAD4586-TPE",
+    "providerId": "CAT-AD-F4F72BAD4586",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F5B831FA9C5D-TPE",
+    "providerId": "CAT-AD-F5B831FA9C5D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F5F6C8FB28F6-TPE",
+    "providerId": "CAT-AD-F5F6C8FB28F6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F666EC73650D-TPE",
+    "providerId": "CAT-AD-F666EC73650D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F69E60C079DA-TPE",
+    "providerId": "CAT-AD-F69E60C079DA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F70803A2357F-TPE",
+    "providerId": "CAT-AD-F70803A2357F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F70D7679CB7B-TPE",
+    "providerId": "CAT-AD-F70D7679CB7B",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F7219F7B2CFC-TPE",
+    "providerId": "CAT-AD-F7219F7B2CFC",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F73ED7F4B53F-TPE",
+    "providerId": "CAT-AD-F73ED7F4B53F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F9CFF1286583-TPE",
+    "providerId": "CAT-AD-F9CFF1286583",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F9D1C84BD3A1-TPE",
+    "providerId": "CAT-AD-F9D1C84BD3A1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-F9F5E584E3B2-TPE",
+    "providerId": "CAT-AD-F9F5E584E3B2",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FA48D534005F-TPE",
+    "providerId": "CAT-AD-FA48D534005F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FA4A68C4491D-TPE",
+    "providerId": "CAT-AD-FA4A68C4491D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FAB6050ACF41-TPE",
+    "providerId": "CAT-AD-FAB6050ACF41",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FB0491138294-TPE",
+    "providerId": "CAT-AD-FB0491138294",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FB6A82831914-TPE",
+    "providerId": "CAT-AD-FB6A82831914",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FB9AB1FBDE8F-TPE",
+    "providerId": "CAT-AD-FB9AB1FBDE8F",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FBE2D4DE104D-TPE",
+    "providerId": "CAT-AD-FBE2D4DE104D",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FC3464CFECF6-TPE",
+    "providerId": "CAT-AD-FC3464CFECF6",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FC43CD9C3C37-TPE",
+    "providerId": "CAT-AD-FC43CD9C3C37",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FCAEE8CAD908-TPE",
+    "providerId": "CAT-AD-FCAEE8CAD908",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FCE99C695F73-TPE",
+    "providerId": "CAT-AD-FCE99C695F73",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FD84FA8A73B3-TPE",
+    "providerId": "CAT-AD-FD84FA8A73B3",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FE8D55E922FA-TPE",
+    "providerId": "CAT-AD-FE8D55E922FA",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
+    "id": "PCR-CAT-AD-FF703F7E05B1-TPE",
+    "providerId": "CAT-AD-FF703F7E05B1",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-LTC-20261008",
+    "checkedAt": "2026-10-08",
+    "active": true
+  },
+  {
     "id": "PCR-NTPC-AD-001-NTPC",
     "providerId": "NTPC-AD-001",
     "city": "新北市",
@@ -78,6 +5217,15 @@
     "serviceType": "ASSISTIVE_DEVICE",
     "sourceId": "SRC-005",
     "checkedAt": "2026-09-29",
+    "active": true
+  },
+  {
+    "id": "PCR-NTPC-AD-006-TPE",
+    "providerId": "NTPC-AD-006",
+    "city": "臺北市",
+    "serviceType": "ASSISTIVE_DEVICE",
+    "sourceId": "SRC-CATALOG-DISABILITY-20261008",
+    "checkedAt": "2026-10-08",
     "active": true
   },
   {

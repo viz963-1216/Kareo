@@ -1,0 +1,644 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+    <meta charset="utf-8">
+    <title>[&#x5206;&#x7AD9;&#x64DA;&#x9EDE;] &#x65B0;&#x5317;&#x5E02;&#x8F14;&#x5177;&#x4E2D;&#x5FC3;&#x53CA;&#x5404;&#x5206;&#x7AD9;&#x64DA;&#x9EDE;&#x670D;&#x52D9;&#x9805;&#x76EE;&#x5217;&#x8868; - &#x65B0;&#x5317;&#x5E02;&#x8F14;&#x5177;&#x8CC7;&#x6E90;&#x4E2D;&#x5FC3;</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/frontend/fonts/noto-sans-tc.css">
+    <link rel="shortcut icon" href="/images/icons/ntpc.ico" />
+    <link rel="stylesheet" type="text/css" href="/frontend/template.css?639270512617547656">
+
+    <script src="https://kit.fontawesome.com/bf6eb55dca.js" integrity="sha384-sspTlfdpDtFqHosqyvslIyC44grHMRhxVKoNB+TdqwIneXXaW/sYp7a8pOp+CQL/" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/frontend/src/jquery-3.6.4.min.js"></script>
+    <script src="/dist/js/jquery-validation-1.19.1/jquery.validate.min.js"></script>
+    <script src="/dist/js/jquery-validation-1.19.1/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" src="/frontend/template.js?639270512617547832"></script>
+
+
+
+    <style>
+        .share-list {
+            margin-top: 10px;
+            height: 20px;
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+            .share-list img {
+                display: block;
+                width: 40px;
+                height: 20px;
+                margin-right: 10px;
+            }
+
+        .info-box {
+            padding: 30px 0 50px;
+        }
+
+            .info-box img {
+                max-width: 100%;
+            }
+
+        @media only screen and (max-width: 1023px) {
+            .share-list {
+                margin-bottom: 20px;
+            }
+
+                .share-list img.desktoponly {
+                    display: none;
+                }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <a href="#tabC" id="go-to-main-content" title="跳到主要內容區域">跳到主要內容區域</a>
+    </div>
+
+    <noscript>
+        <div class="disabled-js">
+            您的瀏覽器不支援JavaScript功能，若網頁功能無法正常使用時，請開啟瀏覽器JavaScript狀態
+        </div>
+    </noscript>
+
+    <header>
+                    <div class="logo"><a href="/" title="回首頁"><img alt="新北市輔具資源中心(logo)" src="/frontend/images/logo.png"></a></div>
+        <div class="desktop-menu">
+            <ul class="header-link">
+                <li><a id="tabU" href="#tabU" title="上方導覽連結區" accesskey="U">:::</a></li>
+                <li><a href="/">首頁</a></li>
+                <li><a href="/Sitemap">網站導覽</a></li>
+                <li><a href="/RSS">RSS</a></li>
+            </ul>
+            <div class="header-function">
+                <div class="fn-changetxt">
+                    字級:
+                    <ul class="changetxt-size">
+                        <li><a href="javascript:void(0);" title="小字級">小</a></li>
+                        <li class="selected"><a href="javascript:void(0);" title="中字級">中</a></li>
+                        <li><a href="javascript:void(0);" title="大字級">大</a></li>
+                    </ul>
+                    <noscript>
+                        <div class="container disabled-js-s">
+                            『您的瀏覽器不支援JavaScript功能，字級功能無法正常使用，請開啟瀏覽器JavaScript狀態』
+                        </div>
+                    </noscript>
+                </div>
+                <div class="fn-search">
+                    <input id="input-search" class="input-search" type="text">
+                    <a href="javascript:void(0);" onclick="onClickPcSearch();">
+                        <div class="btn-search"><img src="/frontend/images/search.png" alt=""><label for="input-search">搜尋</label></div>
+                    </a>
+                </div>
+            </div>
+            <noscript>
+                <div class="container disabled-js-s">
+                    『您的瀏覽器不支援JavaScript功能，搜尋功能無法正常使用，請開啟瀏覽器JavaScript狀態』
+                </div>
+            </noscript>
+        </div>
+        <div class="mobile-menu">
+            <img class="btn-mb-search" src="/frontend/images/search.png" alt="">
+            <div class="mb-menu"></div>
+        </div>
+        <ul class="mobile-menu-content">
+            <li><a href="/About">中心介紹</a></li>
+            <li><a href="/Service">服務介紹</a></li>
+            <li><a href="/Notice">服務須知</a></li>
+            <li><a href="/NewsInfo/76">線上申請</a></li>
+            <li><a href="/Eform">補助項目及表單下載</a></li>
+            <li><a href="/EducationClass">輔具相關衛教</a></li>
+            <li><a href="/News">訊息公告</a></li>
+            <li><a href="/Link">相關連結</a></li>
+            <li><a href="/Traffic">聯絡/交通資訊</a></li>
+        </ul>
+        <div class="mobile-search-content">
+            <input id="mobile-input-search" class="mobile-input-search" type="text" title="搜尋內容文字" placeholder="搜尋內容文字">
+            <img class="mobile-search-fn" src="/frontend/images/search.png" alt="">
+        </div>
+    </header>
+    <nav>
+        <ul class="nav-list">
+            <li class="dropdown">
+                <a href="/About">中心介紹</a>
+                <div class="dropdown-content">
+                        <a href="/About/1">&#x4E2D;&#x5FC3;&#x7C21;&#x4ECB;</a>
+                        <a href="/About/3">&#x5206;&#x7AD9;&#x64DA;&#x9EDE;</a>
+                        <a href="/About/2">&#x6EFF;&#x610F;&#x5EA6;&#x8ABF;&#x67E5;</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="/Service">服務介紹</a>
+                <div class="dropdown-content">
+                        <a href="/Service/1">&#x8F14;&#x5177;&#x88DC;&#x52A9;&#x7533;&#x8ACB;</a>
+                        <a href="/Service/2">&#x8F14;&#x5177;&#x8A55;&#x4F30;</a>
+                        <a href="/Service/3">&#x4E8C;&#x624B;&#x8F14;&#x5177;</a>
+                        <a href="/Service/4">&#x7528;&#x96FB;&#x512A;&#x60E0;</a>
+                        <a href="/Service/6">&#x722C;&#x68AF;&#x6A5F;&#x670D;&#x52D9;</a>
+                        <a href="/Service/5">&#x7279;&#x7D04;&#x5EE0;&#x5546;&#x67E5;&#x8A62;</a>
+                        <a href="/Service/8">&#x52A9;&#x807D;&#x5668;&#x5C08;&#x5340;</a>
+                        <a href="/Service/9">&#x80B2;&#x5152;&#x8F14;&#x5177;</a>
+                </div>
+            </li>
+
+            <li class="dropdown">
+                <a href="/Notice">服務須知</a>
+                <div class="dropdown-content">
+                        <a href="/Notice/1">&#x670D;&#x52D9;&#x9808;&#x77E5;</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="/NewsInfo/76">線上申請</a>
+            </li>
+            <li>
+                <a href="/Eform">補助項目及表單下載</a>
+            </li>
+            <li class="dropdown">
+                <a href="/EducationClass">輔具相關衛教</a>
+                <div class="dropdown-content">
+                        <a href="/EducationClass/1">&#x6B65;&#x884C;&#x8F14;&#x5177;&#x8D70;&#x5F97;&#x5999;</a>
+                        <a href="/EducationClass/2">&#x5B89;&#x5168;&#x7701;&#x529B;&#x8F49;&#x79FB;&#x4F4D;</a>
+                        <a href="/EducationClass/5">&#x5E8A;&#x4E0A;&#x64FA;&#x4F4D;&#x8207;&#x8A98;&#x767C;</a>
+                        <a href="/EducationClass/6">&#x5C45;&#x5BB6;&#x74B0;&#x5883;&#x5982;&#x5EC1;&#x6C90;&#x6D74;</a>
+                        <a href="/EducationClass/7">&#x8F2A;&#x6905;&#x4F7F;&#x7528;&#x8207;&#x64FA;&#x4F4D;</a>
+                        <a href="/EducationClass/8">&#x547C;&#x5438;&#x985E;&#x8F14;&#x5177;&#x885B;&#x6559;</a>
+                        <a href="/EducationClass/9">&#x80B2;&#x5152;&#x8F14;&#x5177;</a>
+                        <a href="/EducationClass/10">&#x5176;&#x4ED6;&#x985E;</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="/News">訊息公告</a>
+                <div class="dropdown-content">
+                    <a href="/News?type=1">常見問題</a>
+                    <a href="/News?type=2">訊息專區</a>
+                    <a href="/News?type=3">參訪及活動花絮</a>
+                </div>
+            </li>
+            <li>
+                <a href="/Link">相關連結</a>
+            </li>
+            <li class="dropdown">
+                <a href="/Traffic">聯絡/交通資訊</a>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        
+
+
+
+<script>
+    var redirectUrl = "~"
+    var redirectMsg = "此文章已經下架，將為您導回首頁!"
+    if (redirectUrl.length != 0) {
+        alert(redirectMsg);
+        window.location.href = redirectUrl;
+    }
+</script>
+
+<div class="main_banner"></div>
+<div class="custom-padding">
+    <div class="breadcrumb">
+        <a id="tabC" href="#" title="中央主要內容區" accesskey="C">:::</a>
+        <ul class="breadcrumb-line">
+            <li><a href="/">首頁</a></li>
+            <li><a href="/News?type=2">&#x8A0A;&#x606F;&#x5C08;&#x5340;</a></li>
+            <li>[&#x5206;&#x7AD9;&#x64DA;&#x9EDE;] &#x65B0;&#x5317;&#x5E02;&#x8F14;&#x5177;&#x4E2D;&#x5FC3;&#x53CA;&#x5404;&#x5206;&#x7AD9;&#x64DA;&#x9EDE;&#x670D;&#x52D9;&#x9805;&#x76EE;&#x5217;&#x8868;</li>
+        </ul>
+    </div>
+    <h1 class="main-title">[&#x5206;&#x7AD9;&#x64DA;&#x9EDE;] &#x65B0;&#x5317;&#x5E02;&#x8F14;&#x5177;&#x4E2D;&#x5FC3;&#x53CA;&#x5404;&#x5206;&#x7AD9;&#x64DA;&#x9EDE;&#x670D;&#x52D9;&#x9805;&#x76EE;&#x5217;&#x8868;</h1>
+    <div class="share-list">
+        <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FNTCATRChermitcrab&width=113&layout=button&action=like&size=large&share=true&height=65&appId=277385395761685" width="113" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" title="臉書粉絲團分享"></iframe>
+        <noscript>
+            <div class="container disabled-js-s">
+                『您的瀏覽器不支援JavaScript功能，Facebook功能無法正常使用，請開啟瀏覽器JavaScript狀態』
+            </div>
+        </noscript>
+        <a href="javascript:void(0);" onclick="onClickPrint();"><img class="desktoponly" src="/frontend/images/share_4.png" style="margin-left: 4px; width:54px;height:29px;" alt="列印按鈕"></a>
+        <noscript>
+            <div class="container disabled-js-s">
+                『您的瀏覽器不支援JavaScript功能，列印功能無法正常使用，請開啟瀏覽器JavaScript狀態』
+            </div>
+        </noscript>
+    </div>
+
+    <div class="info-box reset-style" id="info-box"><p>&nbsp;</p>
+<h2 id="table-title" style="text-align: center;"><span style="color: #000080;">新北市輔具中心及各分站據點</span> <span style="color: #333399;">服務項目列表</span></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-labelledby="table-title">
+<table style="height: 98%; border-style: solid; border-color: black; width: 98%;" border="black" width="98%" aria-describedby="table-desc"><caption id="table-desc">&nbsp;</caption>
+<thead>
+<tr>
+<th style="width: 3.35917%;" rowspan="2" scope="col">類別</th>
+<th style="width: 4.56503%;" rowspan="2" scope="col">據點名稱</th>
+<th style="width: 8.87166%;" rowspan="2" scope="col">地址</th>
+<th style="width: 5.85702%;" rowspan="2" scope="col">結合單位</th>
+<th style="width: 8.52713%;" rowspan="2" scope="col">電話</th>
+<th style="width: 66.5805%;" colspan="10" scope="colgroup">服務內容</th>
+</tr>
+<tr>
+<th style="width: 5.59862%;" scope="col">輔具補助核定</th>
+<th style="width: 5.59862%;" scope="col">輔具補助請款</th>
+<th style="width: 7.57967%;" scope="col">二手輔具回收</th>
+<th style="width: 8.26873%;" scope="col">二手輔具領用</th>
+<th style="width: 7.32127%;" scope="col">輔具專業評估<br />（需預約）</th>
+<th style="width: 7.06288%;" scope="col">輔具維修</th>
+<th style="width: 6.37382%;" scope="col">輔具用電優惠申請</th>
+<th style="width: 7.49354%;" scope="col">輔具諮詢</th>
+<th style="width: 6.02928%;" scope="col">教育訓練／宣導</th>
+<th style="width: 5.25409%;" scope="col">爬梯機租借</th>
+</tr>
+</thead>
+<tbody><!-- 中心 -->
+<tr>
+<th style="width: 3.35917%;" scope="row">中心</th>
+<td style="width: 4.56503%;">蘆洲輔具中心</td>
+<td class="left" style="width: 8.87166%;">新北市蘆洲區集賢路245號9樓</td>
+<td style="width: 5.85702%;">&nbsp;</td>
+<td style="width: 8.52713%;">(02) 8286-7045</td>
+<td style="width: 5.59862%; text-align: center;">●</td>
+<td style="width: 5.59862%; text-align: center;">●</td>
+<td style="width: 7.57967%; text-align: center;">●<br /><span style="font-size: 0.8em;">(含到府收取)</span></td>
+<td style="width: 8.26873%; text-align: center;">●<br /><span style="font-size: 0.8em;">(含到府寄送)</span></td>
+<td style="width: 7.32127%; text-align: center;">●</td>
+<td style="width: 7.06288%; text-align: center;">●</td>
+<td style="width: 6.37382%; text-align: center;">●</td>
+<td style="width: 7.49354%; text-align: center;">●</td>
+<td style="width: 6.02928%; text-align: center;">●</td>
+<td style="width: 5.25409%; text-align: center;">●</td>
+</tr>
+<tr>
+<th style="width: 3.35917%;" scope="row">中心</th>
+<td style="width: 4.56503%;">新店輔具中心</td>
+<td class="left" style="width: 8.87166%;">新北市新店區北新路一段281號</td>
+<td style="width: 5.85702%;">&nbsp;</td>
+<td style="width: 8.52713%;">(02) 2912-1911</td>
+<td style="width: 5.59862%; text-align: center;">●</td>
+<td style="width: 5.59862%; text-align: center;">●</td>
+<td style="width: 7.57967%; text-align: center;">●<br /><span style="font-size: 0.8em;">(含到府收取)</span></td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">●</td>
+<td style="width: 7.06288%; text-align: center;">●</td>
+<td style="width: 6.37382%; text-align: center;">●</td>
+<td style="width: 7.49354%; text-align: center;">●</td>
+<td style="width: 6.02928%; text-align: center;">●</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+<!-- 據點（服務內容同雙溪分站） -->
+<tr>
+<th style="width: 3.35917%;" scope="row">據點</th>
+<td style="width: 4.56503%;">雙溪分站</td>
+<td class="left" style="width: 8.87166%;">新北市雙溪區新基南街18號</td>
+<td style="width: 5.85702%;">雙溪衛生所</td>
+<td style="width: 8.52713%;">2493-1210 分機28</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 7.57967%; text-align: center;">●</td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">&Delta;</td>
+<td style="width: 7.06288%; text-align: center;">#</td>
+<td style="width: 6.37382%; text-align: center;">－</td>
+<td style="width: 7.49354%; text-align: center;">◎</td>
+<td style="width: 6.02928%; text-align: center;">－</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+<tr>
+<th style="width: 3.35917%;" scope="row">據點</th>
+<td style="width: 4.56503%;">金山分站</td>
+<td class="left" style="width: 8.87166%;">新北市金山區玉爐路7號7樓</td>
+<td style="width: 5.85702%;">台大金山分院</td>
+<td style="width: 8.52713%;">2498-9898 分機1201</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 7.57967%; text-align: center;">●</td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">&Delta;</td>
+<td style="width: 7.06288%; text-align: center;">#</td>
+<td style="width: 6.37382%; text-align: center;">－</td>
+<td style="width: 7.49354%; text-align: center;">◎</td>
+<td style="width: 6.02928%; text-align: center;">－</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+<tr>
+<th style="width: 3.35917%;" scope="row">據點</th>
+<td style="width: 4.56503%;">淡水分站</td>
+<td class="left" style="width: 8.87166%;">新北市淡水區中山路158號2樓</td>
+<td style="width: 5.85702%;">長照淡水站</td>
+<td style="width: 8.52713%;">2629-7761 分機11</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 7.57967%; text-align: center;">●</td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">&Delta;</td>
+<td style="width: 7.06288%; text-align: center;">#</td>
+<td style="width: 6.37382%; text-align: center;">－</td>
+<td style="width: 7.49354%; text-align: center;">◎</td>
+<td style="width: 6.02928%; text-align: center;">－</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+<tr>
+<th style="width: 3.35917%;" scope="row">據點</th>
+<td style="width: 4.56503%;">中和分站</td>
+<td class="left" style="width: 8.87166%;">新北市中和區南山路4巷3號</td>
+<td style="width: 5.85702%;">中和衛生所</td>
+<td style="width: 8.52713%;">2249-1936 分機322</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 7.57967%; text-align: center;">●</td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">&Delta;</td>
+<td style="width: 7.06288%; text-align: center;">#</td>
+<td style="width: 6.37382%; text-align: center;">－</td>
+<td style="width: 7.49354%; text-align: center;">◎</td>
+<td style="width: 6.02928%; text-align: center;">－</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+<tr>
+<th style="width: 3.35917%;" scope="row">據點</th>
+<td style="width: 4.56503%;">三峽分站</td>
+<td class="left" style="width: 8.87166%;">新北市三峽區光明路71號3樓</td>
+<td style="width: 5.85702%;">三峽衛生所</td>
+<td style="width: 8.52713%;">2671-1592 分機226</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 7.57967%; text-align: center;">●</td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">&Delta;</td>
+<td style="width: 7.06288%; text-align: center;">#</td>
+<td style="width: 6.37382%; text-align: center;">－</td>
+<td style="width: 7.49354%; text-align: center;">◎</td>
+<td style="width: 6.02928%; text-align: center;">－</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+<tr>
+<th style="width: 3.35917%;" scope="row">據點</th>
+<td style="width: 4.56503%;">深坑分站</td>
+<td class="left" style="width: 8.87166%;">新北市深坑區深坑街165號</td>
+<td style="width: 5.85702%;">深坑衛生所</td>
+<td style="width: 8.52713%;">2662-1567 分機102</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 7.57967%; text-align: center;">●</td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">&Delta;</td>
+<td style="width: 7.06288%; text-align: center;">#</td>
+<td style="width: 6.37382%; text-align: center;">－</td>
+<td style="width: 7.49354%; text-align: center;">◎</td>
+<td style="width: 6.02928%; text-align: center;">－</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+<tr>
+<th style="width: 3.35917%;" scope="row">據點</th>
+<td style="width: 4.56503%;">烏來分站</td>
+<td class="left" style="width: 8.87166%;">新北市烏來區新烏路五段109號</td>
+<td style="width: 5.85702%;">烏來衛生所</td>
+<td style="width: 8.52713%;">2661-7200 分機46</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 7.57967%; text-align: center;">●</td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">&Delta;</td>
+<td style="width: 7.06288%; text-align: center;">#</td>
+<td style="width: 6.37382%; text-align: center;">－</td>
+<td style="width: 7.49354%; text-align: center;">◎</td>
+<td style="width: 6.02928%; text-align: center;">－</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+<tr>
+<th style="width: 3.35917%;" scope="row">據點</th>
+<td style="width: 4.56503%;">永和分站</td>
+<td class="left" style="width: 8.87166%;">新北市永和區文化路155號</td>
+<td style="width: 5.85702%;">長照咖啡館</td>
+<td style="width: 8.52713%;">2921-2212</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 7.57967%; text-align: center;">●</td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">&Delta;</td>
+<td style="width: 7.06288%; text-align: center;">#</td>
+<td style="width: 6.37382%; text-align: center;">－</td>
+<td style="width: 7.49354%; text-align: center;">◎</td>
+<td style="width: 6.02928%; text-align: center;">－</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+<tr>
+<th style="width: 3.35917%;" scope="row">據點</th>
+<td style="width: 4.56503%;">坪林分站</td>
+<td class="left" style="width: 8.87166%;">新北市坪林區坪林街104號</td>
+<td style="width: 5.85702%;">坪林衛生所</td>
+<td style="width: 8.52713%;">2665-6272 分機301</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 7.57967%; text-align: center;">●</td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">&Delta;</td>
+<td style="width: 7.06288%; text-align: center;">#</td>
+<td style="width: 6.37382%; text-align: center;">－</td>
+<td style="width: 7.49354%; text-align: center;">◎</td>
+<td style="width: 6.02928%; text-align: center;">－</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+<tr>
+<th style="width: 3.35917%;" scope="row">據點</th>
+<td style="width: 4.56503%;">汐南分站</td>
+<td class="left" style="width: 8.87166%;">臺北市南港區重陽路263巷1號</td>
+<td style="width: 5.85702%;">第一輔具中心</td>
+<td style="width: 8.52713%;">2785-1985</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 7.57967%; text-align: center;">●</td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">&Delta;</td>
+<td style="width: 7.06288%; text-align: center;">#</td>
+<td style="width: 6.37382%; text-align: center;">－</td>
+<td style="width: 7.49354%; text-align: center;">◎</td>
+<td style="width: 6.02928%; text-align: center;">－</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+<tr>
+<th style="width: 3.35917%;" scope="row">據點</th>
+<td style="width: 4.56503%;">央北分站</td>
+<td class="left" style="width: 8.87166%;">新北市新店區中山路135號1樓</td>
+<td style="width: 5.85702%;">新店央北青年社會住宅</td>
+<td style="width: 8.52713%;">2218-0179</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 7.57967%; text-align: center;">●</td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">&Delta;</td>
+<td style="width: 7.06288%; text-align: center;">#</td>
+<td style="width: 6.37382%; text-align: center;">－</td>
+<td style="width: 7.49354%; text-align: center;">◎</td>
+<td style="width: 6.02928%; text-align: center;">－</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+<tr>
+<th style="width: 3.35917%;" scope="row">據點</th>
+<td style="width: 4.56503%;">永耕分站</td>
+<td class="left" style="width: 8.87166%;">新北市永和區豫溪街57巷10弄10號</td>
+<td style="width: 5.85702%;">第一輔具中心</td>
+<td style="width: 8.52713%;">2923-0090</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 5.59862%; text-align: center;">－</td>
+<td style="width: 7.57967%; text-align: center;">●</td>
+<td style="width: 8.26873%; text-align: center;">●</td>
+<td style="width: 7.32127%; text-align: center;">&Delta;</td>
+<td style="width: 7.06288%; text-align: center;">#</td>
+<td style="width: 6.37382%; text-align: center;">－</td>
+<td style="width: 7.49354%; text-align: center;">◎</td>
+<td style="width: 6.02928%; text-align: center;">－</td>
+<td style="width: 5.25409%; text-align: center;">－</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="note">圖示說明</p>
+<p class="note">● :表示現場提供該項服務；實際服務內容與時段請依各中心公告為準。</p>
+<p>&Delta; :表示僅有部分時段提供該項服務。</p>
+<p># :表示僅有提供簡易二手維修服務。</p>
+<p>◎ :表示限目前二手庫存的輔具諮詢服務。</p>
+<p>－:表示無提供該項服務。</p>
+<p class="note"><span style="font-size: 1.2em;">更多資訊:各分站據點二手輔具的即時庫存查詢，請<a href="/NewsInfo/45">點此連結</a>。</span></p>
+<p>&nbsp;</p></div>
+</div>
+
+
+    </main>
+
+
+    <!-- Accordion  -->
+    <a href="javascript:void(0);" class="btn-accordion open" role="button" aria-expanded="true" aria-controls="accordion-content" title="點擊將關閉清單">
+        <div class="want-close"><span></span>關閉</div>
+        <div class="want-open"><span></span>展開</div>
+    </a>
+    <section class="accordion-content">
+        <a id="tabB" href="#tabB" title="下方落款連結區" accesskey="B">:::</a>
+        <ul>
+            <li class="acd-big"><a href="/About">中心介紹</a></li>
+                <li class="acd-sub"><a href="/About/1">&#x4E2D;&#x5FC3;&#x7C21;&#x4ECB;</a></li>
+                <li class="acd-sub"><a href="/About/3">&#x5206;&#x7AD9;&#x64DA;&#x9EDE;</a></li>
+                <li class="acd-sub"><a href="/About/2">&#x6EFF;&#x610F;&#x5EA6;&#x8ABF;&#x67E5;</a></li>
+            <li class="acd-big"><a href="/Service">服務介紹</a></li>
+                <li class="acd-sub"><a href="/Service/1">&#x8F14;&#x5177;&#x88DC;&#x52A9;&#x7533;&#x8ACB;</a></li>
+                <li class="acd-sub"><a href="/Service/2">&#x8F14;&#x5177;&#x8A55;&#x4F30;</a></li>
+                <li class="acd-sub"><a href="/Service/3">&#x4E8C;&#x624B;&#x8F14;&#x5177;</a></li>
+                <li class="acd-sub"><a href="/Service/4">&#x7528;&#x96FB;&#x512A;&#x60E0;</a></li>
+                <li class="acd-sub"><a href="/Service/6">&#x722C;&#x68AF;&#x6A5F;&#x670D;&#x52D9;</a></li>
+                <li class="acd-sub"><a href="/Service/5">&#x7279;&#x7D04;&#x5EE0;&#x5546;&#x67E5;&#x8A62;</a></li>
+                <li class="acd-sub"><a href="/Service/8">&#x52A9;&#x807D;&#x5668;&#x5C08;&#x5340;</a></li>
+                <li class="acd-sub"><a href="/Service/9">&#x80B2;&#x5152;&#x8F14;&#x5177;</a></li>
+        </ul>
+        <ul>
+            <li class="acd-big"><a href="/Notice">服務須知</a></li>
+                <li class="acd-sub"><a href="/Notice/1">&#x670D;&#x52D9;&#x9808;&#x77E5;</a></li>
+            <li class="acd-big">
+                <a href="/NewsInfo/76">線上申請</a>
+            </li>
+
+        </ul>
+        <ul>
+            <li class="acd-big"><a href="/Eform">補助項目及表單下載</a></li>
+            <li class="acd-big"><a href="/EducationClass">輔具相關衛教</a></li>
+                <li class="acd-sub"><a href="/EducationClass/1">&#x6B65;&#x884C;&#x8F14;&#x5177;&#x8D70;&#x5F97;&#x5999;</a></li>
+                <li class="acd-sub"><a href="/EducationClass/2">&#x5B89;&#x5168;&#x7701;&#x529B;&#x8F49;&#x79FB;&#x4F4D;</a></li>
+                <li class="acd-sub"><a href="/EducationClass/5">&#x5E8A;&#x4E0A;&#x64FA;&#x4F4D;&#x8207;&#x8A98;&#x767C;</a></li>
+                <li class="acd-sub"><a href="/EducationClass/6">&#x5C45;&#x5BB6;&#x74B0;&#x5883;&#x5982;&#x5EC1;&#x6C90;&#x6D74;</a></li>
+                <li class="acd-sub"><a href="/EducationClass/7">&#x8F2A;&#x6905;&#x4F7F;&#x7528;&#x8207;&#x64FA;&#x4F4D;</a></li>
+                <li class="acd-sub"><a href="/EducationClass/8">&#x547C;&#x5438;&#x985E;&#x8F14;&#x5177;&#x885B;&#x6559;</a></li>
+                <li class="acd-sub"><a href="/EducationClass/9">&#x80B2;&#x5152;&#x8F14;&#x5177;</a></li>
+                <li class="acd-sub"><a href="/EducationClass/10">&#x5176;&#x4ED6;&#x985E;</a></li>
+        </ul>
+        <ul>
+            <li class="acd-big"><a href="/News">訊息公告</a></li>
+            <li class="acd-sub"><a href="/News?type=1">常見問題</a></li>
+            <li class="acd-sub"><a href="/News?type=2">訊息專區</a></li>
+            <li class="acd-sub"><a href="/News?type=3">參訪及活動花絮</a></li>
+            <li class="acd-big"><a href="/Traffic">聯絡/交通資訊</a></li>
+        </ul>
+    </section>
+    <footer>
+        <div class="ft1">© New Taipei City Assistive Device Center. <span>ALL Rights Reserved.</span></div>
+        <div class="ft1">今日日期：2026-10-08　<span>(自2020-06)累積人數：2304792</span>　當日人數：942</div>
+        <a href="https://accessibility.moda.gov.tw/Applications/Detail?category=20250620114722" title="無障礙網站">
+            <img class="icon-aby" alt="通過AA檢測等級無障礙網頁檢測" src="/frontend/images/aby.png">
+        </a>
+    </footer>
+    <a href="#" id="btn-top" title="回頂部" role="button">Top</a>
+
+    <script src="https://www.google.com/recaptcha/api.js" async="" defer=""></script><script>var recaptchaValidated=function(e){var r=$('#');r.length&&r.hide()};$.validator.setDefaults({submitHandler:function(){var e=this,r=''!==grecaptcha.getResponse(),a='請驗證您不是機器人',t=$('#', e.currentForm);if(t.length===0)return !0;return a&&(r?t.length&&t.hide():(e.errorList.push({message:a}),$(e.currentForm).triggerHandler('invalid-form',[e]),t.length&&(t.html(a),t.show()))),r}});</script>
+    <script>
+
+        $(function () {
+            $("#input-search").keypress(function (e) {
+                code = (e.keyCode ? e.keyCode : e.which);
+                if (code == 13) {
+                    onClickPcSearch();
+                }
+            });
+
+            $("#mobile-input-search").keypress(function (e) {
+                code = (e.keyCode ? e.keyCode : e.which);
+                if (code == 13) {
+                    onClickMobileSearch();
+                }
+            });
+        });
+
+        function onClickPcSearch() {
+            var value = $("#input-search").val();
+            if (value.length > 0) {
+                window.location.href = "/Search?q=" + value;
+            }
+        }
+
+        function onClickMobileSearch() {
+            var value = $("#mobile-input-search").val();
+            if (value.length > 0) {
+                window.location.href = "/Search?q=" + value;
+            }
+        }
+
+    </script>
+
+<script>
+    $(function () {
+        
+    });
+
+
+    function onClickPrint() {
+
+
+        var title = '[&#x5206;&#x7AD9;&#x64DA;&#x9EDE;] &#x65B0;&#x5317;&#x5E02;&#x8F14;&#x5177;&#x4E2D;&#x5FC3;&#x53CA;&#x5404;&#x5206;&#x7AD9;&#x64DA;&#x9EDE;&#x670D;&#x52D9;&#x9805;&#x76EE;&#x5217;&#x8868;';
+        var divToPrint = document.getElementById("info-box");
+
+        var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+        mywindow.document.write('<html><head><title>' + title + '</title>');
+        mywindow.document.write('<link rel="stylesheet" type="text/css" href="/frontend/template.css">');
+        mywindow.document.write('</head><body style="padding:10px;">');
+        mywindow.document.write('<h1 class="main-title">' + title + '</h1>');
+        mywindow.document.write('<br>');
+        mywindow.document.write(divToPrint.outerHTML);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+        mywindow.print();
+        setTimeout(function () {
+            mywindow.close();
+        }, 2000);
+
+        //return true;
+    }
+</script>
+
+
+
+</body>
+</html>

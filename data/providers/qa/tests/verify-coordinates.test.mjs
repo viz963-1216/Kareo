@@ -74,12 +74,12 @@ test("a wrong count in a report summary fails", () => {
   assert.match(output, /section "summary" differs from the data/);
 });
 
-test("a wrong READY status in the coverage table fails", () => {
+test("an invented READY status in the coverage table fails", () => {
   const { status, output } = runGate(({ readText, writeText }) => {
     const text = readText(REPORT);
     const changed = text.replace(
-      /(\| HOME_CARE \| 臺北市 \| 萬華區 \|[^\n]*?)READY/,
-      "$1BLOCKED（缺座標）",
+      /(\| HOME_CARE \| 臺北市 \| 萬華區 \|[^\n]*?)BLOCKED[^|]*/,
+      "$1READY ",
     );
     assert.notEqual(changed, text);
     writeText(REPORT, changed);
@@ -223,6 +223,7 @@ test("a non-null coordinate without evidence never makes a group READY", () => {
 
 test("a Provider with unknown service areas blocks READY for its service type", () => {
   const dataset = loadRealDataset();
+  const priorUnknown = computeCoverage(dataset, checkEvidence(dataset).verifiedIds).byType.find(t => t.serviceType === "HOME_CARE").unknownArea;
   // NTPC-HC-003 has a verified coordinate; without its areas it is a possible hidden candidate.
   dataset.areas = dataset.areas.filter((area) => area.providerId !== "NTPC-HC-003");
   const { verifiedIds } = checkEvidence(dataset);
@@ -232,7 +233,7 @@ test("a Provider with unknown service areas blocks READY for its service type", 
   assert.equal(sanchong.status, "BLOCKED_UNKNOWN_SERVICE_AREA");
   const homeCare = groups.filter((g) => g.serviceType === "HOME_CARE");
   assert.equal(homeCare.filter((g) => g.status === "READY").length, 0);
-  assert.deepEqual(byType.find((t) => t.serviceType === "HOME_CARE").unknownArea, ["NTPC-HC-003"]);
+  assert.deepEqual(byType.find((t) => t.serviceType === "HOME_CARE").unknownArea.sort(), [...priorUnknown, "NTPC-HC-003"].sort());
 });
 
 test("evidence that fails a check does not count as verified", () => {
@@ -336,7 +337,7 @@ test("a conditional service-region must reference a recorded decision", () => {
 test("a wrong service-area-basis count in the report fails", () => {
   const { status, output } = runGate(({ readText, writeText }) => {
     const text = readText(REPORT);
-    const changed = text.replace("| HOME_CARE | 23 | 61 | 0 | 0 | 84 |", "| HOME_CARE | 24 | 60 | 0 | 0 | 84 |");
+    const changed = text.replace(/(<!-- A003:BEGIN service-area-basis -->[\s\S]*?\| HOME_CARE \| )\d+/, "$199999");
     assert.notEqual(changed, text);
     writeText(REPORT, changed);
   });

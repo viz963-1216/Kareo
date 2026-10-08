@@ -1107,3 +1107,9 @@ KNOWLEDGE_VERSION_WITHDRAWN
 # 42. PrivacyOperation (2026-10-05, B-015-r1)
 
 `privacy_operations`: request_id primary key; operator_id, session_id (restricted reference, not public), action, received_at, verified_at, verification_method, verification_ref, proxy_authority_ref, created_at, result_counts jsonb. No health/contact values, plaintext keys/token/hash, mail body or identification images. Only DATA_STEWARD through the protected operation; RLS enabled, no anon/authenticated privileges. Retain at most 1 year after execution, delete earlier when purpose ends; this is operational planning, not a legal universal period. Lookup/export each create a distinct audit reference. Reusing an operation reference fails, including on a changed target. A correction cancels nonterminal Lead with DATA_CORRECTED and invalidates its stale recommendation; terminal history remains. No new public response fields.
+
+## 19c. Provider 公開名冊補充（2026-10-08，Issue #106）
+
+`providers.public_info`：選填 JSONB（NULL 或 object）；沿用 Provider 既有 RLS／service_role 權限，不新增瀏覽器直連。來源檔 `data/providers/staging/provider-public-info.json` 為 `{providerId, publicInfo}` 陣列，以 sidecar 保留原始 Provider 指紋。
+
+publicInfo 欄位：`assistivePrograms`（PURCHASE／SMART_TECH 陣列）、`publicServices`（官方公共服務／制度分類文字陣列）、`notice`（string 或 null，原始評鑑、未特約、分站限制）、`sourceUrl`（官方 https）、`checkedAt`（YYYY-MM-DD）。禁止個案資料或來源負責人姓名。這些資料不形成 ProviderServiceArea，也不作個人補助核定。匯入須拒絕格式錯誤、重複／孤立 sidecar。舊匯入沒有 publicInfo 時保留既有值，避免不知情清空。

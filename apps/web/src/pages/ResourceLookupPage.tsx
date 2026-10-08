@@ -1,3 +1,4 @@
+import { assistiveProgramLabels, resourceServices } from "../resources/publicInfo";
 import { demoMode } from "../demo";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
@@ -63,13 +64,14 @@ function ResourceCard({ item, from }: { item: ResourceLookupItem; from: string }
       <p className="provider-type">{resourceLabels[item.resourceCategory]}</p>
       <h3 id={`resource-${item.id}`}>{item.name}</h3>
       <dl className="provider-details">
-        <div><dt>服務</dt><dd>{item.services.length ? item.services.map((service) => serviceLabels[service]).join("、") : "不適用"}</dd></div>
+        <div><dt>服務</dt><dd>{resourceServices(item.resourceCategory, item.services.map(service => serviceLabels[service]), item.publicInfo)}</dd></div>
         <div><dt>所在地</dt><dd>{item.city} {item.district}</dd></div>
         <div><dt>地址</dt><dd>{item.address}</dd></div>
         <div><dt>電話</dt><dd><a href={`tel:${item.phone}`}>{item.phone}</a></dd></div>
       </dl>
+      {item.publicInfo && <><p>{item.publicInfo.assistivePrograms.map(p => assistiveProgramLabels[p]).join("／")}</p>{item.publicInfo.notice && <p className="field-hint">{item.publicInfo.notice}</p>}<p className="field-hint">查核：{item.publicInfo.checkedAt} · <a href={safeHttpUrl(item.publicInfo.sourceUrl)} target="_blank" rel="noopener noreferrer">官方名冊來源（開啟新分頁）</a></p></>}
       <p className="verification-note">{item.verified ? "平台已確認基本資料" : "基本資料尚未經平台確認"}；此標示不代表政府認證。</p>
-      {item.serviceAreaStatus === "UNCONFIRMED" && <p className="area-status unconfirmed">服務範圍待確認，請洽機構</p>}
+      {item.serviceAreaStatus === "UNCONFIRMED" && item.resourceCategory !== "ASSISTIVE_DEVICE_CENTER" && <p className="area-status unconfirmed">服務範圍待確認，請洽機構</p>}
       {item.contractRegions.length > 0 && (
         <ul className="contract-region-list" aria-label="特約縣市">
           {item.contractRegions.map((region) => <li key={`${region.city}-${region.serviceType}`}>列於{region.city}輔具特約廠商名單</li>)}
@@ -163,12 +165,21 @@ export function ResourceLookupPage() {
               value={form.serviceType}
               disabled={form.resourceCategory === "ASSISTIVE_DEVICE_CENTER"}
               aria-describedby={form.resourceCategory === "ASSISTIVE_DEVICE_CENTER" ? "center-service-hint" : undefined}
-              onChange={(event) => setForm((current) => ({ ...current, serviceType: event.target.value as LookupForm["serviceType"] }))}
+              onChange={(event) => setForm((current) => ({ ...current, serviceType: event.target.value as LookupForm["serviceType"], assistiveProgram: event.target.value === "ASSISTIVE_DEVICE" || event.target.value === "" ? current.assistiveProgram : "" }))}
             >
               <option value="">全部服務</option>
               {Object.entries(serviceLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
             </select>
             {form.resourceCategory === "ASSISTIVE_DEVICE_CENTER" && <span id="center-service-hint" className="field-hint">輔具資源中心不適用服務類別篩選。</span>}
+          </label>
+          <label>
+            輔具分類
+            <select value={form.assistiveProgram} disabled={form.resourceCategory === "ASSISTIVE_DEVICE_CENTER" || !!form.serviceType && form.serviceType !== "ASSISTIVE_DEVICE"} onChange={event => setForm(current => ({ ...current, assistiveProgram: event.target.value as LookupForm["assistiveProgram"] }))}>
+              <option value="">全部輔具分類</option>
+              <option value="PURCHASE">輔具購置（長照／身障）</option>
+              <option value="SMART_TECH">智慧科技輔具</option>
+            </select>
+            <span className="field-hint">依臺北市社會局官方名冊分類；特約與補助資格仍依核定規定。</span>
           </label>
           <label>
             縣市
@@ -229,7 +240,7 @@ export function ResourceLookupPage() {
       {(state.status === "success" || state.status === "empty") && (
         <section className="resource-results" aria-live="polite">
           <h2>查詢結果</h2>
-          <p className="result-count">共 {state.response.totalCount} 筆</p>
+          <p className="result-count">目前收錄符合條件 {state.response.totalCount} 筆</p>
           <div className="resource-notice"><p>{state.response.notice}</p></div>
           {state.response.appliedFilters.areaFilter === "SERVICE_AREA"
             && typeof state.response.unconfirmedCount === "number"

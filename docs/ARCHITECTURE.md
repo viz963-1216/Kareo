@@ -796,3 +796,7 @@ Postgres function：在單一交易內只做寫入（upsert）
 ## D-05 protected data-rights processing (2026-10-05, B-015-r1)
 
 The DATA_STEWARD-only privacy CLI receives an independently verified, exact case target from a private request file. It never exposes a visitor-callable administration endpoint. Node verifies the personal key before querying; a security-invoker RPC rechecks the active operator/key hash/role under a SHARE lock. Session is locked before consent/lead/assessment. Successful reads and changes commit a minimal privacy_operation audit in the same transaction; failure exposes only a safe code. Export goes only to a restricted exclusive file. Corrections reuse the existing input validator, published resolver and rule engine; a stale source timestamp or publication aborts, old recommendations are removed and outstanding outreach based on wrong answers is cancelled. See TASK-B-015 and PRIVACY_REQUEST_RUNBOOK.
+
+## 公開名冊整合（2026-10-08，Issue #106）
+
+中央整合批准追加 Provider public_info 欄位及擴充既有 import_provider_dataset 原子匯入；原子用途不增加。lookup／detail 經 server-only repository 讀取同一來源，公開快照從同一 sidecar 組合；禁止把特約分類推定為到府範圍。大量子表讀取須分批避免 PostgREST 1000 列限制截斷，公開資料量不再假設只有 30 家。

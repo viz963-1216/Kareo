@@ -25,6 +25,7 @@ const RESOURCE_CATEGORIES: ProviderResourceCategory[] = ["SERVICE_PROVIDER", "AS
 const SERVICE_TYPES: ProviderServiceType[] = ["HOME_CARE", "HOME_MEDICAL_NURSING", "ASSISTIVE_DEVICE"];
 const AREA_FILTERS: AreaFilter[] = ["LOCATED_IN", "SERVICE_AREA"];
 const KNOWN_PARAMS = new Set([
+  "assistiveProgram",
   "resourceCategory",
   "serviceType",
   "city",
@@ -42,6 +43,7 @@ function isOneOf<T extends string>(value: unknown, allowed: readonly T[]): value
 }
 
 interface ParsedQuery {
+  assistiveProgram?: "PURCHASE" | "SMART_TECH";
   resourceCategory: ProviderResourceCategory | null;
   serviceType: ProviderServiceType | null;
   city: string | null;
@@ -85,6 +87,9 @@ function parseQuery(query: Record<string, unknown> | null | undefined): ParsedQu
   if (resourceCategory === "ASSISTIVE_DEVICE_CENTER" && serviceType !== null) {
     throw new AppError("VALIDATION_ERROR", "輔具資源中心不適用服務類別篩選，請擇一使用。");
   }
+
+  const assistiveProgram = raw("assistiveProgram");
+  if (q.assistiveProgram !== undefined && (!isOneOf(assistiveProgram, ["PURCHASE", "SMART_TECH"] as const) || resourceCategory === "ASSISTIVE_DEVICE_CENTER" || serviceType !== null && serviceType !== "ASSISTIVE_DEVICE")) throw new AppError("VALIDATION_ERROR", "輔具制度分類不合法或與資源類別不一致。");
 
   const cityRaw = raw("city");
   let city: string | null = null;
@@ -169,7 +174,7 @@ function parseQuery(query: Record<string, unknown> | null | undefined): ParsedQu
     pageSize = n;
   }
 
-  return { resourceCategory, serviceType, city, district, areaFilter, includeUnconfirmed, contractCity, q: keyword, page, pageSize };
+  return { ...(assistiveProgram ? { assistiveProgram: assistiveProgram as "PURCHASE" | "SMART_TECH" } : {}), resourceCategory, serviceType, city, district, areaFilter, includeUnconfirmed, contractCity, q: keyword, page, pageSize };
 }
 
 function sortKey(city: string, district: string, id: string): [number, number, string] {
@@ -218,6 +223,7 @@ export async function lookupProviders(
   for (const candidate of candidates) {
     const { provider, services, serviceAreas, contractRegions } = candidate;
 
+    if (filters.assistiveProgram && (!services.includes("ASSISTIVE_DEVICE") || !provider.publicInfo?.assistivePrograms.includes(filters.assistiveProgram))) continue;
     if (filters.resourceCategory !== null && provider.resourceCategory !== filters.resourceCategory) continue;
     if (filters.serviceType !== null && !services.includes(filters.serviceType)) continue;
     if (filters.q !== null && !provider.name.includes(filters.q)) continue;
@@ -231,6 +237,7 @@ export async function lookupProviders(
     const serviceAreaStatus: ServiceAreaStatus = serviceAreas.length > 0 ? "VERIFIED" : "UNCONFIRMED";
     const publicContractRegions = contractRegions.map((r) => ({ city: r.city, serviceType: r.serviceType }));
     const baseItem: Omit<ProviderLookupItem, "areaMatch"> = {
+      ...(provider.publicInfo ? { publicInfo: provider.publicInfo } : {}),
       id: provider.id,
       name: provider.name,
       type: provider.type,
@@ -279,6 +286,7 @@ export async function lookupProviders(
   const items = all.slice(start, start + filters.pageSize);
 
   const appliedFilters: ProviderLookupAppliedFilters = {
+    ...(filters.assistiveProgram ? { assistiveProgram: filters.assistiveProgram } : {}),
     resourceCategory: filters.resourceCategory,
     serviceType: filters.serviceType,
     city: filters.city,

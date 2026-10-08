@@ -1,0 +1,1784 @@
+[
+  {
+    "serial": 1,
+    "name": "財團法人天主教失智老人社會福利基金會附設臺北市私立聖若瑟居家式服務類長期照顧服務機構",
+    "address": "臺北市萬華區東園街140巷7號2樓",
+    "phone": "02-2309-8728",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "中正、萬華、大同、中山"
+  },
+  {
+    "serial": 2,
+    "name": "財團法人台北市立心慈善基金會附設臺北市私立立心居家式服務類長期照顧服務機構",
+    "address": "臺北市萬華區艋舺大道120巷39弄3號2樓",
+    "phone": "02-2336-1555",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "中正、萬華、大同"
+  },
+  {
+    "serial": 3,
+    "name": "臺北市私立寬安居家長照機構",
+    "address": "臺北市萬華區莒光路328號6樓",
+    "phone": "02-2308-1977",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "大安、中正、萬華、大同、中山"
+  },
+  {
+    "serial": 4,
+    "name": "財團法人中華民國佛教慈濟慈善事業基金會臺北市私立慈濟居家長照機構",
+    "address": "臺北市萬華區莒光路222號5樓",
+    "phone": "02-2302-3479",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 5,
+    "name": "中華民國紅十字會附設私立博愛居家長照機構",
+    "address": "臺北市萬華區康定路62號11樓",
+    "phone": "02-2331-050023628232*402(業負)",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "中正、萬華、大同、中山"
+  },
+  {
+    "serial": 6,
+    "name": "臺北市私立大心居家長照機構",
+    "address": "臺北市萬華區康定路348號2樓之1",
+    "phone": "02-2339-0179",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "文山、中正、萬華、大同"
+  },
+  {
+    "serial": 7,
+    "name": "有限責任臺北市全國照服員勞動合作社附設臺北市私立全方位居家長照機構",
+    "address": "臺北市萬華區青年路106巷9號",
+    "phone": "02-23033909",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "萬華區、中正區、大同區"
+  },
+  {
+    "serial": 8,
+    "name": "臺北市私立璞馨居家長照機構",
+    "address": "臺北市萬華區東園街66巷21弄51號2樓",
+    "phone": "02-2305-6626",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "中正、萬華、大同、中山"
+  },
+  {
+    "serial": 9,
+    "name": "紙飛機服務科技股份有限公司附設臺北市私立紙飛機居家長照機構",
+    "address": "臺北市萬華區西園路1段200號8樓之2",
+    "phone": "0909-139394",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "萬華、大同、中山、南港、內湖、信義、松山、大安、士林、北投"
+  },
+  {
+    "serial": 10,
+    "name": "私立愛吾愛居家長照機構",
+    "address": "臺北市萬華區大理街171之1號2樓207室",
+    "phone": "02-2308-7286",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 11,
+    "name": "普眾股份有限公司附設臺北市私立普眾居家長照機構",
+    "address": "臺北市南港區昆陽街152巷39號1樓",
+    "phone": "02-27887966",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 12,
+    "name": "聖照股份有限公司附設臺北市私立邦寧居家長照機構",
+    "address": "臺北市信義區信義路4段375號6樓之6",
+    "phone": "0906-502581",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "信義、大安、中正、中山、南港"
+  },
+  {
+    "serial": 13,
+    "name": "北醫大管理顧問股份有限公司附設私立君蔚居家長照機構",
+    "address": "臺北市信義區信義路4段375號4樓之7",
+    "phone": "02-2345-5288",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "信義區、大安區"
+  },
+  {
+    "serial": 14,
+    "name": "福田居家有限公司私立福田居家長照機構",
+    "address": "臺北市信義區忠孝東路5段492巷2號2樓",
+    "phone": "02-2727-0065",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 15,
+    "name": "智慧長照有限公司附設臺北市私立愛關懷居家長照機構",
+    "address": "臺北市信義區忠孝東路5段1號2樓207室",
+    "phone": "02-7729-7769",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "松山、大安、信義、文山、士林、內湖、南港"
+  },
+  {
+    "serial": 16,
+    "name": "臺北市私立心康樂居家長照機構",
+    "address": "臺北市信義區和平東路3段391巷8弄50號3樓",
+    "phone": "0933-043218",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "未特約"
+  },
+  {
+    "serial": 17,
+    "name": "碩穎健康股份有限公司附設臺北市私立碩穎居家長照機構",
+    "address": "臺北市信義區富陽街29號1樓",
+    "phone": "02-2737-2704",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "信義、松山、大安"
+  },
+  {
+    "serial": 18,
+    "name": "臺北市私立千意居家長照機構",
+    "address": "臺北市松山區復興南路㇐段37號2樓",
+    "phone": "0939313982",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "內湖、南港、松山"
+  },
+  {
+    "serial": 19,
+    "name": "財團法人弘道老人福利基金會附設臺北市私立弘道居家式服務類長期照顧服務機構",
+    "address": "臺北市松山區復興北路451號1樓",
+    "phone": "02-6613-1314",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "松山"
+  },
+  {
+    "serial": 20,
+    "name": "東和居家有限公司附設臺北市私立東和居家長照機構",
+    "address": "臺北市松山區南京東路四段170號4樓之1",
+    "phone": "02-6605-0630",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 21,
+    "name": "財團法人佳醫健康基金會附設臺北市私立佳醫居家長照機構",
+    "address": "臺北市松山區南京東路五段8-10號503室",
+    "phone": "02-25280502",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 22,
+    "name": "愛馨居服有限公司附設臺北市私立愛馨居家長照機構",
+    "address": "臺北市松山區南京東路5段230號2樓之1、2、3",
+    "phone": "02-2341-5924",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "信義、松山、大安、文山、中正、萬華、內湖、南港"
+  },
+  {
+    "serial": 23,
+    "name": "㇐心健康事業股份有限公司附設臺北市私立繫心居家長照機構",
+    "address": "臺北市松山區延吉街11號4樓之1(A室)",
+    "phone": "02-2578-1008",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "松山、信義、大安、中山、中正、大同、南港、內湖、北投、萬華、士林"
+  },
+  {
+    "serial": 24,
+    "name": "臺北市私立㇐心居家長照機構",
+    "address": "臺北市松山區延吉街11號4樓之1",
+    "phone": "02-2578-1018",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "松山、信義、大安、中山、中正、大同、南港、內湖、北投、萬華、士林"
+  },
+  {
+    "serial": 25,
+    "name": "臺北市私立暖心居家長照機構",
+    "address": "臺北市萬華區萬大路323號7樓702室",
+    "phone": "02-7751-5315",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "士林、中正、萬華、大同"
+  },
+  {
+    "serial": 26,
+    "name": "秉心有限公司附設臺北市私立秉心居家長照機構",
+    "address": "臺北市松山區光復北路119之1號2樓",
+    "phone": "02-276666830932-154153(主打)",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 27,
+    "name": "耆康實業有限公司附設臺北市私立小太陽居家長照機構",
+    "address": "臺北市松山區光復北路95號3樓(318室)",
+    "phone": "02-2742-0058",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 28,
+    "name": "有限責任臺北市樂見在照顧服務勞動合作社附設私立樂見在居家長照機構",
+    "address": "臺北市松山區八德路2段447號7樓",
+    "phone": "02-2731-8649",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 29,
+    "name": "喜樂園長照股份有限公司附設臺北市私立喜樂園居家長照機構",
+    "address": "臺北市松山區八德路4段123號2樓之4",
+    "phone": "02-2760-2270",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 30,
+    "name": "財團法人伊甸社會福利基金會附設臺北市私立台北居家式服務類長期照顧服務機構",
+    "address": "臺北市北投區裕民六路120號3樓C棟",
+    "phone": "02-2821-0320",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "士林、北投、松山、文山"
+  },
+  {
+    "serial": 31,
+    "name": "忠孝事業有限公司附設臺北市私立忠孝居家長照機構",
+    "address": "臺北市北投區明德路283號3樓",
+    "phone": "02-2822-60030977168330",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 32,
+    "name": "財團法人老五老基金會附設臺北市私立老五老居家式服務類長期照顧服務機構",
+    "address": "臺北市北投區石牌路1段14號3樓",
+    "phone": "02-2821-293902-2821-2959",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "北投、士林"
+  },
+  {
+    "serial": 33,
+    "name": "臺北市私立和美居家長照機構",
+    "address": "臺北市北投區北投路㇐段59號2樓",
+    "phone": "02-28918131",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "士林、北投"
+  },
+  {
+    "serial": 34,
+    "name": "樂昱有限公司附設臺北市私立樂昱居家長照機構",
+    "address": "臺北市北投區文林北路262號2樓",
+    "phone": "02-2822-5423",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 35,
+    "name": "臺北市私立永欣居家長照機構",
+    "address": "臺北市北投區中央北路二段371號1樓",
+    "phone": "02-2891-6364",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "士林、北投、中正、萬華、大同、中山、南港、內湖"
+  },
+  {
+    "serial": 36,
+    "name": "有限責任臺北市育坊社區照護勞動合作社私立育坊居家長照機構",
+    "address": "臺北市北投區大同街299號",
+    "phone": "02-2895-7520",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "士林、北投、大同、中山"
+  },
+  {
+    "serial": 37,
+    "name": "臺北市私立傑緣居家長照機構",
+    "address": "臺北市北投區大同街210號1樓",
+    "phone": "02-77422276",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "士林、北投、大同"
+  },
+  {
+    "serial": 38,
+    "name": "恩揚有限公司附設臺北市私立恩揚居家長照機構",
+    "address": "臺北市文山區羅斯福路5段225之1號1樓",
+    "phone": "02-2930-1999",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "松山、大安、文山、中正"
+  },
+  {
+    "serial": 39,
+    "name": "社團法人中華長照協會附設臺北市私立永樂居家長照機構",
+    "address": "臺北市文山區羅斯福路6段134號2樓",
+    "phone": "02-2930-6919",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "中正、大安、文山"
+  },
+  {
+    "serial": 40,
+    "name": "寶安健康有限公司附設臺北市私立鑫安居家長照機構",
+    "address": "臺北市文山區興隆路三段206巷10弄1號",
+    "phone": "2230-3056",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "文山"
+  },
+  {
+    "serial": 41,
+    "name": "惠安護康科技有限公司附設臺北市私立惠安居家長照機構",
+    "address": "臺北市文山區興隆路2段86巷2號1樓",
+    "phone": "0952-654002",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "文山、大安"
+  },
+  {
+    "serial": 42,
+    "name": "優活健康顧問有限公司附設臺北市私立優活居家長照機構",
+    "address": "臺北市文山區景福街133巷30號1樓",
+    "phone": "02-2933-6682",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "文山、信義、大安"
+  },
+  {
+    "serial": 43,
+    "name": "北醫大管理顧問股份有限公司附設私立杏芳居家長照機構",
+    "address": "臺北市文山區羅斯福路5段125號2樓",
+    "phone": "02-2935-0230#200",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "文山"
+  },
+  {
+    "serial": 44,
+    "name": "東和居家有限公司附設臺北市私立東正居家長照機構",
+    "address": "臺北市大安區敦化南路1段376號8樓之3(807室)",
+    "phone": "0937-802-863",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "大安、中正、文山、內湖、南港"
+  },
+  {
+    "serial": 45,
+    "name": "臺北市私立安家居家長照機構",
+    "address": "臺北市文山區景文街42號3樓302室",
+    "phone": "02-2933-3468",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "信義、松山、大安、文山、中正、萬華、大同、中山"
+  },
+  {
+    "serial": 46,
+    "name": "泉益居家有限公司附設臺北市私立泉益居家長照機構",
+    "address": "臺北市文山區保儀路38號1、2樓",
+    "phone": "02-86618880",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 47,
+    "name": "端豈資產管理股份有限公司附設臺北市私立端豈居家長照機構",
+    "address": "臺北市文山區忠順街㇐段18號1樓",
+    "phone": "2936-6360",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "信義、大安、文山"
+  },
+  {
+    "serial": 48,
+    "name": "臺北市私立前瞻居家長照機構",
+    "address": "臺北市文山區辛亥路四段21巷10號9樓",
+    "phone": "8931-2545",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 49,
+    "name": "沃恩有限公司附設臺北市私立耆樂居家長照機構",
+    "address": "臺北市內湖區成功路2段171號1樓",
+    "phone": "02-27946676",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "內湖、南港、士林"
+  },
+  {
+    "serial": 50,
+    "name": "臺北市私立康健居家式長照機構",
+    "address": "臺北市內湖區民權東路6段180巷6號6樓之18(A室)",
+    "phone": "02-87919104",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "內湖、南港、中山、松山、信義"
+  },
+  {
+    "serial": 51,
+    "name": "大安健康股份有限公司附設臺北市私立大安居家長照機構",
+    "address": "臺北市內湖區民權東路6段123巷16號6樓",
+    "phone": "02-8792-2936",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "內湖、松山、信義"
+  },
+  {
+    "serial": 52,
+    "name": "有限責任臺灣第二照顧服務勞動合作社附設臺北市私立二顧居家長照機構",
+    "address": "臺北市中正區羅斯福路㇐段102號8樓",
+    "phone": "02-25527608",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 53,
+    "name": "臺北市私立祝福居家長照機構",
+    "address": "臺北市中正區羅斯福路4段68號7樓之10(6810-E室)",
+    "phone": "02-29321396",
+    "privatePay": "",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "文山、中正、中山"
+  },
+  {
+    "serial": 54,
+    "name": "臺北市私立朵朵居家長照機構",
+    "address": "臺北市中正區齊東街78之1號1樓",
+    "phone": "02-23826700",
+    "privatePay": "",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "大安、中正、大同、中山"
+  },
+  {
+    "serial": 55,
+    "name": "潤田健康有限公司附設臺北市私立潤田居家長照機構",
+    "address": "臺北市中正區湖口街1之3號1樓",
+    "phone": "02-23435882",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "大安、中正、大同、信義、松山、文山、萬華"
+  },
+  {
+    "serial": 56,
+    "name": "京鶴實業有限公司附設臺北市私立悅康居家長照機構",
+    "address": "臺北市中正區許昌街42之1號7樓700室",
+    "phone": "02-23709008",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "松山、大安、萬華、中正、大同、中山、信義、士林、北投、內湖、南港"
+  },
+  {
+    "serial": 57,
+    "name": "社團法人台灣比較刑法學會附設臺北市私立誠實居家長照機構",
+    "address": "臺北市中正區重慶南路3段42之3號2樓",
+    "phone": "02-77515512",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "士林、北投、松山、中正、中山"
+  },
+  {
+    "serial": 58,
+    "name": "社團法人中華民國紅心字會附設臺北市私立紅心居家式服務類長期照顧服務機構",
+    "address": "臺北市中正區重慶南路1段43號3樓之2",
+    "phone": "02-2370-0267",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "信義、大安、文山"
+  },
+  {
+    "serial": 59,
+    "name": "美馨股份有限公司附設私立美美居家長照機構",
+    "address": "臺北市中正區襄陽路6號2樓",
+    "phone": "02-2370-0021",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 60,
+    "name": "社團法人台灣優質生命協會附設臺北市私立愛抵家居家長照機構",
+    "address": "臺北市中正區忠孝西路1段45號12樓之8",
+    "phone": "02-66040060",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "未特約"
+  },
+  {
+    "serial": 61,
+    "name": "耀生長期照顧服務股份有限公司附設臺北市私立耀生居家長照機構",
+    "address": "臺北市中正區懷寧街112號6樓、6樓之1",
+    "phone": "02-23932500",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "士林、內湖、南港、信義、松山、大安、文山、中正、萬華、大同、中山"
+  },
+  {
+    "serial": 62,
+    "name": "長安健照事業股份有限公司附設臺北市私立長安健照事業居家長照機構",
+    "address": "臺北市中正區忠孝東路1段35號10樓D室",
+    "phone": "02-25810519",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "松山、中正、萬華、大同、中山、南港、大安、士林、北投、信義"
+  },
+  {
+    "serial": 63,
+    "name": "博珍服務事業股份有限公司附設臺北市私立博珍居家長照機構",
+    "address": "臺北市大安區忠孝東路4段290號10樓1013室",
+    "phone": "02-23889028",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "大安、中正、中山"
+  },
+  {
+    "serial": 64,
+    "name": "財團法人宜蘭縣私立力麗社會福利慈善事業基金會附設臺北市私立力麗居家式服務類長期照顧服務機構",
+    "address": "臺北市中正區和平西路1段107號",
+    "phone": "02-2393-8326",
+    "privatePay": "V",
+    "evaluation": "110年評鑑合格",
+    "contractArea": "中正、大安、信義、松山、中山"
+  },
+  {
+    "serial": 65,
+    "name": "元愷有限公司附設臺北市私立安愷居家長照機構",
+    "address": "臺北市中山區長安東路1段21號3樓",
+    "phone": "02-2522-1993",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 66,
+    "name": "凱風長照股份有限公司附設臺北市私立凱風新生北綜合長照機構",
+    "address": "臺北市中山區新生北路三段56巷17號1樓",
+    "phone": "2599-6683",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "大安、中山"
+  },
+  {
+    "serial": 67,
+    "name": "臺北市私立愛家居家長照機構",
+    "address": "臺北市中山區新生北路3段87巷23號",
+    "phone": "02-259669340933-599-144",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 68,
+    "name": "謙和園健康福祉有限公司附設臺北市私立溫邸家居家長照機構",
+    "address": "臺北市中山區新生北路2段72巷23號1樓",
+    "phone": "02-25681589",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 69,
+    "name": "溫心企業有限公司附設臺北市私立溫心居家長照機構",
+    "address": "臺北市中山區復興北路62號3樓之1(6室)",
+    "phone": "02-2751-0515",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "松山、中山、大同"
+  },
+  {
+    "serial": 70,
+    "name": "詮順居家長照有限公司附設臺北市私立詮順居家長照機構",
+    "address": "臺北市中山區復興北路62號7樓",
+    "phone": "02-2773-039802-2773-0259",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 71,
+    "name": "芊潁顧問有限公司附設臺北市私立芊潁居家長照機構",
+    "address": "臺北市中山區建國北路3段94號2樓D201室",
+    "phone": "02-2508-0383",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 72,
+    "name": "瑞禾長照有限公司附設私立春江居家長照機構",
+    "address": "臺北市中山區松江路293之705號G室",
+    "phone": "02-6623-6828",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "中山、士林、內湖"
+  },
+  {
+    "serial": 73,
+    "name": "辰逸有限公司附設臺北市私立辰逸居家長照機構",
+    "address": "臺北市中山區南京東路2段137號14樓(118室)",
+    "phone": "02-7755-3620",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "大同、中山、松山"
+  },
+  {
+    "serial": 74,
+    "name": "安德利互聯網股份有限公司附設臺北市私立安德利居家長照機構",
+    "address": "臺北市中山區五常街51號2樓",
+    "phone": "0953-79031502-25119069",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "內湖、南港、松山、中山、萬華、士林、北投、大安、文山、信義、大同"
+  },
+  {
+    "serial": 75,
+    "name": "安心好生活股份有限公司附設臺北市私立佳愛居家長照機構",
+    "address": "臺北市中山區長安東路2段230號6樓之5",
+    "phone": "02-2711-0922",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "信義、松山、大安、中山"
+  },
+  {
+    "serial": 76,
+    "name": "臺北市私立安歆居家式服務類長期照顧服務機構",
+    "address": "臺北市中山區松江路50號3樓",
+    "phone": "02-2537-2586",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 77,
+    "name": "社團法人中國家庭教育協進會附設臺北市私立敬老居家式服務類長期照顧服務機構",
+    "address": "臺北市中山區松江路131之12號6樓",
+    "phone": "02-2509-026602-2509-056702-2509-0523",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 78,
+    "name": "美而美居家長照股份有限公司附設臺北市私立美而美居家長照機構",
+    "address": "臺北市中山區錦州街46號12樓之3(R06室)",
+    "phone": "02-2821-2412",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 79,
+    "name": "臺北市私立仁群居家長照機構",
+    "address": "臺北市中山區民族東路512巷12號1樓",
+    "phone": "02-2501-6299",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "松山、中山、大同"
+  },
+  {
+    "serial": 80,
+    "name": "瑞兆居服股份有限公司附設臺北市私立瑞兆居家長照機構",
+    "address": "臺北市中山區民生東路2段119號3樓之3",
+    "phone": "02-2537-3968",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "松山、大同、中山"
+  },
+  {
+    "serial": 81,
+    "name": "社團法人臺灣樂福國際慈善福利協會(沐浴車)",
+    "address": "臺北市南港區南港路3段93號3樓",
+    "phone": "0984-112366",
+    "privatePay": "",
+    "evaluation": "",
+    "contractArea": "臺北市全區(到宅沐浴車)"
+  },
+  {
+    "serial": 82,
+    "name": "社團法人寧祈全人健康生命關懷協會附設臺北市私立寧祈居家長照機構",
+    "address": "臺北市中山區民生東路1段42號12樓之14",
+    "phone": "02-2521-3282",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 83,
+    "name": "愛護家健康事業股份有限公司附設臺北市私立愛護家居家長照機構",
+    "address": "臺北市中山區中山北路3段31號7樓之1",
+    "phone": "02-2599-5665",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 84,
+    "name": "佳顧股份有限公司附設臺北市私立佳顧居家長照機構",
+    "address": "臺北市中山區中山北路2段102號11樓",
+    "phone": "02-2511-259502-2794-8016",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "士林、內湖、松山、大安、中山"
+  },
+  {
+    "serial": 85,
+    "name": "中華民國紅十字會台灣省分會附設臺北市私立紅十字居家式服務類長期照顧服務機構",
+    "address": "臺北市大安區新生南路3段20之1號2樓",
+    "phone": "02-2363-7794",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "內湖、南港、松山、大安、文山、中正、萬華"
+  },
+  {
+    "serial": 86,
+    "name": "銀享全球股份有限公司附設臺北市私立銀享居家長照機構",
+    "address": "臺北市大同區民權西路136號16樓之15",
+    "phone": "02-2700-98050903669397",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "信義、松山、大安、文山、中正、大同、中山"
+  },
+  {
+    "serial": 87,
+    "name": "臺北市私立燿翔居家長照機構",
+    "address": "臺北市大安區信義路四段279號8樓808室",
+    "phone": "0911-222-886",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "未特約"
+  },
+  {
+    "serial": 88,
+    "name": "社團法人台灣樂活服務發展協會附設臺北市私立樂活居家長照機構",
+    "address": "臺北市大同區民權西路136號十四樓之5",
+    "phone": "02-2755-2733",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "士林、北投、大安、大同"
+  },
+  {
+    "serial": 89,
+    "name": "德力居家有限公司附設臺北市私立德力居家長照機構",
+    "address": "臺北市信義區忠孝東路5段482號14樓之3",
+    "phone": "0978-634-913",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "信義、松山、大安"
+  },
+  {
+    "serial": 90,
+    "name": "臺北市私立可馨居家長照機構",
+    "address": "臺北市大安區忠孝東路4段162號12樓之3",
+    "phone": "02-2775-4695",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "南港、信義、松山、大安、文山、中正"
+  },
+  {
+    "serial": 91,
+    "name": "台灣居護股份有限公司附設臺北市私立聯承居家長照機構",
+    "address": "臺北市大安區敦化南路㇐段153號二樓",
+    "phone": "02-8258-808802-2711-9330",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "大安、文山、中正、南港、信義、松山"
+  },
+  {
+    "serial": 92,
+    "name": "社團法人台北市家庭照顧者關懷協會附設臺北市私立家協居家式服務類長期照顧服務機構",
+    "address": "臺北市大安區和平東路3段232號3樓",
+    "phone": "02-2739-8737",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "信義、松山、大安"
+  },
+  {
+    "serial": 93,
+    "name": "財團法人恆安社會福利慈善事業基金會附設臺北市私立恆安居家式服務類長期照顧服務機構",
+    "address": "臺北市大安區和平東路2段295號12樓",
+    "phone": "02-2333-1955",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 94,
+    "name": "財團法人獎卿護理展望基金會私立臺北居家長照機構",
+    "address": "臺北市大安區和平東路1段216號10樓",
+    "phone": "02-2364-6040",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "南港、大安、文山、信義"
+  },
+  {
+    "serial": 95,
+    "name": "臺北市私立老爺居家長照機構",
+    "address": "臺北市大安區安和路2段92號B1(A11室)",
+    "phone": "0988-125527",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "大安、文山"
+  },
+  {
+    "serial": 96,
+    "name": "辰信健康有限公司附設臺北市私立辰信居家長照機構",
+    "address": "臺北市大安區四維路198巷30弄10號2樓",
+    "phone": "02-2700-1966",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "信義、松山、大安、中正、中山"
+  },
+  {
+    "serial": 97,
+    "name": "聯心健康顧問有限公司附設臺北市私立聯珩居家長照機構",
+    "address": "臺北市大安區復興南路1段368號13樓A6",
+    "phone": "02-2701-5685",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "松山、大安、信義"
+  },
+  {
+    "serial": 98,
+    "name": "盤古銀髮股份有限公司附設臺北市私立家倍安居家長照機構",
+    "address": "臺北市大同區民權西路118巷12號1樓",
+    "phone": "02-2553-9586",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "大同區、中山區、萬華區、中正區、士林區"
+  },
+  {
+    "serial": 99,
+    "name": "傳家寶國際青銀教育有限公司私立傳家寶居家長照機構",
+    "address": "臺北市中山區松江路124巷23號5樓",
+    "phone": "2557-0968",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "松山、大同、中山"
+  },
+  {
+    "serial": 100,
+    "name": "嘉陞健康事業股份有限公司附設臺北市私立嘉陞居家長照機構",
+    "address": "臺北市大同區重慶北路1段83巷22號1樓",
+    "phone": "0921-148107",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "萬華、大同、中山、士林、北投"
+  },
+  {
+    "serial": 101,
+    "name": "康捷居家長照有限公司附設臺北市私立康捷居家式服務類長期照顧服務機構",
+    "address": "臺北市大同區民權西路225巷6號1樓",
+    "phone": "02-25995980",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 102,
+    "name": "臺北市私立麗康居家長照機構",
+    "address": "臺北市中山區中山北路2段162號7樓之1(706室)",
+    "phone": "02-2553-2379",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "士林區、中正區、萬華區、大同區、中山區"
+  },
+  {
+    "serial": 103,
+    "name": "松德長照事業有限公司附設臺北市私立松德居家長照機構",
+    "address": "臺北市大同區西寧北路112號2樓之4",
+    "phone": "02-2550-7869",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "大同、萬華、中山"
+  },
+  {
+    "serial": 104,
+    "name": "宗展股份有限公司附設臺北市私立辰心居家長照機構",
+    "address": "臺北市大同區西寧北路112號4樓之1",
+    "phone": "02-2550-1966",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 105,
+    "name": "樂福健康事業有限公司附設臺北市私立樂福居家長照機構",
+    "address": "臺北市大同區西寧北路81號5樓之2",
+    "phone": "02-25598079",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 106,
+    "name": "優福國際股份有限公司附設臺北市私立優福居家長照機構",
+    "address": "臺北市大同區延平北路三段4號5樓(508室)",
+    "phone": "0976-804-827",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "大安、大同、信義、萬華"
+  },
+  {
+    "serial": 107,
+    "name": "臺北市私立悠樂活居家長照機構",
+    "address": "臺北市大同區重慶北路㇐段67號3樓",
+    "phone": "02-77467520",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 108,
+    "name": "馨瀅股份有限公司附設私立馨瀅居家長照機構",
+    "address": "臺北市大同區迪化街㇐段149號3樓",
+    "phone": "02-2552-7626",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 109,
+    "name": "奇恩健康有限公司附設臺北市私立翔旭居家長照機構",
+    "address": "臺北市大同區寧夏路23-1號2樓206室",
+    "phone": "0955-568486",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "信義、大安、大同、萬華、士林、松山"
+  },
+  {
+    "serial": 110,
+    "name": "育和有限公司附設臺北市私立育和居家長照機構",
+    "address": "臺北市大同區寧夏路23-1號2樓202室",
+    "phone": "0918-026-709",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "大安區、中正區、萬華區、大同區、中山區"
+  },
+  {
+    "serial": 111,
+    "name": "臺北市立聯合醫院居家式服務類長期照顧服務機構",
+    "address": "臺北市大同區鄭州路145號1樓",
+    "phone": "02-2555-3000",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "士林、北投、南港、信義、松山、大安、中正、萬華、大同、中山"
+  },
+  {
+    "serial": 112,
+    "name": "臺北市私立樂齡居家長照機構",
+    "address": "臺北市大同區重慶北路㇐段30號3樓(316室)",
+    "phone": "0920-851-115",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "萬華、大同、松山、大安"
+  },
+  {
+    "serial": 113,
+    "name": "臺北市私立跑居家長照機構",
+    "address": "臺北市士林區重慶北路4段248號3樓313室",
+    "phone": "02-2816-1255",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "士林、北投、松山、中正、萬華、大同、中山"
+  },
+  {
+    "serial": 114,
+    "name": "鴻源長期照顧股份有限公司附設臺北市私立旭樂居家長照機構",
+    "address": "臺北市士林區承德路4段80巷2號3樓",
+    "phone": "02-2885-8000",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "士林、北投、萬華、大同、松山、內湖"
+  },
+  {
+    "serial": 115,
+    "name": "社團法人中華民國士林靈糧堂社會福利協會附設臺北市私立安馨居家式服務類長期照顧服務機構",
+    "address": "臺北市士林區延平北路5段83巷28弄11號1樓",
+    "phone": "02-2811-0515",
+    "privatePay": "V",
+    "evaluation": "112年評鑑合格",
+    "contractArea": "士林、北投、內湖、南港、松山、大同、中山"
+  },
+  {
+    "serial": 116,
+    "name": "鴻養銀髮事業股份有限公司附設臺北市私立常耕居家長照機構",
+    "address": "臺北市大同區酒泉街102號2樓",
+    "phone": "02-2815-1091",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "北投、士林、大同"
+  },
+  {
+    "serial": 117,
+    "name": "臺北市私立安民居家長照機構",
+    "address": "臺北市士林區文林路342號7樓K706室",
+    "phone": "02-2883-40740926-079-243",
+    "privatePay": "V",
+    "evaluation": "111年評鑑合格",
+    "contractArea": "士林、北投"
+  },
+  {
+    "serial": 118,
+    "name": "中化銀髮事業股份有限公司附設臺北市私立中化銀髮居家式服務類長期照顧服務機構",
+    "address": "臺北市士林區中山北路5段699巷1號1樓",
+    "phone": "02-2835-5058",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 119,
+    "name": "臺北市私立樂陽居家長照機構",
+    "address": "臺北市士林區士商路110號1樓",
+    "phone": "02-7751-6063",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "士林、北投、大同、松山、萬華、信義、大安、文山、內湖、南港"
+  },
+  {
+    "serial": 120,
+    "name": "財團法人私立廣恩老人養護中心",
+    "address": "新北市新店區北宜路2段579巷45號",
+    "phone": "02-2930-7999",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "信義、松山、大安、文山、中正、萬華、大同、中山"
+  },
+  {
+    "serial": 121,
+    "name": "新北市私立永安居家長照機構",
+    "address": "新北市新店區中正路399巷13號1樓",
+    "phone": "02-8665-6656",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 122,
+    "name": "社團法人愛福家協會附設新北市私立愛福家居家式服務類長期照顧服務機構",
+    "address": "新北市板橋區民權路7號4樓(A室)",
+    "phone": "02-2250-0177",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "中正、萬華、大同、大安、中山"
+  },
+  {
+    "serial": 123,
+    "name": "新北市私立常錦居家長照機構",
+    "address": "新北市板橋區國慶路149巷14弄8號",
+    "phone": "02-89520607",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "未特約"
+  },
+  {
+    "serial": 124,
+    "name": "齡活股份有限公司附設新北市私立齡活居家長照機構",
+    "address": "新北市板橋區海山路19號1樓(103室)",
+    "phone": "(02)7751-8056",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 125,
+    "name": "龍騰長期照護有限公司附設新北市私立童馨園居家長照機構",
+    "address": "新北市板橋區東門街32號3樓",
+    "phone": "0919-319-207",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "未特約"
+  },
+  {
+    "serial": 126,
+    "name": "有限責任新北市愛齡照護服務勞動合作社附設新北市私立到咖手居家長照機構",
+    "address": "新北市板橋區雙十路2段153號4樓",
+    "phone": "02-22726233",
+    "privatePay": "V",
+    "evaluation": "109年新北市評鑑合",
+    "contractArea": "格大同、中山、大安、中正"
+  },
+  {
+    "serial": 127,
+    "name": "新北市私立恩典居家長照機構",
+    "address": "新北市板橋區文化路二段451號4樓之1",
+    "phone": "02-22552916",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "未特約"
+  },
+  {
+    "serial": 128,
+    "name": "新北市私立恩勤居家長照機構",
+    "address": "新北市板橋區文化路1段189號7樓",
+    "phone": "0973-731340",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 129,
+    "name": "永愛居家長照有限公司附設新北市私立永愛居家長照機構",
+    "address": "新北市汐止區新台五路㇐段159號14樓",
+    "phone": "02-26430199",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "內湖、南港、松山"
+  },
+  {
+    "serial": 130,
+    "name": "財團法人天下為公社會福利慈善事業基金會附設新北市私立天下為公居家式服務類長期照顧服務機構",
+    "address": "新北市汐止區大同路三段425號",
+    "phone": "02-8648-8388",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 131,
+    "name": "社團法人中華長照協會附設新北市私立永樂居家式服務類長期照顧服務機構",
+    "address": "新北市永和區文化路155號",
+    "phone": "02-29212212",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "未特約"
+  },
+  {
+    "serial": 132,
+    "name": "天主教耕莘醫療財團法人附設新北市私立永和耕莘居家式服務類長期照顧服務機構",
+    "address": "新北市永和區中興街52巷1弄12號1樓",
+    "phone": "02-2928-6060#21400",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "中山、大同"
+  },
+  {
+    "serial": 133,
+    "name": "潤康長期照護有限公司附設新北市私立潤康居家長照機構",
+    "address": "新北市中和區景平路431巷68號1樓",
+    "phone": "02-77519133",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "信義、松山、大安、中正、萬華、大同、中山"
+  },
+  {
+    "serial": 134,
+    "name": "新北市私立立穎居家長照機構",
+    "address": "新北市中和區立德街204號3樓",
+    "phone": "0968-665686",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "未特約"
+  },
+  {
+    "serial": 135,
+    "name": "社團法人台灣立享長照服務教育發展協會附設新北市私立立享居家長照機構",
+    "address": "新北市中和區橋安街9號7樓",
+    "phone": "02-2248-0061",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "士林、松山、大安、中正、萬華、大同、中山"
+  },
+  {
+    "serial": 136,
+    "name": "財團法人台灣省私立健順養護中心附設新北市私立健順居家式服務類長期照顧服務機構",
+    "address": "新北市中和區大勇街96號2樓",
+    "phone": "02-7703-1978",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "松山、中山"
+  },
+  {
+    "serial": 137,
+    "name": "新北市私立旺福居家長照機構",
+    "address": "新北市三重區福隆路48號1樓",
+    "phone": "02-8985-7453",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "士林、北投、松山、大安、文山、中正、萬華、大同、中山"
+  },
+  {
+    "serial": 138,
+    "name": "有限責任新北市全人長照服務勞動合作社附設新北市私立全人居家長照機構",
+    "address": "新北市三重區集美街112巷51號",
+    "phone": "02-29757512",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 139,
+    "name": "新北市私立全曜居家式服務類長期照顧服務機構",
+    "address": "新北市三重區長元街100之2號1、2樓",
+    "phone": "02-2972-2060",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "臺北市全區"
+  },
+  {
+    "serial": 140,
+    "name": "樂銓管理顧問股份有限公司附設新北市私立樂銓居家長照機構",
+    "address": "新北市三重區正義北路210號9樓",
+    "phone": "02-29866262",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "士林、內湖、信義、松山、大安、中正、萬華、大同、中山"
+  },
+  {
+    "serial": 141,
+    "name": "靜安健康股份有限公司附設臺北市私立靜安健康居家長照機構",
+    "address": "臺北市南港區玉成街89之1號1樓",
+    "phone": "02-2653-53580975-250-820",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "大安、信義、南港"
+  },
+  {
+    "serial": 142,
+    "name": "采宣股份有限公司附設基隆市私立采宣居家式服務類長期照顧服務機構",
+    "address": "基隆市七堵區百六街111號",
+    "phone": "02-24510380",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "未特約"
+  },
+  {
+    "serial": 143,
+    "name": "愛斯特居服有限公司附設臺北市私立愛斯特居家長照機構",
+    "address": "臺北市大同區市民大道㇐段211號12樓之12、13",
+    "phone": "0922-225499",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "大同、萬華、松山、士林、大安"
+  },
+  {
+    "serial": 144,
+    "name": "臺北市私立容禾居家長照機構",
+    "address": "臺北市大同區承德路三段109號4樓",
+    "phone": "0933-655082",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "大同區、士林區"
+  },
+  {
+    "serial": 145,
+    "name": "好服有限公司附設臺北市私立顧得豪居家長照機構",
+    "address": "臺北市萬華區萬大路187巷42號1樓",
+    "phone": "0928-431620",
+    "privatePay": "V",
+    "evaluation": "113年評鑑合格",
+    "contractArea": "萬華"
+  },
+  {
+    "serial": 146,
+    "name": "天勤健康生活事業有限公司附設臺北市私立天勤居家長照機構",
+    "address": "臺北市大安區復興南路二段65號6F之5",
+    "phone": "77522272#260",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "大安、大同、萬華、松山、信義"
+  },
+  {
+    "serial": 147,
+    "name": "皓仁健康照護事業有限公司附設臺北市私立皓仁居家長照機構",
+    "address": "臺北市大安區四維路198巷29號2樓",
+    "phone": "02-770938660977028916(負責人)",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "大安、信義、文山"
+  },
+  {
+    "serial": 148,
+    "name": "真心健康事業有限公司附設臺北市私立真心居家長照機構",
+    "address": "臺北市大同區歸綏街209號5樓之1",
+    "phone": "02-2550-01080965-830-268",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "大同、士林、萬華"
+  },
+  {
+    "serial": 149,
+    "name": "善誠健康事業股份有限公司附設臺北市私立大安善誠居家長照機構",
+    "address": "臺北市大安區忠孝東路4段148號4樓之1",
+    "phone": "02-27790951",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "松山、大安、文山、南港"
+  },
+  {
+    "serial": 150,
+    "name": "佳臻有限公司附設臺北市私立佳臻居家長照機構",
+    "address": "臺北市大同區長安西路84號6樓之1",
+    "phone": "02-2559-81310975-331-162",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "大同"
+  },
+  {
+    "serial": 151,
+    "name": "安照股份有限公司附設臺北市私立安照居家長照機構",
+    "address": "臺北市松山區南京東路5段356號8樓之1(801室)",
+    "phone": "02-277731120966-226-801",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "內湖、信義、松山"
+  },
+  {
+    "serial": 152,
+    "name": "采鋐整合行銷股份有限公司附設臺北市私立采鋐照護伴隨居家長照機構",
+    "address": "臺北市信義區信義路5段5號2樓2B21及2B22室(M層)",
+    "phone": "(02)6626-9168(02)6626-8686分機184",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "信義、大安"
+  },
+  {
+    "serial": 153,
+    "name": "臺北市私立誠達居家長照機構",
+    "address": "臺北市信義區忠孝東路5段476號8樓802室",
+    "phone": "0935-191-597",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "信義、大安、松山"
+  },
+  {
+    "serial": 154,
+    "name": "守護星股份有限公司附設臺北市私立守護星居家長照機構",
+    "address": "臺北市大安區信義路四段296號15樓5-2室",
+    "phone": "(02)270128910952-120-626 (負責人)",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "大安、信義、松山"
+  },
+  {
+    "serial": 155,
+    "name": "凱安居家有限公司附設臺北市私立凱安居家長照機構",
+    "address": "臺北市大安區臥龍街291之1號",
+    "phone": "02-27111885'0963227924",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "大安、文山、松山"
+  },
+  {
+    "serial": 156,
+    "name": "泉益居家有限公司附設臺北市私立眾益居家長照機構",
+    "address": "臺北市萬華區萬大路322巷67號",
+    "phone": "02-2305-8860",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "萬華、大安、大同"
+  },
+  {
+    "serial": 157,
+    "name": "好拾光居家長照有限公司附設臺北市私立好拾光居家長照機構",
+    "address": "臺北市士林區重慶北路四段248號4樓(407室)",
+    "phone": "0955-166-071",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "士林、北投、內湖"
+  },
+  {
+    "serial": 158,
+    "name": "苷心有限公司附設臺北市私立苷心居家長照機構",
+    "address": "臺北市大安區車層里忠孝東路四段235號11樓1113室",
+    "phone": "0905817541",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "大安、信義、大同、松山、士林"
+  },
+  {
+    "serial": 159,
+    "name": "臺北市私立禾雅居家長照機構",
+    "address": "臺北市大安區和平東路三段20號8樓",
+    "phone": "(02)87719922",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "大安、信義、松山"
+  },
+  {
+    "serial": 160,
+    "name": "財團法人中華民國唐氏症基金會附設臺北市私立唐氏症居家長照機構",
+    "address": "臺北市南港區忠孝東路7段520號7樓",
+    "phone": "02-2789-1966",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "南港、內湖"
+  },
+  {
+    "serial": 161,
+    "name": "安心居家服務有限公司附設台北市私立安心居家長照機構",
+    "address": "臺北市大安區忠孝東路四段300號五樓",
+    "phone": "(02)77555066",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "大安、信義、南港"
+  },
+  {
+    "serial": 162,
+    "name": "夢想銀髮方舟股份有限公司附設臺北市私立花博居家長照機構",
+    "address": "臺北市松山區南京東路三段311號8樓",
+    "phone": "02-2545-5556",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "大安、松山、大同"
+  },
+  {
+    "serial": 163,
+    "name": "芯昀有限公司附設臺北市私立芯昀居家長照機構",
+    "address": "臺北市北投區珠海路31號㇐樓",
+    "phone": "02-2893-78780972972161",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "士林、北投"
+  },
+  {
+    "serial": 164,
+    "name": "四正勤關懷照護有限公司附設臺北市私立四正勤居家長照機構",
+    "address": "臺北市大同區延平北路3段4號5樓之1(R530室)",
+    "phone": "0965-331-778",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "大同、士林、松山"
+  },
+  {
+    "serial": 165,
+    "name": "善新健康事業有限公司附設臺北市私立善新居家長照機構",
+    "address": "臺北市萬華區昆明街 35-1號5樓",
+    "phone": "02-237069990932337877(業負)",
+    "privatePay": "V",
+    "evaluation": "114年評鑑不合格",
+    "contractArea": "大安、萬華、大同"
+  },
+  {
+    "serial": 166,
+    "name": "國軒企業有限公司附設臺北市私立國軒居家長照機構",
+    "address": "臺北市北投區中和街395號1樓",
+    "phone": "02-289-19157",
+    "privatePay": "V",
+    "evaluation": "114年評鑑合格",
+    "contractArea": "北投、士林"
+  },
+  {
+    "serial": 167,
+    "name": "長耘股份有限公司附設臺北市私立協樂居家長照機構",
+    "address": "臺北市大安區復興南路㇐段368號13樓(F1303室)",
+    "phone": "02-77288848轉00936200611",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "大安、松山、信義、士林、北投、南港、內湖"
+  },
+  {
+    "serial": 168,
+    "name": "湘寓蒔光有限公司附設臺北市私立湘寓蒔光居家長照機構",
+    "address": "臺北市北投區北投路2段9號5樓之2",
+    "phone": "02-28966188",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "北投、士林、大同"
+  },
+  {
+    "serial": 169,
+    "name": "龍騰長期照護有限公司附設臺北市私立童馨園居家長照機構",
+    "address": "臺北市萬華區萬大路323號7樓(705室)",
+    "phone": "0919319207",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "大同、萬華"
+  },
+  {
+    "serial": 170,
+    "name": "永欣健康股份有限公司附設臺北市私立金永欣居家長照機構",
+    "address": "臺北市北投區吉利街123巷16號1樓",
+    "phone": "02-2823-9008",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "北投區、士林區、大安區"
+  },
+  {
+    "serial": 171,
+    "name": "遠曜居家有限公司附設臺北市私立我在居家長照機構",
+    "address": "臺北市文山區忠順街1段16號1樓",
+    "phone": "0926-314-47502-86610355",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "信義區、文山區、大安區"
+  },
+  {
+    "serial": 172,
+    "name": "滿多多有限公司附設臺北市私立專心居家長照機構",
+    "address": "臺北市文山區興隆路4段165巷10號2樓200室",
+    "phone": "02-2230-6058",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "文山區、大安區"
+  },
+  {
+    "serial": 173,
+    "name": "承霖長照有限公司附設臺北市私立承霖居家長照機構",
+    "address": "臺北市大安區光復南路626號8樓之2",
+    "phone": "(02)2700-00680901403194",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "信義、松山、大安"
+  },
+  {
+    "serial": 174,
+    "name": "百佳健康事業有限公司附設臺北市私立百佳居家長照機構",
+    "address": "臺北市萬華區和平西路2段149號3樓之4",
+    "phone": "(02)2388-0119",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "文山、萬華、大同"
+  },
+  {
+    "serial": 175,
+    "name": "旭耀長期照顧股份有限公司附設臺北市私立旭耀居家長照機構",
+    "address": "臺北市北投區中和街63號2樓",
+    "phone": "02-28917999",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "士林、北投、大同"
+  },
+  {
+    "serial": 176,
+    "name": "護老生活有限公司附設臺北市私立護老互助居家長照機構",
+    "address": "臺北市大安區四維路198巷43號",
+    "phone": "0937819311",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "松山、大安、信義"
+  },
+  {
+    "serial": 177,
+    "name": "好好健康有限公司附設臺北市私立松泰居家長照機構",
+    "address": "臺北市松山區復興北路179號5樓19室",
+    "phone": "0963036682",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "松山、內湖、信義"
+  },
+  {
+    "serial": 178,
+    "name": "居達健康事業有限公司附設臺北市私立立達居家長照機構",
+    "address": "臺北市內湖區康寧路3段75巷137號B106室",
+    "phone": "0277462779",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "內湖、松山、南港"
+  },
+  {
+    "serial": 179,
+    "name": "晨穎長期照顧股份有限公司附設臺北市私立晨安居家長照機構",
+    "address": "臺北市士林區中山北路6段264號2樓",
+    "phone": "0228381616",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "士林、北投"
+  },
+  {
+    "serial": 180,
+    "name": "湧健生活有限公司附設臺北市私立湧健居家長照機構",
+    "address": "臺北市松山區南京東路4段120巷29弄32號1樓",
+    "phone": "093372153902-25777250",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "松山、內湖、信義"
+  },
+  {
+    "serial": 181,
+    "name": "社團法人台北市紅十字會附設臺北市私立松禾居家長照機構",
+    "address": "臺北市信義區信義路4段415號5樓之2",
+    "phone": "02-2758-3009",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "未特約"
+  },
+  {
+    "serial": 182,
+    "name": "亞拓管理顧問事業有限公司附設臺北市私立圓光居家長照機構",
+    "address": "臺北市大同區延平北路3段4之1號1樓101室",
+    "phone": "02-2598-24560933-530-091",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "大同、士林"
+  },
+  {
+    "serial": 183,
+    "name": "翔伶事業有限公司附設臺北市私立日夏居家長照機構",
+    "address": "臺北市信義區富陽街37號1樓",
+    "phone": "02-27371450",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "信義、大安、文山"
+  },
+  {
+    "serial": 184,
+    "name": "曜玥顧問有限公司附設臺北市私立曜玥居家長照機構",
+    "address": "臺北市士林區福港街272巷4號1樓",
+    "phone": "02-2881-0152",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "士林、北投"
+  },
+  {
+    "serial": 185,
+    "name": "恊宏長期照顧服務有限公司附設臺北市私立恊宏居家長照機構",
+    "address": "臺北市士林區重慶北路4段250號3樓308室",
+    "phone": "0902-001-985",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "士林、北投、內湖"
+  },
+  {
+    "serial": 186,
+    "name": "樂期頤有限公司附設臺北市私立樂期頤綜合長照機構",
+    "address": "臺北市士林區中山北路6段726號5樓",
+    "phone": "02-28768726",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "士林、北投、內湖"
+  },
+  {
+    "serial": 187,
+    "name": "全醫好健康有限公司附設臺北市私立十全居家長照機構",
+    "address": "臺北市大同區寧夏路11號11樓之12",
+    "phone": "0909-544-3880925-790-290",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "大同、士林、大安"
+  },
+  {
+    "serial": 188,
+    "name": "樂福健康事業有限公司附設臺北市私立樂欣居家長照機構",
+    "address": "臺北市大同區延平北路2段202號18樓801室",
+    "phone": "02-2550-9398",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "大同、士林、萬華"
+  },
+  {
+    "serial": 189,
+    "name": "紙飛機服務科技股份有限公司附設臺北市私立活水居家長照機構",
+    "address": "臺北市松山區南京東路5段8號4樓C室",
+    "phone": "02-2747-0365",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "松山、內湖、南港"
+  },
+  {
+    "serial": 190,
+    "name": "歲悅股份有限公司附設臺北市私立歲悅居家長照機構",
+    "address": "臺北市士林區社子街63巷21弄2號1樓",
+    "phone": "02-6604-5432",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "士林、北投、南港"
+  },
+  {
+    "serial": 191,
+    "name": "玖蒔有限公司附設臺北市私立玖玖居家長照機構",
+    "address": "臺北市士林區文林路342號7樓K703室",
+    "phone": "0983-313-977",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "士林、北投"
+  },
+  {
+    "serial": 192,
+    "name": "瑞澤頤康有限公司附設臺北市私立森活居家長照機構",
+    "address": "臺北市士林區文林路661巷13號1樓(第1室)",
+    "phone": "0908-818-969",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "士林、北投、內湖"
+  },
+  {
+    "serial": 193,
+    "name": "禧聚事業有限公司附設臺北市私立緣圓園居家長照機構",
+    "address": "臺北市內湖區行善路385號11樓之5",
+    "phone": "02-2790-0857/0916901751",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": ""
+  },
+  {
+    "serial": 194,
+    "name": "格格有限公司附設臺北市私立里長伯居家長照機構",
+    "address": "臺北市南港區玉成街66之8號B1(113室)",
+    "phone": "0922-777-542",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": ""
+  },
+  {
+    "serial": 195,
+    "name": "幸福樂高股份有限公司附設臺北市私立幸福樂高居家長照機構",
+    "address": "臺北市士林區延平北路5段178號2樓",
+    "phone": "02-7746-7520#803",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "士林、北投、內湖"
+  },
+  {
+    "serial": 196,
+    "name": "靖芯股份有限公司附設臺北市私立靖芯居家長照機構",
+    "address": "臺北市內湖區成功路4段192號10樓之7",
+    "phone": "02-8792-0363/'0921-154811",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": "內湖、南港"
+  },
+  {
+    "serial": 197,
+    "name": "泉益居家有限公司附設臺北市私立廣益居家長照機構",
+    "address": "臺北市內湖區民權東路6段180巷92之1號",
+    "phone": "0917738763",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": ""
+  },
+  {
+    "serial": 198,
+    "name": "念光有限公司附設臺北市私立念光居家長照機構",
+    "address": "臺北市士林區德行東路102之3號2樓",
+    "phone": "02-6609-0776",
+    "privatePay": "V",
+    "evaluation": "",
+    "contractArea": ""
+  }
+]

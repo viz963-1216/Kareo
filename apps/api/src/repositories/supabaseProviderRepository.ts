@@ -1,3 +1,5 @@
+import { isProviderPublicInfo } from "../services/providerPublicInfo.js";
+import { readPublicCatalogPages } from "./publicCatalogPagination.js";
 import { getSupabaseClient } from "./supabaseClient.js";
 import type {
   ProviderDatasetWrite,
@@ -9,6 +11,12 @@ import type {
 import type { Provider, ProviderDetailResponse, ProviderServiceType } from "../types/index.js";
 import { AppError } from "../errors/AppError.js";
 
+function publicMetadata(value: unknown) {
+  if (value === null || value === undefined) return {};
+  if (!isProviderPublicInfo(value)) throw new AppError("INTERNAL_ERROR", "公開資源資料格式不完整，請稍後再試。");
+  return { publicInfo: value };
+}
+
 export const IMPORT_PROVIDER_DATASET_RPC = "import_provider_dataset";
 
 // 組成 0005_import_provider_dataset.sql 預期的 payload：key 與資料表欄位名稱一致。
@@ -19,6 +27,7 @@ export function toImportPayload(dataset: ProviderDatasetWrite) {
       name: p.name,
       type: p.type,
       resource_category: p.resourceCategory,
+      ...(p.publicInfo ? { public_info: p.publicInfo } : {}),
       address: p.address,
       city: p.city,
       district: p.district,
@@ -63,7 +72,7 @@ export class SupabaseProviderRepository implements ProviderRepository {
 
     const { data: provider, error: providerError } = await client
       .from("providers")
-      .select("id, name, type, resource_category, address, city, district, phone, website, google_maps_url, verified, status")
+      .select("id, name, type, resource_category, public_info, address, city, district, phone, website, google_maps_url, verified, status")
       .eq("id", providerId)
       .maybeSingle();
 
@@ -106,6 +115,7 @@ export class SupabaseProviderRepository implements ProviderRepository {
     }
 
     return {
+      ...publicMetadata(provider.public_info),
       id: provider.id,
       name: provider.name,
       type: provider.type,
@@ -155,31 +165,24 @@ export class SupabaseProviderRepository implements ProviderRepository {
   async findEligibleForRecommendation(query: RecommendationCandidateQuery): Promise<Provider[]> {
     const client = getSupabaseClient();
 
-    const { data: services, error: servicesError } = await client
-      .from("provider_services")
-      .select("provider_id")
-      .eq("service_type", query.serviceType)
-      .eq("active", true);
-    if (servicesError) throw new AppError("INTERNAL_ERROR", "無法查詢服務類別，請稍後再試。", { cause: servicesError });
-
-    let areaQuery = client.from("provider_service_areas").select("provider_id").eq("active", true).eq("city", query.city);
-    if (query.district !== null) areaQuery = areaQuery.eq("district", query.district);
-    const { data: areas, error: areasError } = await areaQuery;
-    if (areasError) throw new AppError("INTERNAL_ERROR", "無法查詢服務範圍，請稍後再試。", { cause: areasError });
+    const services = await readPublicCatalogPages((start, end) => client.from("provider_services").select("provider_id").eq("service_type", query.serviceType).eq("active", true).order("id").range(start, end), "無法查詢服務類別，請稍後再試。");
+    const areas = await readPublicCatalogPages((start, end) => {
+      let request = client.from("provider_service_areas").select("provider_id").eq("active", true).eq("city", query.city);
+      if (query.district !== null) request = request.eq("district", query.district);
+      return request.order("id").range(start, end);
+    }, "無法查詢服務範圍，請稍後再試。");
 
     const serviceProviderIds = new Set((services ?? []).map((s) => s.provider_id));
     const areaProviderIds = new Set((areas ?? []).map((a) => a.provider_id));
     const eligibleIds = [...serviceProviderIds].filter((id) => areaProviderIds.has(id));
     if (eligibleIds.length === 0) return [];
 
-    const { data: providers, error: providersError } = await client
-      .from("providers")
-      .select("id, name, type, resource_category, address, city, district, lat, lng, phone, website, google_maps_url, status, verified, created_at, updated_at")
-      .in("id", eligibleIds)
-      .eq("status", "ACTIVE");
-    if (providersError) throw new AppError("INTERNAL_ERROR", "無法查詢 Provider，請稍後再試。", { cause: providersError });
+    const providers = await readPublicCatalogPages((start, end) => client.from("providers")
+      .select("id, name, type, resource_category, public_info, address, city, district, lat, lng, phone, website, google_maps_url, status, verified, created_at, updated_at")
+      .in("id", eligibleIds).eq("status", "ACTIVE").order("id").range(start, end), "無法查詢 Provider，請稍後再試。");
 
     return (providers ?? []).map((p) => ({
+      ...publicMetadata(p.public_info),
       id: p.id,
       name: p.name,
       type: p.type,
@@ -206,36 +209,16 @@ export class SupabaseProviderRepository implements ProviderRepository {
   async findActiveProvidersForLookup(): Promise<ProviderLookupCandidate[]> {
     const client = getSupabaseClient();
 
-    const { data: providers, error: providersError } = await client
+    const providers = await readPublicCatalogPages((start, end) => client
       .from("providers")
-      .select("id, name, type, resource_category, address, city, district, lat, lng, phone, website, google_maps_url, status, verified, created_at, updated_at")
-      .eq("status", "ACTIVE");
-    if (providersError) throw new AppError("INTERNAL_ERROR", "無法查詢 Provider，請稍後再試。", { cause: providersError });
-    if (!providers || providers.length === 0) return [];
-
-    const ids = providers.map((p) => p.id);
-
-    const { data: services, error: servicesError } = await client
-      .from("provider_services")
-      .select("provider_id, service_type")
-      .in("provider_id", ids)
-      .eq("active", true);
-    if (servicesError) throw new AppError("INTERNAL_ERROR", "無法查詢服務類別，請稍後再試。", { cause: servicesError });
-
-    const { data: areas, error: areasError } = await client
-      .from("provider_service_areas")
-      .select("provider_id, city, district")
-      .in("provider_id", ids)
-      .eq("active", true);
-    if (areasError) throw new AppError("INTERNAL_ERROR", "無法查詢服務範圍，請稍後再試。", { cause: areasError });
-
-    const { data: contractRegions, error: contractRegionsError } = await client
-      .from("provider_contract_regions")
-      .select("provider_id, city, service_type")
-      .in("provider_id", ids)
-      .eq("active", true);
-    if (contractRegionsError)
-      throw new AppError("INTERNAL_ERROR", "無法查詢特約縣市，請稍後再試。", { cause: contractRegionsError });
+      .select("id, name, type, resource_category, public_info, address, city, district, lat, lng, phone, website, google_maps_url, status, verified, created_at, updated_at")
+      .eq("status", "ACTIVE").order("id").range(start, end), "無法查詢 Provider，請稍後再試。");
+    if (providers.length === 0) return [];
+    const [services, areas, contractRegions] = await Promise.all([
+      readPublicCatalogPages((start, end) => client.from("provider_services").select("provider_id, service_type").eq("active", true).order("id").range(start, end), "無法查詢服務類別，請稍後再試。"),
+      readPublicCatalogPages((start, end) => client.from("provider_service_areas").select("provider_id, city, district").eq("active", true).order("id").range(start, end), "無法查詢服務範圍，請稍後再試。"),
+      readPublicCatalogPages((start, end) => client.from("provider_contract_regions").select("provider_id, city, service_type").eq("active", true).order("id").range(start, end), "無法查詢特約縣市，請稍後再試。"),
+    ]);
 
     const servicesByProvider = new Map<string, ProviderServiceType[]>();
     for (const s of services ?? []) {
@@ -258,6 +241,7 @@ export class SupabaseProviderRepository implements ProviderRepository {
 
     return providers.map((p) => ({
       provider: {
+        ...publicMetadata(p.public_info),
         id: p.id,
         name: p.name,
         type: p.type,

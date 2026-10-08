@@ -1,3 +1,4 @@
+import { isProviderPublicInfo } from "../../../api/src/services/providerPublicInfo.ts";
 import type {
   AssessmentRequest,
   AssessmentResponse,
@@ -273,8 +274,9 @@ function isProviderSharedFields(value: Record<string, unknown>) {
 
 export function isProviderDetail(value: unknown): value is ProviderDetail {
   if (!isRecord(value) || !isProviderSharedFields(value) || !Array.isArray(value.serviceAreas)) return false;
+  if ("publicInfo" in value && !isProviderPublicInfo(value.publicInfo)) return false;
   const detailKeys = ["id", "name", "type", "resourceCategory", "address", "city", "district", "phone", "website", "googleMapsUrl", "verified", "services", "serviceAreas", "serviceAreaStatus", "contractRegions"];
-  if (Object.keys(value).length !== detailKeys.length || !detailKeys.every((key) => key in value)) return false;
+  if (Object.keys(value).length !== detailKeys.length + ("publicInfo" in value ? 1 : 0) || !detailKeys.every((key) => key in value)) return false;
   if (!value.serviceAreas.every((area) => isRecord(area)
     && Object.keys(area).length === 2
     && "city" in area
@@ -291,16 +293,18 @@ export function isProviderDetail(value: unknown): value is ProviderDetail {
 
 function isResourceLookupItem(value: unknown): value is ResourceLookupItem {
   if (!isRecord(value) || !isProviderSharedFields(value)) return false;
+  if ("publicInfo" in value && !isProviderPublicInfo(value.publicInfo)) return false;
   const itemKeys = ["id", "name", "type", "resourceCategory", "services", "address", "city", "district", "phone", "website", "googleMapsUrl", "verified", "serviceAreaStatus", "contractRegions", "areaMatch"];
-  return Object.keys(value).length === itemKeys.length
+  return Object.keys(value).length === itemKeys.length + ("publicInfo" in value ? 1 : 0)
     && itemKeys.every((key) => key in value)
     && (value.areaMatch === null || RESOURCE_AREA_MATCHES.includes(value.areaMatch as string));
 }
 
 function isAppliedFilters(value: unknown): value is ResourceLookupAppliedFilters {
   if (!isRecord(value)) return false;
+  if ("assistiveProgram" in value && !["PURCHASE", "SMART_TECH"].includes(value.assistiveProgram as string)) return false;
   const expectedKeys = ["resourceCategory", "serviceType", "city", "district", "areaFilter", "includeUnconfirmed", "contractCity", "q", "page", "pageSize"];
-  if (Object.keys(value).length !== expectedKeys.length || !expectedKeys.every((key) => key in value)) return false;
+  if (Object.keys(value).length !== expectedKeys.length + ("assistiveProgram" in value ? 1 : 0) || !expectedKeys.every((key) => key in value)) return false;
   return (value.resourceCategory === null || RESOURCE_CATEGORIES.includes(value.resourceCategory as string))
     && (value.serviceType === null || RECOMMENDATION_SERVICES.includes(value.serviceType as string))
     && (value.city === null || LOOKUP_CITIES.includes(value.city as string))
@@ -330,6 +334,7 @@ export function isResourceLookupResponse(value: unknown): value is ResourceLooku
 
 export function resourceLookupPath(filters: ResourceLookupRequest) {
   const query = new URLSearchParams();
+  if (filters.assistiveProgram) query.set("assistiveProgram", filters.assistiveProgram);
   if (filters.resourceCategory) query.set("resourceCategory", filters.resourceCategory);
   if (filters.serviceType) query.set("serviceType", filters.serviceType);
   if (filters.city) query.set("city", filters.city);

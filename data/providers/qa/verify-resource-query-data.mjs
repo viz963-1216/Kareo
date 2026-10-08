@@ -122,7 +122,7 @@ function check(dataset, expected, derived) {
       errors.push("contract regions contain duplicate providerId/city/serviceType pairs.");
     }
   }
-  if (derived.listing.length !== dataset.providers.length) {
+  if (derived.listing.length !== dataset.providers.filter(p => p.status === 'ACTIVE' && p.resourceCategory !== 'ASSISTIVE_DEVICE_CENTER').length) {
     errors.push(`listing has ${derived.listing.length} active service providers, expected all ${dataset.providers.length} Providers.`);
   }
   for (const item of derived.listing) {

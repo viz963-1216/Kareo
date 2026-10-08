@@ -1,3 +1,4 @@
+import providerRows from '../../../data/providers/staging/providers.json';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { publicProviderApi as api, previewRotationHash } from '../../web/src/publicData/providerPreview';
 import { stableRotationHash } from '../src/services/recommendationService';
@@ -44,16 +45,16 @@ describe('public real records and actual rule engine; no contract mock fixtures'
     expect(r.rankingType).toBe('DISTRICT_ROTATION');
     expect(r.providers[0].distanceKm).toBeNull();
     const shops = await api.getProviders({serviceType:'ASSISTIVE_DEVICE',page:1,pageSize:20});
-    expect(shops.totalCount).toBe(13);
-    expect(shops.items.filter(p=>p.serviceAreaStatus==='UNCONFIRMED')).toHaveLength(12);
+    expect(shops.totalCount).toBe(providerRows.filter(p=>p.type==='ASSISTIVE_DEVICE').length);
+    expect(shops.items.filter(p=>p.id!=='NTPC-AD-010').every(p=>p.serviceAreaStatus==='UNCONFIRMED')).toBe(true);
     expect((await api.getProvider('NTPC-AD-010'))?.contractRegions).toEqual([]);
   });
   it('all real resources are listed and centres never enter recommendation', async () => {
     const resources = await api.getProviders({page:1,pageSize:50});
-    expect(resources.totalCount).toBe(36);
+    expect(resources.totalCount).toBe(providerRows.length);
     expect(resources.items.some(p=>/MOCK|示範機構|測試單位/.test(p.id+' '+p.name))).toBe(false);
     const centers = await api.getProviders({resourceCategory:'ASSISTIVE_DEVICE_CENTER',page:1,pageSize:20});
-    expect(centers.totalCount).toBe(5);
+    expect(centers.totalCount).toBe(providerRows.filter(p=>p.resourceCategory==='ASSISTIVE_DEVICE_CENTER').length);
     expect(centers.items.every(p=>p.services.length===0)).toBe(true);
     const detail = await api.getProvider('NTPC-HC-003');
     expect(detail?.name).toContain('長照');
@@ -78,5 +79,38 @@ describe('public real records and actual rule engine; no contract mock fixtures'
     const seed=['session','新北市','三重區','2026-10-08','NTPC-HC-003'];
     expect(await previewRotationHash(seed)).toBe(stableRotationHash(seed));
     expect(await previewRotationHash(['session','臺北市',null,'2026-10-08','TP-HC-001'])).toBe(stableRotationHash(['session','臺北市',null,'2026-10-08','TP-HC-001']));
+  });
+});
+
+describe('official catalogue filters and center services', () => {
+  it('SMART_TECH is the four current official stores, with current official addresses', async () => {
+    const r = await api.getProviders({assistiveProgram:'SMART_TECH',pageSize:50});
+    expect(r.totalCount).toBe(4);
+    expect(r.items.map(p=>p.name).sort()).toEqual(['維思感創股份有限公司','益康儀器有限公司','康澄國際股份有限公司','點通科技股份有限公司'].sort());
+    expect(r.items.find(p=>p.name==='益康儀器有限公司')?.address).toBe('臺北市中正區開封街一段60號');
+    expect(r.appliedFilters.assistiveProgram).toBe('SMART_TECH');
+    expect(r.items.every(p=>p.publicInfo?.assistivePrograms.includes('SMART_TECH'))).toBe(true);
+  });
+  it('classification never creates delivery coverage and invalid combinations fail', async () => {
+    await expect(api.getProviders({assistiveProgram:'SMART_TECH',serviceType:'HOME_CARE'})).rejects.toThrow();
+    await expect(api.getProviders({assistiveProgram:'PURCHASE',resourceCategory:'ASSISTIVE_DEVICE_CENTER'})).rejects.toThrow();
+    const r = await api.getProviders({assistiveProgram:'PURCHASE',city:'臺北市',district:'中正區',areaFilter:'SERVICE_AREA',pageSize:50});
+    expect(r.items).toEqual([]);
+  });
+  it('branches show sourced public services while remaining outside recommendation', async () => {
+    const p = await api.getProvider('NTPC-ARC-B10');
+    expect(p?.city).toBe('臺北市');expect(p?.district).toBe('南港區');
+    expect(p?.services).toEqual([]);expect(p?.publicInfo?.publicServices).toContain('部分時段輔具評估（需預約）');
+    expect(p?.publicInfo?.notice).toContain('不辦理補助核定');
+  });
+  it('new Taipei districts actually enter lookup and recommendation, blank/uncontracted entries do not', async () => {
+    const r = await api.getProviders({serviceType:'HOME_CARE',city:'臺北市',district:'北投區',areaFilter:'SERVICE_AREA',pageSize:50});
+    expect(r.totalCount).toBeGreaterThan(10);
+    expect(r.items.some(p=>p.id==='TP-HC-198')).toBe(false);
+    const a = await assess({location:{precision:'DISTRICT',city:'臺北市',district:'北投區',lat:null,lng:null}});
+    const top = await api.getRecommendation({assessmentId:a.assessmentId,serviceType:'HOME_CARE'});
+    expect(top.providers).toHaveLength(3);
+    const details = await Promise.all(top.providers.map(p=>api.getProvider(p.id)));
+    expect(details.every(p=>p?.serviceAreas.some(a=>a.city==='臺北市' && a.district==='北投區'))).toBe(true);
   });
 });

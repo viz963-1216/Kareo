@@ -76,3 +76,7 @@ Sources that have not yet been verified should be recorded here before being inc
 ## A-008-r1（2026-10-08）
 
 - `SRC-FIRST-PARTY-URYARD-001`：[亞德醫材生活館官網](https://www.uryard.com.tw/pages/ntpc-assistive-device-contract)，SHA-256 `93032429c6dfc025fff368952479b097fce10286017365c72304075e09aa8e88`。核對商家名称／地址／電話及明示配送範圍。來源為商家自己，**不是政府證實**；不新增特約資格，不推算座標。細節見 `qa/a-008-real-provider-data.md`。
+
+## 2026-10-08 官方目錄快照（D-20）
+
+機器可讀来源清册：`qa/official-catalog-manifest.json`，含官方網址、取證日、原始 HTML SHA-256。長照輔具 607 列、身障輔具 737 列、智慧科技 4 列全量下載，逐列處理雙北所在地、不同地址門市、重複及排除。不使用 ODS 內部工作表推定有效名單；ODS 僅作對照（資料日期115.9），智慧科技益康最新地址採官方網站60號，不採較舊 ODS 的6號。198居服來源仍為已保存1150810官方PDF，public extract不含负责人姓名；推薦區域只取其實際特約服務區域，未特約／空白／只到宅沐浴車不補一般居服區域。
