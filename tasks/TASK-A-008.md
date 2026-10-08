@@ -2,7 +2,7 @@
 
 Owner: Engineer A；本輪由 Jerry 授權 Codex 中心整合執行。
 Submission Version: A-008-r1
-Status: IN REVIEW；首筆新增商家及既有名單公開接線，尚有資料覆蓋待補。
+Status: r1 MERGED (#104)；首筆新增商家已差額匯入驗收 DB、既有名單已公開接線。尚有資料覆蓋待補，不宣稱全量範圍完成。
 
 ## Goal
 
