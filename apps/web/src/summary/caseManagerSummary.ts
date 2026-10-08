@@ -53,7 +53,7 @@ export function caseManagerSummaryText(model: CaseManagerSummaryModel) {
     ...priority,
     "",
     "初步照護建議與補助說明",
-    ...model.summaryLines,
+    ...model.summaryLines.map((line) => `- ${line}`),
     "",
     `知識版本：${model.knowledgeVersion}`,
     `產生日期：${model.generatedDate}`,

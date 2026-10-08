@@ -371,7 +371,7 @@ v0.2：需要 `X-Kareo-Session-Token`。錯誤：無有效同意 `CONSENT_REQUIR
 
 ### summary 格式（v0.2.2）
 
-`careNeedProfile.summary` 仍是單一字串（不新增欄位）。內容由 ASSESSMENT_RULES §6 的模板組成，句子之間以 `\n` 分隔；包含需求、可能資格、可能適用的補助說明（金額／比率為官方規則說明，非核定結果）、地方資訊與下一步。前端逐行顯示，不解析內容。範例：`contracts/mock/assessments/WITH-SUBSIDY-NEW_TAIPEI.json`（Mock，數值不代表已核准知識）。
+`careNeedProfile.summary` 仍是單一字串（不新增欄位）。內容由 ASSESSMENT_RULES §6 的模板組成，句子之間以 `\n` 分隔；包含需求、可能資格、可能適用的補助說明（金額／比率為官方規則說明，非核定結果）、地方資訊與下一步。前端在完整說明及個管師摘要中逐行以條列顯示原文，不解析或改寫政策內容。結果頁另可依 careNeeds／priority 產生200字內的閱讀重點（PRODUCT_SPEC §14b 前段），不截短這個完整 summary、不新增 API 欄位。範例：`contracts/mock/assessments/WITH-SUBSIDY-NEW_TAIPEI.json`（Mock，數值不代表已核准知識）。
 
 Care Need Enum：
 

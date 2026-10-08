@@ -22,6 +22,7 @@ for (const file of ["WITH-SUBSIDY-NEW_TAIPEI.json", "WITH-DISABILITY-NEW_TAIPEI.
     const text = caseManagerSummaryText(model);
     assert.deepEqual(model.summaryLines, response.careNeedProfile.summary.split("\n").map((line) => line.trim()).filter(Boolean));
     assert.equal(model.knowledgeVersion, response.knowledgeVersion);
+    for (const line of model.summaryLines) assert.ok(text.includes(`\n- ${line}\n`), "Copied policy detail remains a complete bullet, including conditions and source");
     for (const need of response.careNeedProfile.careNeeds) assert.ok(model.careNeeds.length > 0, need);
     for (const line of FORMAL_ASSESSMENT_REMINDER) assert.equal(text.split(line).length - 1, 2);
     for (const question of CASE_MANAGER_QUESTIONS) assert.equal(text.includes(question), true);
