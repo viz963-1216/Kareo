@@ -1,5 +1,7 @@
 # TASK-J-004 — Release + Lead Operations + Recovery Readiness
 
+最新提交版本：J-004-r15（2026-10-08）。本輪為新北官方居家服務公開資料差額匯入與查詢發布；完整正式發布任務仍待驗收。
+
 Owner: Jerry  
 Status: r9 營運者取消額外真人客服／權利演練，技術流程採合成整合驗證；實際申請的身分／代理權限核對仍適用。r8 雲端唯讀觀察：2筆刪除紀錄／2筆停用Session、健康／接洽／聯絡0，前後基準不變。每日清理首次自動事件、完整實體備份／副本退役、原 MVP Lead 接件及部署回滾仍待驗；release gate CLOSED。
 Plan revision: 2026-09-19 / 10-22 MVP

@@ -98,7 +98,12 @@ export async function verifyLocalStack(stack) {
       assert.equal(createHash('sha256').update(readFileSync('contracts/legal/consent-versions.json')).digest('hex'), legalBefore);
     });
     await test('LOCAL-04', 'Public resources and official assistive filters are queryable without Session; all centers remain query-only', async () => {
-      const list = success(await call('GET', '/api/v1/providers?pageSize=50')); assert.equal(list.totalCount, catalogCounts.providers);
+      const activeProviderIds = new Set(sourceData('providers').filter(p=>p.status==='ACTIVE').map(p=>p.id));
+      const list = success(await call('GET', '/api/v1/providers?pageSize=50')); assert.equal(list.totalCount, activeProviderIds.size);
+      // A-008-r4 crosses the 1,000-Provider boundary, not only the ServiceArea boundary.
+      let allIds=[];let allPage=1;
+      do {const rows=success(await call('GET',`/api/v1/providers?pageSize=50&page=${allPage++}`));allIds.push(...rows.items.map(p=>p.id));if(allIds.length>=rows.totalCount)break;}while(allPage<=30);
+      assert.equal(allIds.length,activeProviderIds.size);assert.deepEqual(new Set(allIds),activeProviderIds);
       const smart = success(await call('GET','/api/v1/providers?assistiveProgram=SMART_TECH&pageSize=50'));
       assert.equal(smart.totalCount,4); assert.ok(smart.items.every(p=>p.publicInfo.assistivePrograms.includes('SMART_TECH')));
       const yikang=smart.items.find(p=>p.name==='益康儀器有限公司');
@@ -114,6 +119,17 @@ export async function verifyLocalStack(stack) {
       let observed=[]; let page=1;
       do {const rows=success(await call('GET',`/api/v1/providers?serviceType=HOME_CARE&city=${encodeURIComponent('臺北市')}&district=${encodeURIComponent(target)}&areaFilter=SERVICE_AREA&pageSize=50&page=${page++}`));observed.push(...rows.items.map(p=>p.id));if(observed.length>=rows.totalCount)break;}while(page<20);
       assert.deepEqual(new Set(observed),expected);
+      const ntpcManifest=JSON.parse(readFileSync('data/providers/qa/ntpc-home-care-manifest.json','utf8'));
+      const ntpcExpected=new Set(ntpcManifest.rows.filter(x=>!x.suspended).map(x=>x.providerId));
+      const ntpcObserved=[];let ntpcPage=1;
+      do {const rows=success(await call('GET',`/api/v1/providers?serviceType=HOME_CARE&city=${encodeURIComponent('新北市')}&areaFilter=SERVICE_AREA&pageSize=50&page=${ntpcPage++}`));ntpcObserved.push(...rows.items.map(p=>p.id));if(ntpcObserved.length>=rows.totalCount)break;}while(ntpcPage<=30);
+      for(const id of ntpcExpected)assert.ok(ntpcObserved.includes(id),`Official NTPC source provider missing: ${id}`);
+      for(const x of ntpcManifest.rows.filter(x=>x.suspended)) {
+        assert.ok(!ntpcObserved.includes(x.providerId));error(await call('GET',`/api/v1/providers/${x.providerId}`),404,'NOT_FOUND');
+      }
+      const ntpcAreas=new Map(sourceData('provider-service-areas').filter(a=>a.active&&a.city==='新北市'&&services.has(a.providerId)&&activeProviderIds.has(a.providerId)).map(a=>[a.providerId,true]));
+      assert.deepEqual(new Set(ntpcObserved),new Set(ntpcAreas.keys()));
+      for(const x of ntpcManifest.rows.filter(x=>x.outsideLocatedCity))assert.ok(ntpcObserved.includes(x.providerId));
       const centers = success(await call('GET', '/api/v1/providers?resourceCategory=ASSISTIVE_DEVICE_CENTER'));
       assert.equal(centers.totalCount, sourceData('providers').filter(p => p.resourceCategory === 'ASSISTIVE_DEVICE_CENTER').length); assert.ok(centers.items.every(p => p.resourceCategory === 'ASSISTIVE_DEVICE_CENTER'));
       const bad = await call('GET', '/api/v1/providers?city=' + encodeURIComponent('臺中市')); error(bad, 400, 'VALIDATION_ERROR');

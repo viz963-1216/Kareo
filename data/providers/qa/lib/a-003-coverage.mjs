@@ -294,7 +294,20 @@ export function checkEvidence({ providers, services, areas, evidence }) {
       .filter((area) => area.providerId === item.providerId && area.city === item.city)
       .map((area) => area.district)
       .sort();
-    const expected = [...item.districts].sort();
+    // Retain each original source claim when a later official directory adds coverage.
+    // Do not rewrite an older document to pretend it stated the union of both lists.
+    for (const extra of item.additionalSources ?? []) {
+      const source = evidence.sources.find(s => s.sourceId === extra.sourceId);
+      if (item.basis !== 'OFFICIAL' || source?.sourceKind !== 'OFFICIAL'
+          || !/^[a-f0-9]{64}$/.test(source.sha256 ?? '')
+          || !/^\d{4}-\d{2}-\d{2}$/.test(extra.checkedAt ?? '')
+          || !extra.document?.trim() || !extra.sourceText?.trim()
+          || !Array.isArray(extra.districts) || !extra.districts.length) {
+        errors.push(`${item.providerId}: additional service-area source requires separately registered official evidence.`);
+      }
+    }
+    const expected = [...new Set([...item.districts,
+      ...(item.additionalSources ?? []).flatMap(s => s.districts ?? [])])].sort();
     if (actual.join("、") !== expected.join("、")) {
       errors.push(
         `${item.providerId}: ProviderServiceArea (${actual.join("、") || "none"}) differs from evidence (${expected.join("、")}).`,

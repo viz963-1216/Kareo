@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { verifyNtpcFiles } from './verify-ntpc-home-care.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = f => JSON.parse(readFileSync(resolve(root, f), 'utf8'));
 export function inspectCatalog(providers, services, areas, infoRows, manifest, sourceRows) {
@@ -65,6 +66,7 @@ export function loadCatalog() {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const args = loadCatalog();
   const errors = inspectCatalog(...args);
+  errors.push(...verifyNtpcFiles());
   for (const source of args[4].sources) {
     const hash = createHash('sha256').update(readFileSync(resolve(root, source.document))).digest('hex');
     if (hash !== source.sha256) errors.push(`Source snapshot changed: ${source.sourceId}`);

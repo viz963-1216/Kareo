@@ -22,7 +22,8 @@ const providers = providerRows.map(p => ({ ...p, ...(infoById.has(p.id) ? { publ
 const publicKnowledge = knowledge as unknown as { version: string; publishedAt: string; records: Array<KnowledgeSnapshotRecord & { lastVerifiedAt: string; source: { title: string; publisher: string; url: string | null } }> };
 const snapshot = knowledge as unknown as KnowledgeSnapshot;
 const allowedCities = ['臺北市', '新北市'];
-const publicCandidates = providers.filter(p => p.status === 'ACTIVE' && allowedCities.includes(p.city)).map(provider => ({
+const publicCandidates = providers.filter(p => p.status === 'ACTIVE' && (allowedCities.includes(p.city)
+  || areaRows.some(a => a.providerId === p.id && a.active && allowedCities.includes(a.city)))).map(provider => ({
   provider: { ...provider, resourceCategory: provider.resourceCategory ?? 'SERVICE_PROVIDER' },
   services: serviceRows.filter(s => s.providerId === provider.id && s.active).map(s => s.serviceType) as ProviderDetail['services'],
   serviceAreas: areaRows.filter(a => a.providerId === provider.id && a.active).map(a => ({ city: a.city, district: a.district })),
