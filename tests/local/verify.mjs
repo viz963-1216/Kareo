@@ -97,10 +97,21 @@ export async function verifyLocalStack(stack) {
       assert.ok(!JSON.stringify(index).includes('approvedBy') && !JSON.stringify(index).includes('approvalEvidence'));
       assert.equal(createHash('sha256').update(readFileSync('contracts/legal/consent-versions.json')).digest('hex'), legalBefore);
     });
-    await test('LOCAL-04', 'Public resources are queryable without Session; five centers are not service providers', async () => {
+    await test('LOCAL-04', 'Public resources and official assistive filters are queryable without Session; all centers remain query-only', async () => {
       const list = success(await call('GET', '/api/v1/providers?pageSize=50')); assert.equal(list.totalCount, catalogCounts.providers);
+      const smart = success(await call('GET','/api/v1/providers?assistiveProgram=SMART_TECH&pageSize=50'));
+      assert.equal(smart.totalCount,4); assert.ok(smart.items.every(p=>p.publicInfo.assistivePrograms.includes('SMART_TECH')));
+      assert.equal(smart.items.find(p=>p.name==='益康儀器有限公司').address,'臺北市中正區開封街一段60號');
+      assert.ok(smart.items.every(p=>p.serviceAreaStatus==='UNCONFIRMED'));
+      error(await call('GET','/api/v1/providers?assistiveProgram=SMART_TECH&serviceType=HOME_CARE'),400,'VALIDATION_ERROR');
+      // Compare full source service coverage after PostgREST's first 1000 rows, not just the first page.
+      const target='北投區'; const services=new Set(sourceData('provider-services').filter(s=>s.serviceType==='HOME_CARE'&&s.active).map(s=>s.providerId));
+      const expected=new Set(sourceData('provider-service-areas').filter(a=>a.active&&a.city==='臺北市'&&a.district===target&&services.has(a.providerId)).map(a=>a.providerId));
+      let observed=[]; let page=1;
+      do {const rows=success(await call('GET',`/api/v1/providers?serviceType=HOME_CARE&city=${encodeURIComponent('臺北市')}&district=${encodeURIComponent(target)}&areaFilter=SERVICE_AREA&pageSize=50&page=${page++}`));observed.push(...rows.items.map(p=>p.id));if(observed.length>=rows.totalCount)break;}while(page<20);
+      assert.deepEqual(new Set(observed),expected);
       const centers = success(await call('GET', '/api/v1/providers?resourceCategory=ASSISTIVE_DEVICE_CENTER'));
-      assert.equal(centers.totalCount, 5); assert.ok(centers.items.every(p => p.resourceCategory === 'ASSISTIVE_DEVICE_CENTER'));
+      assert.equal(centers.totalCount, sourceData('providers').filter(p => p.resourceCategory === 'ASSISTIVE_DEVICE_CENTER').length); assert.ok(centers.items.every(p => p.resourceCategory === 'ASSISTIVE_DEVICE_CENTER'));
       const bad = await call('GET', '/api/v1/providers?city=' + encodeURIComponent('臺中市')); error(bad, 400, 'VALIDATION_ERROR');
     });
     await test('LOCAL-05', 'Public knowledge lists only current effective records; local jurisdictions stay separate; no internal fields', async () => {
