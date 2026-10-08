@@ -17,7 +17,7 @@ Owner: Jerry
 - 降低 Merge Conflict
 - AI 不可擅自跨模組修改
 - staging 作為唯一整合區
-- main 永遠保持正式可部署
+- release 永遠保持正式可部署
 - Jerry 負責最後整合與發布
 - 每次提交都有可追蹤的版次與更新紀錄
 
@@ -29,7 +29,7 @@ Owner: Jerry
 
 角色：Product Owner / Spec Owner / Integration Owner / Release Owner。
 
-負責建立 Task、Review PR、修改 Spec / Contract、整合 staging、Release 到 main、Deploy，以及管理 Kareo 全站 Release Version。
+負責建立 Task、Review PR、修改 Spec / Contract、整合 staging、Release 到 release、Deploy，以及管理 Kareo 全站 Release Version。
 
 ## Engineer A / 工程師 A
 
@@ -67,20 +67,24 @@ Ownership：
 # 3. Branch Model / 分支模型
 
 ```text
-main
+release
 └── staging
     ├── feat/a-xxx
     ├── feat/b-xxx
     └── feat/c-xxx
 ```
 
-## main
+## main（歷史分支）
+
+保留既有歷史，不再作為 Netlify 正式部署來源；A／B／C 不直接 Push 或 Merge。
+
+## release
 
 正式穩定分支，對應 Production。
 
 A / B / C 禁止直接 Push、Merge 或 Force Push。
 
-只有 Jerry 可透過 `staging → main` Release PR 發布。
+只有 Jerry 可透過 `staging → release` Release PR 發布。2026-10-08 首次 release 從已通過CI的 staging `3026cf5` 初始化，屬 Jerry 明確授權之公開查詢恢復；後續更新仍走PR。Netlify production context 不代表完整MVP正式驗收。
 
 ## staging
 
@@ -127,12 +131,12 @@ Squash Merge → staging
 ↓
 Jerry Integration / E2E Test
 ↓
-Release PR: staging → main
+Release PR: staging → release
 ↓
 Production
 ```
 
-一般工程師不得直接建立 Feature PR 到 main。
+一般工程師不得直接建立 Feature PR 到 release。
 
 ---
 
@@ -398,7 +402,7 @@ PR Title：
 只有 Jerry 的 Release PR 可以：
 
 ```text
-staging → main
+staging → release
 ```
 
 ---
@@ -448,7 +452,7 @@ Feature Branch → staging
 Release PR：
 
 ```text
-staging → main
+staging → release
 ```
 
 由 Jerry 建立、檢查與 Merge。
@@ -457,7 +461,7 @@ staging → main
 
 # 20. Branch Protection 建議
 
-## main
+## release
 
 建議開：
 
@@ -482,7 +486,7 @@ Block Force Push
 Block Deletion
 ```
 
-A / B / C 不應直接 Push main 或 staging。
+A / B / C 不應直接 Push release 或 staging。
 
 ---
 
@@ -497,7 +501,7 @@ A / B / C 不應直接 Push main 或 staging。
 
 不需要 Admin / Repository Settings / Secrets / Collaborator 管理權。
 
-若使用個人 Repository，新增為 Collaborator 即可；main 與 staging 的安全由 Branch Protection 控制。
+若使用個人 Repository，新增為 Collaborator 即可；release 與 staging 的安全由 Branch Protection 控制。
 
 ---
 
@@ -510,11 +514,11 @@ STAGING     → 多模組整合測試
 PRODUCTION  → 正式環境
 ```
 
-Feature PR 可建立 Preview。
+Feature PR 使用本機及 GitHub CI 測試。2026-10-08 起 Netlify 自動 PR 預覽停用；有必要時由 Jerry 指定版本進行私人按需驗收。
 
 Jerry 在 staging 做跨模組 Integration / E2E Test。
 
-main 才能部署 Production。
+release 才能部署 Production。
 
 ---
 
@@ -616,7 +620,7 @@ Integrated
 +
 Jerry 指定 Release Version
 +
-Release PR staging → main
+Release PR staging → release
 +
 Production Deploy
 +
@@ -627,7 +631,7 @@ Production Verification
 
 # 29. 最重要的九條規則
 
-1. 不直接改 main。
+1. 不直接改 release。
 2. 不直接改 staging。
 3. Feature Branch 從 staging 建。
 4. Feature PR 回 staging。

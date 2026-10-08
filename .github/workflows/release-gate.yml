@@ -4,7 +4,7 @@
 #
 # Target:
 #   workflow_dispatch  → inputs.commit (full 40-hex SHA) + inputs.base_url
-#   pull_request→main  → the PR head SHA + repository variable KAREO_RELEASE_BASE_URL
+#   pull_request→release/main  → the PR head SHA + repository variable KAREO_RELEASE_BASE_URL
 # The deployed version is not assumed from the checkout: the E2E runner reads
 # <base_url>/kareo-version.json (Netlify COMMIT_REF) and the gate only counts results whose
 # observed version equals the target. See docs/INTEGRATION_ACCEPTANCE.md.
@@ -24,7 +24,7 @@ on:
         type: boolean
         default: false
   pull_request:
-    branches: [main]
+    branches: [release, main]
 
 permissions:
   contents: read

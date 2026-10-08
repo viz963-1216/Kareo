@@ -21,7 +21,7 @@ PR → staging
         ↓
 Jerry 整合與驗收
         ↓
-staging → main
+staging → release
         ↓
 Production
 ```
@@ -33,7 +33,7 @@ Production
 - 不修改其他人的 Ownership
 - 所有人遵守同一份 Spec
 - 跨模組整合只在 `staging` 進行
-- `main` 只保存正式可部署版本
+- `release` 只保存正式可部署版本
 
 ---
 
@@ -112,13 +112,17 @@ Kareocar 不內嵌、不共用 Backend、不共用 Database。
 
 # 4. Branch Architecture / 分支架構
 
-## main
+## main（歷史分支）
+
+保留既有歷史，不再作為 Netlify 正式部署來源；A／B／C 不直接 Push 或 Merge。
+
+## release
 
 正式穩定分支。
 
 用途：Production Release。
 
-只有 Jerry 將通過 staging 驗收的版本合併進 main。
+只有 Jerry 將通過 staging 驗收的版本合併進 release。
 
 ## staging
 
@@ -432,7 +436,7 @@ Jerry 的整合環境，對應 `staging` branch。
 
 ## PRODUCTION
 
-正式環境，對應 `main` branch。
+正式環境，對應 `release` branch。
 
 只有 Jerry 負責 Production Release / Deploy。
 
@@ -497,7 +501,7 @@ staging Integration Test
 
 Feature PR 合併到 staging 只能稱為 `Module Complete`。
 
-`Production Complete` 必須再完成 staging → main Release 與 Production 驗證。
+`Production Complete` 必須再完成 staging → release Release 與 Production 驗證。
 
 ---
 
@@ -602,7 +606,7 @@ Branch / Environment：
 ```text
 Feature Branch → PREVIEW
 staging        → STAGING
-main           → PRODUCTION
+release           → PRODUCTION
 ```
 
 STAGING 與 PRODUCTION 必須使用不同 Environment Variables / Secrets。

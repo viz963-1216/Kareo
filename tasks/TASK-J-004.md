@@ -1,10 +1,14 @@
 # TASK-J-004 — Release + Lead Operations + Recovery Readiness
 
-最新提交版本：J-004-r16（2026-10-08）。本輪為初評200字內導讀與個管師條列摘要公開頁更新；r15新北資料匯入已完成，完整正式發布仍待驗收。
+最新提交版本：J-004-r17（2026-10-08）。本輪恢復 release 公開查詢部署並停用不必要的 Netlify 自動部署；r16摘要易讀性、r15新北資料匯入已完成。完整正式營運仍待驗收。
 
 Owner: Jerry  
 Status: r9 營運者取消額外真人客服／權利演練，技術流程採合成整合驗證；實際申請的身分／代理權限核對仍適用。r8 雲端唯讀觀察：2筆刪除紀錄／2筆停用Session、健康／接洽／聯絡0，前後基準不變。每日清理首次自動事件、完整實體備份／副本退役、原 MVP Lead 接件及部署回滾仍待驗；release gate CLOSED。
 Plan revision: 2026-09-19 / 10-22 MVP
+
+## 2026-10-08 r17：公開查詢部署
+
+Jerry 明確指定 release 為正式部署來源，現有 Kareo 驗收DB繼續使用。允許先恢復公開GET查詢；同意／健康／Lead 不因此啟用，不把 Netlify production context 當作完整正式營運。完整 gate 繼續如實失敗／待驗。
 
 ## Goal / 目標
 
@@ -37,7 +41,7 @@ Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更�
 - [ ] 確認隱私/同意/預估免責文案、刪除請求管道與清理排程可執行；測試資料清理。
 - [ ] 設定錯誤/可用性觀測及責任人，log 不含個資；記錄 Netlify/Supabase 預算與額度告警、超額時行為（MVP 不使用 AI 服務，D-01）。需要付費或更換平台另由 Jerry 決策，任務不授權自動購買。
 - [ ] 備份並在隔離測試環境演練還原，記錄可接受資料損失/恢復時間與結果；前端/Functions 能回復上一版，DB 使用相容 migration/前向修復方案，不以刪 production 資料回滾。
-- [ ] staging→main Release PR，固定 release commit 與版本；發布後使用合成資料 smoke test，確認可用再開放正式流程。開放條件不滿足保留整合中提示並回報原因。
+- [ ] staging→release Release PR，固定 release commit 與版本；發布後使用合成資料 smoke test，確認可用再開放正式流程。開放條件不滿足保留整合中提示並回報原因。
 - [ ] `docs/RELEASE_RUNBOOK.md` 記錄發布、回滾、接件、告警與維護責任；交接人實際可取得必要權限。
 
 ## Target
@@ -47,7 +51,7 @@ Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更�
 
 ## Submission / Completion
 
-從最新 `staging` 建立 `feat/j-004-mvp`，PR → `staging`，不得直接 push staging/main。
+從最新 `staging` 建立 `feat/j-004-mvp`，PR → `staging`，不得直接 push staging/release。
 Submission Version 從 `J-004-r1` 起，退回後遞增。PR 必填 Added / Changed / Fixed / Known Issues / Tests or QA / Scope Check，逐項附驗收證據；未通過不得標記完成。模組合併不等於全站已上線。
 
 ## 變更紀錄

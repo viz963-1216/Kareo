@@ -55,7 +55,7 @@ Last reviewed: 2026-10-03（staging `6c74dee`；本輪工程規格定案）
 | D-06 | Lead 接件方式、角色、狀態轉移、回覆時程 | PROPOSED；主要接件人 **蘇子傑**，週一至週五 09:00–21:00；**不設備援接件人**（2026-09-24 Jerry 決定，以逾時暫停媒合入口替代） | D-06-v1 | Jerry | — | B-006、J-004 |
 | D-07 | 推薦排序：有精確位置依距離、只有行政區穩定輪替、無位置不宣稱附近（PRODUCT_SPEC §21–24） | **原始 MVP 要求（不變）**；Provider 座標 30／30（29 筆官方門牌點＋NTPC-AD-004 經 Jerry 核准的非官方商家座標 DEC-A003-07；#39，2026-10-01 staging） | D-07-v3 | Jerry | PRODUCT_SPEC §20–24 | A-003-r2、B-005、C-005、J-003 |
 | D-08 | MVP 不收集 GPS | **SHELVED（未核准、已擱置）**：精確位置依原始 MVP 開發 | D-08-v2 | Jerry | — | 無（不影響任何任務） |
-| D-09 | Netlify 部署額度與部署觸發策略 | 原額度阻擋已解除；10/03 有真實部署證據；預算／告警與正式發布待 J-004 | D-09-v2 | Jerry | [J-003-r9 證據](acceptance/J003-2026-10-03-first-knowledge-publication.md) | J-003、J-004 |
+| D-09 | Netlify 部署額度與部署觸發策略 | 10/08 決定 release 為正式部署來源；停用自動 PR 預覽／其他分支；公開查詢恢復，完整營運待驗 | D-09-v3 | Jerry | [J-003-r9 證據](acceptance/J003-2026-10-03-first-knowledge-publication.md) | J-003、J-004 |
 | D-10 | 多表原子寫入方式 | **SPEC-APPROVED：方案 A，Postgres function 單一交易**。用途：Provider 匯入（B-004）；**知識發布／撤回（B-008，2026-09-24 延伸核准）** | D-10-v2 | Jerry | [PR #16 comment 2026-09-23](https://github.com/viz963-1216/Kareo/pull/16#issuecomment-5788552476)；延伸：[PR #31 comment 2026-09-24](https://github.com/viz963-1216/Kareo/pull/31#issuecomment-5806617991) | B-004、B-008、J-003 |
 | D-11 | crawler 延後、MVP 先人工每日檢查 | **SHELVED（未核准、已擱置）**：B-009 每日 00:10 更新依原始 MVP 開發 | D-11-v1 | Jerry | — | 無（不影響任何任務） |
 | D-12 | 結果頁不顯示給付金額／部分負擔 | **SHELVED（未核准、已擱置）**：補助說明依原始 MVP，模板見 ASSESSMENT_RULES §6.3 | D-12-v1 | Jerry | — | 無（不影響任何任務） |
@@ -230,6 +230,9 @@ GPS 拒絕或失敗：顯示原因並回到縣市／行政區選擇；使用者�
 ---
 
 ## D-09 Netlify 部署與額度
+
+**2026-10-08 D-09-v3 最新決定**：Jerry 已付費並指定 `release`。production branch 改為 release、branch deploys=None、Deploy Previews=None；建置與 GitHub CI 維持啟用。不更改 GitHub 預設 staging、排程憑證範圍、預览存取保護、付費方案或自動加值。公開查詢使用現有驗收DB；完整MVP與D-05不因此通過。未來由 Jerry 以 staging→release PR 集中發布；主動按需私人驗收須另記錄目的／版本，不能重開所有自動預覽。
+
 
 **10/03 現況**：原額度阻擋已解除，J-003-r9 已取得真實部署與知識 API 證據；不再要求 Jerry 決定 9/29 前是否購買。預算、用量告警、Kareocar 外連與正式發布仍由 J-004 核對。這不代表自動加值已啟用或正式環境已驗收。
 
