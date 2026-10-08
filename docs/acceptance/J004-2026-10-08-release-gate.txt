@@ -1,0 +1,174 @@
+Target: 56500c835df2869ad7e4540f6f0730cb31ccbbcd @ https://kareo-tw.netlify.app
+
+PASS     integration: netlify routes — 21 API routes map to 21 functions
+PASS     integration: mock contracts — envelopes valid, no forbidden fields
+PASS     integration: source forbidden fields — none found
+PASS     integration: contract route declared — POST /api/v1/session — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — DELETE /api/v1/session — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — POST /api/v1/consent — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — POST /api/v1/consent/withdraw — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — POST /api/v1/assessments — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — POST /api/v1/recommendations — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — GET /api/v1/providers/{providerId} — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — GET /api/v1/providers — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — GET /api/v1/external-services/transportation — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — POST /api/v1/leads — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — GET /api/v1/knowledge/status — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — GET /api/v1/knowledge/records — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — GET /api/v1/admin/knowledge/status — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — POST /api/v1/admin/knowledge/records/{id}/decision — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — POST /api/v1/admin/knowledge/changes/{id}/dismiss — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — GET /api/v1/admin/knowledge/publish-preview — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — POST /api/v1/admin/knowledge/publish — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — GET /api/v1/admin/knowledge/restorable-versions — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — POST /api/v1/admin/knowledge/withdraw — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — POST /api/v1/admin/session — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — GET /api/v1/admin/knowledge/changes — static route only; handler behaviour and deployed E2E are separate
+PASS     integration: contract route declared — GET /api/v1/admin/knowledge/records — static route only; handler behaviour and deployed E2E are separate
+PASS     functions: unsupported method — adminKnowledgeChangeDismiss [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeChangeDismiss [esm]: POST (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeChangeDismiss [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeChangeDismiss [cjs]: POST (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeChanges [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeChanges [esm]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeChanges [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeChanges [cjs]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgePublish [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgePublish [esm]: POST (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgePublish [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgePublish [cjs]: POST (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgePublishPreview [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgePublishPreview [esm]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgePublishPreview [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgePublishPreview [cjs]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeRecordDecision [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeRecordDecision [esm]: POST (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeRecordDecision [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeRecordDecision [cjs]: POST (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeRecords [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeRecords [esm]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeRecords [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeRecords [cjs]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeRestorableVersions [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeRestorableVersions [esm]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeRestorableVersions [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeRestorableVersions [cjs]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeStatus [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeStatus [esm]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeStatus [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeStatus [cjs]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeWithdraw [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeWithdraw [esm]: POST (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminKnowledgeWithdraw [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminKnowledgeWithdraw [cjs]: POST (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminSession [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminSession [esm]: POST (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — adminSession [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — adminSession [cjs]: POST (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — assessment [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — assessment [esm]: POST (no DB credentials) → 401 SESSION_INVALID
+PASS     functions: unsupported method — assessment [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — assessment [cjs]: POST (no DB credentials) → 401 SESSION_INVALID
+PASS     functions: unsupported method — consent [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — consent [esm]: POST (no DB credentials) → 401 SESSION_INVALID
+PASS     functions: unsupported method — consent [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — consent [cjs]: POST (no DB credentials) → 401 SESSION_INVALID
+PASS     functions: unsupported method — consentWithdraw [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — consentWithdraw [esm]: POST (no DB credentials) → 401 SESSION_INVALID
+PASS     functions: unsupported method — consentWithdraw [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — consentWithdraw [cjs]: POST (no DB credentials) → 401 SESSION_INVALID
+PASS     functions: unsupported method — externalServiceTransportation [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — externalServiceTransportation [esm]: GET (no DB credentials) → 200 success
+PASS     functions: unsupported method — externalServiceTransportation [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — externalServiceTransportation [cjs]: GET (no DB credentials) → 200 success
+PASS     functions: unsupported method — knowledgeRecords [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — knowledgeRecords [esm]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — knowledgeRecords [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — knowledgeRecords [cjs]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — knowledgeStatus [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — knowledgeStatus [esm]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — knowledgeStatus [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — knowledgeStatus [cjs]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — leads [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — leads [esm]: POST (no DB credentials) → 401 SESSION_INVALID
+PASS     functions: unsupported method — leads [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — leads [cjs]: POST (no DB credentials) → 401 SESSION_INVALID
+PASS     functions: unsupported method — providerDetail [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — providerDetail [esm]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — providerDetail [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — providerDetail [cjs]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — providers [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — providers [esm]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — providers [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — providers [cjs]: GET (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: unsupported method — recommendations [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — recommendations [esm]: POST (no DB credentials) → 401 SESSION_INVALID
+PASS     functions: unsupported method — recommendations [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — recommendations [cjs]: POST (no DB credentials) → 401 SESSION_INVALID
+PASS     functions: unsupported method — session [esm]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — session [esm]: POST (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: contract method runs — session [esm]: DELETE (no DB credentials) → 401 SESSION_INVALID
+PASS     functions: unsupported method — session [cjs]: PATCH → 400 INVALID_REQUEST
+PASS     functions: contract method runs — session [cjs]: POST (no DB credentials) → 500 INTERNAL_ERROR
+PASS     functions: contract method runs — session [cjs]: DELETE (no DB credentials) → 401 SESSION_INVALID
+PASS     acceptance cases — 49 cases, all referenced by docs/MVP_TRACEABILITY.md; 8 sections covered
+PASS     knowledge pack format — Knowledge pack validation PASSED (format only; this does not mean the content is approved or published).
+PASS     knowledge content approved — 21/22 records APPROVED with a reviewer (publishing is verified by E2E-25)
+PASS     provider data gate (A-004) — PASS provider-data data/providers/qa/validate-providers.mjs exited 0
+PENDING  E2E-01 新 session 取得 sessionToken（持有證明）與 expiresAt — no result for this target; waiting for B-011a, D-04
+PENDING  E2E-02 同意 ACTIVE 版本成功；accepted=false、DRAFT 或非 ACTIVE 版本被拒 — no result for this target; waiting for B-011a, D-05
+PENDING  E2E-03 未同意即評估 → CONSENT_REQUIRED — no result for this target; waiting for B-002
+PENDING  E2E-04 真實 Assessment：PUBLISHED knowledgeVersion、規則引擎、warnings、同輸入同輸出（ASSESSMENT_RULES §9 抽測含否定句、使用者回答優先） — no result for this target; waiting for B-011a, B-008, B-010, D-01a, E2E-25
+PENDING  E2E-05 結果頁顯示可能需要的服務、可能適用制度與補助說明；summary 數值與 PUBLISHED 紀錄一致；預估用語與 1966 提醒 — no result for this target; waiting for B-010, C-005, D-01a, E2E-25
+PENDING  E2E-06 無 PUBLISHED 知識 → KNOWLEDGE_UNAVAILABLE，畫面顯示 1966 引導，無假結果 — no result for this target; waiting for B-008, B-010
+PENDING  E2E-07 推薦 3／2／1／0 家（0 家為空狀態，不是錯誤）；每家有推薦原因；不受付費或 AI 影響 — no result for this target; waiting for B-004, B-005, A-004, A-005
+PENDING  E2E-08 精確位置（GPS）且候選都有已驗證座標 → DISTANCE 排序與「距離約 X 公里」 — no result for this target; waiting for A-003-r2, B-005, C-005, D-13g
+PENDING  E2E-09 只有行政區 → DISTRICT_ROTATION；同 session 同日結果穩定、跨日輪替；不宣稱最近 — no result for this target; waiting for B-005, D-13f
+PENDING  E2E-10 不提供位置 → 完成初評與服務建議、不呼叫推薦、提醒補充縣市／行政區、不顯示「附近」 — no result for this target; waiting for B-010, C-005, D-13b
+PENDING  E2E-11 精確位置但任一候選缺已驗證座標 → 整批 DISTRICT_ROTATION、locationPrecision 仍為 GPS、notice 說明原因，不以推估距離排名 — no result for this target; waiting for B-005, A-005, D-13c
+PENDING  E2E-12 Provider 詳情與卡片一致；不存在時 Not Found；Google Maps 連結等於資料值、新分頁 — no result for this target; waiting for B-004, C-004
+PENDING  E2E-13 Lead 保存並關聯 Assessment／Recommendation／Provider／Session（資料庫可查） — no result for this target; waiting for B-006, C-005
+PENDING  E2E-14 Lead 重試（同 Idempotency-Key、連點）只有一筆；不同內容 → IDEMPOTENCY_CONFLICT — no result for this target; waiting for B-006, B-011a
+PENDING  E2E-15 內部查件與狀態更新 NEW→CONTACTED→ACCEPTED→CLOSED；非法轉移被拒；未授權查件被拒 — no result for this target; waiting for B-006, D-06
+PENDING  E2E-16 Kareocar：API 回傳 URL 與 NEW_TAB；頁面以新分頁開啟、無 iframe；目標站實際可開啟；未做評估時首頁／導覽列也可一鍵新分頁開啟 Kareocar — no result for this target; waiting for B-007, D-09, C-007
+PENDING  E2E-17 無效／偽造／過期 session token → SESSION_INVALID — no result for this target; waiting for B-011a
+PENDING  E2E-18 跨 session：用 B 的 token 冒用 A 的 sessionId → FORBIDDEN；存取 A 的 assessment／recommendation／lead → NOT_FOUND — no result for this target; waiting for B-011a, B-005, B-006
+PENDING  E2E-19 撤回同意後不能評估、不能推薦、不能送 Lead — no result for this target; waiting for B-011a, B-011b
+PENDING  E2E-20 限流 → RATE_LIMITED（含 Retry-After），多次請求與多個 function instance 不能繞過 — no result for this target; waiting for B-011b
+PASS     E2E-21 未知 API → JSON 404（不回首頁 HTML） — public-2026-10-08T09:34:01.427Z @ 2026-10-08T09:34:13.309Z: unknown API: HTTP 404; JSON NOT_FOUND present
+PENDING  E2E-22 網路中斷／逾時後重試成功，不產生重複資料、不顯示假成功 — no result for this target; waiting for C-005, B-006
+PENDING  E2E-23 手機（375px）、平板、桌機完成主流程 — no result for this target; waiting for C-005
+PENDING  E2E-24 只用鍵盤完成主流程（skip link、表單、按鈕、外連） — no result for this target; waiting for C-005
+PENDING  E2E-25 首次知識發布：全部已核准內容包 import→approve→publish 為 intendedKnowledgeVersion；knowledge/status 顯示該版本 — no result for this target; waiting for B-008-r2, D-02, D-03
+PENDING  E2E-26 每日知識更新：00:10 Asia/Taipei 排程觸發紀錄（CrawlerRun）；變更進 NEEDS_REVIEW；重複觸發不重跑、不重複建立變更 — no result for this target; waiting for B-009
+PENDING  E2E-27 Provider 正式匯入通過 A-004，staging 回滾測試通過 — no result for this target; waiting for A-004, B-004
+PENDING  E2E-28 只有縣市 → CITY_ROTATION；服務範圍含該縣市、同日穩定；notice 提醒補行政區、不宣稱附近 — no result for this target; waiting for B-005, B-010, C-005, D-13a
+PENDING  E2E-29 GPS 拒絕／失敗／逾時 → 顯示原因、改選行政區（或不提供）完成評估，評估不中斷 — no result for this target; waiting for C-005, B-010, D-13g
+PENDING  E2E-30 臺北市／新北市地方資訊隔離：各一例只出現本市 S-LOCAL-*；缺地方知識 → S-LOCAL-MISSING；其他縣市 → S-LOCAL-NOCITY — no result for this target; waiting for B-010, E2E-25, D-01a
+PENDING  E2E-31 Knowledge 版本切換：發布新版本後新評估引用新 knowledgeVersion；舊評估保留原版本，且原版本的紀錄集合仍可追溯 — no result for this target; waiting for B-008-r2, B-010, E2E-25
+PENDING  E2E-32 未發布（NEEDS_REVIEW／CONFLICT）、撤回、失效（effectiveTo 已過）或不適用（他市）知識不被評估使用；撤回 → 上一版完整回復或 KNOWLEDGE_UNAVAILABLE；撤回的版本不能立即以同一版本重新發布 — no result for this target; waiting for B-008-r2, B-010
+PENDING  E2E-33 身心障礙證明 YES／NO／UNKNOWN（D-17）：YES 顯示身障福利補助（與長照分開）、NO 不顯示、UNKNOWN 提示確認；非法值 VALIDATION_ERROR — no result for this target; waiting for B-010, C-005, D-17, E2E-25
+PENDING  E2E-34 家庭經濟身分各選項及 UNKNOWN（D-17a）：自付比例與 FLOOR 估算和 PUBLISHED 紀錄一致；UNKNOWN 並列；標示「依您自選身分的估算」、非核定；非法值 VALIDATION_ERROR — no result for this target; waiting for B-010, C-005, D-17a, E2E-25
+PENDING  E2E-35 補助估算只依正式規則與已發布知識：來源與知識版本可見；無「已核定」「您可獲得」等宣稱；1966／照管中心提醒 — no result for this target; waiting for B-010, C-005, E2E-25
+PENDING  E2E-36 Lead 併發：同一 Idempotency-Key 同時送出多次只產生一筆，其餘回原結果（duplicate） — no result for this target; waiting for B-006, B-011a
+PENDING  E2E-37 刪除 session（DELETE /session）→ 評估資料與座標刪除、token 立即失效；Lead 依保存規則處理 — no result for this target; waiting for B-011b, D-05
+PENDING  E2E-38 每日知識更新失敗（逾時／HTTP 錯誤／格式改變）→ CrawlerRun FAILED 可查、保留上一個 PUBLISHED 版本、評估仍可用 — no result for this target; waiting for B-009
+PENDING  E2E-39 Crawler 快照與比對：保存 raw snapshot；PDF 以檔案位元組雜湊；未變更不產生 KnowledgeChange；同一變更不重複建立 — no result for this target; waiting for B-009
+PENDING  E2E-40 知識管理頁（D-16）：個人密鑰換 15 分鐘管理 token；看每日變更；核准／退回；發布／撤回；無 token／過期／非管理者被拒；不自動核准或發布 — no result for this target; waiting for B-012, C-006, D-16
+PENDING  E2E-41 主流程一次走完：首頁 → 新 session → 有效同意 → 評估 → 需求／制度／補助結果 → 推薦 → 詳情／Google Maps → Lead → 資料庫關聯與內部查件 — no result for this target; waiting for B-011a, B-010, B-005, B-006, C-005, E2E-25, D-05
+PENDING  E2E-42 失敗畫面與 API 錯誤不暴露個資、token 或資料庫錯誤；成功畫面只對應真實 API 成功回應 — no result for this target; waiting for C-005
+PENDING  E2E-43 Session 失效流程：SESSION_INVALID 時前端清除 token、引導重新開始，不顯示或送出舊資料 — no result for this target; waiting for B-011a, C-005
+PENDING  E2E-44 首頁公開資源查詢：雙北類別／所在地／行政區／名稱、分頁、錯誤及詳細資料；不建立 session、不收健康／聯絡資料 — public-2026-10-08T09:34:01.427Z @ 2026-10-08T09:34:13.309Z: /api/v1/providers: list returned 20 items; filters, provenance, UI and no-session browser checks not accepted
+PENDING  E2E-45 同一真實機構：服務範圍未知可查詢並標示；SERVICE_AREA 預設排除，主動包含列最後；不進入 Top 3，查詢與推薦用語分開 — no result for this target; waiting for A-006, B-013, C-007, B-005, D-05
+PENDING  E2E-46 公開查詢詳細頁沒有我要媒合；繞過 UI 以查詢結果直接建立 Lead 被拒絕 — no result for this target; waiting for B-006, C-007, D-05
+PENDING  E2E-47 雙北特約廠商標示與 contractCity 篩選、輔具資源中心可查詢；特約欄位與資源中心不進推薦或媒合 — no result for this target; waiting for A-006, A-007, B-013, C-007, B-005, D-05
+PENDING  E2E-48 公開長照制度／補助資訊查詢，只列目前 PUBLISHED 且有效紀錄、來源與版本；無版本／無資料／錯誤狀態正確，不做個人核定或建立 session — public-2026-10-08T09:34:01.427Z @ 2026-10-08T09:34:13.309Z: /api/v1/knowledge/records: list returned 20 items; filters, provenance, UI and no-session browser checks not accepted
+PENDING  E2E-49 完成評估後列印／複製需求摘要，含核准詢問問題與1966提醒；排除姓名／電話／自由文字／座標；不保存、不送後端、不產生分享連結 — no result for this target; waiting for C-009, D-05
+IGNORED  E2E result 2026-10-07-private-public-get.json — environment https://6ac6310d25ad9673c016b966--kareo-tw.netlify.app is not the target https://kareo-tw.netlify.app
+IGNORED  E2E result api-2026-10-03-foundation.json — commit 376f3ef36d0e is not the target 56500c835df2
+IGNORED  E2E result api-2026-10-05-preview82-access-blocked.json — environment https://6ac34be1269dfa0008dc778c--kareo-tw.netlify.app is not the target https://kareo-tw.netlify.app
+IGNORED  E2E result public-2026-10-03-j003-r10.json — commit 05b1c4a53738 is not the target 56500c835df2
+IGNORED  E2E result public-2026-10-05-current-staging-mismatch.json — commit afdf01bb24fd is not the target 56500c835df2
+
+Summary (release): 116 PASS, 0 FAIL, 48 PENDING, 5 result file(s) ignored
+RELEASE GATE FAILED: required MVP items are failing or pending.
