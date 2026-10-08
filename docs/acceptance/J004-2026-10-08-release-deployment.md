@@ -30,3 +30,21 @@ Jerry 已付費並要求「正式分支改成 release、恢復正式部署、避
 A／B／C繼續feature→staging，CI照常；只有Jerry確認可發布的批次才進release，減少每次staging合併及PR預覽的額度消耗。Netlify traffic／Functions仍有用量，不承諾零費用。私人按需驗收保持原授權、版本及目的，不重新開放所有自動預覽。
 
 完整release gate可能FAIL／PENDING，公開查詢恢復不採計完整MVP通過。完整正式營運仍需正式環境隔離、D-05 ACTIVE與完整E2E等既定條件。
+
+## 最終發布與驗收收尾（2026-10-08 09:34Z）
+
+- #112：head `26fdb1e2ebc8723e78346f5f8403961151032323` 的8項CI與50項隔離HTTP全部PASS；合併staging SHA=`10d6702f4f0b1e8135de3cdc34564206b68a55e7`。
+- #113：staging→release公開限定發布；promotion head 的CI與隔離HTTP成功。merge SHA／實際發布SHA=`56500c835df2869ad7e4540f6f0730cb31ccbbcd`，deploy=`6ac7631c4b91470008fb7960`。
+- Netlify自動發布一次，已ready；#112 PR、staging合併與#113 PR均未建立新Netlify預覽／staging正式部署。先前初次恢復的部署仍可回復，未實際演練回滾，不採計完整回滾驗收。
+- 公開 marker 在GET測試前後均為上述完整SHA、branch=release、context=production，證據 [public-release-2026-10-08.json](../../tests/e2e/results/public-release-2026-10-08.json)。
+- 最新SHA的GET smoke 4/4 PASS；未知API E2E-21 PASS；E2E-44／48僅清單API成功，完整案例仍PENDING。
+- 完整release gate：**116 PASS、0 FAIL、48 PENDING，FAILED**。完整部署49案例只有E2E-21的未知API驗證採計；未將隔離HTTP50項或清單成功算成正式主流程通過。詳見 [完整gate原始輸出](J004-2026-10-08-release-gate.txt)。
+- #113的首次strict gate因未設定base URL而失敗，已新增非機密repository variable `KAREO_RELEASE_BASE_URL=https://kareo-tw.netlify.app`。重跑後當時target仍為PR head而尚未部署，正確回報版本不符；此紀錄不採計為最終merge SHA的錯誤，最終SHA已按前後marker重驗。
+- 公開API基準：1117啟用資源、17輔具資源中心、21知識紀錄。新北居家照顧：機構所在地336筆，SERVICE_AREA 365筆，後者與官方可服務新北名單一致；不是刪減資料。
+- 無Session、同意、評估或Lead寫入；無secret搬移／新購DB／調整預算／移除保護。
+
+## 優先次序
+
+1. 已完成：部署來源與額度控制、公開查詢恢復、精確版本與讀取證據。
+2. 下一輪：公開查詢完整UI／分頁／來源／無Session驗收、知識與清理排程最新事件及資料品質（例如官方名冊多電話的顯示）核對。
+3. 個案流程正式啟用：仍按D-05與完整J-003／J-004前置條件處理，不能藉分支切換、付款或本輪公開查詢通過取代。
