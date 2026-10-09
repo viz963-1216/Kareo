@@ -1,5 +1,9 @@
 # Kareo Tasks
 
+## 2026-10-10 D-05：改採免費驗證路徑
+
+依 Jerry 指示，已建立 `Kareo Free Verification` Free 組織（US$0/month），準備 `Kareo Recovery Free` 東京表單，待本人設定密碼送出。新資料庫／邏輯還原尚未完成；不新增 Pro 專案，不修改原驗收／Kareocar／公開部署。Physical 與副本退休仍分開待驗，D-05 DRAFT、Integrated否。見 [免費方案與執行順序](../docs/acceptance/D05-2026-10-10-free-recovery-plan.md)。
+
 ## 2026-10-10 D-05：最新啟用查核
 
 營運方案有條件核准有效；每日清理已有 schedule 成功，最新受保護唯讀查核讀回4筆刪除receipt、相關Session均停用，觀察健康／聯絡資料0。額外HPR-01～03已取消；實體隔離還原、副本退休及正式同意一致部署仍待完成。未新增付費專案，registry仍DRAFT，完整J-003維持7／49 PASS、42 PENDING、Integrated否。見 [D-05現況與具體還原流程](../docs/acceptance/D05-2026-10-10-readiness.md)。
