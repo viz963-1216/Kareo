@@ -1,13 +1,15 @@
 # Kareo Integration Acceptance / 整合驗收紀錄
 
-> 2026-10-07 J-004-r11：Jerry 核准獨立、可分享的虛構個案展示站（DEMO_APPROVED）。展示隱私提示不阻擋操作；正式 D-05／49 項部署 E2E 不冒稱完成。見 [展示範圍與操作](acceptance/J004-2026-10-07-shareable-demo.md)。
+> 2026-10-09 J-003-r30：既有公開release `56500c8`有6／49實際部署案例PASS（01／03／12／16／21／27），43 PENDING。完整gate121 PASS／0 FAIL／43 PENDING仍失敗；121包含開發檢查，不是E2E案例數。Supabase實際Provider匯入回滾與四表資料比對通過；空白Session正常清理。東京兩官方來源仍逾時；依Jerry決定暫不新增付費實體還原專案。D-05仍DRAFT、Integrated否。見 [完整版本與證據](acceptance/J003-2026-10-09-foundation-and-rollback.md)。
+
+> 2026-10-07 J-004-r11：Jerry 核准獨立、可分享的虛構個案展示站（DEMO_APPROVED）。展示隱私提示不阻擋操作；正式 D-06／49 項部署 E2E 不冒稱完成。見 [展示範圍與操作](acceptance/J004-2026-10-07-shareable-demo.md)。
 
 > 2026-10-07 22:52（J-004-r9）：最新 staging `bb18992` 的 50 項隔離 HTTP/CLI 整合檢查全部 PASS、0 FAIL。僅採計 LOCAL 技術驗證；49 項部署 E2E 不變。見 [精確版本、時間與原始報告](acceptance/D05-2026-10-07-owner-rehearsal-cancellation.md#actual-technical-verification-after-cancellation)。
 
 > 2026-10-07 最新決定（J-004-r9）：Jerry 取消額外真人客服／權利演練 HPR-01～03，狀態為 CANCELLED_BY_OWNER，不再列為驗收阻擋。實際申請核對、刪除請求信箱及原 MVP Lead 接件責任保留；D-05 仍 DRAFT、完整 J-003／J-004 未完成。見 [決定紀錄](acceptance/D05-2026-10-07-owner-rehearsal-cancellation.md)。
 
 Owner: Jerry（TASK-J-003）
-Submission Version: J-003-r22
+Submission Version: J-003-r30
 
 > 只有「部署環境中，以真實 API 與真實資料實際操作成功」才算通過。
 > Mock、單元測試、PR 合併都**不算**整合完成。平台額度或模組缺漏造成的阻擋一律記為 `PENDING`，必要項目 PENDING 時完整驗收判定為**失敗**。

@@ -53,10 +53,10 @@ test('rejects URL injection, prototype keys, extra fields, arrays and oversized 
   }
 });
 
-test('accepts only the managed default secret key; malformed, publishable and user credentials are denied', async () => {
+test('managed default secret-key fast path; invalid, publishable and user credentials are denied', async () => {
   const backendKey = 'sb_secret_synthetic_backend_only';
   const keys = JSON.stringify({ default: backendKey });
-  const handle = createHandler({ getEnv: n => ({ ...env, SUPABASE_SECRET_KEYS: keys })[n],
+  const handle = createHandler({ getEnv: n => ({ ...env, SUPABASE_SECRET_KEYS: keys })[n], authFetch: async () => new Response(null, { status: 401 }),
     fetchImpl: async () => new Response(goodHtml, { headers: { 'content-type': 'text/html' } }) });
   const r = await handle(request(undefined, { headers: { apikey: backendKey, 'Content-Type': 'application/json' } }));
   assert.equal(r.status, 200);
@@ -67,6 +67,26 @@ test('accepts only the managed default secret key; malformed, publishable and us
   assert.equal((await closed(request())).status, 401);
 });
 
+test('rotated server keys need own-project zero-record HEAD authorization; forged claims and foreign/user roles fail', async () => {
+  const claims = { role: 'service_role', ref: 'ojawadobnaxduxybqolk' };
+  const rotated = `header.${Buffer.from(JSON.stringify(claims)).toString('base64url')}.synthetic-signature`;
+  let authCall, officialOptions;
+  const setup = (status) => createHandler({ getEnv: n => env[n], authFetch: async (url, options) => {
+    authCall = { url, options }; return new Response(null, { status });
+  }, fetchImpl: async (_, options) => { officialOptions = options; return new Response(goodHtml, { headers: { 'content-type': 'text/html' } }); } });
+  const input = () => request(undefined, { headers: { Authorization: `Bearer ${rotated}`, 'Content-Type': 'application/json' } });
+  assert.equal((await setup(200)(input())).status, 200);
+  assert.equal(authCall.url, PROJECT_URL + '/rest/v1/internal_operators?select=id&limit=0');
+  assert.equal(authCall.options.method, 'HEAD');
+  assert.deepEqual(officialOptions.headers, { Accept: 'text/html' });
+  for (const status of [401, 403, 500]) assert.equal((await setup(status)(input())).status, 401);
+  for (const badClaims of [{ ...claims, role: 'authenticated' }, { ...claims, ref: 'foreign-project' }]) {
+    const bad = `h.${Buffer.from(JSON.stringify(badClaims)).toString('base64url')}.s`;
+    const handle = createHandler({ getEnv: n => env[n], authFetch: () => { throw Error('must not authorize foreign/user key'); } });
+    assert.equal((await handle(request(undefined, { headers: { Authorization: `Bearer ${bad}`, 'Content-Type': 'application/json' } }))).status, 401);
+  }
+});
+
 test('fails closed on redirects, non-HTML, challenge pages, empty/oversized bodies and upstream errors', async () => {
   const replies = [
     () => new Response('', { status: 302, headers: { location: 'https://elsewhere/' } }),
@@ -74,12 +94,16 @@ test('fails closed on redirects, non-HTML, challenge pages, empty/oversized bodi
     () => new Response('<html>Login or CAPTCHA required</html>', { headers: { 'content-type': 'text/html' } }),
     () => new Response('', { headers: { 'content-type': 'text/html' } }),
     () => new Response('x'.repeat(MAX_BYTES + 1), { headers: { 'content-type': 'text/html' } }),
-    () => { throw Error(`timeout contains ${syntheticKey}`); },
+    () => { throw Error(`upstream exception contains ${syntheticKey}`); },
+    () => { throw new DOMException('upstream deadline', 'TimeoutError'); },
+    () => { throw new DOMException('upstream aborted', 'AbortError'); },
   ];
   for (const reply of replies) {
     const handle = createHandler({ getEnv: n => env[n], fetchImpl: async () => reply() });
     const r = await handle(request());
     assert.equal(r.status, 502);
-    assert.ok(!(await r.text()).includes(syntheticKey));
+    const body = await r.json();
+    assert.ok(!JSON.stringify(body).includes(syntheticKey));
+    if (replies.indexOf(reply) >= 6) assert.equal(body.error, 'OFFICIAL_SOURCE_TIMEOUT');
   }
 });

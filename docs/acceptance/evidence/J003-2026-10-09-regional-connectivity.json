@@ -1,0 +1,39 @@
+{
+  "scope": "PUBLIC_SOURCE_CONNECTIVITY_NOT_FULL_E2E",
+  "projectRef": "ojawadobnaxduxybqolk",
+  "commit": "97e275cd9f2db6f3d8a7560d42f7ddc93f268c38",
+  "startedAt": "2026-10-09T07:43:50.478Z",
+  "results": [
+    {
+      "sourceId": "SRC-NTPC-CAREYOU-BRANCH",
+      "httpStatus": 502,
+      "actualRegion": "ap-northeast-1",
+      "reportedRegion": null,
+      "sourceUrl": null,
+      "fetchedAt": null,
+      "byteLength": 0,
+      "rawHash": null,
+      "hashVerified": false,
+      "error": "OFFICIAL_SOURCE_TIMEOUT"
+    },
+    {
+      "sourceId": "SRC-NTPC-CAREYOU-LTCTS",
+      "httpStatus": 502,
+      "actualRegion": "ap-northeast-1",
+      "reportedRegion": null,
+      "sourceUrl": null,
+      "fetchedAt": null,
+      "byteLength": 0,
+      "rawHash": null,
+      "hashVerified": false,
+      "error": "OFFICIAL_SOURCE_TIMEOUT"
+    }
+  ],
+  "anonymousStatus": 401,
+  "finishedAt": "2026-10-09T07:44:33.933Z",
+  "workflowRunId": 37898927583,
+  "workflowJobId": 113722235033,
+  "workflowAttempt": 3,
+  "functionVersion": 4,
+  "functionBundleSha256": "3c0bc27270ba6af536e0297e61b3ee109235628411626f256725fa6b1136c233"
+}

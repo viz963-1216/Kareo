@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 2,
+  "runId": "foundation-2026-10-09T07:30:52.843Z",
+  "apiMode": "real",
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+  "startedAt": "2026-10-09T07:30:52.843Z",
+  "finishedAt": "2026-10-09T07:31:06.003Z",
+  "operator": "tests/e2e/run-foundation-e2e.mjs",
+  "scope": "EMPTY_SESSION_AND_CONSENT_DENIAL_ONLY",
+  "formalConsentActivated": false,
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+    "before": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T07:30:52.844Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "after": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T07:31:05.938Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "matches": true
+  },
+  "results": [
+    {
+      "caseId": "E2E-21",
+      "status": "PASS",
+      "evidence": "Unknown API must return JSON 404 / NOT_FOUND."
+    },
+    {
+      "caseId": "E2E-01",
+      "status": "PASS",
+      "evidence": "Real empty Session returned a sessionId, 43-character possession token, createdAt and future expiresAt; no token is recorded."
+    },
+    {
+      "caseId": "E2E-03",
+      "status": "PASS",
+      "evidence": "An unconsented real Session submitted only its ID; the consent gate must reject before assessment-input parsing with 403 / CONSENT_REQUIRED."
+    },
+    {
+      "caseId": "E2E-17",
+      "status": "PENDING",
+      "evidence": "Forged-token rejection checked; genuine expiry and all other token cases remain unverified."
+    },
+    {
+      "caseId": "E2E-02",
+      "status": "PENDING",
+      "evidence": "No consent is submitted; D-05 ACTIVE and valid/DRAFT/refusal cases are outside this diagnostic."
+    },
+    {
+      "caseId": "E2E-37",
+      "status": "PENDING",
+      "evidence": "Empty Session deletion and token invalidation checked separately; persisted assessment/coordinates/Lead cleanup still needs full E2E."
+    }
+  ],
+  "cleanup": [
+    {
+      "emptySessionDeletionAcceptedAndTokenDisabled": true,
+      "physicalDeletionVerified": false,
+      "status": "REQUEST_ACCEPTED"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r28：公開release 56500c8 的資料品質及UI複驗，19筆電話修正已逐筆API讀回；E2E-12/44/47/48仍PENDING，完整gate116 PASS／0 FAIL／48 PENDING。未重建Netlify、未啟用D-05。此前 r27：私人部署 01c267a 的公開 GET 驗收，E2E-21 PASS；指定版本其餘48項 PENDING，資源／知識 UI 部分觀察已記錄。此前 r25：5包／21筆歷史回補、13項真實雲端操作及5項私人部署空白Session檢查通過；正常清理入口dry-run／commit成功，每日清理已啟用（10/09已讀實際schedule job：commit／SUCCESS，刪除數0）。三種標準執行環境診斷已實跑，新北兩來源皆逾時，法規網站Linux改IPv4選擇後已讀取成功，完整18來源手動執行16成功／2失敗，16快照及發布邊界核對通過，7新變更待審；完成6份實體備份清冊，但隔離還原尚待條件；crawler來源失敗、D-05 ACTIVE、49項部署E2E及Integrated尚未完成。（2026-10-07）
+Status: 進行中。r30：公開release 56500c8 實際E2E-01／03／12／16／21／27 PASS，6／49通過、43 PENDING；完整gate121 PASS／0 FAIL／43 PENDING仍失敗。空白Session經正常清理流程刪除，實際雲端Provider匯入回滾及四表完整性通過。東京爬蟲實測兩來源仍逾時，未接入每日排程；Jerry選擇暫不新增付費隔離還原專案，D-05仍DRAFT、Integrated否。詳見 docs/acceptance/J003-2026-10-09-foundation-and-rollback.md。
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -40,7 +40,7 @@ CI 與整合接線（已交付，持續維護）：
 知識與資料：
 
 - [ ] 依 D-02 核准內容，用 B-008 import → approve → publish 在整合環境建立第一個 PUBLISHED 版本；未核准資料不得發布；記錄來源、審核、版本與 `GET /knowledge/status`
-- [ ] Provider 正式匯入通過 A-004；staging Supabase 回滾測試（D-10）
+- [x] Provider 正式匯入通過 A-004；staging Supabase 實際RPC負向／正向回滾測試（D-10，2026-10-09 r30）；正式資料1118／1101／2517／588與本機驗證業務欄位一致，無保留測試列。
 
 真實 E2E（release 模式，`tests/e2e/acceptance-cases.json`）：
 
@@ -148,3 +148,8 @@ Jerry 已儲存 GitHub staging 的 SUPABASE_URL／SUPABASE_SERVICE_ROLE_KEY，�
 詳見 `docs/acceptance/J003-2026-10-09-public-data-verification.md`。實際執行分頁／行政區與名稱／空結果／詳細與Not Found／輔具中心／知識版本與空資料；各完整案例缺少的驗證保留PENDING。資料QA 73與SQL隔離patch2通過，Netlify19/19公開detail電話正確；線上程式SHA保持56500c8。Pages靜態快照更新不採計部署E2E。未開放個案資料蒐集，Integrated=false。
 
 10/09排程唯讀複驗：自動cleanup commit／SUCCESS，首次自動執行證據已確認（不代表非零刪除/SLA完成）；crawler16來源成功、2新北fetch failed、7來源報變更未自動核准。實際觸發05:17/05:25臺北，晚於設定00:10/00:30，不採計準時性。見r28報告scheduled operations段落。
+
+
+## 2026-10-09 r30 部署基礎與雲端回滾
+
+見 [本輪實測證據](../docs/acceptance/J003-2026-10-09-foundation-and-rollback.md)。現有56500c8部署6／49通過；43 PENDING。根目錄113測試、後端774測試通過。東京兩來源仍502逾時；實體備份隔離還原依Jerry決定暫不新增付費專案，D-05不代改ACTIVE。沒有Netlify新部署，沒有健康／GPS／聯絡／Lead寫入，Integrated否。

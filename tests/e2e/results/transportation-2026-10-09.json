@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 2,
+  "runId": "manual-2026-10-09T07:58:44.844Z",
+  "apiMode": "real",
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+  "startedAt": "2026-10-09T07:58:44.844Z",
+  "finishedAt": "2026-10-09T07:58:45.418Z",
+  "operator": "Codex delegated integration verification for 蘇子傑",
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+    "before": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T07:58:44.849Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "after": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T07:58:44.849Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "matches": true
+  },
+  "results": [
+    {
+      "caseId": "E2E-16",
+      "status": "PASS",
+      "evidence": "Actual deployed GET /api/v1/external-services/transportation returned HTTP 200, success=true, url=https://kareocar.netlify.app/ and openMode=NEW_TAB at 2026-10-09T07:58:10Z; actual deployment markers before and after both matched 56500c835df2869ad7e4540f6f0730cb31ccbbcd. Without assessment or Session, clicked homepage CTA and navigation link in Kareo in-app browser tab 3; each opened an independent new tab (4 and 5) at the exact Kareocar URL. Both target pages actually loaded the 安心接送 public login screen, version V12.25.81. Both source links have target=_blank and rel=noopener noreferrer; source page has zero iframes and stayed at the Kareo homepage. No Kareocar login, reservation, database change or credential transmission occurred. Screenshot saved locally as work/j003-kareocar-new-tab.png."
+    }
+  ]
+}
