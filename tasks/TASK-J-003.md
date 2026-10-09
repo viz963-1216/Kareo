@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r30：公開release 56500c8 實際E2E-01／03／12／16／21／27 PASS，6／49通過、43 PENDING；完整gate121 PASS／0 FAIL／43 PENDING仍失敗。空白Session經正常清理流程刪除，實際雲端Provider匯入回滾及四表完整性通過。東京爬蟲實測兩來源仍逾時，未接入每日排程；Jerry選擇暫不新增付費隔離還原專案，D-05仍DRAFT、Integrated否。詳見 docs/acceptance/J003-2026-10-09-foundation-and-rollback.md。
+Status: 進行中。r31：公開release 56500c8 實際E2E-01／03／12／16／17／21／27 PASS，7／49通過、42 PENDING；完整gate122 PASS／0 FAIL／42 PENDING仍失敗。真正過期token及有效token對照通過，新空白Session已正常清理；公開查詢補組件證據，完整UI案例不冒稱通過。D-05仍DRAFT、付費隔離還原暫緩、Integrated否。詳見 docs/acceptance/J003-2026-10-09-token-and-public-query.md。
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -153,3 +153,7 @@ Jerry 已儲存 GitHub staging 的 SUPABASE_URL／SUPABASE_SERVICE_ROLE_KEY，�
 ## 2026-10-09 r30 部署基礎與雲端回滾
 
 見 [本輪實測證據](../docs/acceptance/J003-2026-10-09-foundation-and-rollback.md)。現有56500c8部署6／49通過；43 PENDING。根目錄113測試、後端774測試通過。東京兩來源仍502逾時；實體備份隔離還原依Jerry決定暫不新增付費專案，D-05不代改ACTIVE。沒有Netlify新部署，沒有健康／GPS／聯絡／Lead寫入，Integrated否。
+
+## 2026-10-09 r31 過期token與公開查詢
+
+見 [本輪證據](../docs/acceptance/J003-2026-10-09-token-and-public-query.md)。新增E2E-17真實過期／有效token對照與清理，7／49部署案例通過、42 PENDING。根目錄117測試通過。完整公開查詢UI／請求／錯誤重試仍待驗，D-05不代改ACTIVE，Netlify無新部署。
