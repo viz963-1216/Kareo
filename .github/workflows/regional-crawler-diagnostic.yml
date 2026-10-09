@@ -1,0 +1,27 @@
+name: Regional crawler diagnostic
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  diagnostic:
+    if: github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    environment: staging
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test fixed official sources in Tokyo (no DB writes)
+        run: node scripts/diagnose-regional-crawler.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regional-crawler-connectivity
+          path: regional-crawler-connectivity.json
+          if-no-files-found: warn
