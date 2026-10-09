@@ -2,7 +2,7 @@
 
 Owner: Engineer A；本輪由 Jerry 授權 Codex 中心整合執行。
 Submission Version: A-008-r5
-Status: r1～r4 MERGED (#104/#107/#108/#109)；r4 新北官方居服全名冊已差額匯入 Supabase 並驗證公開查詢。尚有居護全名冊／輔具未知範圍待補，不宣稱全類別全量完成。
+Status: r1～r5 MERGED (#104/#107/#108/#109/#115)；r4 新北官方居服全名冊已差額匯入 Supabase；r5 完成19筆電話修正、逐筆線上API讀回與Pages快照同步。尚有居護全名冊／輔具未知範圍待補，不宣稱全類別全量完成。
 
 ## Goal
 
@@ -55,3 +55,5 @@ PR → staging；Title `[A-008] Import official New Taipei home-care catalogue`�
 ## 2026-10-09 r5 電話品質修正
 
 修正19筆新北官方居服電話換行串接；來源快照、服務區域、原800筆與停派狀態保留。資料QA 73項與隔離SQL patch 2項通過；patch遇已變更資料整批拒絕，重跑一致。詳見 `data/providers/qa/ntpc-home-care-report.md` r5段落。居護全名冊／輔具未知服務範圍仍待補。雲端同步與公開詳細頁複驗另附PR證據。
+
+2026-10-09 雲端與發布完成：PR #115 → staging 569f19c；Supabase19/19電話讀回正確，其他四表／欄位指紋不變。Netlify既有release版本直接讀取更新，未重建；Pages快照源569f19c，實際網頁電話一致。詳見 `docs/acceptance/J003-2026-10-09-public-data-verification.md`。

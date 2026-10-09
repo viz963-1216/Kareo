@@ -1,0 +1,158 @@
+{
+  "checkedAt": "2026-10-09T06:45:03.381Z",
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "before": {
+    "schemaVersion": 1,
+    "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+    "commitSource": "netlify:COMMIT_REF",
+    "branch": "release",
+    "context": "production",
+    "deployId": "6ac7631c4b91470008fb7960",
+    "builtAt": "2026-10-08T09:33:13.215Z"
+  },
+  "after": {
+    "schemaVersion": 1,
+    "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+    "commitSource": "netlify:COMMIT_REF",
+    "branch": "release",
+    "context": "production",
+    "deployId": "6ac7631c4b91470008fb7960",
+    "builtAt": "2026-10-08T09:33:13.215Z"
+  },
+  "versionUnchanged": true,
+  "results": [
+    {
+      "id": "CAT-HC-NTPC-096045937B32",
+      "status": 200,
+      "phone": "02-6604-5036",
+      "expected": "02-6604-5036",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-6C9ED523692D",
+      "status": 200,
+      "phone": "02-6604-4372",
+      "expected": "02-6604-4372",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-570E266ABB4F",
+      "status": 200,
+      "phone": "02-8522-9153",
+      "expected": "02-8522-9153",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-EB5DBC0F293A",
+      "status": 200,
+      "phone": "02-8258-1317",
+      "expected": "02-8258-1317",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-1A4C3759499A",
+      "status": 200,
+      "phone": "02-2295-2100",
+      "expected": "02-2295-2100",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-39FBC5FBC0FD",
+      "status": 200,
+      "phone": "02-2625-7846",
+      "expected": "02-2625-7846",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-F6BA3E3484CA",
+      "status": 200,
+      "phone": "02-2977-5001",
+      "expected": "02-2977-5001",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-FF1F41ADD408",
+      "status": 200,
+      "phone": "02-2996-5776",
+      "expected": "02-2996-5776",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-866028163A1B",
+      "status": 200,
+      "phone": "02-8919-3118",
+      "expected": "02-8919-3118",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-B2B41BE90951",
+      "status": 200,
+      "phone": "02-2608-5670",
+      "expected": "02-2608-5670",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-25C698B1B198",
+      "status": 200,
+      "phone": "02-2970-2389",
+      "expected": "02-2970-2389",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-48F8189B058B",
+      "status": 200,
+      "phone": "02-2600-1970",
+      "expected": "02-2600-1970",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-7149718549FF",
+      "status": 200,
+      "phone": "02-2902-5885",
+      "expected": "02-2902-5885",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-F7B7010365B0",
+      "status": 200,
+      "phone": "02-2805-9636",
+      "expected": "02-2805-9636",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-0423794F442D",
+      "status": 200,
+      "phone": "02-8675-5001",
+      "expected": "02-8675-5001",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-ACF47F2A0F38",
+      "status": 200,
+      "phone": "02-2912-2989",
+      "expected": "02-2912-2989",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-EC85B9C5EC51",
+      "status": 200,
+      "phone": "02-7755-7801",
+      "expected": "02-7755-7801",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-041E328A4ABF",
+      "status": 200,
+      "phone": "02-2978-3838",
+      "expected": "02-2978-3838",
+      "pass": true
+    },
+    {
+      "id": "CAT-HC-NTPC-F770D48FEABE",
+      "status": 200,
+      "phone": "02-2980-0063",
+      "expected": "02-2980-0063",
+      "pass": true
+    }
+  ]
+}
