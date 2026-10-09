@@ -1,5 +1,9 @@
 # Kareo Tasks
 
+## 2026-10-09 J-003-r30：部署基礎與雲端匯入回滾
+
+公開release `56500c8`：E2E-01／03／12／16／21／27通過，**6／49 PASS、43 PENDING**，完整gate121 PASS／0 FAIL／43 PENDING仍失敗。四張正式資源表比對與Supabase實際RPC回滾通過；唯一新空白Session已經正常清理。東京兩官方來源仍逾時、未接入每日爬蟲；Jerry暫不新增付費實體還原專案，D-05 DRAFT、Integrated否。新PR不觸發Netlify部署。見 [本輪證據](../docs/acceptance/J003-2026-10-09-foundation-and-rollback.md)。
+
 ## 2026-10-09 A-008-r5／J-003-r28：公開資料與UI複驗
 
 PR #115已合併並完成19筆新北電話的Supabase修正與Pages同步；Netlify無重建，19/19公開API讀回正確。資料QA73／SQL隔離patch2通過，原資料及服務範圍保留。公開UI已實際操作，但完整案例仍保留缺項：release gate116 PASS／0 FAIL／48 PENDING，Integrated=false。詳見 [今日證據](../docs/acceptance/J003-2026-10-09-public-data-verification.md)。
@@ -17,7 +21,7 @@ PR #115已合併並完成19筆新北電話的Supabase修正與Pages同步；Netl
 Jerry 要求公開網址改用真實機構及依輸入條件計算，不再固定 demo 回應。新增 [A-008](TASK-A-008.md)：真實資料與可追溯範圍；本輪重用正式規則引擎／資源 filter，保留原 35 筆並補一筆真實輔具商家。公開資料版不送雲端個案、不建立 Lead、不代替完整 J-003／D-05。詳見 [r12 報告](../docs/acceptance/J004-2026-10-08-real-public-data.md)。
 
 
-> 2026-10-07 J-004-r11：Jerry 核准獨立、可分享的虛構個案展示站（DEMO_APPROVED）。展示隱私提示不阻擋操作；正式 D-05／49 項部署 E2E 不冒稱完成。見 [展示範圍與操作](../docs/acceptance/J004-2026-10-07-shareable-demo.md)。
+> 2026-10-07 J-004-r11：Jerry 核准獨立、可分享的虛構個案展示站（DEMO_APPROVED）。展示隱私提示不阻擋操作；正式 D-06／49 項部署 E2E 不冒稱完成。見 [展示範圍與操作](../docs/acceptance/J004-2026-10-07-shareable-demo.md)。
 
 > 2026-10-07 22:52（J-004-r9）：最新 staging `bb18992` 的 50 項隔離 HTTP/CLI 整合檢查全部 PASS、0 FAIL。僅採計 LOCAL 技術驗證；49 項部署 E2E 不變。見 [精確版本、時間與原始報告](../docs/acceptance/D05-2026-10-07-owner-rehearsal-cancellation.md#actual-technical-verification-after-cancellation)。
 

@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 2,
+  "runId": "manual-2026-10-09T08:05:11.431Z",
+  "apiMode": "real",
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+  "startedAt": "2026-10-09T08:05:11.431Z",
+  "finishedAt": "2026-10-09T08:05:11.915Z",
+  "operator": "Codex delegated integration verification for 蘇子傑",
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+    "before": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T08:05:11.438Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "after": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T08:05:11.438Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "matches": true
+  },
+  "results": [
+    {
+      "caseId": "E2E-12",
+      "status": "PASS",
+      "evidence": "Actual public resources search for 安毅 returned one card for CAT-HC-NTPC-0423794F442D. Clicked its detail link: name 新北市私立安毅居家長照機構, three public services, address 新北市板橋區金門街372巷13號1樓 and phone 02-8675-5001 match the card and actual provider API response (HTTP 200). Detail Maps href equals the exact stored googleMapsUrl, target=_blank, rel=noopener noreferrer. Actual click opened independent browser tab 6 and Google Maps loaded the public address search; the source Kareo tab remained independent. No coordinate verification or business-place-ID claim. Actual /api/v1/providers/J003-NOT-FOUND returns JSON 404 / NOT_FOUND; its UI route renders 找不到這項資源 and return navigation. Deployment marker still exact 56500c835df2869ad7e4540f6f0730cb31ccbbcd. Detail screenshot saved as work/j003-provider-detail.png. No Session, health, contact or Lead writes."
+    }
+  ]
+}

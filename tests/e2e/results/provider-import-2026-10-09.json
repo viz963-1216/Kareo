@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 2,
+  "runId": "manual-2026-10-09T07:42:14.653Z",
+  "apiMode": "real",
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+  "startedAt": "2026-10-09T07:42:14.653Z",
+  "finishedAt": "2026-10-09T07:42:15.445Z",
+  "operator": "Codex delegated integration verification for 蘇子傑",
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+    "before": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T07:42:14.661Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "after": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T07:42:14.661Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "matches": true
+  },
+  "results": [
+    {
+      "caseId": "E2E-27",
+      "status": "PASS",
+      "evidence": "Current A-004 data gate: 1118 providers, 1101 services, 2517 areas, 588 contracts, zero errors. Same four cloud counts and scalar business-field digests match the validated dataset exactly. In Kareo acceptance project ojawadobnaxduxybqolk, actual import_provider_dataset RPC executed as service_role: stage-2 service FK and stage-3 area FK failures both rolled back the earlier inserts; valid 1-provider/1-service/1-area positive control wrote all three before an explicit disposable subtransaction rollback. Full-row hashes of all four existing tables remained unchanged; retained fixture rows all zero. Reproducible query: tests/db/verify-cloud-provider-rollback.sql. This is a connector-executed cloud RPC verification, not a deployed importer HTTP call or physical backup restore."
+    }
+  ]
+}

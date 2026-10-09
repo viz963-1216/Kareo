@@ -1,5 +1,6 @@
-// Server-only transport for the two unchanged approved careyou sources. No DB access,
-// request URLs, caller headers, cookies, redirects, proxy configuration or publication.
+// Server-only transport for the two unchanged approved careyou sources. Only a
+// zero-record own-project HEAD may authorize a rotated server key; no business
+// records, writes, caller URLs/headers/cookies, redirects, proxy or publication.
 export const SOURCES = Object.freeze({
   'SRC-NTPC-CAREYOU-BRANCH': 'https://www.careyou.ntpc.gov.tw/w/agecare/care-branch',
   'SRC-NTPC-CAREYOU-LTCTS': 'https://www.careyou.ntpc.gov.tw/w/agecare/ltcts',
@@ -37,7 +38,7 @@ function equalSecret(actual, expected) {
   return diff === 0;
 }
 
-export function createHandler({ getEnv, fetchImpl = fetch, now = () => new Date() }) {
+export function createHandler({ getEnv, fetchImpl = fetch, authFetch = fetch, now = () => new Date() }) {
   const json = (status, body) => new Response(JSON.stringify(body), {
     status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
   });
@@ -53,7 +54,28 @@ export function createHandler({ getEnv, fetchImpl = fetch, now = () => new Date(
     const legacyAllowed = !!legacy && equalSecret(request.headers.get('Authorization'), `Bearer ${legacy}`);
     const secretAllowed = typeof secret === 'string' && secret.startsWith('sb_secret_')
       && equalSecret(request.headers.get('apikey'), secret);
-    if (!legacyAllowed && !secretAllowed) return json(401, { error: 'UNAUTHORIZED' });
+    if (!legacyAllowed && !secretAllowed) {
+      // A still-valid rotated server credential can differ from the Edge runtime's
+      // built-in key. Ask the project's own REST authority, reading ZERO records.
+      // The inspected ACL denies anon/authenticated SELECT on this internal table.
+      const candidate = request.headers.get('apikey') || request.headers.get('Authorization')?.replace(/^Bearer /, '');
+      let serverClaim = typeof candidate === 'string' && candidate.startsWith('sb_secret_');
+      if (candidate && !serverClaim) {
+        try {
+          const claims = JSON.parse(atob(candidate.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+          serverClaim = claims.ref === 'ojawadobnaxduxybqolk' && claims.role === 'service_role';
+        } catch { /* not a server credential */ }
+      }
+      if (!candidate || !serverClaim) return json(401, { error: 'UNAUTHORIZED' });
+      try {
+        const headers = { apikey: candidate };
+        if (!candidate.startsWith('sb_secret_')) headers.Authorization = `Bearer ${candidate}`;
+        const authorized = await authFetch(`${PROJECT_URL}/rest/v1/internal_operators?select=id&limit=0`, {
+          method: 'HEAD', headers, redirect: 'error', signal: AbortSignal.timeout(5000),
+        });
+        if (authorized.status !== 200) return json(401, { error: 'UNAUTHORIZED' });
+      } catch { return json(401, { error: 'UNAUTHORIZED' }); }
+    }
     if (request.method !== 'POST') return json(405, { error: 'METHOD_NOT_ALLOWED' });
     if (new URL(request.url).search || request.headers.get('content-type') !== 'application/json') {
       return json(400, { error: 'INVALID_REQUEST' });
@@ -91,9 +113,10 @@ export function createHandler({ getEnv, fetchImpl = fetch, now = () => new Date(
         contentType: fetched.headers.get('content-type'), byteLength: bytes.byteLength,
         rawHash: `sha256:${hash}`, rawBase64: btoa(binary),
       });
-    } catch {
+    } catch (error) {
       // Never emit raw exceptions: they may include internal URLs or auth headers.
-      return json(502, { error: 'OFFICIAL_SOURCE_FETCH_FAILED' });
+      return json(502, { error: ['TimeoutError', 'AbortError'].includes(error?.name)
+        ? 'OFFICIAL_SOURCE_TIMEOUT' : 'OFFICIAL_SOURCE_FETCH_FAILED' });
     }
   };
 }
