@@ -1,5 +1,9 @@
 # Kareo Tasks
 
+## 2026-10-09 A-008-r5／J-003-r28：公開資料與UI複驗
+
+PR #115已合併並完成19筆新北電話的Supabase修正與Pages同步；Netlify無重建，19/19公開API讀回正確。資料QA73／SQL隔離patch2通過，原資料及服務範圍保留。公開UI已實際操作，但完整案例仍保留缺項：release gate116 PASS／0 FAIL／48 PENDING，Integrated=false。詳見 [今日證據](../docs/acceptance/J003-2026-10-09-public-data-verification.md)。
+
 ## 2026-10-08 J-004-r17：release 公開查詢部署
 
 正式部署來源改 `release`；停用自動 PR 預覽及其他分支部署，保留 GitHub CI、staging 預設分支與排程。現有驗收資料庫供公開資源／制度資訊查詢，同意與個案流程維持未啟用。詳見 [部署紀錄](../docs/acceptance/J004-2026-10-08-release-deployment.md)。

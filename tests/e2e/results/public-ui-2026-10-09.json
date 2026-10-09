@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 2,
+  "runId": "manual-2026-10-09T06:48:18.354Z",
+  "apiMode": "real",
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+  "startedAt": "2026-10-09T06:48:18.354Z",
+  "finishedAt": "2026-10-09T06:48:19.106Z",
+  "operator": "Codex browser verification, delegated by 蘇子傑",
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+    "before": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T06:48:18.363Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "after": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T06:48:18.363Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "matches": true
+  },
+  "results": [
+    {
+      "caseId": "E2E-12",
+      "status": "PENDING",
+      "evidence": "Actual public card/detail match for 安毅, correct phone 02-8675-5001, nonexistent provider shows Not Found; Maps href equals real provider value with target=_blank/rel=noopener noreferrer. Click attempted but browser tooling did not expose the new Maps tab, so external navigation not fully verified."
+    },
+    {
+      "caseId": "E2E-44",
+      "status": "PENDING",
+      "evidence": "Actual browser: 1117 active resources, New Taipei HOME_CARE SERVICE_AREA 365 +9 unknown, page 2/19 changes results, district+name returns 安毅, nonexistent name returns zero with 1966 reminder. No health/contact submitted; Sessions 10 and Consents/Assessments/Leads 0 before/after. Deployed network-error/retry behaviour and exhaustive no-session request capture remain unverified."
+    },
+    {
+      "caseId": "E2E-47",
+      "status": "PENDING",
+      "evidence": "Actual browser returns 17 query-only assistive centers with service selector disabled. Recommendation/Lead comparison and full contract-city interaction not completed in this run."
+    },
+    {
+      "caseId": "E2E-48",
+      "status": "PENDING",
+      "evidence": "Actual /info shows published KB-2026-09-24-001 and official sources; New Taipei respite filter has no data and shows safe empty state/1966. No-version/error-state UI has not been exercised; no published knowledge was withdrawn for testing."
+    }
+  ]
+}
