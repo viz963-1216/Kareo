@@ -71,6 +71,13 @@ const FALLBACK_MESSAGES: Record<string, string> = {
   TIMEOUT: "等待回應逾時，請稍後再試或直接聯絡 1966。",
   INVALID_RESPONSE: "系統回應異常，請稍後再試或直接聯絡 1966。",
   HTTP_ERROR: GENERIC_MESSAGE,
+  INTERNAL_ERROR: GENERIC_MESSAGE,
+  INVALID_REQUEST: "請確認輸入資料後再試一次。",
+  VALIDATION_ERROR: "請確認輸入資料與同意版本後再試一次。",
+  NO_PROVIDER_FOUND: "目前沒有符合條件的服務單位，請調整條件或聯絡 1966。",
+  PAYLOAD_TOO_LARGE: "送出的資料過多，請縮短內容後再試一次。",
+  IDEMPOTENCY_CONFLICT: "這次重試的內容與先前送出不同，請重新確認後再送出。",
+  INVALID_STATUS_TRANSITION: "資料狀態已改變，請重新載入後再試一次。",
 };
 
 // Whether a missing session token is fatal. API_CONTRACT v0.2 §3.1 requires tokens, but that
@@ -413,8 +420,12 @@ async function request<T>(
   const error = isRecord(payload.error) ? payload.error : {};
   const code = typeof error.code === "string" && error.code ? error.code : response.ok ? "INVALID_RESPONSE" : "HTTP_ERROR";
   if (code === "SESSION_INVALID") clearToken();
-  const serverMessage = typeof error.message === "string" && error.message ? error.message : null;
-  throw new ApiError(code, FALLBACK_MESSAGES[code] ?? serverMessage ?? GENERIC_MESSAGE, response.status);
+  // ARCHITECTURE §20.6: server diagnostics must never become public UI text.
+  // Keep code/status for callers, but use only locally reviewed messages.
+  // Own-property lookup also prevents an unexpected code such as "constructor"
+  // from reading Object.prototype instead of the safe fallback.
+  const message = Object.prototype.hasOwnProperty.call(FALLBACK_MESSAGES, code) ? FALLBACK_MESSAGES[code] : GENERIC_MESSAGE;
+  throw new ApiError(code, message, response.status);
 }
 
 export const realApi = {
