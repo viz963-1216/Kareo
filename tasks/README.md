@@ -1,5 +1,9 @@
 # Kareo Tasks
 
+## 2026-10-09 J-003-r31：過期token與公開查詢
+
+公開release `56500c8`：E2E-01／03／12／16／17／21／27通過，**7／49 PASS、42 PENDING**；完整gate122 PASS／0 FAIL／42 PENDING仍失敗。新空白Session實際過期後被拒絕、已正常清理；公开查詢補充GET組件與部分Chrome操作證據，完整UI仍待驗。根目錄117測試通過。D-05 DRAFT、付費隔離還原暫緩、Integrated否，無Netlify新部署。見 [本輪證據](../docs/acceptance/J003-2026-10-09-token-and-public-query.md)。
+
 ## 2026-10-09 J-003-r30：部署基礎與雲端匯入回滾
 
 公開release `56500c8`：E2E-01／03／12／16／21／27通過，**6／49 PASS、43 PENDING**，完整gate121 PASS／0 FAIL／43 PENDING仍失敗。四張正式資源表比對與Supabase實際RPC回滾通過；唯一新空白Session已經正常清理。東京兩官方來源仍逾時、未接入每日爬蟲；Jerry暫不新增付費實體還原專案，D-05 DRAFT、Integrated否。新PR不觸發Netlify部署。見 [本輪證據](../docs/acceptance/J003-2026-10-09-foundation-and-rollback.md)。

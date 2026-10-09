@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 1,
+  "scope": "REAL_GET_ONLY_COMPONENT_CHECKS",
+  "releaseAcceptance": false,
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+  "startedAt": "2026-10-09T09:04:09.527Z",
+  "finishedAt": "2026-10-09T09:05:38.609Z",
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+    "before": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T09:04:08.657Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "after": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T09:05:38.334Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "matches": true
+  },
+  "dataset": {
+    "providers": {
+      "sha256": "aa8534c6c55371c85fa87b6792b82cb25ad89e81b595dbfef03fd08ad1094b2d"
+    },
+    "provider-services": {
+      "sha256": "177fc88f88159e37fe4d9edc62792d5146d1b8533880e449d050a1fee4878984"
+    },
+    "provider-service-areas": {
+      "sha256": "2039f0554e9faaa6d36bfeb00156be67f2363ea5042a7b6ac22754857ef54f76"
+    },
+    "provider-contract-regions": {
+      "sha256": "61743c4bd3a236d0178d18665447f1bafe574094cb603dc8b1c3fee513367b2f"
+    },
+    "provider-public-info": {
+      "sha256": "651d148b2e1560454f68a30a8f1c3a3a9ae261a0b3d237628ef39da5cc64ff9b"
+    }
+  },
+  "requests": 27,
+  "checks": [
+    {
+      "name": "all ACTIVE resources, first page and public fields",
+      "method": "GET",
+      "path": "/api/v1/providers?pageSize=20",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "second page retains total and has no duplicate first-page IDs",
+      "method": "GET",
+      "path": "/api/v1/providers?page=2&pageSize=20",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "service HOME_CARE",
+      "method": "GET",
+      "path": "/api/v1/providers?serviceType=HOME_CARE&pageSize=50",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "service HOME_MEDICAL_NURSING",
+      "method": "GET",
+      "path": "/api/v1/providers?serviceType=HOME_MEDICAL_NURSING&pageSize=50",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "service ASSISTIVE_DEVICE",
+      "method": "GET",
+      "path": "/api/v1/providers?serviceType=ASSISTIVE_DEVICE&pageSize=50",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "assistive centers have no recommendation service",
+      "method": "GET",
+      "path": "/api/v1/providers?resourceCategory=ASSISTIVE_DEVICE_CENTER&pageSize=50",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "assistive contract 臺北市",
+      "method": "GET",
+      "path": "/api/v1/providers?serviceType=ASSISTIVE_DEVICE&contractCity=%E8%87%BA%E5%8C%97%E5%B8%82&pageSize=50",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "assistive contract 新北市",
+      "method": "GET",
+      "path": "/api/v1/providers?serviceType=ASSISTIVE_DEVICE&contractCity=%E6%96%B0%E5%8C%97%E5%B8%82&pageSize=50",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "official assistive program PURCHASE",
+      "method": "GET",
+      "path": "/api/v1/providers?serviceType=ASSISTIVE_DEVICE&assistiveProgram=PURCHASE&pageSize=50",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "official assistive program SMART_TECH",
+      "method": "GET",
+      "path": "/api/v1/providers?serviceType=ASSISTIVE_DEVICE&assistiveProgram=SMART_TECH&pageSize=50",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "actual NTPC An-Yi name, city and district",
+      "method": "GET",
+      "path": "/api/v1/providers?serviceType=HOME_CARE&city=%E6%96%B0%E5%8C%97%E5%B8%82&district=%E6%9D%BF%E6%A9%8B%E5%8D%80&q=%E5%AE%89%E6%AF%85",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "unknown service area excluded by default",
+      "method": "GET",
+      "path": "/api/v1/providers?serviceType=ASSISTIVE_DEVICE&city=%E8%87%BA%E5%8C%97%E5%B8%82&district=%E4%B8%AD%E6%AD%A3%E5%8D%80&areaFilter=SERVICE_AREA&q=%E9%9F%BB%E8%AD%AF%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "FAIL",
+      "evidence": "Response failed the named contract assertion; no raw response or exception recorded."
+    },
+    {
+      "name": "unknown service area explicitly included",
+      "method": "GET",
+      "path": "/api/v1/providers?serviceType=ASSISTIVE_DEVICE&city=%E8%87%BA%E5%8C%97%E5%B8%82&district=%E4%B8%AD%E6%AD%A3%E5%8D%80&areaFilter=SERVICE_AREA&q=%E9%9F%BB%E8%AD%AF%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&includeUnconfirmed=true",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "empty name search has empty items",
+      "method": "GET",
+      "path": "/api/v1/providers?q=%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84Kareo%E9%A9%97%E6%94%B6%E6%A9%9F%E6%A7%8B20261009",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "FAIL",
+      "evidence": "Response failed the named contract assertion; no raw response or exception recorded."
+    },
+    {
+      "name": "out-of-range page retains total",
+      "method": "GET",
+      "path": "/api/v1/providers?page=99999",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "unsupported city",
+      "method": "GET",
+      "path": "/api/v1/providers?city=%E6%A1%83%E5%9C%92%E5%B8%82",
+      "expectedStatus": 400,
+      "httpStatus": 400,
+      "status": "PASS"
+    },
+    {
+      "name": "district without city",
+      "method": "GET",
+      "path": "/api/v1/providers?district=%E6%9D%BF%E6%A9%8B%E5%8D%80",
+      "expectedStatus": 400,
+      "httpStatus": 400,
+      "status": "PASS"
+    },
+    {
+      "name": "forbidden distance sort",
+      "method": "GET",
+      "path": "/api/v1/providers?sort=distance",
+      "expectedStatus": 400,
+      "httpStatus": 400,
+      "status": "PASS"
+    },
+    {
+      "name": "center plus service",
+      "method": "GET",
+      "path": "/api/v1/providers?resourceCategory=ASSISTIVE_DEVICE_CENTER&serviceType=ASSISTIVE_DEVICE",
+      "expectedStatus": 400,
+      "httpStatus": 400,
+      "status": "PASS"
+    },
+    {
+      "name": "all current published valid knowledge, minimal public fields",
+      "method": "GET",
+      "path": "/api/v1/knowledge/records?pageSize=50",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "FAIL",
+      "evidence": "Response failed the named contract assertion; no raw response or exception recorded."
+    },
+    {
+      "name": "knowledge jurisdiction TAIWAN",
+      "method": "GET",
+      "path": "/api/v1/knowledge/records?jurisdiction=TAIWAN&pageSize=50",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "FAIL",
+      "evidence": "Response failed the named contract assertion; no raw response or exception recorded."
+    },
+    {
+      "name": "knowledge jurisdiction TAIPEI",
+      "method": "GET",
+      "path": "/api/v1/knowledge/records?jurisdiction=TAIPEI&pageSize=50",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "FAIL",
+      "evidence": "Response failed the named contract assertion; no raw response or exception recorded."
+    },
+    {
+      "name": "knowledge jurisdiction NEW_TAIPEI",
+      "method": "GET",
+      "path": "/api/v1/knowledge/records?jurisdiction=NEW_TAIPEI&pageSize=50",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "FAIL",
+      "evidence": "Response failed the named contract assertion; no raw response or exception recorded."
+    },
+    {
+      "name": "valid knowledge filter with no results",
+      "method": "GET",
+      "path": "/api/v1/knowledge/records?jurisdiction=NEW_TAIPEI&category=RESPITE",
+      "expectedStatus": 200,
+      "httpStatus": 200,
+      "status": "PASS"
+    },
+    {
+      "name": "invalid knowledge jurisdiction",
+      "method": "GET",
+      "path": "/api/v1/knowledge/records?jurisdiction=TAOYUAN",
+      "expectedStatus": 400,
+      "httpStatus": 400,
+      "status": "PASS"
+    },
+    {
+      "name": "invalid category",
+      "method": "GET",
+      "path": "/api/v1/knowledge/records?category=INVALID",
+      "expectedStatus": 400,
+      "httpStatus": 400,
+      "status": "PASS"
+    },
+    {
+      "name": "unknown knowledge parameter",
+      "method": "GET",
+      "path": "/api/v1/knowledge/records?sort=amount",
+      "expectedStatus": 400,
+      "httpStatus": 400,
+      "status": "PASS"
+    }
+  ],
+  "summary": {
+    "pass": 21,
+    "fail": 6
+  },
+  "limitations": [
+    "No browser request capture or failure/retry/device/keyboard verification; E2E-44/45/47/48 remain PENDING.",
+    "No Session/consent/health/contact/Lead/admin requests. No version withdrawal, deliberate rate-limit exhaustion or database writes.",
+    "Public response checks are against this formal dataset; 21 knowledge records are the current observed published fixture, not proof of full publication lifecycle."
+  ]
+}

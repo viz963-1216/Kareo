@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 2,
+  "runId": "token-expiry-2026-10-09T08:54:59.963Z",
+  "apiMode": "real",
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+  "startedAt": "2026-10-09T08:54:59.963Z",
+  "finishedAt": "2026-10-09T08:56:26.296Z",
+  "operator": "Codex connector-coordinated empty acceptance fixture",
+  "scope": "TOKEN_REJECTION_ONLY_NO_PERSONAL_PAYLOAD",
+  "formalConsentActivated": false,
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+    "before": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T08:54:58.874Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "after": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-09T08:56:26.227Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "matches": true
+  },
+  "probes": [
+    {
+      "name": "missing token",
+      "status": "PASS",
+      "httpStatus": 401,
+      "code": "SESSION_INVALID"
+    },
+    {
+      "name": "malformed token",
+      "status": "PASS",
+      "httpStatus": 401,
+      "code": "SESSION_INVALID"
+    },
+    {
+      "name": "forged token",
+      "status": "PASS",
+      "httpStatus": 401,
+      "code": "SESSION_INVALID"
+    },
+    {
+      "name": "valid unconsented token before expiry",
+      "status": "PASS",
+      "httpStatus": 403,
+      "code": "CONSENT_REQUIRED"
+    },
+    {
+      "name": "actual expired fixture token",
+      "status": "PASS",
+      "httpStatus": 401,
+      "code": "SESSION_INVALID"
+    }
+  ],
+  "cleanup": [
+    {
+      "status": "REQUEST_ACCEPTED",
+      "physicalDeletionVerified": false
+    }
+  ],
+  "results": [
+    {
+      "caseId": "E2E-17",
+      "status": "PASS",
+      "evidence": "Actual missing/malformed/forged/expired-token rejection, with a valid-token control. Expiry is controlled only on a recent owned empty acceptance fixture through guarded connector SQL; this does not measure elapsed 7/30-day lifetime. No consent or personal payload; deletion requested separately."
+    }
+  ]
+}
