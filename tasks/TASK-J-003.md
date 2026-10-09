@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r31：公開release 56500c8 實際E2E-01／03／12／16／17／21／27 PASS，7／49通過、42 PENDING；完整gate122 PASS／0 FAIL／42 PENDING仍失敗。真正過期token及有效token對照通過，新空白Session已正常清理；公開查詢補組件證據，完整UI案例不冒稱通過。D-05仍DRAFT、付費隔離還原暫緩、Integrated否。詳見 docs/acceptance/J003-2026-10-09-token-and-public-query.md。
+Status: 進行中。r32：修正公開real adapter轉顯內部／未知錯誤訊息，新增14項本機HTTP傳輸驗證；root132、frontend87、typecheck/build通過。修正未部署，既有release56500c8仍7／49部署PASS、42 PENDING，完整UI待驗。D-05 DRAFT、付費隔離還原暫緩、Integrated否。見 docs/acceptance/J003-2026-10-09-public-http-safety.md。
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -157,3 +157,7 @@ Jerry 已儲存 GitHub staging 的 SUPABASE_URL／SUPABASE_SERVICE_ROLE_KEY，�
 ## 2026-10-09 r31 過期token與公開查詢
 
 見 [本輪證據](../docs/acceptance/J003-2026-10-09-token-and-public-query.md)。新增E2E-17真實過期／有效token對照與清理，7／49部署案例通過、42 PENDING。根目錄117測試通過。完整公開查詢UI／請求／錯誤重試仍待驗，D-05不代改ACTIVE，Netlify無新部署。
+
+## 2026-10-09 r32 公開接線安全與本機HTTP
+
+實際本機socket重現內部／未知錯誤訊息外洩（10 PASS／4 FAIL），修正後14項全部通過；未知／prototype錯誤碼使用安全中文訊息，保留code與HTTP status。root132／frontend87通過；dev gate115 PASS／0 FAIL／49 PENDING（未指定部署目標，不採計E2E）。公開release版本不變，r32未部署，不新增部署PASS；7／49及42 PENDING維持。詳見 [r32紀錄](../docs/acceptance/J003-2026-10-09-public-http-safety.md)。

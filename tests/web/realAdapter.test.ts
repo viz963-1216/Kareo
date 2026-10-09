@@ -84,9 +84,21 @@ test("null, empty and malformed envelopes on 200 become INVALID_RESPONSE", async
   }
 });
 
-test("unknown error code falls back to the server message", async () => {
+test("contracted error code keeps its status with a locally reviewed message", async () => {
   replies.push(json(409, { success: false, error: { code: "IDEMPOTENCY_CONFLICT", message: "內容不同" } }));
-  await assert.rejects(realApi.acceptConsent(consent), { code: "IDEMPOTENCY_CONFLICT", message: "內容不同", status: 409 });
+  await assert.rejects(realApi.acceptConsent(consent), {
+    code: "IDEMPOTENCY_CONFLICT",
+    message: "這次重試的內容與先前送出不同，請重新確認後再送出。", status: 409,
+  });
+});
+
+test("unknown and prototype-property error codes cannot expose server messages", async () => {
+  for (const code of ["UNEXPECTED_UPSTREAM_ERROR", "constructor", "__proto__", "toString"]) {
+    replies.push(json(500, { success: false, error: { code, message: "private SQL diagnostic" } }));
+    await assert.rejects(realApi.acceptConsent(consent), {
+      code, message: "系統發生錯誤，請稍後再試或直接聯絡 1966。", status: 500,
+    });
+  }
 });
 
 test("network failure becomes NETWORK", async () => {

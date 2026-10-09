@@ -1,5 +1,9 @@
 # Kareo Tasks
 
+## 2026-10-09 J-003-r32：公開接線錯誤安全
+
+修正real adapter轉顯內部／未知錯誤訊息；14項本機HTTP測試、root132／frontend87通過。修正未部署，Netlify無重建；部署驗收仍7／49 PASS、42 PENDING，D-05 DRAFT、Integrated否。Dev gate115 PASS／0 FAIL／49 PENDING不採計部署證據。見 [r32紀錄](../docs/acceptance/J003-2026-10-09-public-http-safety.md)。
+
 ## 2026-10-09 J-003-r31：過期token與公開查詢
 
 公開release `56500c8`：E2E-01／03／12／16／17／21／27通過，**7／49 PASS、42 PENDING**；完整gate122 PASS／0 FAIL／42 PENDING仍失敗。新空白Session實際過期後被拒絕、已正常清理；公开查詢補充GET組件與部分Chrome操作證據，完整UI仍待驗。根目錄117測試通過。D-05 DRAFT、付費隔離還原暫緩、Integrated否，無Netlify新部署。見 [本輪證據](../docs/acceptance/J003-2026-10-09-token-and-public-query.md)。
