@@ -22,7 +22,7 @@ Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Allowed Paths / Forbidden Paths
 
-Allowed: `/.github/**`、`/scripts/**`、`/tests/**`、`/docs/**`、`/contracts/**`、`/tasks/**`、root 建置/部署設定；`/apps/web/**`、`/apps/api/**` 僅跨模組 adapter/route/env 接線
+Allowed: `/.github/**`、`/scripts/**`、`/tests/**`、`/docs/**`、`/contracts/**`、`/tasks/**`、root 建置/部署設定；`/apps/web/**`、`/apps/api/**` 僅跨模組 adapter/route/env 接線；r29 由 Jerry 委託完整J-003的整合範圍包含 `/supabase/functions/crawler-official-source/**` 與 `/supabase/config.toml`（既有官方來源讀取的受保護傳輸，非DB/schema或評估規則變更）。
 Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更改其他模組業務邏輯。
 
 ## Deliverables / 驗收
