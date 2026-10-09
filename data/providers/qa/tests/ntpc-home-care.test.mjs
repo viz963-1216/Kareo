@@ -2,6 +2,24 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { inspectNtpc, loadNtpc, verifyNtpcFiles } from '../verify-ntpc-home-care.mjs';
 import { checkEvidence } from '../lib/a-003-coverage.mjs';
+import { ntpcPrimaryPhone } from '../lib/ntpc-primary-phone.mjs';
+test('official newline separates phones but preserves wrapped extensions',()=>{
+  for (const [raw,expected] of [
+    ['02-6604-5036\n02-6604-3989','02-6604-5036'],
+    ['02-8675-5001\n0905-586-552','02-8675-5001'],
+    ['02-2625-7846\n02-7728-7275\n0978-943-348','02-2625-7846'],
+    ['02-2984-9570\n#880或#886','02-2984-9570#880'],
+    ['03-218-1190\r\n#6221','03-218-1190#6221'],
+    [' ０９８７－３８０－８５９ ','0987-380-859'],
+    ['02-2345-6789#12或02-2345-6790','02-2345-6789#12'],
+  ]) assert.equal(ntpcPrimaryPhone(raw),expected);
+});
+test('joining primary and alternate numbers is rejected even if all digits are official',()=>{
+  const d=loadNtpc();
+  const row=d.manifest.rows.find(r=>r.serial===283);
+  d.providers.find(p=>p.id===row.providerId).phone='02-8675-50010905-586-552';
+  assert.match(inspectNtpc(d).join('\n'),/First source phone corrupted/);
+});
 test('all 366 official rows reconciled and all 800 original catalogue records protected',()=>assert.deepEqual(verifyNtpcFiles(),[]));
 test('a missing source institution fails',()=>{const d=loadNtpc();d.providers=d.providers.filter(p=>p.id!==d.manifest.rows[0].providerId);assert.match(inspectNtpc(d).join('\n'),/Source provider missing/);});
 test('a missing source row fails',()=>{const d=loadNtpc();d.manifest.rows.pop();assert.match(inspectNtpc(d).join('\n'),/366-row/);});
