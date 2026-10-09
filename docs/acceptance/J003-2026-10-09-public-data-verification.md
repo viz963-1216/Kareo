@@ -45,3 +45,11 @@ The recorder generated `tests/e2e/results/public-ui-2026-10-09.json` against the
 D-05 stays DRAFT and personal-case APIs are not opened by this correction. The49 mandatory cases remain intact. Remaining work: complete the public error/navigation checks in a browser that exposes those operations; complete D-05 engineering activation conditions and real main-flow acceptance; reconcile the New Taipei home-medical/nursing directory and directly verified unknown assistive service coverage. ContractCity currently applies to assistive-device contracts per DATA_MODEL §19b; a HOME_CARE contractCity query returning0 is not evidence that the official home-care catalogue is absent.
 
 Latest full gate: **116 PASS,0 FAIL,48 PENDING; RELEASE GATE FAILED**, expected while required acceptance is pending. No result was promoted merely because the data correction succeeded.
+
+## Scheduled operations read-only verification
+
+Read actual run metadata and decoded job logs, not just a green job badge. [Cleanup schedule run37846636139](https://github.com/viz963-1216/Kareo/actions/runs/37846636139), job113549025364, event=schedule, staging `f311f2c`, logged `Mode: commit`, `Status: SUCCESS` at2026-10-08T21:25:27Z. Sessions/Leads/Consents deleted were each0. This proves an authenticated scheduled cleanup invocation completed; it does not by itself prove nonzero expired data erasure, seven-day SLA or complete D-05 readiness.
+
+[Crawler schedule run37845704616](https://github.com/viz963-1216/Kareo/actions/runs/37845704616), job113545911065, logged16 successful sources and2 `fetch failed` sources: `SRC-NTPC-CAREYOU-BRANCH`, `SRC-NTPC-CAREYOU-LTCTS`. Seven successful sources reported a detected change; their contents were not approved or published by this verification. Workflow correctly remained failed instead of presenting complete daily success. The scheduled run was created2026-10-08T21:17:20Z; cleanup was created21:25:11Z. These are05:17/05:25 Taipei on10/09, several hours later than the configured00:10/00:30; exact punctuality is not claimed.
+
+Next operational priority: repair those two official-source fetches and verify review/published boundaries, then repeat the completed-source checks. This round did not retrigger privileged jobs, edit secrets or change the published knowledge.
