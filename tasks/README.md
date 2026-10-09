@@ -1,5 +1,9 @@
 # Kareo Tasks
 
+## 2026-10-10 D-05：最新啟用查核
+
+營運方案有條件核准有效；每日清理已有 schedule 成功，最新受保護唯讀查核讀回4筆刪除receipt、相關Session均停用，觀察健康／聯絡資料0。額外HPR-01～03已取消；實體隔離還原、副本退休及正式同意一致部署仍待完成。未新增付費專案，registry仍DRAFT，完整J-003維持7／49 PASS、42 PENDING、Integrated否。見 [D-05現況與具體還原流程](../docs/acceptance/D05-2026-10-10-readiness.md)。
+
 ## 2026-10-09 J-003-r32：公開接線錯誤安全
 
 修正real adapter轉顯內部／未知錯誤訊息；14項本機HTTP測試、root132／frontend87通過。修正未部署，Netlify無重建；部署驗收仍7／49 PASS、42 PENDING，D-05 DRAFT、Integrated否。Dev gate115 PASS／0 FAIL／49 PENDING不採計部署證據。見 [r32紀錄](../docs/acceptance/J003-2026-10-09-public-http-safety.md)。
