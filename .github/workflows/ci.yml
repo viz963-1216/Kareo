@@ -141,7 +141,7 @@ jobs:
             apps/api/package-lock.json
       - run: npm ci --prefix tests/db
       - name: Application restore negative controls (J-004)
-        run: node --test scripts/tests/restore-app-snapshot.test.mjs
+        run: node --test scripts/tests/restore-app-snapshot.test.mjs scripts/tests/ntpc-phone-patch.test.mjs
       # esbuild + supabase-js: K10–K12, U5 and C3 bundle and run the real API repository.
       - run: npm ci --prefix apps/api
       - name: Fresh database
