@@ -84,7 +84,7 @@ function AppRoutes() {
           </a>
         </nav>
       </header>
-      {demoMode && <aside className="demo-notice" aria-label="公開資料版說明"><strong>公開資料版</strong>｜依輸入條件分析需求、查詢真實機構。回答只在本分頁使用，不建立媒合案件。機構資料核對：2026/09/29–10/08；知識快照：2026/10/08。</aside>}
+      {demoMode && <aside className="demo-notice" aria-label="Demo 版說明"><strong>Demo・公開資料版</strong>｜依輸入條件分析需求、查詢真實機構。請以虛構情境試用；回答只在本分頁使用，不建立媒合案件。機構資料核對：2026/09/29–10/08；知識快照：2026/10/08。</aside>}
       <Routes>
         <Route path="/admin/knowledge" element={demoMode ? <Navigate to="/" replace /> : <AdminKnowledgePage />} />
         <Route path="/" element={<HomePage />} />

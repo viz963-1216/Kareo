@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { KAREOCAR_URL } from "../externalServices";
+import { demoEntryUrl, demoMode } from "../demo";
 
 export function HomePage() {
   return (
@@ -7,7 +8,7 @@ export function HomePage() {
       <p className="eyebrow">Kareo 長照一點通</p>
       <h1>先釐清需求，再找到適合的下一步。</h1>
       <p className="lead">用幾分鐘完成免費初步評估，了解可能需要的長照服務與可採取的行動。</p>
-      <Link className="button primary" to="/consent">開始免費長照評估</Link>
+      {demoEntryUrl ? <a className="button primary" href={demoEntryUrl}>開始 Demo 需求分析</a> : <Link className="button primary" to="/consent">{demoMode ? "開始 Demo 需求分析" : "開始免費長照評估"}</Link>}
       <p className="supporting-text">全程免費，不需登入；約 3–5 分鐘完成。</p>
       <section className="home-secondary-actions" aria-labelledby="other-options-heading">
         <h2 id="other-options-heading">也可以直接查詢</h2>
