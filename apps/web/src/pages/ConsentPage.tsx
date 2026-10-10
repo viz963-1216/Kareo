@@ -18,6 +18,7 @@ export function ConsentPage({ onAccept }: Props) {
   const errorRef = useRef<HTMLDivElement>(null);
   const [documentReady, setDocumentReady] = useState(apiMode === "mock");
   const [documentError, setDocumentError] = useState("");
+  const formalConsentUnavailable = apiMode === "real" && !consentArchive;
 
   useEffect(() => {
     if (apiMode === "mock" || !consentArchive) return;
@@ -33,7 +34,7 @@ export function ConsentPage({ onAccept }: Props) {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    if (!accepted || !documentReady || status === "loading") return;
+    if (formalConsentUnavailable || !accepted || !documentReady || status === "loading") return;
     setStatus("loading"); setError("");
     try { await onAccept(); navigate("/assessment"); }
     catch (reason) { setStatus("error"); setError(reason instanceof Error ? reason.message : "目前無法完成同意程序，請稍後再試。"); }
@@ -58,7 +59,6 @@ export function ConsentPage({ onAccept }: Props) {
       <h1>服務說明與同意</h1>
       {consentIsDraft && <p><DraftBadge>草案版本・正式啟用驗證尚未完成</DraftBadge></p>}
       <FormalAssessmentReminder />
-      {apiMode === "real" && !consentArchive && <p className="notice" role="status">正式評估尚未開放。您仍可<Link to="/resources">查詢長照資源</Link>或<Link to="/info">查詢長照制度資訊</Link>。</p>}
       {consentArchive && <section className="panel" aria-label="本次同意文件">
         <h2>本次服務說明</h2>
         <p>請先<Link to={`/privacy?version=${consentArchive.version}`}>閱讀本版完整免責聲明、隱私告知與服務條款</Link>，也可<a href={consentArchive.fullTextUrl} download>下載保存全文</a>。</p>
@@ -93,15 +93,17 @@ export function ConsentPage({ onAccept }: Props) {
           <input
             type="checkbox"
             checked={accepted}
-            disabled={!documentReady || status === "loading"}
+            disabled={(!formalConsentUnavailable && !documentReady) || status === "loading"}
+            aria-describedby={formalConsentUnavailable ? "consent-unavailable" : undefined}
             onChange={(event) => setAccepted(event.target.checked)}
           />
-          <span>{consentArchive?.assessmentConsentText ?? "我已閱讀並同意上述服務說明、免責聲明與隱私告知。"}</span>
+          <span>{formalConsentUnavailable ? "我已閱讀上述服務說明、免責聲明與隱私告知（僅閱讀確認，尚未送出正式同意）。" : consentArchive?.assessmentConsentText ?? "我已閱讀並同意上述服務說明、免責聲明與隱私告知。"}</span>
         </label>
+        {formalConsentUnavailable && <p id="consent-unavailable" className="notice" role="status">您可以勾選閱讀確認；此操作只保留在本頁，不會建立使用階段或保存同意紀錄。正式同意版本尚未啟用，因此目前無法開始評估。您仍可<Link to="/resources">查詢長照資源</Link>或<Link to="/info">查詢長照制度資訊</Link>。</p>}
         {status === "loading" && <p className="loading" role="status">正在建立使用階段並記錄您的同意，請稍候。</p>}
         {status === "error" && <div className="error" role="alert" ref={errorRef} tabIndex={-1}><h2>同意程序尚未完成</h2><p>{error}</p></div>}
-        <button className="button primary" disabled={!documentReady || !accepted || status === "loading"}>
-          {status === "loading" ? "處理中…" : "同意並開始評估"}
+        <button className="button primary" disabled={formalConsentUnavailable || !documentReady || !accepted || status === "loading"} aria-describedby={formalConsentUnavailable ? "consent-unavailable" : undefined}>
+          {formalConsentUnavailable ? "正式評估尚未開放" : status === "loading" ? "處理中…" : "同意並開始評估"}
         </button>
       </form>
     </main>
