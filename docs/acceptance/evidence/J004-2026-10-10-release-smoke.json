@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "scope": "READ_ONLY_RELEASE_SMOKE_NOT_FULL_MVP",
+  "startedAt": "2026-10-10T05:50:12.176Z",
+  "finishedAt": "2026-10-10T05:50:16.469Z",
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "commit": "cf32202453f2c21610f538724b39d30d63a70486",
+  "before": {
+    "schemaVersion": 1,
+    "commit": "cf32202453f2c21610f538724b39d30d63a70486",
+    "commitSource": "netlify:COMMIT_REF",
+    "branch": "release",
+    "context": "production",
+    "deployId": "6ac9d1ae2a09190008cf31c5",
+    "builtAt": "2026-10-10T05:49:34.929Z"
+  },
+  "after": {
+    "schemaVersion": 1,
+    "commit": "cf32202453f2c21610f538724b39d30d63a70486",
+    "commitSource": "netlify:COMMIT_REF",
+    "branch": "release",
+    "context": "production",
+    "deployId": "6ac9d1ae2a09190008cf31c5",
+    "builtAt": "2026-10-10T05:49:34.929Z"
+  },
+  "checks": [
+    {
+      "path": "/",
+      "status": "PASS",
+      "httpStatus": 200,
+      "kind": "HTML_SHELL_NOT_COMPLETE_UI"
+    },
+    {
+      "path": "/resources",
+      "status": "PASS",
+      "httpStatus": 200,
+      "kind": "HTML_SHELL_NOT_COMPLETE_UI"
+    },
+    {
+      "path": "/info",
+      "status": "PASS",
+      "httpStatus": 200,
+      "kind": "HTML_SHELL_NOT_COMPLETE_UI"
+    },
+    {
+      "path": "/privacy",
+      "status": "PASS",
+      "httpStatus": 200,
+      "kind": "HTML_SHELL_NOT_COMPLETE_UI"
+    },
+    {
+      "path": "/api/v1/knowledge/status",
+      "status": "PASS",
+      "knowledgeVersion": "KB-2026-09-24-001"
+    }
+  ],
+  "summary": {
+    "pass": 5,
+    "fail": 0
+  },
+  "databaseWrites": 0,
+  "formalConsentActivated": false
+}
