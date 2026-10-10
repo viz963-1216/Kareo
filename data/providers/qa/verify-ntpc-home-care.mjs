@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { ntpcPrimaryPhone } from './lib/ntpc-primary-phone.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = f => JSON.parse(readFileSync(resolve(root, f), 'utf8'));
 export const norm = s => s.normalize('NFKC').replace(/\s/g, '').replace(/台/g, '臺').replace(/⾧/g, '長').replace(/㇐/g, '一');
@@ -48,7 +49,7 @@ export function inspectNtpc(d) {
       const address=sourceAddress(row.address);
       const cityDistrict=address.match(/^(.{2,3}市)(.{1,3}區)/);
       if (p.address!==address || p.city!==cityDistrict?.[1] || p.district!==cityDistrict?.[2]) errors.push(`Source address differs: ${p.id}`);
-      const first=norm(row.phone).split('或')[0].match(/^([0-9-]+(?:#[0-9]+)?)/)?.[1];
+      const first=ntpcPrimaryPhone(row.phone);
       if (p.phone !== first) errors.push(`First source phone corrupted: ${p.id}`);
       if (p.lat !== null || p.lng !== null) errors.push(`Unverified coordinate invented: ${p.id}`);
       if (x.status !== (paused?'ADDED_SUSPENDED':'ADDED')) errors.push(`Incorrect new source disposition: ${p.id}`);

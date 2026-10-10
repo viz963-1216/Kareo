@@ -1,8 +1,8 @@
 # TASK-A-008 — Real Provider Data and Traceable Service Coverage
 
 Owner: Engineer A；本輪由 Jerry 授權 Codex 中心整合執行。
-Submission Version: A-008-r4
-Status: r1～r4 MERGED (#104/#107/#108/#109)；r4 新北官方居服全名冊已差額匯入 Supabase 並驗證公開查詢。尚有居護全名冊／輔具未知範圍待補，不宣稱全類別全量完成。
+Submission Version: A-008-r5
+Status: r1～r5 MERGED (#104/#107/#108/#109/#115)；r4 新北官方居服全名冊已差額匯入 Supabase；r5 完成19筆電話修正、逐筆線上API讀回與Pages快照同步。尚有居護全名冊／輔具未知範圍待補，不宣稱全類別全量完成。
 
 ## Goal
 
@@ -51,3 +51,9 @@ PR → staging；Title `[A-008] Import official New Taipei home-care catalogue`�
 合併三組同名同電話同門牌、路段中文／數字差異的重複 ID，保留各來源列及分類。修正新資料的手機／0800 第一主號；新增可重現負向檢查。r13 初匯入 803，r3 canonical 為 800 筆。居服199／居護3／輔具581／中心17，知識與健康資料不改。
 
 2026-10-08 r4 執行收尾：#109 已合併；雲端逐欄核對318新增／48補充／1394範圍一致，原800及原子表不變。公開頁新北365、板橋159與DB一致。八項CI、50項實際LOCAL HTTP、71項資料QA通過。參見 [J-004-r15實際執行證據](../docs/acceptance/J004-2026-10-08-ntpc-home-care.md#executed-closeout--2026-10-08)。
+
+## 2026-10-09 r5 電話品質修正
+
+修正19筆新北官方居服電話換行串接；來源快照、服務區域、原800筆與停派狀態保留。資料QA 73項與隔離SQL patch 2項通過；patch遇已變更資料整批拒絕，重跑一致。詳見 `data/providers/qa/ntpc-home-care-report.md` r5段落。居護全名冊／輔具未知服務範圍仍待補。雲端同步與公開詳細頁複驗另附PR證據。
+
+2026-10-09 雲端與發布完成：PR #115 → staging 569f19c；Supabase19/19電話讀回正確，其他四表／欄位指紋不變。Netlify既有release版本直接讀取更新，未重建；Pages快照源569f19c，實際網頁電話一致。詳見 `docs/acceptance/J003-2026-10-09-public-data-verification.md`。

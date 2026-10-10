@@ -1,0 +1,4 @@
+# This function uses explicit project-managed service credential checks in handler.mjs.
+# New sb_secret_ keys are not JWTs; verify_jwt=true rejects them before code executes.
+[functions.crawler-official-source]
+verify_jwt = false

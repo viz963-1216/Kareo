@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 2,
+  "runId": "public-2026-10-08T09:34:01.427Z",
+  "apiMode": "real",
+  "baseUrl": "https://kareo-tw.netlify.app",
+  "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+  "startedAt": "2026-10-08T09:34:01.427Z",
+  "finishedAt": "2026-10-08T09:34:13.309Z",
+  "operator": "tests/e2e/run-public-api-e2e.mjs",
+  "deployment": {
+    "method": "kareo-version.json",
+    "targetCommit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+    "before": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-08T09:34:01.453Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "after": {
+      "versionUrl": "https://kareo-tw.netlify.app/kareo-version.json",
+      "fetchedAt": "2026-10-08T09:34:13.119Z",
+      "httpStatus": 200,
+      "commit": "56500c835df2869ad7e4540f6f0730cb31ccbbcd",
+      "commitSource": "netlify:COMMIT_REF",
+      "context": "production",
+      "branch": "release",
+      "deployId": "6ac7631c4b91470008fb7960",
+      "builtAt": "2026-10-08T09:33:13.215Z"
+    },
+    "matches": true
+  },
+  "results": [
+    {
+      "caseId": "E2E-21",
+      "status": "PASS",
+      "evidence": "unknown API: HTTP 404; JSON NOT_FOUND present"
+    },
+    {
+      "caseId": "E2E-44",
+      "status": "PENDING",
+      "evidence": "/api/v1/providers: list returned 20 items; filters, provenance, UI and no-session browser checks not accepted"
+    },
+    {
+      "caseId": "E2E-48",
+      "status": "PENDING",
+      "evidence": "/api/v1/knowledge/records: list returned 20 items; filters, provenance, UI and no-session browser checks not accepted"
+    }
+  ],
+  "diagnostics": [
+    {
+      "check": "published knowledge status",
+      "status": 200,
+      "version": "KB-2026-09-24-001"
+    }
+  ]
+}

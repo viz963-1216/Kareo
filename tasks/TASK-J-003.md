@@ -1,7 +1,7 @@
 # TASK-J-003 — CI + Staging Integration + End-to-End Acceptance
 
 Owner: Jerry  
-Status: 進行中。r27：私人部署 01c267a 的公開 GET 驗收，E2E-21 PASS；指定版本其餘48項 PENDING，資源／知識 UI 部分觀察已記錄。此前 r25：5包／21筆歷史回補、13項真實雲端操作及5項私人部署空白Session檢查通過；正常清理入口dry-run／commit成功，每日清理已啟用（首次自動事件待驗）。三種標準執行環境診斷已實跑，新北兩來源皆逾時，法規網站Linux改IPv4選擇後已讀取成功，完整18來源手動執行16成功／2失敗，16快照及發布邊界核對通過，7新變更待審；完成6份實體備份清冊，但隔離還原尚待條件；crawler來源失敗、D-05 ACTIVE、49項部署E2E及Integrated尚未完成。（2026-10-07）
+Status: 進行中。r32：修正公開real adapter轉顯內部／未知錯誤訊息，新增14項本機HTTP傳輸驗證；root132、frontend87、typecheck/build通過。修正未部署，既有release56500c8仍7／49部署PASS、42 PENDING，完整UI待驗。D-05 DRAFT、付費隔離還原暫緩、Integrated否。見 docs/acceptance/J003-2026-10-09-public-http-safety.md。
 Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Goal / 目標
@@ -22,7 +22,7 @@ Plan revision: 2026-09-19 / 10-22 MVP
 
 ## Allowed Paths / Forbidden Paths
 
-Allowed: `/.github/**`、`/scripts/**`、`/tests/**`、`/docs/**`、`/contracts/**`、`/tasks/**`、root 建置/部署設定；`/apps/web/**`、`/apps/api/**` 僅跨模組 adapter/route/env 接線
+Allowed: `/.github/**`、`/scripts/**`、`/tests/**`、`/docs/**`、`/contracts/**`、`/tasks/**`、root 建置/部署設定；`/apps/web/**`、`/apps/api/**` 僅跨模組 adapter/route/env 接線；r29 由 Jerry 委託完整J-003的整合範圍包含 `/supabase/functions/crawler-official-source/**` 與 `/supabase/config.toml`（既有官方來源讀取的受保護傳輸，非DB/schema或評估規則變更）。
 Forbidden: 所有未列出的路徑；不得提交 secret、真實個資或更改其他模組業務邏輯。
 
 ## Deliverables / 驗收
@@ -40,7 +40,7 @@ CI 與整合接線（已交付，持續維護）：
 知識與資料：
 
 - [ ] 依 D-02 核准內容，用 B-008 import → approve → publish 在整合環境建立第一個 PUBLISHED 版本；未核准資料不得發布；記錄來源、審核、版本與 `GET /knowledge/status`
-- [ ] Provider 正式匯入通過 A-004；staging Supabase 回滾測試（D-10）
+- [x] Provider 正式匯入通過 A-004；staging Supabase 實際RPC負向／正向回滾測試（D-10，2026-10-09 r30）；正式資料1118／1101／2517／588與本機驗證業務欄位一致，無保留測試列。
 
 真實 E2E（release 模式，`tests/e2e/acceptance-cases.json`）：
 
@@ -142,3 +142,22 @@ Jerry 已儲存 GitHub staging 的 SUPABASE_URL／SUPABASE_SERVICE_ROLE_KEY，�
 ## 2026-10-07 J-003-r27：指定私人部署真實 GET 證據
 
 #98 已合併；私人部署 `01c267aa38734d62b390fe90516543602e23d14c`／`6ac6310d25ad9673c016b966` 正常登入瀏覽器實跑。前後 runtime marker 一致，未知 API 404 JSON 通過 E2E-21；列表 200 僅部分證據。原始 JSON 交由 gate 讀取，指定 SHA／網址為1 PASS、0 FAIL、48 PENDING。公開網站仍舊版；D-05／完整案例未完成，不標記 Integrated。詳見 r26 報告的 r27 段落。
+
+## 2026-10-09 r28：公開部署資料與UI複驗
+
+詳見 `docs/acceptance/J003-2026-10-09-public-data-verification.md`。實際執行分頁／行政區與名稱／空結果／詳細與Not Found／輔具中心／知識版本與空資料；各完整案例缺少的驗證保留PENDING。資料QA 73與SQL隔離patch2通過，Netlify19/19公開detail電話正確；線上程式SHA保持56500c8。Pages靜態快照更新不採計部署E2E。未開放個案資料蒐集，Integrated=false。
+
+10/09排程唯讀複驗：自動cleanup commit／SUCCESS，首次自動執行證據已確認（不代表非零刪除/SLA完成）；crawler16來源成功、2新北fetch failed、7來源報變更未自動核准。實際觸發05:17/05:25臺北，晚於設定00:10/00:30，不採計準時性。見r28報告scheduled operations段落。
+
+
+## 2026-10-09 r30 部署基礎與雲端回滾
+
+見 [本輪實測證據](../docs/acceptance/J003-2026-10-09-foundation-and-rollback.md)。現有56500c8部署6／49通過；43 PENDING。根目錄113測試、後端774測試通過。東京兩來源仍502逾時；實體備份隔離還原依Jerry決定暫不新增付費專案，D-05不代改ACTIVE。沒有Netlify新部署，沒有健康／GPS／聯絡／Lead寫入，Integrated否。
+
+## 2026-10-09 r31 過期token與公開查詢
+
+見 [本輪證據](../docs/acceptance/J003-2026-10-09-token-and-public-query.md)。新增E2E-17真實過期／有效token對照與清理，7／49部署案例通過、42 PENDING。根目錄117測試通過。完整公開查詢UI／請求／錯誤重試仍待驗，D-05不代改ACTIVE，Netlify無新部署。
+
+## 2026-10-09 r32 公開接線安全與本機HTTP
+
+實際本機socket重現內部／未知錯誤訊息外洩（10 PASS／4 FAIL），修正後14項全部通過；未知／prototype錯誤碼使用安全中文訊息，保留code與HTTP status。root132／frontend87通過；dev gate115 PASS／0 FAIL／49 PENDING（未指定部署目標，不採計E2E）。公開release版本不變，r32未部署，不新增部署PASS；7／49及42 PENDING維持。詳見 [r32紀錄](../docs/acceptance/J003-2026-10-09-public-http-safety.md)。
