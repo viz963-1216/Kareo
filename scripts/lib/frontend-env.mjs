@@ -2,6 +2,9 @@
 // (tests/web/mode.test.ts keeps them in sync). Returns a list of problems; any problem fails the build.
 export function frontendEnvProblems(env) {
   const problems = [];
+  if (env.VITE_KAREO_ENABLE_DEMO === 'true' && env.KAREO_RELEASE_SCOPE !== 'public-resources') {
+    problems.push('The embedded Demo requires the explicit public-resources release scope.');
+  }
   if (env.VITE_KAREO_DEMO === 'true') problems.push('Static presentation builds must use scripts/build-demo.mjs, never the standard Netlify/site build.');
   const context = env.CONTEXT || 'local';
   const mode = env.VITE_KAREO_API_MODE;

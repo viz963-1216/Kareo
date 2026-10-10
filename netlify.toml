@@ -16,6 +16,7 @@
   KAREO_RELEASE_SCOPE = "public-resources"
   VITE_KAREO_API_MODE = "real"
   VITE_KAREO_REQUIRE_SESSION_TOKEN = "true"
+  VITE_KAREO_ENABLE_DEMO = "true"
 
 [functions]
   node_bundler = "esbuild"
@@ -161,6 +162,17 @@
   force = true
 
 [[redirects]]
+  from = "/demo/api/*"
+  to = "/api-not-found.json"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/demo/*"
+  to = "/demo/index.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
@@ -176,6 +188,13 @@
   for = "/kareo-version.json"
   [headers.values]
     Cache-Control = "no-store"
+
+[[headers]]
+  for = "/demo/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
+    Permissions-Policy = "geolocation=(), camera=(), microphone=()"
+    Referrer-Policy = "no-referrer"
 
 [[headers]]
   for = "/api/*"

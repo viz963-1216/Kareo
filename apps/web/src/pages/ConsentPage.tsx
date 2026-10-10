@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { apiMode, consentArchive, consentIsDraft, consentVersions, getConsentDocument } from "../api";
 import { DraftBadge } from "../components/DraftBadge";
 import { FormalAssessmentReminder } from "../components/FormalAssessmentReminder";
-import { demoMode } from "../demo";
+import { demoEntryUrl, demoMode } from "../demo";
 
 interface Props {
   onAccept: () => Promise<void>;
@@ -19,6 +19,10 @@ export function ConsentPage({ onAccept }: Props) {
   const [documentReady, setDocumentReady] = useState(apiMode === "mock");
   const [documentError, setDocumentError] = useState("");
   const formalConsentUnavailable = apiMode === "real" && !consentArchive;
+
+  useEffect(() => {
+    if (formalConsentUnavailable && demoEntryUrl) window.location.replace(demoEntryUrl);
+  }, [formalConsentUnavailable]);
 
   useEffect(() => {
     if (apiMode === "mock" || !consentArchive) return;
@@ -41,7 +45,7 @@ export function ConsentPage({ onAccept }: Props) {
   }
 
   if (demoMode) return <main id="main-content" className="content">
-    <p className="eyebrow">公開資料</p><h1>依需求查詢真實長照資源</h1>
+    <p className="eyebrow">Demo・本機需求分析</p><h1>依需求查詢真實長照資源</h1>
     <section className="panel"><h2>依你填寫的條件產生結果</h2>
       <p>初步結果使用 Kareo 的固定規則與已發布知識，機構使用已核對的雙北名單，依需求與行政區比對。回答僅在本分頁記憶體中處理，不送至資料庫。</p>
       <p>此版本不要求姓名、電話、自由文字或 GPS，也不建立正式媒合案件。<Link to="/privacy">查看資料使用說明</Link>。</p>
@@ -51,6 +55,11 @@ export function ConsentPage({ onAccept }: Props) {
       {status === "error" && <div ref={errorRef} tabIndex={-1} role="alert" className="error">{error}</div>}
       <button className="button primary" disabled={!accepted || status === "loading"}>{status === "loading" ? "正在開始…" : "開始需求分析"}</button>
     </form>
+  </main>;
+
+  if (formalConsentUnavailable && demoEntryUrl) return <main id="main-content" className="content">
+    <h1>開啟 Demo 需求分析</h1><p>正在開啟可操作的展示流程，回答只在瀏覽器內處理。</p>
+    <a className="button primary" href={demoEntryUrl}>開始 Demo 需求分析</a>
   </main>;
 
   return (

@@ -4,6 +4,7 @@ declare const __KAREO_CONSENT_DOCUMENTS__: import("./consent/documents").Consent
 
 interface ImportMetaEnv {
   readonly VITE_KAREO_DEMO?: string;
+  readonly VITE_KAREO_ENABLE_DEMO?: string;
   readonly VITE_KAREO_API_MODE?: string;
   readonly VITE_KAREO_DEPLOY_CONTEXT?: string;
   readonly VITE_KAREO_REQUIRE_SESSION_TOKEN?: string;

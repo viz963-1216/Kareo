@@ -1,5 +1,9 @@
 # Kareo Tasks
 
+## 2026-10-10 J-004-r20：Netlify 可操作 Demo
+
+依 Jerry 最新要求，新增獨立 `/demo/` 靜態流程，首頁與原 `/consent` 可進入；使用已核對公開機構及已發布知識快照，回答只留本分頁。需求分析、初步結果、地區服務推薦與條列摘要已本機實際操作，未啟用正式健康資料蒐集。根目錄查詢維持 real API，D-05 狀態不變；發布與線上實測於 release PR 記錄。見 [Demo 交付與驗證](../docs/acceptance/J004-2026-10-10-netlify-demo.md)。
+
 ## 2026-10-10 J-004-r18／C-005：公開部署與閱讀確認修正
 
 #123 已發布到 Netlify，release `cf32202`／deploy `6ac9d1ae2a09190008cf31c5`。部署 GET smoke 5/5、公開 API matrix 27/27 通過，預設資源 1117 筆；本 SHA 完整 gate 116 PASS／0 FAIL／48 PENDING，舊版 7/49 不沿用。發現正式同意未啟用時也鎖住閱讀勾選框，已修正為可操作的本頁閱讀確認，正式評估未開放原因與公開查詢連結清楚顯示；修正的部署證據待 release PR 記錄。D-05 仍未啟用。見 [發布紀錄](../docs/acceptance/J004-2026-10-10-release-deployment.md)、[勾選框修正](../docs/acceptance/C005-2026-10-10-consent-checkbox.md)。

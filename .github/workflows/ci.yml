@@ -63,7 +63,11 @@ jobs:
         with:
           node-version: 22
       - run: node scripts/build-site.mjs
-      - run: test -f dist/index.html && test -f dist/api-not-found.json
+        env:
+          KAREO_RELEASE_SCOPE: public-resources
+          VITE_KAREO_ENABLE_DEMO: 'true'
+      - run: test -f dist/index.html && test -f dist/api-not-found.json && test -f dist/demo/index.html
+      - run: node scripts/check-embedded-demo.mjs
 
   contracts-and-data:
     name: Routes, contracts, knowledge packs, provider data

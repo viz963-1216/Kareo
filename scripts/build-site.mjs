@@ -22,6 +22,12 @@ if (existsSync('apps/web/package.json')) {
     throw new Error('Frontend must produce apps/web/dist/index.html.');
   }
   await cp('apps/web/dist', 'dist', { recursive: true });
+  if (process.env.VITE_KAREO_ENABLE_DEMO === 'true') {
+    // Main site is already copied. The child build receives only ordinary process settings,
+    // bundles public snapshots and writes a separate /demo/ artifact with network writes blocked.
+    execFileSync(process.execPath, ['scripts/build-demo.mjs', '--embedded-netlify'], { stdio: 'inherit' });
+    await cp('demo-dist', 'dist/demo', { recursive: true });
+  }
 } else {
   if (['release', 'main'].includes(process.env.BRANCH)) {
     throw new Error('Production requires the completed frontend; staging placeholder is not a release.');
