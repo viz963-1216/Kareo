@@ -1,4 +1,4 @@
-// Standalone static presentation artifact. Never use this for kareo-tw acceptance or production.
+// Isolated static presentation artifact; never a formal API/consent acceptance build.
 import { execFileSync } from 'node:child_process';
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -6,9 +6,13 @@ import path from 'node:path';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const args = process.argv.slice(2);
-if (args.length > 1 || (args.length === 1 && args[0] !== '--github-pages')) throw new Error('Only the explicit --github-pages target is supported.');
-const basePath = args[0] === '--github-pages' ? '/Kareo/' : '/';
-if (process.env.NETLIFY || process.env.CONTEXT || ['release', 'main'].includes(process.env.BRANCH)) {
+if (args.length > 1 || (args.length === 1 && !['--github-pages', '--embedded-netlify'].includes(args[0]))) throw new Error('Unsupported static presentation target.');
+const embedded = args[0] === '--embedded-netlify';
+const basePath = embedded ? '/demo/' : args[0] === '--github-pages' ? '/Kareo/' : '/';
+if (embedded && (process.env.KAREO_RELEASE_SCOPE !== 'public-resources' || process.env.VITE_KAREO_ENABLE_DEMO !== 'true')) {
+  throw new Error('Embedded Demo requires explicit public-resources scope and VITE_KAREO_ENABLE_DEMO=true.');
+}
+if (!embedded && (process.env.NETLIFY || process.env.CONTEXT || ['release', 'main'].includes(process.env.BRANCH))) {
   throw new Error('Build the separate presentation artifact locally; never in the standard Netlify/release pipeline.');
 }
 const clean = !execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim();
@@ -22,13 +26,13 @@ await rm(out, { recursive: true, force: true });
 await mkdir(out, { recursive: true });
 await cp(path.join(root, 'apps/web/dist'), out, { recursive: true });
 const html = await readFile(path.join(out, 'index.html'), 'utf8');
-await writeFile(path.join(out, 'index.html'), html.replace('<head>', `<head><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">`));
+await writeFile(path.join(out, 'index.html'), html.replace('<head>', `<head><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">`));
 await writeFile(path.join(out, '.nojekyll'), '');
 await rm(path.join(out, 'privacy'), { recursive: true, force: true });
 await writeFile(path.join(out, 'demo-api-disabled.txt'), 'This static presentation has no backend API.\n');
 await writeFile(path.join(out, '_redirects'), '/api/* /demo-api-disabled.txt 404\n/* /index.html 200\n');
 await writeFile(path.join(out, '_headers'), `/*
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
   Permissions-Policy: geolocation=(), camera=(), microphone=()
   Referrer-Policy: no-referrer
   X-Content-Type-Options: nosniff
