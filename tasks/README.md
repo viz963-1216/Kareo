@@ -1,5 +1,9 @@
 # Kareo Tasks
 
+## 2026-10-10 J-004-r18／C-005：公開部署與閱讀確認修正
+
+#123 已發布到 Netlify，release `cf32202`／deploy `6ac9d1ae2a09190008cf31c5`。部署 GET smoke 5/5、公開 API matrix 27/27 通過，預設資源 1117 筆；本 SHA 完整 gate 116 PASS／0 FAIL／48 PENDING，舊版 7/49 不沿用。發現正式同意未啟用時也鎖住閱讀勾選框，已修正為可操作的本頁閱讀確認，正式評估未開放原因與公開查詢連結清楚顯示；修正的部署證據待 release PR 記錄。D-05 仍未啟用。見 [發布紀錄](../docs/acceptance/J004-2026-10-10-release-deployment.md)、[勾選框修正](../docs/acceptance/C005-2026-10-10-consent-checkbox.md)。
+
 ## 2026-10-10 D-05：改採免費驗證路徑
 
 依 Jerry 指示，已建立 `Kareo Free Verification` Free 組織（US$0/month），準備 `Kareo Recovery Free` 東京表單，待本人設定密碼送出。新資料庫／邏輯還原尚未完成；不新增 Pro 專案，不修改原驗收／Kareocar／公開部署。Physical 與副本退休仍分開待驗，D-05 DRAFT、Integrated否。見 [免費方案與執行順序](../docs/acceptance/D05-2026-10-10-free-recovery-plan.md)。
