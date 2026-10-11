@@ -6,6 +6,8 @@ Owner: Jerry
 
 2026-10-11 Demo 例外：選填居住門牌只在分頁記憶體。`data/residence` 保存雙北民政局的公開門牌索引與公開機構精確比對座標；建置時轉成帶內容 hash 的 JS modules，使用者只下載所選行政區的完整公開索引，完整地址不出現在 URL／請求 body。`connect-src none` 保留，定位由 script-src self 的同源資料模組載入後於瀏覽器比對；不接地圖 API、不寫 Supabase。精確住址結果先篩選服務資格，再依已定位機構的 Haversine 距離排序，公開座標涵蓋家數；行政區選項使用新 session／assessment UUID 的 SHA-256 隨機排序並緩存首次結果。正式 B-005 规则與 D-05 條件未更動。
 
+2026-10-11 r20（Jerry 指定）：Demo 的 DISTRICT／EXACT 推薦加上機構所在地 city 與 district 均等於輸入條件，再比對既有服務範圍；DISTANCE 只排同區已定位單位，零／不足三家不跨區補足。回應格式及正式後端契約不變。
+
 ---
 
 # 1. 架構目標

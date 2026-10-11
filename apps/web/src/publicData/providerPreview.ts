@@ -44,6 +44,7 @@ function detail(id: string): ProviderDetail | null {
 }
 function eligible(query: RecommendationCandidateQuery): PublicProvider[] {
   return publicCandidates.filter(c => c.provider.resourceCategory === 'SERVICE_PROVIDER' && c.services.includes(query.serviceType)
+    && (!query.district || (c.provider.city === query.city && c.provider.district === query.district))
     && c.serviceAreas.some(a => a.city === query.city && (!query.district || a.district === query.district))).map(c => c.provider);
 }
 const repo: ProviderRepository = {
@@ -112,10 +113,10 @@ export const publicProviderApi = {
     const response: RecommendationResponse = { recommendationId: `LOCAL-REC-${crypto.randomUUID()}`, serviceType: request.serviceType, rankingType, locationPrecision: loc.precision,
       providers: selected.map(({provider, distance}, i) => ({ id: provider.id, name: provider.name, type: request.serviceType, address: provider.address, district: provider.district, phone: provider.phone, website: provider.website, googleMapsUrl: provider.googleMapsUrl, verified: provider.verified, rank: (i+1) as 1|2|3, distanceKm: distance === null ? null : Math.round(distance*10)/10,
         reasons: [loc.district ? `服務範圍包含${loc.district}` : `服務範圍包含${loc.city}部分行政區`, `提供您需要的${label[request.serviceType]}服務`, ...(provider.publicInfo?.notice?.includes("評鑑不合格") ? ["官方名冊列評鑑不合格，請向 1966 確認目前服務資格。"] : [])] })),
-      notice: candidates.length === 0 ? '目前未收錄已確認能服務這個地區的單位。仍可查詢所在地商家與官方資源；不以未知服務範圍補足家數。'
-        : rankingType === 'DISTANCE' ? `依居住地至機構的直線距離排序，非行車路程或到府時間。已定位 ${located.length}／${candidates.length} 家符合服務範圍的單位；${located.length < candidates.length ? '名次僅涵蓋已定位單位，其餘可由公開資源查詢查看。' : '依全部符合範圍且已定位的候選排序。'}門牌位置來源：臺北市／新北市政府民政局公開資料。`
+      notice: candidates.length === 0 ? '目前未收錄所在地與您相同行政區、且服務範圍已確認的單位。可查詢同區公開商家資料並自行確認服務；不補入其他行政區或未知服務範圍的單位。'
+        : rankingType === 'DISTANCE' ? `只列出與居住地同縣市、同行政區的單位，依居住地至機構的直線距離排序，非行車路程或到府時間。已定位 ${located.length}／${candidates.length} 家同區且符合服務範圍的單位；${located.length < candidates.length ? '名次僅涵蓋已定位單位，其餘可由公開資源查詢查看。' : '依全部符合範圍且已定位的候選排序。'}門牌位置來源：臺北市／新北市政府民政局公開資料。`
         : rankingType === 'CITY_ROTATION' ? '目前只依縣市比對已確認的部分服務行政區；請補充行政區，並非依距離排序。'
-        : `${loc.precision === 'EXACT' ? '符合範圍的單位尚無可確認座標，本次改用行政區隨機推薦。' : ''}從已確認能服務所選行政區的單位隨機挑選，同次評估保留首次名單，並非依距離排序。` };
+        : `${loc.precision === 'EXACT' ? '同區符合範圍的單位尚無可確認座標，本次改用行政區隨機推薦。' : ''}從所在地與您同縣市、同行政區且服務範圍已確認的單位隨機挑選，同次評估保留首次名單，並非依距離排序。` };
     recommendations.set(key,response);
     return structuredClone(response);
   },

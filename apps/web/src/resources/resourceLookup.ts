@@ -1,3 +1,4 @@
+import { DISTRICTS } from "../location/location.ts";
 import type {
   RecommendationServiceType,
   ResourceAreaFilter,
@@ -91,7 +92,13 @@ export function buildResourceLookupRequest(form: LookupForm, page = 1): Resource
 export function lookupFormFromParams(params: URLSearchParams): LookupForm {
   let form = { ...initialLookupForm };
   const city = params.get("city");
-  if (city === "臺北市" || city === "新北市") form = changeLookupCity(form, city);
+  if (city === "臺北市" || city === "新北市") {
+    form = changeLookupCity(form, city);
+    const district = params.get("district");
+    if (district && DISTRICTS[city].includes(district)) form.district = district;
+    const areaFilter = params.get("areaFilter");
+    if (areaFilter === "LOCATED_IN" || areaFilter === "SERVICE_AREA") form = changeAreaFilter(form, areaFilter);
+  }
   const serviceType = params.get("serviceType");
   if (serviceType === "HOME_CARE" || serviceType === "HOME_MEDICAL_NURSING" || serviceType === "ASSISTIVE_DEVICE") form.serviceType = serviceType;
   const category = params.get("resourceCategory");

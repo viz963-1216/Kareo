@@ -48,7 +48,7 @@ export function ConsentPage({ onAccept }: Props) {
     <p className="eyebrow">Demo・本機需求分析</p><h1>依需求查詢真實長照資源</h1>
     <section className="panel"><h2>依你填寫的條件產生結果</h2>
       <p>初步結果使用 Kareo 的固定規則與已發布知識，機構使用已核對的雙北名單，依需求與行政區比對。回答僅在本分頁記憶體中處理，不送至資料庫。</p>
-      <p>居住地址可選填，用政府公開門牌資料在本分頁內比對距離；只選行政區則隨機推薦能服務該區的單位。地址不會傳送至外部定位服務或保存到資料庫。此版本不要求姓名、電話、自由文字或 GPS，也不建立正式媒合案件。<Link to="/privacy">查看資料使用說明</Link>。</p>
+      <p>居住地址可選填，用政府公開門牌資料在本分頁內比對距離；只選行政區則隨機推薦所在地與您同區、且服務範圍已確認的單位。地址不會傳送至外部定位服務或保存到資料庫。此版本不要求姓名、電話、自由文字或 GPS，也不建立正式媒合案件。<Link to="/privacy">查看資料使用說明</Link>。</p>
     </section>
     <form className="stack" onSubmit={handleSubmit} aria-busy={status === "loading"}>
       <label className="checkbox"><input type="checkbox" checked={accepted} onChange={event => setAccepted(event.target.checked)} disabled={status === "loading"}/><span>我了解回答只用於本機需求分析，不會建立正式案件。</span></label>

@@ -28,3 +28,10 @@ test('optional applied programme is validated without weakening the original str
   assert.equal(isResourceLookupResponse({...response,appliedFilters:{...response.appliedFilters,assistiveProgram:'PURCHASE'}}),true);
   assert.equal(isResourceLookupResponse({...response,appliedFilters:{...response.appliedFilters,assistiveProgram:'OTHER'}}),false);
 });
+
+test('same-district resource links preserve the valid district and location filter, rejecting mismatched districts',()=>{
+  const form=lookupFormFromParams(new URLSearchParams({city:'臺北市',district:'南港區',areaFilter:'LOCATED_IN',serviceType:'ASSISTIVE_DEVICE'}));
+  assert.deepEqual(buildResourceLookupRequest(form),{city:'臺北市',district:'南港區',areaFilter:'LOCATED_IN',serviceType:'ASSISTIVE_DEVICE',page:1,pageSize:20});
+  assert.equal(lookupFormFromParams(new URLSearchParams({city:'臺北市',district:'板橋區',areaFilter:'INVALID'})).district,'');
+  assert.equal(lookupFormFromParams(new URLSearchParams({city:'臺北市',district:'板橋區',areaFilter:'INVALID'})).areaFilter,'');
+});

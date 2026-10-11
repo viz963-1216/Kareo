@@ -62,10 +62,48 @@ test('actual local recommendation flow supports exact residence and preserves th
       assert.equal(random.rankingType,'DISTRICT_ROTATION'); assert.equal(random.providers.length,3);
       assert.deepEqual(random,await api.getRecommendation({assessmentId:district.assessmentId,serviceType:'HOME_CARE'}));
       assert.ok(random.providers.every(p => p.distanceKm===null)); assert.match(random.notice,/隨機/);
+      const sourceProviders=JSON.parse(readFileSync(new URL('../../../data/providers/staging/providers.json',import.meta.url),'utf8'));
+      for (const provider of [...random.providers,...recommendation.providers]) {
+        const source=sourceProviders.find(p=>p.id===provider.id);
+        assert.equal(source.city,'新北市'); assert.equal(source.district,'板橋區');
+      }
       const areas=JSON.parse(readFileSync(new URL('../../../data/providers/staging/provider-service-areas.json',import.meta.url),'utf8'));
       for(const provider of [...random.providers,...recommendation.providers]) assert.ok(areas.some(a => a.providerId===provider.id&&a.active&&a.city==='新北市'&&a.district==='板橋區'));
       const html=renderCard({...recommendation.providers[0],reasons:['提供您需要的服務','官方名冊列評鑑不合格']});
       assert.doesNotMatch(html,/推薦原因|提供您需要的服務/); assert.match(html,/評鑑不合格/); assert.match(html,/直線距離/);
+      // The reported regression: Nangang must never return Neihu or Beitou,
+      // even though those institutions officially serve Nangang.
+      const nangangIndex=JSON.parse(readFileSync(new URL('../../../data/residence/tp09.json',import.meta.url),'utf8'));
+      const [street]=Object.entries(nangangIndex)[0];
+      const nangangCoords=matchResidence(nangangIndex,'臺北市','南港區',street);
+      assert.ok(nangangCoords);
+      for (const location of [
+        {precision:'DISTRICT',city:'臺北市',district:'南港區',lat:null,lng:null},
+        {precision:'EXACT',city:'臺北市',district:'南港區',...nangangCoords},
+      ]) {
+        const result=await api.submitAssessment({...input,location});
+        const top=await api.getRecommendation({assessmentId:result.assessmentId,serviceType:'HOME_CARE'});
+        assert.equal(top.providers.length,3);
+        for(const provider of top.providers) {
+          const source=sourceProviders.find(p=>p.id===provider.id);
+          assert.equal(source.city,'臺北市'); assert.equal(source.district,'南港區');
+        }
+      }
+      // All 41 districts / three service categories include empty and short lists.
+      const districts=JSON.parse(readFileSync(new URL('../../../contracts/reference/service-districts.json',import.meta.url),'utf8'));
+      const services=JSON.parse(readFileSync(new URL('../../../data/providers/staging/provider-services.json',import.meta.url),'utf8'));
+      for(const {city,districts:districtNames} of districts.cities) for(const districtName of districtNames) {
+        const result=await api.submitAssessment({...input,needs:{homeCare:'YES',medicalNursing:'YES',assistiveDevice:'YES',transportation:'NO'},location:{precision:'DISTRICT',city,district:districtName,lat:null,lng:null}});
+        for(const serviceType of ['HOME_CARE','HOME_MEDICAL_NURSING','ASSISTIVE_DEVICE']) {
+          const top=await api.getRecommendation({assessmentId:result.assessmentId,serviceType});
+          const eligibleIds=sourceProviders.filter(p=>p.status==='ACTIVE' && (p.resourceCategory??'SERVICE_PROVIDER')==='SERVICE_PROVIDER' && p.city===city && p.district===districtName
+            && services.some(s=>s.providerId===p.id && s.active && s.serviceType===serviceType)
+            && areas.some(a=>a.providerId===p.id && a.active && a.city===city && a.district===districtName)).map(p=>p.id);
+          assert.equal(top.providers.length,Math.min(3,eligibleIds.length),`${city}/${districtName}/${serviceType}: no cross-district filler`);
+          assert.ok(top.providers.every(p=>eligibleIds.includes(p.id)));
+          assert.deepEqual(top,await api.getRecommendation({assessmentId:result.assessmentId,serviceType}));
+        }
+      }
       api.reset(); await assert.rejects(api.getRecommendation({assessmentId:district.assessmentId,serviceType:'HOME_CARE'}));
     } finally {globalThis.fetch=originalFetch;}
   } finally {rmSync(directory,{recursive:true,force:true});}
