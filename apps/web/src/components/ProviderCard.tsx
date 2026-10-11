@@ -72,12 +72,9 @@ export function ProviderCard({ provider, rankingType, recommendationId, serviceT
         )}
       </dl>
 
-      <section className="provider-reasons" aria-label={`${provider.name}的推薦原因`}>
-        <h3>推薦原因</h3>
-        <ul>
-          {provider.reasons.map((reason) => <li key={reason}>{reason}</li>)}
-        </ul>
-      </section>
+      {provider.reasons.some(reason => reason.includes("評鑑不合格")) && <p className="verification-note" role="note">
+        官方名冊列評鑑不合格，請向 1966 確認目前服務資格。
+      </p>}
 
       <p className="verification-note">
         {provider.verified ? "平台已確認基本資料" : "基本資料尚未經平台確認"}；此標示不代表政府認證。

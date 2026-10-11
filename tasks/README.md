@@ -1,3 +1,4 @@
+<!-- 2026-10-11 J-004-r19: Demo optional residence + offline public house coordinates, distance/retained district random recommendations; formal gate unchanged. -->
 # Kareo Tasks
 
 ## 2026-10-10 J-004-r20：Netlify 可操作 Demo

@@ -25,6 +25,15 @@ const out = path.join(root, 'demo-dist');
 await rm(out, { recursive: true, force: true });
 await mkdir(out, { recursive: true });
 await cp(path.join(root, 'apps/web/dist'), out, { recursive: true });
+// Public house-number modules are loaded by district via script-src self, not fetch.
+// Full typed residence addresses never appear in any request.
+const residenceOut = path.join(out, 'residence');
+await mkdir(residenceOut, { recursive: true });
+const residenceManifest = JSON.parse(await readFile(path.join(root, 'data/residence/manifest.json'), 'utf8'));
+for (const item of Object.values(residenceManifest.districts)) {
+  const json = await readFile(path.join(root, 'data/residence', item.file), 'utf8');
+  await writeFile(path.join(residenceOut, item.file.replace('.json',`-${item.sha256.slice(0,12)}.js`)), `export default ${json.trim()};\n`);
+}
 const html = await readFile(path.join(out, 'index.html'), 'utf8');
 await writeFile(path.join(out, 'index.html'), html.replace('<head>', `<head><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">`));
 await writeFile(path.join(out, '.nojekyll'), '');

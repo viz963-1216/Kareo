@@ -1,5 +1,7 @@
 // Public records only. These are the reviewed Provider import dataset and a read-only
 // export of the current PUBLISHED knowledge, not contract mock fixtures or live DB access.
+import residenceCoordinates from '../../../../data/residence/provider-coordinates.json';
+import { rankLocatedProviders } from './residenceRanking';
 import serviceDistricts from '../../../../contracts/reference/service-districts.json';
 import infoRows from '../../../../data/providers/staging/provider-public-info.json';
 import providerRows from '../../../../data/providers/staging/providers.json';
@@ -18,7 +20,9 @@ import type { AssessmentRequest, AssessmentResponse, KnowledgeRecordsRequest, Kn
 type PublicProvider = Provider & { phone: string; googleMapsUrl: string };
 if (providerRows.some(p => !p.phone || !p.googleMapsUrl)) throw new Error('公開機構資料不完整。');
 const infoById = new Map(infoRows.map(row => [row.providerId, row.publicInfo]));
-const providers = providerRows.map(p => ({ ...p, ...(infoById.has(p.id) ? { publicInfo: infoById.get(p.id) } : {}) })) as PublicProvider[];
+const providers = providerRows.map(p => ({ ...p,
+  ...((p.lat === null || p.lng === null) && Object.hasOwn(residenceCoordinates,p.id)
+    ? (() => { const point = (residenceCoordinates as Record<string,{lat:number;lng:number}>)[p.id]; return {lat:point.lat,lng:point.lng}; })() : {}), ...(infoById.has(p.id) ? { publicInfo: infoById.get(p.id) } : {}) })) as PublicProvider[];
 const publicKnowledge = knowledge as unknown as { version: string; publishedAt: string; records: Array<KnowledgeSnapshotRecord & { lastVerifiedAt: string; source: { title: string; publisher: string; url: string | null } }> };
 const snapshot = knowledge as unknown as KnowledgeSnapshot;
 const allowedCities = ['臺北市', '新北市'];
@@ -51,18 +55,19 @@ const repo: ProviderRepository = {
 const engine = new RuleBasedAssessmentEngine();
 const assessments = new Map<string, { request: AssessmentRequest; careNeeds: string[] }>();
 let sessionId: string | null = null;
+const recommendations = new Map<string, RecommendationResponse>();
 const label = { HOME_CARE: '居家照顧', HOME_MEDICAL_NURSING: '居家醫療與護理', ASSISTIVE_DEVICE: '輔具' };
 
-// Browser WebCrypto implements the same SHA-256 seed used by B-005. No location/health
-// answer is sent over the network. No coordinates, inferred districts or random filler.
+// Browser WebCrypto hashes a fresh random session/assessment seed. No location/health
+// answer is sent over the network. No inferred districts or filler; each random session is a fresh district draw.
 export async function previewRotationHash(parts: Array<string | null>): Promise<string> {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(parts.filter(p => p !== null).join('|')));
   return Array.from(new Uint8Array(digest), n => n.toString(16).padStart(2, '0')).join('');
 }
 export const publicProviderApi = {
-  reset() { assessments.clear(); sessionId = null; },
+  reset() { assessments.clear(); recommendations.clear(); sessionId = null; },
   async createSession() {
-    assessments.clear(); sessionId = `LOCAL-${crypto.randomUUID()}`;
+    assessments.clear(); recommendations.clear(); sessionId = `LOCAL-${crypto.randomUUID()}`;
     return { sessionId, createdAt: new Date().toISOString() };
   },
   async acceptConsent(id: string) {
@@ -72,9 +77,10 @@ export const publicProviderApi = {
   async submitAssessment(request: AssessmentRequest): Promise<AssessmentResponse> {
     if (!sessionId || request.sessionId !== sessionId) throw new Error('請重新開始本機需求分析。');
     if (request.location.precision !== 'NONE' && !allowedCities.includes(request.location.city)) throw new Error('目前僅支援臺北市與新北市。');
-    if (!['NONE', 'CITY', 'DISTRICT'].includes(request.location.precision)) throw new Error('此版本不使用精確定位。');
-    if (request.location.precision === 'DISTRICT' && !serviceDistricts.cities.find(c => c.city === request.location.city)?.districts.includes(request.location.district)) throw new Error('行政區不屬於所選縣市。');
-    // Free text/GPS are disabled for this public, unsaved preview. Formal engine is reused,
+    if (!['NONE', 'CITY', 'DISTRICT', 'EXACT'].includes(request.location.precision)) throw new Error('此版本不使用裝置 GPS 精確定位。');
+    if (request.location.precision === 'EXACT' && (!Number.isFinite(request.location.lat) || !Number.isFinite(request.location.lng) || request.location.lat < 24 || request.location.lat > 26 || request.location.lng < 120 || request.location.lng > 123)) throw new Error('居住位置無效，請重新輸入。');
+    if (['DISTRICT','EXACT'].includes(request.location.precision) && !serviceDistricts.cities.find(c => c.city === request.location.city)?.districts.includes(request.location.district ?? '')) throw new Error('行政區不屬於所選縣市。');
+    // Free text/device GPS are disabled for this public, unsaved preview. Formal engine is reused,
     // including explicit NO precedence, UNKNOWN rules, priority and jurisdiction-specific summaries.
     const input: CreateAssessmentInput = { ...request, freeText: '', disabilityCertificate: request.disabilityCertificate ?? 'UNKNOWN', incomeCategory: request.incomeCategory ?? 'UNKNOWN' };
     const result = await engine.generateCareNeedProfile(input, { knowledge: snapshot, today: taipeiDate(new Date()) });
@@ -94,14 +100,24 @@ export const publicProviderApi = {
     if (!assessment.careNeeds.includes(request.serviceType)) throw new Error('這次需求分析未包含這項服務。');
     const loc = assessment.request.location;
     if (loc.precision === 'NONE') return { recommendationId: `LOCAL-REC-${crypto.randomUUID()}`, serviceType: request.serviceType, rankingType: 'NO_LOCATION', locationPrecision: 'NONE', providers: [], notice: '未提供位置，請補充縣市或行政區後查詢服務單位。' };
-    const rankingType = loc.precision === 'CITY' ? 'CITY_ROTATION' : 'DISTRICT_ROTATION';
+    const key = `${request.assessmentId}|${request.serviceType}`;
+    const previous = recommendations.get(key);
+    if (previous) return structuredClone(previous);
     const candidates = eligible({ serviceType: request.serviceType, city: loc.city, district: loc.district });
-    const ranked = await Promise.all(candidates.map(async provider => ({ provider, hash: await previewRotationHash([sessionId, loc.city, rankingType === 'CITY_ROTATION' ? null : loc.district, taipeiDate(new Date()), provider.id]) })));
-    ranked.sort((a,b) => a.hash < b.hash ? -1 : a.hash > b.hash ? 1 : 0);
-    return { recommendationId: `LOCAL-REC-${crypto.randomUUID()}`, serviceType: request.serviceType, rankingType, locationPrecision: loc.precision,
-      providers: ranked.slice(0,3).map(({provider}, i) => ({ id: provider.id, name: provider.name, type: request.serviceType, address: provider.address, district: provider.district, phone: provider.phone, website: provider.website, googleMapsUrl: provider.googleMapsUrl, verified: provider.verified, rank: (i+1) as 1|2|3, distanceKm: null,
+    const located = loc.precision === 'EXACT' ? rankLocatedProviders({lat:loc.lat,lng:loc.lng},candidates) : [];
+    const rankingType = located.length ? 'DISTANCE' : loc.precision === 'CITY' ? 'CITY_ROTATION' : 'DISTRICT_ROTATION';
+    const ranked = await Promise.all(candidates.map(async provider => ({ provider, hash: await previewRotationHash([sessionId, request.assessmentId, loc.city, loc.district, provider.id]) })));
+    ranked.sort((a,b) => a.hash < b.hash ? -1 : a.hash > b.hash ? 1 : a.provider.id.localeCompare(b.provider.id));
+    const selected = located.length ? located.slice(0,3) : ranked.slice(0,3).map(row => ({...row,distance:null}));
+    const response: RecommendationResponse = { recommendationId: `LOCAL-REC-${crypto.randomUUID()}`, serviceType: request.serviceType, rankingType, locationPrecision: loc.precision,
+      providers: selected.map(({provider, distance}, i) => ({ id: provider.id, name: provider.name, type: request.serviceType, address: provider.address, district: provider.district, phone: provider.phone, website: provider.website, googleMapsUrl: provider.googleMapsUrl, verified: provider.verified, rank: (i+1) as 1|2|3, distanceKm: distance === null ? null : Math.round(distance*10)/10,
         reasons: [loc.district ? `服務範圍包含${loc.district}` : `服務範圍包含${loc.city}部分行政區`, `提供您需要的${label[request.serviceType]}服務`, ...(provider.publicInfo?.notice?.includes("評鑑不合格") ? ["官方名冊列評鑑不合格，請向 1966 確認目前服務資格。"] : [])] })),
-      notice: candidates.length === 0 ? '目前未收錄已確認能服務這個地區的單位。仍可查詢所在地商家與官方資源；不以未知服務範圍補足家數。' : rankingType === 'CITY_ROTATION' ? '目前只依縣市比對已確認的部分服務行政區；請補充行政區，並非依距離排序。' : '依已確認服務範圍比對您選擇的行政區，同一天內順序固定，並非依距離排序。' };
+      notice: candidates.length === 0 ? '目前未收錄已確認能服務這個地區的單位。仍可查詢所在地商家與官方資源；不以未知服務範圍補足家數。'
+        : rankingType === 'DISTANCE' ? `依居住地至機構的直線距離排序，非行車路程或到府時間。已定位 ${located.length}／${candidates.length} 家符合服務範圍的單位；${located.length < candidates.length ? '名次僅涵蓋已定位單位，其餘可由公開資源查詢查看。' : '依全部符合範圍且已定位的候選排序。'}門牌位置來源：臺北市／新北市政府民政局公開資料。`
+        : rankingType === 'CITY_ROTATION' ? '目前只依縣市比對已確認的部分服務行政區；請補充行政區，並非依距離排序。'
+        : `${loc.precision === 'EXACT' ? '符合範圍的單位尚無可確認座標，本次改用行政區隨機推薦。' : ''}從已確認能服務所選行政區的單位隨機挑選，同次評估保留首次名單，並非依距離排序。` };
+    recommendations.set(key,response);
+    return structuredClone(response);
   },
   async getKnowledgeRecords(filters: KnowledgeRecordsRequest): Promise<KnowledgeRecordsResponse> {
     const today = taipeiDate(new Date());
