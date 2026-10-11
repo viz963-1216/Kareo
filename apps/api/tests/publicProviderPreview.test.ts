@@ -47,15 +47,24 @@ describe('public real records and actual rule engine; no contract mock fixtures'
     expect(r.providers).toHaveLength(2);
     expect(r.providers.every(p=>sourceCandidates('坪林區').has(p.id))).toBe(true);
   });
-  it('only an explicitly sourced vendor is eligible for device delivery; unknown areas stay queryable', async () => {
-    const otherDistrict = await assess();
-    expect((await api.getRecommendation({assessmentId:otherDistrict.assessmentId,serviceType:'ASSISTIVE_DEVICE'})).providers).toEqual([]);
-    const a = await assess({location:{precision:'DISTRICT',city:'新北市',district:'板橋區',lat:null,lng:null}});
-    const r = await api.getRecommendation({assessmentId:a.assessmentId,serviceType:'ASSISTIVE_DEVICE'});
-    expect(r.providers.map(p=>p.id)).toEqual(['NTPC-AD-010']);
-    expect(r.providers[0].name).toBe('亞德醫材生活館');
-    expect(r.rankingType).toBe('DISTRICT_ROTATION');
-    expect(r.providers[0].distanceKm).toBeNull();
+  it('device recommendations select same-district store locations without claiming delivery coverage', async () => {
+    for (const district of ['松山區','大安區']) {
+      const a = await assess({location:{precision:'DISTRICT',city:'臺北市',district,lat:null,lng:null}});
+      const r = await api.getRecommendation({assessmentId:a.assessmentId,serviceType:'ASSISTIVE_DEVICE'});
+      expect(r.providers).toHaveLength(3);
+      expect(r.providers.every(p=>providerRows.some(source=>source.id===p.id && source.city==='臺北市' && source.district===district && source.type==='ASSISTIVE_DEVICE' && source.status==='ACTIVE'))).toBe(true);
+      expect(r.providers.every(p=>p.distanceKm===null)).toBe(true);
+      expect(r.notice).toMatch(/到府服務.*另洽商家/);
+      expect(r.providers.every(p=>!p.reasons.some(reason=>reason.startsWith('服務範圍包含')))).toBe(true);
+      expect(await api.getRecommendation({assessmentId:a.assessmentId,serviceType:'ASSISTIVE_DEVICE'})).toEqual(r);
+      for(const p of r.providers) {
+        const detail=await api.getProvider(p.id);
+        expect(detail?.address).toBe(p.address);
+        expect(detail?.googleMapsUrl).toBe(p.googleMapsUrl);
+        expect(detail?.serviceAreaStatus).toBe('UNCONFIRMED');
+        expect(new URL(p.googleMapsUrl).searchParams.get('query')).toBe(p.address);
+      }
+    }
     const shops = await api.getProviders({serviceType:'ASSISTIVE_DEVICE',page:1,pageSize:20});
     expect(shops.totalCount).toBe(providerRows.filter(p=>p.type==='ASSISTIVE_DEVICE').length);
     expect(shops.items.filter(p=>p.id!=='NTPC-AD-010').every(p=>p.serviceAreaStatus==='UNCONFIRMED')).toBe(true);

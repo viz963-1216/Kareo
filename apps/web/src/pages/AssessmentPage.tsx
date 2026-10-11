@@ -163,7 +163,7 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
         <fieldset className="location-fieldset" id="location">
           <legend>居住地（選填）</legend>
           <p className="field-hint full-row" id="location-hint">
-            {demoMode ? "提供縣市與行政區，可推薦所在地與您同區、且服務範圍已確認的單位；" : "提供縣市與行政區，可取得服務範圍相符的推薦；"}不提供也能完成評估並看到服務建議。平台目前收錄臺北市、新北市，其他縣市請選「其他縣市／不提供位置」。
+            {demoMode ? "提供縣市與行政區，可推薦所在地與您同區的輔具店面，或服務範圍已確認的居家單位；" : "提供縣市與行政區，可取得服務範圍相符的推薦；"}不提供也能完成評估並看到服務建議。平台目前收錄臺北市、新北市，其他縣市請選「其他縣市／不提供位置」。
           </p>
           <label>
             縣市
@@ -199,7 +199,7 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
             居住地址（選填，路名與門牌號碼）
             <input type="text" value={form.residenceAddress ?? ""} maxLength={150} autoComplete="off"
               onChange={event => set("residenceAddress", event.target.value)} aria-describedby="residence-hint" />
-            <span className="field-hint" id="residence-hint">完整住址只在同縣市、同行政區的單位中依直線距離排序；只選行政區則隨機推薦同區且服務範圍已確認的單位，同次評估不重抽。住址只留在本分頁，重新整理或重新開始即清除，不需填樓層或房號。</span>
+            <span className="field-hint" id="residence-hint">完整住址只在同縣市、同行政區的單位中依直線距離排序；只選行政區則隨機推薦同區輔具店面或服務範圍已確認的居家單位，同次評估不重抽。住址只留在本分頁，重新整理或重新開始即清除，不需填樓層或房號。</span>
             <span className="field-hint">門牌座標來源：臺北市政府民政局（2026-10-02）、新北市政府民政局（11509）；依政府資料開放授權條款利用。資料可能有誤差或缺漏。</span>
           </label>}
 
