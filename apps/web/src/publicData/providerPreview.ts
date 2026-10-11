@@ -77,7 +77,7 @@ export const publicProviderApi = {
   async submitAssessment(request: AssessmentRequest): Promise<AssessmentResponse> {
     if (!sessionId || request.sessionId !== sessionId) throw new Error('請重新開始本機需求分析。');
     if (request.location.precision !== 'NONE' && !allowedCities.includes(request.location.city)) throw new Error('目前僅支援臺北市與新北市。');
-    if (!['NONE', 'CITY', 'DISTRICT', 'EXACT'].includes(request.location.precision)) throw new Error('此版本不使用裝置定位。');
+    if (!['NONE', 'CITY', 'DISTRICT', 'EXACT'].includes(request.location.precision)) throw new Error('此版本不使用裝置 GPS 精確定位。');
     if (request.location.precision === 'EXACT' && (!Number.isFinite(request.location.lat) || !Number.isFinite(request.location.lng) || request.location.lat < 24 || request.location.lat > 26 || request.location.lng < 120 || request.location.lng > 123)) throw new Error('居住位置無效，請重新輸入。');
     if (['DISTRICT','EXACT'].includes(request.location.precision) && !serviceDistricts.cities.find(c => c.city === request.location.city)?.districts.includes(request.location.district ?? '')) throw new Error('行政區不屬於所選縣市。');
     // Free text/device GPS are disabled for this public, unsaved preview. Formal engine is reused,
