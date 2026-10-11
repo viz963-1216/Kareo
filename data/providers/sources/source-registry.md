@@ -80,3 +80,12 @@ Sources that have not yet been verified should be recorded here before being inc
 ## 2026-10-08 官方目錄快照（D-20）
 
 機器可讀来源清册：`qa/official-catalog-manifest.json`，含官方網址、取證日、原始 HTML SHA-256。長照輔具 607 列、身障輔具 737 列、智慧科技 4 列全量下載，逐列處理雙北所在地、不同地址門市、重複及排除。不使用 ODS 內部工作表推定有效名單；ODS 僅作對照（資料日期115.9），智慧科技益康最新地址採官方網站60號，不採較舊 ODS 的6號。198居服來源仍為已保存1150810官方PDF，public extract不含负责人姓名；推薦區域只取其實際特約服務區域，未特約／空白／只到宅沐浴車不補一般居服區域。
+
+## 2026-10-11 A-008-r6：雙北居家護理完整名冊
+
+| Source ID | 官方來源 | 資料日／家數 | 快照 | 用途與限制 |
+|---|---|---|---|---|
+| SRC-NURSING-TPE-1150901 | https://health.gov.taipei/News_Content.aspx?n=A01CA16FC0C64647&s=480610F542590DA6&sms=BACDBFD1C6E1EF90 | 2026-09-01／51 | raw/taipei-home-nursing-1150901.pdf | 該單位居家護理、名稱、所在地、電話；未載到府服務行政區。 |
+| SRC-NURSING-NTPC-1151006 | https://www.health.ntpc.gov.tw/article/新北市護理機構清冊2 | 2026-10-06／96 | raw/ntpc-home-nursing-1151006.pdf | 同上；不得混入一般護理之家或產後護理之家。 |
+
+SHA-256、147筆處置与原始電話見 `qa/home-nursing-manifest.json`。保留原三家ID；144新增、服務區域／特約均未新增。這是居家護理名冊，不宣稱居家醫療診所完整收錄。

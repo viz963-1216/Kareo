@@ -233,7 +233,7 @@
       "sha256": "2fa072a1ad365567f85ee087b7902bc57f324f3a7e87305c75b92d1edc15e553"
     }
   },
-  "providerMatched": 1035,
+  "providerMatched": 1166,
   "providerUnresolvedIds": [
     "NTPC-AD-001",
     "NTPC-AD-004",
@@ -317,6 +317,19 @@
     "CAT-HC-NTPC-0C8F0716258D",
     "CAT-HC-NTPC-0AB2023125F6",
     "CAT-HC-NTPC-087E53C33838",
-    "CAT-HC-NTPC-D7EE0D407116"
+    "CAT-HC-NTPC-D7EE0D407116",
+    "TP-HMN-029",
+    "TP-HMN-033",
+    "NTPC-HMN-001",
+    "NTPC-HMN-008",
+    "NTPC-HMN-011",
+    "NTPC-HMN-016",
+    "NTPC-HMN-032",
+    "NTPC-HMN-034",
+    "NTPC-HMN-040",
+    "NTPC-HMN-065",
+    "NTPC-HMN-068",
+    "NTPC-HMN-081",
+    "NTPC-HMN-092"
   ]
 }

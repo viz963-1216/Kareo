@@ -6938,14 +6938,14 @@
     "mergedExisting": 48,
     "suspendedProviders": 1,
     "outsideLocatedCity": 4,
-    "providers": 1118,
+    "providers": 1262,
     "homeCare": 517,
     "activeHomeCare": 516,
-    "providerServices": 1101,
+    "providerServices": 1245,
     "providerServiceAreas": 2517,
     "newServiceAreas": 1394,
     "providerContractRegions": 588,
-    "publicMetadata": 1111
+    "publicMetadata": 1258
   },
   "existingSourceAddressDifferences": [
     "TP-HC-113",

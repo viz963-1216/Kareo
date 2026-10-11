@@ -91,7 +91,7 @@ export function ProviderDetailPage() {
             <div><dt>類型</dt><dd>{labels[provider.type]}</dd></div>
             <div><dt>所在地</dt><dd>{provider.city} {provider.district}</dd></div>
             <div><dt>地址</dt><dd>{provider.address}</dd></div>
-            <div><dt>電話</dt><dd><a href={`tel:${provider.phone}`}>{provider.phone}</a></dd></div>
+            <div><dt>電話</dt><dd>{provider.phone ? <a href={`tel:${provider.phone}`}>{provider.phone}</a> : "電話待確認"}</dd></div>
             <div><dt>網站</dt><dd>{websiteUrl ? <a href={websiteUrl} target="_blank" rel="noopener noreferrer">前往官方網站（開啟新分頁）</a> : provider.website ? "網站連結暫時無法使用" : "未提供網站"}</dd></div>
           </dl>
           <p className="verification-note">{provider.verified ? "平台已確認基本資料" : "基本資料尚未經平台確認"}；此標示不代表政府認證。</p>

@@ -241,6 +241,26 @@
       "retrievedAt": "2026-10-08",
       "sourceKind": "OFFICIAL",
       "use": "全366筆名稱、機構電話、地址、居家服務/喘息/短照、逐行政區可提供服務區域與暫停派案註記；只建立新北服務範圍"
+    },
+    {
+      "sourceId": "SRC-NURSING-TPE-1150901",
+      "sourceKind": "OFFICIAL",
+      "name": "臺北市居家護理所完整官方名冊",
+      "url": "https://health.gov.taipei/News_Content.aspx?n=A01CA16FC0C64647&s=480610F542590DA6&sms=BACDBFD1C6E1EF90",
+      "document": "raw/taipei-home-nursing-1150901.pdf",
+      "sha256": "b9d8d42f5ae3e3a9e1263a90ea3db1b81fb175f2c1b131fe278098286edac485",
+      "retrievedAt": "2026-10-11",
+      "use": "機構名稱、地址、電話及該單位居家護理服務；沒有到府服務行政區，不能推定服務範圍。"
+    },
+    {
+      "sourceId": "SRC-NURSING-NTPC-1151006",
+      "sourceKind": "OFFICIAL",
+      "name": "新北市居家護理所完整官方名冊",
+      "url": "https://www.health.ntpc.gov.tw/article/新北市護理機構清冊2",
+      "document": "raw/ntpc-home-nursing-1151006.pdf",
+      "sha256": "17908a250ecae2e9231701938ca4b739f27536c909e46c277d51ba6b602329da",
+      "retrievedAt": "2026-10-11",
+      "use": "機構名稱、地址、電話及該單位居家護理服務；沒有到府服務行政區，不能推定服務範圍。"
     }
   ],
   "coordinates": [
@@ -26875,6 +26895,2310 @@
       ],
       "reason": "未取得官方門牌座標；不以地圖搜尋連結或地址猜測座標。",
       "nextStep": "核對官方門牌點，暫以行政區排序；暫停派案者需最新官方解除證據後才可啟用。"
+    },
+    {
+      "providerId": "TP-HMN-004",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-005",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-006",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-007",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-008",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-009",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-010",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-011",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-012",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-013",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-014",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-015",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-016",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-017",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-018",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-019",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-020",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-021",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-022",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-023",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-024",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-025",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-026",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-027",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-028",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-029",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-030",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-031",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-032",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-033",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-034",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-035",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-036",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-037",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-038",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-039",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-040",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-041",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-042",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-043",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-044",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-045",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-046",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-047",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-048",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-049",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-050",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "TP-HMN-051",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-001",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-002",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-003",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-004",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-005",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-006",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-007",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-008",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-009",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-010",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-011",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-012",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-013",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-014",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-015",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-016",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-017",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-018",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-019",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-020",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-021",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-022",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-023",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-024",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-025",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-026",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-027",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-028",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-029",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-030",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-031",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-032",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-033",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-034",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-035",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-036",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-037",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-038",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-039",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-040",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-041",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-042",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-043",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-044",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-045",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-046",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-047",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-048",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-049",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-050",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-051",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-052",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-053",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-054",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-055",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-056",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-057",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-058",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-059",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-060",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-061",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-062",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-063",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-064",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-065",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-066",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-067",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-068",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-069",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-070",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-071",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-072",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-073",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-074",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-075",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-076",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-077",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-078",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-079",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-080",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-081",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-082",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-083",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-084",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-085",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-086",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-087",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-088",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-089",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-090",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-091",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-092",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-093",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-094",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-095",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
+    },
+    {
+      "providerId": "NTPC-HMN-096",
+      "missing": [
+        "coordinate",
+        "serviceArea"
+      ],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "未取得正式核准座標及明示到府服務行政區；公開查詢可使用官方機構地址。",
+      "nextStep": "核對官方門牌點及該單位直接服務範圍證據；未確認前不納入到府推薦。"
     }
   ],
   "decisions": [
@@ -41743,6 +44067,2022 @@
       ],
       "reason": "名冊未列一般居服行政區服務證據。",
       "nextStep": "取得正式行政區服務範圍後再加入推薦。"
+    },
+    {
+      "providerId": "TP-HMN-004",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-005",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-006",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-007",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-008",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-009",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-010",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-011",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-012",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-013",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-014",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-015",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-016",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-017",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-018",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-019",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-020",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-021",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-022",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-023",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-024",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-025",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-026",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-027",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-028",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-029",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-030",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-031",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-032",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-033",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-034",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-035",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-036",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-037",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-038",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-039",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-040",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-041",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-042",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-043",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-044",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-045",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-046",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-047",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-048",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-049",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-050",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "TP-HMN-051",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-TPE-1150901",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-001",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-002",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-003",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-004",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-005",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-006",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-007",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-008",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-009",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-010",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-011",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-012",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-013",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-014",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-015",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-016",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-017",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-018",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-019",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-020",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-021",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-022",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-023",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-024",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-025",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-026",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-027",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-028",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-029",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-030",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-031",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-032",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-033",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-034",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-035",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-036",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-037",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-038",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-039",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-040",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-041",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-042",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-043",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-044",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-045",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-046",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-047",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-048",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-049",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-050",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-051",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-052",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-053",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-054",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-055",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-056",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-057",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-058",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-059",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-060",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-061",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-062",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-063",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-064",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-065",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-066",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-067",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-068",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-069",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-070",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-071",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-072",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-073",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-074",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-075",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-076",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-077",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-078",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-079",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-080",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-081",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-082",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-083",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-084",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-085",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-086",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-087",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-088",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-089",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-090",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-091",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-092",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-093",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-094",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-095",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
+    },
+    {
+      "providerId": "NTPC-HMN-096",
+      "status": "UNCONFIRMED",
+      "allowedCities": [],
+      "sourcesChecked": [
+        {
+          "sourceId": "SRC-NURSING-NTPC-1151006",
+          "checkedAt": "2026-10-11",
+          "result": "官方名冊直接列出該居家護理所；地址為所在地，未载服務行政區或座標。"
+        }
+      ],
+      "reason": "機構所在地不等於到府服務範圍；名冊未列可服務行政區。",
+      "nextStep": "取得單位本身公開書面服務區域，依直接證據建立範圍。"
     }
   ],
   "homeMedicalNursingEvidence": [
