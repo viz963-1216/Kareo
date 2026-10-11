@@ -24,10 +24,10 @@ describe('public real records and actual rule engine; no contract mock fixtures'
     expect(no.careNeedProfile.summary).not.toBe(yes.careNeedProfile.summary);
     await expect(api.getRecommendation({assessmentId:no.assessmentId,serviceType:'HOME_CARE'})).rejects.toThrow('未包含');
   });
-  it('district changes select the actual service area, never a fixed scenario', async () => {
+  it('district changes select same-district institutions with actual service coverage', async () => {
     let a = await assess();
     let r = await api.getRecommendation({assessmentId:a.assessmentId,serviceType:'HOME_CARE'});
-    const sourceCandidates = (district: string) => new Set(ntpcManifest.rows.filter(x=>!x.suspended && x.districts.includes(district)).map(x=>x.providerId));
+    const sourceCandidates = (district: string) => new Set(ntpcManifest.rows.filter(x=>!x.suspended && x.districts.includes(district) && providerRows.some(p=>p.id===x.providerId && p.city==='新北市' && p.district===district)).map(x=>x.providerId));
     const sanchong = sourceCandidates('三重區');
     expect(r.providers).toHaveLength(3);
     expect(new Set(r.providers.map(p=>p.id)).size).toBe(3);
@@ -42,13 +42,15 @@ describe('public real records and actual rule engine; no contract mock fixtures'
     expect(r.providers.every(p=>sourceCandidates('土城區').has(p.id))).toBe(true);
     a = await assess({location:{precision:'DISTRICT',city:'新北市',district:'坪林區',lat:null,lng:null}});
     r = await api.getRecommendation({assessmentId:a.assessmentId,serviceType:'HOME_CARE'});
-    // The full official list now has real 坪林 coverage. Validate against the
-    // official source rather than retaining the obsolete "no providers" fixture.
-    expect(r.providers).toHaveLength(3);
+    // Only two officially eligible institutions are physically in 坪林.
+    // Other districts serving 坪林 must not fill the third card.
+    expect(r.providers).toHaveLength(2);
     expect(r.providers.every(p=>sourceCandidates('坪林區').has(p.id))).toBe(true);
   });
   it('only an explicitly sourced vendor is eligible for device delivery; unknown areas stay queryable', async () => {
-    const a = await assess();
+    const otherDistrict = await assess();
+    expect((await api.getRecommendation({assessmentId:otherDistrict.assessmentId,serviceType:'ASSISTIVE_DEVICE'})).providers).toEqual([]);
+    const a = await assess({location:{precision:'DISTRICT',city:'新北市',district:'板橋區',lat:null,lng:null}});
     const r = await api.getRecommendation({assessmentId:a.assessmentId,serviceType:'ASSISTIVE_DEVICE'});
     expect(r.providers.map(p=>p.id)).toEqual(['NTPC-AD-010']);
     expect(r.providers[0].name).toBe('亞德醫材生活館');
@@ -135,6 +137,6 @@ describe('official catalogue filters and center services', () => {
     const top = await api.getRecommendation({assessmentId:a.assessmentId,serviceType:'HOME_CARE'});
     expect(top.providers).toHaveLength(3);
     const details = await Promise.all(top.providers.map(p=>api.getProvider(p.id)));
-    expect(details.every(p=>p?.serviceAreas.some(a=>a.city==='臺北市' && a.district==='北投區'))).toBe(true);
+    expect(details.every(p=>p?.city==='臺北市' && p.district==='北投區' && p.serviceAreas.some(a=>a.city==='臺北市' && a.district==='北投區'))).toBe(true);
   });
 });

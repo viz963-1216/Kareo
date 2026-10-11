@@ -6,6 +6,8 @@ Owner: Jerry
 
 2026-10-11 Demo 補充（PRODUCT_SPEC 同日 Jerry 決定）：本機公開資料版使用既有 `EXACT` 結構，地址原文不屬於 request。Demo 有部分缺座標時，只在已定位候選中顯示直線距離名次，`notice` 揭露已定位／總候選家數；無地址的行政區名單同評估緩存。此為本機 Demo adapter 行為，不變更正式 §9 D-13c 回退契約。卡片不顯示 reasons，一般原因仍保留於 response 以相容現有呼叫端，官方资格警示保留可見。
 
+2026-10-11 r20（Jerry 指定）：Demo 的 DISTRICT／EXACT 推薦加上機構所在地 city 與 district 均等於輸入條件，再比對既有服務範圍；DISTANCE 只排同區已定位單位，零／不足三家不跨區補足。回應格式及正式後端契約不變。
+
 ---
 
 # 1. 目的

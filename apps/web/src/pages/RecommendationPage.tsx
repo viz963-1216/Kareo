@@ -43,9 +43,9 @@ function readMockCount(value: string | null): RecommendationMockCount {
 function rankingExplanation({ rankingType, locationPrecision }: RecommendationResponse) {
   switch (rankingType) {
     case "DISTANCE":
-      return "依您提供的居住位置，以直線距離的約略值排序；實際路程可能不同。";
+      return demoMode ? "只列出所在地與您同縣市、同行政區的服務單位，再依居住位置的直線距離排序；實際路程可能不同。" : "依您提供的居住位置，以直線距離的約略值排序；實際路程可能不同。";
     case "DISTRICT_ROTATION":
-      if (demoMode) return "從已確認能服務您選擇行政區的單位中隨機推薦；同次評估保留首次名單，並非依實際距離排序。";
+      if (demoMode) return "從所在地與您同縣市、同行政區且服務範圍已確認的單位中隨機推薦；同次評估保留首次名單，並非依實際距離排序。";
       return locationPrecision === "GPS" || locationPrecision === "EXACT"
         ? "您有提供目前位置，但部分服務單位尚無已確認的位置資料，因此本次改依您選擇的行政區服務範圍推薦，並非依實際距離排序。"
         : "依您選擇的行政區，列出服務範圍包含該行政區的服務單位。同一天內順序固定、不同日期可能輪替，並非依實際距離排序。";
@@ -122,6 +122,10 @@ export function RecommendationPage({ assessmentId, locationPrecision, location }
   const shown = recommendation?.providers.slice(0, 3) ?? [];
   const lookupQuery = new URLSearchParams({ serviceType: serviceType });
   if (location?.city) lookupQuery.set("city", location.city);
+  if (demoMode && location?.district) {
+    lookupQuery.set("district", location.district);
+    lookupQuery.set("areaFilter", "LOCATED_IN");
+  }
 
   return (
     <main id="main-content" className="content recommendation-page" aria-busy={status === "loading"}>
