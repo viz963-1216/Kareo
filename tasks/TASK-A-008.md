@@ -57,3 +57,7 @@ PR → staging；Title `[A-008] Import official New Taipei home-care catalogue`�
 修正19筆新北官方居服電話換行串接；來源快照、服務區域、原800筆與停派狀態保留。資料QA 73項與隔離SQL patch 2項通過；patch遇已變更資料整批拒絕，重跑一致。詳見 `data/providers/qa/ntpc-home-care-report.md` r5段落。居護全名冊／輔具未知服務範圍仍待補。雲端同步與公開詳細頁複驗另附PR證據。
 
 2026-10-09 雲端與發布完成：PR #115 → staging 569f19c；Supabase19/19電話讀回正確，其他四表／欄位指紋不變。Netlify既有release版本直接讀取更新，未重建；Pages快照源569f19c，實際網頁電話一致。詳見 `docs/acceptance/J003-2026-10-09-public-data-verification.md`。
+
+## 2026-10-11 店面與到府範圍澄清
+
+Jerry 核准 J-004-r21 Demo輔具按同區店面提供資訊，未知到府範圍仍保持UNCONFIRMED；此為Demo店面資訊用途例外，不是修改正式後端推薦資格或把服務區域推定成已確認。居護全名冊為下一筆資料優先項，尤其松山、大安現有收錄為0。需保存官方完整名冊並逐筆對照，先補查詢資料；到府推薦另需直接區域證據。

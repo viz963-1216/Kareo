@@ -89,6 +89,17 @@ test('actual local recommendation flow supports exact residence and preserves th
           assert.equal(source.city,'臺北市'); assert.equal(source.district,'南港區');
         }
       }
+      // Songshan / Daan exact addresses must remain in their own district for every service.
+      for (const [district,file,street] of [['松山區','tp01.json','八德路四段692號'],['大安區','tp03.json','新生南路二段86號']]) {
+        const index=JSON.parse(readFileSync(new URL('../../../data/residence/'+file,import.meta.url),'utf8'));
+        const coords=matchResidence(index,'臺北市',district,street); assert.ok(coords);
+        const result=await api.submitAssessment({...input,needs:{homeCare:'YES',medicalNursing:'YES',assistiveDevice:'YES',transportation:'NO'},location:{precision:'EXACT',city:'臺北市',district,...coords}});
+        for(const serviceType of ['HOME_CARE','HOME_MEDICAL_NURSING','ASSISTIVE_DEVICE']) {
+          const top=await api.getRecommendation({assessmentId:result.assessmentId,serviceType});
+          assert.ok(top.providers.every(p=>p.district===district && p.address.startsWith('臺北市'+district)));
+          if(serviceType==='ASSISTIVE_DEVICE') {assert.equal(top.providers.length,3);assert.equal(top.rankingType,'DISTANCE');assert.match(top.notice,/到府服務/);}
+        }
+      }
       // All 41 districts / three service categories include empty and short lists.
       const districts=JSON.parse(readFileSync(new URL('../../../contracts/reference/service-districts.json',import.meta.url),'utf8'));
       const services=JSON.parse(readFileSync(new URL('../../../data/providers/staging/provider-services.json',import.meta.url),'utf8'));
@@ -98,9 +109,13 @@ test('actual local recommendation flow supports exact residence and preserves th
           const top=await api.getRecommendation({assessmentId:result.assessmentId,serviceType});
           const eligibleIds=sourceProviders.filter(p=>p.status==='ACTIVE' && (p.resourceCategory??'SERVICE_PROVIDER')==='SERVICE_PROVIDER' && p.city===city && p.district===districtName
             && services.some(s=>s.providerId===p.id && s.active && s.serviceType===serviceType)
-            && areas.some(a=>a.providerId===p.id && a.active && a.city===city && a.district===districtName)).map(p=>p.id);
+            && (serviceType==='ASSISTIVE_DEVICE' || areas.some(a=>a.providerId===p.id && a.active && a.city===city && a.district===districtName))).map(p=>p.id);
           assert.equal(top.providers.length,Math.min(3,eligibleIds.length),`${city}/${districtName}/${serviceType}: no cross-district filler`);
           assert.ok(top.providers.every(p=>eligibleIds.includes(p.id)));
+          if (serviceType==='ASSISTIVE_DEVICE' && top.providers.length) {
+            assert.match(top.notice,/到府服務.*另洽商家/);
+            assert.ok(top.providers.every(p=>!p.reasons.some(r=>r.startsWith('服務範圍包含'))));
+          }
           assert.deepEqual(top,await api.getRecommendation({assessmentId:result.assessmentId,serviceType}));
         }
       }
