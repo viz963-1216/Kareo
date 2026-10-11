@@ -1,13 +1,22 @@
 // Produce a guarded, public-data-only delta for the existing Kareo import RPC.
 // Does not connect to a database; SQL is reviewed and executed separately.
-import {readFileSync,writeFileSync} from 'node:fs';
+import {writeFileSync} from 'node:fs';
 import {verifyNursingFiles,loadNursing} from '../data/providers/qa/verify-home-nursing.mjs';
 import {toImportPayload} from '../apps/api/dist/repositories/supabaseProviderRepository.js';
 const data=loadNursing(),errors=verifyNursingFiles(data);
 if(errors.length) throw new Error(errors.join('\n'));
 const ids=new Set(data.manifest.rows.filter(r=>r.status==='ADDED').map(r=>r.providerId));
 const info=new Map(data.info.map(r=>[r.providerId,r.publicInfo]));
-const payload=toImportPayload({providers:data.providers.filter(p=>ids.has(p.id)).map(p=>({...p,publicInfo:info.get(p.id)})),services:data.services.filter(s=>ids.has(s.providerId)),serviceAreas:[],contractRegions:[]});
+// Use the same runtime timestamps and default category as the validated importer.
+// Source records intentionally contain no database write timestamps.
+const {nowTaipeiISOString}=await import('../apps/api/dist/lib/response.js');
+const {importProviderDataset,hasRejections}=await import('../apps/api/dist/services/providerImportService.js');
+const sourceProviders=data.providers.filter(p=>ids.has(p.id)).map(p=>({...p,publicInfo:info.get(p.id)}));
+const sourceServices=data.services.filter(s=>ids.has(s.providerId));
+const report=await importProviderDataset({}, {providers:sourceProviders,providerServices:sourceServices,providerServiceAreas:[],providerContractRegions:[]},{mode:'dry-run'});
+if(hasRejections(report)||report.providersValid!==144||report.servicesValid!==144) throw new Error('Delta importer validation failed');
+const now=nowTaipeiISOString();
+const payload=toImportPayload({providers:sourceProviders.map(p=>({...p,resourceCategory:p.resourceCategory??'SERVICE_PROVIDER',createdAt:now,updatedAt:now})),services:sourceServices,serviceAreas:[],contractRegions:[]});
 const retained=data.manifest.rows.filter(r=>r.status==='RETAINED').map(r=>({id:r.providerId,public_info:info.get(r.providerId)}));
 const literal=value=>'$nursing147$'+JSON.stringify(value)+'$nursing147$::jsonb';
 if(JSON.stringify([payload,retained]).includes('$nursing147$')) throw new Error('SQL delimiter in source');
