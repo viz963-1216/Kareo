@@ -6,6 +6,10 @@ Owner: Jerry
 Status: r9 營運者取消額外真人客服／權利演練，技術流程採合成整合驗證；實際申請的身分／代理權限核對仍適用。r8 雲端唯讀觀察：2筆刪除紀錄／2筆停用Session、健康／接洽／聯絡0，前後基準不變。每日清理首次自動事件、完整實體備份／副本退役、原 MVP Lead 接件及部署回滾仍待驗；release gate CLOSED。
 Plan revision: 2026-09-19 / 10-22 MVP
 
+## 2026-10-11 r20：同區推薦修正
+
+沿用 r19 授權範圍，另授權 `/apps/api/tests/publicProviderPreview.test.ts` 更新依賴 Demo adapter 的既有測試；不得修改正式後端業務邏輯。候選所在地 city／district 必須同居住地，保留服務範圍資格，完整住址距離排序與行政區隨機均適用；空結果查詢連結保留同區。驗收含南港 exact／district、雙北41行政區三服務、零家／不足三家、返回名單穩定。部署限現有公開資料 Demo，完整 J-003／D-05 不採計通過。
+
 ## 2026-10-11 r19：Demo 居住地與推薦（Jerry 明確委託）
 
 本輪額外授權 `/apps/web/**`、`/data/residence/**`、`/scripts/geo/**`、`/docs/**`、`/tasks/**`、CI。輸入為本分頁选填地址／行政區及公开機構名單，輸出為服務範圍相符的距離或隨機 Top 3。不得改 `/apps/api/**`、Supabase、Kareocar、正式同意 registry 或收集個案到雲端。驗收：完整門牌在瀏覽器精確定位，距離由未四捨五入值排序，無地址則行政區隨機且同評估保留；不匹配不猜測；無座標揭露涵蓋範圍；住址不在網路請求／需求摘要／API payload；卡片移除原因但保留官方资格警示。允許透過 staging PR、release promotion 部署当前 Demo，不採計為正式 E2E。
