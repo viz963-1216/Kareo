@@ -1,0 +1,6212 @@
+{
+  "TP-HC-001": {
+    "lat": 25.023462,
+    "lng": 121.497062,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "東園街140巷7號"
+  },
+  "TP-HC-002": {
+    "lat": 25.032045,
+    "lng": 121.502365,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "艋舺大道120巷39弄3號"
+  },
+  "TP-HC-003": {
+    "lat": 25.031248,
+    "lng": 121.497495,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "莒光路328號"
+  },
+  "TP-HC-004": {
+    "lat": 25.031335,
+    "lng": 121.500254,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "莒光路222號"
+  },
+  "TP-HC-005": {
+    "lat": 25.042442,
+    "lng": 121.502311,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "康定路62號"
+  },
+  "TP-HC-006": {
+    "lat": 25.034923,
+    "lng": 121.501059,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "康定路348號"
+  },
+  "TP-HC-007": {
+    "lat": 25.022659,
+    "lng": 121.50213,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "青年路106巷9號"
+  },
+  "TP-HC-008": {
+    "lat": 25.02661,
+    "lng": 121.495373,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "東園街66巷21弄51號"
+  },
+  "TP-HC-009": {
+    "lat": 25.035923,
+    "lng": 121.499208,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "西園路1段200號"
+  },
+  "TP-HC-010": {
+    "lat": 25.033978,
+    "lng": 121.494917,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "大理街171之1號"
+  },
+  "NTPC-HC-001": {
+    "lat": 24.981651,
+    "lng": 121.421393,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛街3號"
+  },
+  "NTPC-HC-002": {
+    "lat": 25.016255,
+    "lng": 121.510415,
+    "source": "NTPC-11509",
+    "matchedAddress": "文化路155號"
+  },
+  "NTPC-HC-003": {
+    "lat": 25.037584,
+    "lng": 121.458875,
+    "source": "NTPC-11509",
+    "matchedAddress": "新莊路16之2號"
+  },
+  "NTPC-HC-004": {
+    "lat": 25.078524,
+    "lng": 121.492417,
+    "source": "NTPC-11509",
+    "matchedAddress": "福隆路48號"
+  },
+  "NTPC-HC-005": {
+    "lat": 25.06675,
+    "lng": 121.503062,
+    "source": "NTPC-11509",
+    "matchedAddress": "長元街100之2號"
+  },
+  "TP-HMN-001": {
+    "lat": 25.059885,
+    "lng": 121.522268,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中山北路2段96巷9號"
+  },
+  "TP-HMN-002": {
+    "lat": 25.105194,
+    "lng": 121.531566,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "雨聲街105號"
+  },
+  "TP-HMN-003": {
+    "lat": 25.042229,
+    "lng": 121.502551,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "康定路37號"
+  },
+  "TP-AD-001": {
+    "lat": 25.051834,
+    "lng": 121.534199,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路2段150號"
+  },
+  "TP-AD-002": {
+    "lat": 25.068196,
+    "lng": 121.592649,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民權東路6段180巷6號"
+  },
+  "TP-AD-003": {
+    "lat": 25.004277,
+    "lng": 121.541253,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路1段55巷27弄1之5號"
+  },
+  "NTPC-AD-002": {
+    "lat": 25.003086,
+    "lng": 121.460682,
+    "source": "NTPC-11509",
+    "matchedAddress": "校前街28號"
+  },
+  "NTPC-AD-003": {
+    "lat": 24.996663,
+    "lng": 121.451897,
+    "source": "NTPC-11509",
+    "matchedAddress": "南雅南路2段134號"
+  },
+  "NTPC-AD-005": {
+    "lat": 24.988544,
+    "lng": 121.458027,
+    "source": "NTPC-11509",
+    "matchedAddress": "學府路1段38號"
+  },
+  "NTPC-AD-006": {
+    "lat": 25.072373,
+    "lng": 121.358611,
+    "source": "NTPC-11509",
+    "matchedAddress": "源泉街12號"
+  },
+  "NTPC-AD-009": {
+    "lat": 24.993746,
+    "lng": 121.494082,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路291號"
+  },
+  "TP-ARC-001": {
+    "lat": 25.070359,
+    "lng": 121.520497,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "玉門街1號"
+  },
+  "TP-ARC-002": {
+    "lat": 25.050505,
+    "lng": 121.520773,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "長安西路5巷2號"
+  },
+  "TP-ARC-003": {
+    "lat": 25.038998,
+    "lng": 121.583005,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "大道路116號"
+  },
+  "NTPC-ARC-001": {
+    "lat": 25.08483,
+    "lng": 121.481622,
+    "source": "NTPC-11509",
+    "matchedAddress": "集賢路245號"
+  },
+  "NTPC-ARC-002": {
+    "lat": 24.966909,
+    "lng": 121.54103,
+    "source": "NTPC-11509",
+    "matchedAddress": "北新路1段281號"
+  },
+  "NTPC-AD-010": {
+    "lat": 25.030078,
+    "lng": 121.479641,
+    "source": "NTPC-11509",
+    "matchedAddress": "懷德街181巷7號"
+  },
+  "TP-HC-011": {
+    "lat": 25.049135,
+    "lng": 121.592962,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "昆陽街152巷39號"
+  },
+  "TP-HC-012": {
+    "lat": 25.033283,
+    "lng": 121.557734,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "信義路4段375號"
+  },
+  "TP-HC-013": {
+    "lat": 25.033283,
+    "lng": 121.557734,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "信義路4段375號"
+  },
+  "TP-HC-014": {
+    "lat": 25.040512,
+    "lng": 121.578297,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路5段492巷2號"
+  },
+  "TP-HC-015": {
+    "lat": 25.041338,
+    "lng": 121.564858,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路5段1號"
+  },
+  "TP-HC-016": {
+    "lat": 25.020987,
+    "lng": 121.557686,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "和平東路3段391巷8弄50號"
+  },
+  "TP-HC-017": {
+    "lat": 25.022918,
+    "lng": 121.5564,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "富陽街29號"
+  },
+  "TP-HC-019": {
+    "lat": 25.063988,
+    "lng": 121.544437,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "復興北路451號"
+  },
+  "TP-HC-020": {
+    "lat": 25.051369,
+    "lng": 121.556816,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路4段170號"
+  },
+  "TP-HC-022": {
+    "lat": 25.051176,
+    "lng": 121.565682,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路5段230號"
+  },
+  "TP-HC-023": {
+    "lat": 25.046666,
+    "lng": 121.553612,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延吉街11號"
+  },
+  "TP-HC-024": {
+    "lat": 25.046666,
+    "lng": 121.553612,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延吉街11號"
+  },
+  "TP-HC-025": {
+    "lat": 25.024327,
+    "lng": 121.500416,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "萬大路323號"
+  },
+  "TP-HC-026": {
+    "lat": 25.052117,
+    "lng": 121.557394,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "光復北路119之1號"
+  },
+  "TP-HC-027": {
+    "lat": 25.050814,
+    "lng": 121.55805,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "光復北路95號"
+  },
+  "TP-HC-028": {
+    "lat": 25.048317,
+    "lng": 121.547135,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "八德路2段447號"
+  },
+  "TP-HC-029": {
+    "lat": 25.04871,
+    "lng": 121.561749,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "八德路4段123號"
+  },
+  "TP-HC-030": {
+    "lat": 25.11456,
+    "lng": 121.517637,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "裕民六路120號"
+  },
+  "TP-HC-031": {
+    "lat": 25.115028,
+    "lng": 121.522112,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "明德路283號"
+  },
+  "TP-HC-032": {
+    "lat": 25.112669,
+    "lng": 121.509773,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "石牌路1段14號"
+  },
+  "TP-HC-034": {
+    "lat": 25.10907,
+    "lng": 121.513348,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文林北路262號"
+  },
+  "TP-HC-035": {
+    "lat": 25.138234,
+    "lng": 121.487462,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中央北路2段371號"
+  },
+  "TP-HC-036": {
+    "lat": 25.139852,
+    "lng": 121.499269,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "大同街299號"
+  },
+  "TP-HC-037": {
+    "lat": 25.13852,
+    "lng": 121.499301,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "大同街210號"
+  },
+  "TP-HC-038": {
+    "lat": 25.001964,
+    "lng": 121.539257,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "羅斯福路5段225之1號"
+  },
+  "TP-HC-039": {
+    "lat": 24.996948,
+    "lng": 121.540743,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "羅斯福路6段134號"
+  },
+  "TP-HC-040": {
+    "lat": 24.99746,
+    "lng": 121.558792,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路3段206巷10弄1號"
+  },
+  "TP-HC-041": {
+    "lat": 24.999812,
+    "lng": 121.548432,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路2段86巷2號"
+  },
+  "TP-HC-042": {
+    "lat": 24.99566,
+    "lng": 121.536958,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "景福街133巷30號"
+  },
+  "TP-HC-043": {
+    "lat": 25.004835,
+    "lng": 121.539085,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "羅斯福路5段125號"
+  },
+  "TP-HC-044": {
+    "lat": 25.033599,
+    "lng": 121.548442,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "敦化南路1段376號"
+  },
+  "TP-HC-045": {
+    "lat": 24.991716,
+    "lng": 121.54123,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "景文街42號"
+  },
+  "TP-HC-046": {
+    "lat": 24.987923,
+    "lng": 121.568401,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "保儀路38號"
+  },
+  "TP-HC-048": {
+    "lat": 25.008739,
+    "lng": 121.559025,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "辛亥路4段21巷10號"
+  },
+  "TP-HC-049": {
+    "lat": 25.066149,
+    "lng": 121.590706,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "成功路2段171號"
+  },
+  "TP-HC-050": {
+    "lat": 25.068196,
+    "lng": 121.592649,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民權東路6段180巷6號"
+  },
+  "TP-HC-051": {
+    "lat": 25.069447,
+    "lng": 121.592751,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民權東路6段123巷16號"
+  },
+  "TP-HC-053": {
+    "lat": 25.014504,
+    "lng": 121.534274,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "羅斯福路4段68號"
+  },
+  "TP-HC-054": {
+    "lat": 25.041675,
+    "lng": 121.527444,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "齊東街78之1號"
+  },
+  "TP-HC-055": {
+    "lat": 25.032776,
+    "lng": 121.515029,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "湖口街1之3號"
+  },
+  "TP-HC-056": {
+    "lat": 25.045163,
+    "lng": 121.515624,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "許昌街42之1號"
+  },
+  "TP-HC-057": {
+    "lat": 25.028055,
+    "lng": 121.515586,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "重慶南路3段42之3號"
+  },
+  "TP-HC-058": {
+    "lat": 25.044959,
+    "lng": 121.513349,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "重慶南路1段43號"
+  },
+  "TP-HC-059": {
+    "lat": 25.043327,
+    "lng": 121.513695,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "襄陽路6號"
+  },
+  "TP-HC-060": {
+    "lat": 25.046282,
+    "lng": 121.517934,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝西路1段45號"
+  },
+  "TP-HC-061": {
+    "lat": 25.041662,
+    "lng": 121.513899,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "懷寧街112號"
+  },
+  "TP-HC-062": {
+    "lat": 25.044488,
+    "lng": 121.525536,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路1段35號"
+  },
+  "TP-HC-063": {
+    "lat": 25.041162,
+    "lng": 121.555868,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路4段290號"
+  },
+  "TP-HC-064": {
+    "lat": 25.027054,
+    "lng": 121.517414,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "和平西路1段107號"
+  },
+  "TP-HC-065": {
+    "lat": 25.049591,
+    "lng": 121.523163,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "長安東路1段21號"
+  },
+  "TP-HC-066": {
+    "lat": 25.065399,
+    "lng": 121.526953,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "新生北路3段56巷17號"
+  },
+  "TP-HC-067": {
+    "lat": 25.067452,
+    "lng": 121.528896,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "新生北路3段87巷23號"
+  },
+  "TP-HC-068": {
+    "lat": 25.057067,
+    "lng": 121.526581,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "新生北路2段72巷23號"
+  },
+  "TP-HC-069": {
+    "lat": 25.050481,
+    "lng": 121.543786,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "復興北路62號"
+  },
+  "TP-HC-070": {
+    "lat": 25.050481,
+    "lng": 121.543786,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "復興北路62號"
+  },
+  "TP-HC-071": {
+    "lat": 25.066779,
+    "lng": 121.534329,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "建國北路3段94號"
+  },
+  "TP-HC-072": {
+    "lat": 25.060809,
+    "lng": 121.533383,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "松江路293之705號"
+  },
+  "TP-HC-073": {
+    "lat": 25.052217,
+    "lng": 121.53511,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路2段137號"
+  },
+  "TP-HC-074": {
+    "lat": 25.064418,
+    "lng": 121.539412,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "五常街51號"
+  },
+  "TP-HC-075": {
+    "lat": 25.04818,
+    "lng": 121.542809,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "長安東路2段230號"
+  },
+  "TP-HC-076": {
+    "lat": 25.048246,
+    "lng": 121.532742,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "松江路50號"
+  },
+  "TP-HC-077": {
+    "lat": 25.054234,
+    "lng": 121.533349,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "松江路131之12號"
+  },
+  "TP-HC-078": {
+    "lat": 25.060174,
+    "lng": 121.525783,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "錦州街46號"
+  },
+  "TP-HC-079": {
+    "lat": 25.067541,
+    "lng": 121.541987,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民族東路512巷12號"
+  },
+  "TP-HC-080": {
+    "lat": 25.058088,
+    "lng": 121.531779,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生東路2段119號"
+  },
+  "TP-HC-081": {
+    "lat": 25.052859,
+    "lng": 121.587746,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南港路3段93號"
+  },
+  "TP-HC-082": {
+    "lat": 25.057929,
+    "lng": 121.524437,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生東路1段42號"
+  },
+  "TP-HC-083": {
+    "lat": 25.065702,
+    "lng": 121.522528,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中山北路3段31號"
+  },
+  "TP-HC-084": {
+    "lat": 25.060071,
+    "lng": 121.522715,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中山北路2段102號"
+  },
+  "TP-HC-085": {
+    "lat": 25.024222,
+    "lng": 121.534447,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "新生南路3段20之1號"
+  },
+  "TP-HC-086": {
+    "lat": 25.06275,
+    "lng": 121.516409,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民權西路136號"
+  },
+  "TP-HC-087": {
+    "lat": 25.033344,
+    "lng": 121.554714,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "信義路4段279號"
+  },
+  "TP-HC-088": {
+    "lat": 25.06275,
+    "lng": 121.516409,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民權西路136號"
+  },
+  "TP-HC-089": {
+    "lat": 25.040598,
+    "lng": 121.577998,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路5段482號"
+  },
+  "TP-HC-090": {
+    "lat": 25.041285,
+    "lng": 121.550289,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路4段162號"
+  },
+  "TP-HC-092": {
+    "lat": 25.02207,
+    "lng": 121.554712,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "和平東路3段232號"
+  },
+  "TP-HC-093": {
+    "lat": 25.024949,
+    "lng": 121.544688,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "和平東路2段295號"
+  },
+  "TP-HC-094": {
+    "lat": 25.026125,
+    "lng": 121.531931,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "和平東路1段216號"
+  },
+  "TP-HC-095": {
+    "lat": 25.028772,
+    "lng": 121.550245,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "安和路2段92號"
+  },
+  "TP-HC-096": {
+    "lat": 25.02652,
+    "lng": 121.545848,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "四維路198巷30弄10號"
+  },
+  "TP-HC-097": {
+    "lat": 25.034936,
+    "lng": 121.543397,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "復興南路1段368號"
+  },
+  "TP-HC-098": {
+    "lat": 25.062281,
+    "lng": 121.516813,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民權西路118巷12號"
+  },
+  "TP-HC-099": {
+    "lat": 25.052658,
+    "lng": 121.530912,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "松江路124巷23號"
+  },
+  "TP-HC-100": {
+    "lat": 25.052791,
+    "lng": 121.515118,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "重慶北路1段83巷22號"
+  },
+  "TP-HC-101": {
+    "lat": 25.063354,
+    "lng": 121.512107,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民權西路225巷6號"
+  },
+  "TP-HC-102": {
+    "lat": 25.063213,
+    "lng": 121.522304,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中山北路2段162號"
+  },
+  "TP-HC-103": {
+    "lat": 25.05611,
+    "lng": 121.508861,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "西寧北路112號"
+  },
+  "TP-HC-104": {
+    "lat": 25.05611,
+    "lng": 121.508861,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "西寧北路112號"
+  },
+  "TP-HC-105": {
+    "lat": 25.055916,
+    "lng": 121.509071,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "西寧北路81號"
+  },
+  "TP-HC-106": {
+    "lat": 25.063437,
+    "lng": 121.51105,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平北路3段4號"
+  },
+  "TP-HC-111": {
+    "lat": 25.050692,
+    "lng": 121.508887,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "鄭州路145號"
+  },
+  "TP-HC-113": {
+    "lat": 25.086662,
+    "lng": 121.511355,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "重慶北路4段248號"
+  },
+  "TP-HC-114": {
+    "lat": 25.082305,
+    "lng": 121.522922,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "承德路4段80巷2號"
+  },
+  "TP-HC-115": {
+    "lat": 25.081614,
+    "lng": 121.509169,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平北路5段83巷28弄11號"
+  },
+  "TP-HC-116": {
+    "lat": 25.071941,
+    "lng": 121.514345,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "酒泉街102號"
+  },
+  "TP-HC-117": {
+    "lat": 25.093343,
+    "lng": 121.525393,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文林路342號"
+  },
+  "TP-HC-118": {
+    "lat": 25.097675,
+    "lng": 121.526958,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中山北路5段699巷1號"
+  },
+  "TP-HC-119": {
+    "lat": 25.091951,
+    "lng": 121.518886,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "士商路110號"
+  },
+  "TP-HC-120": {
+    "lat": 24.955714,
+    "lng": 121.565261,
+    "source": "NTPC-11509",
+    "matchedAddress": "北宜路2段579巷45號"
+  },
+  "TP-HC-121": {
+    "lat": 24.976864,
+    "lng": 121.534243,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路399巷13號"
+  },
+  "TP-HC-122": {
+    "lat": 25.010049,
+    "lng": 121.462865,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路7號"
+  },
+  "TP-HC-123": {
+    "lat": 24.997229,
+    "lng": 121.46162,
+    "source": "NTPC-11509",
+    "matchedAddress": "國慶路149巷14弄8號"
+  },
+  "TP-HC-124": {
+    "lat": 25.009212,
+    "lng": 121.468854,
+    "source": "NTPC-11509",
+    "matchedAddress": "海山路19號"
+  },
+  "TP-HC-125": {
+    "lat": 25.008019,
+    "lng": 121.458171,
+    "source": "NTPC-11509",
+    "matchedAddress": "東門街32號"
+  },
+  "TP-HC-126": {
+    "lat": 25.028064,
+    "lng": 121.474459,
+    "source": "NTPC-11509",
+    "matchedAddress": "雙十路2段153號"
+  },
+  "TP-HC-127": {
+    "lat": 25.033516,
+    "lng": 121.475271,
+    "source": "NTPC-11509",
+    "matchedAddress": "文化路2段451號"
+  },
+  "TP-HC-128": {
+    "lat": 25.016556,
+    "lng": 121.463062,
+    "source": "NTPC-11509",
+    "matchedAddress": "文化路1段189號"
+  },
+  "TP-HC-130": {
+    "lat": 25.071678,
+    "lng": 121.677745,
+    "source": "NTPC-11509",
+    "matchedAddress": "大同路3段425號"
+  },
+  "TP-HC-132": {
+    "lat": 25.011275,
+    "lng": 121.517175,
+    "source": "NTPC-11509",
+    "matchedAddress": "中興街52巷1弄12號"
+  },
+  "TP-HC-133": {
+    "lat": 24.995613,
+    "lng": 121.500617,
+    "source": "NTPC-11509",
+    "matchedAddress": "景平路431巷68號"
+  },
+  "TP-HC-134": {
+    "lat": 25.009496,
+    "lng": 121.484578,
+    "source": "NTPC-11509",
+    "matchedAddress": "立德街204號"
+  },
+  "TP-HC-135": {
+    "lat": 25.003517,
+    "lng": 121.492658,
+    "source": "NTPC-11509",
+    "matchedAddress": "橋安街9號"
+  },
+  "TP-HC-136": {
+    "lat": 24.995154,
+    "lng": 121.517853,
+    "source": "NTPC-11509",
+    "matchedAddress": "大勇街96號"
+  },
+  "TP-HC-138": {
+    "lat": 25.054406,
+    "lng": 121.49106,
+    "source": "NTPC-11509",
+    "matchedAddress": "集美街112巷51號"
+  },
+  "TP-HC-140": {
+    "lat": 25.067527,
+    "lng": 121.496204,
+    "source": "NTPC-11509",
+    "matchedAddress": "正義北路210號"
+  },
+  "TP-HC-141": {
+    "lat": 25.047432,
+    "lng": 121.582192,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "玉成街89之1號"
+  },
+  "TP-HC-144": {
+    "lat": 25.066755,
+    "lng": 121.518586,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "承德路3段109號"
+  },
+  "TP-HC-145": {
+    "lat": 25.028073,
+    "lng": 121.501452,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "萬大路187巷42號"
+  },
+  "TP-HC-146": {
+    "lat": 25.030691,
+    "lng": 121.543804,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "復興南路2段65號"
+  },
+  "TP-HC-147": {
+    "lat": 25.027395,
+    "lng": 121.546022,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "四維路198巷29號"
+  },
+  "TP-HC-148": {
+    "lat": 25.058239,
+    "lng": 121.511878,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "歸綏街209號"
+  },
+  "TP-HC-149": {
+    "lat": 25.041299,
+    "lng": 121.549911,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路4段148號"
+  },
+  "TP-HC-150": {
+    "lat": 25.050317,
+    "lng": 121.519119,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "長安西路84號"
+  },
+  "TP-HC-151": {
+    "lat": 25.051063,
+    "lng": 121.569691,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路5段356號"
+  },
+  "TP-HC-152": {
+    "lat": 25.033152,
+    "lng": 121.56234,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "信義路5段5號"
+  },
+  "TP-HC-153": {
+    "lat": 25.040662,
+    "lng": 121.577298,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路5段476號"
+  },
+  "TP-HC-154": {
+    "lat": 25.032949,
+    "lng": 121.554592,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "信義路4段296號"
+  },
+  "TP-HC-155": {
+    "lat": 25.017328,
+    "lng": 121.55831,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "臥龍街291之1號"
+  },
+  "TP-HC-156": {
+    "lat": 25.024499,
+    "lng": 121.497987,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "萬大路322巷67號"
+  },
+  "TP-HC-157": {
+    "lat": 25.086662,
+    "lng": 121.511355,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "重慶北路4段248號"
+  },
+  "TP-HC-159": {
+    "lat": 25.024516,
+    "lng": 121.547198,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "和平東路3段20號"
+  },
+  "TP-HC-160": {
+    "lat": 25.052306,
+    "lng": 121.610776,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路7段520號"
+  },
+  "TP-HC-161": {
+    "lat": 25.041155,
+    "lng": 121.55628,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路4段300號"
+  },
+  "TP-HC-162": {
+    "lat": 25.05198,
+    "lng": 121.547122,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路3段311號"
+  },
+  "TP-HC-163": {
+    "lat": 25.138151,
+    "lng": 121.502322,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "珠海路31號"
+  },
+  "TP-HC-164": {
+    "lat": 25.063437,
+    "lng": 121.51105,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平北路3段4號"
+  },
+  "TP-HC-166": {
+    "lat": 25.142626,
+    "lng": 121.498459,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中和街395號"
+  },
+  "TP-HC-168": {
+    "lat": 25.130512,
+    "lng": 121.498971,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "北投路2段9號"
+  },
+  "TP-HC-169": {
+    "lat": 25.024327,
+    "lng": 121.500416,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "萬大路323號"
+  },
+  "TP-HC-170": {
+    "lat": 25.11909,
+    "lng": 121.506423,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "吉利街123巷16號"
+  },
+  "TP-HC-171": {
+    "lat": 24.983897,
+    "lng": 121.558479,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠順街1段16號"
+  },
+  "TP-HC-172": {
+    "lat": 24.984058,
+    "lng": 121.562509,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路4段165巷10號"
+  },
+  "TP-HC-173": {
+    "lat": 25.031785,
+    "lng": 121.557275,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "光復南路626號"
+  },
+  "TP-HC-174": {
+    "lat": 25.033747,
+    "lng": 121.505171,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "和平西路2段149號"
+  },
+  "TP-HC-175": {
+    "lat": 25.138678,
+    "lng": 121.502004,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中和街63號"
+  },
+  "TP-HC-176": {
+    "lat": 25.027409,
+    "lng": 121.545647,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "四維路198巷43號"
+  },
+  "TP-HC-177": {
+    "lat": 25.054336,
+    "lng": 121.544307,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "復興北路179號"
+  },
+  "TP-HC-178": {
+    "lat": 25.075185,
+    "lng": 121.61006,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "康寧路3段75巷137號"
+  },
+  "TP-HC-179": {
+    "lat": 25.109685,
+    "lng": 121.52555,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中山北路6段264號"
+  },
+  "TP-HC-180": {
+    "lat": 25.050095,
+    "lng": 121.556279,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路4段120巷29弄32號"
+  },
+  "TP-HC-181": {
+    "lat": 25.033304,
+    "lng": 121.559235,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "信義路4段415號"
+  },
+  "TP-HC-182": {
+    "lat": 25.06352,
+    "lng": 121.511028,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平北路3段4之1號"
+  },
+  "TP-HC-183": {
+    "lat": 25.022788,
+    "lng": 121.556415,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "富陽街37號"
+  },
+  "TP-HC-184": {
+    "lat": 25.083422,
+    "lng": 121.517455,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "福港街272巷4號"
+  },
+  "TP-HC-185": {
+    "lat": 25.086708,
+    "lng": 121.511365,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "重慶北路4段250號"
+  },
+  "TP-HC-186": {
+    "lat": 25.115071,
+    "lng": 121.527969,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中山北路6段726號"
+  },
+  "TP-HC-187": {
+    "lat": 25.054715,
+    "lng": 121.515004,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "寧夏路11號"
+  },
+  "TP-HC-188": {
+    "lat": 25.059035,
+    "lng": 121.511296,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平北路2段202號"
+  },
+  "TP-HC-189": {
+    "lat": 25.051339,
+    "lng": 121.558352,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路5段8號"
+  },
+  "TP-HC-190": {
+    "lat": 25.088256,
+    "lng": 121.507119,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "社子街63巷21弄2號"
+  },
+  "TP-HC-191": {
+    "lat": 25.093343,
+    "lng": 121.525393,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文林路342號"
+  },
+  "TP-HC-192": {
+    "lat": 25.100472,
+    "lng": 121.521744,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文林路661巷13號"
+  },
+  "TP-HC-193": {
+    "lat": 25.063913,
+    "lng": 121.585603,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "行善路385號"
+  },
+  "TP-HC-194": {
+    "lat": 25.046886,
+    "lng": 121.581809,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "玉成街66之8號"
+  },
+  "TP-HC-195": {
+    "lat": 25.083054,
+    "lng": 121.510275,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平北路5段178號"
+  },
+  "TP-HC-196": {
+    "lat": 25.084381,
+    "lng": 121.593764,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "成功路4段192號"
+  },
+  "TP-HC-197": {
+    "lat": 25.065608,
+    "lng": 121.592378,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民權東路6段180巷92之1號"
+  },
+  "TP-HC-198": {
+    "lat": 25.107613,
+    "lng": 121.528376,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "德行東路102之3號"
+  },
+  "CAT-AD-5EAFCD3563B2": {
+    "lat": 25.029718,
+    "lng": 121.51997,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "福州街5之1號"
+  },
+  "CAT-AD-43032DE889C4": {
+    "lat": 25.032479,
+    "lng": 121.432481,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路516之24號"
+  },
+  "CAT-AD-7B93D6608269": {
+    "lat": 24.965505,
+    "lng": 121.540905,
+    "source": "NTPC-11509",
+    "matchedAddress": "北新路1段12號"
+  },
+  "CAT-AD-15CE2155EB0B": {
+    "lat": 25.041792,
+    "lng": 121.545806,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路4段59號"
+  },
+  "CAT-AD-C41C378592C7": {
+    "lat": 25.060051,
+    "lng": 121.565651,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "新東街39號"
+  },
+  "CAT-AD-9CA448D671ED": {
+    "lat": 24.998031,
+    "lng": 121.520146,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路17號"
+  },
+  "CAT-AD-7BEA878BFCA8": {
+    "lat": 25.027567,
+    "lng": 121.563398,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "吳興街233號"
+  },
+  "CAT-AD-4CD9EF68463D": {
+    "lat": 25.17191,
+    "lng": 121.442035,
+    "source": "NTPC-11509",
+    "matchedAddress": "原德路73巷6號"
+  },
+  "CAT-AD-16F4F8E6F85E": {
+    "lat": 25.042216,
+    "lng": 121.565336,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "基隆路1段155號"
+  },
+  "CAT-AD-23533146967F": {
+    "lat": 25.080619,
+    "lng": 121.477064,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山一路95巷20弄5號"
+  },
+  "CAT-AD-2E12F02B79A1": {
+    "lat": 24.954008,
+    "lng": 121.537171,
+    "source": "NTPC-11509",
+    "matchedAddress": "新店路111號"
+  },
+  "CAT-AD-09CA324A9A77": {
+    "lat": 25.03501,
+    "lng": 121.506333,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中華路2段47號"
+  },
+  "CAT-AD-A355522560C2": {
+    "lat": 25.08705,
+    "lng": 121.522384,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "承德路4段186號"
+  },
+  "CAT-AD-5D6F79E8B610": {
+    "lat": 25.080032,
+    "lng": 121.570639,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "洲子街100號"
+  },
+  "CAT-AD-B1AE2F5208B8": {
+    "lat": 25.059402,
+    "lng": 121.564776,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生東路5段169號"
+  },
+  "CAT-AD-A457C44AD5F6": {
+    "lat": 25.058342,
+    "lng": 121.537302,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "建國北路2段85號"
+  },
+  "CAT-AD-76A201A9BE8E": {
+    "lat": 25.022989,
+    "lng": 121.551283,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "基隆路2段217號"
+  },
+  "CAT-AD-A3A533C39112": {
+    "lat": 24.97887,
+    "lng": 121.447566,
+    "source": "NTPC-11509",
+    "matchedAddress": "學海街228號"
+  },
+  "CAT-AD-4385BC76596A": {
+    "lat": 25.002073,
+    "lng": 121.486407,
+    "source": "NTPC-11509",
+    "matchedAddress": "建六路70號"
+  },
+  "CAT-AD-76AE78884CDD": {
+    "lat": 25.058631,
+    "lng": 121.464016,
+    "source": "NTPC-11509",
+    "matchedAddress": "化成路403巷19號"
+  },
+  "CAT-AD-3825B4B291E3": {
+    "lat": 24.968271,
+    "lng": 121.329955,
+    "source": "NTPC-11509",
+    "matchedAddress": "鶯桃路563號"
+  },
+  "CAT-AD-E446DBE14C9C": {
+    "lat": 24.999161,
+    "lng": 121.51694,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路191號"
+  },
+  "CAT-AD-B006E08ECAC9": {
+    "lat": 25.050328,
+    "lng": 121.510929,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "鄭州路121號"
+  },
+  "CAT-AD-034EA210009D": {
+    "lat": 25.039869,
+    "lng": 121.459595,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路43巷3號"
+  },
+  "CAT-AD-5286AD31FEDA": {
+    "lat": 25.037102,
+    "lng": 121.503727,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "昆明街273號"
+  },
+  "CAT-AD-2CE9CA52548D": {
+    "lat": 25.122795,
+    "lng": 121.467108,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "知行路332號"
+  },
+  "CAT-AD-C934A56849C3": {
+    "lat": 24.964798,
+    "lng": 121.540222,
+    "source": "NTPC-11509",
+    "matchedAddress": "北新路1段195號"
+  },
+  "CAT-AD-42553225C537": {
+    "lat": 25.058709,
+    "lng": 121.558489,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生東路5段73號"
+  },
+  "CAT-AD-1F5300E789B8": {
+    "lat": 25.082426,
+    "lng": 121.549052,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "北安路616之1號"
+  },
+  "CAT-AD-2228D966B5EF": {
+    "lat": 24.972832,
+    "lng": 121.539739,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路215號"
+  },
+  "CAT-AD-2EDB84FF6719": {
+    "lat": 25.02411,
+    "lng": 121.457726,
+    "source": "NTPC-11509",
+    "matchedAddress": "龍泉街135號"
+  },
+  "CAT-AD-BA9D0D363872": {
+    "lat": 25.084265,
+    "lng": 121.596394,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "成功路4段219號"
+  },
+  "CAT-AD-31C1C7803CE3": {
+    "lat": 25.064765,
+    "lng": 121.535809,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "農安街267號"
+  },
+  "CAT-AD-9AF028C689C9": {
+    "lat": 25.084593,
+    "lng": 121.522051,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "前港街28號"
+  },
+  "CAT-AD-DD900738CE4D": {
+    "lat": 25.065872,
+    "lng": 121.530508,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "吉林路399號"
+  },
+  "CAT-AD-6068CB32CB0B": {
+    "lat": 25.124165,
+    "lng": 121.53271,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中山北路7段162號"
+  },
+  "CAT-AD-FBE2D4DE104D": {
+    "lat": 25.068122,
+    "lng": 121.617305,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "東湖路151號"
+  },
+  "CAT-AD-1DF6D1254CD1": {
+    "lat": 25.071728,
+    "lng": 121.36931,
+    "source": "NTPC-11509",
+    "matchedAddress": "忠孝路373號"
+  },
+  "CAT-AD-1CB07C67893D": {
+    "lat": 25.006495,
+    "lng": 121.484061,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路880號"
+  },
+  "CAT-AD-1B0F7A346938": {
+    "lat": 25.084581,
+    "lng": 121.567779,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "內湖路1段285巷65弄12號"
+  },
+  "CAT-AD-2539EC2E4AF4": {
+    "lat": 24.997924,
+    "lng": 121.507089,
+    "source": "NTPC-11509",
+    "matchedAddress": "景安路65號"
+  },
+  "CAT-AD-8D4B7BFF32AA": {
+    "lat": 25.070913,
+    "lng": 121.530805,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "濱江街12號"
+  },
+  "CAT-AD-59663DFFA43D": {
+    "lat": 25.016052,
+    "lng": 121.453212,
+    "source": "NTPC-11509",
+    "matchedAddress": "大仁街104號"
+  },
+  "CAT-AD-6FAA0421009A": {
+    "lat": 24.930369,
+    "lng": 121.380163,
+    "source": "NTPC-11509",
+    "matchedAddress": "介壽路1段269號"
+  },
+  "CAT-AD-B212024A0B65": {
+    "lat": 25.004738,
+    "lng": 121.485729,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路2段419號"
+  },
+  "CAT-AD-C410F15F618B": {
+    "lat": 24.998644,
+    "lng": 121.509487,
+    "source": "NTPC-11509",
+    "matchedAddress": "宜安路146號"
+  },
+  "CAT-AD-3E0E11ACB37F": {
+    "lat": 25.068462,
+    "lng": 121.515692,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民族西路150號"
+  },
+  "CAT-AD-4B4A39E2A067": {
+    "lat": 25.181031,
+    "lng": 121.443856,
+    "source": "NTPC-11509",
+    "matchedAddress": "新春街189號"
+  },
+  "CAT-AD-155179765FEE": {
+    "lat": 25.096209,
+    "lng": 121.524404,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文林路484號"
+  },
+  "CAT-AD-66D77BBDE8A9": {
+    "lat": 25.104153,
+    "lng": 121.527081,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠誠路1段27號"
+  },
+  "CAT-AD-5A5034F20DFB": {
+    "lat": 25.147532,
+    "lng": 121.399674,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路2段432號"
+  },
+  "CAT-AD-9E973C9C6B32": {
+    "lat": 25.069395,
+    "lng": 121.618481,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "康樂街72巷2號"
+  },
+  "CAT-AD-8057F7E1FB65": {
+    "lat": 24.979484,
+    "lng": 121.538578,
+    "source": "NTPC-11509",
+    "matchedAddress": "建國路162號"
+  },
+  "CAT-AD-835F61778C45": {
+    "lat": 25.106001,
+    "lng": 121.531526,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠義街72號"
+  },
+  "CAT-AD-3E1C0EEAAC9A": {
+    "lat": 25.050153,
+    "lng": 121.517065,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "承德路1段17號"
+  },
+  "CAT-AD-324091BDF1DD": {
+    "lat": 25.053144,
+    "lng": 121.476421,
+    "source": "NTPC-11509",
+    "matchedAddress": "五谷王北街175號"
+  },
+  "CAT-AD-06C31DAE2774": {
+    "lat": 25.045641,
+    "lng": 121.584753,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "同德路51號"
+  },
+  "CAT-AD-13BCF75850E3": {
+    "lat": 25.114835,
+    "lng": 121.530433,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "天母東路8巷84號"
+  },
+  "CAT-AD-C0FCB677AD6B": {
+    "lat": 25.117298,
+    "lng": 121.512787,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "致遠二路141號"
+  },
+  "CAT-AD-9599206D3087": {
+    "lat": 24.995243,
+    "lng": 121.545041,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "景華街69號"
+  },
+  "CAT-AD-3D9B1A1EC14B": {
+    "lat": 25.118348,
+    "lng": 121.526217,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "天母西路34號"
+  },
+  "CAT-AD-844252DFC320": {
+    "lat": 25.000448,
+    "lng": 121.555809,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路3段43號"
+  },
+  "CAT-AD-43A00DE65FFA": {
+    "lat": 25.048885,
+    "lng": 121.560768,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "八德路4段91巷1號"
+  },
+  "CAT-AD-09DEAC771B5A": {
+    "lat": 25.029119,
+    "lng": 121.553276,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "通化街140巷17號"
+  },
+  "CAT-AD-EBA634C35B9E": {
+    "lat": 24.993745,
+    "lng": 121.494193,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路281之10號"
+  },
+  "CAT-AD-D4E3D191DEE9": {
+    "lat": 24.926861,
+    "lng": 121.365861,
+    "source": "NTPC-11509",
+    "matchedAddress": "弘園街38號"
+  },
+  "CAT-AD-FF703F7E05B1": {
+    "lat": 25.06309,
+    "lng": 121.656097,
+    "source": "NTPC-11509",
+    "matchedAddress": "新臺五路1段218號"
+  },
+  "CAT-AD-8A4AAD03654B": {
+    "lat": 25.045949,
+    "lng": 121.553706,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延吉街29號"
+  },
+  "CAT-AD-356854044B03": {
+    "lat": 25.053144,
+    "lng": 121.476421,
+    "source": "NTPC-11509",
+    "matchedAddress": "五谷王北街175號"
+  },
+  "CAT-AD-60A271A4E3E4": {
+    "lat": 25.102588,
+    "lng": 121.522217,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "福華路135號"
+  },
+  "CAT-AD-C09F6DB119D6": {
+    "lat": 25.063524,
+    "lng": 121.51182,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民權西路237之2號"
+  },
+  "CAT-AD-F21A423C9E87": {
+    "lat": 25.027819,
+    "lng": 121.563414,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "吳興街225巷2號"
+  },
+  "CAT-AD-74D5EF48C785": {
+    "lat": 25.118222,
+    "lng": 121.522211,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "振興街19號"
+  },
+  "CAT-AD-91491F5EF975": {
+    "lat": 25.064718,
+    "lng": 121.633514,
+    "source": "NTPC-11509",
+    "matchedAddress": "福德一路256號"
+  },
+  "CAT-AD-3035332E070B": {
+    "lat": 25.111562,
+    "lng": 121.528778,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "德行東路109巷119號"
+  },
+  "CAT-AD-6C8091588860": {
+    "lat": 25.021304,
+    "lng": 121.497409,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "萬大路424巷7號"
+  },
+  "CAT-AD-AEDFEB1C9946": {
+    "lat": 25.041302,
+    "lng": 121.577094,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "虎林街119之16號"
+  },
+  "CAT-AD-C16FCAB9E713": {
+    "lat": 24.992149,
+    "lng": 121.494487,
+    "source": "NTPC-11509",
+    "matchedAddress": "圓通路246號"
+  },
+  "CAT-AD-04499AC9A0B6": {
+    "lat": 25.087587,
+    "lng": 121.508699,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "社子街4號"
+  },
+  "CAT-AD-7F0D2D115F5B": {
+    "lat": 25.056128,
+    "lng": 121.605475,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "東明街3號"
+  },
+  "CAT-AD-2BBF3CE79FAF": {
+    "lat": 25.112564,
+    "lng": 121.529059,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "士東路91巷3號"
+  },
+  "CAT-AD-F4B5555098C7": {
+    "lat": 25.068015,
+    "lng": 121.630659,
+    "source": "NTPC-11509",
+    "matchedAddress": "康寧街424號"
+  },
+  "CAT-AD-4F05A2D66299": {
+    "lat": 25.141271,
+    "lng": 121.459967,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路27之1號"
+  },
+  "CAT-AD-9B177F7A3564": {
+    "lat": 25.083019,
+    "lng": 121.550849,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "明水路651號"
+  },
+  "CAT-AD-53B044444EED": {
+    "lat": 25.069088,
+    "lng": 121.614148,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "東湖路43巷2號"
+  },
+  "CAT-AD-3B7E2013A1E4": {
+    "lat": 25.052271,
+    "lng": 121.428815,
+    "source": "NTPC-11509",
+    "matchedAddress": "明志路2段81號"
+  },
+  "CAT-AD-8CB3D690ADB4": {
+    "lat": 25.060263,
+    "lng": 121.53387,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "錦州街244號"
+  },
+  "CAT-AD-B1DC81E8FC32": {
+    "lat": 25.053353,
+    "lng": 121.490514,
+    "source": "NTPC-11509",
+    "matchedAddress": "集美街178號"
+  },
+  "CAT-AD-95308168D682": {
+    "lat": 24.973836,
+    "lng": 121.543087,
+    "source": "NTPC-11509",
+    "matchedAddress": "北新路2段102號"
+  },
+  "CAT-AD-7EC6962A812E": {
+    "lat": 25.058776,
+    "lng": 121.560139,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生東路5段107號"
+  },
+  "CAT-AD-128CDE814AE3": {
+    "lat": 25.036698,
+    "lng": 121.554878,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路4段300巷17弄1號"
+  },
+  "CAT-AD-E25D9F9C2131": {
+    "lat": 25.034763,
+    "lng": 121.507469,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平南路210號"
+  },
+  "CAT-AD-CD1968739D90": {
+    "lat": 25.020877,
+    "lng": 121.42807,
+    "source": "NTPC-11509",
+    "matchedAddress": "民安東路10號"
+  },
+  "CAT-AD-DAD51A84DDAC": {
+    "lat": 25.084565,
+    "lng": 121.521431,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "劍潭路55巷22號"
+  },
+  "CAT-AD-162E9F492813": {
+    "lat": 25.041199,
+    "lng": 121.56881,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路5段169號"
+  },
+  "CAT-AD-02EB66FE434E": {
+    "lat": 25.06511,
+    "lng": 121.530484,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "吉林路371號"
+  },
+  "CAT-AD-127A79743AEB": {
+    "lat": 25.078312,
+    "lng": 121.582892,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文德路102號"
+  },
+  "CAT-AD-7E6F86DA9CE4": {
+    "lat": 25.026982,
+    "lng": 121.493537,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "西園路2段292號"
+  },
+  "CAT-AD-9A3168CBECF2": {
+    "lat": 24.996017,
+    "lng": 121.460752,
+    "source": "NTPC-11509",
+    "matchedAddress": "國慶路127號"
+  },
+  "CAT-AD-80274CEE1BB0": {
+    "lat": 25.057754,
+    "lng": 121.488758,
+    "source": "NTPC-11509",
+    "matchedAddress": "重新路4段12號"
+  },
+  "CAT-AD-178E2097A422": {
+    "lat": 25.066805,
+    "lng": 121.633412,
+    "source": "NTPC-11509",
+    "matchedAddress": "福德二路70號"
+  },
+  "CAT-AD-A0CB562C9457": {
+    "lat": 24.99244,
+    "lng": 121.540429,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "羅斯福路6段234之1號"
+  },
+  "CAT-AD-E12B68DD8D6B": {
+    "lat": 25.000878,
+    "lng": 121.554979,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路3段13號"
+  },
+  "CAT-AD-54F5186C7386": {
+    "lat": 25.026261,
+    "lng": 121.500316,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "萬大路248號"
+  },
+  "CAT-AD-9D7B659832B2": {
+    "lat": 25.058885,
+    "lng": 121.540612,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "龍江路242號"
+  },
+  "CAT-AD-10E5C377DF53": {
+    "lat": 25.05301,
+    "lng": 121.448005,
+    "source": "NTPC-11509",
+    "matchedAddress": "中信街78號"
+  },
+  "CAT-AD-CE5EA642DBEB": {
+    "lat": 25.061341,
+    "lng": 121.514626,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民權西路184巷44號"
+  },
+  "CAT-AD-80B6FEAA37F9": {
+    "lat": 25.061726,
+    "lng": 121.537599,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "建國北路2段147之1號"
+  },
+  "CAT-AD-5F637AD130C5": {
+    "lat": 24.983855,
+    "lng": 121.533567,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路501之6號"
+  },
+  "CAT-AD-ED38E6CF6742": {
+    "lat": 25.10576,
+    "lng": 121.530673,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠義街48號"
+  },
+  "CAT-AD-BAF7159FC157": {
+    "lat": 25.139535,
+    "lng": 121.460499,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生路45號"
+  },
+  "CAT-AD-49C29C397C08": {
+    "lat": 25.096194,
+    "lng": 121.521358,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文昌路68號"
+  },
+  "CAT-AD-E5E9A9F5DE9F": {
+    "lat": 25.058884,
+    "lng": 121.522558,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中山北路2段92號"
+  },
+  "CAT-AD-30F9C41D9F62": {
+    "lat": 25.096241,
+    "lng": 121.520289,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文昌路95號"
+  },
+  "CAT-AD-A86F73098555": {
+    "lat": 25.128341,
+    "lng": 121.472011,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "立德路125號"
+  },
+  "CAT-AD-0A6105C117B3": {
+    "lat": 25.044988,
+    "lng": 121.517767,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "青島西路11號"
+  },
+  "CAT-AD-A08E18F3A140": {
+    "lat": 24.991304,
+    "lng": 121.493837,
+    "source": "NTPC-11509",
+    "matchedAddress": "圓通路252號"
+  },
+  "CAT-AD-C8FA260DD10E": {
+    "lat": 25.055634,
+    "lng": 121.550034,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "敦化北路199巷2弄5號"
+  },
+  "CAT-AD-EF77FC1854E6": {
+    "lat": 25.036942,
+    "lng": 121.553693,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路4段280號"
+  },
+  "CAT-AD-1BC1B9A75384": {
+    "lat": 25.036545,
+    "lng": 121.553759,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路4段266巷15弄14號"
+  },
+  "CAT-AD-030F76EDF237": {
+    "lat": 25.138422,
+    "lng": 121.461789,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生路43之1號"
+  },
+  "CAT-AD-EFE1154B1FE1": {
+    "lat": 25.01212,
+    "lng": 121.518019,
+    "source": "NTPC-11509",
+    "matchedAddress": "中興街103號"
+  },
+  "CAT-AD-393B1E146A3B": {
+    "lat": 25.043241,
+    "lng": 121.459623,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路127號"
+  },
+  "CAT-AD-CB6435F79D64": {
+    "lat": 25.042386,
+    "lng": 121.459596,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路123號"
+  },
+  "CAT-AD-80CDDB171A98": {
+    "lat": 24.937461,
+    "lng": 121.361881,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路281號"
+  },
+  "CAT-AD-D89DC7843085": {
+    "lat": 25.039877,
+    "lng": 121.43044,
+    "source": "NTPC-11509",
+    "matchedAddress": "貴子路67巷1號"
+  },
+  "CAT-AD-382D2D77B271": {
+    "lat": 25.001225,
+    "lng": 121.445531,
+    "source": "NTPC-11509",
+    "matchedAddress": "大觀路2段32號"
+  },
+  "CAT-AD-ED16A8E5C6E3": {
+    "lat": 24.99573,
+    "lng": 121.455172,
+    "source": "NTPC-11509",
+    "matchedAddress": "四川路25號"
+  },
+  "CAT-AD-13D752056D13": {
+    "lat": 24.976084,
+    "lng": 121.535619,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路362號"
+  },
+  "CAT-AD-CE567E3BAFF5": {
+    "lat": 25.219421,
+    "lng": 121.628354,
+    "source": "NTPC-11509",
+    "matchedAddress": "玉爐路7號"
+  },
+  "CAT-AD-54DAF1499981": {
+    "lat": 25.072763,
+    "lng": 121.661556,
+    "source": "NTPC-11509",
+    "matchedAddress": "建成路59巷23號"
+  },
+  "CAT-AD-B1415F33A0E9": {
+    "lat": 24.985781,
+    "lng": 121.535808,
+    "source": "NTPC-11509",
+    "matchedAddress": "建國路289號"
+  },
+  "CAT-AD-5105418A2282": {
+    "lat": 25.072872,
+    "lng": 121.661666,
+    "source": "NTPC-11509",
+    "matchedAddress": "建成路59巷19號"
+  },
+  "CAT-AD-0A94B028D37A": {
+    "lat": 25.118809,
+    "lng": 121.518568,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "石牌路2段195號"
+  },
+  "CAT-AD-E3392F0747BD": {
+    "lat": 25.026638,
+    "lng": 121.563638,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "吳興街252號"
+  },
+  "CAT-AD-004BAD39621A": {
+    "lat": 25.096269,
+    "lng": 121.521295,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文昌路70號"
+  },
+  "CAT-AD-BBF86E7B9395": {
+    "lat": 25.117543,
+    "lng": 121.5224,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "振興街45號"
+  },
+  "CAT-AD-E2AD01632CCF": {
+    "lat": 25.013743,
+    "lng": 121.540624,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "基隆路4段43號"
+  },
+  "CAT-AD-F0B32F51AA8A": {
+    "lat": 25.059357,
+    "lng": 121.521713,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生西路3巷臨6之1號"
+  },
+  "CAT-AD-EF1A8B3177BE": {
+    "lat": 25.035591,
+    "lng": 121.506703,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中華路2段33號"
+  },
+  "CAT-AD-4126895B9600": {
+    "lat": 25.045702,
+    "lng": 121.585919,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "成福路12號"
+  },
+  "CAT-AD-F2D494377EE5": {
+    "lat": 25.037433,
+    "lng": 121.544291,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路4段8巷6號"
+  },
+  "CAT-AD-721732D00269": {
+    "lat": 25.041495,
+    "lng": 121.503795,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "內江街96號"
+  },
+  "CAT-AD-671D2CF4E7A4": {
+    "lat": 25.0718,
+    "lng": 121.591982,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "成功路2段325號"
+  },
+  "CAT-AD-C3F2CFE72293": {
+    "lat": 25.071647,
+    "lng": 121.589566,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "成功路2段432號"
+  },
+  "CAT-AD-B72980B8DAC4": {
+    "lat": 25.000306,
+    "lng": 121.55833,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路3段111號"
+  },
+  "CAT-AD-F9D1C84BD3A1": {
+    "lat": 25.0414,
+    "lng": 121.517172,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "常德街1號"
+  },
+  "CAT-AD-22A2D511DA5C": {
+    "lat": 25.05394,
+    "lng": 121.557705,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "健康路131號"
+  },
+  "CAT-AD-213EC0FB8415": {
+    "lat": 25.050692,
+    "lng": 121.508887,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "鄭州路145號"
+  },
+  "CAT-AD-73B2DA8864E6": {
+    "lat": 25.047238,
+    "lng": 121.54704,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "八德路2段410巷5弄1號"
+  },
+  "CAT-AD-1E96F5AD6678": {
+    "lat": 25.137807,
+    "lng": 121.461734,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生路46號"
+  },
+  "CAT-AD-AF6C5FEB0790": {
+    "lat": 25.08655,
+    "lng": 121.457292,
+    "source": "NTPC-11509",
+    "matchedAddress": "長安街329號"
+  },
+  "CAT-AD-04CE80685D23": {
+    "lat": 25.069149,
+    "lng": 121.49596,
+    "source": "NTPC-11509",
+    "matchedAddress": "正義北路233號"
+  },
+  "CAT-AD-24B9B29E39D7": {
+    "lat": 24.996363,
+    "lng": 121.462593,
+    "source": "NTPC-11509",
+    "matchedAddress": "國慶路179號"
+  },
+  "CAT-AD-8F5CC32F2001": {
+    "lat": 24.969889,
+    "lng": 121.544331,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路57之1號"
+  },
+  "CAT-AD-9AE2FE9EB56D": {
+    "lat": 24.995023,
+    "lng": 121.481196,
+    "source": "NTPC-11509",
+    "matchedAddress": "連城路525之6號"
+  },
+  "CAT-AD-61022FEECBD6": {
+    "lat": 25.024209,
+    "lng": 121.4709,
+    "source": "NTPC-11509",
+    "matchedAddress": "莒光路58號"
+  },
+  "CAT-AD-BB9BDCF0129D": {
+    "lat": 24.98756,
+    "lng": 121.569489,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "指南路1段28號"
+  },
+  "CAT-AD-7E1133845ECA": {
+    "lat": 25.000617,
+    "lng": 121.554872,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路3段16號"
+  },
+  "CAT-AD-C2B0DC3644D0": {
+    "lat": 24.999784,
+    "lng": 121.539645,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "羅斯福路6段30號"
+  },
+  "CAT-AD-1E0C2E02958A": {
+    "lat": 25.045612,
+    "lng": 121.585978,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "成福路16號"
+  },
+  "CAT-AD-4F4B5730DF29": {
+    "lat": 25.081885,
+    "lng": 121.570567,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "內湖路1段401之1號"
+  },
+  "CAT-AD-2F8043A71C95": {
+    "lat": 25.105944,
+    "lng": 121.53142,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠義街70號"
+  },
+  "CAT-AD-7447BF6A86F6": {
+    "lat": 25.10357,
+    "lng": 121.522731,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "福華路154號"
+  },
+  "CAT-AD-F23AC40EB209": {
+    "lat": 25.037341,
+    "lng": 121.574482,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "松德路128號"
+  },
+  "CAT-AD-90A8A6BDFEA1": {
+    "lat": 25.026174,
+    "lng": 121.568769,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "松仁路233號"
+  },
+  "CAT-AD-D7D0162AC320": {
+    "lat": 25.025664,
+    "lng": 121.536221,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "和平東路2段20號"
+  },
+  "CAT-AD-E4B7AEE6FC76": {
+    "lat": 25.027843,
+    "lng": 121.494582,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "西園路2段260號"
+  },
+  "CAT-AD-1EF2AC03DF6D": {
+    "lat": 25.024527,
+    "lng": 121.546993,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "和平東路3段10號"
+  },
+  "CAT-AD-94947993B5EA": {
+    "lat": 25.057129,
+    "lng": 121.553125,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生東路4段80巷5號"
+  },
+  "CAT-AD-05E91CCE1361": {
+    "lat": 25.051715,
+    "lng": 121.559562,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路5段71號"
+  },
+  "CAT-AD-0480BD813ACA": {
+    "lat": 25.0574,
+    "lng": 121.519676,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生西路108號"
+  },
+  "CAT-AD-4FBBA7A19ECA": {
+    "lat": 25.065007,
+    "lng": 121.52454,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "農安街23之2號"
+  },
+  "CAT-AD-62DE926E9BD6": {
+    "lat": 25.030574,
+    "lng": 121.517812,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南昌路1段81號"
+  },
+  "CAT-AD-5A9A5CF35F10": {
+    "lat": 25.035377,
+    "lng": 121.527302,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "金山南路1段108之1號"
+  },
+  "CAT-AD-64E582F3D2D4": {
+    "lat": 25.034835,
+    "lng": 121.507363,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中華路2段39巷10號"
+  },
+  "CAT-AD-AB405D8C4510": {
+    "lat": 25.058225,
+    "lng": 121.430686,
+    "source": "NTPC-11509",
+    "matchedAddress": "明志路1段354號"
+  },
+  "CAT-AD-3BC4C66E3978": {
+    "lat": 25.175186,
+    "lng": 121.441456,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山北路1段33號"
+  },
+  "CAT-AD-300746C16DAC": {
+    "lat": 25.011916,
+    "lng": 121.517356,
+    "source": "NTPC-11509",
+    "matchedAddress": "中興街87號"
+  },
+  "CAT-AD-EA3FFA6BEAD1": {
+    "lat": 25.002967,
+    "lng": 121.502117,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路2段135號"
+  },
+  "CAT-AD-7D6CD6B8AC6B": {
+    "lat": 24.991906,
+    "lng": 121.494646,
+    "source": "NTPC-11509",
+    "matchedAddress": "圓通路295之3號"
+  },
+  "CAT-AD-AC96AF1406E8": {
+    "lat": 24.976437,
+    "lng": 121.44873,
+    "source": "NTPC-11509",
+    "matchedAddress": "金城路2段6號"
+  },
+  "CAT-AD-DF96359F388A": {
+    "lat": 25.081792,
+    "lng": 121.46065,
+    "source": "NTPC-11509",
+    "matchedAddress": "長安街122號"
+  },
+  "CAT-AD-2FE0975A426B": {
+    "lat": 25.075323,
+    "lng": 121.384653,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛路2段91號"
+  },
+  "CAT-AD-FB6A82831914": {
+    "lat": 25.052709,
+    "lng": 121.489296,
+    "source": "NTPC-11509",
+    "matchedAddress": "集成路43號"
+  },
+  "CAT-AD-18B72CDEAA03": {
+    "lat": 24.995669,
+    "lng": 121.42118,
+    "source": "NTPC-11509",
+    "matchedAddress": "保安街1段185號"
+  },
+  "CAT-AD-44E6F9733DBD": {
+    "lat": 24.937436,
+    "lng": 121.362573,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路236號"
+  },
+  "CAT-AD-83AA52DD0A53": {
+    "lat": 25.060869,
+    "lng": 121.49084,
+    "source": "NTPC-11509",
+    "matchedAddress": "新北大道1段3號"
+  },
+  "CAT-AD-3DFDED847AD8": {
+    "lat": 25.039676,
+    "lng": 121.430799,
+    "source": "NTPC-11509",
+    "matchedAddress": "貴子路69號"
+  },
+  "CAT-AD-3C0364199026": {
+    "lat": 24.997313,
+    "lng": 121.452312,
+    "source": "NTPC-11509",
+    "matchedAddress": "南雅南路2段21號"
+  },
+  "CAT-AD-241A8F6E51CF": {
+    "lat": 24.953977,
+    "lng": 121.504537,
+    "source": "NTPC-11509",
+    "matchedAddress": "車子路15號"
+  },
+  "CAT-AD-48E7FA6C2275": {
+    "lat": 25.001802,
+    "lng": 121.460405,
+    "source": "NTPC-11509",
+    "matchedAddress": "忠孝路40號"
+  },
+  "CAT-AD-96593256BC2D": {
+    "lat": 25.011213,
+    "lng": 121.517472,
+    "source": "NTPC-11509",
+    "matchedAddress": "國光路123號"
+  },
+  "CAT-AD-D935A0EF8B24": {
+    "lat": 25.060037,
+    "lng": 121.491486,
+    "source": "NTPC-11509",
+    "matchedAddress": "重新路3段97號"
+  },
+  "CAT-AD-4653FAD14DA3": {
+    "lat": 25.072872,
+    "lng": 121.661084,
+    "source": "NTPC-11509",
+    "matchedAddress": "建成路59巷2號"
+  },
+  "CAT-AD-E1A86B3605F5": {
+    "lat": 24.975718,
+    "lng": 121.536341,
+    "source": "NTPC-11509",
+    "matchedAddress": "民族路190號"
+  },
+  "CAT-AD-E5F90E992E34": {
+    "lat": 24.992614,
+    "lng": 121.494763,
+    "source": "NTPC-11509",
+    "matchedAddress": "圓通路238號"
+  },
+  "CAT-AD-291B8D11BA25": {
+    "lat": 24.938499,
+    "lng": 121.363424,
+    "source": "NTPC-11509",
+    "matchedAddress": "復興路371號"
+  },
+  "CAT-AD-FA48D534005F": {
+    "lat": 25.016824,
+    "lng": 121.45645,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路187號"
+  },
+  "CAT-AD-50A1AA7CCF9B": {
+    "lat": 25.03762,
+    "lng": 121.44736,
+    "source": "NTPC-11509",
+    "matchedAddress": "新泰路183號"
+  },
+  "CAT-AD-EE32B1ACA3DD": {
+    "lat": 24.984953,
+    "lng": 121.453284,
+    "source": "NTPC-11509",
+    "matchedAddress": "裕民路173號"
+  },
+  "CAT-AD-EE4BF9B2CAAC": {
+    "lat": 25.139179,
+    "lng": 121.459813,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路47號"
+  },
+  "CAT-AD-D8FF09270717": {
+    "lat": 25.011874,
+    "lng": 121.51787,
+    "source": "NTPC-11509",
+    "matchedAddress": "中興街80號"
+  },
+  "CAT-AD-8138FC69F03E": {
+    "lat": 25.072545,
+    "lng": 121.661226,
+    "source": "NTPC-11509",
+    "matchedAddress": "建成路59巷43號"
+  },
+  "CAT-AD-EFE812B18B96": {
+    "lat": 24.983064,
+    "lng": 121.53965,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路48之1號"
+  },
+  "CAT-AD-B34DB1508880": {
+    "lat": 25.042326,
+    "lng": 121.459598,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路121號"
+  },
+  "CAT-AD-B588797632E9": {
+    "lat": 24.975888,
+    "lng": 121.535571,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路360號"
+  },
+  "CAT-AD-933325B47652": {
+    "lat": 24.996971,
+    "lng": 121.452009,
+    "source": "NTPC-11509",
+    "matchedAddress": "南雅南路2段126號"
+  },
+  "CAT-AD-B5B5D1F7459E": {
+    "lat": 24.938385,
+    "lng": 121.363008,
+    "source": "NTPC-11509",
+    "matchedAddress": "復興路399號"
+  },
+  "CAT-AD-66123F89953A": {
+    "lat": 25.138284,
+    "lng": 121.461998,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生路47之1號"
+  },
+  "CAT-AD-B114F4FCBBA3": {
+    "lat": 25.119182,
+    "lng": 121.519166,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "石牌路2段201號"
+  },
+  "CAT-AD-71F82BD41A46": {
+    "lat": 25.119182,
+    "lng": 121.519166,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "石牌路2段201號"
+  },
+  "CAT-AD-54A18E6025C1": {
+    "lat": 25.117549,
+    "lng": 121.521347,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "明德路365號"
+  },
+  "CAT-AD-CAD511F9BF35": {
+    "lat": 25.014496,
+    "lng": 121.543916,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "基隆路3段155巷57號"
+  },
+  "CAT-AD-5C88FA638EBB": {
+    "lat": 25.04068,
+    "lng": 121.522264,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "林森南路41號"
+  },
+  "CAT-AD-E5CBFBD8720E": {
+    "lat": 25.044343,
+    "lng": 121.518751,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中山南路8號"
+  },
+  "CAT-AD-DBCAD639B234": {
+    "lat": 25.118413,
+    "lng": 121.517919,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "石牌路2段165號"
+  },
+  "CAT-AD-A70B39EFB2F7": {
+    "lat": 25.046243,
+    "lng": 121.552717,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "八德路3段74巷45弄1號"
+  },
+  "CAT-AD-4C823A2ECFC9": {
+    "lat": 25.028661,
+    "lng": 121.540647,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "瑞安街208巷11弄1號"
+  },
+  "CAT-AD-352101C0CE95": {
+    "lat": 24.988686,
+    "lng": 121.567757,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "木柵路3段116號"
+  },
+  "CAT-AD-D061A9E54BD5": {
+    "lat": 25.019585,
+    "lng": 121.553459,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "樂業街162號"
+  },
+  "CAT-AD-1FFC137D2588": {
+    "lat": 25.080777,
+    "lng": 121.578084,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "港墘路83號"
+  },
+  "CAT-AD-3730F279CDDE": {
+    "lat": 25.059732,
+    "lng": 121.54083,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "龍江路279號"
+  },
+  "CAT-AD-E1471485E1F3": {
+    "lat": 25.00139,
+    "lng": 121.57064,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "萬安街15號"
+  },
+  "CAT-AD-F1C9C7659160": {
+    "lat": 25.043401,
+    "lng": 121.581566,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路5段778號"
+  },
+  "CAT-AD-777D530BAED3": {
+    "lat": 25.050354,
+    "lng": 121.557704,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "光復北路96號"
+  },
+  "CAT-AD-A264F7483C41": {
+    "lat": 25.046507,
+    "lng": 121.586157,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "同德路87號"
+  },
+  "CAT-AD-9DEE6B927FE8": {
+    "lat": 25.070944,
+    "lng": 121.589844,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "成功路2段408號"
+  },
+  "CAT-AD-EA315CE0DC45": {
+    "lat": 24.999093,
+    "lng": 121.557589,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路3段118號"
+  },
+  "CAT-AD-B10D19AADADD": {
+    "lat": 25.117902,
+    "lng": 121.522372,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "振興街33號"
+  },
+  "CAT-AD-6DA99994941D": {
+    "lat": 25.120105,
+    "lng": 121.466955,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "知行路227號"
+  },
+  "CAT-AD-5268DBD51A4D": {
+    "lat": 25.036554,
+    "lng": 121.553185,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路4段266巷15弄4號"
+  },
+  "CAT-AD-407AC26B2182": {
+    "lat": 25.029803,
+    "lng": 121.520112,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "福州街1號"
+  },
+  "CAT-AD-AE5A6C4187E3": {
+    "lat": 25.119182,
+    "lng": 121.519166,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "石牌路2段201號"
+  },
+  "CAT-AD-36B3843D7B8C": {
+    "lat": 25.034924,
+    "lng": 121.507703,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平南路169號"
+  },
+  "CAT-AD-7792D4792883": {
+    "lat": 25.048328,
+    "lng": 121.546528,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "八德路2段399號"
+  },
+  "CAT-AD-9B600E8F0641": {
+    "lat": 25.03754,
+    "lng": 121.545302,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路4段10號"
+  },
+  "CAT-AD-E40D6392E89B": {
+    "lat": 25.118712,
+    "lng": 121.518402,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "石牌路2段189號"
+  },
+  "CAT-AD-CD2A6E4A14D3": {
+    "lat": 25.027512,
+    "lng": 121.494193,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "西園路2段282號"
+  },
+  "CAT-AD-4F8B8DC5B828": {
+    "lat": 25.027639,
+    "lng": 121.562867,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "吳興街220巷5號"
+  },
+  "CAT-AD-8ABF00F4D85E": {
+    "lat": 25.055685,
+    "lng": 121.550038,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "敦化北路199巷2弄3號"
+  },
+  "CAT-AD-555253A3FDF6": {
+    "lat": 25.095911,
+    "lng": 121.521436,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文昌路56號"
+  },
+  "CAT-AD-A215B4325B4D": {
+    "lat": 25.036664,
+    "lng": 121.554677,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路4段300巷15之3號"
+  },
+  "CAT-AD-74008400E450": {
+    "lat": 25.105194,
+    "lng": 121.531566,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "雨聲街105號"
+  },
+  "CAT-AD-96038C363504": {
+    "lat": 25.016701,
+    "lng": 121.530075,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "汀州路3段115號"
+  },
+  "CAT-AD-59D15E61F512": {
+    "lat": 25.058444,
+    "lng": 121.521612,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生西路3巷2之2號"
+  },
+  "CAT-AD-B7B25F371FFD": {
+    "lat": 25.050369,
+    "lng": 121.510704,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "鄭州路131號"
+  },
+  "CAT-AD-FCE99C695F73": {
+    "lat": 25.045487,
+    "lng": 121.584866,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "同德路58號"
+  },
+  "CAT-AD-FA4A68C4491D": {
+    "lat": 25.006495,
+    "lng": 121.484061,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路880號"
+  },
+  "CAT-AD-62FBF3CFCC19": {
+    "lat": 25.051758,
+    "lng": 121.55696,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路4段197號"
+  },
+  "CAT-AD-C3908BCB3DF9": {
+    "lat": 25.003286,
+    "lng": 121.475602,
+    "source": "NTPC-11509",
+    "matchedAddress": "自治街52號"
+  },
+  "CAT-AD-F3197C5545D9": {
+    "lat": 25.043497,
+    "lng": 121.515252,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "襄陽路23號"
+  },
+  "CAT-AD-579B9F5BA8A7": {
+    "lat": 25.190854,
+    "lng": 121.438915,
+    "source": "NTPC-11509",
+    "matchedAddress": "濱海路1段306巷9弄59號"
+  },
+  "CAT-AD-4A55DBBFA299": {
+    "lat": 24.975599,
+    "lng": 121.536209,
+    "source": "NTPC-11509",
+    "matchedAddress": "民族路192號"
+  },
+  "CAT-AD-5A9419B95BDF": {
+    "lat": 25.070073,
+    "lng": 121.37617,
+    "source": "NTPC-11509",
+    "matchedAddress": "麗園一街6巷3號"
+  },
+  "CAT-AD-B85A8B1932E0": {
+    "lat": 25.03655,
+    "lng": 121.553409,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路4段266巷15弄8號"
+  },
+  "CAT-AD-EE4F4DD2DAA4": {
+    "lat": 25.079972,
+    "lng": 121.493123,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛街327巷33號"
+  },
+  "CAT-AD-6AF2B3CAC652": {
+    "lat": 25.032068,
+    "lng": 121.470412,
+    "source": "NTPC-11509",
+    "matchedAddress": "宏國路113號"
+  },
+  "CAT-AD-D15483A9B5A1": {
+    "lat": 25.106948,
+    "lng": 121.52511,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中山北路6段162號"
+  },
+  "CAT-AD-84D2843E6823": {
+    "lat": 25.008459,
+    "lng": 121.466335,
+    "source": "NTPC-11509",
+    "matchedAddress": "民族路89之1號"
+  },
+  "CAT-AD-E863ABB36B22": {
+    "lat": 25.026397,
+    "lng": 121.568429,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "松仁路222號"
+  },
+  "CAT-AD-DDD2A2DD758F": {
+    "lat": 25.037603,
+    "lng": 121.536594,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路3段30號"
+  },
+  "CAT-AD-D0C1CC47D5DA": {
+    "lat": 24.999279,
+    "lng": 121.544231,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路1段261號"
+  },
+  "CAT-AD-D99B0BE28754": {
+    "lat": 24.992068,
+    "lng": 121.494717,
+    "source": "NTPC-11509",
+    "matchedAddress": "圓通路295之1號"
+  },
+  "CAT-AD-DA55138DD801": {
+    "lat": 25.069879,
+    "lng": 121.617002,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "東湖路119巷49弄16號"
+  },
+  "CAT-AD-36A52324B521": {
+    "lat": 25.051809,
+    "lng": 121.616512,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "研究院路1段101巷8號"
+  },
+  "CAT-AD-B20271806F59": {
+    "lat": 25.062347,
+    "lng": 121.634243,
+    "source": "NTPC-11509",
+    "matchedAddress": "中興路45號"
+  },
+  "CAT-AD-F9CFF1286583": {
+    "lat": 24.986266,
+    "lng": 121.413114,
+    "source": "NTPC-11509",
+    "matchedAddress": "大安路526號"
+  },
+  "CAT-AD-FB0491138294": {
+    "lat": 24.991259,
+    "lng": 121.541429,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "景文街77號"
+  },
+  "CAT-AD-CCC9577AB333": {
+    "lat": 25.036316,
+    "lng": 121.546118,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "大安路1段179號"
+  },
+  "CAT-AD-6442BE8507E9": {
+    "lat": 24.988669,
+    "lng": 121.444748,
+    "source": "NTPC-11509",
+    "matchedAddress": "中華路1段70巷8號"
+  },
+  "CAT-AD-4A311961EB7E": {
+    "lat": 25.072656,
+    "lng": 121.589595,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "成功路2段472號"
+  },
+  "CAT-AD-6A47F31C80AD": {
+    "lat": 25.117924,
+    "lng": 121.517432,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "石牌路2段128號"
+  },
+  "CAT-AD-71818FA08A2B": {
+    "lat": 24.996103,
+    "lng": 121.451228,
+    "source": "NTPC-11509",
+    "matchedAddress": "南雅南路2段144巷6號"
+  },
+  "CAT-AD-3E6FA683F7B6": {
+    "lat": 25.096729,
+    "lng": 121.521092,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文昌路108號"
+  },
+  "CAT-AD-3FA443F08C7E": {
+    "lat": 25.120227,
+    "lng": 121.510991,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "東華街2段180之2號"
+  },
+  "CAT-AD-79A0C2D74A91": {
+    "lat": 25.042399,
+    "lng": 121.531804,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路2段130號"
+  },
+  "CAT-AD-D5E7B929859E": {
+    "lat": 25.027153,
+    "lng": 121.563734,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "吳興街255號"
+  },
+  "CAT-AD-17D09F858B95": {
+    "lat": 25.065913,
+    "lng": 121.540294,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "龍江路356巷14號"
+  },
+  "CAT-AD-5FFC91944C15": {
+    "lat": 25.052005,
+    "lng": 121.566247,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路5段291巷7號"
+  },
+  "CAT-AD-DE9EAD1791CD": {
+    "lat": 24.999321,
+    "lng": 121.557261,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路3段106號"
+  },
+  "CAT-AD-103213C5F526": {
+    "lat": 24.981397,
+    "lng": 121.559834,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "木新路3段203號"
+  },
+  "CAT-AD-7464465701E4": {
+    "lat": 25.033159,
+    "lng": 121.544742,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "信義路4段34號"
+  },
+  "CAT-AD-C155F017C0D7": {
+    "lat": 25.072642,
+    "lng": 121.607764,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "康寧路3段39號"
+  },
+  "CAT-AD-CC017CDDA185": {
+    "lat": 25.075249,
+    "lng": 121.57627,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "瑞光路212號"
+  },
+  "CAT-AD-9824BFF7A33F": {
+    "lat": 25.001196,
+    "lng": 121.547814,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路2段153巷7號"
+  },
+  "CAT-AD-B7DBC7A3E31C": {
+    "lat": 25.026502,
+    "lng": 121.429644,
+    "source": "NTPC-11509",
+    "matchedAddress": "建安街17巷16號"
+  },
+  "CAT-AD-8531217AFB3B": {
+    "lat": 25.069475,
+    "lng": 121.583381,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "瑞光路8號"
+  },
+  "CAT-AD-69175E3366F4": {
+    "lat": 25.053317,
+    "lng": 121.556597,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "光復北路172號"
+  },
+  "CAT-AD-9B40D2060D51": {
+    "lat": 25.067585,
+    "lng": 121.511023,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平北路3段89號"
+  },
+  "CAT-AD-7A8E490C34B0": {
+    "lat": 25.000028,
+    "lng": 121.497858,
+    "source": "NTPC-11509",
+    "matchedAddress": "景平路575號"
+  },
+  "CAT-AD-3E13DD505699": {
+    "lat": 25.05897,
+    "lng": 121.483493,
+    "source": "NTPC-11509",
+    "matchedAddress": "三陽路119號"
+  },
+  "CAT-AD-82F1881B5C7F": {
+    "lat": 25.047957,
+    "lng": 121.546041,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "八德路2段374號"
+  },
+  "CAT-AD-F44590E0BF66": {
+    "lat": 25.021163,
+    "lng": 121.462099,
+    "source": "NTPC-11509",
+    "matchedAddress": "新海路51號"
+  },
+  "CAT-AD-D01AEFA8A9C6": {
+    "lat": 25.030378,
+    "lng": 121.500401,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "萬大路88號"
+  },
+  "CAT-AD-E02A040F1EF9": {
+    "lat": 24.99326,
+    "lng": 121.42037,
+    "source": "NTPC-11509",
+    "matchedAddress": "啓智街42巷2之2號"
+  },
+  "CAT-AD-934BAD4C86FF": {
+    "lat": 25.054083,
+    "lng": 121.513129,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京西路163號"
+  },
+  "CAT-AD-A29B33FE7C21": {
+    "lat": 25.062354,
+    "lng": 121.531172,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民權東路2段70號"
+  },
+  "CAT-AD-F7219F7B2CFC": {
+    "lat": 25.083454,
+    "lng": 121.378997,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路518號"
+  },
+  "CAT-AD-8259FBF18BAD": {
+    "lat": 24.938371,
+    "lng": 121.361341,
+    "source": "NTPC-11509",
+    "matchedAddress": "復興路485號"
+  },
+  "CAT-AD-910CE48BC282": {
+    "lat": 25.062986,
+    "lng": 121.487574,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生街61巷18弄5號"
+  },
+  "CAT-AD-6D495D6F0907": {
+    "lat": 25.036307,
+    "lng": 121.555706,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延吉街239號"
+  },
+  "CAT-AD-87323F72861A": {
+    "lat": 25.036307,
+    "lng": 121.555706,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延吉街239號"
+  },
+  "CAT-AD-869D4BECE14E": {
+    "lat": 25.036307,
+    "lng": 121.555706,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延吉街239號"
+  },
+  "CAT-AD-FAB6050ACF41": {
+    "lat": 25.036307,
+    "lng": 121.555706,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延吉街239號"
+  },
+  "CAT-AD-E47404DB9DFE": {
+    "lat": 25.082813,
+    "lng": 121.591189,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "內湖路2段317號"
+  },
+  "CAT-AD-04E5C3BB647D": {
+    "lat": 25.071839,
+    "lng": 121.589565,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "成功路2段440號"
+  },
+  "CAT-AD-847A66159B0A": {
+    "lat": 25.083459,
+    "lng": 121.512445,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "重慶北路4段136號"
+  },
+  "CAT-AD-7153445DD9D8": {
+    "lat": 25.018567,
+    "lng": 121.433522,
+    "source": "NTPC-11509",
+    "matchedAddress": "新樹路333巷8號"
+  },
+  "CAT-AD-FE8D55E922FA": {
+    "lat": 24.991677,
+    "lng": 121.511776,
+    "source": "NTPC-11509",
+    "matchedAddress": "安樂路6號"
+  },
+  "CAT-AD-1AB5FB4C0B17": {
+    "lat": 24.938491,
+    "lng": 121.363351,
+    "source": "NTPC-11509",
+    "matchedAddress": "復興路373號"
+  },
+  "CAT-AD-5C45EBA55C9F": {
+    "lat": 25.050742,
+    "lng": 121.536173,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "建國北路1段126號"
+  },
+  "CAT-AD-72E861CCEC1A": {
+    "lat": 25.055858,
+    "lng": 121.528933,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中原街17號"
+  },
+  "CAT-AD-2F1772267314": {
+    "lat": 25.136228,
+    "lng": 121.461186,
+    "source": "NTPC-11509",
+    "matchedAddress": "民族路30巷5號"
+  },
+  "CAT-AD-C975E0A5E203": {
+    "lat": 25.084827,
+    "lng": 121.509683,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平北路5段251號"
+  },
+  "CAT-AD-F5B831FA9C5D": {
+    "lat": 25.088771,
+    "lng": 121.509901,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "社正路36號"
+  },
+  "CAT-AD-C91E942F09AF": {
+    "lat": 24.985609,
+    "lng": 121.559194,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "下崙路11巷37號"
+  },
+  "CAT-AD-DACBB1402006": {
+    "lat": 25.025982,
+    "lng": 121.505714,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "青年路16號"
+  },
+  "CAT-AD-16545EE2CBD7": {
+    "lat": 25.04606,
+    "lng": 121.511643,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "開封街1段79號"
+  },
+  "CAT-AD-9A942E07A7DA": {
+    "lat": 25.039483,
+    "lng": 121.587984,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "福德街320之1號"
+  },
+  "CAT-AD-440379436376": {
+    "lat": 25.04053,
+    "lng": 121.50354,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "長沙街2段115號"
+  },
+  "CAT-AD-A9C58BE7E9D5": {
+    "lat": 25.068573,
+    "lng": 121.582761,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民權東路6段23號"
+  },
+  "CAT-AD-CDD23A1E0EC2": {
+    "lat": 24.985253,
+    "lng": 121.534313,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路四維巷2弄2號"
+  },
+  "CAT-AD-0A38059324FA": {
+    "lat": 24.981819,
+    "lng": 121.53753,
+    "source": "NTPC-11509",
+    "matchedAddress": "建國路231號"
+  },
+  "CAT-AD-715F14C557D3": {
+    "lat": 25.095822,
+    "lng": 121.521467,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文昌路52號"
+  },
+  "CAT-AD-144384E4A5AF": {
+    "lat": 25.045914,
+    "lng": 121.511726,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "開封街1段60號"
+  },
+  "CAT-AD-F70D7679CB7B": {
+    "lat": 25.085381,
+    "lng": 121.480145,
+    "source": "NTPC-11509",
+    "matchedAddress": "信義路222巷24號"
+  },
+  "CAT-AD-C1DCDC174BBF": {
+    "lat": 24.985056,
+    "lng": 121.534771,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路四維巷8弄4號"
+  },
+  "CAT-AD-85769CE49C9B": {
+    "lat": 25.053388,
+    "lng": 121.555039,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "健康路100號"
+  },
+  "CAT-AD-A25C909ECE36": {
+    "lat": 25.061981,
+    "lng": 121.634212,
+    "source": "NTPC-11509",
+    "matchedAddress": "中興路43之2號"
+  },
+  "CAT-AD-CB3F52DC18EB": {
+    "lat": 25.067323,
+    "lng": 121.480033,
+    "source": "NTPC-11509",
+    "matchedAddress": "三民街222號"
+  },
+  "CAT-AD-498E5E8E3793": {
+    "lat": 25.058248,
+    "lng": 121.521673,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生西路3巷2之1號"
+  },
+  "CAT-AD-803DBFBBAF52": {
+    "lat": 25.041263,
+    "lng": 121.575264,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路5段423巷1號"
+  },
+  "CAT-AD-196F6A9B1659": {
+    "lat": 25.106202,
+    "lng": 121.531798,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠義街82號"
+  },
+  "CAT-AD-7E7F271B9B1A": {
+    "lat": 25.075135,
+    "lng": 121.383673,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛路2段96號"
+  },
+  "CAT-AD-86349D71CB68": {
+    "lat": 25.009737,
+    "lng": 121.510393,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路1段141號"
+  },
+  "CAT-AD-BD55FF44064F": {
+    "lat": 25.071335,
+    "lng": 121.589669,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "成功路2段424號"
+  },
+  "CAT-AD-9CBB5FF9CF1E": {
+    "lat": 25.00252,
+    "lng": 121.538556,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "羅斯福路5段214號"
+  },
+  "CAT-AD-2D3B66C94580": {
+    "lat": 24.98292,
+    "lng": 121.566017,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "木新路2段275號"
+  },
+  "CAT-AD-E872BF6D2EC9": {
+    "lat": 25.08187,
+    "lng": 121.549281,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "北安路608巷4弄3號"
+  },
+  "CAT-AD-DF593A0FA814": {
+    "lat": 25.027077,
+    "lng": 121.5064,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中華路2段434之1號"
+  },
+  "CAT-AD-8B794649A76A": {
+    "lat": 25.109627,
+    "lng": 121.515263,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "致遠一路1段96號"
+  },
+  "CAT-AD-3A503E9094E0": {
+    "lat": 25.059447,
+    "lng": 121.547743,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "敦化北路222巷20號"
+  },
+  "CAT-AD-94DD226D5761": {
+    "lat": 25.087885,
+    "lng": 121.5198,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "華齡街194號"
+  },
+  "CAT-AD-F4F72BAD4586": {
+    "lat": 25.037309,
+    "lng": 121.546135,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "大安路1段155號"
+  },
+  "CAT-AD-8A719EB586A6": {
+    "lat": 25.036543,
+    "lng": 121.553876,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路4段266巷15弄16號"
+  },
+  "CAT-AD-5E29606CB008": {
+    "lat": 24.976154,
+    "lng": 121.536819,
+    "source": "NTPC-11509",
+    "matchedAddress": "民族路188號"
+  },
+  "CAT-AD-36005D4BA151": {
+    "lat": 25.036542,
+    "lng": 121.553997,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路4段266巷15弄18號"
+  },
+  "CAT-AD-75F6658F6CC3": {
+    "lat": 24.97268,
+    "lng": 121.435463,
+    "source": "NTPC-11509",
+    "matchedAddress": "慶祥街100號"
+  },
+  "CAT-AD-379927B00A88": {
+    "lat": 25.034299,
+    "lng": 121.506381,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中華路2段75巷1弄9號"
+  },
+  "CAT-AD-EFA94AAE570C": {
+    "lat": 25.046086,
+    "lng": 121.551182,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "八德路3段12巷51弄16號"
+  },
+  "CAT-AD-77C5F4579DA5": {
+    "lat": 24.999538,
+    "lng": 121.431437,
+    "source": "NTPC-11509",
+    "matchedAddress": "莊崑路9號"
+  },
+  "CAT-AD-1742E39CC299": {
+    "lat": 25.072627,
+    "lng": 121.619241,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "康樂街150號"
+  },
+  "CAT-AD-78F430892B7A": {
+    "lat": 25.032007,
+    "lng": 121.469303,
+    "source": "NTPC-11509",
+    "matchedAddress": "宏國路68號"
+  },
+  "CAT-AD-4CAB3195AAA9": {
+    "lat": 25.118117,
+    "lng": 121.522256,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "振興街21之1號"
+  },
+  "CAT-AD-CE3FE491CB20": {
+    "lat": 25.027336,
+    "lng": 121.562485,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "吳興街220巷25號"
+  },
+  "CAT-AD-EBECADB8C08F": {
+    "lat": 24.992019,
+    "lng": 121.494416,
+    "source": "NTPC-11509",
+    "matchedAddress": "圓通路248之1號"
+  },
+  "CAT-AD-CD3E9C67E5FF": {
+    "lat": 25.050758,
+    "lng": 121.518061,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "長安西路45之1號"
+  },
+  "CAT-AD-A07A42F85ABF": {
+    "lat": 25.028891,
+    "lng": 121.545899,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "大安路2段158號"
+  },
+  "CAT-AD-FC43CD9C3C37": {
+    "lat": 24.952704,
+    "lng": 121.351439,
+    "source": "NTPC-11509",
+    "matchedAddress": "國慶街179號"
+  },
+  "CAT-AD-A27E54DD789E": {
+    "lat": 25.139968,
+    "lng": 121.50089,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中和街256號"
+  },
+  "CAT-AD-CE0618F40DD3": {
+    "lat": 24.993718,
+    "lng": 121.494647,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路281之3號"
+  },
+  "CAT-AD-4C7E0B478A4D": {
+    "lat": 24.937511,
+    "lng": 121.362365,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路242號"
+  },
+  "CAT-AD-10EF5D23F282": {
+    "lat": 24.998671,
+    "lng": 121.557195,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路3段112巷5號"
+  },
+  "CAT-AD-F69E60C079DA": {
+    "lat": 24.983444,
+    "lng": 121.538328,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路42巷59弄5號"
+  },
+  "CAT-AD-B13500108C79": {
+    "lat": 25.002027,
+    "lng": 121.537959,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "羅斯福路5段218巷15號"
+  },
+  "CAT-AD-EA06996ABF0B": {
+    "lat": 24.987603,
+    "lng": 121.533899,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路566號"
+  },
+  "CAT-AD-2315154AFE2C": {
+    "lat": 25.083185,
+    "lng": 121.591667,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "內湖路2段333號"
+  },
+  "CAT-AD-6492A8E411A5": {
+    "lat": 24.97274,
+    "lng": 121.436143,
+    "source": "NTPC-11509",
+    "matchedAddress": "慶祥街59巷11號"
+  },
+  "CAT-AD-88E43CE2C9F7": {
+    "lat": 24.99742,
+    "lng": 121.540597,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "羅斯福路6段120號"
+  },
+  "CAT-AD-80AA91A89235": {
+    "lat": 25.005221,
+    "lng": 121.517084,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路441號"
+  },
+  "CAT-AD-41BDE2C4227F": {
+    "lat": 25.039716,
+    "lng": 121.430352,
+    "source": "NTPC-11509",
+    "matchedAddress": "貴子路65號"
+  },
+  "CAT-AD-58130F52118A": {
+    "lat": 25.025944,
+    "lng": 121.477672,
+    "source": "NTPC-11509",
+    "matchedAddress": "大同街8巷40號"
+  },
+  "CAT-AD-D583B8D2F331": {
+    "lat": 25.061292,
+    "lng": 121.530382,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "吉林路245號"
+  },
+  "CAT-AD-2B3D48FDDD7A": {
+    "lat": 24.983366,
+    "lng": 121.534811,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路130巷3號"
+  },
+  "CAT-AD-E2E59A526A5D": {
+    "lat": 25.059773,
+    "lng": 121.511311,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平北路2段232號"
+  },
+  "CAT-AD-CD367BD9463A": {
+    "lat": 25.052578,
+    "lng": 121.519993,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京西路22號"
+  },
+  "CAT-AD-143CF05ED7A3": {
+    "lat": 25.058342,
+    "lng": 121.537302,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "建國北路2段85號"
+  },
+  "CAT-AD-45B71014ACF0": {
+    "lat": 24.972832,
+    "lng": 121.539739,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路215號"
+  },
+  "CAT-AD-5BC25E34DC80": {
+    "lat": 25.050826,
+    "lng": 121.580423,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "八德路4段879號"
+  },
+  "CAT-AD-8A61D7AA3170": {
+    "lat": 25.117298,
+    "lng": 121.512787,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "致遠二路141號"
+  },
+  "CAT-AD-6ACCE668B422": {
+    "lat": 25.118348,
+    "lng": 121.526217,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "天母西路34號"
+  },
+  "CAT-AD-7325C197D980": {
+    "lat": 25.053472,
+    "lng": 121.54386,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "復興北路164號"
+  },
+  "CAT-AD-0399B0BBB591": {
+    "lat": 25.135503,
+    "lng": 121.503075,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "光明路174之1號"
+  },
+  "CAT-AD-BDC9DC67295B": {
+    "lat": 25.078688,
+    "lng": 121.58317,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文德路93號"
+  },
+  "CAT-AD-2C4B747035AC": {
+    "lat": 25.02629,
+    "lng": 121.52989,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "和平東路1段182之2號"
+  },
+  "CAT-AD-108FEC22C31E": {
+    "lat": 25.112258,
+    "lng": 121.5264,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中山北路6段366號"
+  },
+  "CAT-AD-37A551AF898C": {
+    "lat": 25.030076,
+    "lng": 121.503458,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "西藏路166號"
+  },
+  "CAT-AD-844B17B6C75C": {
+    "lat": 24.999669,
+    "lng": 121.556727,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路3段86號"
+  },
+  "CAT-AD-1903D510578E": {
+    "lat": 25.08901,
+    "lng": 121.478573,
+    "source": "NTPC-11509",
+    "matchedAddress": "民族路193號"
+  },
+  "CAT-AD-CC425B0676D3": {
+    "lat": 25.050758,
+    "lng": 121.518061,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "長安西路45之1號"
+  },
+  "CAT-AD-57E3F81D4488": {
+    "lat": 25.082365,
+    "lng": 121.374657,
+    "source": "NTPC-11509",
+    "matchedAddress": "信義路313號"
+  },
+  "CAT-AD-D0B05782B0C9": {
+    "lat": 25.020973,
+    "lng": 121.483128,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路2段420號"
+  },
+  "CAT-AD-D8ECEB999125": {
+    "lat": 25.0116,
+    "lng": 121.517003,
+    "source": "NTPC-11509",
+    "matchedAddress": "中興街58號"
+  },
+  "CAT-AD-492CFA8A93A4": {
+    "lat": 25.058379,
+    "lng": 121.563752,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生東路5段186之3號"
+  },
+  "CAT-AD-59D2D7E9E5D4": {
+    "lat": 25.083771,
+    "lng": 121.524528,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "基河路34號"
+  },
+  "CAT-AD-6A65E2950D5E": {
+    "lat": 25.067064,
+    "lng": 121.659058,
+    "source": "NTPC-11509",
+    "matchedAddress": "大同路2段428號"
+  },
+  "CAT-AD-F9F5E584E3B2": {
+    "lat": 25.167432,
+    "lng": 121.447538,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正東路73號"
+  },
+  "CAT-AD-D22445F03409": {
+    "lat": 25.113016,
+    "lng": 121.510442,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "石牌路1段38號"
+  },
+  "CAT-AD-8ACB0D76AEF1": {
+    "lat": 25.078062,
+    "lng": 121.581174,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文德路64號"
+  },
+  "CAT-AD-7C71583B8BBE": {
+    "lat": 25.033759,
+    "lng": 121.557669,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "光復南路469號"
+  },
+  "CAT-AD-F70803A2357F": {
+    "lat": 25.046723,
+    "lng": 121.543692,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "復興南路1段18號"
+  },
+  "CAT-AD-AD0386B7E972": {
+    "lat": 25.076658,
+    "lng": 121.390389,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛路1段356號"
+  },
+  "CAT-AD-71E05442D8B0": {
+    "lat": 25.071067,
+    "lng": 121.495534,
+    "source": "NTPC-11509",
+    "matchedAddress": "三和路3段48之2號"
+  },
+  "CAT-AD-CB11EED89DFA": {
+    "lat": 25.036598,
+    "lng": 121.455532,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路159之2號"
+  },
+  "CAT-AD-208C59D3C825": {
+    "lat": 25.006912,
+    "lng": 121.457684,
+    "source": "NTPC-11509",
+    "matchedAddress": "館前西路59號"
+  },
+  "CAT-AD-F4341B424C7C": {
+    "lat": 24.989144,
+    "lng": 121.469924,
+    "source": "NTPC-11509",
+    "matchedAddress": "金城路3段193號"
+  },
+  "CAT-AD-CA9F7852E605": {
+    "lat": 25.034107,
+    "lng": 121.498352,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "西園路1段254號"
+  },
+  "CAT-AD-A6A36428814B": {
+    "lat": 25.041219,
+    "lng": 121.578182,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路5段489號"
+  },
+  "CAT-AD-C52FDBE3E807": {
+    "lat": 24.993352,
+    "lng": 121.502692,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路23號"
+  },
+  "CAT-AD-7369F7F296F9": {
+    "lat": 25.028448,
+    "lng": 121.518169,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "福州街16之3號"
+  },
+  "CAT-AD-BF6B140BDCD8": {
+    "lat": 24.9739,
+    "lng": 121.548527,
+    "source": "NTPC-11509",
+    "matchedAddress": "中興路2段196號"
+  },
+  "CAT-AD-6D0D5EDF0E1D": {
+    "lat": 24.999976,
+    "lng": 121.49306,
+    "source": "NTPC-11509",
+    "matchedAddress": "建康路276號"
+  },
+  "CAT-AD-4C034C84D2B9": {
+    "lat": 25.088588,
+    "lng": 121.46047,
+    "source": "NTPC-11509",
+    "matchedAddress": "長興路270號"
+  },
+  "CAT-AD-4777E5DFACB2": {
+    "lat": 24.994445,
+    "lng": 121.479382,
+    "source": "NTPC-11509",
+    "matchedAddress": "連城路567之1號"
+  },
+  "CAT-AD-6364BABB4BDD": {
+    "lat": 25.118222,
+    "lng": 121.522211,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "振興街19號"
+  },
+  "CAT-AD-3FB9EBD334A7": {
+    "lat": 25.006485,
+    "lng": 121.481918,
+    "source": "NTPC-11509",
+    "matchedAddress": "新民街37號"
+  },
+  "CAT-AD-DE3AED2B4025": {
+    "lat": 25.034935,
+    "lng": 121.506742,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中華路2段75巷1弄37號"
+  },
+  "CAT-AD-092B8F60C001": {
+    "lat": 25.030634,
+    "lng": 121.520107,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "羅斯福路1段105號"
+  },
+  "CAT-AD-702F927F3DE5": {
+    "lat": 25.050083,
+    "lng": 121.516589,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "承德路1段8號"
+  },
+  "CAT-AD-650B75ADCE09": {
+    "lat": 25.096729,
+    "lng": 121.521092,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文昌路108號"
+  },
+  "CAT-AD-6BB8972998A1": {
+    "lat": 25.039975,
+    "lng": 121.577664,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "松山路478號"
+  },
+  "CAT-AD-BC35BE453A91": {
+    "lat": 25.082216,
+    "lng": 121.47378,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山二路54號"
+  },
+  "CAT-AD-6CBAF282F8D3": {
+    "lat": 25.067351,
+    "lng": 121.657544,
+    "source": "NTPC-11509",
+    "matchedAddress": "大同路2段381號"
+  },
+  "CAT-AD-FCAEE8CAD908": {
+    "lat": 25.057479,
+    "lng": 121.520371,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生西路78號"
+  },
+  "CAT-AD-9FCC36DE71AC": {
+    "lat": 24.985122,
+    "lng": 121.452817,
+    "source": "NTPC-11509",
+    "matchedAddress": "裕民路184號"
+  },
+  "CAT-AD-C9446A702BE7": {
+    "lat": 25.037507,
+    "lng": 121.447635,
+    "source": "NTPC-11509",
+    "matchedAddress": "新泰路162號"
+  },
+  "CAT-AD-59CF899A855A": {
+    "lat": 25.069565,
+    "lng": 121.495433,
+    "source": "NTPC-11509",
+    "matchedAddress": "正義北路294號"
+  },
+  "CAT-AD-FB9AB1FBDE8F": {
+    "lat": 25.051249,
+    "lng": 121.561983,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路5段106號"
+  },
+  "CAT-AD-EC00CC0B9BCB": {
+    "lat": 25.023225,
+    "lng": 121.468612,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生路2段250號"
+  },
+  "CAT-AD-1432D8FC9B56": {
+    "lat": 25.014967,
+    "lng": 121.516878,
+    "source": "NTPC-11509",
+    "matchedAddress": "竹林路17號"
+  },
+  "CAT-AD-0CEC6409D67E": {
+    "lat": 25.041357,
+    "lng": 121.546847,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路4段112號"
+  },
+  "CAT-AD-31E1D4CAAA3E": {
+    "lat": 25.118428,
+    "lng": 121.524549,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "天母西路56號"
+  },
+  "CAT-AD-E55D0282EE6D": {
+    "lat": 24.979626,
+    "lng": 121.542365,
+    "source": "NTPC-11509",
+    "matchedAddress": "北新路3段30號"
+  },
+  "CAT-AD-E889D634BD0F": {
+    "lat": 25.042211,
+    "lng": 121.512984,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "衡陽路20號"
+  },
+  "CAT-AD-CB14C78BA11F": {
+    "lat": 25.0431,
+    "lng": 121.513333,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "重慶南路1段99號"
+  },
+  "CAT-AD-41A08D8EE30F": {
+    "lat": 25.041969,
+    "lng": 121.577617,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "松山路332號"
+  },
+  "CAT-AD-F5F6C8FB28F6": {
+    "lat": 25.003342,
+    "lng": 121.538447,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "羅斯福路5段196號"
+  },
+  "CAT-AD-4D7473260E4C": {
+    "lat": 25.029543,
+    "lng": 121.526629,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "金山南路2段145號"
+  },
+  "CAT-AD-3214873635D5": {
+    "lat": 25.050502,
+    "lng": 121.59499,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路6段478號"
+  },
+  "CAT-AD-E40FF596EB45": {
+    "lat": 24.999321,
+    "lng": 121.557261,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路3段106號"
+  },
+  "CAT-AD-5FA7215F08E9": {
+    "lat": 25.027879,
+    "lng": 121.494632,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "西園路2段258號"
+  },
+  "CAT-AD-2E49C9463307": {
+    "lat": 25.057877,
+    "lng": 121.511429,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平北路2段154號"
+  },
+  "CAT-AD-DCD1D3AD1B19": {
+    "lat": 25.05785,
+    "lng": 121.523352,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生東路1段6號"
+  },
+  "CAT-AD-DD62E9512052": {
+    "lat": 25.054459,
+    "lng": 121.54319,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "長春路378號"
+  },
+  "CAT-AD-6C4B8D172C22": {
+    "lat": 25.042211,
+    "lng": 121.512984,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "衡陽路20號"
+  },
+  "CAT-AD-5AE715201BD2": {
+    "lat": 25.08231,
+    "lng": 121.548737,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "北安路603號"
+  },
+  "CAT-AD-D6687EEBB226": {
+    "lat": 25.068057,
+    "lng": 121.617589,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "東湖路163號"
+  },
+  "CAT-AD-FD84FA8A73B3": {
+    "lat": 25.078324,
+    "lng": 121.580314,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文德路40號"
+  },
+  "CAT-AD-94A68BE7A1DC": {
+    "lat": 25.095744,
+    "lng": 121.521502,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文昌路48號"
+  },
+  "CAT-AD-DB2B11901ED3": {
+    "lat": 25.029779,
+    "lng": 121.561935,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "莊敬路228號"
+  },
+  "CAT-AD-410D88A135CD": {
+    "lat": 25.058339,
+    "lng": 121.558708,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生東路5段70號"
+  },
+  "CAT-AD-8BA6574AEDB2": {
+    "lat": 25.033899,
+    "lng": 121.546091,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "大安路1段241號"
+  },
+  "CAT-AD-2E8C174468AE": {
+    "lat": 25.117595,
+    "lng": 121.516356,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "石牌路2段95號"
+  },
+  "CAT-AD-1DA818A7F48E": {
+    "lat": 25.136003,
+    "lng": 121.503428,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "光明路193號"
+  },
+  "CAT-AD-B4425F2DA726": {
+    "lat": 25.107908,
+    "lng": 121.52867,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "德行東路117號"
+  },
+  "CAT-AD-508913CDF674": {
+    "lat": 25.041778,
+    "lng": 121.54971,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路4段147巷1號"
+  },
+  "CAT-AD-F666EC73650D": {
+    "lat": 25.046304,
+    "lng": 121.515823,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝西路1段50號"
+  },
+  "CAT-AD-CFEACAE50DB5": {
+    "lat": 25.04804,
+    "lng": 121.554212,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "八德路3段126號"
+  },
+  "CAT-AD-80ECF7B30293": {
+    "lat": 25.096241,
+    "lng": 121.520289,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文昌路95號"
+  },
+  "CAT-AD-D9E56A42B8E0": {
+    "lat": 25.128341,
+    "lng": 121.472011,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "立德路125號"
+  },
+  "CAT-AD-4782F7364DB5": {
+    "lat": 25.03654,
+    "lng": 121.5541,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路4段266巷15弄20號"
+  },
+  "CAT-AD-B1D0928892BE": {
+    "lat": 25.083019,
+    "lng": 121.550849,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "明水路651號"
+  },
+  "CAT-AD-16BC7E70639D": {
+    "lat": 25.069088,
+    "lng": 121.614148,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "東湖路43巷2號"
+  },
+  "CAT-AD-B20AB7131501": {
+    "lat": 25.04551,
+    "lng": 121.553574,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延吉街44號"
+  },
+  "CAT-AD-445C0B4CEF8E": {
+    "lat": 25.060263,
+    "lng": 121.53387,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "錦州街244號"
+  },
+  "CAT-AD-755CFD9D9ECA": {
+    "lat": 25.068045,
+    "lng": 121.66392,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛路337號"
+  },
+  "CAT-AD-F1C93EE279DD": {
+    "lat": 25.036698,
+    "lng": 121.554878,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "仁愛路4段300巷17弄1號"
+  },
+  "CAT-AD-A86E77DDF4A7": {
+    "lat": 25.034763,
+    "lng": 121.507469,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平南路210號"
+  },
+  "CAT-AD-E19D23BBD4CF": {
+    "lat": 25.052508,
+    "lng": 121.552495,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "健康路5之1號"
+  },
+  "CAT-AD-F1CD91AF616B": {
+    "lat": 25.063437,
+    "lng": 121.51105,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平北路3段4號"
+  },
+  "CAT-AD-55B6679D3AA3": {
+    "lat": 25.000878,
+    "lng": 121.554979,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "興隆路3段13號"
+  },
+  "CAT-AD-D1DA7753EFED": {
+    "lat": 25.026261,
+    "lng": 121.500316,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "萬大路248號"
+  },
+  "CAT-AD-D07D07A56B0A": {
+    "lat": 24.938499,
+    "lng": 121.363424,
+    "source": "NTPC-11509",
+    "matchedAddress": "復興路371號"
+  },
+  "CAT-AD-95C6AA70833E": {
+    "lat": 24.983064,
+    "lng": 121.53965,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路48之1號"
+  },
+  "CAT-AD-97C002A882BE": {
+    "lat": 25.051758,
+    "lng": 121.55696,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "南京東路4段197號"
+  },
+  "CAT-AD-AF9EFADAFE25": {
+    "lat": 25.027884,
+    "lng": 121.475845,
+    "source": "NTPC-11509",
+    "matchedAddress": "雙十路2段48號"
+  },
+  "CAT-AD-7DE6AE0C81B9": {
+    "lat": 25.07292,
+    "lng": 121.578634,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "陽光街321巷8號"
+  },
+  "CAT-AD-C76299F0035F": {
+    "lat": 25.010844,
+    "lng": 121.488369,
+    "source": "NTPC-11509",
+    "matchedAddress": "中原二街28號"
+  },
+  "CAT-AD-15D79F91BBF1": {
+    "lat": 25.001908,
+    "lng": 121.510559,
+    "source": "NTPC-11509",
+    "matchedAddress": "中和路366號"
+  },
+  "CAT-AD-6A081DD33ED5": {
+    "lat": 25.043752,
+    "lng": 121.459653,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路137號"
+  },
+  "CAT-AD-C1D82884EEE2": {
+    "lat": 25.037045,
+    "lng": 121.450648,
+    "source": "NTPC-11509",
+    "matchedAddress": "新興街15號"
+  },
+  "CAT-AD-BA518444D580": {
+    "lat": 24.984032,
+    "lng": 121.540142,
+    "source": "NTPC-11509",
+    "matchedAddress": "北新路3段205號"
+  },
+  "CAT-AD-6D371257218D": {
+    "lat": 25.067585,
+    "lng": 121.511023,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "延平北路3段89號"
+  },
+  "CAT-AD-9B06A4FEDCB4": {
+    "lat": 25.055547,
+    "lng": 121.536495,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "建國北路2段82號"
+  },
+  "CAT-AD-9B36B0B422E9": {
+    "lat": 25.059399,
+    "lng": 121.488962,
+    "source": "NTPC-11509",
+    "matchedAddress": "三寧街5號"
+  },
+  "CAT-AD-7BF28D77F706": {
+    "lat": 25.042224,
+    "lng": 121.513373,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "重慶南路1段121號"
+  },
+  "CAT-AD-57C706A74822": {
+    "lat": 25.01857,
+    "lng": 121.433433,
+    "source": "NTPC-11509",
+    "matchedAddress": "新樹路333巷6號"
+  },
+  "CAT-AD-B30F025E0F0D": {
+    "lat": 25.068299,
+    "lng": 121.523358,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民族東路2號"
+  },
+  "CAT-AD-0C7A1479C20A": {
+    "lat": 25.051364,
+    "lng": 121.523274,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "天津街66號"
+  },
+  "CAT-AD-61D294A52015": {
+    "lat": 25.057868,
+    "lng": 121.552416,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生東路4段72號"
+  },
+  "CAT-AD-C31B02E90607": {
+    "lat": 25.03501,
+    "lng": 121.506333,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "中華路2段47號"
+  },
+  "CAT-AD-6A663D49BAE0": {
+    "lat": 25.041687,
+    "lng": 121.551166,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路4段191號"
+  },
+  "CAT-AD-4DC758948713": {
+    "lat": 25.056402,
+    "lng": 121.527214,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "新生北路2段66之8號"
+  },
+  "CAT-AD-B24EC8E1099F": {
+    "lat": 25.139133,
+    "lng": 121.499869,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "永興路1段23號"
+  },
+  "CAT-AD-9FFDCFCAB562": {
+    "lat": 25.041293,
+    "lng": 121.565176,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路5段1之8號"
+  },
+  "CAT-AD-CC4389A94477": {
+    "lat": 25.042133,
+    "lng": 121.574154,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "虎林街120巷148號"
+  },
+  "CAT-AD-45DF5424689E": {
+    "lat": 25.084414,
+    "lng": 121.551138,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "明水路690號"
+  },
+  "CAT-AD-D58F5F855F28": {
+    "lat": 24.952704,
+    "lng": 121.351439,
+    "source": "NTPC-11509",
+    "matchedAddress": "國慶街179號"
+  },
+  "CAT-AD-B2165289C886": {
+    "lat": 25.063404,
+    "lng": 121.524311,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "雙城街6號"
+  },
+  "CAT-AD-0F97C7923A42": {
+    "lat": 25.052518,
+    "lng": 121.557162,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "光復北路129號"
+  },
+  "CAT-AD-F73ED7F4B53F": {
+    "lat": 24.974807,
+    "lng": 121.550427,
+    "source": "NTPC-11509",
+    "matchedAddress": "寶興路45巷8弄3號"
+  },
+  "CAT-AD-298B67CD2D02": {
+    "lat": 25.00796,
+    "lng": 121.484192,
+    "source": "NTPC-11509",
+    "matchedAddress": "板南路655號"
+  },
+  "CAT-AD-FC3464CFECF6": {
+    "lat": 25.046304,
+    "lng": 121.515823,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝西路1段50號"
+  },
+  "CAT-AD-2856ECC26DB2": {
+    "lat": 25.044089,
+    "lng": 121.532183,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "八德路1段94號"
+  },
+  "CAT-AD-3B87FC2E60EE": {
+    "lat": 25.039778,
+    "lng": 121.532553,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "新生南路1段104號"
+  },
+  "CAT-AD-7FB17E1D4FC0": {
+    "lat": 25.11856,
+    "lng": 121.525285,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "天母西路77號"
+  },
+  "CAT-AD-D8E6890DFCFF": {
+    "lat": 25.065559,
+    "lng": 121.524355,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "雙城街21號"
+  },
+  "CAT-AD-768DBA3218E9": {
+    "lat": 25.037309,
+    "lng": 121.546135,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "大安路1段155號"
+  },
+  "CAT-AD-27A541890F2E": {
+    "lat": 24.99798,
+    "lng": 121.50674,
+    "source": "NTPC-11509",
+    "matchedAddress": "景安路50號"
+  },
+  "CAT-AD-E07CDFD4F7D1": {
+    "lat": 25.059667,
+    "lng": 121.486569,
+    "source": "NTPC-11509",
+    "matchedAddress": "重陽路1段106號"
+  },
+  "CAT-AD-75F4A80D9773": {
+    "lat": 25.040705,
+    "lng": 121.522274,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "林森南路39號"
+  },
+  "CAT-AD-4BBD2DB484BD": {
+    "lat": 25.120736,
+    "lng": 121.467068,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "知行路247號"
+  },
+  "CAT-AD-DE360E4EE84A": {
+    "lat": 25.106202,
+    "lng": 121.531798,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠義街82號"
+  },
+  "CAT-AD-B7F7C6A84C86": {
+    "lat": 25.170616,
+    "lng": 121.443061,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路78號"
+  },
+  "CAT-AD-56D566CF9CFE": {
+    "lat": 25.095822,
+    "lng": 121.521467,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文昌路52號"
+  },
+  "CAT-AD-B53F9E3C2E2D": {
+    "lat": 24.981819,
+    "lng": 121.53753,
+    "source": "NTPC-11509",
+    "matchedAddress": "建國路231號"
+  },
+  "CAT-AD-7669AEB1AE2A": {
+    "lat": 25.0389,
+    "lng": 121.57784,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "松山路484之4號"
+  },
+  "CAT-AD-EDEBB3070F3F": {
+    "lat": 25.096542,
+    "lng": 121.521171,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文昌路100號"
+  },
+  "CAT-AD-3BC134C24EF8": {
+    "lat": 25.087885,
+    "lng": 121.5198,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "華齡街194號"
+  },
+  "CAT-AD-9451A2185E8E": {
+    "lat": 25.062986,
+    "lng": 121.487574,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生街61巷18弄5號"
+  },
+  "CAT-AD-40E83D3B17FE": {
+    "lat": 25.057479,
+    "lng": 121.520371,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "民生西路78號"
+  },
+  "CAT-AD-E1025562627A": {
+    "lat": 25.066265,
+    "lng": 121.641965,
+    "source": "NTPC-11509",
+    "matchedAddress": "樟樹一路141巷7號"
+  },
+  "CAT-AD-E2E585E86755": {
+    "lat": 25.096463,
+    "lng": 121.521215,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "文昌路76號"
+  },
+  "CAT-AD-650DFEA82A62": {
+    "lat": 25.034028,
+    "lng": 121.50989,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "博愛路224巷5號"
+  },
+  "CAT-AD-CD3AEB3ABA63": {
+    "lat": 25.045777,
+    "lng": 121.58587,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "成福路8號"
+  },
+  "CAT-AD-CF305072F035": {
+    "lat": 25.042399,
+    "lng": 121.531804,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "忠孝東路2段130號"
+  },
+  "CAT-AD-9423128F8A31": {
+    "lat": 25.060259,
+    "lng": 121.458552,
+    "source": "NTPC-11509",
+    "matchedAddress": "新北大道3段5號"
+  },
+  "CAT-AD-44931BDCADEB": {
+    "lat": 25.05558,
+    "lng": 121.486128,
+    "source": "NTPC-11509",
+    "matchedAddress": "重新路4段89號"
+  },
+  "NTPC-ARC-B01": {
+    "lat": 25.037917,
+    "lng": 121.86645,
+    "source": "NTPC-11509",
+    "matchedAddress": "新基南街18號"
+  },
+  "NTPC-ARC-B02": {
+    "lat": 25.219421,
+    "lng": 121.628354,
+    "source": "NTPC-11509",
+    "matchedAddress": "玉爐路7號"
+  },
+  "NTPC-ARC-B03": {
+    "lat": 25.172778,
+    "lng": 121.440844,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路158號"
+  },
+  "NTPC-ARC-B04": {
+    "lat": 24.998692,
+    "lng": 121.501638,
+    "source": "NTPC-11509",
+    "matchedAddress": "南山路4巷3號"
+  },
+  "NTPC-ARC-B05": {
+    "lat": 24.928323,
+    "lng": 121.376148,
+    "source": "NTPC-11509",
+    "matchedAddress": "光明路71號"
+  },
+  "NTPC-ARC-B06": {
+    "lat": 25.000938,
+    "lng": 121.612643,
+    "source": "NTPC-11509",
+    "matchedAddress": "深坑街165號"
+  },
+  "NTPC-ARC-B07": {
+    "lat": 24.871966,
+    "lng": 121.547977,
+    "source": "NTPC-11509",
+    "matchedAddress": "新烏路5段109號"
+  },
+  "NTPC-ARC-B08": {
+    "lat": 25.016255,
+    "lng": 121.510415,
+    "source": "NTPC-11509",
+    "matchedAddress": "文化路155號"
+  },
+  "NTPC-ARC-B10": {
+    "lat": 25.057955,
+    "lng": 121.603378,
+    "source": "TAIPEI-2026-10",
+    "matchedAddress": "重陽路263巷1號"
+  },
+  "NTPC-ARC-B11": {
+    "lat": 24.981357,
+    "lng": 121.526057,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路135號"
+  },
+  "NTPC-ARC-B12": {
+    "lat": 25.010716,
+    "lng": 121.517753,
+    "source": "NTPC-11509",
+    "matchedAddress": "豫溪街57巷10弄10號"
+  },
+  "CAT-HC-NTPC-096045937B32": {
+    "lat": 25.023573,
+    "lng": 121.476026,
+    "source": "NTPC-11509",
+    "matchedAddress": "萬板路182號"
+  },
+  "CAT-HC-NTPC-C02059E0E81E": {
+    "lat": 24.997924,
+    "lng": 121.507089,
+    "source": "NTPC-11509",
+    "matchedAddress": "景安路65號"
+  },
+  "CAT-HC-NTPC-783033AFAD85": {
+    "lat": 25.06858,
+    "lng": 121.49077,
+    "source": "NTPC-11509",
+    "matchedAddress": "重陽路3段115號"
+  },
+  "CAT-HC-NTPC-33D48688D76D": {
+    "lat": 25.002409,
+    "lng": 121.517795,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路428巷3號"
+  },
+  "CAT-HC-NTPC-720CB05F3CE2": {
+    "lat": 24.99391,
+    "lng": 121.450925,
+    "source": "NTPC-11509",
+    "matchedAddress": "四川路2段237號"
+  },
+  "CAT-HC-NTPC-007BB3B72B56": {
+    "lat": 25.186614,
+    "lng": 121.444012,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山北路2段225號"
+  },
+  "CAT-HC-NTPC-C4D0BBAA5AA1": {
+    "lat": 24.983202,
+    "lng": 121.423392,
+    "source": "NTPC-11509",
+    "matchedAddress": "中華路61號"
+  },
+  "CAT-HC-NTPC-4CC99F248111": {
+    "lat": 25.00037,
+    "lng": 121.487459,
+    "source": "NTPC-11509",
+    "matchedAddress": "建康路89號"
+  },
+  "CAT-HC-NTPC-837BC0D87404": {
+    "lat": 24.992083,
+    "lng": 121.511846,
+    "source": "NTPC-11509",
+    "matchedAddress": "安樂路18之1號"
+  },
+  "CAT-HC-NTPC-78959D434442": {
+    "lat": 25.010608,
+    "lng": 121.513837,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路1段24號"
+  },
+  "CAT-HC-NTPC-66605360C0AA": {
+    "lat": 25.009176,
+    "lng": 121.517766,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路666巷27號"
+  },
+  "CAT-HC-NTPC-045A02DE5B03": {
+    "lat": 25.06437,
+    "lng": 121.632951,
+    "source": "NTPC-11509",
+    "matchedAddress": "福德一路262號"
+  },
+  "CAT-HC-NTPC-C1956A56B4EC": {
+    "lat": 25.058632,
+    "lng": 121.445817,
+    "source": "NTPC-11509",
+    "matchedAddress": "新北大道4段171號"
+  },
+  "CAT-HC-NTPC-20CEB454D673": {
+    "lat": 24.967379,
+    "lng": 121.51657,
+    "source": "NTPC-11509",
+    "matchedAddress": "安民街79號"
+  },
+  "CAT-HC-NTPC-9DD4A4F8626A": {
+    "lat": 24.993175,
+    "lng": 121.462365,
+    "source": "NTPC-11509",
+    "matchedAddress": "和平路安樂巷53號"
+  },
+  "CAT-HC-NTPC-D1D50F726A3E": {
+    "lat": 25.019477,
+    "lng": 121.466146,
+    "source": "NTPC-11509",
+    "matchedAddress": "文化路1段188巷16號"
+  },
+  "CAT-HC-NTPC-47876CB7326C": {
+    "lat": 25.137463,
+    "lng": 121.460265,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路111號"
+  },
+  "CAT-HC-NTPC-0510F2655E06": {
+    "lat": 24.97998,
+    "lng": 121.538292,
+    "source": "NTPC-11509",
+    "matchedAddress": "建國路198巷25號"
+  },
+  "CAT-HC-NTPC-C014A381F100": {
+    "lat": 24.978334,
+    "lng": 121.542907,
+    "source": "NTPC-11509",
+    "matchedAddress": "北新路2段262號"
+  },
+  "CAT-HC-NTPC-B63B99F05002": {
+    "lat": 24.980805,
+    "lng": 121.54733,
+    "source": "NTPC-11509",
+    "matchedAddress": "寶元路2段72號"
+  },
+  "CAT-HC-NTPC-E8094894430C": {
+    "lat": 24.994037,
+    "lng": 121.48825,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路515號"
+  },
+  "CAT-HC-NTPC-164F007A58D4": {
+    "lat": 25.173147,
+    "lng": 121.449698,
+    "source": "NTPC-11509",
+    "matchedAddress": "英專路226號"
+  },
+  "CAT-HC-NTPC-92C19898A72A": {
+    "lat": 25.144611,
+    "lng": 121.3981,
+    "source": "NTPC-11509",
+    "matchedAddress": "訊塘路3號"
+  },
+  "CAT-HC-NTPC-8D160023B805": {
+    "lat": 25.066871,
+    "lng": 121.494588,
+    "source": "NTPC-11509",
+    "matchedAddress": "長壽西街107號"
+  },
+  "CAT-HC-NTPC-5D2CCB1B163E": {
+    "lat": 25.066854,
+    "lng": 121.494537,
+    "source": "NTPC-11509",
+    "matchedAddress": "長壽西街109號"
+  },
+  "CAT-HC-NTPC-030F79E587E7": {
+    "lat": 25.005682,
+    "lng": 121.483808,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路901號"
+  },
+  "CAT-HC-NTPC-582EE27135C3": {
+    "lat": 25.019406,
+    "lng": 121.465836,
+    "source": "NTPC-11509",
+    "matchedAddress": "文化路1段178號"
+  },
+  "CAT-HC-NTPC-DE067446CEE2": {
+    "lat": 24.998105,
+    "lng": 121.484942,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路689號"
+  },
+  "CAT-HC-NTPC-AA170AB74692": {
+    "lat": 24.938508,
+    "lng": 121.363619,
+    "source": "NTPC-11509",
+    "matchedAddress": "復興路365號"
+  },
+  "CAT-HC-NTPC-03BDAE90B166": {
+    "lat": 24.999734,
+    "lng": 121.462653,
+    "source": "NTPC-11509",
+    "matchedAddress": "重慶路278巷6號"
+  },
+  "CAT-HC-NTPC-8B6E6C50F329": {
+    "lat": 25.034313,
+    "lng": 121.477163,
+    "source": "NTPC-11509",
+    "matchedAddress": "民治街8巷2號"
+  },
+  "CAT-HC-NTPC-9B1D4824BA14": {
+    "lat": 25.108042,
+    "lng": 121.805012,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路5號"
+  },
+  "CAT-HC-NTPC-F05AFD7B4809": {
+    "lat": 25.08402,
+    "lng": 121.456254,
+    "source": "NTPC-11509",
+    "matchedAddress": "永安南路2段328巷17弄8號"
+  },
+  "CAT-HC-NTPC-8C908DCBA0A0": {
+    "lat": 25.052978,
+    "lng": 121.487963,
+    "source": "NTPC-11509",
+    "matchedAddress": "集美街75巷27號"
+  },
+  "CAT-HC-NTPC-ABE03FACCFD4": {
+    "lat": 25.007228,
+    "lng": 121.513165,
+    "source": "NTPC-11509",
+    "matchedAddress": "永和路1段69號"
+  },
+  "CAT-HC-NTPC-B9E7AAF18822": {
+    "lat": 25.017392,
+    "lng": 121.479455,
+    "source": "NTPC-11509",
+    "matchedAddress": "三民路2段37號"
+  },
+  "CAT-HC-NTPC-3A64769317C1": {
+    "lat": 25.006539,
+    "lng": 121.463499,
+    "source": "NTPC-11509",
+    "matchedAddress": "重慶路89巷53號"
+  },
+  "CAT-HC-NTPC-57CE11061DF0": {
+    "lat": 25.003438,
+    "lng": 121.620064,
+    "source": "NTPC-11509",
+    "matchedAddress": "埔新街58巷38號"
+  },
+  "CAT-HC-NTPC-1791B3B7E03E": {
+    "lat": 25.043204,
+    "lng": 121.453991,
+    "source": "NTPC-11509",
+    "matchedAddress": "中港路240號"
+  },
+  "CAT-HC-NTPC-FD3EE228D5AD": {
+    "lat": 25.020558,
+    "lng": 121.426758,
+    "source": "NTPC-11509",
+    "matchedAddress": "民安西路38巷19號"
+  },
+  "CAT-HC-NTPC-3FFFA2BB02CF": {
+    "lat": 25.060218,
+    "lng": 121.459571,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路601號"
+  },
+  "CAT-HC-NTPC-ECDE4912064A": {
+    "lat": 25.058587,
+    "lng": 121.456977,
+    "source": "NTPC-11509",
+    "matchedAddress": "中央路51號"
+  },
+  "CAT-HC-NTPC-EB5DBC0F293A": {
+    "lat": 25.0274,
+    "lng": 121.463215,
+    "source": "NTPC-11509",
+    "matchedAddress": "互助街17號"
+  },
+  "CAT-HC-NTPC-A917706E7F9D": {
+    "lat": 25.17814,
+    "lng": 121.438253,
+    "source": "NTPC-11509",
+    "matchedAddress": "新民街120巷21號"
+  },
+  "CAT-HC-NTPC-81501772FC7E": {
+    "lat": 25.077592,
+    "lng": 121.492595,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁政街82號"
+  },
+  "CAT-HC-NTPC-4D387B90C978": {
+    "lat": 25.07805,
+    "lng": 121.481104,
+    "source": "NTPC-11509",
+    "matchedAddress": "永福街47號"
+  },
+  "CAT-HC-NTPC-0F65B0A59305": {
+    "lat": 24.975519,
+    "lng": 121.442127,
+    "source": "NTPC-11509",
+    "matchedAddress": "中央路2段191號"
+  },
+  "CAT-HC-NTPC-1DCD01BB444A": {
+    "lat": 24.959954,
+    "lng": 121.418567,
+    "source": "NTPC-11509",
+    "matchedAddress": "中央路4段76之9號"
+  },
+  "CAT-HC-NTPC-167A494AD4A6": {
+    "lat": 24.994466,
+    "lng": 121.48886,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路500號"
+  },
+  "CAT-HC-NTPC-0FC26291FBFC": {
+    "lat": 25.005682,
+    "lng": 121.483808,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路901號"
+  },
+  "CAT-HC-NTPC-FA1D0420E119": {
+    "lat": 25.02702,
+    "lng": 121.467026,
+    "source": "NTPC-11509",
+    "matchedAddress": "光武街50巷3號"
+  },
+  "CAT-HC-NTPC-E78448F01BF6": {
+    "lat": 25.017272,
+    "lng": 121.465052,
+    "source": "NTPC-11509",
+    "matchedAddress": "漢生東路21號"
+  },
+  "CAT-HC-NTPC-E9E8EE3A9956": {
+    "lat": 25.070344,
+    "lng": 121.368336,
+    "source": "NTPC-11509",
+    "matchedAddress": "忠孝路376巷53號"
+  },
+  "CAT-HC-NTPC-64B31157CDC1": {
+    "lat": 24.948888,
+    "lng": 121.377465,
+    "source": "NTPC-11509",
+    "matchedAddress": "學林路13號"
+  },
+  "CAT-HC-NTPC-C41825444C4B": {
+    "lat": 25.069142,
+    "lng": 121.477632,
+    "source": "NTPC-11509",
+    "matchedAddress": "三民街317巷1號"
+  },
+  "CAT-HC-NTPC-93B933834486": {
+    "lat": 25.050594,
+    "lng": 121.488352,
+    "source": "NTPC-11509",
+    "matchedAddress": "成功路68之3號"
+  },
+  "CAT-HC-NTPC-1A4C3759499A": {
+    "lat": 25.084434,
+    "lng": 121.436893,
+    "source": "NTPC-11509",
+    "matchedAddress": "民義路1段46之1號"
+  },
+  "CAT-HC-NTPC-50CCE14540E3": {
+    "lat": 24.948188,
+    "lng": 121.383707,
+    "source": "NTPC-11509",
+    "matchedAddress": "大有路63號"
+  },
+  "CAT-HC-NTPC-7D1F2A2EECFC": {
+    "lat": 24.979153,
+    "lng": 121.460768,
+    "source": "NTPC-11509",
+    "matchedAddress": "青仁路22號"
+  },
+  "CAT-HC-NTPC-2236CA9FF088": {
+    "lat": 25.008196,
+    "lng": 121.483207,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路920號"
+  },
+  "CAT-HC-NTPC-10E5754D0002": {
+    "lat": 25.00037,
+    "lng": 121.487459,
+    "source": "NTPC-11509",
+    "matchedAddress": "建康路89號"
+  },
+  "CAT-HC-NTPC-B9AFF20954EC": {
+    "lat": 25.00278,
+    "lng": 121.498939,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路2段228號"
+  },
+  "CAT-HC-NTPC-B02253B9AB58": {
+    "lat": 25.006169,
+    "lng": 121.515929,
+    "source": "NTPC-11509",
+    "matchedAddress": "福和路309巷20弄9號"
+  },
+  "CAT-HC-NTPC-E15C984BF016": {
+    "lat": 25.043584,
+    "lng": 121.425887,
+    "source": "NTPC-11509",
+    "matchedAddress": "民國街48號"
+  },
+  "CAT-HC-NTPC-4011883D80E8": {
+    "lat": 25.007961,
+    "lng": 121.460122,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路1段10號"
+  },
+  "CAT-HC-NTPC-F960FED7E39B": {
+    "lat": 24.997339,
+    "lng": 121.456114,
+    "source": "NTPC-11509",
+    "matchedAddress": "四川路2段16巷10號"
+  },
+  "CAT-HC-NTPC-39FBC5FBC0FD": {
+    "lat": 25.16998,
+    "lng": 121.448377,
+    "source": "NTPC-11509",
+    "matchedAddress": "學府路75號"
+  },
+  "CAT-HC-NTPC-4D86810CB543": {
+    "lat": 25.206814,
+    "lng": 121.449966,
+    "source": "NTPC-11509",
+    "matchedAddress": "奎柔山路3號"
+  },
+  "CAT-HC-NTPC-C4045318B7A8": {
+    "lat": 25.065661,
+    "lng": 121.664481,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛路193號"
+  },
+  "CAT-HC-NTPC-0C0CBC1533BD": {
+    "lat": 25.082792,
+    "lng": 121.469286,
+    "source": "NTPC-11509",
+    "matchedAddress": "光華路41巷7號"
+  },
+  "CAT-HC-NTPC-94161AB2E89B": {
+    "lat": 25.061679,
+    "lng": 121.492635,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正北路15號"
+  },
+  "CAT-HC-NTPC-75E93AEC2CB3": {
+    "lat": 25.059962,
+    "lng": 121.489822,
+    "source": "NTPC-11509",
+    "matchedAddress": "三寧街31號"
+  },
+  "CAT-HC-NTPC-F6BA3E3484CA": {
+    "lat": 25.05558,
+    "lng": 121.486128,
+    "source": "NTPC-11509",
+    "matchedAddress": "重新路4段89號"
+  },
+  "CAT-HC-NTPC-FF1F41ADD408": {
+    "lat": 25.045489,
+    "lng": 121.458883,
+    "source": "NTPC-11509",
+    "matchedAddress": "自立街250號"
+  },
+  "CAT-HC-NTPC-866028163A1B": {
+    "lat": 24.963771,
+    "lng": 121.539483,
+    "source": "NTPC-11509",
+    "matchedAddress": "北新路1段157之2號"
+  },
+  "CAT-HC-NTPC-63C3E0815F1C": {
+    "lat": 24.994221,
+    "lng": 121.496363,
+    "source": "NTPC-11509",
+    "matchedAddress": "圓通路231號"
+  },
+  "CAT-HC-NTPC-A3552BBE0FFD": {
+    "lat": 25.069892,
+    "lng": 121.428696,
+    "source": "NTPC-11509",
+    "matchedAddress": "登林路96號"
+  },
+  "CAT-HC-NTPC-706C23F2667C": {
+    "lat": 25.007624,
+    "lng": 121.520401,
+    "source": "NTPC-11509",
+    "matchedAddress": "福和路159號"
+  },
+  "CAT-HC-NTPC-B33CD7E611FD": {
+    "lat": 25.065483,
+    "lng": 121.654041,
+    "source": "NTPC-11509",
+    "matchedAddress": "大同路2段240號"
+  },
+  "CAT-HC-NTPC-9CE70E0A774D": {
+    "lat": 25.019913,
+    "lng": 121.462994,
+    "source": "NTPC-11509",
+    "matchedAddress": "文化路1段285巷69號"
+  },
+  "CAT-HC-NTPC-9467727CA6B3": {
+    "lat": 25.012716,
+    "lng": 121.473873,
+    "source": "NTPC-11509",
+    "matchedAddress": "長安街331巷30號"
+  },
+  "CAT-HC-NTPC-FA61EABC0844": {
+    "lat": 25.007416,
+    "lng": 121.459371,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路1段1號"
+  },
+  "CAT-HC-NTPC-4F2B8F597352": {
+    "lat": 24.993259,
+    "lng": 121.431953,
+    "source": "NTPC-11509",
+    "matchedAddress": "篤行路2段9號"
+  },
+  "CAT-HC-NTPC-69AB4F2ACEC0": {
+    "lat": 24.996103,
+    "lng": 121.451228,
+    "source": "NTPC-11509",
+    "matchedAddress": "南雅南路2段144巷6號"
+  },
+  "CAT-HC-NTPC-33D99D4F667B": {
+    "lat": 25.033055,
+    "lng": 121.466084,
+    "source": "NTPC-11509",
+    "matchedAddress": "華江一路578號"
+  },
+  "CAT-HC-NTPC-591C4105BD27": {
+    "lat": 25.02678,
+    "lng": 121.476573,
+    "source": "NTPC-11509",
+    "matchedAddress": "雙十路2段10之1號"
+  },
+  "CAT-HC-NTPC-4806490B8136": {
+    "lat": 25.071966,
+    "lng": 121.37391,
+    "source": "NTPC-11509",
+    "matchedAddress": "文化一路1段137號"
+  },
+  "CAT-HC-NTPC-6B51F83CCEBC": {
+    "lat": 25.072032,
+    "lng": 121.378773,
+    "source": "NTPC-11509",
+    "matchedAddress": "文化一路1段150之2號"
+  },
+  "CAT-HC-NTPC-21D50BA1204B": {
+    "lat": 25.044872,
+    "lng": 121.428238,
+    "source": "NTPC-11509",
+    "matchedAddress": "新生路4號"
+  },
+  "CAT-HC-NTPC-DEBEE3FAB877": {
+    "lat": 25.191625,
+    "lng": 121.427785,
+    "source": "NTPC-11509",
+    "matchedAddress": "濱海路3段146號"
+  },
+  "CAT-HC-NTPC-95CC62F5320D": {
+    "lat": 24.971729,
+    "lng": 121.542662,
+    "source": "NTPC-11509",
+    "matchedAddress": "北新路2段21號"
+  },
+  "CAT-HC-NTPC-5CBD8D746520": {
+    "lat": 24.996557,
+    "lng": 121.510782,
+    "source": "NTPC-11509",
+    "matchedAddress": "安平路89之1號"
+  },
+  "CAT-HC-NTPC-67FC884549BE": {
+    "lat": 24.998809,
+    "lng": 121.512945,
+    "source": "NTPC-11509",
+    "matchedAddress": "安平路178號"
+  },
+  "CAT-HC-NTPC-2FB4419F0E05": {
+    "lat": 25.057448,
+    "lng": 121.487703,
+    "source": "NTPC-11509",
+    "matchedAddress": "重新路4段53號"
+  },
+  "CAT-HC-NTPC-ECE17541BEA5": {
+    "lat": 25.00032,
+    "lng": 121.518174,
+    "source": "NTPC-11509",
+    "matchedAddress": "得和路103號"
+  },
+  "CAT-HC-NTPC-646EAC5EB9AD": {
+    "lat": 25.071989,
+    "lng": 121.660608,
+    "source": "NTPC-11509",
+    "matchedAddress": "建成路59巷89號"
+  },
+  "CAT-HC-NTPC-C48595F25678": {
+    "lat": 25.076465,
+    "lng": 121.375434,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛路2段502號"
+  },
+  "CAT-HC-NTPC-B2B41BE90951": {
+    "lat": 25.07081,
+    "lng": 121.375371,
+    "source": "NTPC-11509",
+    "matchedAddress": "麗園一街6巷7號"
+  },
+  "CAT-HC-NTPC-FD8A0A74EA78": {
+    "lat": 25.174209,
+    "lng": 121.440915,
+    "source": "NTPC-11509",
+    "matchedAddress": "重建街186號"
+  },
+  "CAT-HC-NTPC-544BF4D51061": {
+    "lat": 25.045317,
+    "lng": 121.453528,
+    "source": "NTPC-11509",
+    "matchedAddress": "中華路2段7號"
+  },
+  "CAT-HC-NTPC-4E4B4F7B61F3": {
+    "lat": 25.046288,
+    "lng": 121.452737,
+    "source": "NTPC-11509",
+    "matchedAddress": "中安街27號"
+  },
+  "CAT-HC-NTPC-CF6410D69399": {
+    "lat": 24.994648,
+    "lng": 121.480794,
+    "source": "NTPC-11509",
+    "matchedAddress": "員山路109號"
+  },
+  "CAT-HC-NTPC-36B6F700895E": {
+    "lat": 25.256464,
+    "lng": 121.50108,
+    "source": "NTPC-11509",
+    "matchedAddress": "長安街53巷6號"
+  },
+  "CAT-HC-NTPC-7B2B99B3E248": {
+    "lat": 25.060049,
+    "lng": 121.486293,
+    "source": "NTPC-11509",
+    "matchedAddress": "重陽路1段120巷6號"
+  },
+  "CAT-HC-NTPC-B0E4D719DC16": {
+    "lat": 25.077167,
+    "lng": 121.483126,
+    "source": "NTPC-11509",
+    "matchedAddress": "力行路2段176號"
+  },
+  "CAT-HC-NTPC-3937121469B8": {
+    "lat": 25.06342,
+    "lng": 121.487083,
+    "source": "NTPC-11509",
+    "matchedAddress": "重陽路2段46號"
+  },
+  "CAT-HC-NTPC-A047C390A466": {
+    "lat": 24.972734,
+    "lng": 121.534665,
+    "source": "NTPC-11509",
+    "matchedAddress": "三民路84巷2號"
+  },
+  "CAT-HC-NTPC-14AF81DF5D71": {
+    "lat": 24.935514,
+    "lng": 121.373717,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生街106之3號"
+  },
+  "CAT-HC-NTPC-15EE389E813A": {
+    "lat": 24.975111,
+    "lng": 121.442308,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路1號"
+  },
+  "CAT-HC-NTPC-7E5C8CE7473F": {
+    "lat": 24.971171,
+    "lng": 121.541978,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路125號"
+  },
+  "CAT-HC-NTPC-04C4FF7F1F27": {
+    "lat": 24.994809,
+    "lng": 121.506883,
+    "source": "NTPC-11509",
+    "matchedAddress": "景安路167巷30號"
+  },
+  "CAT-HC-NTPC-C4F6408A3F7E": {
+    "lat": 25.031765,
+    "lng": 121.466166,
+    "source": "NTPC-11509",
+    "matchedAddress": "長江路2段142號"
+  },
+  "CAT-HC-NTPC-25C698B1B198": {
+    "lat": 25.073825,
+    "lng": 121.495762,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛街99號"
+  },
+  "CAT-HC-NTPC-48F8189B058B": {
+    "lat": 25.079835,
+    "lng": 121.376033,
+    "source": "NTPC-11509",
+    "matchedAddress": "吉祥路40號"
+  },
+  "CAT-HC-NTPC-D785D9F17938": {
+    "lat": 25.024147,
+    "lng": 121.460432,
+    "source": "NTPC-11509",
+    "matchedAddress": "新海路330號"
+  },
+  "CAT-HC-NTPC-809CDDFE3C36": {
+    "lat": 25.050428,
+    "lng": 121.442912,
+    "source": "NTPC-11509",
+    "matchedAddress": "立信三街25之9號"
+  },
+  "CAT-HC-NTPC-DE6D54D47628": {
+    "lat": 25.045054,
+    "lng": 121.459654,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路169號"
+  },
+  "CAT-HC-NTPC-C061F878F274": {
+    "lat": 25.094915,
+    "lng": 121.469583,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛街116號"
+  },
+  "CAT-HC-NTPC-11F04F05C845": {
+    "lat": 25.081491,
+    "lng": 121.475479,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山一路161號"
+  },
+  "CAT-HC-NTPC-A0CC53119D79": {
+    "lat": 25.079642,
+    "lng": 121.46572,
+    "source": "NTPC-11509",
+    "matchedAddress": "九芎街111號"
+  },
+  "CAT-HC-NTPC-A12276FB67D2": {
+    "lat": 24.928381,
+    "lng": 121.376646,
+    "source": "NTPC-11509",
+    "matchedAddress": "大同路64號"
+  },
+  "CAT-HC-NTPC-354B1D658D78": {
+    "lat": 24.992541,
+    "lng": 121.422763,
+    "source": "NTPC-11509",
+    "matchedAddress": "日新街30號"
+  },
+  "CAT-HC-NTPC-FB3540B3C56F": {
+    "lat": 24.93456,
+    "lng": 121.707946,
+    "source": "NTPC-11509",
+    "matchedAddress": "北宜路8段186號"
+  },
+  "CAT-HC-NTPC-69FCDE6A6456": {
+    "lat": 24.955178,
+    "lng": 121.353249,
+    "source": "NTPC-11509",
+    "matchedAddress": "信義街54號"
+  },
+  "CAT-HC-NTPC-363183AF5765": {
+    "lat": 24.952845,
+    "lng": 121.351137,
+    "source": "NTPC-11509",
+    "matchedAddress": "國慶街172號"
+  },
+  "CAT-HC-NTPC-6CE47624D04A": {
+    "lat": 25.066127,
+    "lng": 121.496871,
+    "source": "NTPC-11509",
+    "matchedAddress": "正義北路123號"
+  },
+  "CAT-HC-NTPC-701133842E68": {
+    "lat": 25.062071,
+    "lng": 121.502905,
+    "source": "NTPC-11509",
+    "matchedAddress": "福德南路41號"
+  },
+  "CAT-HC-NTPC-D0E00883103A": {
+    "lat": 24.984057,
+    "lng": 121.46777,
+    "source": "NTPC-11509",
+    "matchedAddress": "延吉街253巷20號"
+  },
+  "CAT-HC-NTPC-7B29C57CFCB6": {
+    "lat": 25.008597,
+    "lng": 121.505823,
+    "source": "NTPC-11509",
+    "matchedAddress": "保生路46號"
+  },
+  "CAT-HC-NTPC-E0046B4DD6BF": {
+    "lat": 25.028529,
+    "lng": 121.462361,
+    "source": "NTPC-11509",
+    "matchedAddress": "四維路291巷4弄12號"
+  },
+  "CAT-HC-NTPC-038FE35618C8": {
+    "lat": 25.10751,
+    "lng": 121.800325,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路246巷13號"
+  },
+  "CAT-HC-NTPC-CBE2034B78ED": {
+    "lat": 25.060218,
+    "lng": 121.459571,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路601號"
+  },
+  "CAT-HC-NTPC-955EFB3A502D": {
+    "lat": 24.952113,
+    "lng": 121.350179,
+    "source": "NTPC-11509",
+    "matchedAddress": "重慶街38號"
+  },
+  "CAT-HC-NTPC-64CAEDC23413": {
+    "lat": 25.057457,
+    "lng": 121.49857,
+    "source": "NTPC-11509",
+    "matchedAddress": "同安東街76號"
+  },
+  "CAT-HC-NTPC-59E4DB5D2BBB": {
+    "lat": 25.077096,
+    "lng": 121.489601,
+    "source": "NTPC-11509",
+    "matchedAddress": "福隆路9號"
+  },
+  "CAT-HC-NTPC-A635B91FC95B": {
+    "lat": 25.005503,
+    "lng": 121.50729,
+    "source": "NTPC-11509",
+    "matchedAddress": "保平路292巷13弄2號"
+  },
+  "CAT-HC-NTPC-256F8055510B": {
+    "lat": 24.965395,
+    "lng": 121.540857,
+    "source": "NTPC-11509",
+    "matchedAddress": "北新路1段10號"
+  },
+  "CAT-HC-NTPC-BFFE6DAE7A10": {
+    "lat": 24.960938,
+    "lng": 121.509574,
+    "source": "NTPC-11509",
+    "matchedAddress": "安德街85號"
+  },
+  "CAT-HC-NTPC-7691D96411DE": {
+    "lat": 25.067879,
+    "lng": 121.491582,
+    "source": "NTPC-11509",
+    "matchedAddress": "安慶街234號"
+  },
+  "CAT-HC-NTPC-2F661579DEC1": {
+    "lat": 25.09279,
+    "lng": 121.461676,
+    "source": "NTPC-11509",
+    "matchedAddress": "三民路581之1號"
+  },
+  "CAT-HC-NTPC-D8A7F8570DC7": {
+    "lat": 24.982783,
+    "lng": 121.536692,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路103號"
+  },
+  "CAT-HC-NTPC-203245555C3F": {
+    "lat": 25.061621,
+    "lng": 121.648092,
+    "source": "NTPC-11509",
+    "matchedAddress": "新臺五路1段97號"
+  },
+  "CAT-HC-NTPC-37C5A5D27FFE": {
+    "lat": 25.011919,
+    "lng": 121.476214,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生路1段3號"
+  },
+  "CAT-HC-NTPC-2146E1466BF2": {
+    "lat": 24.989845,
+    "lng": 121.428542,
+    "source": "NTPC-11509",
+    "matchedAddress": "溪崑二街73巷11號"
+  },
+  "CAT-HC-NTPC-790BB33CCD3A": {
+    "lat": 25.016556,
+    "lng": 121.463062,
+    "source": "NTPC-11509",
+    "matchedAddress": "文化路1段189號"
+  },
+  "CAT-HC-NTPC-A79AED6D446B": {
+    "lat": 25.006503,
+    "lng": 121.47018,
+    "source": "NTPC-11509",
+    "matchedAddress": "民族路276巷1弄13號"
+  },
+  "CAT-HC-NTPC-E3197E87C12F": {
+    "lat": 25.068622,
+    "lng": 121.378251,
+    "source": "NTPC-11509",
+    "matchedAddress": "忠孝路605號"
+  },
+  "CAT-HC-NTPC-30B2CC42D85E": {
+    "lat": 25.076465,
+    "lng": 121.375434,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛路2段502號"
+  },
+  "CAT-HC-NTPC-2EFA4D456801": {
+    "lat": 24.963771,
+    "lng": 121.539483,
+    "source": "NTPC-11509",
+    "matchedAddress": "北新路1段157之2號"
+  },
+  "CAT-HC-NTPC-F182444F1961": {
+    "lat": 25.045102,
+    "lng": 121.459649,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路171號"
+  },
+  "CAT-HC-NTPC-7149718549FF": {
+    "lat": 25.021686,
+    "lng": 121.414539,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路新建巷41號"
+  },
+  "CAT-HC-NTPC-6A4F2A20D886": {
+    "lat": 25.110926,
+    "lng": 121.807495,
+    "source": "NTPC-11509",
+    "matchedAddress": "岳王路10之4號"
+  },
+  "CAT-HC-NTPC-CFC1BAEDAC24": {
+    "lat": 25.010988,
+    "lng": 121.432832,
+    "source": "NTPC-11509",
+    "matchedAddress": "新樹路515之36號"
+  },
+  "CAT-HC-NTPC-0AA62598F0B1": {
+    "lat": 24.983474,
+    "lng": 121.41201,
+    "source": "NTPC-11509",
+    "matchedAddress": "大安路577號"
+  },
+  "CAT-HC-NTPC-75336E755D00": {
+    "lat": 25.090942,
+    "lng": 121.46336,
+    "source": "NTPC-11509",
+    "matchedAddress": "光榮路101巷52之1號"
+  },
+  "CAT-HC-NTPC-88FC785FAB23": {
+    "lat": 24.956559,
+    "lng": 121.351731,
+    "source": "NTPC-11509",
+    "matchedAddress": "光復街74巷10號"
+  },
+  "CAT-HC-NTPC-21D2B50C6DE3": {
+    "lat": 24.980998,
+    "lng": 121.455215,
+    "source": "NTPC-11509",
+    "matchedAddress": "清水路47之1號"
+  },
+  "CAT-HC-NTPC-63C0A8AB9CB4": {
+    "lat": 25.066686,
+    "lng": 121.502904,
+    "source": "NTPC-11509",
+    "matchedAddress": "長元街100號"
+  },
+  "CAT-HC-NTPC-A21535621400": {
+    "lat": 25.169478,
+    "lng": 121.441816,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路55號"
+  },
+  "CAT-HC-NTPC-E13617072FD6": {
+    "lat": 25.060968,
+    "lng": 121.483063,
+    "source": "NTPC-11509",
+    "matchedAddress": "中華路22號"
+  },
+  "CAT-HC-NTPC-C13EDE233B7E": {
+    "lat": 25.022576,
+    "lng": 121.909462,
+    "source": "NTPC-11509",
+    "matchedAddress": "朝陽街70巷10號"
+  },
+  "CAT-HC-NTPC-D15C0C2F646D": {
+    "lat": 25.161131,
+    "lng": 121.457888,
+    "source": "NTPC-11509",
+    "matchedAddress": "淡金路38巷104號"
+  },
+  "CAT-HC-NTPC-0995D62453D3": {
+    "lat": 25.161334,
+    "lng": 121.458186,
+    "source": "NTPC-11509",
+    "matchedAddress": "淡金路38巷96號"
+  },
+  "CAT-HC-NTPC-F7B7010365B0": {
+    "lat": 25.196135,
+    "lng": 121.425195,
+    "source": "NTPC-11509",
+    "matchedAddress": "新市二路1段106號"
+  },
+  "CAT-HC-NTPC-52AFA9139213": {
+    "lat": 25.003781,
+    "lng": 121.433963,
+    "source": "NTPC-11509",
+    "matchedAddress": "新樹路613之11號"
+  },
+  "CAT-HC-NTPC-707B0428752D": {
+    "lat": 25.080942,
+    "lng": 121.481778,
+    "source": "NTPC-11509",
+    "matchedAddress": "永安北路2段5巷7號"
+  },
+  "CAT-HC-NTPC-5B8D363624C8": {
+    "lat": 24.993559,
+    "lng": 121.462639,
+    "source": "NTPC-11509",
+    "matchedAddress": "廣和街43號"
+  },
+  "CAT-HC-NTPC-FF87CE0B723F": {
+    "lat": 25.087148,
+    "lng": 121.483445,
+    "source": "NTPC-11509",
+    "matchedAddress": "集賢路209號"
+  },
+  "CAT-HC-NTPC-93D9E0D939C4": {
+    "lat": 25.039644,
+    "lng": 121.425705,
+    "source": "NTPC-11509",
+    "matchedAddress": "明志路3段145巷8弄2號"
+  },
+  "CAT-HC-NTPC-147FD05E37BA": {
+    "lat": 24.980301,
+    "lng": 121.544653,
+    "source": "NTPC-11509",
+    "matchedAddress": "中興路3段138號"
+  },
+  "CAT-HC-NTPC-F96A2A44675F": {
+    "lat": 25.04263,
+    "lng": 121.460227,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路38號"
+  },
+  "CAT-HC-NTPC-C3E07B61EE8C": {
+    "lat": 24.969295,
+    "lng": 121.396536,
+    "source": "NTPC-11509",
+    "matchedAddress": "八德街652號"
+  },
+  "CAT-HC-NTPC-78C530878183": {
+    "lat": 25.054133,
+    "lng": 121.460409,
+    "source": "NTPC-11509",
+    "matchedAddress": "中原東路141號"
+  },
+  "CAT-HC-NTPC-31995DDBC5F5": {
+    "lat": 25.076846,
+    "lng": 121.482755,
+    "source": "NTPC-11509",
+    "matchedAddress": "永福街46巷22弄5號"
+  },
+  "CAT-HC-NTPC-73E3C0B19117": {
+    "lat": 24.99455,
+    "lng": 121.522106,
+    "source": "NTPC-11509",
+    "matchedAddress": "自立路113號"
+  },
+  "CAT-HC-NTPC-0DCBAEF477E6": {
+    "lat": 25.015315,
+    "lng": 121.508638,
+    "source": "NTPC-11509",
+    "matchedAddress": "保福路3段1之3號"
+  },
+  "CAT-HC-NTPC-87BC9716A678": {
+    "lat": 25.093311,
+    "lng": 121.44785,
+    "source": "NTPC-11509",
+    "matchedAddress": "新城六路251號"
+  },
+  "CAT-HC-NTPC-CC23CDF9D30F": {
+    "lat": 25.061727,
+    "lng": 121.645874,
+    "source": "NTPC-11509",
+    "matchedAddress": "新臺五路1段79號"
+  },
+  "CAT-HC-NTPC-D7DAABD74E05": {
+    "lat": 25.013381,
+    "lng": 121.456193,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路41號"
+  },
+  "CAT-HC-NTPC-641D954A993C": {
+    "lat": 25.006247,
+    "lng": 121.456324,
+    "source": "NTPC-11509",
+    "matchedAddress": "南雅南路1段3巷4號"
+  },
+  "CAT-HC-NTPC-1F888EA69BA0": {
+    "lat": 25.001727,
+    "lng": 121.619551,
+    "source": "NTPC-11509",
+    "matchedAddress": "埔新街95巷5號"
+  },
+  "CAT-HC-NTPC-E5A4861CF764": {
+    "lat": 24.971033,
+    "lng": 121.546049,
+    "source": "NTPC-11509",
+    "matchedAddress": "中興路2段67巷11號"
+  },
+  "CAT-HC-NTPC-8BD02AB3CD70": {
+    "lat": 24.987101,
+    "lng": 121.420939,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路1段217號"
+  },
+  "CAT-HC-NTPC-168D224C4D58": {
+    "lat": 25.091445,
+    "lng": 121.472371,
+    "source": "NTPC-11509",
+    "matchedAddress": "民族路345巷15號"
+  },
+  "CAT-HC-NTPC-BBE91A3B7ADE": {
+    "lat": 25.081936,
+    "lng": 121.475345,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山二路12號"
+  },
+  "CAT-HC-NTPC-C20FD0B9D1B4": {
+    "lat": 24.940009,
+    "lng": 121.338623,
+    "source": "NTPC-11509",
+    "matchedAddress": "二甲路30號"
+  },
+  "CAT-HC-NTPC-55F06C36FD36": {
+    "lat": 25.073227,
+    "lng": 121.487013,
+    "source": "NTPC-11509",
+    "matchedAddress": "自強路3段61號"
+  },
+  "CAT-HC-NTPC-0D8AB2603BCF": {
+    "lat": 24.995268,
+    "lng": 121.510107,
+    "source": "NTPC-11509",
+    "matchedAddress": "安平路40號"
+  },
+  "CAT-HC-NTPC-51C4F7180A5E": {
+    "lat": 25.091824,
+    "lng": 121.446232,
+    "source": "NTPC-11509",
+    "matchedAddress": "新城八路336號"
+  },
+  "CAT-HC-NTPC-763FF0FCCFDB": {
+    "lat": 25.014407,
+    "lng": 121.470641,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路1段293之1號"
+  },
+  "CAT-HC-NTPC-DC20EA78F2E5": {
+    "lat": 25.02423,
+    "lng": 121.455806,
+    "source": "NTPC-11509",
+    "matchedAddress": "龍泉街108巷48號"
+  },
+  "CAT-HC-NTPC-68176EBC12CB": {
+    "lat": 25.011015,
+    "lng": 121.460176,
+    "source": "NTPC-11509",
+    "matchedAddress": "文化路1段32巷25號"
+  },
+  "CAT-HC-NTPC-24D8D58D7C6A": {
+    "lat": 25.045317,
+    "lng": 121.453528,
+    "source": "NTPC-11509",
+    "matchedAddress": "中華路2段7號"
+  },
+  "CAT-HC-NTPC-0C0083D5F96B": {
+    "lat": 25.081491,
+    "lng": 121.475479,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山一路161號"
+  },
+  "CAT-HC-NTPC-6DF3F4044008": {
+    "lat": 24.990981,
+    "lng": 121.512059,
+    "source": "NTPC-11509",
+    "matchedAddress": "景新街347號"
+  },
+  "CAT-HC-NTPC-C0DCAC76BBD1": {
+    "lat": 24.976836,
+    "lng": 121.537019,
+    "source": "NTPC-11509",
+    "matchedAddress": "民族路160巷4號"
+  },
+  "CAT-HC-NTPC-828C8C7C5357": {
+    "lat": 25.000715,
+    "lng": 121.517771,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路354號"
+  },
+  "CAT-HC-NTPC-C1B78F57A180": {
+    "lat": 24.945936,
+    "lng": 121.378263,
+    "source": "NTPC-11509",
+    "matchedAddress": "大義路238號"
+  },
+  "CAT-HC-NTPC-4422C27D805F": {
+    "lat": 25.039515,
+    "lng": 121.450719,
+    "source": "NTPC-11509",
+    "matchedAddress": "中華路1段63巷26號"
+  },
+  "CAT-HC-NTPC-224C23BB56C0": {
+    "lat": 25.016419,
+    "lng": 121.410321,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路632巷1號"
+  },
+  "CAT-HC-NTPC-8584E96DD083": {
+    "lat": 24.935506,
+    "lng": 121.373687,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生街106之2號"
+  },
+  "CAT-HC-NTPC-0D8F5FAA8BB6": {
+    "lat": 24.990981,
+    "lng": 121.512059,
+    "source": "NTPC-11509",
+    "matchedAddress": "景新街347號"
+  },
+  "CAT-HC-NTPC-BB68E63C2C63": {
+    "lat": 24.997478,
+    "lng": 121.503168,
+    "source": "NTPC-11509",
+    "matchedAddress": "南山路127巷21號"
+  },
+  "CAT-HC-NTPC-63D131A7FD1D": {
+    "lat": 25.077913,
+    "lng": 121.486149,
+    "source": "NTPC-11509",
+    "matchedAddress": "三和路4段117巷18號"
+  },
+  "CAT-HC-NTPC-A8B2EF82AAE6": {
+    "lat": 25.220379,
+    "lng": 121.634582,
+    "source": "NTPC-11509",
+    "matchedAddress": "中華路96號"
+  },
+  "CAT-HC-NTPC-E908B1DCD7C7": {
+    "lat": 25.055057,
+    "lng": 121.460526,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路502號"
+  },
+  "CAT-HC-NTPC-1999F1EAB7C7": {
+    "lat": 25.027035,
+    "lng": 121.458622,
+    "source": "NTPC-11509",
+    "matchedAddress": "裕民街151號"
+  },
+  "CAT-HC-NTPC-2596B61DBBCB": {
+    "lat": 25.046366,
+    "lng": 121.471147,
+    "source": "NTPC-11509",
+    "matchedAddress": "重新路5段525號"
+  },
+  "CAT-HC-NTPC-191FB0FEA582": {
+    "lat": 25.063326,
+    "lng": 121.490817,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正北路71巷5號"
+  },
+  "CAT-HC-NTPC-DF0D73D55938": {
+    "lat": 25.00286,
+    "lng": 121.505343,
+    "source": "NTPC-11509",
+    "matchedAddress": "廣福路12之3號"
+  },
+  "CAT-HC-NTPC-412762ED6292": {
+    "lat": 24.985781,
+    "lng": 121.535808,
+    "source": "NTPC-11509",
+    "matchedAddress": "建國路289號"
+  },
+  "CAT-HC-NTPC-C5D0E65DD72E": {
+    "lat": 25.08774,
+    "lng": 121.461894,
+    "source": "NTPC-11509",
+    "matchedAddress": "長樂路125號"
+  },
+  "CAT-HC-NTPC-40196EF2487B": {
+    "lat": 25.035377,
+    "lng": 121.448417,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路234號"
+  },
+  "CAT-HC-NTPC-7FBE1D6A7F8D": {
+    "lat": 24.999676,
+    "lng": 121.416002,
+    "source": "NTPC-11509",
+    "matchedAddress": "保安街2段31巷3號"
+  },
+  "CAT-HC-NTPC-10EA15D9DB1E": {
+    "lat": 24.986554,
+    "lng": 121.419821,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路1段306巷1號"
+  },
+  "CAT-HC-NTPC-DFA4960BD4C2": {
+    "lat": 25.081491,
+    "lng": 121.475479,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山一路161號"
+  },
+  "CAT-HC-NTPC-3963E191B523": {
+    "lat": 24.999571,
+    "lng": 121.498835,
+    "source": "NTPC-11509",
+    "matchedAddress": "景平路634之9號"
+  },
+  "CAT-HC-NTPC-0925B1A80660": {
+    "lat": 24.994141,
+    "lng": 121.460921,
+    "source": "NTPC-11509",
+    "matchedAddress": "和平路安樂巷6弄6號"
+  },
+  "CAT-HC-NTPC-2E1135C004B0": {
+    "lat": 24.960374,
+    "lng": 121.539114,
+    "source": "NTPC-11509",
+    "matchedAddress": "光明街98之1號"
+  },
+  "CAT-HC-NTPC-7B5F0C0C1D46": {
+    "lat": 25.058679,
+    "lng": 121.452474,
+    "source": "NTPC-11509",
+    "matchedAddress": "中央路287號"
+  },
+  "CAT-HC-NTPC-C78B27D03A1F": {
+    "lat": 25.09049,
+    "lng": 121.472469,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路174巷14號"
+  },
+  "CAT-HC-NTPC-B378A180D208": {
+    "lat": 25.059931,
+    "lng": 121.491302,
+    "source": "NTPC-11509",
+    "matchedAddress": "重新路3段105號"
+  },
+  "CAT-HC-NTPC-A7087F291F1E": {
+    "lat": 24.987323,
+    "lng": 121.428717,
+    "source": "NTPC-11509",
+    "matchedAddress": "篤行路3段18號"
+  },
+  "CAT-HC-NTPC-AAB6FF9A0BB2": {
+    "lat": 25.067688,
+    "lng": 121.500166,
+    "source": "NTPC-11509",
+    "matchedAddress": "三和路2段30號"
+  },
+  "CAT-HC-NTPC-778A4712049F": {
+    "lat": 24.983476,
+    "lng": 121.459208,
+    "source": "NTPC-11509",
+    "matchedAddress": "青雲路163號"
+  },
+  "CAT-HC-NTPC-F3A5EDA31ED7": {
+    "lat": 25.061679,
+    "lng": 121.492635,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正北路15號"
+  },
+  "CAT-HC-NTPC-6FB8C9904211": {
+    "lat": 25.061621,
+    "lng": 121.647966,
+    "source": "NTPC-11509",
+    "matchedAddress": "新臺五路1段95號"
+  },
+  "CAT-HC-NTPC-A98116A2E1BD": {
+    "lat": 24.984152,
+    "lng": 121.42656,
+    "source": "NTPC-11509",
+    "matchedAddress": "溪城路71號"
+  },
+  "CAT-HC-NTPC-0423794F442D": {
+    "lat": 24.984533,
+    "lng": 121.426672,
+    "source": "NTPC-11509",
+    "matchedAddress": "金門街372巷13號"
+  },
+  "CAT-HC-NTPC-EAF796263A7B": {
+    "lat": 24.978334,
+    "lng": 121.542907,
+    "source": "NTPC-11509",
+    "matchedAddress": "北新路2段262號"
+  },
+  "CAT-HC-NTPC-D5FB05CBFC34": {
+    "lat": 25.089905,
+    "lng": 121.456458,
+    "source": "NTPC-11509",
+    "matchedAddress": "環堤大道174號"
+  },
+  "CAT-HC-NTPC-F42C32B003F6": {
+    "lat": 25.050775,
+    "lng": 121.475172,
+    "source": "NTPC-11509",
+    "matchedAddress": "五谷王北街48巷18號"
+  },
+  "CAT-HC-NTPC-69E1684E27E6": {
+    "lat": 25.256409,
+    "lng": 121.503576,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生街31號"
+  },
+  "CAT-HC-NTPC-371BA69359D0": {
+    "lat": 24.994795,
+    "lng": 121.479341,
+    "source": "NTPC-11509",
+    "matchedAddress": "連城路446之2號"
+  },
+  "CAT-HC-NTPC-E70097A8EE9F": {
+    "lat": 25.064991,
+    "lng": 121.66363,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛路153號"
+  },
+  "CAT-HC-NTPC-9456104BFE7F": {
+    "lat": 25.068936,
+    "lng": 121.495077,
+    "source": "NTPC-11509",
+    "matchedAddress": "安慶街120號"
+  },
+  "CAT-HC-NTPC-B77D7FCD0103": {
+    "lat": 25.005528,
+    "lng": 121.52473,
+    "source": "NTPC-11509",
+    "matchedAddress": "國中路30號"
+  },
+  "CAT-HC-NTPC-AF503DEAFB1E": {
+    "lat": 25.062486,
+    "lng": 121.653788,
+    "source": "NTPC-11509",
+    "matchedAddress": "新臺五路1段159號"
+  },
+  "CAT-HC-NTPC-7B7DB5FC4FB5": {
+    "lat": 25.029699,
+    "lng": 121.472872,
+    "source": "NTPC-11509",
+    "matchedAddress": "雙十路2段176號"
+  },
+  "CAT-HC-NTPC-B5053FB8E73D": {
+    "lat": 25.172794,
+    "lng": 121.438215,
+    "source": "NTPC-11509",
+    "matchedAddress": "文化路63號"
+  },
+  "CAT-HC-NTPC-7331F4E18BAF": {
+    "lat": 25.001777,
+    "lng": 121.415561,
+    "source": "NTPC-11509",
+    "matchedAddress": "保安街2段24號"
+  },
+  "CAT-HC-NTPC-BB96DCD4ECF2": {
+    "lat": 24.991606,
+    "lng": 121.43058,
+    "source": "NTPC-11509",
+    "matchedAddress": "存德街29號"
+  },
+  "CAT-HC-NTPC-27E12D98485A": {
+    "lat": 24.935158,
+    "lng": 121.372049,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生街152之2號"
+  },
+  "CAT-HC-NTPC-A50049DD9058": {
+    "lat": 24.985812,
+    "lng": 121.468782,
+    "source": "NTPC-11509",
+    "matchedAddress": "延峯街24巷5號"
+  },
+  "CAT-HC-NTPC-E3D3ED041EED": {
+    "lat": 25.02148,
+    "lng": 121.461884,
+    "source": "NTPC-11509",
+    "matchedAddress": "新海路63號"
+  },
+  "CAT-HC-NTPC-CE6913BA6198": {
+    "lat": 24.93448,
+    "lng": 121.707691,
+    "source": "NTPC-11509",
+    "matchedAddress": "北宜路8段176號"
+  },
+  "CAT-HC-NTPC-979F71F0E4CF": {
+    "lat": 25.000782,
+    "lng": 121.497453,
+    "source": "NTPC-11509",
+    "matchedAddress": "景平路666號"
+  },
+  "CAT-HC-NTPC-A9451107DD1D": {
+    "lat": 24.982658,
+    "lng": 121.534362,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路153號"
+  },
+  "CAT-HC-NTPC-57F4D526198A": {
+    "lat": 25.007159,
+    "lng": 121.516286,
+    "source": "NTPC-11509",
+    "matchedAddress": "福和路309巷1號"
+  },
+  "CAT-HC-NTPC-92D77004E210": {
+    "lat": 25.063215,
+    "lng": 121.485262,
+    "source": "NTPC-11509",
+    "matchedAddress": "三民街102號"
+  },
+  "CAT-HC-NTPC-F1959FEE81C6": {
+    "lat": 25.02871,
+    "lng": 121.44475,
+    "source": "NTPC-11509",
+    "matchedAddress": "瓊泰路12號"
+  },
+  "CAT-HC-NTPC-ACF47F2A0F38": {
+    "lat": 24.977079,
+    "lng": 121.526834,
+    "source": "NTPC-11509",
+    "matchedAddress": "中央七街85號"
+  },
+  "CAT-HC-NTPC-C08E28EBB100": {
+    "lat": 25.061679,
+    "lng": 121.492635,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正北路15號"
+  },
+  "CAT-HC-NTPC-E385665463E6": {
+    "lat": 25.020165,
+    "lng": 121.454205,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路341巷24號"
+  },
+  "CAT-HC-NTPC-F61C822B031A": {
+    "lat": 24.992653,
+    "lng": 121.433679,
+    "source": "NTPC-11509",
+    "matchedAddress": "金門街67巷11號"
+  },
+  "CAT-HC-NTPC-11BF6314ABB7": {
+    "lat": 25.000782,
+    "lng": 121.497453,
+    "source": "NTPC-11509",
+    "matchedAddress": "景平路666號"
+  },
+  "CAT-HC-NTPC-7963D8CA9A7A": {
+    "lat": 25.020165,
+    "lng": 121.454205,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路341巷24號"
+  },
+  "CAT-HC-NTPC-B51CFEABC581": {
+    "lat": 24.990736,
+    "lng": 121.511924,
+    "source": "NTPC-11509",
+    "matchedAddress": "景新街338號"
+  },
+  "CAT-HC-NTPC-EC85B9C5EC51": {
+    "lat": 25.014834,
+    "lng": 121.467719,
+    "source": "NTPC-11509",
+    "matchedAddress": "漢生東路117巷2號"
+  },
+  "CAT-HC-NTPC-CE6F6D322C04": {
+    "lat": 24.999922,
+    "lng": 121.503216,
+    "source": "NTPC-11509",
+    "matchedAddress": "中和路179號"
+  },
+  "CAT-HC-NTPC-CD87E50A960A": {
+    "lat": 24.990736,
+    "lng": 121.511924,
+    "source": "NTPC-11509",
+    "matchedAddress": "景新街338號"
+  },
+  "CAT-HC-NTPC-3BC35298A6DA": {
+    "lat": 24.975519,
+    "lng": 121.442127,
+    "source": "NTPC-11509",
+    "matchedAddress": "中央路2段191號"
+  },
+  "CAT-HC-NTPC-17746B996C1E": {
+    "lat": 25.201552,
+    "lng": 121.433419,
+    "source": "NTPC-11509",
+    "matchedAddress": "沙崙路2段813號"
+  },
+  "CAT-HC-NTPC-E9BE3A080D11": {
+    "lat": 25.017662,
+    "lng": 121.479417,
+    "source": "NTPC-11509",
+    "matchedAddress": "三民路2段33號"
+  },
+  "CAT-HC-NTPC-041E328A4ABF": {
+    "lat": 25.064455,
+    "lng": 121.502269,
+    "source": "NTPC-11509",
+    "matchedAddress": "福德北路12號"
+  },
+  "CAT-HC-NTPC-4FABC3692071": {
+    "lat": 25.006874,
+    "lng": 121.459534,
+    "source": "NTPC-11509",
+    "matchedAddress": "四川路1段23號"
+  },
+  "CAT-HC-NTPC-A00DB0B958E7": {
+    "lat": 25.000782,
+    "lng": 121.497453,
+    "source": "NTPC-11509",
+    "matchedAddress": "景平路666號"
+  },
+  "CAT-HC-NTPC-DEE1D616CFFF": {
+    "lat": 24.980372,
+    "lng": 121.45173,
+    "source": "NTPC-11509",
+    "matchedAddress": "明德路2段41號"
+  },
+  "CAT-HC-NTPC-69591AA803E5": {
+    "lat": 25.04939,
+    "lng": 121.427848,
+    "source": "NTPC-11509",
+    "matchedAddress": "文程路4號"
+  },
+  "CAT-HC-NTPC-673A821848F4": {
+    "lat": 25.04519,
+    "lng": 121.459657,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路173號"
+  },
+  "CAT-HC-NTPC-3C9CC1549658": {
+    "lat": 25.066618,
+    "lng": 121.493648,
+    "source": "NTPC-11509",
+    "matchedAddress": "長壽西街123號"
+  },
+  "CAT-HC-NTPC-F770D48FEABE": {
+    "lat": 25.058136,
+    "lng": 121.486248,
+    "source": "NTPC-11509",
+    "matchedAddress": "重陽路1段60巷4號"
+  },
+  "CAT-HC-NTPC-4DF4F165B2D4": {
+    "lat": 25.171512,
+    "lng": 121.445074,
+    "source": "NTPC-11509",
+    "matchedAddress": "英專路79巷13號"
+  },
+  "CAT-HC-NTPC-0C5F997CBA1D": {
+    "lat": 25.011919,
+    "lng": 121.476214,
+    "source": "NTPC-11509",
+    "matchedAddress": "民生路1段3號"
+  },
+  "CAT-HC-NTPC-5303BA43AAC1": {
+    "lat": 25.024439,
+    "lng": 121.460787,
+    "source": "NTPC-11509",
+    "matchedAddress": "英士路53號"
+  },
+  "CAT-HC-NTPC-5617E8AC41EF": {
+    "lat": 24.958346,
+    "lng": 121.416069,
+    "source": "NTPC-11509",
+    "matchedAddress": "頂埔街19巷1弄14號"
+  },
+  "CAT-HC-NTPC-F7202FAF5216": {
+    "lat": 25.007416,
+    "lng": 121.459371,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路1段1號"
+  },
+  "CAT-HC-NTPC-5D5340526426": {
+    "lat": 25.023741,
+    "lng": 121.472955,
+    "source": "NTPC-11509",
+    "matchedAddress": "萬板路107號"
+  },
+  "CAT-HC-NTPC-DCB6C0F5C8D0": {
+    "lat": 25.010921,
+    "lng": 121.4796,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路1224號"
+  },
+  "CAT-HC-NTPC-E3DAA74FB87E": {
+    "lat": 25.076465,
+    "lng": 121.375434,
+    "source": "NTPC-11509",
+    "matchedAddress": "仁愛路2段502號"
+  },
+  "CAT-HC-NTPC-C82C00E2EA42": {
+    "lat": 24.994037,
+    "lng": 121.48825,
+    "source": "NTPC-11509",
+    "matchedAddress": "中正路515號"
+  },
+  "CAT-HC-NTPC-6831E2B48D7B": {
+    "lat": 24.988051,
+    "lng": 121.464522,
+    "source": "NTPC-11509",
+    "matchedAddress": "延和路18巷6號"
+  },
+  "CAT-HC-NTPC-4BB0F9C1643F": {
+    "lat": 24.993055,
+    "lng": 121.503706,
+    "source": "NTPC-11509",
+    "matchedAddress": "南山路237號"
+  },
+  "CAT-HC-NTPC-C0510AB53D53": {
+    "lat": 25.003142,
+    "lng": 121.453959,
+    "source": "NTPC-11509",
+    "matchedAddress": "南雅南路2段34巷6號"
+  },
+  "CAT-HC-NTPC-2316F0CAE821": {
+    "lat": 24.956914,
+    "lng": 121.349105,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路143號"
+  },
+  "CAT-HC-NTPC-8955700DED79": {
+    "lat": 24.938421,
+    "lng": 121.370131,
+    "source": "NTPC-11509",
+    "matchedAddress": "復興路167號"
+  },
+  "CAT-HC-NTPC-626901FCB29E": {
+    "lat": 25.161124,
+    "lng": 121.41883,
+    "source": "NTPC-11509",
+    "matchedAddress": "忠孝路303號"
+  },
+  "CAT-HC-NTPC-F0833B75D739": {
+    "lat": 25.062486,
+    "lng": 121.653788,
+    "source": "NTPC-11509",
+    "matchedAddress": "新臺五路1段159號"
+  },
+  "CAT-HC-NTPC-1B3A611D4CAB": {
+    "lat": 25.172611,
+    "lng": 121.450522,
+    "source": "NTPC-11509",
+    "matchedAddress": "學府路130號"
+  },
+  "CAT-HC-NTPC-15AFA403D21E": {
+    "lat": 25.137463,
+    "lng": 121.460265,
+    "source": "NTPC-11509",
+    "matchedAddress": "民權路111號"
+  },
+  "CAT-HC-NTPC-F35DED545B0B": {
+    "lat": 24.956811,
+    "lng": 121.340433,
+    "source": "NTPC-11509",
+    "matchedAddress": "陽明街16號"
+  },
+  "CAT-HC-NTPC-6805BF3F1FEE": {
+    "lat": 25.039371,
+    "lng": 121.424401,
+    "source": "NTPC-11509",
+    "matchedAddress": "明志路3段168號"
+  },
+  "CAT-HC-NTPC-B92125810E6A": {
+    "lat": 25.00278,
+    "lng": 121.498939,
+    "source": "NTPC-11509",
+    "matchedAddress": "中山路2段228號"
+  },
+  "CAT-HC-NTPC-508F77E5E4D5": {
+    "lat": 25.045317,
+    "lng": 121.453528,
+    "source": "NTPC-11509",
+    "matchedAddress": "中華路2段7號"
+  },
+  "CAT-HC-NTPC-76BBE1DEA636": {
+    "lat": 25.045102,
+    "lng": 121.459649,
+    "source": "NTPC-11509",
+    "matchedAddress": "思源路171號"
+  }
+}

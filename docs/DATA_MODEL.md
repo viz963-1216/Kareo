@@ -4,6 +4,8 @@ Version: v0.2.6（J-002-r13，2026-10-03；D-05a 保存期限與案件關聯、D
 Status: LOCKED FOR MVP  
 Owner: Jerry
 
+2026-10-11 Demo 居住地補充：`AssessmentForm.residenceAddress` 僅為目前分頁的 UI 記憶體欄位，不是資料庫／AssessmentRequest 欄位。公開索引精確比對後以既有 `EXACT` location 結構供本機分析；完整地址與座標不送至 real API、Lead、需求摘要或 Supabase。`data/residence/provider-coordinates.json` 是以官方公開門牌逐筆精確對應的 Demo 衍生座標，保留來源與 matchedAddress，不覆蓋 A 的正式資料或已核准原座標。
+
 ---
 
 # 1. 目的

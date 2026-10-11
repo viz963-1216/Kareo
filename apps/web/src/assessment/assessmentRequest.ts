@@ -7,6 +7,7 @@ export const defaultAssessmentForm: AssessmentForm = {
   city: "",
   district: "",
   coords: null,
+  residenceAddress: "",
   livingSituation: "WITH_FAMILY",
   caregiverSituation: "FAMILY_LIMITED",
   mobilityLevel: "NEEDS_ASSISTANCE",
