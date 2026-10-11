@@ -1,8 +1,8 @@
 # TASK-A-008 — Real Provider Data and Traceable Service Coverage
 
 Owner: Engineer A；本輪由 Jerry 授權 Codex 中心整合執行。
-Submission Version: A-008-r5
-Status: r1～r5 MERGED (#104/#107/#108/#109/#115)；r4 新北官方居服全名冊已差額匯入 Supabase；r5 完成19筆電話修正、逐筆線上API讀回與Pages快照同步。尚有居護全名冊／輔具未知範圍待補，不宣稱全類別全量完成。
+Submission Version: A-008-r6
+Status: r1～r5 MERGED (#104/#107/#108/#109/#115)；r4 新北官方居服全名冊已差額匯入 Supabase；r5 完成19筆電話修正、逐筆線上API讀回與Pages快照同步。r6 已補雙北147家居家護理名冊，雲端匯入與發布驗證見本輪報告；輔具未知範圍待補，不宣稱全類別全量完成。
 
 ## Goal
 
@@ -61,3 +61,11 @@ PR → staging；Title `[A-008] Import official New Taipei home-care catalogue`�
 ## 2026-10-11 店面與到府範圍澄清
 
 Jerry 核准 J-004-r21 Demo輔具按同區店面提供資訊，未知到府範圍仍保持UNCONFIRMED；此為Demo店面資訊用途例外，不是修改正式後端推薦資格或把服務區域推定成已確認。居護全名冊為下一筆資料優先項，尤其松山、大安現有收錄為0。需保存官方完整名冊並逐筆對照，先補查詢資料；到府推薦另需直接區域證據。
+
+## 2026-10-11 A-008-r6 — 完整雙北居家護理名冊
+
+Jerry 授權「全部收錄」；本輪由Codex中心完成。資料Allowed Paths沿用 `/data/providers/**`；J-004-r22另處理 `/apps/web/**` 公開快照對 nullable 電話相容、核對日期、`/scripts/geo/**` 衍生機構座標、`/.github/workflows/ci.yml` 資料驗證、`/docs/acceptance/**`及任務紀錄。Forbidden：雲端schema／RLS／其他專案、D-05、健康資料與推薦資格規則。
+
+輸入：臺北1150901的51筆與新北1151006的96筆官方居家護理所。輸出：144新增、原3保留、147筆完整對照、來源SHA與四筆異常電話、原1118資源baseline。服務範圍不由所在地推定；所有新增機構可查詢、範圍待確認，不進到府推薦。四筆電話缺漏／異常暫為null，公開註記待核對。母醫院與居家醫療診所不是本輪名冊。
+
+資料驗收：來源逐筆可再抽取、原1118列及所有原子表指紋不變；護理臺北51／新北96，松山4／大安4；既有匯入dry-run零拒收，DB差額匯入與逐欄讀回、網頁快照發布由J-004採計。報告 `docs/acceptance/J004-2026-10-11-home-nursing-catalog.md`。

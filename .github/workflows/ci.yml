@@ -92,6 +92,7 @@ jobs:
           node data/providers/qa/verify-coordinates.mjs
           node data/providers/qa/resource-center-report.mjs
           node data/providers/qa/verify-official-catalog.mjs
+          node data/providers/qa/verify-home-nursing.mjs
           node --test data/providers/qa/tests/*.test.mjs
 
   script-tests:

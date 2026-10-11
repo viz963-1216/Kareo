@@ -6,7 +6,7 @@ import { demoMode } from "../demo";
 export function PrivacyPage() {
   const [parameters] = useSearchParams();
   if (demoMode) return <main id="main-content" className="content"><p className="eyebrow">公開資料</p><h1>公開資料版的資料使用說明</h1>
-    <section className="panel"><h2>真實資源與本機需求分析</h2><p>服務單位、商家與輔具中心來自已核對的雙北機構名單（2026/09/29–10/08），知識使用已發布版本 KB-2026-09-24-001 的公開快照（2026/10/08）。這是建置時的資料快照，不是即時查詢資料庫；資料異動會在重新核對並發布後更新。</p>
+    <section className="panel"><h2>真實資源與本機需求分析</h2><p>服務單位、商家與輔具中心來自已核對的雙北機構名單（2026/09/29–10/11），知識使用已發布版本 KB-2026-09-24-001 的公開快照（2026/10/08）。這是建置時的資料快照，不是即時查詢資料庫；資料異動會在重新核對並發布後更新。</p>
     <p>門牌定位資料：<a href="https://data.taipei/dataset/detail?id=b7c8e724-1e98-45ee-a0bd-f3840623ed97" target="_blank" rel="noopener noreferrer">臺北市政府民政局 2026 臺北市門牌位置數值資料（2026-10-02）</a>、<a href="https://data.ntpc.gov.tw/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101" target="_blank" rel="noopener noreferrer">新北市政府民政局 2026 新北市門牌位置數值資料（11509）</a>。此開放資料依<a href="https://data.gov.tw/license" target="_blank" rel="noopener noreferrer">政府資料開放授權條款</a>進行公眾釋出，於遵守條款的前提下利用。</p>
     <p>選填的居住地址、評估回答與結果只保留在本分頁記憶體，依既有固定規則計算，不送至 Kareo API、Supabase、AI 服務或機構。住址透過臺北市政府民政局（2026-10-02）與新北市政府民政局（11509）公開門牌座標，在瀏覽器本地比對；網路僅載入所選行政區的公開資料檔，不包含輸入住址。公開門牌資料依政府資料開放授權條款利用，可能有誤差或缺漏。重新開始或重新整理即可清除。本版本停用自由文字、GPS、聯絡表單與管理登入，不建立媒合案件。</p>
     <p>只有具備已確認服務範圍的單位才列入地區推薦。所在地與特約縣市不等於到府服務範圍。補助資訊不是個人資格核定，實際資格與服務請洽 1966 或照管中心。</p>

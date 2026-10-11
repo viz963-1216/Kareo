@@ -154,7 +154,7 @@ export interface RecommendationProvider {
   type: RecommendationServiceType;
   address: string;
   district: string;
-  phone: string;
+  phone: string | null;
   website: string | null;
   googleMapsUrl: string;
   verified: boolean;
@@ -194,7 +194,7 @@ export interface ProviderDetail {
   address: string;
   city: string;
   district: string;
-  phone: string;
+  phone: string | null;
   website: string | null;
   googleMapsUrl: string;
   verified: boolean;
@@ -229,7 +229,7 @@ export interface ResourceLookupItem {
   address: string;
   city: string;
   district: string;
-  phone: string;
+  phone: string | null;
   website: string | null;
   googleMapsUrl: string;
   verified: boolean;

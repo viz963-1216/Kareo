@@ -1526,3 +1526,7 @@ Success：
 §10 詳情及 §10a items 可追加選填 `publicInfo`，結構依 DATA_MODEL §19c；沒有資料則省略（不回 undefined／null）。原始鍵仍必須存在，不接受其他未知欄位。
 
 GET /api/v1/providers 可用 `assistiveProgram=PURCHASE|SMART_TECH` 篩選官方輔具制度分類；搭配服務類別時僅允許 ASSISTIVE_DEVICE，不允許中心。未給服務類別時篩選仍只取具有該分類的輔具商家。appliedFilters 只在 request 使用此參數時追加 `assistiveProgram`，既有無參數回應維持原 10 鍵，fixtures 無須虛造分類。未知值回 VALIDATION_ERROR。分類不影響 Top 3、Lead 與服務範圍。
+
+### 2026-10-11 公開機構電話空值澄清（A-008-r6）
+
+Provider 資料模型及後端回應既有 `phone: string | null`：§9 推薦、§10 詳情、§10a 公開查詢皆保留此規則。官方名冊缺電話或電話位數無法核對時回傳明確 `null`，前端顯示「電話待確認」，不建立撥號連結；不得把 `undefined`、數字或其他格式當成有效回應。未提供電話不影響公開查詢資格，也不代表服務範圍已確認。
