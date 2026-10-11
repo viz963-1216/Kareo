@@ -1,5 +1,9 @@
 # Kareo / 長照一點通 — API Contract
 
+## 2026-10-11 r21：同區輔具店面（Jerry 核准）
+
+Demo ASSISTIVE_DEVICE 改以 ACTIVE、有效服務類別及店面所在地篩選，不要求到府服務範圍；行政區必須與居住地相同，不跨區補足，完整住址按同區已定位店面直線距離排序，行政區隨機並保留首次名單。明示「到府服務、品項、租賃及補助資格需另洽商家」。不把未知到府範圍標為已確認，不將輔具資源中心混入店面名單。居家照顧／護理、正式後端及 D-05 不變。沿用 r20 Allowed Paths，Submission Version J-004-r21。
+
 Version: v0.7.1（J-002-r13，2026-10-03；§6–7 刪除完成期限及終態案件行為澄清，回應格式不變）
 Status: v0.6 §10／§10a 追加欄位與 §13a 依 D-19 **SPEC-APPROVED 2026-10-01**（[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）；v0.5 §10a／§10 新增欄位 **SPEC-APPROVED 2026-10-01**（D-18a–e，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）；§26.8 內容包規則依 D-16b **SPEC-APPROVED 2026-10-01**；v0.1 內容 LOCKED FOR MVP；v0.2 session／安全段落（D-04）**SPEC-APPROVED 2026-09-24**；v0.2.2 位置與補助整併（D-13a–g、D-14a–b）**SPEC-APPROVED 2026-09-24**；Lead 接件（D-06）與同意版本（D-05）仍為 PROPOSED；§26 v0.4（D-16a）**SPEC-APPROVED 2026-09-29**  
 Owner: Jerry

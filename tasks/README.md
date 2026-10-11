@@ -331,3 +331,5 @@ Engineer C：Frontend / UX
 2026-10-08 r15 收尾：#109 已合併，驗收 Supabase 差額匯入完成且逐欄讀回一致；原800及子表保留，總1118／ACTIVE1117，新北官方居服可用365。公開 Pages 真實資料快照已發布，實際操作新北365／板橋159與DB一致；非瀏覽器即時DB查詢。八項CI、50項LOCAL HTTP及71項資料QA通過，完整正式發布仍待驗。詳見 [實際執行證據](../docs/acceptance/J004-2026-10-08-ntpc-home-care.md#executed-closeout--2026-10-08)。
 
 2026-10-11 J-004-r20：依 Jerry 實測調整 Demo 推薦，所在地同縣市／行政區再比對服務範圍，不足三家不跨區；正式後端與完整驗收條件不變。證據見 `docs/acceptance/J004-2026-10-11-same-district.md`。
+
+2026-10-11 J-004-r21：Jerry 核准同區輔具店面名單；保留到府範圍未知，不再因該欄排除到店商家。松山32／大安42家；居家護理目前全庫3家、兩區未收錄，A-008全名冊仍待補，不視為當地沒有資源。證據見 `docs/acceptance/J004-2026-10-11-provider-address-audit.md`。

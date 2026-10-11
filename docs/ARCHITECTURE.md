@@ -1,5 +1,9 @@
 # Kareo / 長照一點通 — System Architecture
 
+## 2026-10-11 r21：同區輔具店面（Jerry 核准）
+
+Demo ASSISTIVE_DEVICE 改以 ACTIVE、有效服務類別及店面所在地篩選，不要求到府服務範圍；行政區必須與居住地相同，不跨區補足，完整住址按同區已定位店面直線距離排序，行政區隨機並保留首次名單。明示「到府服務、品項、租賃及補助資格需另洽商家」。不把未知到府範圍標為已確認，不將輔具資源中心混入店面名單。居家照顧／護理、正式後端及 D-05 不變。沿用 r20 Allowed Paths，Submission Version J-004-r21。
+
 Version: v0.5.5（J-002-r13，2026-10-03；§20.7 保存期限分離、§21 內容包操作者與不可變規則）
 Status: LOCKED FOR MVP  
 Owner: Jerry

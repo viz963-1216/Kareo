@@ -45,7 +45,9 @@ function detail(id: string): ProviderDetail | null {
 function eligible(query: RecommendationCandidateQuery): PublicProvider[] {
   return publicCandidates.filter(c => c.provider.resourceCategory === 'SERVICE_PROVIDER' && c.services.includes(query.serviceType)
     && (!query.district || (c.provider.city === query.city && c.provider.district === query.district))
-    && c.serviceAreas.some(a => a.city === query.city && (!query.district || a.district === query.district))).map(c => c.provider);
+    && (query.serviceType === 'ASSISTIVE_DEVICE'
+      ? c.provider.city === query.city
+      : c.serviceAreas.some(a => a.city === query.city && (!query.district || a.district === query.district)))).map(c => c.provider);
 }
 const repo: ProviderRepository = {
   async findDetailById(id) { return detail(id); },
@@ -105,6 +107,9 @@ export const publicProviderApi = {
     const previous = recommendations.get(key);
     if (previous) return structuredClone(previous);
     const candidates = eligible({ serviceType: request.serviceType, city: loc.city, district: loc.district });
+    const storeVisit = request.serviceType === 'ASSISTIVE_DEVICE';
+    const candidateLabel = storeVisit ? '輔具店面' : '居家單位（服務範圍已確認）';
+    const visitNotice = storeVisit ? '此為就近到店詢問名單；到府服務、品項、租賃及補助資格需另洽商家確認。' : '';
     const located = loc.precision === 'EXACT' ? rankLocatedProviders({lat:loc.lat,lng:loc.lng},candidates) : [];
     const rankingType = located.length ? 'DISTANCE' : loc.precision === 'CITY' ? 'CITY_ROTATION' : 'DISTRICT_ROTATION';
     const ranked = await Promise.all(candidates.map(async provider => ({ provider, hash: await previewRotationHash([sessionId, request.assessmentId, loc.city, loc.district, provider.id]) })));
@@ -112,11 +117,11 @@ export const publicProviderApi = {
     const selected = located.length ? located.slice(0,3) : ranked.slice(0,3).map(row => ({...row,distance:null}));
     const response: RecommendationResponse = { recommendationId: `LOCAL-REC-${crypto.randomUUID()}`, serviceType: request.serviceType, rankingType, locationPrecision: loc.precision,
       providers: selected.map(({provider, distance}, i) => ({ id: provider.id, name: provider.name, type: request.serviceType, address: provider.address, district: provider.district, phone: provider.phone, website: provider.website, googleMapsUrl: provider.googleMapsUrl, verified: provider.verified, rank: (i+1) as 1|2|3, distanceKm: distance === null ? null : Math.round(distance*10)/10,
-        reasons: [loc.district ? `服務範圍包含${loc.district}` : `服務範圍包含${loc.city}部分行政區`, `提供您需要的${label[request.serviceType]}服務`, ...(provider.publicInfo?.notice?.includes("評鑑不合格") ? ["官方名冊列評鑑不合格，請向 1966 確認目前服務資格。"] : [])] })),
-      notice: candidates.length === 0 ? '目前未收錄所在地與您相同行政區、且服務範圍已確認的單位。可查詢同區公開商家資料並自行確認服務；不補入其他行政區或未知服務範圍的單位。'
-        : rankingType === 'DISTANCE' ? `只列出與居住地同縣市、同行政區的單位，依居住地至機構的直線距離排序，非行車路程或到府時間。已定位 ${located.length}／${candidates.length} 家同區且符合服務範圍的單位；${located.length < candidates.length ? '名次僅涵蓋已定位單位，其餘可由公開資源查詢查看。' : '依全部符合範圍且已定位的候選排序。'}門牌位置來源：臺北市／新北市政府民政局公開資料。`
-        : rankingType === 'CITY_ROTATION' ? '目前只依縣市比對已確認的部分服務行政區；請補充行政區，並非依距離排序。'
-        : `${loc.precision === 'EXACT' ? '同區符合範圍的單位尚無可確認座標，本次改用行政區隨機推薦。' : ''}從所在地與您同縣市、同行政區且服務範圍已確認的單位隨機挑選，同次評估保留首次名單，並非依距離排序。` };
+        reasons: [...(storeVisit ? ['依輔具店面所在地提供資訊；到府服務需另洽商家。'] : [loc.district ? `服務範圍包含${loc.district}` : `服務範圍包含${loc.city}部分行政區`, `提供您需要的${label[request.serviceType]}服務`]), ...(provider.publicInfo?.notice?.includes("評鑑不合格") ? ["官方名冊列評鑑不合格，請向 1966 確認目前服務資格。"] : [])] })),
+      notice: (candidates.length === 0 ? `目前未收錄所在地與您相同行政區的${candidateLabel}。可查詢同區公開資料；不補入其他行政區的單位。`
+        : rankingType === 'DISTANCE' ? `只列出與居住地同縣市、同行政區的${storeVisit ? '輔具店面' : '單位'}，依居住地至機構的直線距離排序，非行車路程或到府時間。已定位 ${located.length}／${candidates.length} 家同區候選；${located.length < candidates.length ? '名次僅涵蓋已定位單位，其餘可由公開資源查詢查看。' : '依全部符合範圍且已定位的候選排序。'}門牌位置來源：臺北市／新北市政府民政局公開資料。`
+        : rankingType === 'CITY_ROTATION' ? storeVisit ? '目前依店面所在縣市提供名單；請補充行政區，並非依距離排序。' : '目前只依縣市比對已確認的部分服務行政區；請補充行政區，並非依距離排序。'
+        : `${loc.precision === 'EXACT' ? '同區候選尚無可確認座標，本次改用行政區隨機名單。' : ''}從所在地與您同縣市、同行政區的${candidateLabel}隨機挑選，同次評估保留首次名單，並非依距離排序。`) + visitNotice };
     recommendations.set(key,response);
     return structuredClone(response);
   },
