@@ -19,6 +19,8 @@ export interface AssessmentForm {
   /** "" = 只提供縣市 */
   district: string;
   coords: Coordinates | null;
+  /** Demo only; kept in this tab, never an API payload field. */
+  residenceAddress?: string;
   livingSituation: AssessmentRequest["livingSituation"];
   caregiverSituation: AssessmentRequest["caregiverSituation"];
   mobilityLevel: AssessmentRequest["mobilityLevel"];
@@ -97,7 +99,7 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     if (submitting.current) return;
-    const built = buildLocation({ city: form.city, district: form.district, coords: form.coords });
+    let built = buildLocation({ city: form.city, district: form.district, coords: form.coords });
     if (!built.ok) {
       setLocationErrors({ [built.field]: built.message });
       (built.field === "city" ? cityRef : districtRef).current?.focus();
@@ -108,6 +110,15 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
     setStatus("loading");
     setError(null);
     try {
+      if (demoMode && form.residenceAddress?.trim()) {
+        if (!form.city || !form.district) throw new Error("填寫居住地址時，請先選擇縣市與行政區；也可清空地址，只依行政區推薦。");
+        const { resolveResidence } = await import("../location/residence");
+        let coords: Coordinates | null;
+        try { coords = await resolveResidence(form.city, form.district, form.residenceAddress); }
+        catch { throw new Error("門牌資料暫時無法載入，請稍後重試，或清空地址改用行政區推薦。"); }
+        if (!coords) throw new Error("查無可確認的門牌位置，請確認縣市、行政區及路名／門牌號碼；也可清空地址，改用行政區隨機推薦。");
+        built = { ok: true, location: { precision: "EXACT", city: form.city as "臺北市" | "新北市", district: form.district, ...coords } };
+      }
       await onSubmit({
         request: buildAssessmentRequest(sessionId, form, built.location),
         form,
@@ -150,7 +161,7 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
         </fieldset>
 
         <fieldset className="location-fieldset" id="location">
-          <legend>所在位置（選填）</legend>
+          <legend>居住地（選填）</legend>
           <p className="field-hint full-row" id="location-hint">
             提供縣市與行政區，可取得服務範圍相符的推薦；不提供也能完成評估並看到服務建議。平台目前收錄臺北市、新北市，其他縣市請選「其他縣市／不提供位置」。
           </p>
@@ -183,6 +194,14 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
             </select>
             {locationErrors.district && <span className="field-error" id="district-error">{locationErrors.district}</span>}
           </label>
+
+          {demoMode && <label className="full-row">
+            居住地址（選填，路名與門牌號碼）
+            <input type="text" value={form.residenceAddress ?? ""} maxLength={150} autoComplete="off"
+              onChange={event => set("residenceAddress", event.target.value)} aria-describedby="residence-hint" />
+            <span className="field-hint" id="residence-hint">完整住址用來依直線距離排序；只選行政區則隨機推薦能服務該區的單位，同次評估不重抽。住址只留在本分頁，重新整理或重新開始即清除，不需填樓層或房號。</span>
+            <span className="field-hint">門牌座標來源：臺北市政府民政局（2026-10-02）、新北市政府民政局（11509）；依政府資料開放授權條款利用。資料可能有誤差或缺漏。</span>
+          </label>}
 
           {preciseLocationEnabled && (
             <div className="gps-box full-row">

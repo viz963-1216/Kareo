@@ -1,0 +1,322 @@
+{
+  "retrievedAt": "2026-10-11",
+  "license": "政府資料開放授權條款-第1版",
+  "licenseUrl": "https://data.gov.tw/license",
+  "sources": [
+    {
+      "publisher": "臺北市政府民政局",
+      "title": "臺北市門牌位置數值資料",
+      "version": "2026-10-02",
+      "url": "https://data.taipei/dataset/detail?id=b7c8e724-1e98-45ee-a0bd-f3840623ed97",
+      "download": "https://data.taipei/api/frontstage/tpeod/dataset/resource.download?rid=ce76ca0c-7f94-4935-ab47-1d2a41ca2abb",
+      "sha256": "7212058161f10a13d52ee46e74155526ca4ebf182b151562ba0e533f882a89ab"
+    },
+    {
+      "publisher": "新北市政府民政局",
+      "title": "新北市門牌位置數值資料",
+      "version": "11509",
+      "url": "https://data.ntpc.gov.tw/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101",
+      "download": "https://data.ntpc.gov.tw/api/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101/csv/zip",
+      "sha256": "123c001bbeb6a307dc989e954c0cf6422a5a680191939bc350b244b6f95106d4"
+    }
+  ],
+  "projection": "EPSG:3826 -> EPSG:4326 (pyproj, always_xy)",
+  "rawRowCounts": {
+    "臺北市": 1157763,
+    "新北市": 1989458
+  },
+  "ambiguousRemoved": 831,
+  "districts": {
+    "新北市|三峽區": {
+      "count": 17837,
+      "file": "nt09.json",
+      "sha256": "ff741e9b5dd8666cd749c9be48aa67f38c78d5793ee9668d0f65806b4109526c"
+    },
+    "新北市|三芝區": {
+      "count": 6329,
+      "file": "nt21.json",
+      "sha256": "a8b1ea2ca24a4928f1403aa8ee8abb43b2b259f1565fee538c902af860d558db"
+    },
+    "新北市|三重區": {
+      "count": 45355,
+      "file": "nt02.json",
+      "sha256": "c8e61553d8278a4a4d3d4a5fd1f5bad17efbd85fb2a308a18dfdbcadc2da8c3a"
+    },
+    "新北市|中和區": {
+      "count": 38414,
+      "file": "nt03.json",
+      "sha256": "6184417aab0005ed1abb0fd86fd658ad3e6f723f47244bfc30bf69a7f4198bec"
+    },
+    "新北市|五股區": {
+      "count": 11255,
+      "file": "nt15.json",
+      "sha256": "eb16c62630eaa05b9f2b575502d8b6b0bfc4e5dd68a760f9f1c2cec2f6c65eb3"
+    },
+    "新北市|八里區": {
+      "count": 5675,
+      "file": "nt23.json",
+      "sha256": "a901b36ac5776e5c717d76e6c5de66d00aec3c8b0cf29e570af9f21eeef1f328"
+    },
+    "新北市|土城區": {
+      "count": 21950,
+      "file": "nt13.json",
+      "sha256": "de75fa7b5d63aa0d5b95ad053fc7d72d10238fdabcdc367deaec78f1f7884cab"
+    },
+    "新北市|坪林區": {
+      "count": 2201,
+      "file": "nt20.json",
+      "sha256": "2e8b862a78a74836012320f0f6c88a4bfa8f6f9c229f1e992e260d0e6dc724ff"
+    },
+    "新北市|平溪區": {
+      "count": 2147,
+      "file": "nt24.json",
+      "sha256": "e87d1af4c755c43ad85176f02fbafd9b2a732fab394ad442f7723bfb1ca71269"
+    },
+    "新北市|新店區": {
+      "count": 41384,
+      "file": "nt06.json",
+      "sha256": "cce90a22260446b5616d2be67803ef2a755830ad5b9ec2db1cdf46e9227a3fa2"
+    },
+    "新北市|新莊區": {
+      "count": 39799,
+      "file": "nt05.json",
+      "sha256": "1a293d3458118b228d7b5147a8200872ea5c74f7c53e054f881b54d8f6787ead"
+    },
+    "新北市|板橋區": {
+      "count": 52641,
+      "file": "nt01.json",
+      "sha256": "3e252e9447e8c781ef2ee91cf0017e5b783ac5a4431166b9f8709fa85db87059"
+    },
+    "新北市|林口區": {
+      "count": 14677,
+      "file": "nt17.json",
+      "sha256": "45ee034dca6153652e6bda37cf3a58c76338e22ef5ed6c062cfede7446ddbbf1"
+    },
+    "新北市|樹林區": {
+      "count": 25103,
+      "file": "nt07.json",
+      "sha256": "7c45bbf30b9a48603c0e4a961526397293401e785f03407d4537249a20185ba6"
+    },
+    "新北市|永和區": {
+      "count": 20625,
+      "file": "nt04.json",
+      "sha256": "45c88b0144507b045f1575821c7ff25d1486445eaf864232d0867b3b52ca1599"
+    },
+    "新北市|汐止區": {
+      "count": 25602,
+      "file": "nt11.json",
+      "sha256": "30f5c4d28870c40162de61b10980253d7903ee2d730ad9599eafbe6f388c126d"
+    },
+    "新北市|泰山區": {
+      "count": 9229,
+      "file": "nt16.json",
+      "sha256": "35a7847223b5fcbb5820c7263e205f5c161effb985dab0ee5ff0c7e3fabe889c"
+    },
+    "新北市|淡水區": {
+      "count": 25627,
+      "file": "nt10.json",
+      "sha256": "741d77042da68f13d7bcbce571132b1f8db73860e7a4d1915e90bef9d89dbb9a"
+    },
+    "新北市|深坑區": {
+      "count": 3884,
+      "file": "nt18.json",
+      "sha256": "1f2c832572e3ce1a4120fb199f8a7d2a8f3166bc28db622745228be2d53643c3"
+    },
+    "新北市|烏來區": {
+      "count": 1496,
+      "file": "nt29.json",
+      "sha256": "9e994ca0236ba118d8e0da2f1417dca1e3ef8a9de442837768506185b78f96c9"
+    },
+    "新北市|瑞芳區": {
+      "count": 10920,
+      "file": "nt12.json",
+      "sha256": "be29d09c059c18d40e56efa4a6cb00dddb048bf68d7d38b6d26661edae5064a3"
+    },
+    "新北市|石碇區": {
+      "count": 2925,
+      "file": "nt19.json",
+      "sha256": "448be88acf34e44bed6250facc4f258bc237b03dc97580a218ffa8d0eba179cb"
+    },
+    "新北市|石門區": {
+      "count": 2593,
+      "file": "nt22.json",
+      "sha256": "af0d8d8d8eb9414a15c22edfe23f5fd3cf71509fc3e6c63a1f5a4d1a9da80ef6"
+    },
+    "新北市|萬里區": {
+      "count": 4872,
+      "file": "nt28.json",
+      "sha256": "f365b864c9c9b2e72d036ad4f87971ebc7514d40ee70076de6024d0d48f90779"
+    },
+    "新北市|蘆洲區": {
+      "count": 15441,
+      "file": "nt14.json",
+      "sha256": "c53aad19879b5bc1a49b955ff284dda783e2a153be9f02efc714bf2219dad415"
+    },
+    "新北市|貢寮區": {
+      "count": 3252,
+      "file": "nt26.json",
+      "sha256": "5148bd40bfa42688a779386f8da7719f0158c1d2daa2c3b5a766b3fc5b4d47b1"
+    },
+    "新北市|金山區": {
+      "count": 4858,
+      "file": "nt27.json",
+      "sha256": "e2f0b41503099199b46e85d94641fab87635c89074d31ca14876d203068ba2aa"
+    },
+    "新北市|雙溪區": {
+      "count": 2901,
+      "file": "nt25.json",
+      "sha256": "dd75b31c871fbb4f72c7febc3623c87ca3a8c534ccc816e3b93d26e2e7f4eb4e"
+    },
+    "新北市|鶯歌區": {
+      "count": 18550,
+      "file": "nt08.json",
+      "sha256": "c0560da9a233a106c4886e46a8a69c9bc21abb6eb9ef0903123515e1840ab153"
+    },
+    "臺北市|中山區": {
+      "count": 23031,
+      "file": "tp04.json",
+      "sha256": "c70921f1ded820ca3b8f3da05abbff1dbcdaf44e9098e0ae867129d5cc885af6"
+    },
+    "臺北市|中正區": {
+      "count": 16538,
+      "file": "tp05.json",
+      "sha256": "458440cc073d5399b2d29f00b85d671b6cbf05d141803d10ce5ca3af1d52f64f"
+    },
+    "臺北市|信義區": {
+      "count": 20195,
+      "file": "tp02.json",
+      "sha256": "e545ddd312d50cf595c74b2cab5c7920a25f3b2f88e959ebf6ac59e449f1d76f"
+    },
+    "臺北市|內湖區": {
+      "count": 22241,
+      "file": "tp10.json",
+      "sha256": "28a681d94b1ddfdafad97b7afa9db46bcd6422ee87c87e540d2bd1b977efdbb8"
+    },
+    "臺北市|北投區": {
+      "count": 25801,
+      "file": "tp12.json",
+      "sha256": "b6e4032cf4fb1cbd56d37931a27f1b6d33ed3e469f0a8a36697df07f2b8f5baf"
+    },
+    "臺北市|南港區": {
+      "count": 10736,
+      "file": "tp09.json",
+      "sha256": "0fcf0f57f1dc876a6239af0ab877b0ad0d365354997a7b611b046b60821570b9"
+    },
+    "臺北市|士林區": {
+      "count": 32058,
+      "file": "tp11.json",
+      "sha256": "44cd5f8d3c34af8cae3505286a51f5926e913543baf19a0c6fd3959ee63c1440"
+    },
+    "臺北市|大同區": {
+      "count": 15992,
+      "file": "tp06.json",
+      "sha256": "37bd2f71a6cb7d79a3a6c0d77679c593aa3bc8da6ee4fe813a4fafae5f037d98"
+    },
+    "臺北市|大安區": {
+      "count": 28278,
+      "file": "tp03.json",
+      "sha256": "83ca2fc2428ef55f6e07a34f076936f6fb618c9eefc7d8b6f0bd2ef12e20e7f1"
+    },
+    "臺北市|文山區": {
+      "count": 23334,
+      "file": "tp08.json",
+      "sha256": "dbcde260a01503d12c04ce4c28f35ec122936ec10f9b56874f32d7329549237e"
+    },
+    "臺北市|松山區": {
+      "count": 15293,
+      "file": "tp01.json",
+      "sha256": "1b66c5b2bbe4b111931e7ae0379c5b9cbadc94f58f10a82ab5991acc8fb1d390"
+    },
+    "臺北市|萬華區": {
+      "count": 21844,
+      "file": "tp07.json",
+      "sha256": "2fa072a1ad365567f85ee087b7902bc57f324f3a7e87305c75b92d1edc15e553"
+    }
+  },
+  "providerMatched": 1035,
+  "providerUnresolvedIds": [
+    "NTPC-AD-001",
+    "NTPC-AD-004",
+    "NTPC-AD-007",
+    "NTPC-AD-008",
+    "TP-HC-018",
+    "TP-HC-021",
+    "TP-HC-033",
+    "TP-HC-047",
+    "TP-HC-052",
+    "TP-HC-091",
+    "TP-HC-107",
+    "TP-HC-108",
+    "TP-HC-109",
+    "TP-HC-110",
+    "TP-HC-112",
+    "TP-HC-129",
+    "TP-HC-143",
+    "TP-HC-158",
+    "TP-HC-165",
+    "TP-HC-167",
+    "CAT-AD-73C9C6E9FD97",
+    "CAT-AD-E264616AF22C",
+    "CAT-AD-C7D7310E208B",
+    "CAT-AD-E96BB6A0B676",
+    "CAT-AD-224CEE5A5FB7",
+    "CAT-AD-D207F6548A37",
+    "CAT-AD-1CBB1625FF78",
+    "CAT-AD-7461E740E9A7",
+    "CAT-AD-85DE71874EC3",
+    "CAT-AD-8A613EA806AE",
+    "CAT-AD-A54373503D96",
+    "CAT-AD-57D92D085A57",
+    "CAT-AD-05034CC6B098",
+    "CAT-AD-48C64C70CB4E",
+    "CAT-AD-9C8654853346",
+    "CAT-AD-76596463A516",
+    "CAT-AD-AB86BF9CD50D",
+    "CAT-AD-E1DBAB5DCE5E",
+    "CAT-AD-67BD76FCD0B4",
+    "CAT-AD-C603D88D2762",
+    "CAT-AD-C64BE8E76BAD",
+    "CAT-AD-209865452C83",
+    "CAT-AD-18E7DB960D48",
+    "CAT-AD-1ABD1DF570D4",
+    "CAT-AD-84FB02CD4953",
+    "CAT-AD-9AF975866A4F",
+    "CAT-AD-283C10E5048B",
+    "CAT-AD-CC7BB410AAA6",
+    "CAT-AD-319A97426C5B",
+    "CAT-AD-D63F14AC2D45",
+    "CAT-AD-E4F7D7E64AD4",
+    "CAT-AD-E00FDB623BAE",
+    "CAT-AD-67CFC0ABDE29",
+    "CAT-AD-CA98C9F741D7",
+    "CAT-AD-9044FF68EBB4",
+    "CAT-AD-E2FCE0240246",
+    "CAT-AD-DD77500723C4",
+    "CAT-AD-663D78D94C54",
+    "CAT-AD-DD59810F104D",
+    "NTPC-ARC-B09",
+    "CAT-HC-NTPC-6C9ED523692D",
+    "CAT-HC-NTPC-BF4B6EAE5D56",
+    "CAT-HC-NTPC-570E266ABB4F",
+    "CAT-HC-NTPC-01BE98307148",
+    "CAT-HC-NTPC-C1CA95E47B81",
+    "CAT-HC-NTPC-04385EAD5DB0",
+    "CAT-HC-NTPC-A205ECF26C99",
+    "CAT-HC-NTPC-D91F887FDCBA",
+    "CAT-HC-NTPC-BD4A47B5BD3B",
+    "CAT-HC-NTPC-91AA27D72925",
+    "CAT-HC-NTPC-11E1E42F091B",
+    "CAT-HC-NTPC-AD57E00CC333",
+    "CAT-HC-NTPC-1FC724FBD202",
+    "CAT-HC-NTPC-35BE69CA8552",
+    "CAT-HC-NTPC-C4DF85C78B3A",
+    "CAT-HC-NTPC-98C63FF24AF1",
+    "CAT-HC-NTPC-DAF973CE7D50",
+    "CAT-HC-NTPC-69B081E6F311",
+    "CAT-HC-NTPC-660FAFC8F524",
+    "CAT-HC-NTPC-0C8F0716258D",
+    "CAT-HC-NTPC-0AB2023125F6",
+    "CAT-HC-NTPC-087E53C33838",
+    "CAT-HC-NTPC-D7EE0D407116"
+  ]
+}

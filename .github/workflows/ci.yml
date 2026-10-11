@@ -85,6 +85,8 @@ jobs:
         run: node scripts/validate-knowledge-pack.mjs .
       - name: Provider data gate (TASK-A-004)
         run: node scripts/check-provider-data.mjs
+      - name: Public offline residence coordinate evidence
+        run: node scripts/geo/verify-residence-index.mjs
       - name: Provider coordinate evidence and immutable resource inventory
         run: |
           node data/providers/qa/verify-coordinates.mjs

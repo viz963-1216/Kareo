@@ -4,6 +4,8 @@ Version: v0.7.1（J-002-r13，2026-10-03；§6–7 刪除完成期限及終態�
 Status: v0.6 §10／§10a 追加欄位與 §13a 依 D-19 **SPEC-APPROVED 2026-10-01**（[Issue #49 comment 5926683690](https://github.com/viz963-1216/Kareo/issues/49#issuecomment-5926683690)）；v0.5 §10a／§10 新增欄位 **SPEC-APPROVED 2026-10-01**（D-18a–e，[PR #50 comment 5925833841](https://github.com/viz963-1216/Kareo/pull/50#issuecomment-5925833841)）；§26.8 內容包規則依 D-16b **SPEC-APPROVED 2026-10-01**；v0.1 內容 LOCKED FOR MVP；v0.2 session／安全段落（D-04）**SPEC-APPROVED 2026-09-24**；v0.2.2 位置與補助整併（D-13a–g、D-14a–b）**SPEC-APPROVED 2026-09-24**；Lead 接件（D-06）與同意版本（D-05）仍為 PROPOSED；§26 v0.4（D-16a）**SPEC-APPROVED 2026-09-29**  
 Owner: Jerry
 
+2026-10-11 Demo 補充（PRODUCT_SPEC 同日 Jerry 決定）：本機公開資料版使用既有 `EXACT` 結構，地址原文不屬於 request。Demo 有部分缺座標時，只在已定位候選中顯示直線距離名次，`notice` 揭露已定位／總候選家數；無地址的行政區名單同評估緩存。此為本機 Demo adapter 行為，不變更正式 §9 D-13c 回退契約。卡片不顯示 reasons，一般原因仍保留於 response 以相容現有呼叫端，官方资格警示保留可見。
+
 ---
 
 # 1. 目的
