@@ -8,7 +8,7 @@ r19只要求官方服務範圍覆蓋行政區，外區機構能服務南港也�
 
 ## 驗證
 
-- Frontend 91/91 PASS，實際adapter回歸包含南港DISTRICT／EXACT、雙北41行政區×3類服務共123組範圍與家數檢查、同評估快取、無API請求、地址不送API。
+- Frontend 92/92 PASS，實際adapter回歸包含南港DISTRICT／EXACT、雙北41行政區×3類服務共123組範圍與家數檢查、同評估快取、無API請求、地址不送API。
 - backend既有publicProviderPreview回歸12/12 PASS；按owner新規則修正旧跨區預期。三重的外區輔具商家不進推薦，板橋可列已確認的一家；坪林只列同區兩家。
 - Frontend typecheck、公開主站＋Demo雙產物build、embedded Demo資產／no-network CSP／fixture scan PASS。
 - 純程式／公開資料，無Supabase資料修改、無新增付費服務。正式後端B-005、D-05和49項正式E2E狀態不變。
