@@ -17,8 +17,10 @@ import type { Provider, CreateAssessmentInput } from '../../../api/src/types';
 import type { AssessmentRequest, AssessmentResponse, KnowledgeRecordsRequest, KnowledgeRecordsResponse,
   ProviderDetail, RecommendationRequest, RecommendationResponse, ResourceLookupRequest, ResourceLookupResponse } from '../types/api';
 
-type PublicProvider = Provider & { phone: string; googleMapsUrl: string };
-if (providerRows.some(p => !p.phone || !p.googleMapsUrl)) throw new Error('公開機構資料不完整。');
+type PublicProvider = Provider & { googleMapsUrl: string };
+// The API contract permits null when an official directory omits a phone or its
+// printed digits cannot be verified. A missing phone must not hide the institution.
+if (providerRows.some(p => !(p.phone === null || (typeof p.phone === 'string' && p.phone.length > 0)) || !p.googleMapsUrl)) throw new Error('公開機構資料不完整。');
 const infoById = new Map(infoRows.map(row => [row.providerId, row.publicInfo]));
 const providers = providerRows.map(p => ({ ...p,
   ...((p.lat === null || p.lng === null) && Object.hasOwn(residenceCoordinates,p.id)

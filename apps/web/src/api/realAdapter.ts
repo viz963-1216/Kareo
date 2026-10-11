@@ -217,7 +217,7 @@ export function isRecommendationResponse(value: unknown): value is Recommendatio
     && isText(provider.name)
     && typeof provider.address === "string"
     && typeof provider.district === "string"
-    && typeof provider.phone === "string"
+    && isNullableText(provider.phone)
     && typeof provider.googleMapsUrl === "string"
     && typeof provider.verified === "boolean"
     && (provider.distanceKm === null || typeof provider.distanceKm === "number")
@@ -270,7 +270,7 @@ function isProviderSharedFields(value: Record<string, unknown>) {
     && typeof value.address === "string"
     && typeof value.city === "string"
     && typeof value.district === "string"
-    && typeof value.phone === "string"
+    && isNullableText(value.phone)
     && isNullableText(value.website)
     && typeof value.googleMapsUrl === "string"
     && typeof value.verified === "boolean"

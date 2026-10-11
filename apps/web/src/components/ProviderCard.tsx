@@ -62,7 +62,7 @@ export function ProviderCard({ provider, rankingType, recommendationId, serviceT
         </div>
         <div>
           <dt>電話</dt>
-          <dd><a href={`tel:${provider.phone}`}>{provider.phone}</a></dd>
+          <dd>{provider.phone ? <a href={`tel:${provider.phone}`}>{provider.phone}</a> : "電話待確認"}</dd>
         </div>
         {distance !== null && (
           <div>

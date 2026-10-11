@@ -67,7 +67,7 @@ function ResourceCard({ item, from }: { item: ResourceLookupItem; from: string }
         <div><dt>服務</dt><dd>{resourceServices(item.resourceCategory, item.services.map(service => serviceLabels[service]), item.publicInfo)}</dd></div>
         <div><dt>所在地</dt><dd>{item.city} {item.district}</dd></div>
         <div><dt>地址</dt><dd>{item.address}</dd></div>
-        <div><dt>電話</dt><dd><a href={`tel:${item.phone}`}>{item.phone}</a></dd></div>
+        <div><dt>電話</dt><dd>{item.phone ? <a href={`tel:${item.phone}`}>{item.phone}</a> : "電話待確認"}</dd></div>
       </dl>
       {item.publicInfo && <><p>{item.publicInfo.assistivePrograms.map(p => assistiveProgramLabels[p]).join("／")}</p>{item.publicInfo.notice && <p className="field-hint">{item.publicInfo.notice}</p>}<p className="field-hint">查核：{item.publicInfo.checkedAt} · <a href={safeHttpUrl(item.publicInfo.sourceUrl)} target="_blank" rel="noopener noreferrer">官方名冊來源（開啟新分頁）</a></p></>}
       <p className="verification-note">{item.verified ? "平台已確認基本資料" : "基本資料尚未經平台確認"}；此標示不代表政府認證。</p>
