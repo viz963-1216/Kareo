@@ -131,3 +131,9 @@ Jerry 要求公開網址改用真實機構及依輸入條件計算，不再固�
 ## 2026-10-11 J-004-r22／A-008-r6 — 完整居家護理名冊
 
 Jerry 授權中心整合 147 家官方機構：差額匯入144家、保留原1118及舊3家核心、公開前端支援名冊缺電話、精確門牌展示位置與 release 發布。允許本輪資料 gate、前端公開回應／卡片、build-demo、CI、資料匯入及驗收文件修改；不得改正式同意／健康資料／RLS／其他專案。範圍與驗證見 [本輪報告](../docs/acceptance/J004-2026-10-11-home-nursing-catalog.md)。
+
+## 2026-10-12 r23：Kareo 公開網址發布
+
+Jerry 要求將已完成版本發布到 Netlify 正式網址，取消 Demo 呈現並最後處理正式個案資料蒐集的隱私啟用。Allowed Paths：apps/web/**、scripts/**、tests/web/**、tests/scripts/**、.github/workflows/ci.yml、netlify.toml、docs/**、tasks/**；沿用既有 Jerry 跨模組整合授權。Forbidden：apps/api 業務程式、data、正式同意 registry、Supabase 寫入／權限、Kareocar。
+
+驗收：一般首頁與 BrowserRouter、無 Demo 標籤或入口、實際唯讀機構與制度 API、分頁內初評與住址運算、沒有個案寫入與假媒合成功、需求摘要與同區建議可操作、舊 /demo/ 正確導向、精確 release SHA 與正式 Netlify 發布證據。已發現但尚未收錄的622家居家醫療參與機構與新北輔具完整清冊不冒稱本輪完成；D-05／完整 J-003 狀態不變。

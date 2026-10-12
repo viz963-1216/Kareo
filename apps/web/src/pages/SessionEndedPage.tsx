@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { demoMode } from "../demo";
+import { localAnalysisMode } from "../demo";
 
 type EndedState =
   | { kind: "restarted" }
@@ -24,7 +24,7 @@ function formatDate(value: string) {
 
 export function SessionEndedPage() {
   const state = readState(useLocation().state);
-  if (demoMode) return <main id="main-content" className="content"><p className="eyebrow">本機需求分析</p><h1>本機需求分析已重設</h1><p role="status">已清除這個分頁的回答與結果。此版本未向資料庫送出評估，也沒有建立媒合案件。</p><Link className="button primary" to="/consent">開始新的需求分析</Link></main>;
+  if (localAnalysisMode) return <main id="main-content" className="content"><p className="eyebrow">本機需求分析</p><h1>本機需求分析已重設</h1><p role="status">已清除這個分頁的回答與結果。此版本未向資料庫送出評估，也沒有建立媒合案件。</p><Link className="button primary" to="/consent">開始新的需求分析</Link></main>;
   return (
     <main id="main-content" className="content">
       <p className="eyebrow">使用階段</p>
