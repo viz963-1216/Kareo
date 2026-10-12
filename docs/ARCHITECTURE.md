@@ -812,3 +812,7 @@ The DATA_STEWARD-only privacy CLI receives an independently verified, exact case
 ## 公開名冊整合（2026-10-08，Issue #106）
 
 中央整合批准追加 Provider public_info 欄位及擴充既有 import_provider_dataset 原子匯入；原子用途不增加。lookup／detail 經 server-only repository 讀取同一來源，公開快照從同一 sidecar 組合；禁止把特約分類推定為到府範圍。大量子表讀取須分批避免 PostgREST 1000 列限制截斷，公開資料量不再假設只有 30 家。
+
+## J-004-r23 公開網址分析模式（2026-10-12）
+
+Netlify release 以 VITE_KAREO_API_MODE=real、VITE_KAREO_PUBLIC_ANALYSIS=true 與 public-resources 發布。公開 GET 查詢仍走現有真實 API；初評／同區推薦沿用已核對的公開快照及瀏覽器內規則運算，不建立雲端個案。模式與 mock／Demo 分開，採 BrowserRouter 與根路徑。個案寫入 API 仍由正式 ACTIVE 同意及後端權限控管，不能由這個旗標放寬。建置複製公開門牌模組供本地地址比對；住址與回答不出現在請求／網址或持久化 storage。

@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { isSessionProblem, preciseLocationEnabled } from "../api";
-import { demoMode } from "../demo";
+import { localAnalysisMode } from "../demo";
 import type { MockState } from "../api/mockScenarios";
 import { buildAssessmentRequest } from "../assessment/assessmentRequest";
 import { DraftBadge } from "../components/DraftBadge";
@@ -19,7 +19,7 @@ export interface AssessmentForm {
   /** "" = 只提供縣市 */
   district: string;
   coords: Coordinates | null;
-  /** Demo only; kept in this tab, never an API payload field. */
+  /** Browser-only analysis; kept in this tab, never an API payload field. */
   residenceAddress?: string;
   livingSituation: AssessmentRequest["livingSituation"];
   caregiverSituation: AssessmentRequest["caregiverSituation"];
@@ -110,7 +110,7 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
     setStatus("loading");
     setError(null);
     try {
-      if (demoMode && form.residenceAddress?.trim()) {
+      if (localAnalysisMode && form.residenceAddress?.trim()) {
         if (!form.city || !form.district) throw new Error("填寫居住地址時，請先選擇縣市與行政區；也可清空地址，只依行政區推薦。");
         const { resolveResidence } = await import("../location/residence");
         let coords: Coordinates | null;
@@ -163,7 +163,7 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
         <fieldset className="location-fieldset" id="location">
           <legend>居住地（選填）</legend>
           <p className="field-hint full-row" id="location-hint">
-            {demoMode ? "提供縣市與行政區，可推薦所在地與您同區的輔具店面，或服務範圍已確認的居家單位；" : "提供縣市與行政區，可取得服務範圍相符的推薦；"}不提供也能完成評估並看到服務建議。平台目前收錄臺北市、新北市，其他縣市請選「其他縣市／不提供位置」。
+            {localAnalysisMode ? "提供縣市與行政區，可推薦所在地與您同區的輔具店面，或服務範圍已確認的居家單位；" : "提供縣市與行政區，可取得服務範圍相符的推薦；"}不提供也能完成評估並看到服務建議。平台目前收錄臺北市、新北市，其他縣市請選「其他縣市／不提供位置」。
           </p>
           <label>
             縣市
@@ -195,7 +195,7 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
             {locationErrors.district && <span className="field-error" id="district-error">{locationErrors.district}</span>}
           </label>
 
-          {demoMode && <label className="full-row">
+          {localAnalysisMode && <label className="full-row">
             居住地址（選填，路名與門牌號碼）
             <input type="text" value={form.residenceAddress ?? ""} maxLength={150} autoComplete="off"
               onChange={event => set("residenceAddress", event.target.value)} aria-describedby="residence-hint" />
@@ -283,8 +283,8 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
         </fieldset>
         <label>
           其他想補充的情況（選填，最多 {FREE_TEXT_MAX} 字）
-          <textarea value={form.freeText} readOnly={demoMode} maxLength={FREE_TEXT_MAX} onChange={(event) => set("freeText", event.target.value)} rows={4} aria-describedby="free-text-hint" />
-          <span className="field-hint" id="free-text-hint">{demoMode ? "此版本只使用上方選項分析需求，不蒐集自由文字。" : "請勿填寫身分證字號、病歷或金融資料。"}</span>
+          <textarea value={form.freeText} readOnly={localAnalysisMode} maxLength={FREE_TEXT_MAX} onChange={(event) => set("freeText", event.target.value)} rows={4} aria-describedby="free-text-hint" />
+          <span className="field-hint" id="free-text-hint">{localAnalysisMode ? "此版本只使用上方選項分析需求，不蒐集自由文字。" : "請勿填寫身分證字號、病歷或金融資料。"}</span>
         </label>
         {status === "error" && (isSessionProblem(error)
           ? <SessionProblem message={errorMessage} />

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { apiMode, consentArchive, consentIsDraft, consentVersions, getConsentDocument } from "../api";
 import { DraftBadge } from "../components/DraftBadge";
 import { FormalAssessmentReminder } from "../components/FormalAssessmentReminder";
-import { demoEntryUrl, demoMode } from "../demo";
+import { demoEntryUrl, localAnalysisMode } from "../demo";
 
 interface Props {
   onAccept: () => Promise<void>;
@@ -16,16 +16,16 @@ export function ConsentPage({ onAccept }: Props) {
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [error, setError] = useState("");
   const errorRef = useRef<HTMLDivElement>(null);
-  const [documentReady, setDocumentReady] = useState(apiMode === "mock");
+  const [documentReady, setDocumentReady] = useState(apiMode === "mock" || localAnalysisMode);
   const [documentError, setDocumentError] = useState("");
-  const formalConsentUnavailable = apiMode === "real" && !consentArchive;
+  const formalConsentUnavailable = !localAnalysisMode && apiMode === "real" && !consentArchive;
 
   useEffect(() => {
     if (formalConsentUnavailable && demoEntryUrl) window.location.replace(demoEntryUrl);
   }, [formalConsentUnavailable]);
 
   useEffect(() => {
-    if (apiMode === "mock" || !consentArchive) return;
+    if (localAnalysisMode || apiMode === "mock" || !consentArchive) return;
     let cancelled = false;
     getConsentDocument().then(() => { if (!cancelled) setDocumentReady(true); })
       .catch(() => { if (!cancelled) setDocumentError("無法載入完整服務說明，暫時無法開始評估。請重新載入頁面或查詢公開資訊。"); });
@@ -44,14 +44,14 @@ export function ConsentPage({ onAccept }: Props) {
     catch (reason) { setStatus("error"); setError(reason instanceof Error ? reason.message : "目前無法完成同意程序，請稍後再試。"); }
   }
 
-  if (demoMode) return <main id="main-content" className="content">
-    <p className="eyebrow">Demo・本機需求分析</p><h1>依需求查詢真實長照資源</h1>
+  if (localAnalysisMode) return <main id="main-content" className="content">
+    <p className="eyebrow">開始前確認</p><h1>開始免費長照評估</h1>
     <section className="panel"><h2>依你填寫的條件產生結果</h2>
-      <p>初步結果使用 Kareo 的固定規則與已發布知識，機構使用已核對的雙北名單，依需求與行政區比對。回答僅在本分頁記憶體中處理，不送至資料庫。</p>
+      <p>初步結果使用 Kareo 的固定規則與已發布知識，機構使用已核對的雙北名單，依需求與行政區比對。回答與選填住址僅在此分頁產生結果；重新整理或重新開始即可清除，不保存至資料庫。</p>
       <p>居住地址可選填，用政府公開門牌資料在本分頁內比對距離；只選行政區則隨機推薦所在地與您同區的輔具店面，或服務範圍已確認的居家單位。地址不會傳送至外部定位服務或保存到資料庫。此版本不要求姓名、電話、自由文字或 GPS，也不建立正式媒合案件。<Link to="/privacy">查看資料使用說明</Link>。</p>
     </section>
     <form className="stack" onSubmit={handleSubmit} aria-busy={status === "loading"}>
-      <label className="checkbox"><input type="checkbox" checked={accepted} onChange={event => setAccepted(event.target.checked)} disabled={status === "loading"}/><span>我了解回答只用於本機需求分析，不會建立正式案件。</span></label>
+      <label className="checkbox"><input type="checkbox" checked={accepted} onChange={event => setAccepted(event.target.checked)} disabled={status === "loading"}/><span>我已閱讀資料使用說明，了解此結果為初步預估。</span></label>
       {status === "error" && <div ref={errorRef} tabIndex={-1} role="alert" className="error">{error}</div>}
       <button className="button primary" disabled={!accepted || status === "loading"}>{status === "loading" ? "正在開始…" : "開始需求分析"}</button>
     </form>

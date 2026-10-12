@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { api, isSessionProblem } from "../api";
-import { demoMode } from "../demo";
+import { localAnalysisMode } from "../demo";
 import { DraftBadge } from "../components/DraftBadge";
 import { FormalAssessmentReminder } from "../components/FormalAssessmentReminder";
 import { SessionProblem } from "../components/SessionProblem";
@@ -241,10 +241,10 @@ function DataControls({ onClosed }: { onClosed: (closure: SessionClosure) => voi
   return (
     <section className="panel" aria-labelledby="data-heading">
       <h2 id="data-heading">您的資料 <DraftBadge>依隱私告知草案</DraftBadge></h2>
-      {demoMode ? <p>回答與結果只在本分頁記憶體中，重新開始會清除本機需求分析。沒有雲端評估或正式同意紀錄。</p> : <p>「重新開始」只清除這個瀏覽器分頁上的畫面資料，<strong>不會刪除</strong>已送到平台的評估資料。如需刪除，請使用「刪除我的評估資料」或「撤回同意」。</p>}
+      {localAnalysisMode ? <p>回答與結果只保留在此分頁，重新開始或重新整理即可清除。</p> : <p>「重新開始」只清除這個瀏覽器分頁上的畫面資料，<strong>不會刪除</strong>已送到平台的評估資料。如需刪除，請使用「刪除我的評估資料」或「撤回同意」。</p>}
       <div className="button-row">
         <button type="button" className="button secondary" onClick={() => restart()}>重新開始</button>
-        {!demoMode && (Object.keys(closeActions) as (keyof typeof closeActions)[]).map((key) => (
+        {!localAnalysisMode && (Object.keys(closeActions) as (keyof typeof closeActions)[]).map((key) => (
           <button
             key={key}
             type="button"
