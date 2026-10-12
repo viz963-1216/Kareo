@@ -1,21 +1,21 @@
 import type { AssessmentLocation, AssessmentRequest } from "../types/api";
 import type { AssessmentForm } from "../pages/AssessmentPage";
 
-// Location starts empty: it is optional and never pre-filled for the user (PRODUCT_SPEC §24).
+// KUI-r1: do not presume a person’s age, care situation or needs. Location remains optional.
 export const defaultAssessmentForm: AssessmentForm = {
-  ageRange: "75_84",
+  ageRange: "UNKNOWN",
   city: "",
   district: "",
   coords: null,
   residenceAddress: "",
-  livingSituation: "WITH_FAMILY",
-  caregiverSituation: "FAMILY_LIMITED",
-  mobilityLevel: "NEEDS_ASSISTANCE",
-  dailyLivingLevel: "PARTIAL_ASSISTANCE",
-  homeCare: "YES",
+  livingSituation: "UNKNOWN",
+  caregiverSituation: "UNKNOWN",
+  mobilityLevel: "UNKNOWN",
+  dailyLivingLevel: "UNKNOWN",
+  homeCare: "UNKNOWN",
   medicalNursing: "UNKNOWN",
-  assistiveDevice: "YES",
-  transportation: "YES",
+  assistiveDevice: "UNKNOWN",
+  transportation: "UNKNOWN",
   disabilityCertificate: "UNKNOWN",
   incomeCategory: "UNKNOWN",
   freeText: "",

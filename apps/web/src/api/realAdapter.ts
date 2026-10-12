@@ -59,7 +59,7 @@ export class ApiError extends Error {
 const GENERIC_MESSAGE = "系統發生錯誤，請稍後再試或直接聯絡 1966。";
 
 const FALLBACK_MESSAGES: Record<string, string> = {
-  NOT_FOUND: "此功能尚未開放，請稍後再試或直接聯絡 1966。",
+  NOT_FOUND: "找不到您要查詢的內容，請返回確認或直接聯絡 1966。",
   KNOWLEDGE_UNAVAILABLE: "長照制度資料目前正在更新，暫時無法完成評估。請稍後再試或直接聯絡 1966。",
   AI_UNAVAILABLE: "評估服務暫時無法使用，請稍後再試或直接聯絡 1966。",
   RATE_LIMITED: "操作次數過多，請稍候再試。",
