@@ -80,8 +80,8 @@ function AppRoutes() {
         <nav className="site-nav" aria-label="主要導覽">
           <Link to="/resources">查詢長照資源</Link>
           <Link to="/info">制度與補助</Link>
-          <a href={KAREOCAR_URL} target="_blank" rel="noopener noreferrer">
-            長照交通預約（Kareocar）<span className="external-label">外部服務・開啟新分頁</span>
+          <a href={KAREOCAR_URL} target="_blank" rel="noopener noreferrer" aria-label="長照交通預約（Kareocar，開啟新分頁）">
+            長照交通預約（Kareocar）
           </a>
         </nav>
       </header>
