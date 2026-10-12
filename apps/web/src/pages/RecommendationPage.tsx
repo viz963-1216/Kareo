@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { demoMode } from "../demo";
+import { localAnalysisMode } from "../demo";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { api, apiMode, isSessionProblem } from "../api";
 import { RECOMMENDATION_MOCK_RANKINGS, type RecommendationMockCount } from "../api/mockScenarios";
@@ -43,10 +43,10 @@ function readMockCount(value: string | null): RecommendationMockCount {
 function rankingExplanation({ rankingType, locationPrecision, serviceType }: RecommendationResponse) {
   switch (rankingType) {
     case "DISTANCE":
-      return demoMode ? "只列出所在地與您同縣市、同行政區的服務單位，再依居住位置的直線距離排序；實際路程可能不同。" : "依您提供的居住位置，以直線距離的約略值排序；實際路程可能不同。";
+      return localAnalysisMode ? "只列出所在地與您同縣市、同行政區的服務單位，再依居住位置的直線距離排序；實際路程可能不同。" : "依您提供的居住位置，以直線距離的約略值排序；實際路程可能不同。";
     case "DISTRICT_ROTATION":
-      if (demoMode && serviceType === "ASSISTIVE_DEVICE") return "依同縣市、同行政區的輔具店面隨機提供名單；同次評估保留首次名單，並非依實際距離排序。";
-      if (demoMode) return "從所在地與您同縣市、同行政區且服務範圍已確認的單位中隨機推薦；同次評估保留首次名單，並非依實際距離排序。";
+      if (localAnalysisMode && serviceType === "ASSISTIVE_DEVICE") return "依同縣市、同行政區的輔具店面隨機提供名單；同次評估保留首次名單，並非依實際距離排序。";
+      if (localAnalysisMode) return "從所在地與您同縣市、同行政區且服務範圍已確認的單位中隨機推薦；同次評估保留首次名單，並非依實際距離排序。";
       return locationPrecision === "GPS" || locationPrecision === "EXACT"
         ? "您有提供目前位置，但部分服務單位尚無已確認的位置資料，因此本次改依您選擇的行政區服務範圍推薦，並非依實際距離排序。"
         : "依您選擇的行政區，列出服務範圍包含該行政區的服務單位。同一天內順序固定、不同日期可能輪替，並非依實際距離排序。";
@@ -123,7 +123,7 @@ export function RecommendationPage({ assessmentId, locationPrecision, location }
   const shown = recommendation?.providers.slice(0, 3) ?? [];
   const lookupQuery = new URLSearchParams({ serviceType: serviceType });
   if (location?.city) lookupQuery.set("city", location.city);
-  if (demoMode && location?.district) {
+  if (localAnalysisMode && location?.district) {
     lookupQuery.set("district", location.district);
     lookupQuery.set("areaFilter", "LOCATED_IN");
   }
@@ -169,8 +169,8 @@ export function RecommendationPage({ assessmentId, locationPrecision, location }
             <section className="panel empty-state" role="status">
               <h2>您提供的地區目前沒有符合條件的服務單位</h2>
               <p>這不代表沒有服務需求。建議稍後再試、查看更多官方資源，或聯絡 1966 與所在地長期照顧管理中心。</p>
-              {demoMode && <p><Link className="button primary" to={`/resources?${lookupQuery}`}>查詢真實{serviceLabels[serviceType]}單位（依所在地）</Link></p>}
-              {demoMode && serviceType === "ASSISTIVE_DEVICE" && <p><Link to="/resources?resourceCategory=ASSISTIVE_DEVICE_CENTER">查詢輔具資源中心</Link></p>}
+              {localAnalysisMode && <p><Link className="button primary" to={`/resources?${lookupQuery}`}>查詢真實{serviceLabels[serviceType]}單位（依所在地）</Link></p>}
+              {localAnalysisMode && serviceType === "ASSISTIVE_DEVICE" && <p><Link to="/resources?resourceCategory=ASSISTIVE_DEVICE_CENTER">查詢輔具資源中心</Link></p>}
               <Link className="button secondary" to="/result">返回初步結果</Link>
             </section>
           ) : (

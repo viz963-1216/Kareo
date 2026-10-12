@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { BrowserRouter, HashRouter, Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { api } from "./api";
-import { demoMode } from "./demo";
+import { demoMode, localAnalysisMode, publicAnalysisMode } from "./demo";
 import { startConsentedSession } from "./consent/startSession";
 import { defaultAssessmentForm } from "./assessment/assessmentRequest";
 import { FormalAssessmentReminder } from "./components/FormalAssessmentReminder";
@@ -72,7 +72,7 @@ function AppRoutes() {
   return (
     <SessionContext.Provider value={session}>
       <ScrollToTop />
-      <a className="skip-link" href="#main-content" onClick={demoMode ? event => { event.preventDefault(); const main = document.getElementById("main-content"); if (main) { main.tabIndex = -1; main.focus(); } } : undefined}>跳到主要內容</a>
+      <a className="skip-link" href="#main-content" onClick={localAnalysisMode ? event => { event.preventDefault(); const main = document.getElementById("main-content"); if (main) { main.tabIndex = -1; main.focus(); } } : undefined}>跳到主要內容</a>
       <header className="site-header">
         <Link to="/" className="brand" aria-label="Kareo 長照一點通首頁">
           Kareo <span>長照一點通</span>
@@ -86,7 +86,7 @@ function AppRoutes() {
       </header>
       {demoMode && <aside className="demo-notice" aria-label="Demo 版說明"><strong>Demo・公開資料版</strong>｜依輸入條件分析需求、查詢真實機構。請以虛構情境試用；回答只在本分頁使用，不建立媒合案件。機構資料核對：2026/09/29–10/11；知識快照：2026/10/08。</aside>}
       <Routes>
-        <Route path="/admin/knowledge" element={demoMode ? <Navigate to="/" replace /> : <AdminKnowledgePage />} />
+        <Route path="/admin/knowledge" element={localAnalysisMode ? <Navigate to="/" replace /> : <AdminKnowledgePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/info" element={<KnowledgeInfoPage />} />
@@ -102,7 +102,7 @@ function AppRoutes() {
           path="/recommendations/:serviceType"
           element={<RecommendationPage assessmentId={result?.assessmentId ?? null} locationPrecision={location?.precision ?? null} location={location} />}
         />
-        <Route path="/match" element={demoMode ? <main id="main-content" className="content"><h1>公開資料版不建立媒合案件</h1><p>請使用單位公開電話、官方網站或 1966 洽詢服務。</p><Link to="/resources">查詢真實服務單位</Link></main> : <LeadPage sessionId={sessionId} assessmentId={result?.assessmentId ?? null} />} />
+        <Route path="/match" element={localAnalysisMode ? <main id="main-content" className="content"><h1>聯絡服務單位</h1><p>請使用單位公開電話、官方網站或 1966 洽詢服務。</p><Link to="/resources">查詢真實服務單位</Link></main> : <LeadPage sessionId={sessionId} assessmentId={result?.assessmentId ?? null} />} />
         <Route path="/session-ended" element={<SessionEndedPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
@@ -116,6 +116,11 @@ function AppRoutes() {
 }
 
 export default function App() {
+  // Preserve old /demo/#/... bookmarks after the server redirects them to the root.
+  if (publicAnalysisMode && /^#\/(?![\/\\])/.test(window.location.hash)) {
+    const destination = window.location.hash.slice(1);
+    window.history.replaceState(null, "", destination);
+  }
   const Router = demoMode ? HashRouter : BrowserRouter;
   return (
     <Router>

@@ -2,6 +2,20 @@
 // (tests/web/mode.test.ts keeps them in sync). Returns a list of problems; any problem fails the build.
 export function frontendEnvProblems(env) {
   const problems = [];
+  if (env.VITE_KAREO_PUBLIC_ANALYSIS === 'true') {
+    if (env.KAREO_RELEASE_SCOPE !== 'public-resources' || env.VITE_KAREO_API_MODE !== 'real') {
+      problems.push('Public analysis requires public-resources scope and real read-only APIs.');
+    }
+    if (env.VITE_KAREO_DEMO === 'true' || env.VITE_KAREO_ENABLE_DEMO === 'true') {
+      problems.push('Public analysis and Demo publication must not be enabled together.');
+    }
+    if (env.VITE_KAREO_ENABLE_PRECISE_LOCATION === 'true') {
+      problems.push('Browser-only public analysis does not enable device GPS.');
+    }
+    for (const key of ['VITE_CONSENT_DISCLAIMER_VERSION', 'VITE_CONSENT_PRIVACY_VERSION', 'VITE_CONSENT_TERMS_VERSION']) {
+      if (env[key]) problems.push(`Browser-only public analysis must leave ${key} unset.`);
+    }
+  }
   if (env.VITE_KAREO_ENABLE_DEMO === 'true' && env.KAREO_RELEASE_SCOPE !== 'public-resources') {
     problems.push('The embedded Demo requires the explicit public-resources release scope.');
   }

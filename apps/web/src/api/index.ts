@@ -20,7 +20,7 @@ import type { KnowledgeMockScenario, MockState } from "./mockScenarios";
 import type { AdminMockScenario } from "./mockScenarios";
 import type { ResourceLookupMockScenario } from "./mockScenarios";
 import { resolveApiMode, type ApiMode } from "./mode";
-import { demoMode } from "../demo";
+import { demoMode, localAnalysisMode } from "../demo";
 import { ApiError, configureRealApi, realApi } from "./realAdapter";
 import { retrieveConsentDocument, selectConsentArchive } from "../consent/documents";
 
@@ -83,7 +83,7 @@ export function getConsentDocument(refresh = false): Promise<string> {
 
 // D-13g: 「使用目前位置」 stays hidden in real deployments until the consent version covering location is
 // ACTIVE and J-003 turns on VITE_KAREO_ENABLE_PRECISE_LOCATION. Mock mode shows it for acceptance.
-export const preciseLocationEnabled = !demoMode && (apiMode === "mock" || import.meta.env.VITE_KAREO_ENABLE_PRECISE_LOCATION === "true");
+export const preciseLocationEnabled = !localAnalysisMode && (apiMode === "mock" || import.meta.env.VITE_KAREO_ENABLE_PRECISE_LOCATION === "true");
 
 const SESSION_PROBLEM_CODES = ["SESSION_INVALID", "SESSION_TOKEN_MISSING", "FORBIDDEN", "CONSENT_REQUIRED"];
 
@@ -98,7 +98,7 @@ const leadIdempotency = createLeadIdempotency();
 
 export const api = {
   async assertConsentReady() {
-    if (apiMode === "real") await getConsentDocument(true);
+    if (!localAnalysisMode && apiMode === "real") await getConsentDocument(true);
   },
   getKnowledgeRecords(filters: KnowledgeRecordsRequest, scenario?: KnowledgeMockScenario): Promise<KnowledgeRecordsResponse> {
     return demoMode ? loadPublic().then(publicApi => publicApi.getKnowledgeRecords(filters)) : apiMode === "mock"
@@ -106,10 +106,12 @@ export const api = {
       : realApi.getKnowledgeRecords(filters);
   },
   createSession() {
-    return demoMode ? loadPublic().then(publicApi => publicApi.createSession()) : apiMode === "mock" ? loadMock().then((mock) => mock.createSession()) : realApi.createSession();
+    return localAnalysisMode ? loadPublic().then(publicApi => publicApi.createSession()) : apiMode === "mock" ? loadMock().then((mock) => mock.createSession()) : realApi.createSession();
   },
 
   async acceptConsent(sessionId: string) {
+    // This acknowledges the browser-only usage notice; no cloud consent is recorded.
+    if (localAnalysisMode) return loadPublic().then(publicApi => publicApi.acceptConsent(sessionId));
     if (apiMode === "real") await getConsentDocument();
     if (!consentVersions) {
       throw new ApiError("CONSENT_VERSION_UNAVAILABLE", "服務說明文件尚在確認中，暫時無法開始評估。請直接聯絡 1966。", 0);
@@ -119,12 +121,12 @@ export const api = {
   },
 
   submitAssessment(request: AssessmentRequest, mockState?: MockState): Promise<AssessmentResponse> {
-    return demoMode ? loadPublic().then(publicApi => publicApi.submitAssessment(request)) : apiMode === "mock" ? loadMock().then((mock) => mock.submitAssessment(request, mockState)) : realApi.submitAssessment(request);
+    return localAnalysisMode ? loadPublic().then(publicApi => publicApi.submitAssessment(request)) : apiMode === "mock" ? loadMock().then((mock) => mock.submitAssessment(request, mockState)) : realApi.submitAssessment(request);
   },
 
   /** Idempotency-Key handling lives here so every UI path gets the same retry behavior (API_CONTRACT §3.3). */
   async createLead(request: LeadRequest, mockState?: MockState): Promise<LeadResponse> {
-    if (demoMode) throw new ApiError("SERVICE_UNAVAILABLE", "公開資料版不建立媒合案件；請直接洽詢單位或 1966。", 0);
+    if (localAnalysisMode) throw new ApiError("SERVICE_UNAVAILABLE", "請直接洽詢單位或 1966 確認服務與接案方式。", 0);
     const key = leadIdempotency.keyFor(request);
     const response = apiMode === "mock"
       ? await loadMock().then((mock) => mock.createLead(request, key, mockState))
@@ -135,24 +137,24 @@ export const api = {
 
   /** Asks the backend to delete this session's data (API_CONTRACT §6, PRIVACY_AND_RETENTION §6.1). */
   deleteSession(mockState?: MockState): Promise<SessionDeletionResponse> {
-    if (demoMode) return Promise.reject(new Error("公開資料版沒有雲端評估資料，請使用重新開始。"));
+    if (localAnalysisMode) return Promise.reject(new Error("回答只保留在此分頁，請使用重新開始。"));
     return apiMode === "mock" ? loadMock().then((mock) => mock.deleteSession(mockState)) : realApi.deleteSession();
   },
 
   /** Withdraws consent (API_CONTRACT §7, PRIVACY_AND_RETENTION §3.3); the session then enters deletion. */
   withdrawConsent(mockState?: MockState): Promise<ConsentWithdrawalResponse> {
-    if (demoMode) return Promise.reject(new Error("公開資料版沒有正式同意紀錄，請使用重新開始。"));
+    if (localAnalysisMode) return Promise.reject(new Error("回答只保留在此分頁，請使用重新開始。"));
     return apiMode === "mock" ? loadMock().then((mock) => mock.withdrawConsent(mockState)) : realApi.withdrawConsent();
   },
 
   /** Drops this tab's session credential only; server-side data is not deleted. */
   forgetLocalSession() {
-    if (demoMode) void loadPublic().then(publicApi => publicApi.reset());
+    if (localAnalysisMode) void loadPublic().then(publicApi => publicApi.reset());
     if (apiMode === "real") realApi.forgetLocalSession();
   },
 
   getRecommendation(request: RecommendationRequest, mockOptions: RecommendationMockOptions = {}): Promise<RecommendationResponse> {
-    return demoMode ? loadPublic().then(publicApi => publicApi.getRecommendation(request)) : apiMode === "mock"
+    return localAnalysisMode ? loadPublic().then(publicApi => publicApi.getRecommendation(request)) : apiMode === "mock"
       ? loadMock().then((mock) => mock.getRecommendation(request, mockOptions))
       : realApi.getRecommendation(request);
   },

@@ -1,4 +1,4 @@
-import { demoMode } from "../demo";
+import { localAnalysisMode } from "../demo";
 import type { RankingType, RecommendationProvider, RecommendationServiceType } from "../types/api";
 import { Link, useLocation } from "react-router-dom";
 
@@ -81,7 +81,7 @@ export function ProviderCard({ provider, rankingType, recommendationId, serviceT
       </p>
 
       <div className="card-actions">
-        {!demoMode && <Link className="button primary" to="/match" state={lead}>
+        {!localAnalysisMode && <Link className="button primary" to="/match" state={lead}>
           我要媒合
         </Link>}
         <Link className="button secondary" to={`/providers/${encodeURIComponent(provider.id)}`} state={{ from, lead }}>

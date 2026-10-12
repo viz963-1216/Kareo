@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { frontendEnvProblems } from './lib/frontend-env.mjs';
 import { isFullSha, VERSION_MARKER } from './lib/release-target.mjs';
@@ -22,6 +22,23 @@ if (existsSync('apps/web/package.json')) {
     throw new Error('Frontend must produce apps/web/dist/index.html.');
   }
   await cp('apps/web/dist', 'dist', { recursive: true });
+  if (process.env.VITE_KAREO_PUBLIC_ANALYSIS === 'true') {
+    // Public doorplate modules contain government open data only; typed addresses
+    // are matched in the browser, never sent to a geocoder or personal-flow API.
+    const manifest = JSON.parse(await readFile('data/residence/manifest.json', 'utf8'));
+    await mkdir('dist/residence', { recursive: true });
+    for (const item of Object.values(manifest.districts)) {
+      const json = await readFile(`data/residence/${item.file}`, 'utf8');
+      await writeFile(`dist/residence/${item.file.replace('.json', `-${item.sha256.slice(0,12)}.js`)}`, `export default ${json.trim()};\n`);
+    }
+    const html = await readFile('dist/index.html', 'utf8');
+    await writeFile('dist/index.html', html.replace('<head>', `<head><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">`));
+    const knowledge = JSON.parse(await readFile('data/public-preview/published-knowledge.json', 'utf8'));
+    await writeFile('dist/kareo-public-version.json', JSON.stringify({ schemaVersion: 1, scope: 'PUBLIC-SERVICES',
+      demo: false, publicReadApi: 'real', personalAnalysis: 'browser-memory', cloudPersonalCollection: false,
+      formalConsentActivated: false, providerInventoryCount: JSON.parse(await readFile('data/providers/staging/providers.json', 'utf8')).length,
+      assessmentKnowledgeVersion: knowledge.version }, null, 2)+'\n');
+  }
   if (process.env.VITE_KAREO_ENABLE_DEMO === 'true') {
     // Main site is already copied. The child build receives only ordinary process settings,
     // bundles public snapshots and writes a separate /demo/ artifact with network writes blocked.

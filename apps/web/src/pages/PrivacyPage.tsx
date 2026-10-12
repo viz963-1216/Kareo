@@ -1,16 +1,17 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { consentArchive, consentArchives } from "../api";
 import { ConsentDocument } from "../consent/ConsentDocument";
-import { demoMode } from "../demo";
+import { localAnalysisMode, publicAnalysisMode } from "../demo";
 
 export function PrivacyPage() {
   const [parameters] = useSearchParams();
-  if (demoMode) return <main id="main-content" className="content"><p className="eyebrow">公開資料</p><h1>公開資料版的資料使用說明</h1>
-    <section className="panel"><h2>真實資源與本機需求分析</h2><p>服務單位、商家與輔具中心來自已核對的雙北機構名單（2026/09/29–10/11），知識使用已發布版本 KB-2026-09-24-001 的公開快照（2026/10/08）。這是建置時的資料快照，不是即時查詢資料庫；資料異動會在重新核對並發布後更新。</p>
+  if (localAnalysisMode) return <main id="main-content" className="content"><p className="eyebrow">公開資料</p><h1>Kareo 資料使用說明</h1>
+    <section className="panel"><h2>長照資訊與初步評估</h2>
+    {publicAnalysisMode ? <p>公開資源與制度查詢讀取 Kareo 資料庫中的已核對機構與已發布知識。初步評估與同區名單使用建置時核對的公開資料快照（機構2026/10/11、知識2026/10/08），依您填寫的條件與既有固定規則計算；快照會在核對並發布後更新。</p> : <p>服務單位、商家與輔具中心來自已核對的雙北機構名單（2026/09/29–10/11），知識使用已發布版本 KB-2026-09-24-001 的公開快照（2026/10/08）。這是建置時的資料快照，不是即時查詢資料庫；資料異動會在重新核對並發布後更新。</p>}
     <p>門牌定位資料：<a href="https://data.taipei/dataset/detail?id=b7c8e724-1e98-45ee-a0bd-f3840623ed97" target="_blank" rel="noopener noreferrer">臺北市政府民政局 2026 臺北市門牌位置數值資料（2026-10-02）</a>、<a href="https://data.ntpc.gov.tw/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101" target="_blank" rel="noopener noreferrer">新北市政府民政局 2026 新北市門牌位置數值資料（11509）</a>。此開放資料依<a href="https://data.gov.tw/license" target="_blank" rel="noopener noreferrer">政府資料開放授權條款</a>進行公眾釋出，於遵守條款的前提下利用。</p>
     <p>選填的居住地址、評估回答與結果只保留在本分頁記憶體，依既有固定規則計算，不送至 Kareo API、Supabase、AI 服務或機構。住址透過臺北市政府民政局（2026-10-02）與新北市政府民政局（11509）公開門牌座標，在瀏覽器本地比對；網路僅載入所選行政區的公開資料檔，不包含輸入住址。公開門牌資料依政府資料開放授權條款利用，可能有誤差或缺漏。重新開始或重新整理即可清除。本版本停用自由文字、GPS、聯絡表單與管理登入，不建立媒合案件。</p>
-    <p>只有具備已確認服務範圍的單位才列入地區推薦。所在地與特約縣市不等於到府服務範圍。補助資訊不是個人資格核定，實際資格與服務請洽 1966 或照管中心。</p>
-    <h2>網站與外部服務</h2><p>GitHub Pages 或 Netlify 靜態託管仍可能處理正常的網路連線與安全日誌。Google Maps、官方來源及 Kareocar 連結會開啟外部服務；連結不附帶評估回答或聯絡資料。</p>
+    <p>居家照顧與護理僅推薦到府服務範圍已確認的同區單位；輔具則依同區店面所在地列出，到府服務需另洽商家。所在地與特約縣市不等於到府服務範圍。補助資訊不是個人資格核定，實際資格與服務請洽 1966 或照管中心。</p>
+    <h2>網站與外部服務</h2><p>網站由 Netlify 託管，公開查詢的資料庫由 Supabase 提供；主機仍可能處理正常的網路連線與安全日誌。公開查詢只傳送查詢條件，不附帶評估回答或住址。Google Maps、官方來源及 Kareocar 連結會開啟外部服務；連結不附帶評估回答或聯絡資料。</p>
     <h2>聯絡</h2><p>負責人：蘇子傑（Kareo）。問題或資料權利申請：<a href="mailto:viz963@gmail.com">viz963@gmail.com</a>。</p></section><p><Link to="/">返回首頁</Link></p>
   </main>;
   const requestedVersion = parameters.get("version");

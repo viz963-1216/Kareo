@@ -10,6 +10,16 @@ test("defaults: dev server uses mock, builds use the real API", () => {
   assert.deepEqual(resolveApiMode({ dev: false, requested: "" }), { mode: "real", problem: null });
 });
 
+test("public analysis requires explicit real-read scope and cannot enable cloud consent, GPS or Demo", () => {
+  const env = { CONTEXT: 'production', BRANCH: 'release', KAREO_RELEASE_SCOPE: 'public-resources',
+    VITE_KAREO_API_MODE: 'real', VITE_KAREO_REQUIRE_SESSION_TOKEN: 'true', VITE_KAREO_PUBLIC_ANALYSIS: 'true' };
+  assert.deepEqual(frontendEnvProblems(env), []);
+  for (const patch of [{KAREO_RELEASE_SCOPE:'full'}, {VITE_KAREO_API_MODE:'mock'}, {VITE_KAREO_ENABLE_DEMO:'true'},
+    {VITE_KAREO_DEMO:'true'}, {VITE_KAREO_ENABLE_PRECISE_LOCATION:'true'}, {VITE_CONSENT_PRIVACY_VERSION:'ACTIVE'}]) {
+    assert.ok(frontendEnvProblems({...env, ...patch}).length);
+  }
+});
+
 test("embedded Demo is an explicit public-resources artifact, never a main-site mock override", () => {
   assert.ok(frontendEnvProblems({ VITE_KAREO_ENABLE_DEMO: 'true' }).length);
   assert.ok(frontendEnvProblems({ VITE_KAREO_ENABLE_DEMO: 'true', KAREO_RELEASE_SCOPE: 'full' }).length);
