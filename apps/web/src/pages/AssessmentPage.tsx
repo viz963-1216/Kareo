@@ -61,6 +61,10 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
   const [form, setForm] = useState<AssessmentForm>(initialForm);
   const [locationErrors, setLocationErrors] = useState<LocationErrors>({});
   const [showLocationNotice, setShowLocationNotice] = useState(false);
+  const [step, setStep] = useState<1 | 2>((routerLocation.state as { step?: number } | null)?.step === 2 ? 2 : 1);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const errorRef = useRef<HTMLParagraphElement>(null);
+  const previousStep = useRef(step);
   const geolocation = useGeolocation();
   const cityRef = useRef<HTMLSelectElement>(null);
   const districtRef = useRef<HTMLSelectElement>(null);
@@ -79,6 +83,13 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
       setForm((current) => ({ ...current, coords }));
     }
   }, [geolocation.state]);
+
+  useEffect(() => {
+    if (previousStep.current !== step) { headingRef.current?.focus(); previousStep.current = step; }
+    if (step === 1 && locationErrors.city) cityRef.current?.focus();
+    if (step === 1 && locationErrors.district) districtRef.current?.focus();
+  }, [step, locationErrors]);
+  useEffect(() => { if (status === "error") errorRef.current?.focus(); }, [status]);
 
   function changeCity(city: string) {
     setLocationErrors({});
@@ -102,10 +113,16 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
     let built = buildLocation({ city: form.city, district: form.district, coords: form.coords });
     if (!built.ok) {
       setLocationErrors({ [built.field]: built.message });
-      (built.field === "city" ? cityRef : districtRef).current?.focus();
+      setStep(1);
+      return;
+    }
+    if (localAnalysisMode && form.residenceAddress?.trim() && (!form.city || !form.district)) {
+      setLocationErrors({ [!form.city ? "city" : "district"]: "填寫地址時，請先選擇縣市與行政區；也可清空地址，只用行政區推薦。" });
+      setStep(1);
       return;
     }
     setLocationErrors({});
+    if (step === 1) { setError(null); setStatus("idle"); setStep(2); return; }
     submitting.current = true;
     setStatus("loading");
     setError(null);
@@ -149,10 +166,15 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
   return (
     <main id="main-content" className="content">
       <p className="eyebrow">免費初步評估</p>
-      <h1>告訴我們目前的照護情況</h1>
-      <p>請依目前狀況填寫；不確定的題目可選擇「不確定」。</p>
+      <h1 ref={headingRef} tabIndex={-1}>{step === 1 ? "告訴我們目前的照護情況" : "整理可能需要的服務"}</h1>
+      <nav className="assessment-progress" aria-label="初步評估進度">
+        <p>第 {step} 步，共 2 步</p>
+        <ol><li aria-current={step === 1 ? "step" : undefined}>1. 照護與居住狀況</li><li aria-current={step === 2 ? "step" : undefined}>2. 服務需求與補助背景</li></ol>
+      </nav>
+      <p>請依自己或家人的實際狀況填寫；初始選項為「不確定」。上一步、下一步會保留本次回答，重新整理則會清除。</p>
       <FormalAssessmentReminder />
       <form className="assessment-form" onSubmit={handleSubmit} aria-busy={status === "loading"} noValidate>
+        {step === 1 && <>
         <fieldset>
           <legend>基本狀況</legend>
           {select("年齡範圍", "ageRange", [["UNDER_50", "未滿 50 歲"], ["50_64", "50–64 歲"], ["65_74", "65–74 歲"], ["75_84", "75–84 歲"], ["85_PLUS", "85 歲以上"], ["UNKNOWN", "不確定"]])}
@@ -243,6 +265,8 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
           {select("行動狀況", "mobilityLevel", [["INDEPENDENT", "可自行行動"], ["NEEDS_ASSISTANCE", "需要協助"], ["WHEELCHAIR", "使用輪椅"], ["BEDRIDDEN", "長時間臥床"], ["UNKNOWN", "不確定"]])}
           {select("日常生活協助程度", "dailyLivingLevel", [["INDEPENDENT", "可自行完成"], ["PARTIAL_ASSISTANCE", "部分需要協助"], ["HIGH_ASSISTANCE", "大部分需要協助"], ["FULL_ASSISTANCE", "完全需要協助"], ["UNKNOWN", "不確定"]])}
         </fieldset>
+        </>}
+        {step === 2 && <>
         <fieldset>
           <legend>補助與自付估算資訊（選填）</legend>
           <label>
@@ -281,16 +305,21 @@ export function AssessmentPage({ sessionId, initialForm, onSubmit }: Props) {
           {select("輔具", "assistiveDevice", yesNo)}
           {select("長照交通", "transportation", yesNo)}
         </fieldset>
-        <label>
+        {!localAnalysisMode && <label>
           其他想補充的情況（選填，最多 {FREE_TEXT_MAX} 字）
           <textarea value={form.freeText} readOnly={localAnalysisMode} maxLength={FREE_TEXT_MAX} onChange={(event) => set("freeText", event.target.value)} rows={4} aria-describedby="free-text-hint" />
           <span className="field-hint" id="free-text-hint">{localAnalysisMode ? "此版本只使用上方選項分析需求，不蒐集自由文字。" : "請勿填寫身分證字號、病歷或金融資料。"}</span>
-        </label>
+        </label>}
+        {localAnalysisMode && <p className="field-hint">只使用上方選項整理資訊，不蒐集自由文字、姓名或電話。</p>}
+        </>}
         {status === "error" && (isSessionProblem(error)
           ? <SessionProblem message={errorMessage} />
-          : <p className="error" role="alert">{errorMessage} 您填寫的內容仍保留，可以直接再送出一次。</p>)}
+          : <p ref={errorRef} tabIndex={-1} className="error" role="alert">{errorMessage} 您填寫的內容仍保留，可以直接再送出一次。</p>)}
         {status === "loading" && <p className="loading" role="status">正在依目前資料整理初步結果，請稍候。</p>}
-        <button className="button primary" disabled={status === "loading"}>{status === "loading" ? "正在整理初步結果…" : "查看初步結果"}</button>
+        <div className="button-row assessment-actions">
+          {step === 2 && <button className="button secondary" type="button" disabled={status === "loading"} onClick={() => { setError(null); setStatus("idle"); setStep(1); }}>上一步：修改照護狀況</button>}
+          <button className="button primary" type="submit" disabled={status === "loading"}>{status === "loading" ? "正在整理初步結果…" : step === 1 ? "下一步：服務需求" : "查看初步結果"}</button>
+        </div>
       </form>
     </main>
   );

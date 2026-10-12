@@ -76,6 +76,7 @@ export function ResultPage({ result, location, onSessionClosed }: Props) {
     <main id="main-content" className="content">
       <p className="eyebrow">初步結果</p>
       <h1>依目前資料的初步預估</h1>
+      <p className="field-hint">填答有變化？<Link to="/assessment" state={{ step: 1 }}>返回修改回答</Link>；本次已送出的回答會帶回表單。</p>
       <FormalAssessmentReminder />
 
       <section className="panel" aria-labelledby="summary-heading">

@@ -50,7 +50,8 @@ test('actual local recommendation flow supports exact residence and preserves th
     globalThis.fetch=async () => { throw new Error('No network allowed for assessment/recommendation'); };
     try {
       const session=await api.createSession(); await api.acceptConsent(session.sessionId);
-      const input=buildAssessmentRequest(session.sessionId,defaultAssessmentForm,{precision:'EXACT',city:'新北市',district:'板橋區',...coordinates});
+      // Recommendations require an explicitly selected need; unanswered fields now remain UNKNOWN.
+      const input=buildAssessmentRequest(session.sessionId,{...defaultAssessmentForm,homeCare:'YES',assistiveDevice:'YES'},{precision:'EXACT',city:'新北市',district:'板橋區',...coordinates});
       const exact=await api.submitAssessment(input);
       const recommendation=await api.getRecommendation({assessmentId:exact.assessmentId,serviceType:'HOME_CARE'});
       assert.equal(recommendation.rankingType,'DISTANCE'); assert.equal(recommendation.providers.length,3);

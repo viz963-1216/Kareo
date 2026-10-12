@@ -7,7 +7,7 @@ export function FormalAssessmentReminder({ compact = false }: { compact?: boolea
   return (
     <p className={compact ? "footer-reminder" : "formal-reminder"}>
       <strong>正式評估提醒：</strong>
-      {FORMAL_ASSESSMENT_REMINDER}
+      {FORMAL_ASSESSMENT_REMINDER.split("1966")[0]}<a href="tel:1966" aria-label="撥打長照專線 1966">1966</a>{FORMAL_ASSESSMENT_REMINDER.split("1966")[1]}
     </p>
   );
 }
