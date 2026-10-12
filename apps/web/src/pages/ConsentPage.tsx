@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiMode, consentArchive, consentIsDraft, consentVersions, getConsentDocument } from "../api";
+import { LongTermCareContact } from "../components/LongTermCareContact";
 import { DraftBadge } from "../components/DraftBadge";
 import { FormalAssessmentReminder } from "../components/FormalAssessmentReminder";
 import { demoEntryUrl, localAnalysisMode } from "../demo";
@@ -46,15 +47,22 @@ export function ConsentPage({ onAccept }: Props) {
 
   if (localAnalysisMode) return <main id="main-content" className="content">
     <p className="eyebrow">開始前確認</p><h1>開始免費長照評估</h1>
-    <section className="panel"><h2>依你填寫的條件產生結果</h2>
-      <p>初步結果使用 Kareo 的固定規則與已發布知識，機構使用已核對的雙北名單，依需求與行政區比對。回答與選填住址僅在此分頁產生結果；重新整理或重新開始即可清除，不保存至資料庫。</p>
-      <p>居住地址可選填，用政府公開門牌資料在本分頁內比對距離；只選行政區則隨機推薦所在地與您同區的輔具店面，或服務範圍已確認的居家單位。地址不會傳送至外部定位服務或保存到資料庫。此版本不要求姓名、電話、自由文字或 GPS，也不建立正式媒合案件。<Link to="/privacy">查看資料使用說明</Link>。</p>
+    <p>接下來是兩步填答：照護狀況 → 服務需求 → 初步結果。</p>
+    <section className="panel" aria-labelledby="usage-notice-heading"><h2 id="usage-notice-heading">開始前，了解這些資訊</h2>
+      <ul className="notice-list">
+        <li><strong>初步整理：</strong>使用固定規則與已發布知識快照，依實際填答產生資訊，不是資格、補助核定或醫療診斷。</li>
+        <li><strong>資料留在分頁：</strong>回答與選填住址不保存至資料庫；重新整理或重新開始即可清除。此流程不要求姓名、電話、自由文字或 GPS。</li>
+        <li><strong>位置可選填：</strong>不提供仍可看服務建議；只選行政區提供同區名單，完整住址則以政府公開門牌資料在本分頁內比對距離，不送至外部定位服務。</li>
+        <li><strong>聯絡需自行確認：</strong>可查詢真實單位、列印需求摘要，再向 1966／個管師或單位詢問；本版不建立正式媒合案件。</li>
+      </ul>
+      <Link to="/privacy">查看完整資料使用與隱私說明</Link>
     </section>
     <form className="stack" onSubmit={handleSubmit} aria-busy={status === "loading"}>
       <label className="checkbox"><input type="checkbox" checked={accepted} onChange={event => setAccepted(event.target.checked)} disabled={status === "loading"}/><span>我已閱讀資料使用說明，了解此結果為初步預估。</span></label>
       {status === "error" && <div ref={errorRef} tabIndex={-1} role="alert" className="error">{error}</div>}
       <button className="button primary" disabled={!accepted || status === "loading"}>{status === "loading" ? "正在開始…" : "開始需求分析"}</button>
     </form>
+    <LongTermCareContact resources />
   </main>;
 
   if (formalConsentUnavailable && demoEntryUrl) return <main id="main-content" className="content">
@@ -115,6 +123,7 @@ export function ConsentPage({ onAccept }: Props) {
           {formalConsentUnavailable ? "正式評估尚未開放" : status === "loading" ? "處理中…" : "同意並開始評估"}
         </button>
       </form>
+      <LongTermCareContact resources />
     </main>
   );
 }
