@@ -102,13 +102,13 @@ test("resource lookup response validation rejects leaked internal fields and mal
 
 test("lookup request trims text and sends every supported filter without UI-only fields", () => {
   const form: LookupForm = {
+    assistiveProgram: "",
     resourceCategory: "SERVICE_PROVIDER",
     serviceType: "ASSISTIVE_DEVICE",
     city: "新北市",
     district: "三重區",
     areaFilter: "SERVICE_AREA",
     includeUnconfirmed: true,
-    contractCity: "臺北市",
     q: "  輔具 商行  ",
   };
   assert.deepEqual(buildResourceLookupRequest(form, 3), {
@@ -118,7 +118,6 @@ test("lookup request trims text and sends every supported filter without UI-only
     district: "三重區",
     areaFilter: "SERVICE_AREA",
     includeUnconfirmed: true,
-    contractCity: "臺北市",
     q: "輔具 商行",
     page: 3,
     pageSize: 20,
@@ -224,6 +223,6 @@ test("lookup page keeps loading, retry, clear and page controls wired to state",
   const page = read(`${src}pages/ResourceLookupPage.tsx`);
   assert.match(page, /setState\(\{ status: "loading" \}\)/);
   assert.match(page, /setAttempt\(\(value\) => value \+ 1\)/);
-  assert.match(page, /setForm\(initialLookupForm\); setSubmittedForm\(initialLookupForm\); setPage\(1\)/);
-  assert.match(page, /onClick=\{\(\) => setPage\(\(value\) => value \+ 1\)\}/);
+  assert.match(page, /setForm\(initialLookupForm\); applyQuery\(initialLookupForm\)/);
+  assert.match(page, /applyQuery\(submittedForm, page \+ 1\)/);
 });
